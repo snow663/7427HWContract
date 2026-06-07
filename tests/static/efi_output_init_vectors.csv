@@ -1,0 +1,6 @@
+name,enabled,expected_address,expected_width,expected_value_hex,notes
+clear_start,1,0x3FC0,16,0x0000,first ASIC window clear word
+clear_3fce,1,0x3FCE,16,0x0000,EFI PW handoff cleared during window init
+clear_last_before_3ffa,1,0x3FF8,16,0x0000,last even word before 0x3FFA
+preload_3fcc_optional,0,0x3FCC,16,0xD000,conditional pending bench proof
+preload_3fea_optional,0,0x3FEA,16,0xDFFF,conditional pending bench proof
