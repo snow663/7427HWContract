@@ -1,96 +1,99 @@
-# Variable Dependency Graph
+# 7427 Variable Dependency Graph v0.2
 
-Current dependency view from static pass v0.2. This is not yet a complete backward slice; it is the working graph used to decide what must be traced next.
+Static dependency draft. This file records confirmed visible chains and marks where deeper backward slicing is still needed.
 
-## Fuel scheduler path
-
-```text
-$301E / $301C compare writes
-<- D = TCNT + delay
-<- delay = BPW timer units
-<- L0825 / L0827 compare result scratch
-<- L0250 BPW
-<- L024C / L024E sync BPW
-<- L0254 async BPW
-<- fuel modifiers: AE, PE, DFCO, warmup, crank, battery correction
-<- VE / airflow math
-<- MAP, RPM, TPS, CTS, BATT, VSS/state
-```
-
-Known timer-control companions:
+## Fuel scheduler path — confirmed static chain anchors
 
 ```text
-$3020 TCTL1 output action bits
-$3022 TMSK1 interrupt enable bits
-$3023 TFLG1 write-one-clear flags
+TOC5 compare write $301E / TOC4 compare write $301C
+← D compare value
+← TCNT $300E + delay/minimum lead-time clamp
+← L0821/L0823/L0825/L0827 compare scratch
+← L0250 BPW runtime pulse width
+← L024C/L024E/L0254 sync/async BPW handoff
+← BPW fuel math, battery multiplier, VE, AE, DFCO, crank fuel
+← MAP/RPM/TPS/CTS/BATT/VSS/state
 ```
 
-## Spark / EST candidate path
+Contract details to preserve:
 
 ```text
-$3FE6 / $3FE8 / $3FF6 / $3FDC candidate handoff registers
-<- spark delay / dwell / output scheduler units
-<- final spark
-<- base spark table
-<- idle correction
-<- coolant correction
-<- knock retard if enabled
-<- MAP, RPM, CTS, knock/status/state
+clear TFLG1 bit at $3023
+set/clear TMSK1 bit at $3022
+set/clear TCTL1 output action bits at $3020
+write TOC4/TOC5 compare at $301C/$301E
 ```
 
-Required next proof:
+## Fuel math / AE / DFCO anchors
 
 ```text
-trace write cadence
-trace write order
-trace value range vs RPM/MAP/spark
-identify latch or read-clear behavior
+L024E sync BPW
+← VE result L0231
+← current MAP L01C0/L01C6
+← RPM L0062/L0063/L0068
+← AFR L024A
+← injector flow calibration L4D92
+← BLM L0248 / PE and closed-loop modifiers if enabled
+← AE accumulators L023A/L023E/L023F
+← DFCO flags L0046 bit3 and mode word L003E bits
 ```
 
-## IAC / output latch candidate path
+## Spark / EST anchors
 
 ```text
-$3FFC and/or board latch/output path
-<- output phase bits or companion command value
-<- IAC phase state
-<- IAC present / target error
-<- target idle RPM
-<- CTS, TPS idle flag, VSS rolling-idle state, RPM error
+ASIC spark handoff candidates $3FDC/$3FE4/$3FE6/$3FE8/$3FF6
+← spark delay/dwell/count value
+← final spark calculation
+← base spark table
+← idle correction / coolant correction / knock retard
+← MAP/RPM/CTS/state
 ```
 
-Required next proof:
+Unproven: exact unit conversion and latch timing for `$3FE6/$3FE8/$3FF6`.
+
+## Sensor acquisition anchors
 
 ```text
-bench IAC movement capture
-output bit-to-coil phase mapping
-startup park/reset behavior
-fault shutdown behavior
+ADC control $3030
+← channel select / conversion start command
+ADC results $3031-$3034
+→ raw sensor RAM L082D/L082E/L082F and related direct RAM
+→ filtered MAP/TPS/CTS/BATT variables
+→ fuel/spark/idle state
 ```
 
-## ASIC/ref/status path
+## ASIC/ref/status anchors
 
 ```text
-$3FCA / $3FFA / $3FCx reads
-<- ASIC/ref/status hardware state
-<- crank/ref events
-<- RPM period/counter
-<- status flags used by fuel/spark scheduling
+$3FCA read
+→ L0205 and RPM/event reference logic
+
+$3FFA read
+→ L0073 status mirror
+→ event/status branch logic
+→ scheduler/filtered RPM updates
+
+$3FC4 read
+→ L080D/L080C event-change tracking
 ```
 
-Required next proof:
+## IAC/output latch anchors
 
 ```text
-log reads under key-on, crank, idle, throttle snap, DFCO, stall
-correlate bits with known physical events
-separate passive status from read-clear latches
+IAC desired/present state
+← idle target, RPM error, CTS, TPS, VSS
+→ phase/output bits
+→ external output latch path, including $3FFC and 306x candidates
 ```
 
-## Unknown board I/O path
+Unproven: exact physical phase-bit mapping.
+
+## Watchdog/init anchors
 
 ```text
-$3060-$306F writes/reads
-<- CPU direct hardware access
-<- unknown board/ASIC-adjacent output or configuration
+$303A COPRST
+← #$55 then #$AA cadence
+← reset path and periodic loop service
 ```
 
-Rule: no `$306x` access is removable until trace or bench probing proves it is not required for fuel, spark, idle air, sensor acquisition, watchdog/reset, ALDL/debug, or engine protection.
+Preserve cadence until standalone OS boot is proven.

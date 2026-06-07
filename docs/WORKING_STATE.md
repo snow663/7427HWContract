@@ -13,51 +13,23 @@ Core working docs:
 - `README.md`
 - `docs/WORKING_STATE.md`
 - `docs/ASIC_HARDWARE_REGISTER_CONTRACT.md`
+- `docs/ASIC_Register_Contract.md`
 - `docs/VARIABLE_DEPENDENCY_GRAPH.md`
 - `docs/DYNAMIC_TRACE_PLAN.md`
-- `docs/7427_Static_Analysis_Summary_v0.2.md`
-- `docs/7427_Minimal_OS_Skeleton_v0.1.md`
-- `docs/7427_Calibration_Layout_v0.1.md`
+- `docs/STATIC_ANALYSIS_SUMMARY.md`
+- `docs/MINIMAL_OS_SKELETON.md`
+- `docs/CALIBRATION_LAYOUT.md`
 
-Repo structure docs/tools:
+Maps/source/tools:
 
-- `maps/README.md`
-- `maps/by_subsystem/SPLIT_INDEX.md`
-- `maps/current/HARDWARE_TEST_MATRIX.md`
-- `source/README.md`
-- `tools/hw_access_map_analyzer.py`
-
-## Local/generated artifacts from static pass v0.2
-
-These were generated in the current analysis session. Large CSV/source artifacts are prepared locally and should be committed as split files when connector-safe or through normal Git:
-
-- `7427_Hardware_Access_Map_v0.2.csv`
-- `7427_Hardware_Access_Map_HW_Only_v0.2.csv`
-- `7427_Hardware_Test_Matrix_v0.2.csv`
-- `7427_ASIC_Register_Contract_v0.2.md`
-- `7427_Variable_Dependency_Graph_v0.2.md`
-- `31_HAC_from_ORG_7100_to_end_NOWRAP.asm`
-- `build_v02_outputs.py`
-
-## Prepared local split files
-
-The large hardware map has been split locally by subsystem. These are the intended repo paths:
-
-```text
-maps/by_subsystem/aldl_sci.csv
-maps/by_subsystem/asic_command_output.csv
-maps/by_subsystem/asic_status_ref.csv
-maps/by_subsystem/asic_unknown.csv
-maps/by_subsystem/boot_watchdog_cpu.csv
-maps/by_subsystem/fuel_math_handoff.csv
-maps/by_subsystem/fuel_sched_timer.csv
-maps/by_subsystem/hc11_core.csv
-maps/by_subsystem/idle_iac.csv
-maps/by_subsystem/io_latch_output.csv
-maps/by_subsystem/sensor_adc.csv
-maps/by_subsystem/spark_est.csv
-maps/by_subsystem/unknown_306x_board_io.csv
-```
+- `maps/current/hardware_access_map_hw_only.csv`
+- `maps/current/hardware_test_matrix.csv`
+- `maps/full/hardware_access_map_v0.2.csv`
+- `maps/by_subsystem/*.csv`
+- `source/31/BMHM_HAC_ORG_7100_to_end.asm`
+- `source/31/metadata.md`
+- `tools/build_hw_map.py`
+- `tools/build_v02_outputs.py`
 
 ## Static pass v0.2 summary
 
@@ -80,15 +52,14 @@ maps/by_subsystem/unknown_306x_board_io.csv
 
 ## Next step
 
-Commit the split CSVs in this order:
+Bench/dynamic trace prep:
 
-1. `fuel_sched_timer.csv`
-2. `spark_est.csv`
-3. `asic_status_ref.csv`
-4. `io_latch_output.csv`
-5. `unknown_306x_board_io.csv`
-6. `hardware_test_matrix.csv`
-7. remaining subsystem CSVs
+1. Load `maps/current/hardware_test_matrix.csv`.
+2. Start with `maps/by_subsystem/fuel_sched_timer.csv`.
+3. Capture `$301C/$301E/$3020/$3022/$3023` under key-on, crank, idle, AE, DFCO.
+4. Then capture spark/EST candidates: `$3FE6/$3FE8/$3FF6/$3FDC`.
+5. Then capture ASIC/ref/status candidates: `$3FCA/$3FFA/$3FCx`.
+6. Then classify `$3060-$306F` as required or removable.
 
 ## Rule going forward
 
