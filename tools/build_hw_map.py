@@ -1,12 +1,64 @@
+#!/usr/bin/env python3
+"""Build the 7427 hardware-access map from a repo checkout.
+
+Default paths are repo-relative so this can run from a normal clone:
+
+    python tools/build_hw_map.py
+
+Override paths as needed, for example:
+
+    python tools/build_hw_map.py \
+      --source source/31/BMHM_HAC_ORG_7100_to_end.asm \
+      --out-full maps/full/hardware_access_map_v0.3.csv \
+      --out-contract docs/ASIC_HARDWARE_REGISTER_CONTRACT.md \
+      --out-graph docs/VARIABLE_DEPENDENCY_GRAPH.md \
+      --out-summary docs/STATIC_ANALYSIS_SUMMARY.md
+"""
+
+import argparse
 import re, csv, json, html
 from pathlib import Path
 from collections import defaultdict, Counter
 
-SRC = Path('/mnt/data/31_HAC_from_ORG_7100_to_end_NOWRAP.asm')
-OUTCSV = Path('/mnt/data/7427_Hardware_Access_Map_v0.1.csv')
-OUTMD = Path('/mnt/data/7427_ASIC_Register_Contract_v0.1.md')
-OUTGRAPH = Path('/mnt/data/7427_Variable_Dependency_Graph_v0.1.md')
-OUTSUMMARY = Path('/mnt/data/7427_Static_Analysis_Summary_v0.1.md')
+
+def repo_root() -> Path:
+    return Path(__file__).resolve().parents[1]
+
+
+def repo_path(value: str | Path) -> Path:
+    value = Path(value)
+    if value.is_absolute():
+        return value
+    return repo_root() / value
+
+
+def parse_args() -> argparse.Namespace:
+    ap = argparse.ArgumentParser(description='Build static 7427 hardware access maps from source listing.')
+    ap.add_argument('--source', default='source/31/BMHM_HAC_ORG_7100_to_end.asm', help='source ASM/listing input')
+    ap.add_argument('--out-full', default='maps/full/hardware_access_map_v0.3.csv', help='full CSV output')
+    ap.add_argument('--out-hw', default='maps/current/hardware_access_map_hw_only.csv', help='hardware-only CSV output')
+    ap.add_argument('--out-contract', default='docs/ASIC_HARDWARE_REGISTER_CONTRACT.md', help='hardware contract markdown output')
+    ap.add_argument('--out-graph', default='docs/VARIABLE_DEPENDENCY_GRAPH.md', help='dependency graph markdown output')
+    ap.add_argument('--out-summary', default='docs/STATIC_ANALYSIS_SUMMARY.md', help='summary markdown output')
+    ap.add_argument('--version', default='v0.3', help='analysis version label for generated docs')
+    return ap.parse_args()
+
+
+args = parse_args()
+SRC = repo_path(args.source)
+OUTCSV = repo_path(args.out_full)
+OUTHW = repo_path(args.out_hw)
+OUTMD = repo_path(args.out_contract)
+OUTGRAPH = repo_path(args.out_graph)
+OUTSUMMARY = repo_path(args.out_summary)
+VERSION = args.version
+
+for output_path in (OUTCSV, OUTHW, OUTMD, OUTGRAPH, OUTSUMMARY):
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+if not SRC.exists():
+    raise SystemExit(f'source file not found: {SRC}')
+
 text = SRC.read_text(errors='replace')
 lines = text.splitlines()
 
@@ -214,56 +266,46 @@ def update_const_after(p, regs, vals):
             if target in {'X','Y'}: regs[target]=None
             elif target in {'A','B','D'}:
                 vals[target]=None
-                if target=='D': vals['A']=vals['B']=None
-                else: vals['D']=None
+                if target in {'A','B'}: vals['D']=None
     elif mn=='CLRA': vals['A']=0; vals['D']=None
     elif mn=='CLRB': vals['B']=0; vals['D']=None
-    elif mn=='TAB': vals['B']=vals.get('A'); vals['D']=None
-    elif mn=='TBA': vals['A']=vals.get('B'); vals['D']=None
-    elif mn=='INX':
-        if regs.get('X') is not None: regs['X']=(regs['X']+1)&0xFFFF
-    elif mn=='DEX':
-        if regs.get('X') is not None: regs['X']=(regs['X']-1)&0xFFFF
-    elif mn=='INY':
-        if regs.get('Y') is not None: regs['Y']=(regs['Y']+1)&0xFFFF
-    elif mn=='DEY':
-        if regs.get('Y') is not None: regs['Y']=(regs['Y']-1)&0xFFFF
-    elif mn in {'ABX','XGDX','TSX','PULX'}:
-        regs['X']=None
-    elif mn in {'XGDY','PULY'}:
-        regs['Y']=None
-    elif mn in ALU or mn in RMW or mn in {'MUL','IDIV','FDIV','ASLD','LSRD','ASLA','ASLB','LSRA','LSRB','ROLA','ROLB','RORA','RORB','NEGA','NEGB','COMA','COMB','INCA','INCB','DECA','DECB','ABA'}:
+    elif mn=='CLR': pass
+    elif mn in {'TAB'}:
+        vals['B']=vals.get('A'); vals['D']=None
+    elif mn in {'TBA'}:
+        vals['A']=vals.get('B'); vals['D']=None
+    elif mn in {'XGDX'}:
+        # Swap D and X if both known.
+        d=vals.get('D'); x=regs.get('X')
+        vals['D']=x; regs['X']=d
+        if vals['D'] is not None: vals['A']=(vals['D']>>8)&0xFF; vals['B']=vals['D']&0xFF
+    elif mn in ALU or mn in {'MUL','LSLD','ASLD','LSRD','ASRD','IDIV','FDIV'}:
         vals['A']=vals['B']=vals['D']=None
+    elif mn in STORE or mn in CMP or mn in BITRMW or mn in BITREAD or mn in RMW or mn in EXEC:
+        pass
+    else:
+        # Unknown arithmetic/control may clobber A/B/D, but don't clobber X/Y unless explicit.
+        pass
 
 def source_for_store(mn, vals):
-    src=STORE.get(mn,'')
-    if src=='A' and vals.get('A') is not None: return f"A=0x{vals['A']:02X}"
-    if src=='B' and vals.get('B') is not None: return f"B=0x{vals['B']:02X}"
-    if src=='D' and vals.get('D') is not None: return f"D=0x{vals['D']:04X}"
-    return src
+    reg=STORE[mn]
+    val=vals.get(reg)
+    if val is None: return reg
+    if reg in {'A','B'}: return f"{reg}=0x{val:02X}"
+    if reg=='D': return f"D=0x{val:04X}"
+    return reg
 
+# crude semantic engine state tags from comments/routine regions
 def engine_state(p):
-    s=(p['raw']+' '+p['comment']+' '+p['routine']).upper()
+    c=(p['comment']+' '+p['raw']).lower()
     tags=[]
-    for key in ['CRANK','IDLE','RUN FUEL','RUN','POWER','DECEL','DFCO','ACELL','ACCEL','SPARK','IAC','ALDL','SCI','EST','IGNITION OFF']:
-        if key in s: tags.append(key.replace('RUN FUEL','RUN').replace('ACCEL','ACELL'))
-    # heuristic ranges
-    pc=p['pc']
-    if 0x7552<=pc<=0x7650: tags.append('CRANK')
-    if 0x7E4F<=pc<=0x84F5: tags.append('FUEL_CALC')
-    if 0xA51B<=pc<=0xACD3: tags.append('SPARK_CALC')
-    if 0x9167<=pc<=0xA466: tags.append('IDLE_IAC')
-    if 0xF7EA<=pc<=0xFA5A: tags.append('ALDL')
-    # de-dupe preserve order
-    out=[]
-    for t in tags:
-        if t not in out: out.append(t)
-    return '|'.join(out)
+    for key,tag in [('crank','CRANK'),('run fuel','RUN'),('idle','IDLE'),('dfco','DFCO'),('aldl','ALDL'),('sci','SCI'),('spark','SPARK'),('est','EST'),('fuel','FUEL_CALC')]:
+        if key in c and tag not in tags: tags.append(tag)
+    return '|'.join(tags)
 
-rows=[]
 regs={'X':None,'Y':None}
 vals={'A':None,'B':None,'D':None}
-prev_by_pc={}
+rows=[]
 for p in parsed:
     pc=p['pc']; mn=p['mnemonic']; ops=split_operands(p['operand'])
     access_type=''; addr=None; xb=''; confidence=''; bitmask=''; value_source=''; width=''; notes=[]
@@ -338,11 +380,83 @@ for p in parsed:
     # Update tracker after row emission to reflect source line effects.
     update_const_after(p, regs, vals)
 
+
+def hex_to_int(value):
+    if value is None:
+        return None
+    text = str(value).strip()
+    if not text or '-' in text:
+        return None
+    if text.lower().startswith('0x'):
+        text = text[2:]
+    if text.startswith('$'):
+        text = text[1:]
+    try:
+        return int(text, 16)
+    except ValueError:
+        return None
+
+
+def subsystem_for(row):
+    notes = str(row.get('notes', '')).lower()
+    ea = str(row.get('effective_address', ''))
+    addr = hex_to_int(ea)
+
+    if addr in (0x301C,0x301D,0x301E,0x301F,0x3020,0x3022,0x3023): return 'FUEL_SCHED_TIMER'
+    if addr in (0x3016,0x3017,0x3062,0x3FDC,0x3FE4,0x3FE6,0x3FE8,0x3FF6): return 'SPARK_EST'
+    if addr in (0x3030,0x3031,0x3032,0x3033,0x3034,0x3008): return 'SENSOR_ADC'
+    if addr in (0x302D,0x302E,0x302F): return 'ALDL_SCI'
+    if addr in (0x303A,0x3039,0x3038,0x303F,0x3024,0x3000): return 'BOOT_WATCHDOG_CPU'
+    if addr in (0x3FC0,0x3FC2,0x3FC4,0x3FC6,0x3FC8,0x3FCA,0x3FEC,0x3FFA): return 'ASIC_STATUS_REF'
+    if addr in (0x3FCC,0x3FCE,0x3FD4,0x3FD6,0x3FD8,0x3FDA,0x3FEA): return 'ASIC_COMMAND_OUTPUT'
+    if addr in (0x3FFC,0x3068,0x306E,0x306F): return 'IO_LATCH_OUTPUT'
+    if any(k in notes for k in ['iac','idle air']): return 'IDLE_IAC'
+    if any(k in notes for k in ['bpw','fuel','inject']): return 'FUEL_MATH_HANDOFF'
+    if any(k in notes for k in ['spark','est','ignition','knock']): return 'SPARK_EST'
+    if any(k in notes for k in ['sci','aldl','serial']): return 'ALDL_SCI'
+    if any(k in notes for k in ['a/d','adc','map','tps','cool','battery']): return 'SENSOR_ADC'
+    if addr is not None and 0x3060 <= addr <= 0x307F: return 'UNKNOWN_306X_BOARD_IO'
+    if addr is not None and 0x3F00 <= addr <= 0x3FFF: return 'ASIC_UNKNOWN'
+    if addr is not None and 0x3000 <= addr <= 0x303F: return 'HC11_CORE'
+    return 'OTHER'
+
+
+def minimal_required_for(subsystem):
+    if subsystem in {'FUEL_SCHED_TIMER','SPARK_EST','SENSOR_ADC','ALDL_SCI','BOOT_WATCHDOG_CPU','ASIC_STATUS_REF','ASIC_COMMAND_OUTPUT','IO_LATCH_OUTPUT','IDLE_IAC'}:
+        return 'YES'
+    if subsystem in {'UNKNOWN_306X_BOARD_IO','ASIC_UNKNOWN'}:
+        return 'TEST_ITEM'
+    return 'NO_UNLESS_DEPENDENCY_PROVES'
+
+
+def risk_for(row):
+    required = row.get('minimal_os_required', '')
+    access = row.get('access_type', '')
+    if required == 'YES' and access in {'W','RMW'}:
+        return 'HIGH'
+    if required == 'YES':
+        return 'MEDIUM'
+    if required == 'TEST_ITEM':
+        return 'HIGH_UNCLASSIFIED'
+    return 'LOW'
+
+# Add v0.2/v0.3 classification columns before writing outputs.
+for row in rows:
+    row['subsystem'] = subsystem_for(row)
+    row['minimal_os_required'] = minimal_required_for(row['subsystem'])
+    row['risk'] = risk_for(row)
+
 # Filter down? User requested hardware access map including direct RAM / ROM table too. Keep all classes.
-fieldnames=['pc','bank/page','opcode','mnemonic','access_type','effective_address','address_class','width','bitmask','value_source','x_base/y_base','routine_label','interrupt_context','callers','engine_state_seen','notes','confidence']
+fieldnames=['pc','bank/page','opcode','mnemonic','access_type','effective_address','address_class','subsystem','minimal_os_required','risk','width','bitmask','value_source','x_base/y_base','routine_label','interrupt_context','callers','engine_state_seen','notes','confidence']
 with OUTCSV.open('w',newline='',encoding='utf-8') as f:
     w=csv.DictWriter(f,fieldnames=fieldnames)
     w.writeheader(); w.writerows(rows)
+
+hardware_classes = {'HC11_REG','ALDL','ASIC_3FXX','UNKNOWN_HW'}
+hardware_rows = [r for r in rows if r['address_class'] in hardware_classes]
+with OUTHW.open('w',newline='',encoding='utf-8') as f:
+    w=csv.DictWriter(f,fieldnames=fieldnames)
+    w.writeheader(); w.writerows(hardware_rows)
 
 # Aggregations for contract
 hardware_classes={'HC11_REG','ASIC_3FXX','UNKNOWN_HW','ALDL'}
@@ -361,146 +475,69 @@ def pcs(rs, maxn=28):
 def const_writes(rs):
     vals=[]
     for r in rs:
-        if r['access_type'] in {'W','RMW'} and ('=' in r['value_source'] or r['value_source'].startswith('set') or r['value_source'].startswith('clear')):
-            vals.append(f"{r['pc']} {r['value_source']}")
-    return '; '.join(vals[:10]) + ('; ...' if len(vals)>10 else '')
+        if r['access_type'] in {'W','RMW'} and '=' in r['value_source']:
+            vals.append(f"{r['pc']} {r['mnemonic']} ← {r['value_source']}")
+    return '; '.join(vals[:8])
 
-def update_rate(rs):
-    ctx=set(r['interrupt_context'] for r in rs)
-    if any('TOC' in c for c in ctx): return 'interrupt/event-rate; tied to timer compare or 6.25 ms tick'
-    if any('IRQ/DRP' in c for c in ctx): return 'reference/DRP interrupt-rate'
-    if any('SCI' in c for c in ctx): return 'ALDL serial interrupt-rate'
-    early=[int(r['pc'],16) for r in rs if int(r['pc'],16)<0x7460]
-    if early and len(early)==len(rs): return 'init only in parsed source'
-    return 'mainline/periodic or mixed'
-
-def required(addr_s, rs):
-    if '-' in addr_s: return 'yes - init clear range; exact per-register need still open'
-    try: a=int(addr_s,16)
-    except: return 'test item'
-    if a in {0x300E,0x3016,0x301A,0x301C,0x301E,0x3020,0x3022,0x3023,0x3030,0x3031,0x3032,0x3033,0x3034,0x303A,0x303D,0x3039,0x302D,0x302E,0x302F}: return 'yes'
-    if 0x3FC0<=a<=0x3FFF:
-        if a in {0x3FC0,0x3FCA,0x3FCC,0x3FCE,0x3FDC,0x3FE4,0x3FE6,0x3FE8,0x3FEA,0x3FF6,0x3FFA,0x3FFC}: return 'yes / high-priority prove semantics'
-        return 'unknown but hardware-facing; test before removal'
-    if 0x3060<=a<=0x30FF: return 'unknown but likely board I/O; test before removal'
-    return 'maybe'
-
-def behavior_category(addr_s, rs):
-    try: a=int(addr_s.split('-')[0],16)
-    except: return 'unknown but required'
-    acts=set(r['access_type'] for r in rs)
-    if a in {0x301C,0x301E,0x3016,0x301A}: return 'timer compare'
-    if a in {0x3022,0x3023,0x3020,0x3021,0x3024,0x3030,0x3039,0x303D}: return 'configuration/event latch'
-    if a in {0x302D,0x302E,0x302F}: return 'ALDL/SCI input-output'
-    if a==0x303A: return 'watchdog command'
-    if 0x3FC0<=a<=0x3FFF:
-        if 'R' in acts and not acts.intersection({'W','RMW'}): return 'input/status'
-        if acts.intersection({'W','RMW'}) and 'R' not in acts: return 'command/shadow'
-        return 'shadow/handshake/status+command'
-    if 0x3060<=a<=0x30FF: return 'unknown external hardware'
-    return 'unknown'
-
-def deps_for_addr(addr_s):
-    if addr_s in {'0x301C','0x301E'}:
-        return 'TCNT + L081F/L0821/L0823/L0825/L0827; upstream BPW L0250/L024C/L024E/L0254 and AE L023A'
-    if addr_s=='0x3022': return 'constant bit masks enabling/disabling timer compares after compare/flag setup'
-    if addr_s=='0x3023': return 'constant write-one-clear flag masks before timer scheduling or ISR exit'
-    if addr_s=='0x3020': return 'constant output compare action bits for OC4/OC5 injector output pins'
-    if addr_s in {'0x3FE6','0x3FE8','0x3FDC','0x3FF6'}: return 'spark/dwell math around LAB8E-LABC8; final spark L01FD and timing counters'
-    if addr_s in {'0x3FCC','0x3FCE','0x3FEA'}: return 'fuel pulse scheduling path; BPW/scheduler state around L84xx/LFAxx'
-    if addr_s=='0x3FFC': return 'I/O D port shadow; constants from mode bytes and ALDL/port handshake paths'
-    if addr_s in {'0x302D','0x302E','0x302F'}: return 'ALDL message state L0360-L036C and SCI status/data'
-    if addr_s.startswith('0x303'): return 'sensor/init/watchdog path depending on specific HC11 register'
-    return 'not yet traced; see access PCs and backward slice needed'
-
-# Sort addresses numerically/range aware
-addr_keys=sorted(by_addr.keys(), key=lambda s: (int(s.split('-')[0],16) if s.startswith('0x') else 999999, s))
+# Contract markdown
 md=[]
 md.append('# 7427 ASIC / Hardware Register Contract v0.1')
 md.append('')
-md.append('Source basis: static parse of `31_HAC_from_ORG_7100_to_end_NOWRAP.asm`, generated from the supplied no-wrap `$31` HAC source view. This is a first-pass contract map, not a final semantic proof.')
+md.append('Generated from static source walk. This is not a dynamic proof; unknown or inferred meanings are marked as test items.')
 md.append('')
-md.append('## Classification rules used')
-md.append('')
-md.append('- `$3000-$303F`: relocated HC11 internal registers, with `$302B-$302F` separated as `ALDL`/SCI because the minimal OS needs serial debug visibility.')
-md.append('- `$3060-$30FF`: `UNKNOWN_HW` external board/ASIC-adjacent registers; test before removing.')
-md.append('- `$3F00-$3FFF`: Delco ASIC/external hardware block.')
-md.append('- Direct RAM and ROM-table rows remain in the CSV but are not expanded one-by-one in this register contract.')
-md.append('')
-md.append('## Hardware register entries')
-for addr_s in addr_keys:
-    rs=by_addr[addr_s]
-    # Skip huge unresolved/non-address rows, keep real hardware/range.
-    if not addr_s.startswith('0x'): continue
-    try: a=int(addr_s.split('-')[0],16)
-    except: a=None
-    name = REG_NAMES.get(a,'range / unknown hardware register') if a is not None else 'unknown'
-    acts=access_summary(rs)
-    init=const_writes([r for r in rs if int(r['pc'],16) < 0x7460])
-    states=sorted(set(x for r in rs for x in r['engine_state_seen'].split('|') if x))
-    contexts=sorted(set(r['interrupt_context'] for r in rs))
-    dep=deps_for_addr(addr_s)
-    notes='; '.join([r['notes'] for r in rs if r['notes']][:8])
-    conf = Counter(r['confidence'] for r in rs).most_common(1)[0][0]
-    md.append(f"\n### `{addr_s}` — {name}")
+for cls,title in [('HC11_REG','HC11 relocated registers'),('ALDL','SCI/ALDL registers'),('ASIC_3FXX','External ASIC / board registers'),('UNKNOWN_HW','Unknown external hardware / board register space')]:
+    md.append(f'## {title}')
     md.append('')
-    md.append(f"- **Access:** {acts}")
-    md.append(f"- **Behavior category:** {behavior_category(addr_s,rs)}")
-    md.append(f"- **All access PCs:** {pcs(rs)}")
-    md.append(f"- **Init value if known:** {init if init else 'not isolated yet'}")
-    md.append(f"- **Runtime value range if known:** not proven statically")
-    md.append(f"- **Update rate:** {update_rate(rs)}")
-    md.append(f"- **Engine state where used:** {', '.join(states) if states else 'not tagged'}")
-    md.append(f"- **Interrupt contexts:** {', '.join(contexts)}")
-    md.append(f"- **Dependency source:** {dep}")
-    md.append(f"- **Observed/proposed effect:** {notes if notes else name}")
-    md.append(f"- **Required for minimal OS:** {required(addr_s,rs)}")
-    if addr_s in {'0x301C','0x301E','0x3022','0x3023','0x3020'}:
-        md.append('- **Write-order requirements:** preserve factory order: compute future compare from `TCNT`, clear `TFLG1`, configure `TCTL1`, enable/disable `TMSK1`, then write compare with minimum lead time.')
-    elif addr_s=='0x303A':
-        md.append('- **Write-order requirements:** preserve COP clear sequence `$55` then `$AA` at expected cadence.')
-    elif addr_s in {'0x302D','0x302E','0x302F'}:
-        md.append('- **Write-order requirements:** preserve SCI status/data read order and SCCR2 interrupt-enable transitions.')
-    else:
-        md.append('- **Write-order requirements:** unknown; preserve relative order from access map until dynamic trace proves otherwise.')
-    if addr_s=='0x3023':
-        md.append('- **Read/clear side effects:** write-one-to-clear timer flags; wrong mask can lose pending events.')
-    elif addr_s in {'0x302E','0x302F'}:
-        md.append('- **Read/clear side effects:** SCI status/data read ordering may clear receiver/transmitter status.')
-    elif addr_s.startswith('0x3F'):
-        md.append('- **Read/clear side effects:** not proven; assume latch/handshake possible until bench trace.')
-    else:
-        md.append('- **Read/clear side effects:** not proven.')
-    md.append('- **Timing requirements:** preserve ISR/mainline context shown above; dynamic cycle trace required for final numbers.')
-    md.append('- **Test needed:** run passive observer ROM and capture PC/address/value/order under key-on, crank, idle, throttle snap, steady RPM, decel, and stall/restart.')
-    md.append(f"- **Confidence:** {conf}")
+    md.append('| Address | Name / hypothesis | Accesses | First PCs | Constant writes / source hints | Contract status |')
+    md.append('|---|---|---:|---|---|---|')
+    for addr,rs in sorted(by_addr.items(), key=lambda kv: kv[0]):
+        if not rs or rs[0]['address_class']!=cls: continue
+        name=''
+        # for ranges, use notes
+        if '-' not in addr:
+            try: name=REG_NAMES.get(int(addr,16),'')
+            except: name=''
+        if not name:
+            n=[r['notes'] for r in rs if r['notes']]
+            name=(n[0][:90] if n else '')
+        status='KEEP / required until bench proven otherwise'
+        if cls=='UNKNOWN_HW': status='TEST ITEM: classify before removal'
+        if cls=='ASIC_3FXX' and addr not in ['0x3FCE','0x3FDC','0x3FE6','0x3FE8','0x3FF6','0x3FFC','0x3FCA','0x3FFA','0x3FC0','0x3FEC']:
+            status='Likely ASIC config/status; trace before minimal OS removal'
+        md.append(f'| `{addr}` | {name} | {access_summary(rs)} | {pcs(rs,10)} | {const_writes(rs)} | {status} |')
+    md.append('')
 OUTMD.write_text('\n'.join(md),encoding='utf-8')
 
-# Dependency graph (hand-written first-pass from static traces + key PCs)
+# Variable/dependency graph markdown: manually distilled from rows.
 g=[]
 g.append('# 7427 Variable Dependency Graph v0.1')
 g.append('')
-g.append('First-pass static dependency graph. This intentionally separates proven static paths from items that still need a backward-slice/dynamic trace.')
+g.append('Static dependency sketch. Dynamic bus trace still required for side effects and units.')
 g.append('')
-g.append('## Fuel injector scheduler — HC11 timer compare path')
-g.append('')
-g.append('```text')
-g.append('$301E TOC5/TIC4 compare write @ $75F3/$77F4/$78D6')
-g.append('← D = future compare time')
-g.append('← TCNT $300E + delay/result L0821/L0825')
-g.append('← L081F minimum/phase delay or L0250 BPW doubled to timer units')
-g.append('← L0250 BPW')
-g.append('← L024C sync BPW / L024E sync BPW / L0254 async BPW')
-g.append('← L023A AE async adder where active')
-g.append('← VE result L0231, AFR L024A, BLM L0248, MAP L01C0/L01C6, RPM L0062/L0063, CTS L0006, battery L0055')
-g.append('← calibration tables: VE $49D5/$4A88, injector flow L4D92, stoich L48E7, battery multiplier $4988, AE/DFCO tables $48xx-$4Cxx')
-g.append('```')
+g.append('## Fuel pulsewidth path')
 g.append('')
 g.append('```text')
-g.append('$301C TOC4 compare write @ $7626/$7824/$793A')
-g.append('← same BPW/timer-unit path as TOC5')
-g.append('← alternate injector/channel scheduling branch')
-g.append('← TCTL1 $3020 action bits and TMSK1 $3022/TFLG1 $3023 sequencing')
+g.append('L02CF BPW')
+g.append('← calculated run/crank base pulsewidth')
+g.append('← VE / MAP / RPM / CTS / AFR modifiers / transient fuel')
+g.append('')
+g.append('L024C/L024E sync BPW')
+g.append('← L02CF and sync/async mode logic')
+g.append('← crank mode all-injectors-each-DRP branch')
+g.append('')
+g.append('L0254 async BPW')
+g.append('← async fuel decision logic')
+g.append('← AE / transient fuel handling')
+g.append('')
+g.append('L0250 working BPW')
+g.append('← selected sync/async BPW')
+g.append('← low-BPW correction')
+g.append('← BPW bias L0256')
+g.append('← min/max clamps')
+g.append('')
+g.append('HC11 TOC4/TOC5 compare values $301C/$301E')
+g.append('← L0250 plus timer state')
+g.append('← output compare setup $3020/$3022/$3023')
 g.append('```')
 g.append('')
 g.append('## Fuel ASIC handoff path')
@@ -585,12 +622,12 @@ OUTGRAPH.write_text('\n'.join(g),encoding='utf-8')
 
 # Summary
 cnt=Counter(r['address_class'] for r in rows)
-hwcnt=sum(1 for r in rows if r['address_class'] in hardware_classes and r['effective_address'].startswith('0x'))
+hwcnt=len(hardware_rows)
 asic_addrs=sorted({r['effective_address'] for r in rows if r['address_class']=='ASIC_3FXX'})
 hc11_addrs=sorted({r['effective_address'] for r in rows if r['address_class'] in {'HC11_REG','ALDL'}})
 unknown_hw=sorted({r['effective_address'] for r in rows if r['address_class']=='UNKNOWN_HW' and r['effective_address'].startswith('0x')})
 sm=[]
-sm.append('# 7427 Static Analysis Summary v0.1')
+sm.append(f'# 7427 Static Analysis Summary {VERSION}')
 sm.append('')
 sm.append(f'- Parsed source lines: {len(lines)}')
 sm.append(f'- Parsed instruction rows: {len(parsed)}')
@@ -610,14 +647,15 @@ sm.append(f'## UNKNOWN_HW addresses/ranges found ({len(unknown_hw)})')
 sm.append(', '.join(unknown_hw))
 sm.append('')
 sm.append('## Highest-priority next traces')
-sm.append('1. Passive observer log of `$301C/$301E/$3020/$3022/$3023` around crank, idle, AE, and DFCO.')
-sm.append('2. Passive observer log of `$3FCE/$3FDC/$3FE6/$3FE8/$3FF6` to prove fuel/spark handoff units and write order.')
-sm.append('3. Passive observer log of `$3FFC` and `$306x` writes to separate IAC/port/force-motor/trans leftovers.')
-sm.append('4. SCI/ALDL preservation check for `$302D/$302E/$302F` before adding debug export frames.')
+sm.append('1. Prove `$3FCE` EFI pulsewidth handoff first; scope injector output while forcing known values.')
+sm.append('2. Passive observer log of `$301C/$301E/$3020/$3022/$3023` only if `$3FCE` alone does not explain injector pulse behavior.')
+sm.append('3. Passive observer log of `$3FDC/$3FE6/$3FE8/$3FF6` to prove spark handoff units and write order.')
+sm.append('4. Passive observer log of `$3FFC` and `$306x` writes to separate IAC/port/force-motor/trans leftovers.')
+sm.append('5. SCI/ALDL preservation check for `$302D/$302E/$302F` before adding debug export frames.')
 OUTSUMMARY.write_text('\n'.join(sm),encoding='utf-8')
 
 print(json.dumps({
-    'csv': str(OUTCSV), 'contract': str(OUTMD), 'graph': str(OUTGRAPH), 'summary': str(OUTSUMMARY),
+    'csv': str(OUTCSV), 'hw_csv': str(OUTHW), 'contract': str(OUTMD), 'graph': str(OUTGRAPH), 'summary': str(OUTSUMMARY),
     'rows': len(rows), 'parsed': len(parsed), 'counts': cnt, 'hardware_rows': hwcnt,
     'asic_addresses': asic_addrs, 'hc11_addresses': hc11_addrs, 'unknown_hw': unknown_hw,
 }, indent=2, default=lambda o: dict(o) if hasattr(o,'items') else str(o)))
