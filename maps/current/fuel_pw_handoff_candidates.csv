@@ -1,0 +1,10 @@
+candidate,address,width,access,source_pc,source_value,mode,path_role,status,notes
+EFI_PW,0x3FCE,16,W,0x8512,D=corrected BPW,normal TBI,final pulsewidth handoff,primary,"D flows from L024E/L024C/L0250 after low-BPW/min-BPW/bias handling; non-CPI/PFI mode writes STD L3FCE"
+EFI_PW_TEST,0x3FCE,16,W,0xFAEE,D=197,output cycling,diagnostic proof,strong,"Comment says SET UP FOR 3msec PULSES then SAVE TO EFI PW"
+EFI_PW_ZERO,0x3FCE,16,W,0x8426,D=0,async threshold/control,disable/clear,important,"Clears L3FCE before async math/control path"
+EFI_PW_ZERO_TEST,0x3FCE,16,W,0xFB44,D=0,output cycling disable,disable/clear,strong,"Output cycling disable path writes zero to L3FCE"
+SYNC_BPW,0x024C,16,W,0x84F5,D=corrected sync BPW,RAM,intermediate,confirmed,"Corrected SYNC BPW after low-BPW/min-BPW handling"
+WORKING_BPW,0x0250,16,W,0x8508,D=BPW + bias clamp,RAM,intermediate,confirmed,"Stored BPW after bias and clamp before $3FCE write"
+ASYNC_BPW,0x0254,16,W,0x83AE,D=sync/async BPW,RAM,async path,confirmed,"Async BPW copy before async delivery checks"
+TOC5_COMPARE,0x301E,16,W,0x75F3,D=TCNT + BPW*2,HC11 timer,legacy/timer path,secondary,"BPW-derived CPU timer compare still exists, but not the direct EFI PW handoff"
+TOC4_COMPARE,0x301C,16,W,0x7626,D=TCNT + BPW*2,HC11 timer,legacy/timer path,secondary,"BPW-derived CPU timer compare still exists, but not the direct EFI PW handoff"
