@@ -1,0 +1,12 @@
+name,input_counts_hex,input_counts_dec,expected_ms,expected_write_address,expected_write_width,notes
+zero,0x0000,0,0.000000,0x3FCE,16,no-fuel/off candidate
+half_ms,0x0021,33,0.503540,0x3FCE,16,below useful injector range
+one_ms,0x0042,66,1.007080,0x3FCE,16,low-pw region
+one_point_five_ms,0x0062,98,1.495361,0x3FCE,16,idle-floor region
+two_ms,0x0083,131,1.998901,0x3FCE,16,low normal pulse
+three_ms_diag,0x00C5,197,3.005981,0x3FCE,16,stock diagnostic clue
+four_ms,0x0106,262,3.997803,0x3FCE,16,linear check
+five_ms,0x0148,328,5.004883,0x3FCE,16,linear check
+six_ms,0x018A,394,6.011963,0x3FCE,16,linear check
+eight_ms,0x020C,524,7.995605,0x3FCE,16,upper low-speed check
+ten_ms,0x028F,655,9.994507,0x3FCE,16,larger command check
