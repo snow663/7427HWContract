@@ -1,0 +1,19 @@
+pc,bank/page,opcode,mnemonic,access_type,effective_address,address_class,subsystem,minimal_os_required,risk,width,bitmask,value_source,x_base/y_base,routine_label,interrupt_context,callers,engine_state_seen,notes,confidence
+0x74D6,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,STD L3FCC,W,0x3FCC,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D=0xD000,,L74D3,mainline/unknown,0x740F,,ASIC fuel/scheduler command candidate A,high
+0x8426,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L3FCE,W,0x3FCE,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D,,L82ED,mainline/unknown,0x8238,FUEL_CALC,ASIC EFI PW / fuel pulse-width handoff,high
+0x8512,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L3FCE,W,0x3FCE,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D=0x7FFF,,L84F5,mainline/unknown,0x7EA3;0x7EAF,,ASIC EFI PW / fuel pulse-width handoff,high
+0xCD71,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L3FDA,W,0x3FDA,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D=0xD000,,LCD2C,mainline/unknown,0xCCD7,,ASIC output compare/scheduler slot DA | HARDWARE,high
+0xCD8D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L3FD6,W,0x3FD6,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D,,LCD2C,mainline/unknown,0xCCD7,,ASIC output compare/scheduler slot D6,high
+0xCDCB,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STX L3FD4,W,0x3FD4,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LCD2C,mainline/unknown,0xCCD7,,ASIC output compare/scheduler slot D4,high
+0xCE0C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L3FD8,W,0x3FD8,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D,,LCDF7,mainline/unknown,0x7A1C,,ASIC output compare/scheduler slot D8,high
+0xFADC,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FCC,W,0x3FCC,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC fuel/scheduler command candidate A,high
+0xFAEE,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STD L3FCE,W,0x3FCE,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D=0x00C5,,LFA5B,mainline/unknown,0x7955,,ASIC EFI PW / fuel pulse-width handoff | SAVE TO EFI PW,high
+0xFB44,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STD L3FCE,W,0x3FCE,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D=0x0000,,LFA5B,mainline/unknown,0x7955,,ASIC EFI PW / fuel pulse-width handoff,high
+0xFB78,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FD4,W,0x3FD4,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC output compare/scheduler slot D4,high
+0xFB7D,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FD6,W,0x3FD6,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC output compare/scheduler slot D6,high
+0xFB82,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FD8,W,0x3FD8,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC output compare/scheduler slot D8,high
+0xFB87,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FDA,W,0x3FDA,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC output compare/scheduler slot DA,high
+0xFB9B,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FD4,W,0x3FD4,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC output compare/scheduler slot D4,high
+0xFBA3,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FD6,W,0x3FD6,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC output compare/scheduler slot D6,high
+0xFBAB,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FD8,W,0x3FD8,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC output compare/scheduler slot D8,high
+0xFBB3,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L3FDA,W,0x3FDA,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,X,,LFA5B,mainline/unknown,0x7955,,ASIC output compare/scheduler slot DA,high

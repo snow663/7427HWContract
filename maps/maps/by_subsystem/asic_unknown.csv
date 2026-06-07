@@ -1,0 +1,4 @@
+pc,bank/page,opcode,mnemonic,access_type,effective_address,address_class,subsystem,minimal_os_required,risk,width,bitmask,value_source,x_base/y_base,routine_label,interrupt_context,callers,engine_state_seen,notes,confidence
+0x8571,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L3FF2,W,0x3FF2,ASIC_3FXX,ASIC_UNKNOWN,TEST_ITEM,HIGH_UNCLASSIFIED,16,,D,,L8548,mainline/unknown,0x762D;0x84AA,,ASIC output/scheduler candidate,high
+0xACD3,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDD L3FE0,R,0x3FE0,ASIC_3FXX,ASIC_UNKNOWN,TEST_ITEM,HIGH_UNCLASSIFIED,16,,memory,,LACA7,mainline/unknown,0x7B27,SPARK_CALC,ASIC timing/status candidate E0,high
+0xAFCC,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDY 0,Y",R,0x3FF8,ASIC_3FXX,ASIC_UNKNOWN,TEST_ITEM,HIGH_UNCLASSIFIED,16,,memory,Y=0x3FF8,LAEA4,mainline/unknown,0xAE85,,indexed_resolved,high

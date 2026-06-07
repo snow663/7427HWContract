@@ -1,0 +1,21 @@
+pc,bank/page,opcode,mnemonic,access_type,effective_address,address_class,subsystem,minimal_os_required,risk,width,bitmask,value_source,x_base/y_base,routine_label,interrupt_context,callers,engine_state_seen,notes,confidence
+0x9163,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L306C,W,0x306C,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,16,,D,,L90D3,mainline/unknown,0x7E3D,,,high
+0xA5D4,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BCLR 0,X,#$10",RMW,0x3060,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,bit,0x10,clear 0x10,X=0x3060,LA59B,mainline/unknown,0xA53D,SPARK_CALC,"CLR b4, | indexed_resolved",high
+0xAEB7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L3060,R,0x3060,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,memory,,LAEA4,mainline/unknown,0xAE85,,,high
+0xC56B,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L306A,W,0x306A,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,16,,D,,LC514,mainline/unknown,0x7AC3;0x7B1B;0x7B40;0x7B5A,,,high
+0xCCB3,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L3061,W,0x3061,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,A=0x90,,LCC7C,mainline/unknown,0x711C,,,high
+0xCCB8,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L3063,W,0x3063,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,A=0xFF,,LCC7C,mainline/unknown,0x711C,,,high
+0xCCBD,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L3065,W,0x3065,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,A=0x00,,LCC7C,mainline/unknown,0x711C,,,high
+0xCDDF,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L306C,W,0x306C,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,16,,D=0x1F00,,LCD2C,mainline/unknown,0xCCD7,,,high
+0xCDF3,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L306A,W,0x306A,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,16,,D=0x7F00,,LCD2C,mainline/unknown,0xCCD7,,,high
+0xF400,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,LDAA L3060,R,0x3060,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,memory,,LF3EE,mainline/unknown,0x7BA7,,,high
+0xF409,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAB L3060,W,0x3060,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,B,,LF3EE,mainline/unknown,0x7BA7,,,high
+0xF414,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,LDAA L3064,R,0x3064,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,memory,,LF3EE,mainline/unknown,0x7BA7,,I/O PORT C,high
+0xF41B,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L3067,W,0x3067,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,A,,LF3EE,mainline/unknown,0x7BA7,,,high
+0xFAD4,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,"BRCLR 0,Y,#$80,LFB39",R,0x3064,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,bit,0x80,bit test 0x80,Y=0x3064,LFA5B,mainline/unknown,0x7955,,BR IF | indexed_resolved,high
+0xFB4A,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,LDAA L3060,R,0x3060,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,memory,,LFA5B,mainline/unknown,0x7955,,I/O PORT,high
+0xFB51,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STAA L3060,W,0x3060,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,8,,A,,LFA5B,mainline/unknown,0x7955,,I/O PORT,high
+0xFB8A,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L306A,W,0x306A,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,16,,X,,LFA5B,mainline/unknown,0x7955,,,high
+0xFB8D,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L306C,W,0x306C,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,16,,X,,LFA5B,mainline/unknown,0x7955,,,high
+0xFBB9,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L306A,W,0x306A,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,16,,X,,LFA5B,mainline/unknown,0x7955,,,high
+0xFBBF,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,STX L306C,W,0x306C,UNKNOWN_HW,UNKNOWN_306X_BOARD_IO,TEST_ITEM,HIGH_UNCLASSIFIED,16,,X,,LFA5B,mainline/unknown,0x7955,,,high

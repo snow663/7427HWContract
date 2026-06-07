@@ -1,0 +1,529 @@
+pc,bank/page,opcode,mnemonic,access_type,effective_address,address_class,subsystem,minimal_os_required,risk,width,bitmask,value_source,x_base/y_base,routine_label,interrupt_context,callers,engine_state_seen,notes,confidence
+0x7122,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,"STAA $08,X",W,0x3008,HC11_REG,SENSOR_ADC,YES,HIGH,8,,A=0x00,X=0x3000,L7100,mainline/unknown,0xFC2C,,PORTE / ADC input port | indexed_resolved,high
+0x7190,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,JSR LC56F,EXEC,0xC56F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,L7100,mainline/unknown,0xFC2C,,A/D READ BATTERY VOLTAGE,high
+0x7193,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L082F,R,0x082F,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,,A/D VAL,high
+0x719E,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,"BSET L0050,#$08",RMW,0x0050,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x08,set 0x08,,L7100,mainline/unknown,0xFC2C,,"SET b3, IF A/D 0.56 VDC - 1.20 VDC",high
+0x71A1,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L00A6,R,0x00A6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,,TPS A/D,high
+0x722E,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L5B24,R,0x5B24,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,IDLE,"64d, TPS MIN BIN VAL, (IDLE)",high
+0x7233,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,STD L02F6,W,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,L7100,mainline/unknown,0xFC2C,,FILT TPS (XMISH),high
+0x7393,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L082E,R,0x082E,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,,MAP A/D,high
+0x7399,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,STAA L01C3,W,0x01C3,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L7100,mainline/unknown,0xFC2C,,FILT TRANS MAP,high
+0x73AA,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,STAA L01C0,W,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0xFF,,L7100,mainline/unknown,0xFC2C,,CURRENT MAP VALUE,high
+0x73BC,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,,COOL VALUE,high
+0x73BF,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,JSR LC96A,EXEC,0xC96A,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,L7100,mainline/unknown,0xFC2C,,DO COOL SUBROUTINE,high
+0x73C8,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,,COOL VALUE,high
+0x73CA,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,STAA L0282,W,0x0282,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L7100,mainline/unknown,0xFC2C,,START UP COOL,high
+0x73E1,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,STAA L01D5,W,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L7100,mainline/unknown,0xFC2C,,o2 VOLTS * 226 (A/D RESULT),high
+0x73FF,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L48A5,R,0x48A5,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,,77 A/D BIN MAX FOR CLOSED VALVE (EGR),high
+0x7408,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L01A1,R,0x01A1,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,,A/D RESULT,high
+0x7415,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,CMPA L4071,R,0x4071,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L7100,mainline/unknown,0xFC2C,,IF COOLANT G.T. 80c INIT CONV TEMP TO,high
+0x741A,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAB L4072,R,0x4072,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7100,mainline/unknown,0xFC2C,,"300 DEG C HOT COOL CONV INIT TEMP,  CAL = (DEG -300)/3",high
+0x7521,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,STAA L3030,W,0x3030,HC11_REG,SENSOR_ADC,YES,HIGH,8,,A,,L74D3,IRQ/DRP/ref interrupt,0x740F,,ADCTL A/D control | A/D CNT'L REG,high
+0x7528,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L3031,R,0x3031,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,,L74D3,IRQ/DRP/ref interrupt,0x740F,,"ADR1 A/D result 1 | GET A/D RESULT, CH 1",high
+0x752B,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,STAA L082E,W,0x082E,EXT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L74D3,IRQ/DRP/ref interrupt,0x740F,,SAVE MAP A/D,high
+0x7552,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L74D3,IRQ/DRP/ref interrupt,0x740F,CRANK,COOLANT,high
+0x763B,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAB L0055,R,0x0055,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7630,IRQ/DRP/ref interrupt,0x7579,CRANK,BATTERY VOLTS * 10,high
+0x763D,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,CMPB L4D98,R,0x4D98,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L7630,IRQ/DRP/ref interrupt,0x7579,CRANK,2.0 VDC BATTERY,high
+0x7661,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7650,IRQ/DRP/ref interrupt,0x7532,,COOL VALUE,high
+0x7778,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7765,IRQ/DRP/ref interrupt,0x76D9,,%TPS,high
+0x7841,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7827,mainline/unknown,0x7569;0x7EA0,,COOL VALUE,high
+0x7843,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,CMPA L4D99,R,0x4D99,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L7827,mainline/unknown,0x7569;0x7EA0,,"46c COOL, MIN TO USE L4D4E, else use L4DCD",high
+0x7A05,BMHM_$31_main_window_ORG_0x7100,source_listing_no_bytes,JSR LF5E8,EXEC,0xF5E8,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,L7989,TOC3/6.25ms major-loop interrupt,0x7A81,,REMOTE BROADCAST ROUTINE,high
+0x7AA6,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,JSR LC56F,EXEC,0xC56F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,L7989,mainline/unknown,0x7A81,,A/D READ BATTERY VOLTAGE,high
+0x7AE5,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,JSR LE793,EXEC,0xE793,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,L7989,mainline/unknown,0x7A81,,ERR 15 PARAMS LOW COOLANT TEMP,high
+0x7AE8,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,JSR LC96A,EXEC,0xC96A,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,L7989,mainline/unknown,0x7A81,,DO COOL SUBROUTINE,high
+0x7AF4,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BRCLR L0016,#$01,L7AFB",R,0x0016,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x01,bit test 0x01,,L7989,mainline/unknown,0x7A81,,"BR IF NOT b0, ERR 21, HI TPS",high
+0x7B73,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L3030,W,0x3030,HC11_REG,SENSOR_ADC,YES,HIGH,8,,A=0x07,,L7B6D,mainline/unknown,0x797A,,ADCTL A/D control,high
+0x7B79,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BRCLR $0030,X,#$80,L7B79",R,0x3030,HC11_REG,SENSOR_ADC,YES,MEDIUM,bit,0x80,bit test 0x80,X=0x3000,L7B6D,mainline/unknown,0x797A,,ADCTL A/D control | indexed_resolved,high
+0x7B7E,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L3031,R,0x3031,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7B6D,mainline/unknown,0x797A,,ADR1 A/D result 1,high
+0x7B81,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,ADDB L3032,R,0x3032,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,ADDB,,L7B6D,mainline/unknown,0x797A,,ADR2 A/D result 2,high
+0x7B86,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,ADDB L3033,R,0x3033,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,ADDB,,L7B6D,mainline/unknown,0x797A,,ADR3 A/D result 3,high
+0x7B8B,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,ADDB L3034,R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,ADDB,,L7B6D,mainline/unknown,0x797A,,ADR4 A/D result 4,high
+0x7BAA,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L082E,R,0x082E,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7BA7,mainline/unknown,0x79F2,,MAP A/D,high
+0x7BB7,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L4E69,R,0x4E69,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7BA7,mainline/unknown,0x79F2,,MAP DEFAULT COEF,high
+0x7BBA,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7BA7,mainline/unknown,0x79F2,,%TPS,high
+0x7BD4,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L4E68,R,0x4E68,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L7BA7,mainline/unknown,0x79F2,RUN,90.8 Kpa DEFAULT MAP IF NOT RUNNING,high
+0x7BD9,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L4E68,R,0x4E68,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7BA7,mainline/unknown,0x79F2,RUN,90.8 Kpa DEFAULT MAP IF NOT RUNNING,high
+0x7BDC,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L4138,R,0x4138,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7BA7,mainline/unknown,0x79F2,,94% COEF TRANSIENT MAP,high
+0x7BDF,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BRSET L0047,#$01,L7BE6",R,0x0047,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x01,bit test 0x01,,L7BA7,mainline/unknown,0x79F2,,"BR IF b0, TRANSIENT MAP FILTER",high
+0x7BE3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L4137,R,0x4137,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7BA7,mainline/unknown,0x79F2,,25% COEF NORMAL MAP,high
+0x7BE6,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDX L01C3,R,0x01C3,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,L7BA7,mainline/unknown,0x79F2,,GET OLD TRANS MAP,high
+0x7BEC,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L01C3,W,0x01C3,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,L7BA7,mainline/unknown,0x79F2,,SAVE FILTERED MAP,high
+0x7BF2,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L01C6,W,0x01C6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L7BA7,mainline/unknown,0x79F2,,CURRENT MAP VAL,high
+0x7DD2,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L413A,R,0x413A,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L7D4B,mainline/unknown,0x7A19,,100 RPM DIFF FOR TRANSIENT MAP,high
+0x7DDF,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01C5,R,0x01C5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,,GET OLD TRANSIENT MAP APPLY TIMER,high
+0x7DE7,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L4139,R,0x4139,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,,800 Msec TRANSIENT MAP APPLY TIME,high
+0x7DEA,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAB L01C5,W,0x01C5,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,B,,L7D4B,mainline/unknown,0x7A19,,SAVE NEW TRANSIENT MAP APPLY TIMER,high
+0x7DEF,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L0047,W,0x0047,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L7D4B,mainline/unknown,0x7A19,,TRANSIENT MAP APPLY TIMER FLAG,high
+0x7DF1,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,,%TPS,high
+0x7DFA,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BRSET L0098,#$01,L7E03",R,0x0098,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x01,bit test 0x01,,L7D4B,mainline/unknown,0x7A19,,"BR IF b0, (XMISH TPS ERR)",high
+0x7DFE,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L01D9,W,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L7D4B,mainline/unknown,0x7A19,,%TPS,high
+0x7E03,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L5B23,R,0x5B23,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,,48 A/D TPS COUNTS DEFAULT,high
+0x7E06,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L01D9,W,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L7D4B,mainline/unknown,0x7A19,,%TPS,high
+0x7E1D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L7D4B,mainline/unknown,0x7A19,,o2 VOLTS * 226 (A/D RESULT),high
+0x7E25,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L7D4B,mainline/unknown,0x7A19,,o2 VOLTS * 226 (A/D RESULT),high
+0x7E2A,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,,NEW o2 VOLTS * 226 (A/D RESULT),high
+0x7E40,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01C6,R,0x01C6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,,CURRENT MAP VAL,high
+0x7E57,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,GET CURRENT MAP VALUE,high
+0x7E5A,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L01C7,W,0x01C7,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,OLD MAP,high
+0x7E5D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,TPS,high
+0x7E63,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L01DC,W,0x01DC,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,OLD TPS,high
+0x7E75,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0055,R,0x0055,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,BATTERY VOLTS * 10,high
+0x7E8D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,COOLANT,high
+0x7EB3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,GET CURRENT MAP VALUE,high
+0x7EB6,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,SUBD L01C7,R,0x01C7,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,SUBD,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,OLD MAP,high
+0x7ECB,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,%TPS,high
+0x7ECE,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L48C1,R,0x48C1,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,"IF TPS G.T. 14.8%, MULT L48AE & L48AF BY 2",high
+0x7EE4,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,%TPS,high
+0x7EE7,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L48C2,R,0x48C2,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,"IF TPS G.T. 44.9%, DIFF MAP A.E. MULT * 2",high
+0x7F21,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,%TPS,high
+0x7F24,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,SUBA L01DC,R,0x01DC,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,OLD TPS,high
+0x7F35,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L48C3,R,0x48C3,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L7D4B,mainline/unknown,0x7A19,ACELL|FUEL_CALC,IF DIFF TPS G.T. 2% DIFF MAP ACELL ENRICH IS X2,high
+0x7F4D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L48C4,R,0x48C4,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,ACELL|FUEL_CALC,"IF MPH L.T. L48C3, Acell Enr = TPS AE * 1.1",high
+0x7F77,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01E5,R,0x01E5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,ACELL|FUEL_CALC,ACCEL ENRICH DIFF TPS COEF,high
+0x7F7A,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,%TPS,high
+0x7F7D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDX L01DC,R,0x01DC,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,OLD TPS,high
+0x7F86,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,GET CURRENT MAP VALUE,high
+0x7F92,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,%TPS,high
+0x7FAD,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BSET L004F,#$08",RMW,0x004F,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x08,set 0x08,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,"SET b3, OPEN TPS VE FLAG",high
+0x7FC3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BRCLR L004F,#$08,L7FD5",R,0x004F,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x08,bit test 0x08,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,"BR IF NOT b3, OPEN TPS VE FLAG",high
+0x7FD2,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BCLR L004F,#$08",RMW,0x004F,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x08,clear 0x08,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,"CLR b3, OPEN TPS VE FLAG",high
+0x7FD8,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDD L0257,R,0x0257,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,CURRENT MAP VALUE,high
+0x807B,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L7D4B,mainline/unknown,0x7A19,FUEL_CALC,%TPS,high
+0x8175,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L80FC,mainline/unknown,0x8235;0x82E2,FUEL_CALC,COOL VALUE,high
+0x8193,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L80FC,mainline/unknown,0x8235;0x82E2,FUEL_CALC,%TPS,high
+0x81C4,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L80FC,mainline/unknown,0x8235;0x82E2,FUEL_CALC,GET CURRENT MAP VALUE,high
+0x825E,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,SUBA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,L824D,mainline/unknown,0x817C,FUEL_CALC,%TPS,high
+0x8266,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L082B,W,0x082B,EXT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L824D,mainline/unknown,0x817C,FUEL_CALC,DIFF %TPS,high
+0x8274,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L082B,R,0x082B,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L824D,mainline/unknown,0x817C,FUEL_CALC,DIFF %TPS,high
+0x8277,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L4936,R,0x4936,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L824D,mainline/unknown,0x817C,DECEL|FUEL_CALC,NEG 1.2% DIFF TPS NEG ENABLE DECEL ENLEAN,high
+0x8288,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,SUBA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,L824D,mainline/unknown,0x817C,FUEL_CALC,GET CURRENT MAP VALUE,high
+0x82A2,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L082B,R,0x082B,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L824D,mainline/unknown,0x817C,FUEL_CALC,DIFF %TPS,high
+0x82F4,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L82ED,mainline/unknown,0x8238,FUEL_CALC,%TPS,high
+0x82F7,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L48DB,R,0x48DB,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L82ED,mainline/unknown,0x8238,FUEL_CALC,"0%, TPS MAX FOR DERIVITVE RPM CALC",high
+0x8304,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L82ED,mainline/unknown,0x8238,FUEL_CALC,COOL VALUE,high
+0x836F,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0055,R,0x0055,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L82ED,mainline/unknown,0x8238,FUEL_CALC,BATTERY VOLTS * 10,high
+0x8412,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"LDD 4,X",R,0x4930,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,16,,memory,X=0x492C,L82ED,mainline/unknown,0x8238,FUEL_CALC,MAP & RPM Limits | indexed_resolved,high
+0x841B,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L82ED,mainline/unknown,0x8238,FUEL_CALC,GET CURRENT MAP VALUE,high
+0x85B2,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L85B2,mainline/unknown,0x7E66,,COOL VALUE,high
+0x85FB,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L85B2,mainline/unknown,0x7E66,,%TPS,high
+0x8651,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L863D,mainline/unknown,0x8530,,o2 VOLTS * 226 (A/D RESULT),high
+0x86BA,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L863D,mainline/unknown,0x8530,,o2 VOLTS * 226 (A/D RESULT),high
+0x86C7,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L863D,mainline/unknown,0x8530,,o2 VOLTS * 226 (A/D RESULT),high
+0x86CC,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L863D,mainline/unknown,0x8530,,o2 VOLTS * 226 (A/D RESULT),high
+0x8751,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L863D,mainline/unknown,0x8530,,GET CURRENT MAP VALUE,high
+0x8754,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L490B,R,0x490B,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L863D,mainline/unknown,0x8530,DECEL,20 Kpa CLSD LP LEAN DECEL MAP THRESH,high
+0x8825,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8790,mainline/unknown,0x8703,,GET CURRENT MAP VALUE,high
+0x8931,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,CURRENT COOL VALUE,high
+0x8933,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L48D1,R,0x48D1,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L891E,mainline/unknown,0x853F,,"IF COOL L.T. -40 c, USE TBL L4BBA",high
+0x8942,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,GET CURRENT MAP VALUE,high
+0x8947,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,COOL VALUE,high
+0x89A3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,%TPS,high
+0x89B6,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,COOL VALUE,high
+0x89B8,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L48E2,R,0x48E2,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L891E,mainline/unknown,0x853F,IDLE,"50c COOL, OPEN LP IDLE TEMP THRES",high
+0x8A30,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,COOLANT,high
+0x8A32,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L48E4,R,0x48E4,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L891E,mainline/unknown,0x853F,IDLE,"-40c  COOL, OPEN LP RICH IDLE PK/NEUT",high
+0x8A37,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L48E5,R,0x48E5,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L891E,mainline/unknown,0x853F,IDLE,"29.8c COOL, OPEN LP RICH IDLE PK/NEUT",high
+0x8A72,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,COOL TEMP,high
+0x8A74,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L4961,R,0x4961,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L891E,mainline/unknown,0x853F,CRANK|RUN,"-40 C, CRANK TO RUN AFR DECAY COOL ADD OR SUB",high
+0x8A95,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L4921,R,0x4921,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L891E,mainline/unknown,0x853F,,IF L.T. 0 MPH &  TPS L.T.,high
+0x8A9A,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,%TPS,high
+0x8A9D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L4922,R,0x4922,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L891E,mainline/unknown,0x853F,,0% TPS PWR ENR THRESH,high
+0x8AC3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L01E0,W,0x01E0,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L891E,mainline/unknown,0x853F,,SAVE HIGH TPS WOT TPS THRESH,high
+0x8AD9,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L01E2,W,0x01E2,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L891E,mainline/unknown,0x853F,,TPS% THRESH FOR WOT ENABLE,high
+0x8AE1,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,SUBB L4917,R,0x4917,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,SUBB,,L891E,mainline/unknown,0x853F,,10% TPS FOR PE TBL TPBL L4C53 (WOT THRESH TBL),high
+0x8AE7,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L891E,mainline/unknown,0x853F,,%TPS,high
+0x8B05,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,COOL VALUE,high
+0x8B07,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L4916,R,0x4916,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L891E,mainline/unknown,0x853F,,"IF COOL G.T. 105 DEG c, BYPASS PE DELAY",high
+0x8B0C,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPB L4915,R,0x4915,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L891E,mainline/unknown,0x853F,,"IF COOL E.Q. or L.T. 55 DEG c, BYPASS PE DELAY",high
+0x8B1B,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L891E,mainline/unknown,0x853F,,%TPS,high
+0x8B7E,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8B56,mainline/unknown,0x8C15,,COOL VALUE,high
+0x8B80,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L491E,R,0x491E,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8B56,mainline/unknown,0x8C15,,DISABLE PWR ENR RAMP IF COOL G.T. 105,high
+0x8B85,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L4915,R,0x4915,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8B56,mainline/unknown,0x8C15,,"IF COOL E.Q. or L.T. 55 DEG c, BYPASS PE DELAY",high
+0x8B8A,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8B56,mainline/unknown,0x8C15,,%TPS,high
+0x8B8D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01E0,R,0x01E0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8B56,mainline/unknown,0x8C15,,SAVE HIGH TPS WOT TPS THRESH,high
+0x8B92,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,SUBA L01E2,R,0x01E2,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,L8B56,mainline/unknown,0x8C15,,TPS% THRESH FOR WOT ENABLE,high
+0x8B9B,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01E0,R,0x01E0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8B56,mainline/unknown,0x8C15,,SAVE HIGH TPS WOT TPS THRESH,high
+0x8B9E,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,SUBA L01E2,R,0x01E2,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,L8B56,mainline/unknown,0x8C15,,TPS% THRESH FOR WOT ENABLE,high
+0x8BC1,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8B56,mainline/unknown,0x8C15,,COOL VALUE,high
+0x8BC3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L491C,R,0x491C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8B56,mainline/unknown,0x8C15,,"50c COOL, COLD PWR ENR THRESH",high
+0x8C18,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8BFC,mainline/unknown,0x8AEC;0x8B31,,%TPS,high
+0x8C1B,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01E0,R,0x01E0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8BFC,mainline/unknown,0x8AEC;0x8B31,,SAVE HIGH TPS WOT TPS THRESH,high
+0x8C38,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8BFC,mainline/unknown,0x8AEC;0x8B31,,%TPS,high
+0x8C98,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8C6D,mainline/unknown,0x8A8F,,%TPS,high
+0x8D13,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BRSET 0,Y,#$01,L8D1B",R,0x400E,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,bit,0x01,bit test 0x01,Y=0x400E,L8C6D,mainline/unknown,0x8A8F,,"BR IF b0, USE ALT CMAP vs MAP | indexed_resolved",high
+0x8D18,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8C6D,mainline/unknown,0x8A8F,,GET CURRENT MAP VALUE,high
+0x8D2E,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BRSET 0,X,#$01,L8D35",R,0x400E,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,bit,0x01,bit test 0x01,X=0x400E,L8C6D,mainline/unknown,0x8A8F,,"BR IF	b0,  USE ALT CMAP vs MAP LD & | indexed_resolved",high
+0x8D32,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8C6D,mainline/unknown,0x8A8F,,CURRENT MAP VALUE,high
+0x8D5B,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8C6D,mainline/unknown,0x8A8F,,GET CURRENT MAP VALUE,high
+0x8D5E,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L48F1,R,0x48F1,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8C6D,mainline/unknown,0x8A8F,,26 Kpa Lo  MAP,high
+0x8D65,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L48F2,R,0x48F2,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8C6D,mainline/unknown,0x8A8F,,55 Kpa Mid MAP,high
+0x8D6C,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L48F3,R,0x48F3,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8C6D,mainline/unknown,0x8A8F,,80 Kpa Hi  MAP,high
+0x8DA5,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8D73,mainline/unknown,0x8CC8,,%TPS,high
+0x8DFA,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L48C9,R,0x48C9,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8D73,mainline/unknown,0x8CC8,,6.3% TPS FILTER COEF,high
+0x8DFD,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDX L01DE,R,0x01DE,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,L8D73,mainline/unknown,0x8CC8,,GET OLD TPS,high
+0x8E00,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8D73,mainline/unknown,0x8CC8,,%TPS,high
+0x8E06,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L01DE,W,0x01DE,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,L8D73,mainline/unknown,0x8CC8,,SAVE FILT TPS,high
+0x8E0F,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8D73,mainline/unknown,0x8CC8,,GET CURRENT MAP VALUE,high
+0x8EAD,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8E9F,mainline/unknown,0x8E68,,o2 VOLTS * 226 (A/D RESULT),high
+0x8EC5,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L0299,W,0x0299,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0xFF,,L8EB4,mainline/unknown,0x8544,,DESIRED GOVENERING TPS TO BE OUTPUT,high
+0x8F04,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L50E1,R,0x50E1,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8EB4,mainline/unknown,0x8544,,"0 %TPS,",high
+0x8F07,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L8EB4,mainline/unknown,0x8544,,%TPS,high
+0x8F0C,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8EB4,mainline/unknown,0x8544,,%TPS,high
+0x8F45,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8EB4,mainline/unknown,0x8544,,%TPS,high
+0x8F62,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0299,R,0x0299,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L8EB4,mainline/unknown,0x8544,,DESIRED GOVENERING TPS TO BE OUTPUT,high
+0x9033,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L9010,mainline/unknown,0x8F5C,,%TPS,high
+0x9038,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9010,mainline/unknown,0x8F5C,,%TPS,high
+0x904A,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0299,R,0x0299,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9010,mainline/unknown,0x8F5C,,DESIRED GOVENERING TPS TO BE OUTPUT,high
+0x9068,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9010,mainline/unknown,0x8F5C,,COOL VALUE,high
+0x90B7,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L0299,W,0x0299,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L9097,mainline/unknown,0x8FF5;0x900D,,DESIRED GOVENERING TPS TO BE OUTPUT,high
+0x90D3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L0299,R,0x0299,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L90D3,mainline/unknown,0x7E3D,,DESIRED GOVENERING TPS TO BE OUTPUT,high
+0x90D6,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,SUBB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,SUBB,,L90D3,mainline/unknown,0x7E3D,,%TPS,high
+0x90DC,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAB L029A,W,0x029A,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,B,,L90D3,mainline/unknown,0x7E3D,,%TPS ERROR,high
+0x90E2,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L029A,R,0x029A,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L90D3,mainline/unknown,0x7E3D,,%TPS ERROR,high
+0x90E8,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L029A,R,0x029A,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L90D3,mainline/unknown,0x7E3D,,%TPS ERROR,high
+0x90FB,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L029A,R,0x029A,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L90D3,mainline/unknown,0x7E3D,,%TPS ERROR,high
+0x9101,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L029A,R,0x029A,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L90D3,mainline/unknown,0x7E3D,,%TPS ERROR,high
+0x9109,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0299,R,0x0299,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L90D3,mainline/unknown,0x7E3D,,DESIRED GOVENERING TPS TO BE OUTPUT,high
+0x910C,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L90D3,mainline/unknown,0x7E3D,,%TPS,high
+0x91B8,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BSET L003E,#$04",RMW,0x003E,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x04,set 0x04,,L91A3,mainline/unknown,0x7B6D,IDLE_IAC,"SET b2, LOW BATTERY",high
+0x91BD,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BCLR L003E,#$04",RMW,0x003E,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x04,clear 0x04,,L91A3,mainline/unknown,0x7B6D,IDLE_IAC,"CLR b2, LOW BATTERY",high
+0x922D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,ADDA L50D5,R,0x50D5,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,ADDA,,L9226,mainline/unknown,0x9FDB,IDLE_IAC,A/D TPS COMP FOR TPS OFFSET WHEN TPS RE-ENABLED,high
+0x9230,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L02F6,W,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L9226,mainline/unknown,0x9FDB,IDLE_IAC,FILT TPS (XMISH),high
+0x9251,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L3008,R,0x3008,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9250,mainline/unknown,0x9973,IDLE_IAC,PORTE / ADC input port | CPU PORT D,high
+0x928D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L925E,mainline/unknown,0x73DB,IDLE_IAC,COOL VALUE,high
+0x928F,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L50C7,R,0x50C7,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L925E,mainline/unknown,0x73DB,IDLE_IAC,54.5c COOL THRESH MAX FOR THROT KICKER,high
+0x92A4,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L92A4,mainline/unknown,0x926F;0x93F6,IDLE_IAC,COOL VALUE,high
+0x9347,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L92F1,mainline/unknown,0x9276,IDLE_IAC,COOL VALUE,high
+0x9411,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L93D0,mainline/unknown,0x7A39,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c),high
+0x941D,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L93D0,mainline/unknown,0x7A39,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c),high
+0x9429,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L4EB8,R,0x4EB8,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L93D0,mainline/unknown,0x7A39,IDLE_IAC,23% FLOW ADDED AFTER START UP (REPLACE'S TPS),high
+0x9435,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L93D0,mainline/unknown,0x7A39,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c),high
+0x94B5,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L93D0,mainline/unknown,0x7A39,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c),high
+0x94C5,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L93D0,mainline/unknown,0x7A39,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c),high
+0x94D5,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L93D0,mainline/unknown,0x7A39,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c),high
+0x9517,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L93D0,mainline/unknown,0x7A39,IDLE_IAC,COOL VALUE,high
+0x9561,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9537,mainline/unknown,0x940E,IDLE_IAC,COOL VALUE,high
+0x9563,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,CMPA L4F29,R,0x4F29,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L9537,mainline/unknown,0x940E,IDLE_IAC,"-40c, COOL THRESH FOR ADDED TIME TO",high
+0x9569,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,ADDA L4F2A,R,0x4F2A,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,ADDA,,L9537,mainline/unknown,0x940E,IDLE_IAC,0  Msec ADD'NL DELAY IF IN DRIVE & COOL LO,high
+0x956C,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,ADDB L4F2B,R,0x4F2B,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,ADDB,,L9537,mainline/unknown,0x940E,IDLE_IAC,"0  Sec's, ADD'NL DELAY IF DRIVE & COOL LO",high
+0x9583,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9537,mainline/unknown,0x940E,IDLE_IAC,COOL VALUE,high
+0x958B,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,ADDA L4F2C,R,0x4F2C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,ADDA,,L9537,mainline/unknown,0x940E,IDLE_IAC,0 msec'S Add'nl DELAY IF PK/NEUT & COOL LOW,high
+0x958E,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,ADDB L4F2D,R,0x4F2D,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,ADDB,,L9537,mainline/unknown,0x940E,IDLE_IAC,0 Sec's  Add'nl DELAY IF PK/NEUT & COOL LOW,high
+0x96E7,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0884,R,0x0884,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9537,mainline/unknown,0x940E,IDLE_IAC,FILTERED TPS DELAY TMR,high
+0x96ED,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L0884,W,0x0884,EXT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L9537,mainline/unknown,0x940E,IDLE_IAC,FILTERED TPS DELAY TMR,high
+0x97BD,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9537,mainline/unknown,0x940E,IDLE_IAC,%TPS,high
+0x9870,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L50C9,R,0x50C9,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L983D,mainline/unknown,0x952E,IDLE_IAC,"50% FACTOR, TPS KICKER",high
+0x98A3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L989C,mainline/unknown,0x9EA0,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c),high
+0x9903,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L989C,mainline/unknown,0x9EA0,IDLE_IAC,COOL VALUE,high
+0x99E2,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L99C5,mainline/unknown,0x9749,IDLE_IAC,%TPS,high
+0x9A47,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"BRSET L003E,#$04,L9A58",R,0x003E,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x04,bit test 0x04,,L99C5,mainline/unknown,0x9749,IDLE_IAC,"BR IF b2, LOW BATTERY",high
+0x9AE8,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L99C5,mainline/unknown,0x9749,IDLE_IAC,COOL VALUE,high
+0x9CFD,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,%TPS,high
+0x9D0D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L506E,R,0x506E,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,MAX PK/NEUT TPS FOR T/F,high
+0x9D25,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L0884,W,0x0884,EXT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,FILTERED TPS DELAY TMR,high
+0x9D29,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L506F,R,0x506F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,50.0% MAX DRIVE TPS FOR T/F,high
+0x9D33,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L0884,R,0x0884,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,FILTERED TPS DELAY TMR,high
+0x9D57,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,GET CURRENT MAP VALUE,high
+0x9D5A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L5088,R,0x5088,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,"60 Kpa, MIN MAP FOR MOD'ING FILT COEF",high
+0x9D74,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L0282,R,0x0282,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,START UP COOL,high
+0x9D77,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L509A,R,0x509A,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,"15 Deg c, START UP COOL FOR COLD ENG MODE",high
+0x9D7C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L509B,R,0x509B,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,"15 Deg c, START UP COOL FOR COLD ENG MODE",high
+0x9D91,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,TST L0884,R,0x0884,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,TST,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,FILTERED TPS DELAY TMR,high
+0x9DAA,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c,high
+0x9E3A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9CFD,mainline/unknown,0xA2B7,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c,high
+0x9F0D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L02F6,R,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9E99,mainline/unknown,0x7B21,IDLE_IAC,FILT TPS (XMISH),high
+0x9F1A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9E99,mainline/unknown,0x7B21,IDLE_IAC,COOL VALUE,high
+0x9F1C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L50C7,R,0x50C7,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L9E99,mainline/unknown,0x7B21,IDLE_IAC,55c COOL THRESH MAX FOR THROT KICKER,high
+0x9F64,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9E99,mainline/unknown,0x7B21,IDLE_IAC,%TPS,high
+0x9F67,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L50CB,R,0x50CB,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,L9E99,mainline/unknown,0x7B21,IDLE_IAC,9.7% TPS MAX FOR THROT KICKER,high
+0x9F96,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L02F6,R,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9F89,mainline/unknown,0x9F04,IDLE_IAC,FILT TPS (XMISH),high
+0x9FCB,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9F89,mainline/unknown,0x9F04,IDLE_IAC,%TPS,high
+0xA049,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,L9FDE,mainline/unknown,0x9F46,IDLE_IAC,RANGE LMT'ED COOL (-28 - 104c),high
+0xA0DE,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA0D8,mainline/unknown,0x9FE6,IDLE_IAC,COOL VALUE,high
+0xA0E0,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4FBF,R,0x4FBF,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA0D8,mainline/unknown,0x9FE6,IDLE|IDLE_IAC,"85c COOL, LOW THRESH FOR WARM IDLE",high
+0xA0E5,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4FC0,R,0x4FC0,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA0D8,mainline/unknown,0x9FE6,IDLE|IDLE_IAC,"100c COOL, Hi  THRESH FOR WARM IDLE",high
+0xA15E,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR L003E,#$04,LA165",R,0x003E,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x04,bit test 0x04,,LA0D8,mainline/unknown,0x9FE6,IDLE_IAC,"BR IF NOT b2, LOW BATTERY",high
+0xA374,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L02B1,R,0x02B1,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA2B0,mainline/unknown,0x7B32,IDLE_IAC,TPS A/D,high
+0xA377,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,SUBA L02B2,R,0x02B2,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,LA2B0,mainline/unknown,0x7B32,IDLE_IAC,OLD TPS A/D,high
+0xA37C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L50D6,R,0x50D6,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA2B0,mainline/unknown,0x7B32,IDLE_IAC,A/D TPS MIN DIFF FOR ENABLE,high
+0xA3A7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRSET L0016,#$01,LA3E0",R,0x0016,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x01,bit test 0x01,,LA2B0,mainline/unknown,0x7B32,IDLE_IAC,"BR IF b0, ERR 21, HI TPS",high
+0xA3AF,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRSET L003E,#$04,LA3E0",R,0x003E,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x04,bit test 0x04,,LA2B0,mainline/unknown,0x7B32,IDLE_IAC,"BR IF b2, LOW BATTERY",high
+0xA496,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L01C0,W,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0xFF,,LA466,mainline/unknown,0x79FC,,GET CURRENT MAP VALUE,high
+0xA4BD,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L082E,R,0x082E,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA466,mainline/unknown,0x79FC,,MAP A/D,high
+0xA4C0,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4E64,R,0x4E64,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA466,mainline/unknown,0x79FC,,"24.4 Kpa MAP Lmt, ERR 34, (LO MAP)",high
+0xA4CF,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4E65,R,0x4E65,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA466,mainline/unknown,0x79FC,,"1200 RPM Max Lmt, ERR 34, (LO MAP)",high
+0xA4D4,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA466,mainline/unknown,0x79FC,,"%TPS, ERR 34, (LO MAP)",high
+0xA689,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,GET CURRENT MAP VALUE,high
+0xA706,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,GET CURRENT MAP VALUE,high
+0xA70F,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR L0050,#$40,LA716",R,0x0050,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x40,bit test 0x40,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,"BR IF NOT b6, OPEN TPS SPK",high
+0xA716,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,GET CURRENT MAP VALUE,high
+0xA737,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,GET CURRENT MAP VALUE,high
+0xA73C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,COOL VALUE,high
+0xA752,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,COOL VALUE,high
+0xA759,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L413C,R,0x413C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,20 DEG  COOLANT SPK BIAS,high
+0xA77D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,GET CURRENT MAP VALUE,high
+0xA7F9,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,SUBB L413C,R,0x413C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,SUBB,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,20 Deg  COOLANT SPK BIAS,high
+0xA81E,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,GET CURRENT MAP VALUE,high
+0xA862,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L415B,R,0x415B,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,IDLE|SPARK_CALC,1.9% TPS MAX FOR IDLE SPK,high
+0xA865,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR L0050,#$40,LA86C",R,0x0050,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x40,bit test 0x40,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,"BR IF NOT b6, OPEN TPS SPK",high
+0xA869,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L415C,R,0x415C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,IDLE|SPARK_CALC,1.5% TPS MAX FOR IDLE SPK,high
+0xA86C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,%TPS,high
+0xA873,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,COOL VALUE,high
+0xA8B1,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BCLR L0050,#$40",RMW,0x0050,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x40,clear 0x40,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,"CLR b6, OPEN TPS SPK6,",high
+0xA8C2,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,GET CURRENT MAP VALUE,high
+0xA903,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BSET L0050,#$40",RMW,0x0050,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x40,set 0x40,,LA59B,mainline/unknown,0xA53D,SPARK_CALC,"SET b6, OPEN TPS SPK",high
+0xA906,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,COOL VALUE,high
+0xA908,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L46F2,R,0x46F2,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,-40c COOL,high
+0xA90D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L46F3,R,0x46F3,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,-40c COOL,high
+0xA931,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,%TPS,high
+0xA98F,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,SUBA L413C,R,0x413C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,20 DEG  COOLANT SPK BIAS,high
+0xA9AA,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,%TPS,high
+0xA9F2,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,COOL VALUE,high
+0xA9F4,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4161,R,0x4161,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,151c COOL THRESH FOR PWR STEER SPK,high
+0xA9F9,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,%TPS,high
+0xAA00,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4164,R,0x4164,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,0% TPS THRESH FOR SETTING PWR STEER SPK ADV,high
+0xAA07,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4165,R,0x4165,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,0% TPS THRESH FOR EXITING PWR STEER SPK,high
+0xAA3E,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,COOLANT VALUE,high
+0xAA40,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L45DA,R,0x45DA,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,35 c MIN COOL FOR SPK RETARD,high
+0xAA5E,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,GET CURRENT MAP VALUE,high
+0xAA61,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L46DF,R,0x46DF,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,50 Kpa MAX MAP FOR BURST KNK RETARD,high
+0xAA66,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,%TPS,high
+0xAA69,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L46E0,R,0x46E0,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,14.8% TPS MAX TPS FOR BURST KNK RETARD,high
+0xAA73,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L46E1,R,0x46E1,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,4.2% DIFF TPS MIN FOR BURST KNK RETARD,high
+0xAA93,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,COOLANT VALUE,high
+0xAA95,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L45DA,R,0x45DA,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,35 c MIN COOL FOR SPK RETARD,high
+0xAAFB,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LA906,mainline/unknown,0xA8B4,SPARK_CALC,%TPS,high
+0xACE6,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LACA7,mainline/unknown,0x7B27,,COOL VALUE,high
+0xACF7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LACA7,mainline/unknown,0x7B27,,%TPS,high
+0xAD5A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LAD4D,mainline/unknown,0xACD0,,%TPS,high
+0xADCA,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,SUBB L515B,R,0x515B,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,SUBB,,LADAA,mainline/unknown,0x7AB3,,... TPS HYST FOR COAST 1 & 2,high
+0xADD0,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LADAA,mainline/unknown,0x7AB3,,TPS; %TPS,high
+0xADE7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LADAA,mainline/unknown,0x7AB3,,COOL VALUE,high
+0xADEE,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LADAA,mainline/unknown,0x7AB3,,%TPS,high
+0xADF7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L515C,R,0x515C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LADAA,mainline/unknown,0x7AB3,,0 NEG DIFF TPS UN-LK LMT,high
+0xADFC,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L515D,R,0x515D,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LADAA,mainline/unknown,0x7AB3,,0% POS DIFF TPS UN-LK LM,high
+0xAE33,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LADAA,mainline/unknown,0x7AB3,,%TPS,high
+0xAE55,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LADAA,mainline/unknown,0x7AB3,,%TPS,high
+0xB036,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01A1,R,0x01A1,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB018,mainline/unknown,0xAE88,,A/D VALUE,high
+0xB0BE,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,JSR LE7C7,EXEC,0xE7C7,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,LB089,mainline/unknown,0xAE8B,,HIGH TPS ERR 21 HANDLER,high
+0xB0C1,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,JSR LE808,EXEC,0xE808,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,LB089,mainline/unknown,0xAE8B,,"LOW TPS, ERR 22 HANDLER",high
+0xB0EB,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR $2B,X,#$01,LB0F8",R,0x5B2B,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,bit,0x01,bit test 0x01,X=0x5B00,LB0E4,mainline/unknown,0x73ED;0xC4E5,,"($5B2B), BR IF b0, HIGH TPS | indexed_resolved",high
+0xB0EF,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRSET $34,X,#$01,LB0F8",R,0x5B34,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,bit,0x01,bit test 0x01,X=0x5B00,LB0E4,mainline/unknown,0x73ED;0xC4E5,,"($5B34), BR IF b0, HIGH TPS | indexed_resolved",high
+0xB116,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L00A6,R,0x00A6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,TPS A/D,high
+0xB118,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L02F6,R,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,OLD FILT TPS (XMISH),high
+0xB11F,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDX L02F6,R,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,FILT TPS (XMISH),high
+0xB129,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L02F6,W,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,SAVE FILT tps A/D VALUE,high
+0xB147,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L5B2A,R,0x5B2A,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LB0E4,mainline/unknown,0x73ED;0xC4E5,DECEL,5 MPH VSS TO QULIFY DECEL for TPS	INCREASE,high
+0xB14C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L02F6,R,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,FILT TPS (XMISH),high
+0xB14F,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,ADDA L5B29,R,0x5B29,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,ADDA,,LB0E4,mainline/unknown,0x73ED;0xC4E5,DECEL,TPS OFFSET INCR for EACH DECEL,high
+0xB152,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L5B24,R,0x5B24,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LB0E4,mainline/unknown,0x73ED;0xC4E5,IDLE,"TPS MIN BIN VAL, (IDLE)",high
+0xB157,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L5B24,R,0x5B24,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB0E4,mainline/unknown,0x73ED;0xC4E5,IDLE,"TPS MIN BIN VAL, (IDLE)",high
+0xB15A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L02F6,W,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,FILT TPS (XMISH),high
+0xB16A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDD L01A6,R,0x01A6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,TPS FOR ENGINE,high
+0xB172,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L5B22,R,0x5B22,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,"35% DEFAULT TPS, (ERR E22/23)",high
+0xB178,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDX L00B0,R,0x00B0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,GET OLD TPS,high
+0xB17A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L5B28,R,0x5B28,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,4.5 msec TPS FILTER TIME CONST,high
+0xB180,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L00B0,W,0x00B0,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,LB0E4,mainline/unknown,0x73ED;0xC4E5,,SAVE FILTERED TPS,high
+0xB193,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L5D22,R,0x5D22,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB182,mainline/unknown,0xB111,,85.9% TPS kick down thresh,high
+0xB19A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L5D21,R,0x5D21,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB182,mainline/unknown,0xB111,,87.0% TPS kick down thres,high
+0xB1AC,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L00A6,R,0x00A6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB1AC,mainline/unknown,0x73EA,,TPS A/D,high
+0xB1AE,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L02F6,R,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LB1AC,mainline/unknown,0x73EA,,FILT TPS (XMISH),high
+0xB1B5,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDX L02F6,R,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,LB1AC,mainline/unknown,0x73EA,,FILT TPS (XMISH),high
+0xB1BF,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L02F6,W,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,LB1AC,mainline/unknown,0x73EA,,FILT TPS (XMISH),high
+0xB1C2,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L5B24,R,0x5B24,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LB1AC,mainline/unknown,0x73EA,IDLE,"TPS MIN BIN VAL, (IDLE)",high
+0xB1C7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L5B24,R,0x5B24,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB1AC,mainline/unknown,0x73EA,IDLE,"TPS MIN BIN VAL, (IDLE)",high
+0xB1CB,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STD L02F6,W,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,16,,D,,LB1AC,mainline/unknown,0x73EA,,FILT TPS (XMISH),high
+0xB1CF,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDD L02F6,R,0x02F6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,16,,memory,,LB1CF,mainline/unknown,0x7DF7,,FILT TPS (XMISH),high
+0xB1D6,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L00A6,R,0x00A6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB1CF,mainline/unknown,0x7DF7,,TPS A/D,high
+0xB1DC,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L5B26,R,0x5B26,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LB1CF,mainline/unknown,0x7DF7,,0.55%/CNT TPS GAIN,high
+0xB1EC,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L01A6,W,0x01A6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0xFF,,LB1CF,mainline/unknown,0x7DF7,,TPS FOR ENGINE,high
+0xC57A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,JSR LF25F,EXEC,0xF25F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,LC56F,mainline/unknown,0x7190;0x7AA6;0x7E72,,A/D CNT'L MODE,high
+0xC57D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAB $34,X",R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LC56F,mainline/unknown,0x7190;0x7AA6;0x7E72,,ADR4 A/D result 4 | READ A/D CH | indexed_resolved,high
+0xC580,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAB L0055,W,0x0055,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,B,,LC56F,mainline/unknown,0x7190;0x7AA6;0x7E72,,BATTERY VOLTS * 10,high
+0xC595,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,JSR LF25F,EXEC,0xF25F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,LC583,mainline/unknown,0x7AAD,,A/D CNT'L MODE,high
+0xC599,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA $34,X",R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LC583,mainline/unknown,0x7AAD,,ADR4 A/D result 4 | GET A/D VAL FM ADR4 | indexed_resolved,high
+0xC59B,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L02F3,W,0x02F3,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LC583,mainline/unknown,0x7AAD,,BARO A/D,high
+0xC5BD,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L4E68,R,0x4E68,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LC583,mainline/unknown,0x7AAD,RUN,90.8 Kpa DEFAULT MAP IF NOT RUNNING,high
+0xC5CE,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC583,mainline/unknown,0x7AAD,,COOL VALUE,high
+0xC5D5,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC583,mainline/unknown,0x7AAD,,%TPS,high
+0xC5E3,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4157,R,0x4157,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LC583,mainline/unknown,0x7AAD,,3.1% DIFF TPS MIN FOR BARO UP-DATE,high
+0xC5F5,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC583,mainline/unknown,0x7AAD,,%TPS,high
+0xC606,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L02F3,W,0x02F3,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0xFF,,LC583,mainline/unknown,0x7AAD,,"ADBARO, BARO A/D",high
+0xC609,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L4158,R,0x4158,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC583,mainline/unknown,0x7AAD,,50% BARO A/D FILT COEF,high
+0xC619,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L4E68,R,0x4E68,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC614,mainline/unknown,0x73B0,RUN,90.8 Kpa DEFAULT MAP IF NOT RUNNING,high
+0xC61D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L02F3,W,0x02F3,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LC614,mainline/unknown,0x73B0,,"A/D BARO, BARO A/D",high
+0xC6A5,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L02F3,R,0x02F3,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC668,mainline/unknown,0x7AB0,,"ADBARO, BARO A/D",high
+0xC844,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LC6BB,mainline/unknown,0x7B10,,GET CURRENT MAP VALUE,high
+0xC8D6,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L00A5,R,0x00A5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC8D6,mainline/unknown,0x7ADA,,A/D COOL VALUE,high
+0xC8E8,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA 0,X",R,"0,X",UNKNOWN_HW,SENSOR_ADC,YES,MEDIUM,8,,memory,X=unknown,LC8D6,mainline/unknown,0x7ADA,,GET COOL VALUE FM TBL | indexed_unresolved,low_unresolved
+0xC948,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L5D36,R,0x5D36,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LC8FD,mainline/unknown,0x7ADD,,IF COOLANT L.T. 10c SET COLD SHIFT,high
+0xC958,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,SUBA L5D36,R,0x5D36,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,LC8FD,mainline/unknown,0x7ADD,,IF COOLANT L.T. 10c SET COLD SHIFT,high
+0xC960,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,SUBA L5D36,R,0x5D36,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,LC8FD,mainline/unknown,0x7ADD,,IF COOLANT L.T. 10c SET COLD SHIFT,high
+0xC9A2,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L0006,W,0x0006,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LC96A,mainline/unknown,0x73BF;0x7AE8,,COOL VALUE,high
+0xC9A8,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L0006,W,0x0006,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LC96A,mainline/unknown,0x73BF;0x7AE8,,COOL VALUE,high
+0xC9AD,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC96A,mainline/unknown,0x73BF;0x7AE8,,COOL VALUE,high
+0xC9BC,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L0283,W,0x0283,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0xC0,,LC96A,mainline/unknown,0x73BF;0x7AE8,,SAVE RANGE LMT'ED COOL (-28 - 104c),high
+0xC9C5,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR $2B,X,#$40,LC9CD",R,0x5B2B,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,bit,0x40,bit test 0x40,X=0x5B00,LC9C0,mainline/unknown,0x7AEB,,"(5B2B),  BR IF NOT b6, (HIGH COOL) | indexed_resolved",high
+0xC9D5,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA $17,X",R,0x5B17,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x5B00,LC9C0,mainline/unknown,0x7AEB,,"(5B17),  90 DEG C DEFAULT COOLANT TEMP | indexed_resolved",high
+0xC9E4,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L5D04,R,0x5D04,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LC9C0,mainline/unknown,0x7AEB,,128c COOL,high
+0xC9F7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC9F7,mainline/unknown,0x73C2;0x7AEE,,RANGE LMT'ED COOL (-28 - 104c,high
+0xCA00,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L01E5,W,0x01E5,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LC9F7,mainline/unknown,0x73C2;0x7AEE,ACELL,ACCEL ENRICH DIFF TPS COEF,high
+0xCA03,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC9F7,mainline/unknown,0x73C2;0x7AEE,,RANGE LMT'ED COOL (-28 - 104c,high
+0xCA13,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC9F7,mainline/unknown,0x73C2;0x7AEE,,COOL VALUE,high
+0xCA22,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC9F7,mainline/unknown,0x73C2;0x7AEE,,COOL VALUE,high
+0xCA24,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L48E3,R,0x48E3,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LC9F7,mainline/unknown,0x73C2;0x7AEE,IDLE,"-10c COOL, OPEN LP RICH IDLE THRESH",high
+0xCA36,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0283,R,0x0283,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC9F7,mainline/unknown,0x73C2;0x7AEE,,RANGE LMT'ED COOL (-28 - 104c,high
+0xCA42,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC9F7,mainline/unknown,0x73C2;0x7AEE,,COOL VALUE,high
+0xCA4C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LC9F7,mainline/unknown,0x73C2;0x7AEE,,COOL VALUE,high
+0xCAA3,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,SUBA L413F,R,0x413F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,LCA6B,mainline/unknown,0x73C5;0x7B24,,0  DEG  BIAS FOR MAP  CORR SA,high
+0xCAB5,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCA6B,mainline/unknown,0x73C5;0x7B24,,COOL VALUE,high
+0xCAB7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPB L45DA,R,0x45DA,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LCA6B,mainline/unknown,0x73C5;0x7B24,,35 c MIN COOL FOR SPK RETARD,high
+0xCB69,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCB4D,mainline/unknown,0xCBF9,,%TPS,high
+0xCBC4,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCB86,mainline/unknown,0xCC21,,COOL VALUE,high
+0xCBEB,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCB86,mainline/unknown,0xCC21,,%TPS,high
+0xCC39,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCC35,mainline/unknown,0x7B44,,COOL VALUE,high
+0xCC3B,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L0282,W,0x0282,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LCC35,mainline/unknown,0x7B44,,START UP COOL,high
+0xCC45,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L01D5,W,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LCC35,mainline/unknown,0x7B44,,o2 VOLTS * 226 (A/D RESULT),high
+0xCCC7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCCC1,mainline/unknown,0x7B48,,o2 VOLTS * 226 (A/D RESULT),high
+0xCCF0,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCCC1,mainline/unknown,0x7B48,,COOL VALUE,high
+0xCE1D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCE10,mainline/unknown,0x7B17,,COOL VALUE,high
+0xCE24,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCE10,mainline/unknown,0x7B17,,GET CURRENT MAP VALUE,high
+0xCE27,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L45B7,R,0x45B7,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCE10,mainline/unknown,0x7B17,,"52 Kpa MAP, MIN FOR LOW OCTANE",high
+0xCE31,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L45B8,R,0x45B8,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCE10,mainline/unknown,0x7B17,,"L.T. or E.Q  Kpa DIFF MAP INCREASE, (LO OCTAINE)",high
+0xCEED,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,JSR LF25F,EXEC,0xF25F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,LCEBB,mainline/unknown,0x7B2B,,A/D CNT'L MODE,high
+0xCEF1,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA $34,X",R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LCEBB,mainline/unknown,0x7B2B,,ADR4 A/D result 4 | A/D RESULT 4 | indexed_resolved,high
+0xCEF3,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4E75,R,0x4E75,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCEBB,mainline/unknown,0x7B2B,,4.5 VDC A/D UPPER VOLTS LMT,high
+0xCEF8,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L4E76,R,0x4E76,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCEBB,mainline/unknown,0x7B2B,,0.390 VDC A/D LOWER VOLT LMT,high
+0xCF20,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0230,R,0x0230,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCF16,mainline/unknown,0x7B2F,,GET A/D INV MAT VAL,high
+0xCF2E,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0282,R,0x0282,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCF16,mainline/unknown,0x7B2F,,START UP COOL,high
+0xCF31,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"CMPA 0,X",R,0x46F9,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,X=0x46F9,LCF16,mainline/unknown,0x7B2F,,20c START UP COOL THRESH TO ENABLE EGR | indexed_resolved,high
+0xCF35,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA 2,X",R,0x46FB,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x46F9,LCF16,mainline/unknown,0x7B2F,,39c COOL THRESH to ENABLE EGR | indexed_resolved,high
+0xCF37,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCF16,mainline/unknown,0x7B2F,,COOL VALUE,high
+0xCF3D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA 1,X",R,0x46FA,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x46F9,LCF16,mainline/unknown,0x7B2F,,39c COOL THRESH to ENABLE EGR | indexed_resolved,high
+0xCF3F,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCF16,mainline/unknown,0x7B2F,,COOL VALUE,high
+0xCF43,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR L0018,#$30,LCF49",R,0x0018,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x30,bit test 0x30,,LCF16,mainline/unknown,0x7B2F,,"BR IF NOT b4, b5	 b5 1 = ERR 33, MAP SENSOR HI",high
+0xCF49,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA $0A,X",R,0x4703,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x46F9,LCF16,mainline/unknown,0x7B2F,,31 Kpa MAP Thresh for EGR OFF TO ON | indexed_resolved,high
+0xCF4B,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR L006E,#$10,LCF51",R,0x006E,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x10,bit test 0x10,,LCF16,mainline/unknown,0x7B2F,,"BR IF b4, EGR MAP HYST",high
+0xCF4F,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA $0B,X",R,0x4704,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x46F9,LCF16,mainline/unknown,0x7B2F,,29 Kpa MAP Thresh for EGR STAY ON | indexed_resolved,high
+0xCF51,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCF16,mainline/unknown,0x7B2F,,GET CURRENT MAP VALUE,high
+0xCF56,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BCLR L006E,#$10",RMW,0x006E,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x10,clear 0x10,,LCF16,mainline/unknown,0x7B2F,,"CLR b4, EGR MAP HYST",high
+0xCF5B,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BSET L006E,#$10",RMW,0x006E,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x10,set 0x10,,LCF16,mainline/unknown,0x7B2F,,"SET b4,  EGR MAP HYST",high
+0xCF64,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA 8,X",R,0x4701,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x46F9,LCF16,mainline/unknown,0x7B2F,,3% TPS Thresh for EGR OFF TO ON | indexed_resolved,high
+0xCF66,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR L006E,#$20,LCF6C",R,0x006E,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x20,bit test 0x20,,LCF16,mainline/unknown,0x7B2F,,"BR IF NOT b5,EGR TPS HYST",high
+0xCF6A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA 9,X",R,0x4702,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x46F9,LCF16,mainline/unknown,0x7B2F,,2% TPS Thresh for EGR TO STAY ON | indexed_resolved,high
+0xCF6C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCF16,mainline/unknown,0x7B2F,,CURRENT %TPS,high
+0xCF71,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BCLR L006E,#$20",RMW,0x006E,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x20,clear 0x20,,LCF16,mainline/unknown,0x7B2F,,CLR b5  EGR TPS HYST,high
+0xCF76,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BSET L006E,#$20",RMW,0x006E,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x20,set 0x20,,LCF16,mainline/unknown,0x7B2F,,"SET b5,  EGR TPS HYST",high
+0xCFB1,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA $0E,X",R,0x4707,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x46F9,LCF16,mainline/unknown,0x7B2F,,98.8% MAX TPS for EGR ON | indexed_resolved,high
+0xCFB3,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LCF16,mainline/unknown,0x7B2F,,%TPS,high
+0xCFE1,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCF16,mainline/unknown,0x7B2F,,GET CURRENT MAP VALUE,high
+0xD002,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LCF16,mainline/unknown,0x7B2F,,CURRENT MAP VALUE (Kpa),high
+0xD09E,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRCLR 0,X,#$10,LD0A6",R,0x400D,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,bit,0x10,bit test 0x10,X=0x400D,LD03E,mainline/unknown,0x7A11,,USE TBL L4BBA FOR CLS LP AFR IF COOL L.T. L48D1 | indexed_resolved,high
+0xD162,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BCLR 8,X,#$38",RMW,0x3008,HC11_REG,SENSOR_ADC,YES,HIGH,bit,0x38,clear 0x38,X=0x3000,LD14E,mainline/unknown,0x7405;0x79FF,,"PORTE / ADC input port | CLR PRT D b3, b4 & b5 | indexed_resolved",high
+0xD168,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"ORAA 8,X",R,0x3008,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,ORAA,X=0x3000,LD14E,mainline/unknown,0x7405;0x79FF,,PORTE / ADC input port | indexed_resolved,high
+0xD16A,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"STAA 8,X",W,0x3008,HC11_REG,SENSOR_ADC,YES,HIGH,8,,A,X=0x3000,LD14E,mainline/unknown,0x7405;0x79FF,,PORTE / ADC input port | PORT D | indexed_resolved,high
+0xD171,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L3030,W,0x3030,HC11_REG,SENSOR_ADC,YES,HIGH,8,,A=0x01,,LD14E,mainline/unknown,0x7405;0x79FF,,ADCTL A/D control | A/D CNTL,high
+0xD176,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"BRSET $30,X,#$80,LD183",R,0x3030,HC11_REG,SENSOR_ADC,YES,MEDIUM,bit,0x80,bit test 0x80,X=0x3000,LD14E,mainline/unknown,0x7405;0x79FF,,"ADCTL A/D control | BR IF b7, | indexed_resolved",high
+0xD184,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,"LDAA $34,X",R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LD14E,mainline/unknown,0x7405;0x79FF,,ADR4 A/D result 4 | A/D RESULTS CH 4 | indexed_resolved,high
+0xD186,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,STAA L01B4,W,0x01B4,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LD14E,mainline/unknown,0x7405;0x79FF,,EGR POSITION A/D COUNTS,high
+0xD197,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L48A6,R,0x48A6,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LD14E,mainline/unknown,0x7405;0x79FF,,8 A/D BIN MIN FOR CLOSED VALVE,high
+0xD19C,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L48A6,R,0x48A6,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD14E,mainline/unknown,0x7405;0x79FF,,8 A/D BIN MIN FOR CLOSED VALVE,high
+0xD1A3,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01B4,R,0x01B4,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD14E,mainline/unknown,0x7405;0x79FF,,EGR POSITION A/D COUNTS,high
+0xD1AE,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L48A4,R,0x48A4,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD14E,mainline/unknown,0x7405;0x79FF,,95 A/D BIN FOR EGR VALVE POSIT SCALAR,high
+0xD1EA,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L48A5,R,0x48A5,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LD14E,mainline/unknown,0x7405;0x79FF,,77 A/D BIN MAX FOR CLOSED VALVE,high
+0xD1EF,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L48A5,R,0x48A5,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD14E,mainline/unknown,0x7405;0x79FF,,77 A/D BIN MAX FOR CLOSED VALVE,high
+0xD2C0,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD2B2,mainline/unknown,0x7B39,,COOL VALUE,high
+0xD2DB,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD2B2,mainline/unknown,0x7B39,,COOL VALUE,high
+0xD2DD,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,CMPA L402B,R,0x402B,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LD2B2,mainline/unknown,0x7B39,,ENABLE CCP IF COOL G.T. 50c,high
+0xD307,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD2B2,mainline/unknown,0x7B39,,%TPS,high
+0xD3C7,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD3B0,mainline/unknown,0x7B03,,%TPS,high
+0xD493,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LD472,mainline/unknown,0x7B06,,%TPS,high
+0xDA8D,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDA6F,mainline/unknown,0xC4EB,,GET CURRENT MAP VALUE,high
+0xDB15,BMHM_$31_main_window_ORG_0x9C96,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDAE2,mainline/unknown,0xC4EE,,GET CURRENT MAP VALUE,high
+0xDC06,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,JSR LF25F,EXEC,0xF25F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,LDBE2,mainline/unknown,0xDAE6,,A/D CNT'L MODE,high
+0xDC0A,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,"LDAA $34,X",R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LDBE2,mainline/unknown,0xDAE6,,ADR4 A/D result 4 | READ A/D RESULT | indexed_resolved,high
+0xDC50,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0230,R,0x0230,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDBE2,mainline/unknown,0xDAE6,,GET A/D INV MAT VAL,high
+0xDC72,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0230,R,0x0230,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDBE2,mainline/unknown,0xDAE6,,GET A/D MAT VAL (INVERTED),high
+0xDD75,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAB L01D5,R,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDD06,mainline/unknown,0xDCAD,,o2 VOLTS * 226 (A/D RESULT),high
+0xDD94,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDD06,mainline/unknown,0xDCAD,,COOL VALUE,high
+0xDD9B,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDD06,mainline/unknown,0xDCAD,,%TPS,high
+0xDDDB,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDD06,mainline/unknown,0xDCAD,,COOL VALUE,high
+0xDDF3,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDD06,mainline/unknown,0xDCAD,,%TPS,high
+0xDEA7,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDD06,mainline/unknown,0xDCAD,,%TPS,high
+0xDEAA,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L4E4F,R,0x4E4F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LDD06,mainline/unknown,0xDCAD,,10% Low TPS Disable,high
+0xDEAF,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L4E50,R,0x4E50,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LDD06,mainline/unknown,0xDCAD,,50%  Hi TPS Disable,high
+0xDEBA,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L4E54,R,0x4E54,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LDD06,mainline/unknown,0xDCAD,,2.7% diff TPS to escape tes,high
+0xDF66,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L01B4,R,0x01B4,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDF54,mainline/unknown,0xDE64,,EGR POSITION A/D COUNTS,high
+0xDF69,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L4E59,R,0x4E59,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LDF54,mainline/unknown,0xDE64,,"0.12 VDC, A/D VAL FOR PINTEL,(Err 32)",high
+0xDFD5,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L4E61,R,0x4E61,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDF54,mainline/unknown,0xDE64,,"68 KPA MAP LMT, ERR 33",high
+0xDFE0,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L082E,R,0x082E,EXT_RAM,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LDF54,mainline/unknown,0xDE64,,MAP A/D,high
+0xDFED,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDF54,mainline/unknown,0xDE64,,%TPS,high
+0xDFF0,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,SUBA L4E60,R,0x4E60,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,SUBA,,LDF54,mainline/unknown,0xDE64,,4% TPS LIMIT,high
+0xE0A0,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L4E7C,R,0x4E7C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LDF54,mainline/unknown,0xDE64,,"151c COOL, ERR 45",high
+0xE0BC,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L01D9,R,0x01D9,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LDF54,mainline/unknown,0xDE64,,%TPS,high
+0xE0BF,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L4E82,R,0x4E82,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LDF54,mainline/unknown,0xDE64,,"5% TPS HI LMT, (ERR 45)",high
+0xE0C4,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L4E83,R,0x4E83,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LDF54,mainline/unknown,0xDE64,,"93.8% TPS HI LMT,	(ERR 45)",high
+0xE2C8,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL VALUE,high
+0xE2DA,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL VALUE,high
+0xE30B,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL VALUE,high
+0xE316,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL VALUE,high
+0xE331,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE344,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE352,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE35D,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE368,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE379,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE384,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE3D2,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE3D4,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPB L4957,R,0x4957,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LE286,mainline/unknown,0x7B66,,"-4c COOL, UPPER LMT FOR COLD PK -> DRIVE",high
+0xE3EE,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE422,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAB L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE286,mainline/unknown,0x7B66,,COOL TEMP,high
+0xE424,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPB L4957,R,0x4957,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LE286,mainline/unknown,0x7B66,,"-4c COOL, UPPER LMT FOR COLD PK -> DRIVE",high
+0xE4C4,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0282,R,0x0282,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE477,mainline/unknown,0xE38C,,START UP COOL,high
+0xE4CC,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPB L48CF,R,0x48CF,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LE477,mainline/unknown,0xE38C,,90 Sec CLS LP MIN IF START UP COOL G.T. L48CC,high
+0xE4EA,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE477,mainline/unknown,0xE38C,,COOL TEMP,high
+0xE4EC,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L48D0,R,0x48D0,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LE477,mainline/unknown,0xE38C,,30c COOL MIN FOR CLSD LP,high
+0xE524,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,LDAA L0006,R,0x0006,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE516,mainline/unknown,0xE490,,COOL TEMP,high
+0xE526,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,CMPA L48D6,R,0x48D6,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPA,,LE516,mainline/unknown,0xE490,,"35 DEG C, MIN COOL for BLM ENABLE",high
+0xE5E3,BMHM_$31_main_window_ORG_0xDBFB,source_listing_no_bytes,ANDA L0017,R,0x0017,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,ANDA,,LE5CF,mainline/unknown,0xB0C4,,"ERR WD, 1 = ERR 22, TPS LOW",high
+0xE7A4,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"CMPB $15,X",R,0x5B15,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,X=0x5B00,LE793,mainline/unknown,0x7AE5,,"(5B15), 254, A/D BIN COOL MIN TO ENBLE ERR 15 | indexed_resolved",high
+0xE7B1,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"BCLR L0016,#$20",RMW,0x0016,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x20,clear 0x20,,LE793,mainline/unknown,0x7AE5,,"CLR b5, (LO COOL TEMP)",high
+0xE7B6,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"BRSET L0016,#$20,LE7C2",R,0x0016,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,bit,0x20,bit test 0x20,,LE793,mainline/unknown,0x7AE5,,"BR IF b5, (LO COOL TEMP)",high
+0xE7BF,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"BSET L0016,#$20",RMW,0x0016,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x20,set 0x20,,LE793,mainline/unknown,0x7AE5,,"SET b5, (LO COOL TEMP)",high
+0xE7D5,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,LDAB L00A6,R,0x00A6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE7C7,mainline/unknown,0xB0BE,,TPS A/D (BIN),high
+0xE7D7,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"CMPB $1C,X",R,0x5B1C,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,X=0x5B00,LE7C7,mainline/unknown,0xB0BE,,"($5B1C) 249, A/D TPS MIN FOR ERR 21 | indexed_resolved",high
+0xE7E6,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,LDAB L001F,R,0x001F,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE7C7,mainline/unknown,0xB0BE,,"ERR 21 CNT'R, HI TPS",high
+0xE800,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"BSET L0016,#$01",RMW,0x0016,DIRECT_RAM,SENSOR_ADC,YES,HIGH,bit,0x01,set 0x01,,LE7C7,mainline/unknown,0xB0BE,,"SET b0, TPS ERR 21 (----***",high
+0xE816,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,LDAB L00A6,R,0x00A6,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE808,mainline/unknown,0xB0C1,,TPS A/D,high
+0xE818,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"CMPB $1F,X",R,0x5B1F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,X=0x5B00,LE808,mainline/unknown,0xB0C1,,"($5B1F), A/D TPS MAX FOR ERR 22 | indexed_resolved",high
+0xE883,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,LDAB L01C0,R,0x01C0,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LE847,mainline/unknown,0xB0D1,,GET CURRENT MAP VALUE,high
+0xE892,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,CMPB L5B47,R,0x5B47,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LE847,mainline/unknown,0xB0D1,,"IF TPS L.T. 9.8% TPS,",high
+0xE897,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,CMPB L5B48,R,0x5B48,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,8,,CMPB,,LE847,mainline/unknown,0xB0D1,,"IF TPS G.T. 99.6% TPS,",high
+0xEB27,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,LDAB L02F3,R,0x02F3,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LEB19,mainline/unknown,0xC8CF,,"ADBARO, BARO A/D",high
+0xEB5B,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,LDAB L02F3,R,0x02F3,DIRECT_RAM,SENSOR_ADC,YES,MEDIUM,8,,memory,,LEB4D,mainline/unknown,0xC8D2,,"ADBARO, BARO A/D",high
+0xF217,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,JSR LF25F,EXEC,0xF25F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,LF20D,mainline/unknown,0x718A;0x7AB8,,A/D CNT'L MODE,high
+0xF21A,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"LDAA $34,X",R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LF20D,mainline/unknown,0x718A;0x7AB8,,ADR4 A/D result 4 | A/D CH 4 | indexed_resolved,high
+0xF226,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,JSR LF25F,EXEC,0xF25F,ROM_TABLE,SENSOR_ADC,YES,MEDIUM,,,control transfer,,LF20D,mainline/unknown,0x718A;0x7AB8,,A/D CNT'L MODE,high
+0xF229,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"LDAA $34,X",R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LF20D,mainline/unknown,0x718A;0x7AB8,,ADR4 A/D result 4 | A/D CH 4 | indexed_resolved,high
+0xF22B,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L01A1,W,0x01A1,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LF20D,mainline/unknown,0x718A;0x7AB8,,A/D RESULT,high
+0xF236,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"LDAA $32,X",R,0x3032,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LF20D,mainline/unknown,0x718A;0x7AB8,,ADR2 A/D result 2 | A/D CH 2 | indexed_resolved,high
+0xF23B,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"LDAA $33,X",R,0x3033,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LF20D,mainline/unknown,0x718A;0x7AB8,,ADR3 A/D result 3 | A/D CH 3 | indexed_resolved,high
+0xF23F,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"LDAA $34,X",R,0x3034,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LF20D,mainline/unknown,0x718A;0x7AB8,,ADR4 A/D result 4 | A/D CH 4 | indexed_resolved,high
+0xF24C,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"LDAA $31,X",R,0x3031,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LF245,mainline/unknown,0x718D;0x7B97,,ADR1 A/D result 1 | A/D CH 1 | indexed_resolved,high
+0xF24E,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L00A6,W,0x00A6,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LF245,mainline/unknown,0x718D;0x7B97,,TPS A/D,high
+0xF254,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"LDAA $32,X",R,0x3032,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LF245,mainline/unknown,0x718D;0x7B97,,ADR2 A/D result 2 | A/D CH 2 | indexed_resolved,high
+0xF256,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L082E,W,0x082E,EXT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LF245,mainline/unknown,0x718D;0x7B97,,A/D MAP VAL,high
+0xF259,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"LDAA $33,X",R,0x3033,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,X=0x3000,LF245,mainline/unknown,0x718D;0x7B97,,ADR3 A/D result 3 | A/D CH 3 | indexed_resolved,high
+0xF25B,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L01D5,W,0x01D5,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A,,LF245,mainline/unknown,0x718D;0x7B97,,o2 VOLTAGE (A/D),high
+0xF262,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L3030,W,0x3030,HC11_REG,SENSOR_ADC,YES,HIGH,8,,A,,LF25F,mainline/unknown,0xC57A;0xC595;0xCEED;0xDC06;0xF217;0xF226;0xFA68;0xFA78,,ADCTL A/D control | A/D CNT'L REG,high
+0xF267,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"BRSET $30,X,#$80,LF274",R,0x3030,HC11_REG,SENSOR_ADC,YES,MEDIUM,bit,0x80,bit test 0x80,X=0x3000,LF25F,mainline/unknown,0xC57A;0xC595;0xCEED;0xDC06;0xF217;0xF226;0xFA68;0xFA78,,"ADCTL A/D control | BR IF b7, (CONV DONE) | indexed_resolved",high
+0xF275,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"BCLR 8,X,#$38",RMW,0x3008,HC11_REG,SENSOR_ADC,YES,HIGH,bit,0x38,clear 0x38,X=0x3000,LF275,mainline/unknown,0xC574;0xC590;0xCEE7;0xDC01;0xF212;0xF221;0xFA63,,"PORTE / ADC input port | CLR b5, b4 & b3 | indexed_resolved",high
+0xF27B,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"ORAA 8,X",R,0x3008,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,ORAA,X=0x3000,LF275,mainline/unknown,0xC574;0xC590;0xCEE7;0xDC01;0xF212;0xF221;0xFA63,,"PORTE / ADC input port | SET b5, b4 & b3 | indexed_resolved",high
+0xF27D,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,"STAA 8,X",W,0x3008,HC11_REG,SENSOR_ADC,YES,HIGH,8,,A,X=0x3000,LF275,mainline/unknown,0xC574;0xC590;0xCEE7;0xDC01;0xF212;0xF221;0xFA63,,PORTE / ADC input port | indexed_resolved,high
+0xF364,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L001F,W,0x001F,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0x00,,LF333,mainline/unknown,0xF74C,,"ERR 21 CNT'R, HIGH TPS",high
+0xF366,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L0020,W,0x0020,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0x00,,LF333,mainline/unknown,0xF74C,,"ERR 21 CNT'R, LOW  TPS",high
+0xF3A1,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L001F,W,0x001F,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0x00,,LF333,mainline/unknown,0xF74C,,"ERR 21 CNT'R, HIGH TPS",high
+0xF3A3,BMHM_$31_main_window_ORG_0xE717,source_listing_no_bytes,STAA L0020,W,0x0020,DIRECT_RAM,SENSOR_ADC,YES,HIGH,8,,A=0x00,,LF333,mainline/unknown,0xF74C,,"ERR 22 CNT'R, LOW  TPS",high
+0xFA6B,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,LDAA L3031,R,0x3031,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,,LFA5B,mainline/unknown,0x7955,,"ADR1 A/D result 1 | GET A/D RESULT #1,",high
+0xFA7B,BMHM_$31_main_window_ORG_0xF161,source_listing_no_bytes,LDAA L3031,R,0x3031,HC11_REG,SENSOR_ADC,YES,MEDIUM,8,,memory,,LFA5B,mainline/unknown,0x7955,,ADR1 A/D result 1 | GET A/D RESULT #1,high

@@ -27,9 +27,18 @@ Out of scope unless proven hardware-required:
 ## Current repo files
 
 - `docs/WORKING_STATE.md` — active state and next targets
-- `docs/7427_Static_Analysis_Summary_v0.2.md` — static pass summary
-- `docs/7427_Minimal_OS_Skeleton_v0.1.md` — minimal OS structure
-- `docs/7427_Calibration_Layout_v0.1.md` — clean calibration layout
+- `docs/ASIC_HARDWARE_REGISTER_CONTRACT.md` — concise hardware register contract
+- `docs/VARIABLE_DEPENDENCY_GRAPH.md` — current dependency graph
+- `docs/DYNAMIC_TRACE_PLAN.md` — bench/dynamic trace plan
+- `docs/STATIC_ANALYSIS_SUMMARY.md` — static pass summary
+- `docs/MINIMAL_OS_SKELETON.md` — minimal OS structure
+- `docs/CALIBRATION_LAYOUT.md` — clean calibration layout
+- `maps/current/hardware_access_map_hw_only.csv` — hardware-facing rows
+- `maps/current/hardware_test_matrix.csv` — bench test matrix
+- `maps/by_subsystem/*.csv` — subsystem split maps
+- `maps/full/hardware_access_map_v0.2.csv` — full static access map
+- `source/31/BMHM_HAC_ORG_7100_to_end.asm` — source listing used for v0.2
+- `tools/*.py` — analysis/build tooling
 
 ## Current static-pass findings
 
