@@ -1,0 +1,12 @@
+name,counts_hex,counts_dec,expected_ms,notes
+zero,0x0000,0,0.000,expected off/no fuel or minimum-off behavior
+half_ms,0x0021,33,0.504,below likely useful injector range
+one_ms,0x0042,66,1.007,low-pw test
+one_point_five_ms,0x0062,98,1.495,idle-floor region
+two_ms,0x0083,131,1.999,low normal pulse
+three_ms_diag,0x00C5,197,3.006,matches stock diagnostic comment
+four_ms,0x0106,262,3.998,linear check
+five_ms,0x0148,328,5.005,linear check
+six_ms,0x018A,394,6.012,linear check
+eight_ms,0x020C,524,7.996,upper low-speed check
+ten_ms,0x028F,655,9.995,larger command check
