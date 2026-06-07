@@ -1,0 +1,38 @@
+pc,routine_label,interrupt_context,channel,contract_action,effective_address,access_type,width,bitmask,mnemonic,value_source,x_base/y_base,notes,confidence
+0x745B,L7459,mainline/unknown,global/support,flag clear,0x3023,W,8,,STAA L3023,A=0xFF,,TFLG1 timer interrupt flags / write-one-clear | TFLG 1,high
+0x7469,L7459,mainline/unknown,global/support,interrupt mask init,0x3022,W,8,,STAA L3022,A=0xA0,,TMSK1 timer interrupt mask | TMSK1,high
+0x754D,L74D3,IRQ/DRP/ref interrupt,global/support,flag clear,0x3023,W,8,,"STAA $23,X",A=0x01,X=0x3000,TFLG1 timer interrupt flags / write-one-clear | TFLG1 | indexed_resolved,high
+0x7597,L74D3,IRQ/DRP/ref interrupt,global/support,flag status read,0x3023,R,bit,0x01,"BRSET $23,X,#$01,L75F7",bit test 0x01,X=0x3000,"TFLG1 timer interrupt flags / write-one-clear | TFLG1, INPUT CAPT, | indexed_resolved",high
+0x76E1,L7650,IRQ/DRP/ref interrupt,global/support,flag clear,0x3023,W,8,,"STAA $23,X",A=0x01,X=0x3000,TFLG1 timer interrupt flags / write-one-clear | indexed_resolved,high
+0x772B,L7650,IRQ/DRP/ref interrupt,global/support,flag status read,0x3023,R,bit,0x01,"BRCLR $23,X,#$01,L774C",bit test 0x01,X=0x3000,TFLG1 timer interrupt flags / write-one-clear | indexed_resolved,high
+0x7731,L7650,IRQ/DRP/ref interrupt,global/support,flag clear,0x3023,W,8,,"STAA $23,X",A=0x01,X=0x3000,TFLG1 timer interrupt flags / write-one-clear | indexed_resolved,high
+0x77DD,L77C7,IRQ-called fuel timer setup helper,TOC5/TIC4,flag clear,0x3023,W,8,,"STAA $23,X",A=0x08,X=0x3000,"TFLG1 timer interrupt flags / write-one-clear | CLR FLAG, TFLG1 | indexed_resolved",high
+0x77DF,L77C7,IRQ-called fuel timer setup helper,TOC5/TIC4,interrupt enable,0x3022,RMW,bit,0x08,"BSET $22,X,#$08",set 0x08,X=0x3000,"TMSK1 timer interrupt mask | SET b3, TMSK1 TIC4/TOC5 INT ENABLE | indexed_resolved",high
+0x77E9,L77C7,IRQ-called fuel timer setup helper,TOC5/TIC4,compare read,0x301E,R,16,,"CPD $1E,X",CPD,X=0x3000,TOC5/TIC4 compare | TIC4/TOC5 | indexed_resolved,high
+0x77EE,L77C7,IRQ-called fuel timer setup helper,TOC5/TIC4,output mode setup,0x3020,RMW,bit,0x03,"BSET $20,X,#$03",set 0x03,X=0x3000,TCTL1 output compare action | indexed_resolved,high
+0x77F4,L77C7,IRQ-called fuel timer setup helper,TOC5/TIC4,compare write,0x301E,W,16,,"STD $1E,X",D,X=0x3000,TOC5/TIC4 compare | TIC4/TOC5	VALUE | indexed_resolved,high
+0x780D,L77F7,IRQ-called fuel timer setup helper,TOC4,flag clear,0x3023,W,8,,"STAA $23,X",A=0x10,X=0x3000,"TFLG1 timer interrupt flags / write-one-clear | CLR FLAG, TFLG1 | indexed_resolved",high
+0x780F,L77F7,IRQ-called fuel timer setup helper,TOC4,interrupt enable,0x3022,RMW,bit,0x10,"BSET $22,X,#$10",set 0x10,X=0x3000,"TMSK1 timer interrupt mask | SET b4, TMSK1 TOC 4 INT ENABLE | indexed_resolved",high
+0x7819,L77F7,IRQ-called fuel timer setup helper,TOC4,compare read,0x301C,R,16,,"CPD $1C,X",CPD,X=0x3000,TOC4 compare | TOC 4 | indexed_resolved,high
+0x781E,L77F7,IRQ-called fuel timer setup helper,TOC4,output mode setup,0x3020,RMW,bit,0x0C,"BSET $20,X,#$0C",set 0x0C,X=0x3000,"TCTL1 output compare action | SET b2 & b3, TCTL1 OL4 & OM4 | indexed_resolved",high
+0x7824,L77F7,IRQ-called fuel timer setup helper,TOC4,compare write,0x301C,W,16,,"STD $1C,X",D,X=0x3000,TOC4 compare | TOC 4 VALUE | indexed_resolved,high
+0x787A,L785A,TOC5/TIC4 interrupt,TOC5/TIC4,flag clear,0x3023,W,8,,"STAA $23,X",A=0x08,X=0x3000,TFLG1 timer interrupt flags / write-one-clear | TFLAG | indexed_resolved,high
+0x7880,L785A,TOC5/TIC4 interrupt,TOC5/TIC4,interrupt disable,0x3022,RMW,bit,0x08,"BCLR $22,X,#$08",clear 0x08,X=0x3000,"TMSK1 timer interrupt mask | CLR b3, TMASK1, TIC4/TOC5 INHIB | indexed_resolved",high
+0x7883,L785A,TOC5/TIC4 interrupt,TOC5/TIC4,output mode clear/disable,0x3020,RMW,bit,0x01,"BCLR $20,X,#$01",clear 0x01,X=0x3000,"TCTL1 output compare action | CLR b0, TCTL1, OL5 DISCON FM PIN | indexed_resolved",high
+0x7898,L785A,TOC5/TIC4 interrupt,TOC5/TIC4,compare read,0x301E,R,16,,"ADDD $1E,X",ADDD,X=0x3000,TOC5/TIC4 compare | TIC4/TOC5 | indexed_resolved,high
+0x78B0,L785A,TOC5/TIC4 interrupt,TOC5/TIC4,compare read,0x301E,R,16,,"ADDD $1E,X",ADDD,X=0x3000,TOC5/TIC4 compare | TIC4/TOC5 | indexed_resolved,high
+0x78C5,L785A,TOC5/TIC4 interrupt,TOC5/TIC4,output mode setup,0x3020,RMW,bit,0x01,"BSET $20,X,#$01",set 0x01,X=0x3000,TCTL1 output compare action | SET b0 | indexed_resolved,high
+0x78D6,L785A,TOC5/TIC4 interrupt,TOC5/TIC4,compare write,0x301E,W,16,,"STD $1E,X",D,X=0x3000,TOC5/TIC4 compare | TIC4/TOC5	VALUE | indexed_resolved,high
+0x78DE,L785A,TOC4 interrupt,TOC4,flag clear,0x3023,W,8,,"STAA $23,X",A=0x10,X=0x3000,"TFLG1 timer interrupt flags / write-one-clear | TFLG1, | indexed_resolved",high
+0x78E4,L785A,TOC4 interrupt,TOC4,interrupt disable,0x3022,RMW,bit,0x10,"BCLR $22,X,#$10",clear 0x10,X=0x3000,"TMSK1 timer interrupt mask | SET b4, TOC4 INT ENABLE | indexed_resolved",high
+0x78E7,L785A,TOC4 interrupt,TOC4,output mode clear/disable,0x3020,RMW,bit,0x04,"BCLR $20,X,#$04",clear 0x04,X=0x3000,"TCTL1 output compare action | SET b2, TCTL1, OL4 TGGLE OC LINE | indexed_resolved",high
+0x78FC,L785A,TOC4 interrupt,TOC4,compare read,0x301C,R,16,,"ADDD $1C,X",ADDD,X=0x3000,TOC4 compare | TOC4 | indexed_resolved,high
+0x7914,L785A,TOC4 interrupt,TOC4,compare read,0x301C,R,16,,"ADDD $1C,X",ADDD,X=0x3000,TOC4 compare | TOC4 | indexed_resolved,high
+0x7929,L785A,TOC4 interrupt,TOC4,output mode setup,0x3020,RMW,bit,0x04,"BSET $20,X,#$04",set 0x04,X=0x3000,"TCTL1 output compare action | TCTL1, OL4 TOGGLE TOC4 OUT LINE | indexed_resolved",high
+0x793A,L785A,TOC4 interrupt,TOC4,compare write,0x301C,W,16,,"STD $1C,X",D,X=0x3000,TOC4 compare | TOC4 | indexed_resolved,high
+0x7948,L785A,TOC3/6.25ms major-loop interrupt,global/support,flag clear,0x3023,W,8,,STAA L3023,A=0x20,,TFLG1 timer interrupt flags / write-one-clear,high
+0xCC56,LCC4B,mainline/unknown,global/support,interrupt enable,0x3022,RMW,bit,0xA0,"BSET $22,X,#$A0",set 0xA0,X=0x3000,TMSK1 timer interrupt mask | TMSK1 | indexed_resolved,high
+0xCE7E,LCE10,TOC1 knock-window interrupt,global/support,flag clear,0x3023,W,8,,STAA L3023,A=0x80,,TFLG1 timer interrupt flags / write-one-clear | TMR FLG 1 REG,high
+0xFC16,LFC11,XIRQ/vector handler,global/support,flag clear,0x3023,W,8,,STAA L3023,A=0x01,,TFLG1 timer interrupt flags / write-one-clear,high
+0xFC31,LFC2F,TIC/RTI vector handler,global/support,interrupt mask init,0x3022,W,8,,STAA L3022,A=0xA0,,TMSK1 timer interrupt mask | TMSK1,high
+0xFC36,LFC2F,TIC/RTI vector handler,global/support,flag clear,0x3023,W,8,,STAA L3023,A=0x5F,,TFLG1 timer interrupt flags / write-one-clear | TFLG1,high
