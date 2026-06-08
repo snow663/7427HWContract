@@ -1,0 +1,9 @@
+name,spark_deg,sign,period_basis_hex,period_basis_dec,latency_hex,anchor_hex,a_expected,lf550_expected_hex,lf550_expected_dec,raw_time_expected,notes
+zero_deg,0,advance,0x03D7,983,0x0000,0x0000,0,0x0000,0,0,90deg basis at 1000 rpm if 1/65536 sec
+five_deg,5,advance,0x03D7,983,0x0000,0x0000,14,0x0036,54,54,5deg sanity
+ten_deg,10,advance,0x03D7,983,0x0000,0x0000,28,0x006C,108,108,10deg sanity
+twenty_deg,20,advance,0x03D7,983,0x0000,0x0000,57,0x00DB,219,219,20deg sanity
+thirty_deg,30,advance,0x03D7,983,0x0000,0x0000,85,0x0146,326,326,30deg sanity
+forty_deg,40,advance,0x03D7,983,0x0000,0x0000,114,0x01B6,438,438,40deg sanity; corrected LF550 math gives 0x01B6
+five_deg_2000rpm,5,advance,0x01EB,491,0x0000,0x0000,14,0x001B,27,27,period roughly half output roughly half
+twenty_deg_2000rpm,20,advance,0x01EB,491,0x0000,0x0000,57,0x006D,109,109,period roughly half output roughly half
