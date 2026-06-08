@@ -70,16 +70,6 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 - `docs/tests/IAC_INIT_PARK_TEST.md`
 - `source/minimal_os/iac/README.md`
 
-Current IAC model:
-
-```text
-L0007 actual/present
-L0008 desired/target
-L000A direction/A/B/Enable state
-L004C output shadow
-L3062 hardware latch write
-```
-
 No IAC writer exists yet.
 
 ### Fuel output contract
@@ -97,6 +87,22 @@ Current fuel boundary:
 EFI_OUTPUT_INIT   = one-time ASIC/window/output state
 EFI_PW_WRITE      = runtime EFI pulsewidth command via STD $3FCE
 ```
+
+### Fuel minimal module inputs
+
+- `tools/build_fuel_minimal_module_inputs.py`
+- `docs/contracts/FUEL_MINIMAL_MODULE_INPUTS.md`
+- `maps/contracts/fuel_minimal_module_inputs.csv`
+- `docs/tests/FUEL_MINIMAL_MODULE_INPUTS_TEST.md`
+
+This is a planning boundary only. It defines the inputs that feed the future fuel calculation ending in:
+
+```text
+D = EFI pulsewidth counts in 1/65536 second units
+STD $3FCE
+```
+
+No fuel equation or tuning change is implemented by this pass.
 
 ### Spark static contract
 
@@ -126,18 +132,6 @@ No spark writer exists yet. That boundary is intentional.
 
 The calibration index parses the local `31_HAC_calibration_extract_nowrap.html` machine-readable JSON payload and classifies 226 calibration sections by module relevance.
 
-Source summary:
-
-```text
-section_count: 226
-record_count: 11916
-fcb_count: 11431
-fdb_count: 485
-min_data_address: $4000
-max_data_address: $70FF
-parse_error_count: 0
-```
-
 Index discipline:
 
 ```text
@@ -149,13 +143,18 @@ The index is a planning map, not a tuning artifact.
 
 ## Current next target
 
-Use the completed hardware/API/calibration stack for module input-boundary planning only.
-
-Likely next planning artifacts, not code:
+Next planning artifact, not code:
 
 ```text
-docs/contracts/FUEL_MINIMAL_MODULE_INPUTS.md
 docs/contracts/SPARK_MINIMAL_MODULE_INPUTS.md
+maps/contracts/spark_minimal_module_inputs.csv
+tools/build_spark_minimal_module_inputs.py
+docs/tests/SPARK_MINIMAL_MODULE_INPUTS_TEST.md
+```
+
+Then:
+
+```text
 docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md
 ```
 
