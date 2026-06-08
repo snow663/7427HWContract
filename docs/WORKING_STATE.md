@@ -6,15 +6,15 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the spark minimal-module-boundary pass:
+Current technical focus after the spark source API README pass:
 
 ```text
-spark module documentation/API layout:
-  create source/minimal_os/spark/README.md
-  define module layout and API contracts only
+minimal OS module boundary:
+  combine fuel + spark module boundaries
+  define next unknown hardware subsystem boundary, likely IAC/idle air output
 ```
 
-Still no spark writer. The next artifact may define documentation/API layout only; it must not implement `SPARK_WRITE` or a spark handoff stub.
+Still no spark writer. The spark source tree now has documentation/API layout only.
 
 ## Completed contract phase
 
@@ -59,6 +59,7 @@ Completed static/provisional contracts:
 - `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
 - `docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md`
 - `docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md`
+- `source/minimal_os/spark/README.md`
 
 Current spark split:
 
@@ -115,17 +116,17 @@ optional if MON-A:
 
 ## Current next target
 
-Create documentation/API layout only:
+Create the combined minimal OS module boundary:
 
 ```text
-source/minimal_os/spark/README.md
+docs/contracts/MINIMAL_OS_MODULE_BOUNDARY.md
 ```
 
 Purpose:
 
 ```text
-Define planned spark module layout, call order, inputs, outputs, and bench gates.
-No ASM implementation yet.
+Combine fuel and spark boundaries with the next unknown hardware subsystem boundary.
+Likely next unknown subsystem: IAC/idle air output contract.
 ```
 
 Do not create a spark writer yet.
