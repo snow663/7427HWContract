@@ -36,6 +36,7 @@ Core state:
 - `maps/current/hardware_test_matrix.csv` — bench test matrix
 - `maps/by_subsystem/*.csv` — subsystem split maps
 - `source/31/BMHM_HAC_ORG_7100_to_end.asm` — source listing used by contract builders
+- `source/minimal_os/spark/README.md` — spark source API/layout boundary, no ASM implementation
 - `tools/*.py` — repo-relative analysis/build tools
 
 Legacy/static-base artifacts still present:
@@ -77,6 +78,7 @@ EFI_PW_WRITE      = runtime EFI pulsewidth command via STD $3FCE
 - `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
 - `docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md`
 - `docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md`
+- `source/minimal_os/spark/README.md`
 
 Current spark boundary:
 
@@ -110,14 +112,14 @@ No spark writer exists yet. That boundary is intentional.
 Next non-code artifact:
 
 ```text
-source/minimal_os/spark/README.md
+docs/contracts/MINIMAL_OS_MODULE_BOUNDARY.md
 ```
 
 Purpose:
 
 ```text
-Define planned spark module layout, call order, inputs, outputs, and bench gates.
-No ASM implementation yet.
+Combine fuel and spark boundaries with the next unknown hardware subsystem boundary.
+Likely next unknown subsystem: IAC/idle air output contract.
 ```
 
 ## Current known hazard
