@@ -6,14 +6,15 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the fuel minimal-module input boundary pass:
+Current technical focus after the spark minimal-module input boundary pass:
 
 ```text
 hardware contracts: staged
 source-side module API boundaries: fuel partial, spark/IAC API-only
 calibration source index: complete as planning map
 fuel input boundary: complete as planning map
-next work: SPARK_MINIMAL_MODULE_INPUTS, planning only
+spark input boundary: complete as planning map
+next work: IAC_MINIMAL_MODULE_INPUTS, planning only
 ```
 
 ## Completed contract phase
@@ -106,36 +107,7 @@ Completed:
 - `maps/contracts/fuel_minimal_module_inputs.csv`
 - `docs/tests/FUEL_MINIMAL_MODULE_INPUTS_TEST.md`
 
-Current fuel input boundary:
-
-```text
-required/likely required:
-  RPM
-  MAP / load
-  TPS / throttle state
-  coolant temperature
-  battery voltage
-  baro / altitude basis
-  crank/run state
-  base VE / airflow table input
-  injector flow constant
-  injector deadtime / battery correction
-  low-PW correction / transfer function
-  warmup enrichment
-  afterstart enrichment
-  crank fuel
-  target AFR / stoich basis
-  fuel enable / no-fuel gate
-  DFCO zero gate
-  EFI PW unit conversion
-
-optional initially:
-  closed-loop permission / trim
-  PE refinement
-  AE transient refinement
-```
-
-Fuel input discipline:
+Current fuel input discipline:
 
 ```text
 No fuel equation implemented.
@@ -167,6 +139,58 @@ Completed static/provisional contracts:
 
 Spark is source/API staged only. No spark writer exists yet.
 
+### Spark minimal module inputs
+
+Completed:
+
+- `tools/build_spark_minimal_module_inputs.py`
+- `docs/contracts/SPARK_MINIMAL_MODULE_INPUTS.md`
+- `maps/contracts/spark_minimal_module_inputs.csv`
+- `docs/tests/SPARK_MINIMAL_MODULE_INPUTS_TEST.md`
+
+Current spark input boundary:
+
+```text
+required / likely required:
+  RPM / engine speed
+  MAP / load
+  TPS / throttle state
+  coolant temperature
+  baro / altitude basis
+  crank/run state
+  bypass/EST authority state
+  reference/DRP period basis
+  desired base spark table
+  startup spark
+  coolant spark modifier
+  MAP/RPM spark modifiers
+  spark latency correction
+  spark magnitude scale
+  degree-to-time conversion dependency
+  rolling timing state seed
+  spark enable / dropout safe state
+
+bench-gated:
+  physical EST/bypass authority trigger
+  $3FE8/$3FE6 exact physical role
+  $3FF6/$3FDC first-event seed
+  $3FEC->$3FE4 mirror/ack requirement
+  final LA906 packing/sign behavior
+  EST fault monitor side effects
+  knock-retard hardware behavior
+```
+
+Spark input discipline:
+
+```text
+No spark math implemented.
+No spark ASM writer created.
+No direct $3FE8/$3FE6 writer created.
+No physical EST/bypass authority code created.
+Trans/EGR/EVAP spark-adjacent sections remain excluded.
+Unknown spark inputs remain listed instead of guessed.
+```
+
 ### Calibration source index
 
 Completed:
@@ -188,29 +212,6 @@ max_data_address: $70FF
 parse_error_count: 0
 ```
 
-Current index counts:
-
-```text
-module candidates:
-  crank_start: 18
-  egr_excluded: 17
-  evap_excluded: 4
-  fuel: 24
-  iac_idle: 36
-  sensor_scaling: 33
-  spark: 19
-  spark_latency: 1
-  trans_excluded: 49
-  unknown: 24
-  warmup_afterstart: 1
-
-minimal-OS relevance:
-  bench_gated: 56
-  excluded: 70
-  likely_required: 76
-  unknown: 24
-```
-
 Calibration index discipline:
 
 ```text
@@ -229,7 +230,10 @@ Fuel may have a provisional runtime writer:
 
 Spark may not yet have a writer:
   no SPARK_WRITE
+  no spark_handoff.asm
+  no spark_convert.asm
   no direct $3FE8/$3FE6 writer
+  no direct $3FF6/$3FDC rolling-state writer
   no physical EST authority code
 
 IAC may not yet have a writer:
@@ -249,16 +253,10 @@ Calibration may not drive code by itself:
 Next planning artifact, not code:
 
 ```text
-docs/contracts/SPARK_MINIMAL_MODULE_INPUTS.md
-maps/contracts/spark_minimal_module_inputs.csv
-tools/build_spark_minimal_module_inputs.py
-docs/tests/SPARK_MINIMAL_MODULE_INPUTS_TEST.md
-```
-
-Then:
-
-```text
 docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md
+maps/contracts/iac_minimal_module_inputs.csv
+tools/build_iac_minimal_module_inputs.py
+docs/tests/IAC_MINIMAL_MODULE_INPUTS_TEST.md
 ```
 
 Each input-boundary pass should reference:
