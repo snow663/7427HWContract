@@ -75,6 +75,9 @@ TRANSMISSION_EMISSIONS_EXCLUDED
 - `docs/contracts/IAC_PHASE_SEQUENCE_CONTRACT.md`
 - `maps/contracts/iac_phase_sequence_contract.csv`
 - `docs/tests/IAC_PHASE_SEQUENCE_TEST.md`
+- `docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md`
+- `maps/contracts/iac_enable_fault_gate_contract.csv`
+- `docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md`
 
 Current source-proven IAC model:
 
@@ -99,6 +102,18 @@ direction bit0 = 0:
 direction bit0 = 1:
   none -> B -> A+B -> A -> none
   0x00 -> 0x08 -> 0x0C -> 0x04 -> 0x00
+```
+
+Enable/fault gate model:
+
+```text
+L00A7 = battery volts, VDC/10
+CMPA #169 = 16.9 V high-voltage threshold candidate
+L4EB6 = low-voltage threshold candidate
+ANDB #$EF = clear L000A bit4 candidate
+ORAB #$10 = set L000A bit4 candidate
+L003E bit2 = low-battery/protection flag
+L93C5 bad-shutdown/setup path preserves A/B and clears Enable/direction with ANDA #$0C
 ```
 
 No IAC writer exists yet.
@@ -165,21 +180,19 @@ No spark writer exists yet. That boundary is intentional.
 
 ## Current next target
 
-Split Enable/fault behavior from the source-proven IAC output result:
-
-```text
-docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md
-maps/contracts/iac_enable_fault_gate_contract.csv
-docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md
-tools/build_iac_enable_fault_gate_contract.py
-```
-
-Then continue with:
+Isolate init/park/reset behavior and actual-position seeding:
 
 ```text
 docs/contracts/IAC_INIT_PARK_CONTRACT.md
 maps/contracts/iac_init_park_contract.csv
 docs/tests/IAC_INIT_PARK_TEST.md
+tools/build_iac_init_park_contract.py
+```
+
+Purpose:
+
+```text
+Determine how stock code makes L0007 actual/present position trustworthy before normal IAC control.
 ```
 
 ## Current hard boundaries
