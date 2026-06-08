@@ -6,15 +6,14 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the bypass/EST pass:
+Current technical focus after the EST fault-monitor pass:
 
 ```text
 spark module boundary:
-  decide whether next pass is SPARK_EST_FAULT_MONITOR_CONTRACT
-  or SPARK_MINIMAL_MODULE_BOUNDARY
+  define required vs optional spark-side modules before any code stub
 ```
 
-Still no spark writer. Authority transfer, fault handling, and LA906 output effect must be bench-classified before any `SPARK_WRITE` or spark handoff stub.
+Still no spark writer. The next artifact should be `SPARK_MINIMAL_MODULE_BOUNDARY.md`, not ASM.
 
 ## Completed contract phase
 
@@ -57,6 +56,7 @@ Completed static/provisional contracts:
 - `docs/contracts/SPARK_ROLLING_STATE_MODEL.md`
 - `docs/contracts/SPARK_INIT_STATE.md`
 - `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
+- `docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md`
 
 Current spark split:
 
@@ -77,16 +77,14 @@ SPARK_INIT_STATE:
 
 SPARK_BYPASS_EST_TRANSITION:
   crank/run qualification and bypass-to-EST authority transfer model
+
+SPARK_EST_FAULT_MONITOR_CONTRACT:
+  Error 42 / EST monitor path and side-effect classification
 ```
 
-## Current known spark authority model
+## Current known spark authority/monitor model
 
 ```text
-key-on/stall/reset:
-  L004F bit7 ENGINE RUNNING cleared
-  L004F bit4 RUN FUEL cleared
-  L0044 bit3 FIRST DRP VALID cleared/rearmed
-
 run qualification:
   first DRP/ref valid latch is required
   L4133 is the 450 RPM bypass-to-run threshold candidate
@@ -94,27 +92,29 @@ run qualification:
   L004F bit7 is set when threshold + count gates pass
 
 EST/fault monitor:
-  L004F bit6 is major-loop EST monitor enable
-  Error 42 captured rows point to L3FCA -> L0205 comparison and L022C counter
-  L3FEC->$3FE4 mirror remains possible sync/ack behavior
+  L004F bit6 is monitor-enable/control state
+  L3FCA is the current captured/ref sample
+  L0205 is the prior captured/ref sample
+  L022C is the EST error counter
+  L4E72 is the threshold candidate: 4 EST errors for 42A
+  no direct static proof yet that Error 42 forces bypass, disables LA906, or changes fuel
+
+shared mirror:
+  L3FEC->$3FE4 remains possible status/ACK behavior shared by monitor and LA906 path
 ```
 
 ## Current next target
 
-Choose based on whether the Error 42/EST monitor needs its own standalone proof before defining the module boundary.
-
-Option A, if fault logic remains complex:
-
-```text
-docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md
-maps/contracts/spark_est_fault_monitor_contract.csv
-docs/tests/SPARK_EST_FAULT_MONITOR_TEST.md
-```
-
-Option B, if the bypass/EST contract is enough to define software boundaries:
+Create the non-code boundary document:
 
 ```text
 docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md
+```
+
+Purpose:
+
+```text
+Define required, optional, and bench-gated spark-side modules before any spark code stub.
 ```
 
 Do not create a spark writer yet.
