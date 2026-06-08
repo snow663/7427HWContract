@@ -54,20 +54,6 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 - `maps/contracts/minimal_os_module_boundary.csv`
 - `docs/tests/MINIMAL_OS_MODULE_BOUNDARY_TEST.md`
 
-Current OS module map:
-
-```text
-RESET_INIT
-SENSOR_ACQUIRE
-REF_RPM_PERIOD
-FUEL_OUTPUT
-SPARK_OUTPUT
-IDLE_AIR_OUTPUT
-ALDL_DEBUG
-WATCHDOG_SAFE_STATE
-TRANSMISSION_EMISSIONS_EXCLUDED
-```
-
 ### IAC / idle-air output contract
 
 - `docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md`
@@ -84,65 +70,14 @@ TRANSMISSION_EMISSIONS_EXCLUDED
 - `docs/tests/IAC_INIT_PARK_TEST.md`
 - `source/minimal_os/iac/README.md`
 
-Current source-proven IAC model:
+Current IAC model:
 
 ```text
-actual/present position = L0007
-desired/target position = L0008
-mode/output state byte  = L000A
-direction bit           = L000A bit0
-A/B ring bits           = L000A bits2/3
-Enable candidate        = L000A bit4
-output shadow           = L004C bits2/3/4
-hardware latch write    = L004C -> L3062
-```
-
-Source-proven phase ring if bit2=A and bit3=B:
-
-```text
-direction bit0 = 0:
-  none -> A -> A+B -> B -> none
-  0x00 -> 0x04 -> 0x0C -> 0x08 -> 0x00
-
-direction bit0 = 1:
-  none -> B -> A+B -> A -> none
-  0x00 -> 0x08 -> 0x0C -> 0x04 -> 0x00
-```
-
-Enable/fault gate model:
-
-```text
-L00A7 = battery volts, VDC/10
-CMPA #169 = 16.9 V high-voltage threshold candidate
-L4EB6 = low-voltage threshold candidate
-ANDB #$EF = clear L000A bit4 candidate
-ORAB #$10 = set L000A bit4 candidate
-L003E bit2 = low-battery/protection flag
-L93C5 bad-shutdown/setup path preserves A/B and clears Enable/direction with ANDA #$0C
-```
-
-Init/park model:
-
-```text
-L4EB0 = 145 steps IAC park down
-NVM fail path: L4EB0 -> L0007 actual/present position
-reset-in-work path: L0008 := 0 until L0007 reaches 0
-reset complete: clear L0009 bit0, set L0009 bit2, call L92A4
-ignition-off/R-S requested: L4EB0 -> L9899 -> L0008 desired/target position
-common desired sink: L9899 STAA L0008
-```
-
-IAC source-side module boundary:
-
-```text
-IAC_INIT_PARK
-IAC_ENABLE_GATE
-IAC_POSITION_COMPARE
-IAC_PHASE_STEP
-IAC_STEP_CADENCE
-IAC_TARGET_COMPUTE
-IAC_OUTPUT_LATCH
-IAC_DIAGNOSTIC_MONITOR
+L0007 actual/present
+L0008 desired/target
+L000A direction/A/B/Enable state
+L004C output shadow
+L3062 hardware latch write
 ```
 
 No IAC writer exists yet.
@@ -180,47 +115,48 @@ EFI_PW_WRITE      = runtime EFI pulsewidth command via STD $3FCE
 - `docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md`
 - `source/minimal_os/spark/README.md`
 
-Current spark boundary:
+No spark writer exists yet. That boundary is intentional.
+
+### Calibration source index
+
+- `tools/build_calibration_source_index.py`
+- `docs/contracts/CALIBRATION_SOURCE_INDEX.md`
+- `maps/contracts/calibration_source_index.csv`
+- `docs/tests/CALIBRATION_SOURCE_INDEX_TEST.md`
+
+The calibration index parses the local `31_HAC_calibration_extract_nowrap.html` machine-readable JSON payload and classifies 226 calibration sections by module relevance.
+
+Source summary:
 
 ```text
-required:
-  SPARK_RUN_QUALIFY
-  SPARK_BYPASS_EST_AUTHORITY
-  SPARK_CONVERT_DEGREES_TO_TIME
-  SPARK_ROLLING_STATE
-  SPARK_ASIC_HANDOFF
-  SPARK_DROPOUT_SAFE_STATE
-
-bench-gated:
-  $3FEC->$3FE4 mirror / ACK / status-sync requirement
-  $3FF6/$3FDC first-event seed behavior
-  physical bypass/EST authority trigger
-  L0201/L3FC0 final postprocess units and sign/packing
-  exact paired role of $3FE8/$3FE6
-  dropout/missing-REF safe behavior
-
-optional if MON-A:
-  SPARK_EST_MONITOR
-  Error 42 accumulation path
-  diagnostic-only EST monitor behavior
+section_count: 226
+record_count: 11916
+fcb_count: 11431
+fdb_count: 485
+min_data_address: $4000
+max_data_address: $70FF
+parse_error_count: 0
 ```
 
-No spark writer exists yet. That boundary is intentional.
+Index discipline:
+
+```text
+No section is marked required by the index alone.
+Transmission/EGR/EVAP/emissions remain excluded unless hardware-required.
+Unknown sections remain visible instead of being silently guessed.
+The index is a planning map, not a tuning artifact.
+```
 
 ## Current next target
 
-Use the local calibration HTML source to build the calibration index:
+Use the completed hardware/API/calibration stack for module input-boundary planning only.
+
+Likely next planning artifacts, not code:
 
 ```text
-tools/build_calibration_source_index.py
-docs/contracts/CALIBRATION_SOURCE_INDEX.md
-maps/contracts/calibration_source_index.csv
-```
-
-Purpose:
-
-```text
-Classify the local calibration extract by module relevance without creating module code or overriding hardware contracts.
+docs/contracts/FUEL_MINIMAL_MODULE_INPUTS.md
+docs/contracts/SPARK_MINIMAL_MODULE_INPUTS.md
+docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md
 ```
 
 ## Current hard boundaries
@@ -240,12 +176,10 @@ IAC may not yet have a writer:
   no source/minimal_os/iac/*.asm yet
   source/minimal_os/iac/README.md is documentation/API layout only
 
-Transmission/emissions remain excluded:
-  no TCC
-  no shift logic
-  no EGR
-  no EVAP
-  no inherited mode-word baggage unless proven hardware-required
+Calibration may not drive code by itself:
+  no tuning changes
+  no table selection as required unless tied to a hardware/source contract
+  no trans/EGR/EVAP/emissions migration unless proven hardware-required
 ```
 
 ## Working rule
