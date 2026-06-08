@@ -6,12 +6,152 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-## Current completed repo artifacts
+Current technical focus:
+
+```text
+spark authority transfer:
+  module bypass/base timing -> EST/ASIC-controlled timing
+```
+
+This is the remaining gate before any provisional spark handoff stub.
+
+## Completed contract phase
+
+### Fuel output side
+
+Completed static/provisional contracts:
+
+- `docs/contracts/EFI_PW_3FCE_CONTRACT.md`
+- `docs/contracts/EFI_PW_UNITS.md`
+- `docs/contracts/EFI_OUTPUT_COMPANION_REGISTERS.md`
+- `docs/contracts/EFI_OUTPUT_INIT_STATE.md`
+- `docs/contracts/MINIMAL_EFI_PW_WRITER.md`
+- `docs/contracts/EFI_OUTPUT_INIT_ROUTINE.md`
+
+Current fuel-output split:
+
+```text
+EFI_OUTPUT_INIT:
+  one-time ASIC/window/output state
+
+EFI_PW_WRITE:
+  runtime EFI pulsewidth command
+  D -> STD $3FCE
+```
+
+Fuel output is statically clean enough to keep as a two-layer skeleton. Bench confirmation is still required before treating `$3FCE` as fully proven hardware control.
+
+### Spark output side
+
+Completed static/provisional contracts:
+
+- `docs/contracts/SPARK_ASIC_HANDOFF_CONTRACT.md`
+- `docs/contracts/SPARK_LA906_TIMING_BRIDGE.md`
+- `docs/contracts/SPARK_DEGREE_TO_TICK_DEPENDENCY.md`
+- `docs/contracts/MATH_HELPER_LF550.md`
+- `docs/contracts/SPARK_TIMEBASE_PERIOD_CONTRACT.md`
+- `docs/contracts/SPARK_MAGNITUDE_SCALE_CONTRACT.md`
+- `docs/contracts/SPARK_CONVERSION_EQUATION.md`
+- `docs/contracts/SPARK_LA906_OUTPUT_SEQUENCE.md`
+- `docs/contracts/SPARK_ROLLING_STATE_MODEL.md`
+- `docs/contracts/SPARK_INIT_STATE.md`
+
+Current spark split:
+
+```text
+SPARK_CONVERSION_EQUATION:
+  desired spark degrees -> D_AB97 timing-domain input
+
+SPARK_LA906_OUTPUT_SEQUENCE:
+  D_AB97 -> $3FE8/$3FE6 writes
+          -> $3FDC/$3FF6 rolling-state updates
+          -> $3FEC->$3FE4 mirror/ack candidate
+
+SPARK_ROLLING_STATE_MODEL:
+  persistence/continuity model for $3FF6/$3FDC/L01EC
+
+SPARK_INIT_STATE:
+  first-event seed hazard before first valid run-mode LA906 update
+```
+
+No spark writer exists yet. Do not add one until bypass/EST transition and fault-monitor behavior are classified.
+
+## Current known spark hazard
+
+```text
+global ASIC clear may seed $3FF6/$3FDC to $0000
+LA906 reads $3FF6/$3FDC before updating them
+therefore first valid EST handoff depends on bypass/run gating or an explicit safe seed
+```
+
+This is the reason the next technical contract is `SPARK_BYPASS_EST_TRANSITION`.
+
+## Current next target
+
+Create:
+
+```text
+tools/build_bypass_est_transition.py
+docs/contracts/SPARK_BYPASS_EST_TRANSITION.md
+maps/contracts/spark_bypass_est_transition.csv
+docs/tests/SPARK_BYPASS_EST_TRANSITION_TEST.md
+```
+
+Commit message:
+
+```text
+Map spark bypass to EST transition
+```
+
+Purpose:
+
+```text
+Determine when the PCM stops letting the ignition module run bypass/base timing
+and starts trusting the ASIC/EST handoff path.
+```
+
+Questions to answer:
+
+```text
+What state qualifies crank -> run?
+What turns EST control on?
+What keeps bypass active?
+What enables LA906 to matter?
+What flags/counters must be valid before first EST handoff?
+What causes Error 42 / EST fault behavior?
+```
+
+Primary candidate state:
+
+```text
+L004F bit7 = engine running candidate
+L004F bit6 = EST monitor enable candidate
+L022B/L022C = EST/Error 42 counter candidates
+L3FCA = hardware RPM/ref count source candidate
+L0204/L0205 = prior sampled RPM/ref count candidates
+L3FEC = ASIC source/status candidate
+L3FE4 = mirror/ack target candidate
+L3FFA/L3FFC = packed status / I/O latch candidates
+```
+
+## Static-map note
+
+The current repo still contains the original static full-map baseline:
+
+```text
+maps/full/hardware_access_map_v0.2.csv
+```
+
+Do not reference `maps/full/hardware_access_map_v0.3.csv` as committed until it is actually regenerated or uploaded. The current contract files are ahead of the old v0.2 working-state narrative.
+
+## Current generated/derived artifact groups
 
 Core working docs:
 
 - `README.md`
 - `docs/WORKING_STATE.md`
+- `docs/contracts/*.md`
+- `docs/tests/*.md`
 - `docs/ASIC_HARDWARE_REGISTER_CONTRACT.md`
 - `docs/ASIC_Register_Contract.md`
 - `docs/VARIABLE_DEPENDENCY_GRAPH.md`
@@ -24,43 +164,15 @@ Maps/source/tools:
 
 - `maps/current/hardware_access_map_hw_only.csv`
 - `maps/current/hardware_test_matrix.csv`
-- `maps/full/hardware_access_map_v0.2.csv`
+- `maps/contracts/*.csv`
 - `maps/by_subsystem/*.csv`
+- `maps/full/hardware_access_map_v0.2.csv`
 - `source/31/BMHM_HAC_ORG_7100_to_end.asm`
 - `source/31/metadata.md`
-- `tools/build_hw_map.py`
-- `tools/build_v02_outputs.py`
-
-## Static pass v0.2 summary
-
-- Total access rows: `7507`
-- Hardware-facing rows: `693`
-- Minimal-OS required rows: `904`
-- Explicit test-item rows: `23`
-
-## Immediate hardware targets
-
-- `$301C/$301E` — TOC4/TOC5 injector compare path
-- `$3020` — TCTL1 output compare action bits
-- `$3022` — TMSK1 timer interrupt enable/disable
-- `$3023` — TFLG1 write-one-clear event flags
-- `$3FCA` — ASIC/ref/status timing source candidate
-- `$3FFA` — packed ASIC status candidate
-- `$3FFC` — I/O D port/output latch candidate
-- `$3FE6/$3FE8/$3FF6` — spark/EST handoff candidates
-- `$306x` — board/ASIC-adjacent unknowns, test before removal
-
-## Next step
-
-Bench/dynamic trace prep:
-
-1. Load `maps/current/hardware_test_matrix.csv`.
-2. Start with `maps/by_subsystem/fuel_sched_timer.csv`.
-3. Capture `$301C/$301E/$3020/$3022/$3023` under key-on, crank, idle, AE, DFCO.
-4. Then capture spark/EST candidates: `$3FE6/$3FE8/$3FF6/$3FDC`.
-5. Then capture ASIC/ref/status candidates: `$3FCA/$3FFA/$3FCx`.
-6. Then classify `$3060-$306F` as required or removable.
+- `tools/*.py`
 
 ## Rule going forward
 
 Stable current files live in the repo. Versioning is Git history. Only create downloadable artifacts when explicitly useful for transfer, review, or local bench work.
+
+Before starting a new technical pass, check this file first so a future thread does not rewind the project to an earlier subsystem.
