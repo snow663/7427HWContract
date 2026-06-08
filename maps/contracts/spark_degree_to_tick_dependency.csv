@@ -1,0 +1,74 @@
+contract_name,sink_pc,sink_register,pc,mnemonic,operands,access_type,effective_address,symbol,width,value_direction,routine_label,dependency_role_candidate,degree_domain_or_tick_domain,source_type,table_or_ram,constant_or_variable,confidence,notes
+SPARK_DEGREE_TO_TICK,0xAB97,D,0x842C,LDD,L3FC0,R,0x3FC0,L3FC0,16,feeds_sink,L8424,ref_or_drp_period_basis,time_tick_domain,asic_status,asic_status,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0x858B,LDX,L3FC0,R,0x3FC0,L3FC0,16,feeds_sink,L858B,ref_or_drp_period_basis,time_tick_domain,asic_status,asic_status,variable,medium_static,LAST REF PERIOD CNT'R
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA526,LDX,L01F2,R,0x01F2,L01F2,16,feeds_sink,LA51B,startup_spark_override,degree_domain,ram,ram,variable,medium_static,GET OLD START UP SPARK
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA533,STD,L01F2,W,0x01F2,L01F2,16,feeds_sink,LA51B,startup_spark_override,degree_domain,ram,ram,variable,medium_static,SAVE FILTERED START UP SPARK
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA551,LDD,L3FC0,R,0x3FC0,L3FC0,16,feeds_sink,LA551,ref_or_drp_period_basis,time_tick_domain,asic_status,asic_status,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA57C,STD,L01F2,W,0x01F2,L01F2,16,feeds_sink,LA56E,startup_spark_override,degree_domain,ram,ram,variable,medium_static,START UP SPARK
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA581,LDD,L3FC0,R,0x3FC0,L3FC0,16,feeds_sink,LA581,ref_or_drp_period_basis,time_tick_domain,asic_status,asic_status,variable,medium_static,RPM = ((65536 * 120)/8)/CAL
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA5CF,STD,L005F,W,0x005F,L005F,16,feeds_sink,LA5BE,last_drp_period_work,time_tick_domain,ram,ram,variable,medium_static,LAST DRP PERIOD
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA5E5,LDD,L3FC0,R,0x3FC0,L3FC0,16,feeds_sink,LA5E5,ref_or_drp_period_basis,time_tick_domain,asic_status,asic_status,variable,medium_static,LAST DRP PERIOD CNTR
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA5E8,STD,L005F,W,0x005F,L005F,16,feeds_sink,LA5E5,last_drp_period_work,time_tick_domain,ram,ram,variable,medium_static,LAST DRP PERIOD VAL
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA5FC,STD,L005F,W,0x005F,L005F,16,feeds_sink,LA5E5,last_drp_period_work,time_tick_domain,ram,ram,variable,medium_static,SAVE 16 BIT RPM VALUE
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA5FE,LDD,L005F,R,0x005F,L005F,16,feeds_sink,LA5FE,last_drp_period_work,time_tick_domain,ram,ram,variable,medium_static,LAST DRP PERIOD VAL
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA6EC,STD,L01EC,W,0x01EC,L01EC,16,feeds_sink,LA6E3,timing_correction_or_latency_state,time_tick_domain,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA6EF,LDD,L3FC0,R,0x3FC0,L3FC0,16,feeds_sink,LA6E3,ref_or_drp_period_basis,time_tick_domain,asic_status,asic_status,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA6F5,SUBD,L01EC,R,0x01EC,L01EC,16,feeds_sink,LA6E3,timing_correction_or_latency_state,time_tick_domain,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA6FA,ADDD,L01EC,R,0x01EC,L01EC,16,feeds_sink,LA6E3,timing_correction_or_latency_state,time_tick_domain,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA6FD,STD,L01EC,W,0x01EC,L01EC,16,feeds_sink,LA6E3,timing_correction_or_latency_state,time_tick_domain,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA78F,STAA,L020B,W,0x020B,L020B,8,feeds_sink,LA77A,low_octane_spark_retard,degree_domain,ram,ram,variable,medium_static,LOW OCTAINE SPK RETARD
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA7E7,LDAB,L01FC,R,0x01FC,L01FC,8,feeds_sink,LA7D4,base_or_table_spark_adder,degree_domain,ram,ram,variable,medium_static,FROM TABLE L44BF
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA811,SUBB,L020B,R,0x020B,L020B,8,feeds_sink,LA811,low_octane_spark_retard,degree_domain,ram,ram,variable,medium_static,LOW OCTAINE SPK RETARD
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA81B,STD,L01FD,W,0x01FD,L01FD,16,feeds_sink,LA811,final_spark_write,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA839,LDD,L01FD,R,0x01FD,L01FD,16,feeds_sink,LA82B,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA841,STD,L01FD,W,0x01FD,L01FD,16,feeds_sink,LA82B,final_spark_write,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA847,LDX,L01FD,R,0x01FD,L01FD,16,feeds_sink,LA846,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA84B,STX,L01FD,W,0x01FD,L01FD,16,feeds_sink,LA846,final_spark_write,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA8FD,ADDD,L01FD,R,0x01FD,L01FD,16,feeds_sink,LA8FD,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA900,STD,L01FD,W,0x01FD,L01FD,16,feeds_sink,LA8FD,final_spark_write,degree_domain,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA965,LDD,L01FD,R,0x01FD,L01FD,16,feeds_sink,LA95D,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA96F,LDD,L01FD,R,0x01FD,L01FD,16,feeds_sink,LA96F,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA977,STD,L01FD,W,0x01FD,L01FD,16,feeds_sink,LA977,final_spark_write,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA97A,LDD,L01FD,R,0x01FD,L01FD,16,feeds_sink,LA97A,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA986,STD,L01F2,W,0x01F2,L01F2,16,feeds_sink,LA97A,startup_spark_override,degree_domain,ram,ram,variable,medium_static,START UP SPARK
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA999,LDD,L01FD,R,0x01FD,L01FD,16,feeds_sink,LA996,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA9B5,LDX,L01F2,R,0x01F2,L01F2,16,feeds_sink,LA9B5,startup_spark_override,degree_domain,ram,ram,variable,medium_static,START UP SPARK
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA9C2,STD,L01F2,W,0x01F2,L01F2,16,feeds_sink,LA9B5,startup_spark_override,degree_domain,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA9CD,LDAA,L01F2,R,0x01F2,L01F2,8,feeds_sink,LA9CA,startup_spark_override,degree_domain,ram,ram,variable,medium_static,START UP SPARK
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA9D5,ADDD,L01FD,R,0x01FD,L01FD,16,feeds_sink,LA9CA,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xA9DD,STD,L01FD,W,0x01FD,L01FD,16,feeds_sink,LA9DD,final_spark_write,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAA0F,STD,L01FD,W,0x01FD,L01FD,16,feeds_sink,LAA0C,final_spark_write,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAA1A,LDD,L01FD,R,0x01FD,L01FD,16,feeds_sink,LAA1A,final_spark_read,degree_domain,ram,ram,variable,medium_static,FINAL SPK  ADV
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAA22,STD,L01EE,W,0x01EE,L01EE,16,feeds_sink,LAA1A,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP)
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAA28,SUBD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAA1A,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RETARD (2's CMP)
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAA2D,ADDD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAA1A,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RETARD (2's CMP)
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAA30,STD,L01EE,W,0x01EE,L01EE,16,feeds_sink,LAA1A,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RETARD (2's CMP)
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAA51,LDD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAA51,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAA59,STD,L01EE,W,0x01EE,L01EE,16,feeds_sink,LAA51,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAABC,ADDA,L020C,R,0x020C,L020C,8,feeds_sink,LAAB5,knock_retard_read,degree_domain,ram,ram,variable,medium_static,"Deg, KNOCK RETARD"
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAACB,STAA,L020C,W,0x020C,L020C,8,feeds_sink,LAACB,knock_retard_update,degree_domain,ram,ram,variable,medium_static,"DEG, KNOCK RETARD"
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAAD1,LDD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAACB,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAAD8,STD,L01EE,W,0x01EE,L01EE,16,feeds_sink,LAACB,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAAEF,CPD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAAEF,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB06,CPD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAAF7,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB11,CPD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAB0E,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP)
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB17,STD,L01EE,W,0x01EE,L01EE,16,feeds_sink,LAB17,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB1A,LDD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAB1A,la906_entry_value,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB3E,STD,L01EE,W,0x01EE,L01EE,16,feeds_sink,LAB3E,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB47,LDD,L01EE,R,0x01EE,L01EE,16,feeds_sink,LAB3E,la906_entry_retard_offset,degree_domain_until_converted,ram,ram,variable,medium_static,CURRENT RESTARD (2's CMP
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB55,LDAB,L01F2,R,0x01F2,L01F2,8,feeds_sink,LAB50,startup_spark_override,degree_domain,ram,ram,variable,medium_static,START UP SPARK
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB72,STAA,L0201,W,0x0201,L0201,8,feeds_sink,LAB69,latency_correction,time_tick_domain_or_small_count,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB84,SUBB,L0201,R,0x0201,L0201,8,feeds_sink,LAB84,latency_correction,time_tick_domain_or_small_count,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB8E,SUBD,L3FC0,R,0x3FC0,L3FC0,16,feeds_sink,LAB84,ref_or_drp_period_basis,time_tick_domain,asic_status,asic_status,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAB97,ADDD,L3FF6,R,0x3FF6,L3FF6,16,feeds_sink,LAB84,timing_domain_rolling_anchor,time_tick_domain,asic_register,asic_register,variable,medium_static,EST FALL CNT'R
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xABA4,SUBD,L3FF6,R,0x3FF6,L3FF6,16,downstream_or_feedback,LABA2,timing_domain_rolling_anchor,time_tick_domain,asic_register,asic_register,variable,medium_static,EST FALL CNT'R
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xABAA,STD,L3FE8,W,0x3FE8,L3FE8,16,downstream_or_feedback,LABA2,spark_timing_command_candidate,time_tick_domain,asic_register,asic_register,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xABB0,ADDD,L3FDC,R,0x3FDC,L3FDC,16,downstream_or_feedback,LABA2,timing_domain_rolling_state,time_tick_domain,asic_register,asic_register,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xABB3,SUBD,L01EC,R,0x01EC,L01EC,16,downstream_or_feedback,LABA2,timing_correction_or_latency_state,time_tick_domain,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xABB7,LDX,L01EC,R,0x01EC,L01EC,16,downstream_or_feedback,LABA2,timing_correction_or_latency_state,time_tick_domain,ram,ram,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xABBA,STD,L3FE6,W,0x3FE6,L3FE6,16,downstream_or_feedback,LABA2,spark_timing_command_candidate,time_tick_domain,asic_register,asic_register,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xABC0,STX,L3FDC,W,0x3FDC,L3FDC,16,downstream_or_feedback,LABA2,timing_domain_rolling_state,time_tick_domain,asic_register,asic_register,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xABC8,STD,L3FF6,W,0x3FF6,L3FF6,16,downstream_or_feedback,LABA2,timing_domain_rolling_anchor,time_tick_domain,asic_register,asic_register,variable,medium_static,EST FALL CNT'R
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAC28,LDX,L3FEC,R,0x3FEC,L3FEC,16,downstream_or_feedback,LAC25,asic_status_source,status_mode_domain,asic_register,asic_register,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xAC2E,STX,L3FE4,W,0x3FE4,L3FE4,16,downstream_or_feedback,LAC25,asic_mirror_ack_target,status_mode_domain,asic_register,asic_register,variable,medium_static,
+SPARK_DEGREE_TO_TICK,0xAB97,D,0xCAD2,STAA,L01FC,W,0x01FC,L01FC,8,downstream_or_feedback,LCAD2,base_or_table_spark_adder,degree_domain,ram,ram,variable,medium_static,SPARK ADDER
