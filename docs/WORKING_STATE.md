@@ -6,14 +6,14 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the IAC phase sequence contract pass:
+Current technical focus after the IAC Enable/Fault Gate contract pass:
 
 ```text
 next IAC split follow-up:
-  IAC_ENABLE_FAULT_GATE_CONTRACT
+  IAC_INIT_PARK_CONTRACT
 ```
 
-The source now proves the IAC desired/actual compare and A/B phase ring. Next work should isolate Enable/fault behavior from phase sequencing. No IAC writer yet.
+The source now proves the IAC desired/actual compare, A/B phase ring, and Enable voltage/fault gate candidate. Next work should isolate init/park/reset behavior and how `L0007` actual position becomes trustworthy. No IAC writer yet.
 
 ## Completed contract phase
 
@@ -49,6 +49,9 @@ Completed static/source-proof passes:
 - `docs/contracts/IAC_PHASE_SEQUENCE_CONTRACT.md`
 - `maps/contracts/iac_phase_sequence_contract.csv`
 - `docs/tests/IAC_PHASE_SEQUENCE_TEST.md`
+- `docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md`
+- `maps/contracts/iac_enable_fault_gate_contract.csv`
+- `docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md`
 
 Current IAC source-proven model:
 
@@ -75,12 +78,25 @@ direction bit0 = 1:
   0x00 -> 0x08 -> 0x0C -> 0x04 -> 0x00
 ```
 
+Enable/fault gate source model:
+
+```text
+L00A7 = battery volts, VDC/10
+CMPA #169 = 16.9 V high-voltage threshold candidate
+L4EB6 = low-voltage threshold candidate
+ANDB #$EF = clear L000A bit4 candidate
+ORAB #$10 = set L000A bit4 candidate
+L003E bit2 = low-battery/protection flag
+L93C5 bad-shutdown/setup path preserves A/B and clears Enable/direction with ANDA #$0C
+```
+
 Bench gates:
 
 ```text
 physical pins for L3062 bits2/3/4
 whether bit2=A and bit3=B or swapped
 whether count +1 means open or closed
+whether L3062 bit4 is physical IAC Enable
 whether Enable is continuous driver gate
 exact cadence/timer for next step
 reset/park/home behavior
@@ -182,21 +198,24 @@ Transmission/emissions remain excluded:
 
 ## Current next target
 
-Split Enable/fault behavior from the source-proven IAC output result:
-
-```text
-docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md
-maps/contracts/iac_enable_fault_gate_contract.csv
-docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md
-tools/build_iac_enable_fault_gate_contract.py
-```
-
-Then continue with:
+Isolate init/park/reset behavior and actual-position seeding:
 
 ```text
 docs/contracts/IAC_INIT_PARK_CONTRACT.md
 maps/contracts/iac_init_park_contract.csv
 docs/tests/IAC_INIT_PARK_TEST.md
+tools/build_iac_init_park_contract.py
+```
+
+This pass should answer:
+
+```text
+How stock code establishes L0007 actual position
+Whether stock code overdrives closed/open at key-on/shutdown
+How many steps are commanded for park/home
+What value is loaded into L0007 after park/setup
+What is loaded into L0008 for crank/start
+When Enable is asserted relative to park movement
 ```
 
 ## Static-map note
