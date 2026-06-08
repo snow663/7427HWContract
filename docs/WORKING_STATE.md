@@ -6,16 +6,14 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the IAC Enable/A/B output contract pass:
+Current technical focus after the IAC phase sequence contract pass:
 
 ```text
-IAC split follow-up:
-  IAC_PHASE_SEQUENCE_CONTRACT
+next IAC split follow-up:
   IAC_ENABLE_FAULT_GATE_CONTRACT
-  IAC_INIT_PARK_CONTRACT
 ```
 
-The source now proves the core IAC desired/actual compare and A/B ring shape. Next work should split the IAC result into phase sequence, enable/fault gate, and init/park contracts. No IAC writer yet.
+The source now proves the IAC desired/actual compare and A/B phase ring. Next work should isolate Enable/fault behavior from phase sequencing. No IAC writer yet.
 
 ## Completed contract phase
 
@@ -43,11 +41,14 @@ TRANSMISSION_EMISSIONS_EXCLUDED
 
 ### IAC / idle-air output side
 
-Completed static/source-proof pass:
+Completed static/source-proof passes:
 
 - `docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md`
 - `maps/contracts/iac_idle_air_output_contract.csv`
 - `docs/tests/IAC_IDLE_AIR_OUTPUT_TEST.md`
+- `docs/contracts/IAC_PHASE_SEQUENCE_CONTRACT.md`
+- `maps/contracts/iac_phase_sequence_contract.csv`
+- `docs/tests/IAC_PHASE_SEQUENCE_TEST.md`
 
 Current IAC source-proven model:
 
@@ -62,14 +63,16 @@ output shadow           = L004C bits2/3/4
 hardware latch write    = L004C -> L3062
 ```
 
-Static ring candidate if bit2=A and bit3=B:
+Phase sequence if bit2=A and bit3=B:
 
 ```text
 direction bit0 = 0:
   none -> A -> A+B -> B -> none
+  0x00 -> 0x04 -> 0x0C -> 0x08 -> 0x00
 
 direction bit0 = 1:
   none -> B -> A+B -> A -> none
+  0x00 -> 0x08 -> 0x0C -> 0x04 -> 0x00
 ```
 
 Bench gates:
@@ -179,28 +182,21 @@ Transmission/emissions remain excluded:
 
 ## Current next target
 
-Split the source-proven IAC output result into focused follow-up contracts:
+Split Enable/fault behavior from the source-proven IAC output result:
 
 ```text
-docs/contracts/IAC_PHASE_SEQUENCE_CONTRACT.md
-maps/contracts/iac_phase_sequence_contract.csv
-docs/tests/IAC_PHASE_SEQUENCE_TEST.md
-
 docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md
 maps/contracts/iac_enable_fault_gate_contract.csv
 docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md
+tools/build_iac_enable_fault_gate_contract.py
+```
 
+Then continue with:
+
+```text
 docs/contracts/IAC_INIT_PARK_CONTRACT.md
 maps/contracts/iac_init_park_contract.csv
 docs/tests/IAC_INIT_PARK_TEST.md
-```
-
-Recommended order:
-
-```text
-1. IAC_PHASE_SEQUENCE_CONTRACT
-2. IAC_ENABLE_FAULT_GATE_CONTRACT
-3. IAC_INIT_PARK_CONTRACT
 ```
 
 ## Static-map note
