@@ -47,6 +47,26 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 
 ## Completed contract phase
 
+### Minimal OS boundary
+
+- `docs/contracts/MINIMAL_OS_MODULE_BOUNDARY.md`
+- `maps/contracts/minimal_os_module_boundary.csv`
+- `docs/tests/MINIMAL_OS_MODULE_BOUNDARY_TEST.md`
+
+Current OS module map:
+
+```text
+RESET_INIT
+SENSOR_ACQUIRE
+REF_RPM_PERIOD
+FUEL_OUTPUT
+SPARK_OUTPUT
+IDLE_AIR_OUTPUT
+ALDL_DEBUG
+WATCHDOG_SAFE_STATE
+TRANSMISSION_EMISSIONS_EXCLUDED
+```
+
 ### Fuel output contract
 
 - `docs/contracts/EFI_PW_3FCE_CONTRACT.md`
@@ -109,35 +129,55 @@ No spark writer exists yet. That boundary is intentional.
 
 ## Current next target
 
-Next non-code artifact:
+Next hardware-output subsystem:
 
 ```text
-docs/contracts/MINIMAL_OS_MODULE_BOUNDARY.md
+docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md
+maps/contracts/iac_idle_air_output_contract.csv
+docs/tests/IAC_IDLE_AIR_OUTPUT_TEST.md
+tools/build_iac_output_contract.py
 ```
 
 Purpose:
 
 ```text
-Combine fuel and spark boundaries with the next unknown hardware subsystem boundary.
-Likely next unknown subsystem: IAC/idle air output contract.
+Extract the IAC/idle-air CPU-to-hardware output contract before any IAC writer exists.
 ```
 
-## Current known hazard
+Likely trace targets:
 
 ```text
-global clear may zero $3FF6/$3FDC
-but LA906 reads $3FF6/$3FDC before updating them
-so first valid EST handoff depends on bypass/run gating or safe seed behavior
+IAC desired counts
+IAC present counts
+step direction
+step rate
+coil phase sequence
+ASIC/output latch writes
+park position
+crank position
+reset behavior
 ```
 
-Current static spark authority/monitor model:
+## Current hard boundaries
 
 ```text
-run qualification = RPM threshold + DRP/ref event count
-Error 42 monitor = L3FCA -> L0205 comparison and L022C counter
-L004F bit6 = EST monitor enable, not proven physical bypass output control
-no direct static proof that Error 42 forces bypass, disables LA906, or changes fuel
-$3FEC->$3FE4 = possible shared status/mirror/ack, bench-gated
+Fuel may have a provisional runtime writer:
+  D -> STD $3FCE
+
+Spark may not yet have a writer:
+  no SPARK_WRITE
+  no direct $3FE8/$3FE6 writer
+  no physical EST authority code
+
+IAC is unmapped:
+  no IAC writer until output registers/phase sequence are extracted
+
+Transmission/emissions remain excluded:
+  no TCC
+  no shift logic
+  no EGR
+  no EVAP
+  no inherited mode-word baggage unless proven hardware-required
 ```
 
 ## Working rule
