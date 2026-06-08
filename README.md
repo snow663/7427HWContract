@@ -42,7 +42,7 @@ Legacy/static-base artifacts still present:
 
 - `maps/full/hardware_access_map_v0.2.csv` — original full static access map baseline
 
-Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists until it is committed. Current contract files are ahead of the original v0.2 working-state text.
+Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists until it is committed.
 
 ## Completed contract phase
 
@@ -74,6 +74,7 @@ EFI_PW_WRITE      = runtime EFI pulsewidth command via STD $3FCE
 - `docs/contracts/SPARK_LA906_OUTPUT_SEQUENCE.md`
 - `docs/contracts/SPARK_ROLLING_STATE_MODEL.md`
 - `docs/contracts/SPARK_INIT_STATE.md`
+- `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
 
 Current spark boundary:
 
@@ -89,24 +90,29 @@ SPARK_ROLLING_STATE_MODEL
 
 SPARK_INIT_STATE
   first-event seeding and crank/run entry hazard
+
+SPARK_BYPASS_EST_TRANSITION
+  module bypass/base timing -> EST/ASIC-controlled timing authority transfer
 ```
 
 No spark writer exists yet. That boundary is intentional.
 
 ## Current next target
 
+Choose the next pass based on whether the EST fault monitor needs a separate contract before defining the module boundary.
+
+If Error 42 / EST monitor behavior remains complex:
+
 ```text
-docs/contracts/SPARK_BYPASS_EST_TRANSITION.md
-maps/contracts/spark_bypass_est_transition.csv
-docs/tests/SPARK_BYPASS_EST_TRANSITION_TEST.md
-tools/build_bypass_est_transition.py
+docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md
+maps/contracts/spark_est_fault_monitor_contract.csv
+docs/tests/SPARK_EST_FAULT_MONITOR_TEST.md
 ```
 
-Purpose:
+If the bypass/EST contract is enough to define software responsibilities:
 
 ```text
-Map when authority transfers from module bypass/base timing to EST/ASIC-controlled spark,
-and determine what gates the first safe LA906-controlled spark event.
+docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md
 ```
 
 ## Current known hazard
@@ -115,6 +121,15 @@ and determine what gates the first safe LA906-controlled spark event.
 global clear may zero $3FF6/$3FDC
 but LA906 reads $3FF6/$3FDC before updating them
 so first valid EST handoff depends on bypass/run gating or safe seed behavior
+```
+
+The new bypass/EST transition contract currently says the strongest static fit is:
+
+```text
+run qualification = RPM threshold + DRP/ref event count
+Error 42 monitor = L3FCA -> L0205 comparison and L022C counter
+L004F bit6 = EST monitor enable, not yet proven physical bypass output control
+$3FEC->$3FE4 = possible status/mirror/ack, bench-gated
 ```
 
 ## Working rule
