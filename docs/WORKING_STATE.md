@@ -6,13 +6,14 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the calibration source index pass:
+Current technical focus after the fuel minimal-module input boundary pass:
 
 ```text
 hardware contracts: staged
 source-side module API boundaries: fuel partial, spark/IAC API-only
 calibration source index: complete as planning map
-next work: use calibration index only for module input-boundary planning, not tuning or writer code
+fuel input boundary: complete as planning map
+next work: SPARK_MINIMAL_MODULE_INPUTS, planning only
 ```
 
 ## Completed contract phase
@@ -96,6 +97,55 @@ EFI_PW_WRITE:
 
 Fuel output is statically clean enough to keep as a two-layer skeleton. Bench confirmation is still required before treating `$3FCE` as fully proven hardware control.
 
+### Fuel minimal module inputs
+
+Completed:
+
+- `tools/build_fuel_minimal_module_inputs.py`
+- `docs/contracts/FUEL_MINIMAL_MODULE_INPUTS.md`
+- `maps/contracts/fuel_minimal_module_inputs.csv`
+- `docs/tests/FUEL_MINIMAL_MODULE_INPUTS_TEST.md`
+
+Current fuel input boundary:
+
+```text
+required/likely required:
+  RPM
+  MAP / load
+  TPS / throttle state
+  coolant temperature
+  battery voltage
+  baro / altitude basis
+  crank/run state
+  base VE / airflow table input
+  injector flow constant
+  injector deadtime / battery correction
+  low-PW correction / transfer function
+  warmup enrichment
+  afterstart enrichment
+  crank fuel
+  target AFR / stoich basis
+  fuel enable / no-fuel gate
+  DFCO zero gate
+  EFI PW unit conversion
+
+optional initially:
+  closed-loop permission / trim
+  PE refinement
+  AE transient refinement
+```
+
+Fuel input discipline:
+
+```text
+No fuel equation implemented.
+No tuning values changed.
+No fuel ASM writer changed or added.
+Calibration sections do not become required by index presence alone.
+DFCO/no-fuel, injector deadtime, low-PW correction, and EFI PW unit conversion remain explicit hardware/source dependencies.
+Transmission/EGR/EVAP/emissions sections remain excluded.
+```
+
 ### Spark output side
 
 Completed static/provisional contracts:
@@ -125,12 +175,6 @@ Completed:
 - `docs/contracts/CALIBRATION_SOURCE_INDEX.md`
 - `maps/contracts/calibration_source_index.csv`
 - `docs/tests/CALIBRATION_SOURCE_INDEX_TEST.md`
-
-Source input:
-
-```text
-31_HAC_calibration_extract_nowrap.html
-```
 
 Validated source summary:
 
@@ -202,13 +246,18 @@ Calibration may not drive code by itself:
 
 ## Current next target
 
-Use the completed hardware/API/calibration stack for module input-boundary planning only.
-
-Likely next planning artifacts, not code:
+Next planning artifact, not code:
 
 ```text
-docs/contracts/FUEL_MINIMAL_MODULE_INPUTS.md
 docs/contracts/SPARK_MINIMAL_MODULE_INPUTS.md
+maps/contracts/spark_minimal_module_inputs.csv
+tools/build_spark_minimal_module_inputs.py
+docs/tests/SPARK_MINIMAL_MODULE_INPUTS_TEST.md
+```
+
+Then:
+
+```text
 docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md
 ```
 
