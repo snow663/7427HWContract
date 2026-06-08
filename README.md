@@ -75,6 +75,7 @@ EFI_PW_WRITE      = runtime EFI pulsewidth command via STD $3FCE
 - `docs/contracts/SPARK_ROLLING_STATE_MODEL.md`
 - `docs/contracts/SPARK_INIT_STATE.md`
 - `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
+- `docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md`
 
 Current spark boundary:
 
@@ -93,26 +94,25 @@ SPARK_INIT_STATE
 
 SPARK_BYPASS_EST_TRANSITION
   module bypass/base timing -> EST/ASIC-controlled timing authority transfer
+
+SPARK_EST_FAULT_MONITOR_CONTRACT
+  Error 42 / EST monitor path and side-effect classification
 ```
 
 No spark writer exists yet. That boundary is intentional.
 
 ## Current next target
 
-Choose the next pass based on whether the EST fault monitor needs a separate contract before defining the module boundary.
-
-If Error 42 / EST monitor behavior remains complex:
-
-```text
-docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md
-maps/contracts/spark_est_fault_monitor_contract.csv
-docs/tests/SPARK_EST_FAULT_MONITOR_TEST.md
-```
-
-If the bypass/EST contract is enough to define software responsibilities:
+Next non-code artifact:
 
 ```text
 docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md
+```
+
+Purpose:
+
+```text
+Define required, optional, and bench-gated spark-side modules before any spark code stub.
 ```
 
 ## Current known hazard
@@ -123,13 +123,14 @@ but LA906 reads $3FF6/$3FDC before updating them
 so first valid EST handoff depends on bypass/run gating or safe seed behavior
 ```
 
-The new bypass/EST transition contract currently says the strongest static fit is:
+Current static spark authority/monitor model:
 
 ```text
 run qualification = RPM threshold + DRP/ref event count
 Error 42 monitor = L3FCA -> L0205 comparison and L022C counter
-L004F bit6 = EST monitor enable, not yet proven physical bypass output control
-$3FEC->$3FE4 = possible status/mirror/ack, bench-gated
+L004F bit6 = EST monitor enable, not proven physical bypass output control
+no direct static proof that Error 42 forces bypass, disables LA906, or changes fuel
+$3FEC->$3FE4 = possible shared status/mirror/ack, bench-gated
 ```
 
 ## Working rule
