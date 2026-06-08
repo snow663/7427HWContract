@@ -6,14 +6,15 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus:
+Current technical focus after the bypass/EST pass:
 
 ```text
-spark authority transfer:
-  module bypass/base timing -> EST/ASIC-controlled timing
+spark module boundary:
+  decide whether next pass is SPARK_EST_FAULT_MONITOR_CONTRACT
+  or SPARK_MINIMAL_MODULE_BOUNDARY
 ```
 
-This is the remaining gate before any provisional spark handoff stub.
+Still no spark writer. Authority transfer, fault handling, and LA906 output effect must be bench-classified before any `SPARK_WRITE` or spark handoff stub.
 
 ## Completed contract phase
 
@@ -55,6 +56,7 @@ Completed static/provisional contracts:
 - `docs/contracts/SPARK_LA906_OUTPUT_SEQUENCE.md`
 - `docs/contracts/SPARK_ROLLING_STATE_MODEL.md`
 - `docs/contracts/SPARK_INIT_STATE.md`
+- `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
 
 Current spark split:
 
@@ -72,67 +74,50 @@ SPARK_ROLLING_STATE_MODEL:
 
 SPARK_INIT_STATE:
   first-event seed hazard before first valid run-mode LA906 update
+
+SPARK_BYPASS_EST_TRANSITION:
+  crank/run qualification and bypass-to-EST authority transfer model
 ```
 
-No spark writer exists yet. Do not add one until bypass/EST transition and fault-monitor behavior are classified.
-
-## Current known spark hazard
+## Current known spark authority model
 
 ```text
-global ASIC clear may seed $3FF6/$3FDC to $0000
-LA906 reads $3FF6/$3FDC before updating them
-therefore first valid EST handoff depends on bypass/run gating or an explicit safe seed
-```
+key-on/stall/reset:
+  L004F bit7 ENGINE RUNNING cleared
+  L004F bit4 RUN FUEL cleared
+  L0044 bit3 FIRST DRP VALID cleared/rearmed
 
-This is the reason the next technical contract is `SPARK_BYPASS_EST_TRANSITION`.
+run qualification:
+  first DRP/ref valid latch is required
+  L4133 is the 450 RPM bypass-to-run threshold candidate
+  L0210 is the qualifying DRP/ref event counter
+  L004F bit7 is set when threshold + count gates pass
+
+EST/fault monitor:
+  L004F bit6 is major-loop EST monitor enable
+  Error 42 captured rows point to L3FCA -> L0205 comparison and L022C counter
+  L3FEC->$3FE4 mirror remains possible sync/ack behavior
+```
 
 ## Current next target
 
-Create:
+Choose based on whether the Error 42/EST monitor needs its own standalone proof before defining the module boundary.
+
+Option A, if fault logic remains complex:
 
 ```text
-tools/build_bypass_est_transition.py
-docs/contracts/SPARK_BYPASS_EST_TRANSITION.md
-maps/contracts/spark_bypass_est_transition.csv
-docs/tests/SPARK_BYPASS_EST_TRANSITION_TEST.md
+docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md
+maps/contracts/spark_est_fault_monitor_contract.csv
+docs/tests/SPARK_EST_FAULT_MONITOR_TEST.md
 ```
 
-Commit message:
+Option B, if the bypass/EST contract is enough to define software boundaries:
 
 ```text
-Map spark bypass to EST transition
+docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md
 ```
 
-Purpose:
-
-```text
-Determine when the PCM stops letting the ignition module run bypass/base timing
-and starts trusting the ASIC/EST handoff path.
-```
-
-Questions to answer:
-
-```text
-What state qualifies crank -> run?
-What turns EST control on?
-What keeps bypass active?
-What enables LA906 to matter?
-What flags/counters must be valid before first EST handoff?
-What causes Error 42 / EST fault behavior?
-```
-
-Primary candidate state:
-
-```text
-L004F bit7 = engine running candidate
-L004F bit6 = EST monitor enable candidate
-L022B/L022C = EST/Error 42 counter candidates
-L3FCA = hardware RPM/ref count source candidate
-L0204/L0205 = prior sampled RPM/ref count candidates
-L3FEC = ASIC source/status candidate
-L3FE4 = mirror/ack target candidate
-L3FFA/L3FFC = packed status / I/O latch candidates
-```
+Do not create a spark writer yet.
 
 ## Static-map note
 
@@ -142,7 +127,7 @@ The current repo still contains the original static full-map baseline:
 maps/full/hardware_access_map_v0.2.csv
 ```
 
-Do not reference `maps/full/hardware_access_map_v0.3.csv` as committed until it is actually regenerated or uploaded. The current contract files are ahead of the old v0.2 working-state narrative.
+Do not reference `maps/full/hardware_access_map_v0.3.csv` as committed until it is actually regenerated or uploaded.
 
 ## Current generated/derived artifact groups
 
