@@ -6,14 +6,15 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the EST fault-monitor pass:
+Current technical focus after the spark minimal-module-boundary pass:
 
 ```text
-spark module boundary:
-  define required vs optional spark-side modules before any code stub
+spark module documentation/API layout:
+  create source/minimal_os/spark/README.md
+  define module layout and API contracts only
 ```
 
-Still no spark writer. The next artifact should be `SPARK_MINIMAL_MODULE_BOUNDARY.md`, not ASM.
+Still no spark writer. The next artifact may define documentation/API layout only; it must not implement `SPARK_WRITE` or a spark handoff stub.
 
 ## Completed contract phase
 
@@ -57,64 +58,74 @@ Completed static/provisional contracts:
 - `docs/contracts/SPARK_INIT_STATE.md`
 - `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
 - `docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md`
+- `docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md`
 
 Current spark split:
 
 ```text
-SPARK_CONVERSION_EQUATION:
+SPARK_RUN_QUALIFY:
+  first DRP valid, recent DRP valid, RPM threshold, qualifying event count, engine-running flag
+
+SPARK_BYPASS_EST_AUTHORITY:
+  bypass-safe crank behavior and safe authority transfer
+
+SPARK_CONVERT_DEGREES_TO_TIME:
   desired spark degrees -> D_AB97 timing-domain input
 
-SPARK_LA906_OUTPUT_SEQUENCE:
-  D_AB97 -> $3FE8/$3FE6 writes
-          -> $3FDC/$3FF6 rolling-state updates
-          -> $3FEC->$3FE4 mirror/ack candidate
-
-SPARK_ROLLING_STATE_MODEL:
+SPARK_ROLLING_STATE:
   persistence/continuity model for $3FF6/$3FDC/L01EC
 
-SPARK_INIT_STATE:
-  first-event seed hazard before first valid run-mode LA906 update
+SPARK_ASIC_HANDOFF:
+  paired $3FE8/$3FE6 timing writes
 
-SPARK_BYPASS_EST_TRANSITION:
-  crank/run qualification and bypass-to-EST authority transfer model
+SPARK_ASIC_MIRROR_ACK:
+  $3FEC->$3FE4 mirror/ack/status sync, bench-gated
 
-SPARK_EST_FAULT_MONITOR_CONTRACT:
-  Error 42 / EST monitor path and side-effect classification
+SPARK_EST_MONITOR:
+  optional/diagnostic unless MON-B/MON-C/MON-D is bench-proven
+
+SPARK_DROPOUT_SAFE_STATE:
+  invalid/missing REF/period safe behavior
 ```
 
-## Current known spark authority/monitor model
+## Current known spark module boundary
 
 ```text
-run qualification:
-  first DRP/ref valid latch is required
-  L4133 is the 450 RPM bypass-to-run threshold candidate
-  L0210 is the qualifying DRP/ref event counter
-  L004F bit7 is set when threshold + count gates pass
+required:
+  SPARK_RUN_QUALIFY
+  SPARK_BYPASS_EST_AUTHORITY
+  SPARK_CONVERT_DEGREES_TO_TIME
+  SPARK_ROLLING_STATE
+  SPARK_ASIC_HANDOFF
+  SPARK_DROPOUT_SAFE_STATE
 
-EST/fault monitor:
-  L004F bit6 is monitor-enable/control state
-  L3FCA is the current captured/ref sample
-  L0205 is the prior captured/ref sample
-  L022C is the EST error counter
-  L4E72 is the threshold candidate: 4 EST errors for 42A
-  no direct static proof yet that Error 42 forces bypass, disables LA906, or changes fuel
+bench-gated:
+  $3FEC->$3FE4 mirror / ACK / status-sync requirement
+  $3FF6/$3FDC first-event seed behavior
+  physical bypass/EST authority trigger
+  L0201/L3FC0 final postprocess units and sign/packing
+  exact paired role of $3FE8/$3FE6
+  dropout/missing-REF safe behavior
 
-shared mirror:
-  L3FEC->$3FE4 remains possible status/ACK behavior shared by monitor and LA906 path
+optional if MON-A:
+  SPARK_EST_MONITOR
+  Error 42 accumulation path
+  diagnostic-only EST monitor behavior
 ```
 
 ## Current next target
 
-Create the non-code boundary document:
+Create documentation/API layout only:
 
 ```text
-docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md
+source/minimal_os/spark/README.md
 ```
 
 Purpose:
 
 ```text
-Define required, optional, and bench-gated spark-side modules before any spark code stub.
+Define planned spark module layout, call order, inputs, outputs, and bench gates.
+No ASM implementation yet.
 ```
 
 Do not create a spark writer yet.
