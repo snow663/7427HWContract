@@ -1,0 +1,98 @@
+routine,pc,mnemonic,operands,access_type,effective_address,address_class,width,value_source,a_source,b_source,d_source,x_source,y_source,branch_target,call_target,hardware_role_candidate,notes,confidence
+LA906,0xAB1A,LDD,L01EE,R,0x01EE,DIRECT_RAM,16,memory/status input,,,D from current retard accumulator,,,,current retard / final spark offset accumulator candidate,"CURRENT RESTARD (2's CMP",medium_static
+LA906,0xAB1D,BRCLR,"L003B,#$10,LAB3E",R,0x003B,DIRECT_RAM,8,memory/status input,,,,,,LAB3E,,mode/flag gate, SERIAL DATA MD WORD / CK FOR ENG CONTROLLER MODE,medium_static
+LA906,0xAB21,LDX,#$0395,,,,,,,,X=0x0395,,,,,,serial/controller override pointer,context
+LA906,0xAB24,BRCLR,"0,X,#$08,LAB3E",R,,UNKNOWN,8,memory/status input,,,,,,LAB3E,,serial/controller override bit gate,,medium_static
+LA906,0xAB28,BRSET,"0,X,#$10,LAB2E",R,,UNKNOWN,8,memory/status input,,,,,,LAB2E,,serial/controller override sign/enable gate,,medium_static
+LA906,0xAB2C,CLRA,,,,,,,,A=0,,,,,,zero high byte for override path,context
+LA906,0xAB2D,CLRB,,,,,,,,,B=0,D=0,,,,,zero low byte for override path,context
+LA906,0xAB2E,BRSET,"0,X,#$20,LAB39",R,,UNKNOWN,8,memory/status input,,,,,,LAB39,,serial/controller add/subtract selector,,medium_static
+LA906,0xAB32,ADDB,L0398,R,0x0398,DIRECT_RAM,8,memory/status input,,,D modified by serial spark trim,,,,,serial spark trim add,,medium_static
+LA906,0xAB35,ADCA,#$0000,,,,,,,,,D carry adjust after ADDB,,,,,,context
+LA906,0xAB37,BRA,LAB3E,,,,,,,,,,,LAB3E,,,context
+LA906,0xAB39,SUBB,L0398,R,0x0398,DIRECT_RAM,8,memory/status input,,,D modified by serial spark trim,,,,,serial spark trim subtract,,medium_static
+LA906,0xAB3C,SBCA,#$0000,,,,,,,,,D carry adjust after SUBB,,,,,,context
+LA906,0xAB3E,STD,L01EE,W,0x01EE,DIRECT_RAM,16,CPU register / prior arithmetic,,,D = current retard after serial/limits,,,,current retard / final spark offset accumulator candidate,"CURRENT RESTARD (2's CMP",medium_static
+LA906,0xAB41,STD,L01F0,W,0x01F0,DIRECT_RAM,16,CPU register / prior arithmetic,,,D copied to spark retard shadow,,,,spark retard shadow candidate,,medium_static
+LA906,0xAB44,BCLR,"L004F,#$01",RMW,0x004F,DIRECT_RAM,8,clear bit,,,,,, ,,,spark advance/retard direction flag word,"CLR b0, 1 = RETARD, 0 = ADVANCE",medium_static
+LA906,0xAB47,LDD,L01EE,R,0x01EE,DIRECT_RAM,16,memory/status input,,,D reload current retard,,,,current retard / final spark offset accumulator candidate,"CURRENT RESTARD (2's CMP",medium_static
+LA906,0xAB4A,BPL,LAB50,,,,,,,,,,,LAB50,,,context
+LA906,0xAB4C,BSET,"L004F,#$01",RMW,0x004F,DIRECT_RAM,8,set bit,,,,,,,,spark advance/retard direction flag word,"SET b0, 1 = RETARD, 0 = ADVANCE",medium_static
+LA906,0xAB4F,NEGB,,,,,,,,,B negated / D magnitude,,,,,,make retard magnitude positive,context
+LA906,0xAB50,TBA,,,,,,,,A=B magnitude,,,,,,,move spark magnitude to A,context
+LA906,0xAB51,BRSET,"L0051,#$40,LAB62",R,0x0051,DIRECT_RAM,8,memory/status input,,,,,,LAB62,,startup spark bypass/heads-up flag gate,,medium_static
+LA906,0xAB55,LDAB,L01F2,R,0x01F2,DIRECT_RAM,8,memory/status input,,B=startup spark,D partial update,,,,startup spark,startup spark,medium_static
+LA906,0xAB58,LDX,#$01F3,,,,,,,,X=0x01F3,,,,startup spark flag pointer,,context
+LA906,0xAB5B,BRCLR,"0,X,#$80,LAB60",R,,UNKNOWN,8,memory/status input,,,,,,LAB60,,startup spark rounding flag,,medium_static
+LA906,0xAB5F,INCB,,,,,,,,,B startup spark increment,,,,,,context
+LA906,0xAB60,MUL,,,,,,,,,D=A*B,,,,,,spark magnitude/startup product,context
+LA906,0xAB61,INCA,,,,,,,,A adjusted / D high changed,,,,,,,context
+LA906,0xAB62,BRCLR,"L0086,#$40,LAB69",R,0x0086,DIRECT_RAM,8,memory/status input,,,,,,LAB69,,heads-up/diagnostic branch,,medium_static
+LA906,0xAB66,JSR,L180F,,,,,,,,,,,,L180F,,heads-up branch call,"BR TO HEADS UP",medium_static
+LA906,0xAB69,PSHA,,,,,,,,A saved,,,,,,save spark magnitude before latency lookup,context
+LA906,0xAB6A,LDAA,L0062,R,0x0062,DIRECT_RAM,8,memory/status input,A=engine RPM/25,,,,,,RPM input to spark latency lookup,ENGINE RPM/25,medium_static
+LA906,0xAB6C,LDX,#$454A,,,,,,,,X=0x454A,,,,spark latency table pointer,INDEX TBL,context
+LA906,0xAB6F,JSR,LF499,,,,,,,,,,,,LF499,,2D lookup for spark latency,2D LK UP ENTRY,medium_static
+LA906,0xAB72,STAA,L0201,W,0x0201,DIRECT_RAM,8,CPU register / prior arithmetic,A=spark latency table result,,,,,,spark latency table result,,medium_static
+LA906,0xAB75,PULA,,,,,,,,A restored spark magnitude,,,,,,restore spark magnitude,context
+LA906,0xAB76,LDX,#$005F,,,,,,,,X=0x005F,,,,last DRP period pointer,"LAST DPR PERIOD VAL ADDR, (MLT'CND)",context
+LA906,0xAB79,JSR,LF550,,,,,,,,,,,,LF550,,multiply spark magnitude by last DRP period,MUL 8X16 Subroutine,medium_static
+LA906,0xAB7C,BRSET,"L004F,#$01,LAB84",R,0x004F,DIRECT_RAM,8,memory/status input,,,,,,LAB84,,advance/retard direction branch,"BR IF b0, 1 = RETARD, 0 = ADVANCE",medium_static
+LA906,0xAB80,NEGA,,,,,,,,A negated / D sign changed,,,,,,invert advance path,context
+LA906,0xAB81,NEGB,,,,,,,,B negated / D sign changed,,,,,,invert advance path,context
+LA906,0xAB82,SBCA,#$00,,,,,,,,D carry adjust,,,,,,context
+LA906,0xAB84,SUBB,L0201,R,0x0201,DIRECT_RAM,8,memory/status input,,,D subtracts spark latency low byte,,,,spark latency table result,,medium_static
+LA906,0xAB87,SBCA,#$00,,,,,,,,D carry adjust,,,,,,context
+LA906,0xAB89,PSHB,,,,,,,,B pushed / D saved to stack,,,,,,save computed offset low,context
+LA906,0xAB8A,PSHA,,,,,,,,A pushed / D saved to stack,,,,,,save computed offset high,context
+LA906,0xAB8B,TSX,,,,,,,,X=SP stack pointer,,,,,,X points to saved computed offset,context
+LA906,0xAB8C,CLRA,,,,,,,,A=0,,,,,,prepare zero,context
+LA906,0xAB8D,CLRB,,,,,,,,B=0,D=0,,,,,,prepare zero,context
+LA906,0xAB8E,SUBD,L3FC0,R,0x3FC0,ASIC_3FXX,16,memory/status input,,,D = 0 - last DRP/ref period,,,,last DRP/ref period hardware timing basis,,medium_static
+LA906,0xAB91,LSRD,,,,,,,,D shifted / scaled,,,,,,divide timing basis by 2,context
+LA906,0xAB92,LSRD,,,,,,,,D shifted / scaled,,,,,,divide timing basis by 4,context
+LA906,0xAB93,LSRD,,,,,,,,D shifted / scaled,,,,,,divide timing basis by 8,context
+LA906,0xAB94,LSRD,,,,,,,,D shifted / scaled,,,,,,divide timing basis by 16,context
+LA906,0xAB95,ORAA,#$F0,,,,,,,,A high nibble forced / D timing-domain value,,,,,,force negative/high timing-domain bias,context
+LA906,0xAB97,ADDD,L3FF6,R,0x3FF6,ASIC_3FXX,16,memory/status input,,,D = scaled ref-period basis + EST fall counter,,,,EST fall counter / rolling timing anchor candidate,EST FALL CNT'R,medium_static
+LA906,0xAB9A,SUBD,"0,X",R,,UNKNOWN,16,memory/status input,,,D subtracts saved computed spark offset from stack,X=SP,,,computed spark offset from stack,,medium_static
+LA906,0xAB9C,BMI,LABA2,,,,,,,,,,,LABA2,,sign check after subtract,context
+LA906,0xAB9E,ADDD,"0,X",R,,UNKNOWN,16,memory/status input,,,D restores/subtract path if nonnegative,X=SP,,,computed spark offset from stack,,medium_static
+LA906,0xABA0,STD,"0,X",W,,UNKNOWN,16,CPU register / prior arithmetic,,,D updates saved stack timing value,X=SP,,,computed stack timing value clamp/update,,medium_static
+LA906,0xABA2,LDD,"0,X",R,,UNKNOWN,16,memory/status input,,,D = saved stack timing value,X=SP,,,load timing-domain command candidate from stack,,medium_static
+LA906,0xABA4,SUBD,L3FF6,R,0x3FF6,ASIC_3FXX,16,memory/status input,,,D = stack timing - EST fall counter,,,,EST fall counter / rolling timing anchor candidate,EST FALL CNT'R,medium_static
+LA906,0xABA7,JSR,LF3ED,,,,,,,,,,,,LF3ED,,short delay before ASIC write,Very short delay (RTS),medium_static
+LA906,0xABAA,STD,L3FE8,W,0x3FE8,ASIC_3FXX,16,CPU register / prior arithmetic,,,D = stack timing - EST fall counter,,,,computed spark/EST timing command candidate,,medium_static
+LA906,0xABAD,JSR,LF3ED,,,,,,,,,,,,LF3ED,,short delay between ASIC writes,Very short delay (RTS),medium_static
+LA906,0xABB0,ADDD,L3FDC,R,0x3FDC,ASIC_3FXX,16,memory/status input,,,D = prior command + rolling work-period state,,,,rolling timing/work-period state candidate,,medium_static
+LA906,0xABB3,SUBD,L01EC,R,0x01EC,DIRECT_RAM,16,memory/status input,,,D subtracts spark latency/reference correction,,,,spark latency / reference-period correction candidate,,medium_static
+LA906,0xABB6,NOP,,,,,,,,,,,,,,delay before X load/write,context
+LA906,0xABB7,LDX,L01EC,R,0x01EC,DIRECT_RAM,16,memory/status input,,,,X = L01EC,,spark latency / reference-period correction candidate,,medium_static
+LA906,0xABBA,STD,L3FE6,W,0x3FE6,ASIC_3FXX,16,CPU register / prior arithmetic,,,D = L3FE8-derived value + L3FDC - L01EC,,,,computed spark/EST timing command candidate,,medium_static
+LA906,0xABBD,JSR,LF3ED,,,,,,,,,,,,LF3ED,,short delay before state update,Very short delay (RTS),medium_static
+LA906,0xABC0,STX,L3FDC,W,0x3FDC,ASIC_3FXX,16,CPU register / prior arithmetic,,,,X = L01EC,,rolling timing/work-period state candidate,,medium_static
+LA906,0xABC3,JSR,LF3ED,,,,,,,,,,,,LF3ED,,short delay before stack restore,Very short delay (RTS),medium_static
+LA906,0xABC6,PULA,,,,,,,,A restored from stack,,,,,,restore original computed high byte,context
+LA906,0xABC7,PULB,,,,,,,,B restored from stack / D restored,,,,,,restore original computed low byte,context
+LA906,0xABC8,STD,L3FF6,W,0x3FF6,ASIC_3FXX,16,CPU register / prior arithmetic,,,D = saved computed timing anchor,,,,EST fall counter / rolling timing anchor candidate,EST FALL CNT'R,medium_static
+LA906,0xABCB,BRCLR,"L0044,#$08,LAC31",R,0x0044,DIRECT_RAM,8,memory/status input,,,,,,LAC31,,minor loop first-DRP-valid flag,MINOR LOOP MODE WD / b3 1 = 1st DRP VALID,medium_static
+LA906,0xABCF,BRCLR,"L0050,#$04,LAC10",R,0x0050,DIRECT_RAM,8,memory/status input,,,,,,LAC10,,DRP occurred 6.25ms test flag,DRP OCCOURED 6.25msec TEST,medium_static
+LA906,0xABD3,LDD,L3FCA,R,0x3FCA,ASIC_3FXX,16,memory/status input,,,D = ASIC RPM/event counter,,,,ASIC RPM/event counter read,,medium_static
+LA906,0xABD6,PSHB,,,,,,,,B pushed,,,,,,prepare transfer to X,context
+LA906,0xABD7,PSHA,,,,,,,,A pushed,,,,,,prepare transfer to X,context
+LA906,0xABD8,PULX,,,,,,,,,,,X = L3FCA value,,transfer ASIC counter to X,context
+LA906,0xABD9,LDY,#$5B03,,,,,,,,,,,Y=0x5B03,error word pointer,,ERR WD 4,context
+LA906,0xABDD,BRCLR,"0,Y,#$20,LAC1C",R,,UNKNOWN,8,memory/status input,,,,,,LAC1C,,ERR 42 EST monitor gate,"BR IF NOT b5, ERR 42, EST MONITOR ERROR",medium_static
+LA906,0xABE2,BRSET,"L004F,#$40,LAC25",R,0x004F,DIRECT_RAM,8,memory/status input,,,,,,LAC25,,major-loop EST monitor enable gate,MAJOR LOOP EST MONITOR ENABLE,medium_static
+LA906,0xABE6,BRSET,"L0044,#$80,LAC16",R,0x0044,DIRECT_RAM,8,memory/status input,,,,,,LAC16,,locked ERR42 flag gate,LOCKED IN ERR 42A,medium_static
+LA906,0xABEA,SUBD,L0205,R,0x0205,DIRECT_RAM,16,memory/status input,,,D = ASIC counter - previous EST monitor counter,,,,EST monitor previous counter,,medium_static
+LA906,0xABED,TSTA,,,,,,,,A status check,,,,,,check high byte,context
+LA906,0xABF0,CMPB,L4E71,R,0x4E71,ROM_TABLE,8,memory/status input,,,,,,,EST error count threshold,NUM PA1 CNT'S FOR ERROR,medium_static
+LA906,0xABF5,BRSET,"L0044,#$40,LAC1C",R,0x0044,DIRECT_RAM,8,memory/status input,,,,,,LAC1C,,first good ERR42A flag,1st GOOD ERR 42A FLAG,medium_static
+LA906,0xABF9,BSET,"L0044,#$40",RMW,0x0044,DIRECT_RAM,8,set bit,,,,,,,EST monitor flag update,SET b6, 1st GOOD ERR 42A FLAG,medium_static
+LA906,0xAC0D,STX,L0205,W,0x0205,DIRECT_RAM,16,CPU register / prior arithmetic,,,,X = L3FCA value,,EST monitor previous counter,,medium_static
+LA906,0xAC25,BCLR,"L0044,#$08",RMW,0x0044,DIRECT_RAM,8,clear bit,,,,,,,clear first DRP valid flag,CLR b3, 1st DRP VALID,medium_static
+LA906,0xAC28,LDX,L3FEC,R,0x3FEC,ASIC_3FXX,16,memory/status input,,,,X = ASIC status/source,,ASIC spark/status/source read candidate,,medium_static
+LA906,0xAC2B,JSR,LF3ED,,,,,,,,,,,,LF3ED,,short delay before mirror write,VERY SHORT DELAY,medium_static
+LA906,0xAC2E,STX,L3FE4,W,0x3FE4,ASIC_3FXX,16,CPU register / prior arithmetic,,,,X = value read from L3FEC,,ASIC mirror/ack/handshake target from $3FEC candidate,,medium_static
+LA906,0xAC31,BSET,"L004B,#$10",RMW,0x004B,DIRECT_RAM,8,set bit,,,,,,,post-bridge status flag,SET b4,medium_static
