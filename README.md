@@ -37,6 +37,7 @@ Core state:
 - `maps/by_subsystem/*.csv` — subsystem split maps
 - `source/31/BMHM_HAC_ORG_7100_to_end.asm` — source listing used by contract builders
 - `source/minimal_os/spark/README.md` — spark source API/layout boundary, no ASM implementation
+- `source/minimal_os/iac/README.md` — IAC source API/layout boundary, no ASM implementation
 - `tools/*.py` — repo-relative analysis/build tools
 
 Legacy/static-base artifacts still present:
@@ -81,6 +82,7 @@ TRANSMISSION_EMISSIONS_EXCLUDED
 - `docs/contracts/IAC_INIT_PARK_CONTRACT.md`
 - `maps/contracts/iac_init_park_contract.csv`
 - `docs/tests/IAC_INIT_PARK_TEST.md`
+- `source/minimal_os/iac/README.md`
 
 Current source-proven IAC model:
 
@@ -128,6 +130,19 @@ reset-in-work path: L0008 := 0 until L0007 reaches 0
 reset complete: clear L0009 bit0, set L0009 bit2, call L92A4
 ignition-off/R-S requested: L4EB0 -> L9899 -> L0008 desired/target position
 common desired sink: L9899 STAA L0008
+```
+
+IAC source-side module boundary:
+
+```text
+IAC_INIT_PARK
+IAC_ENABLE_GATE
+IAC_POSITION_COMPARE
+IAC_PHASE_STEP
+IAC_STEP_CADENCE
+IAC_TARGET_COMPUTE
+IAC_OUTPUT_LATCH
+IAC_DIAGNOSTIC_MONITOR
 ```
 
 No IAC writer exists yet.
@@ -194,24 +209,18 @@ No spark writer exists yet. That boundary is intentional.
 
 ## Current next target
 
-Define the IAC source-side module API boundary:
-
-```text
-source/minimal_os/iac/README.md
-```
-
-Purpose:
-
-```text
-Document future IAC module layout, inputs, outputs, state ownership, and bench gates without creating ASM code.
-```
-
-After that, the next calibration-side pass is:
+Use the local calibration HTML source to build the calibration index:
 
 ```text
 tools/build_calibration_source_index.py
 docs/contracts/CALIBRATION_SOURCE_INDEX.md
 maps/contracts/calibration_source_index.csv
+```
+
+Purpose:
+
+```text
+Classify the local calibration extract by module relevance without creating module code or overriding hardware contracts.
 ```
 
 ## Current hard boundaries
@@ -229,7 +238,7 @@ IAC may not yet have a writer:
   no IAC_WRITE
   no direct L3062 writer
   no source/minimal_os/iac/*.asm yet
-  source/minimal_os/iac/README.md is allowed next
+  source/minimal_os/iac/README.md is documentation/API layout only
 
 Transmission/emissions remain excluded:
   no TCC
