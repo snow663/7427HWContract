@@ -6,17 +6,38 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the spark source API README pass:
+Current technical focus after the minimal OS module boundary pass:
 
 ```text
-minimal OS module boundary:
-  combine fuel + spark module boundaries
-  define next unknown hardware subsystem boundary, likely IAC/idle air output
+next hardware subsystem:
+  IAC / idle air output
 ```
 
-Still no spark writer. The spark source tree now has documentation/API layout only.
+The project now has an OS-level module boundary. Next work should extract the IAC output hardware contract, not add fuel/spark strategy code.
 
 ## Completed contract phase
+
+### OS-level boundary
+
+Completed:
+
+- `docs/contracts/MINIMAL_OS_MODULE_BOUNDARY.md`
+- `maps/contracts/minimal_os_module_boundary.csv`
+- `docs/tests/MINIMAL_OS_MODULE_BOUNDARY_TEST.md`
+
+Current OS module map:
+
+```text
+RESET_INIT
+SENSOR_ACQUIRE
+REF_RPM_PERIOD
+FUEL_OUTPUT
+SPARK_OUTPUT
+IDLE_AIR_OUTPUT
+ALDL_DEBUG
+WATCHDOG_SAFE_STATE
+TRANSMISSION_EMISSIONS_EXCLUDED
+```
 
 ### Fuel output side
 
@@ -89,47 +110,67 @@ SPARK_DROPOUT_SAFE_STATE:
   invalid/missing REF/period safe behavior
 ```
 
-## Current known spark module boundary
+## Current known hard boundaries
 
 ```text
-required:
-  SPARK_RUN_QUALIFY
-  SPARK_BYPASS_EST_AUTHORITY
-  SPARK_CONVERT_DEGREES_TO_TIME
-  SPARK_ROLLING_STATE
-  SPARK_ASIC_HANDOFF
-  SPARK_DROPOUT_SAFE_STATE
+Fuel may have a provisional runtime writer:
+  EFI_PW_WRITE:
+    D -> STD $3FCE
 
-bench-gated:
-  $3FEC->$3FE4 mirror / ACK / status-sync requirement
-  $3FF6/$3FDC first-event seed behavior
-  physical bypass/EST authority trigger
-  L0201/L3FC0 final postprocess units and sign/packing
-  exact paired role of $3FE8/$3FE6
-  dropout/missing-REF safe behavior
+Spark may not yet have a writer:
+  no SPARK_WRITE
+  no direct $3FE8/$3FE6 writer
+  no physical EST authority code
 
-optional if MON-A:
-  SPARK_EST_MONITOR
-  Error 42 accumulation path
-  diagnostic-only EST monitor behavior
+IAC is unmapped:
+  no IAC writer until output registers/phase sequence are extracted
+
+Transmission/emissions remain excluded:
+  no TCC
+  no shift logic
+  no EGR
+  no EVAP
+  no inherited mode-word baggage unless proven hardware-required
 ```
 
 ## Current next target
 
-Create the combined minimal OS module boundary:
+Start the IAC/idle-air hardware output pass:
 
 ```text
-docs/contracts/MINIMAL_OS_MODULE_BOUNDARY.md
+docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md
+maps/contracts/iac_idle_air_output_contract.csv
+docs/tests/IAC_IDLE_AIR_OUTPUT_TEST.md
+tools/build_iac_output_contract.py
 ```
 
-Purpose:
+Trace:
 
 ```text
-Combine fuel and spark boundaries with the next unknown hardware subsystem boundary.
-Likely next unknown subsystem: IAC/idle air output contract.
+IAC desired counts
+IAC present counts
+step direction
+step rate
+coil phase sequence
+ASIC/output latch writes
+park position
+crank position
+reset behavior
 ```
 
-Do not create a spark writer yet.
+Search terms:
+
+```text
+IAC
+AIS
+IDLE AIR
+STEPPER
+MOTOR
+PARK
+COUNTS
+DESIRED IDLE
+IDLE RPM
+```
 
 ## Static-map note
 
