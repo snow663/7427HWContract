@@ -123,6 +123,15 @@ No fuel equation or tuning change is implemented by this pass.
 
 No spark writer exists yet. That boundary is intentional.
 
+### Spark minimal module inputs
+
+- `tools/build_spark_minimal_module_inputs.py`
+- `docs/contracts/SPARK_MINIMAL_MODULE_INPUTS.md`
+- `maps/contracts/spark_minimal_module_inputs.csv`
+- `docs/tests/SPARK_MINIMAL_MODULE_INPUTS_TEST.md`
+
+This is a planning boundary only. Spark output remains source-mapped but bench-gated. No spark writer, direct `$3FE8/$3FE6` writer, rolling-state writer, or physical EST/bypass code is implemented by this pass.
+
 ### Calibration source index
 
 - `tools/build_calibration_source_index.py`
@@ -146,16 +155,10 @@ The index is a planning map, not a tuning artifact.
 Next planning artifact, not code:
 
 ```text
-docs/contracts/SPARK_MINIMAL_MODULE_INPUTS.md
-maps/contracts/spark_minimal_module_inputs.csv
-tools/build_spark_minimal_module_inputs.py
-docs/tests/SPARK_MINIMAL_MODULE_INPUTS_TEST.md
-```
-
-Then:
-
-```text
 docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md
+maps/contracts/iac_minimal_module_inputs.csv
+tools/build_iac_minimal_module_inputs.py
+docs/tests/IAC_MINIMAL_MODULE_INPUTS_TEST.md
 ```
 
 ## Current hard boundaries
@@ -167,6 +170,7 @@ Fuel may have a provisional runtime writer:
 Spark may not yet have a writer:
   no SPARK_WRITE
   no direct $3FE8/$3FE6 writer
+  no direct $3FF6/$3FDC rolling-state writer
   no physical EST authority code
 
 IAC may not yet have a writer:
