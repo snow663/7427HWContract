@@ -1,0 +1,51 @@
+helper,pc,mnemonic,operands,access_type,effective_address,address_class,register_read,register_write,memory_read,memory_write,operation_class,input_candidate,output_candidate,scale_candidate,caller_pc,caller_context,notes,confidence
+LF550,0xF550,PSHA,,REG_STACK,,register_or_stack,A,SP/memory,,,load_input,A=8-bit multiplier; X=&16-bit multiplicand,,out=(A*M+0x80)>>8,,,Save Multiplier,high_static_source_comment
+LF550,0xF551,LDAB,"1,X",R,X+1,pointed_operand,"X,memory",B,X+1,,read_pointed_operand,,,out=(A*M+0x80)>>8,,,Get LSB of multiplicand,high_static_source_comment
+LF550,0xF553,MUL,,REG_STACK,,register_or_stack,"A,B","D,CCR",,,multiply_step,,,out=(A*M+0x80)>>8,,,MSB Partial product,high_static_source_comment
+LF550,0xF554,ADCA,#$00,REG_STACK,,register_or_stack,"A/B,CCR","A,CCR",,,rounding_or_carry_propagation,,,out=(A*M+0x80)>>8,,,Round,high_static_source_comment
+LF550,0xF556,PULB,,REG_STACK,,register_or_stack,stack,"B,SP",,,stack_scratch,,,,,,high_static_source_comment
+LF550,0xF557,PSHA,,REG_STACK,,register_or_stack,A,SP/memory,,,stack_scratch,,,,,Save partial product,high_static_source_comment
+LF550,0xF558,LDAA,"0,X",R,X+0,pointed_operand,"X,memory",A,X+0,,read_pointed_operand,,,out=(A*M+0x80)>>8,,,Get MSB of multiplicand,high_static_source_comment
+LF550,0xF55A,MUL,,REG_STACK,,register_or_stack,"A,B","D,CCR",,,multiply_step,,,out=(A*M+0x80)>>8,,,MSB Partial product,high_static_source_comment
+LF550,0xF55B,PSHX,,REG_STACK,,register_or_stack,,SP/memory,,,stack_scratch,,,,,Save,high_static_source_comment
+LF550,0xF55C,TSX,,REG_STACK,,register_or_stack,,X,,,stack_scratch,,,,,,high_static_source_comment
+LF550,0xF55D,ADDB,"2,X",REG_STACK,X+2,register_or_stack,"A/B,CCR","B,CCR",,,add_accumulate,,,out=(A*M+0x80)>>8,,,Add in LSB Partial prod,high_static_source_comment
+LF550,0xF55F,ADCA,#$00,REG_STACK,,register_or_stack,"A/B,CCR","A,CCR",,,rounding_or_carry_propagation,,,out=(A*M+0x80)>>8,,,Round,high_static_source_comment
+LF550,0xF561,PULX,,REG_STACK,,register_or_stack,,"X,SP",,,stack_scratch,,,,,,high_static_source_comment
+LF550,0xF562,INS,,REG_STACK,,register_or_stack,,SP,,,stack_scratch,,,,,,high_static_source_comment
+LF550,0xF563,RTS,,REG_STACK,,register_or_stack,,,,,return_value,,"D=rounded upper 16 bits of A*[X:X+1]",out=(A*M+0x80)>>8,,,,high_static_source_comment
+LF550,0x75B2,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x75B2,L74D3,MUL 8X16 Subroutine,medium_context
+LF550,0x784F,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x784F,L77F7,MUL 8X16 Subroutine,medium_context
+LF550,0x7E80,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x7E80,L7E80,MUL 8X16 Subroutine,medium_context
+LF550,0x7FE4,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x7FE4,L7F96,"8 x 16 Mult w/16b result rounded to upper 16b",medium_context
+LF550,0x7FF1,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x7FF1,L7F96,"8 x 16 Mult w/16b result rounded to upper 16b",medium_context
+LF550,0x803B,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x803B,L8008,"8 x 16 Mult w/16b result rounded to upper 16b",medium_context
+LF550,0x80FF,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x80FF,L80D0,MUL 8X16 Subroutine,medium_context
+LF550,0x82DB,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x82DB,L82CF,MUL 8X16 Subroutine,medium_context
+LF550,0x8336,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x8336,L82F9,MUL 8X16 Subroutine,medium_context
+LF550,0x835D,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x835D,L82F9,MUL 8X16 Subroutine,medium_context
+LF550,0x837A,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x837A,L82F9,MUL 8X16 Subroutine,medium_context
+LF550,0x851D,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x851D,L84F5,"8 x 16 Mult w/16b result rounded to upper 16b",medium_context
+LF550,0x8599,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x8599,L858B,8 x 16 MULT SUBROUTINE,medium_context
+LF550,0x85BD,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x85BD,L85B2,8 x 16 MULT SUBROUTINE,medium_context
+LF550,0x85DB,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x85DB,L85B2,MUL 8X16 Subroutine,medium_context
+LF550,0x85ED,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x85ED,L85B2,MUL 8X16 Subroutine,medium_context
+LF550,0x8605,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x8605,L85F9,MUL 8X16 Subroutine,medium_context
+LF550,0x8F8C,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x8F8C,L8F43,MUL 8X16 Subroutine,medium_context
+LF550,0x984C,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x984C,L982A,MUL 8X16 Subroutine,medium_context
+LF550,0x9873,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x9873,L985B,MUL 8X16 Subroutine,medium_context
+LF550,0x9E17,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x9E17,L9E17,MUL 8X16 Subroutine,medium_context
+LF550,0x9E26,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x9E26,L9E17,MUL 8X16 Subroutine,medium_context
+LF550,0x9E41,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x9E41,L9E17,MUL 8X16 Subroutine,medium_context
+LF550,0x9E58,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x9E58,L9E17,MUL 8X16 Subroutine,medium_context
+LF550,0x9EB5,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x9EB5,L9E83,MUL 8X16 Subroutine,medium_context
+LF550,0x9EC1,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x9EC1,L9E83,MUL 8X16 Subroutine,medium_context
+LF550,0x9FF7,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0x9FF7,L9FD4,MUL 8X16 Subroutine,medium_context
+LF550,0xA00A,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0xA00A,L9FD4,MUL 8X16 Subroutine,medium_context
+LF550,0xA01F,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0xA01F,L9FD4,MUL 8X16 Subroutine,medium_context
+LF550,0xA032,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0xA032,L9FD4,MUL 8X16 Subroutine,medium_context
+LF550,0xA5F9,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0xA5F9,LA5E5,MUL 8X16 Subroutine,medium_context
+LF550,0xAB79,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0xAB79,LAB69,MUL 8X16 Subroutine,medium_context
+LF550,0xAC6C,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0xAC6C,LAC5E,MUL 8X16 Subroutine,medium_context
+LF550,0xD93D,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0xD93D,LD8FE,MUL 8X16 Subroutine,medium_context
+LF550,0xD98E,JSR,LF550,CALL,,caller_context,,,,,helper_call,caller sets A and X before call,,out=(A*M+0x80)>>8,0xD98E,LD980,MUL 8X16 Subroutine,medium_context
