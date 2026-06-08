@@ -67,6 +67,37 @@ WATCHDOG_SAFE_STATE
 TRANSMISSION_EMISSIONS_EXCLUDED
 ```
 
+### IAC / idle-air output contract
+
+- `docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md`
+- `maps/contracts/iac_idle_air_output_contract.csv`
+- `docs/tests/IAC_IDLE_AIR_OUTPUT_TEST.md`
+
+Current source-proven IAC model:
+
+```text
+actual/present position = L0007
+desired/target position = L0008
+mode/output state byte  = L000A
+direction bit           = L000A bit0
+A/B ring bits           = L000A bits2/3
+Enable candidate        = L000A bit4
+output shadow           = L004C bits2/3/4
+hardware latch write    = L004C -> L3062
+```
+
+Source-proven ring candidate if bit2=A and bit3=B:
+
+```text
+direction bit0 = 0:
+  none -> A -> A+B -> B -> none
+
+direction bit0 = 1:
+  none -> B -> A+B -> A -> none
+```
+
+No IAC writer exists yet.
+
 ### Fuel output contract
 
 - `docs/contracts/EFI_PW_3FCE_CONTRACT.md`
@@ -129,33 +160,28 @@ No spark writer exists yet. That boundary is intentional.
 
 ## Current next target
 
-Next hardware-output subsystem:
+Split the source-proven IAC output result into focused follow-up contracts:
 
 ```text
-docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md
-maps/contracts/iac_idle_air_output_contract.csv
-docs/tests/IAC_IDLE_AIR_OUTPUT_TEST.md
-tools/build_iac_output_contract.py
+docs/contracts/IAC_PHASE_SEQUENCE_CONTRACT.md
+maps/contracts/iac_phase_sequence_contract.csv
+docs/tests/IAC_PHASE_SEQUENCE_TEST.md
+
+docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md
+maps/contracts/iac_enable_fault_gate_contract.csv
+docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md
+
+docs/contracts/IAC_INIT_PARK_CONTRACT.md
+maps/contracts/iac_init_park_contract.csv
+docs/tests/IAC_INIT_PARK_TEST.md
 ```
 
-Purpose:
+Recommended order:
 
 ```text
-Extract the IAC/idle-air CPU-to-hardware output contract before any IAC writer exists.
-```
-
-Likely trace targets:
-
-```text
-IAC desired counts
-IAC present counts
-step direction
-step rate
-coil phase sequence
-ASIC/output latch writes
-park position
-crank position
-reset behavior
+1. IAC_PHASE_SEQUENCE_CONTRACT
+2. IAC_ENABLE_FAULT_GATE_CONTRACT
+3. IAC_INIT_PARK_CONTRACT
 ```
 
 ## Current hard boundaries
@@ -169,8 +195,8 @@ Spark may not yet have a writer:
   no direct $3FE8/$3FE6 writer
   no physical EST authority code
 
-IAC is unmapped:
-  no IAC writer until output registers/phase sequence are extracted
+IAC may not yet have a writer:
+  no IAC writer until phase sequence, enable/fault gate, and init/park contracts are split and bench-gated
 
 Transmission/emissions remain excluded:
   no TCC
