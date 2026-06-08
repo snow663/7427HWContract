@@ -76,27 +76,31 @@ EFI_PW_WRITE      = runtime EFI pulsewidth command via STD $3FCE
 - `docs/contracts/SPARK_INIT_STATE.md`
 - `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
 - `docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md`
+- `docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md`
 
 Current spark boundary:
 
 ```text
-SPARK_CONVERSION_EQUATION
-  desired spark degrees -> D_AB97 timing-domain input
+required:
+  SPARK_RUN_QUALIFY
+  SPARK_BYPASS_EST_AUTHORITY
+  SPARK_CONVERT_DEGREES_TO_TIME
+  SPARK_ROLLING_STATE
+  SPARK_ASIC_HANDOFF
+  SPARK_DROPOUT_SAFE_STATE
 
-SPARK_LA906_OUTPUT_SEQUENCE
-  D_AB97 -> $3FE8/$3FE6 writes + $3FDC/$3FF6 updates + $3FEC->$3FE4 mirror
+bench-gated:
+  $3FEC->$3FE4 mirror / ACK / status-sync requirement
+  $3FF6/$3FDC first-event seed behavior
+  physical bypass/EST authority trigger
+  L0201/L3FC0 final postprocess units and sign/packing
+  exact paired role of $3FE8/$3FE6
+  dropout/missing-REF safe behavior
 
-SPARK_ROLLING_STATE_MODEL
-  persistence/continuity model for $3FF6/$3FDC/L01EC
-
-SPARK_INIT_STATE
-  first-event seeding and crank/run entry hazard
-
-SPARK_BYPASS_EST_TRANSITION
-  module bypass/base timing -> EST/ASIC-controlled timing authority transfer
-
-SPARK_EST_FAULT_MONITOR_CONTRACT
-  Error 42 / EST monitor path and side-effect classification
+optional if MON-A:
+  SPARK_EST_MONITOR
+  Error 42 accumulation path
+  diagnostic-only EST monitor behavior
 ```
 
 No spark writer exists yet. That boundary is intentional.
@@ -106,13 +110,14 @@ No spark writer exists yet. That boundary is intentional.
 Next non-code artifact:
 
 ```text
-docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md
+source/minimal_os/spark/README.md
 ```
 
 Purpose:
 
 ```text
-Define required, optional, and bench-gated spark-side modules before any spark code stub.
+Define planned spark module layout, call order, inputs, outputs, and bench gates.
+No ASM implementation yet.
 ```
 
 ## Current known hazard
