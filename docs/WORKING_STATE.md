@@ -6,17 +6,14 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the IAC Init/Park contract pass:
+Current technical focus after the IAC source-side boundary pass:
 
 ```text
-next source-side boundary:
-  source/minimal_os/iac/README.md
-
 next calibration-side pass:
   CALIBRATION_SOURCE_INDEX
 ```
 
-The source now proves the IAC desired/actual compare, A/B phase ring, Enable voltage/fault gate candidate, and init/park/reset behavior. Next work should define the source-side IAC module API boundary. No IAC writer yet.
+The source now proves the IAC desired/actual compare, A/B phase ring, Enable voltage/fault gate candidate, init/park/reset behavior, and source-side IAC module API boundary. No IAC writer exists yet.
 
 ## Completed contract phase
 
@@ -58,6 +55,7 @@ Completed static/source-proof passes:
 - `docs/contracts/IAC_INIT_PARK_CONTRACT.md`
 - `maps/contracts/iac_init_park_contract.csv`
 - `docs/tests/IAC_INIT_PARK_TEST.md`
+- `source/minimal_os/iac/README.md`
 
 Current IAC source-proven model:
 
@@ -105,6 +103,19 @@ reset-in-work path: L0008 := 0 until L0007 reaches 0
 reset complete: clear L0009 bit0, set L0009 bit2, call L92A4
 ignition-off/R-S requested: L4EB0 -> L9899 -> L0008 desired/target position
 common desired sink: L9899 STAA L0008
+```
+
+IAC source-side module boundary:
+
+```text
+IAC_INIT_PARK
+IAC_ENABLE_GATE
+IAC_POSITION_COMPARE
+IAC_PHASE_STEP
+IAC_STEP_CADENCE
+IAC_TARGET_COMPUTE
+IAC_OUTPUT_LATCH
+IAC_DIAGNOSTIC_MONITOR
 ```
 
 Bench gates:
@@ -208,7 +219,7 @@ IAC may not yet have a writer:
   no IAC_WRITE
   no direct L3062 writer
   no source/minimal_os/iac/*.asm yet
-  only source/minimal_os/iac/README.md is allowed next
+  source/minimal_os/iac/README.md exists as documentation/API layout only
 
 Transmission/emissions remain excluded:
   no TCC
@@ -220,33 +231,29 @@ Transmission/emissions remain excluded:
 
 ## Current next target
 
-Define the IAC source-side module API boundary:
-
-```text
-source/minimal_os/iac/README.md
-```
-
-It should split future code into planned-only modules:
-
-```text
-IAC_INIT_PARK
-IAC_ENABLE_GATE
-IAC_PHASE_STEP
-IAC_STEP_CADENCE
-IAC_TARGET_COMPUTE
-IAC_OUTPUT_LATCH
-IAC_DIAGNOSTIC_MONITOR
-```
-
-No ASM files should be created yet.
-
-After the IAC README, use the local calibration HTML source to build the calibration index:
+Use the local calibration HTML source to build the calibration index:
 
 ```text
 tools/build_calibration_source_index.py
 docs/contracts/CALIBRATION_SOURCE_INDEX.md
 maps/contracts/calibration_source_index.csv
 ```
+
+The calibration index should classify the local extract by module relevance:
+
+```text
+fuel
+spark
+IAC/idle
+crank/start
+battery/deadtime/latency
+ALDL/debug
+trans/excluded
+emissions/excluded
+unknown
+```
+
+Calibration must remain secondary to the hardware contracts. The index should classify what exists and what is likely relevant; it should not create module code or override the source-proven hardware boundaries.
 
 ## Static-map note
 
@@ -266,7 +273,7 @@ The project-source attachments include:
 31_HAC_calibration_extract_nowrap.html
 ```
 
-That file is a local source artifact, not currently a committed GitHub repo file. Use it for `CALIBRATION_SOURCE_INDEX` after the IAC source boundary is written.
+That file is a local source artifact, not currently a committed GitHub repo file. Use it for `CALIBRATION_SOURCE_INDEX`.
 
 ## Current generated/derived artifact groups
 
