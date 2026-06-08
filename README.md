@@ -72,6 +72,9 @@ TRANSMISSION_EMISSIONS_EXCLUDED
 - `docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md`
 - `maps/contracts/iac_idle_air_output_contract.csv`
 - `docs/tests/IAC_IDLE_AIR_OUTPUT_TEST.md`
+- `docs/contracts/IAC_PHASE_SEQUENCE_CONTRACT.md`
+- `maps/contracts/iac_phase_sequence_contract.csv`
+- `docs/tests/IAC_PHASE_SEQUENCE_TEST.md`
 
 Current source-proven IAC model:
 
@@ -86,14 +89,16 @@ output shadow           = L004C bits2/3/4
 hardware latch write    = L004C -> L3062
 ```
 
-Source-proven ring candidate if bit2=A and bit3=B:
+Source-proven phase ring if bit2=A and bit3=B:
 
 ```text
 direction bit0 = 0:
   none -> A -> A+B -> B -> none
+  0x00 -> 0x04 -> 0x0C -> 0x08 -> 0x00
 
 direction bit0 = 1:
   none -> B -> A+B -> A -> none
+  0x00 -> 0x08 -> 0x0C -> 0x04 -> 0x00
 ```
 
 No IAC writer exists yet.
@@ -160,28 +165,21 @@ No spark writer exists yet. That boundary is intentional.
 
 ## Current next target
 
-Split the source-proven IAC output result into focused follow-up contracts:
+Split Enable/fault behavior from the source-proven IAC output result:
 
 ```text
-docs/contracts/IAC_PHASE_SEQUENCE_CONTRACT.md
-maps/contracts/iac_phase_sequence_contract.csv
-docs/tests/IAC_PHASE_SEQUENCE_TEST.md
-
 docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md
 maps/contracts/iac_enable_fault_gate_contract.csv
 docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md
+tools/build_iac_enable_fault_gate_contract.py
+```
 
+Then continue with:
+
+```text
 docs/contracts/IAC_INIT_PARK_CONTRACT.md
 maps/contracts/iac_init_park_contract.csv
 docs/tests/IAC_INIT_PARK_TEST.md
-```
-
-Recommended order:
-
-```text
-1. IAC_PHASE_SEQUENCE_CONTRACT
-2. IAC_ENABLE_FAULT_GATE_CONTRACT
-3. IAC_INIT_PARK_CONTRACT
 ```
 
 ## Current hard boundaries
