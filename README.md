@@ -78,6 +78,9 @@ TRANSMISSION_EMISSIONS_EXCLUDED
 - `docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md`
 - `maps/contracts/iac_enable_fault_gate_contract.csv`
 - `docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md`
+- `docs/contracts/IAC_INIT_PARK_CONTRACT.md`
+- `maps/contracts/iac_init_park_contract.csv`
+- `docs/tests/IAC_INIT_PARK_TEST.md`
 
 Current source-proven IAC model:
 
@@ -114,6 +117,17 @@ ANDB #$EF = clear L000A bit4 candidate
 ORAB #$10 = set L000A bit4 candidate
 L003E bit2 = low-battery/protection flag
 L93C5 bad-shutdown/setup path preserves A/B and clears Enable/direction with ANDA #$0C
+```
+
+Init/park model:
+
+```text
+L4EB0 = 145 steps IAC park down
+NVM fail path: L4EB0 -> L0007 actual/present position
+reset-in-work path: L0008 := 0 until L0007 reaches 0
+reset complete: clear L0009 bit0, set L0009 bit2, call L92A4
+ignition-off/R-S requested: L4EB0 -> L9899 -> L0008 desired/target position
+common desired sink: L9899 STAA L0008
 ```
 
 No IAC writer exists yet.
@@ -180,19 +194,24 @@ No spark writer exists yet. That boundary is intentional.
 
 ## Current next target
 
-Isolate init/park/reset behavior and actual-position seeding:
+Define the IAC source-side module API boundary:
 
 ```text
-docs/contracts/IAC_INIT_PARK_CONTRACT.md
-maps/contracts/iac_init_park_contract.csv
-docs/tests/IAC_INIT_PARK_TEST.md
-tools/build_iac_init_park_contract.py
+source/minimal_os/iac/README.md
 ```
 
 Purpose:
 
 ```text
-Determine how stock code makes L0007 actual/present position trustworthy before normal IAC control.
+Document future IAC module layout, inputs, outputs, state ownership, and bench gates without creating ASM code.
+```
+
+After that, the next calibration-side pass is:
+
+```text
+tools/build_calibration_source_index.py
+docs/contracts/CALIBRATION_SOURCE_INDEX.md
+maps/contracts/calibration_source_index.csv
 ```
 
 ## Current hard boundaries
@@ -207,7 +226,10 @@ Spark may not yet have a writer:
   no physical EST authority code
 
 IAC may not yet have a writer:
-  no IAC writer until phase sequence, enable/fault gate, and init/park contracts are split and bench-gated
+  no IAC_WRITE
+  no direct L3062 writer
+  no source/minimal_os/iac/*.asm yet
+  source/minimal_os/iac/README.md is allowed next
 
 Transmission/emissions remain excluded:
   no TCC
