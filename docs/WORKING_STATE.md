@@ -6,14 +6,14 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the IAC source-side boundary pass:
+Current technical focus after the calibration source index pass:
 
 ```text
-next calibration-side pass:
-  CALIBRATION_SOURCE_INDEX
+hardware contracts: staged
+source-side module API boundaries: fuel partial, spark/IAC API-only
+calibration source index: complete as planning map
+next work: use calibration index only for module input-boundary planning, not tuning or writer code
 ```
-
-The source now proves the IAC desired/actual compare, A/B phase ring, Enable voltage/fault gate candidate, init/park/reset behavior, and source-side IAC module API boundary. No IAC writer exists yet.
 
 ## Completed contract phase
 
@@ -70,67 +70,7 @@ output shadow           = L004C bits2/3/4
 hardware latch write    = L004C -> L3062
 ```
 
-Phase sequence if bit2=A and bit3=B:
-
-```text
-direction bit0 = 0:
-  none -> A -> A+B -> B -> none
-  0x00 -> 0x04 -> 0x0C -> 0x08 -> 0x00
-
-direction bit0 = 1:
-  none -> B -> A+B -> A -> none
-  0x00 -> 0x08 -> 0x0C -> 0x04 -> 0x00
-```
-
-Enable/fault gate source model:
-
-```text
-L00A7 = battery volts, VDC/10
-CMPA #169 = 16.9 V high-voltage threshold candidate
-L4EB6 = low-voltage threshold candidate
-ANDB #$EF = clear L000A bit4 candidate
-ORAB #$10 = set L000A bit4 candidate
-L003E bit2 = low-battery/protection flag
-L93C5 bad-shutdown/setup path preserves A/B and clears Enable/direction with ANDA #$0C
-```
-
-Init/park source model:
-
-```text
-L4EB0 = 145 steps IAC park down
-NVM fail path: L4EB0 -> L0007 actual/present position
-reset-in-work path: L0008 := 0 until L0007 reaches 0
-reset complete: clear L0009 bit0, set L0009 bit2, call L92A4
-ignition-off/R-S requested: L4EB0 -> L9899 -> L0008 desired/target position
-common desired sink: L9899 STAA L0008
-```
-
-IAC source-side module boundary:
-
-```text
-IAC_INIT_PARK
-IAC_ENABLE_GATE
-IAC_POSITION_COMPARE
-IAC_PHASE_STEP
-IAC_STEP_CADENCE
-IAC_TARGET_COMPUTE
-IAC_OUTPUT_LATCH
-IAC_DIAGNOSTIC_MONITOR
-```
-
-Bench gates:
-
-```text
-physical pins for L3062 bits2/3/4
-whether bit2=A and bit3=B or swapped
-whether count +1 means open or closed
-whether L3062 bit4 is physical IAC Enable
-whether Enable is continuous driver gate
-whether L0008=0 is open or closed physically
-whether L4EB0=145 is open, closed, or stock park-down overtravel
-whether reset-in-work physically overdrives to a stop
-exact cadence/timer for next step
-```
+IAC is source/API staged only. No IAC writer exists yet.
 
 ### Fuel output side
 
@@ -175,32 +115,65 @@ Completed static/provisional contracts:
 - `docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md`
 - `source/minimal_os/spark/README.md`
 
-Current spark split:
+Spark is source/API staged only. No spark writer exists yet.
+
+### Calibration source index
+
+Completed:
+
+- `tools/build_calibration_source_index.py`
+- `docs/contracts/CALIBRATION_SOURCE_INDEX.md`
+- `maps/contracts/calibration_source_index.csv`
+- `docs/tests/CALIBRATION_SOURCE_INDEX_TEST.md`
+
+Source input:
 
 ```text
-SPARK_RUN_QUALIFY:
-  first DRP valid, recent DRP valid, RPM threshold, qualifying event count, engine-running flag
+31_HAC_calibration_extract_nowrap.html
+```
 
-SPARK_BYPASS_EST_AUTHORITY:
-  bypass-safe crank behavior and safe authority transfer
+Validated source summary:
 
-SPARK_CONVERT_DEGREES_TO_TIME:
-  desired spark degrees -> D_AB97 timing-domain input
+```text
+section_count: 226
+record_count: 11916
+fcb_count: 11431
+fdb_count: 485
+min_data_address: $4000
+max_data_address: $70FF
+parse_error_count: 0
+```
 
-SPARK_ROLLING_STATE:
-  persistence/continuity model for $3FF6/$3FDC/L01EC
+Current index counts:
 
-SPARK_ASIC_HANDOFF:
-  paired $3FE8/$3FE6 timing writes
+```text
+module candidates:
+  crank_start: 18
+  egr_excluded: 17
+  evap_excluded: 4
+  fuel: 24
+  iac_idle: 36
+  sensor_scaling: 33
+  spark: 19
+  spark_latency: 1
+  trans_excluded: 49
+  unknown: 24
+  warmup_afterstart: 1
 
-SPARK_ASIC_MIRROR_ACK:
-  $3FEC->$3FE4 mirror/ack/status sync, bench-gated
+minimal-OS relevance:
+  bench_gated: 56
+  excluded: 70
+  likely_required: 76
+  unknown: 24
+```
 
-SPARK_EST_MONITOR:
-  optional/diagnostic unless MON-B/MON-C/MON-D is bench-proven
+Calibration index discipline:
 
-SPARK_DROPOUT_SAFE_STATE:
-  invalid/missing REF/period safe behavior
+```text
+No section is marked required by this index alone.
+Excluded transmission/EGR/EVAP/emissions sections remain excluded unless a future hardware contract proves otherwise.
+Unknown sections remain visible instead of being silently guessed.
+The index is a planning map, not a tuning artifact.
 ```
 
 ## Current known hard boundaries
@@ -221,39 +194,32 @@ IAC may not yet have a writer:
   no source/minimal_os/iac/*.asm yet
   source/minimal_os/iac/README.md exists as documentation/API layout only
 
-Transmission/emissions remain excluded:
-  no TCC
-  no shift logic
-  no EGR
-  no EVAP
-  no inherited mode-word baggage unless proven hardware-required
+Calibration may not drive code by itself:
+  no tuning changes
+  no table selection as required unless tied to a hardware/source contract
+  no trans/EGR/EVAP/emissions migration unless proven hardware-required
 ```
 
 ## Current next target
 
-Use the local calibration HTML source to build the calibration index:
+Use the completed hardware/API/calibration stack for module input-boundary planning only.
+
+Likely next planning artifacts, not code:
 
 ```text
-tools/build_calibration_source_index.py
-docs/contracts/CALIBRATION_SOURCE_INDEX.md
-maps/contracts/calibration_source_index.csv
+docs/contracts/FUEL_MINIMAL_MODULE_INPUTS.md
+docs/contracts/SPARK_MINIMAL_MODULE_INPUTS.md
+docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md
 ```
 
-The calibration index should classify the local extract by module relevance:
+Each input-boundary pass should reference:
 
 ```text
-fuel
-spark
-IAC/idle
-crank/start
-battery/deadtime/latency
-ALDL/debug
-trans/excluded
-emissions/excluded
-unknown
+hardware/source contract need
+calibration source section(s)
+bench gate if physical behavior is not proven
+excluded/unknown status if not needed yet
 ```
-
-Calibration must remain secondary to the hardware contracts. The index should classify what exists and what is likely relevant; it should not create module code or override the source-proven hardware boundaries.
 
 ## Static-map note
 
@@ -264,43 +230,6 @@ maps/full/hardware_access_map_v0.2.csv
 ```
 
 Do not reference `maps/full/hardware_access_map_v0.3.csv` as committed until it is actually regenerated or uploaded.
-
-## Local project-source note
-
-The project-source attachments include:
-
-```text
-31_HAC_calibration_extract_nowrap.html
-```
-
-That file is a local source artifact, not currently a committed GitHub repo file. Use it for `CALIBRATION_SOURCE_INDEX`.
-
-## Current generated/derived artifact groups
-
-Core working docs:
-
-- `README.md`
-- `docs/WORKING_STATE.md`
-- `docs/contracts/*.md`
-- `docs/tests/*.md`
-- `docs/ASIC_HARDWARE_REGISTER_CONTRACT.md`
-- `docs/ASIC_Register_Contract.md`
-- `docs/VARIABLE_DEPENDENCY_GRAPH.md`
-- `docs/DYNAMIC_TRACE_PLAN.md`
-- `docs/STATIC_ANALYSIS_SUMMARY.md`
-- `docs/MINIMAL_OS_SKELETON.md`
-- `docs/CALIBRATION_LAYOUT.md`
-
-Maps/source/tools:
-
-- `maps/current/hardware_access_map_hw_only.csv`
-- `maps/current/hardware_test_matrix.csv`
-- `maps/contracts/*.csv`
-- `maps/by_subsystem/*.csv`
-- `maps/full/hardware_access_map_v0.2.csv`
-- `source/31/BMHM_HAC_ORG_7100_to_end.asm`
-- `source/31/metadata.md`
-- `tools/*.py`
 
 ## Rule going forward
 
