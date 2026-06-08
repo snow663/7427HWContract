@@ -6,14 +6,17 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the IAC Enable/Fault Gate contract pass:
+Current technical focus after the IAC Init/Park contract pass:
 
 ```text
-next IAC split follow-up:
-  IAC_INIT_PARK_CONTRACT
+next source-side boundary:
+  source/minimal_os/iac/README.md
+
+next calibration-side pass:
+  CALIBRATION_SOURCE_INDEX
 ```
 
-The source now proves the IAC desired/actual compare, A/B phase ring, and Enable voltage/fault gate candidate. Next work should isolate init/park/reset behavior and how `L0007` actual position becomes trustworthy. No IAC writer yet.
+The source now proves the IAC desired/actual compare, A/B phase ring, Enable voltage/fault gate candidate, and init/park/reset behavior. Next work should define the source-side IAC module API boundary. No IAC writer yet.
 
 ## Completed contract phase
 
@@ -52,6 +55,9 @@ Completed static/source-proof passes:
 - `docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md`
 - `maps/contracts/iac_enable_fault_gate_contract.csv`
 - `docs/tests/IAC_ENABLE_FAULT_GATE_TEST.md`
+- `docs/contracts/IAC_INIT_PARK_CONTRACT.md`
+- `maps/contracts/iac_init_park_contract.csv`
+- `docs/tests/IAC_INIT_PARK_TEST.md`
 
 Current IAC source-proven model:
 
@@ -90,6 +96,17 @@ L003E bit2 = low-battery/protection flag
 L93C5 bad-shutdown/setup path preserves A/B and clears Enable/direction with ANDA #$0C
 ```
 
+Init/park source model:
+
+```text
+L4EB0 = 145 steps IAC park down
+NVM fail path: L4EB0 -> L0007 actual/present position
+reset-in-work path: L0008 := 0 until L0007 reaches 0
+reset complete: clear L0009 bit0, set L0009 bit2, call L92A4
+ignition-off/R-S requested: L4EB0 -> L9899 -> L0008 desired/target position
+common desired sink: L9899 STAA L0008
+```
+
 Bench gates:
 
 ```text
@@ -98,8 +115,10 @@ whether bit2=A and bit3=B or swapped
 whether count +1 means open or closed
 whether L3062 bit4 is physical IAC Enable
 whether Enable is continuous driver gate
+whether L0008=0 is open or closed physically
+whether L4EB0=145 is open, closed, or stock park-down overtravel
+whether reset-in-work physically overdrives to a stop
 exact cadence/timer for next step
-reset/park/home behavior
 ```
 
 ### Fuel output side
@@ -186,7 +205,10 @@ Spark may not yet have a writer:
   no physical EST authority code
 
 IAC may not yet have a writer:
-  no IAC writer until phase sequence, enable/fault gate, and init/park contracts are split and bench-gated
+  no IAC_WRITE
+  no direct L3062 writer
+  no source/minimal_os/iac/*.asm yet
+  only source/minimal_os/iac/README.md is allowed next
 
 Transmission/emissions remain excluded:
   no TCC
@@ -198,24 +220,32 @@ Transmission/emissions remain excluded:
 
 ## Current next target
 
-Isolate init/park/reset behavior and actual-position seeding:
+Define the IAC source-side module API boundary:
 
 ```text
-docs/contracts/IAC_INIT_PARK_CONTRACT.md
-maps/contracts/iac_init_park_contract.csv
-docs/tests/IAC_INIT_PARK_TEST.md
-tools/build_iac_init_park_contract.py
+source/minimal_os/iac/README.md
 ```
 
-This pass should answer:
+It should split future code into planned-only modules:
 
 ```text
-How stock code establishes L0007 actual position
-Whether stock code overdrives closed/open at key-on/shutdown
-How many steps are commanded for park/home
-What value is loaded into L0007 after park/setup
-What is loaded into L0008 for crank/start
-When Enable is asserted relative to park movement
+IAC_INIT_PARK
+IAC_ENABLE_GATE
+IAC_PHASE_STEP
+IAC_STEP_CADENCE
+IAC_TARGET_COMPUTE
+IAC_OUTPUT_LATCH
+IAC_DIAGNOSTIC_MONITOR
+```
+
+No ASM files should be created yet.
+
+After the IAC README, use the local calibration HTML source to build the calibration index:
+
+```text
+tools/build_calibration_source_index.py
+docs/contracts/CALIBRATION_SOURCE_INDEX.md
+maps/contracts/calibration_source_index.csv
 ```
 
 ## Static-map note
@@ -227,6 +257,16 @@ maps/full/hardware_access_map_v0.2.csv
 ```
 
 Do not reference `maps/full/hardware_access_map_v0.3.csv` as committed until it is actually regenerated or uploaded.
+
+## Local project-source note
+
+The project-source attachments include:
+
+```text
+31_HAC_calibration_extract_nowrap.html
+```
+
+That file is a local source artifact, not currently a committed GitHub repo file. Use it for `CALIBRATION_SOURCE_INDEX` after the IAC source boundary is written.
 
 ## Current generated/derived artifact groups
 
