@@ -1,0 +1,9 @@
+name,mag_hex,mag_dec,operand_hex,operand_dec,scale_hypothesis,expected_out_hex,expected_out_dec,notes
+zero_mag,0x00,0,0x1000,4096,div256_rounded,0x0000,0,zero input
+unit_mag,0x01,1,0x1000,4096,div256_rounded,0x0010,16,1*4096/256
+five_deg_like,0x05,5,0x1000,4096,div256_rounded,0x0050,80,scale check
+half_operand,0x10,16,0x0800,2048,div256_rounded,0x0080,128,scale check
+max_mag,0xFF,255,0x1000,4096,div256_rounded,0x0FF0,4080,no saturation expected
+round_down_edge,0x01,1,0x007F,127,div256_rounded,0x0000,0,low product below rounding threshold
+round_up_edge,0x01,1,0x0080,128,div256_rounded,0x0001,1,low product at rounding threshold
+max_product,0xFF,255,0xFFFF,65535,div256_rounded,0xFEFF,65279,maximum unsigned product rounded upper 16 bits
