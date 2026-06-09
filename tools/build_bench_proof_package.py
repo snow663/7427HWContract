@@ -1,0 +1,190 @@
+#!/usr/bin/env python3
+"""Build the bench proof package artifacts.
+
+This is planning/test definition only. It creates proof tasks and pass/fail gates
+for bench validation. It does not create runtime ASM, bench-hook code, ALDL
+packet code, or a fuel-only runnable implementation.
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+from pathlib import Path
+
+FIELDS = [
+    "proof_id", "proof_group", "contract_dependency", "state_or_signal",
+    "source_symbol", "hardware_address", "physical_pin_or_probe",
+    "forced_condition", "expected_observation", "pass_condition",
+    "fail_condition", "required_tooling", "aldl_debug_required",
+    "scope_required", "bench_hook_required", "implementation_gate",
+    "confidence", "notes",
+]
+
+ROWS = [
+    ["FUEL-001", "fuel_pw_output", "EFI_PW_3FCE_CONTRACT.md; EFI_PW_UNITS.md; MINIMAL_EFI_PW_WRITER.md", "EFI PW command counts", "L3FCE/L3FCF", "$3FCE/$3FCF", "injector driver pulse width / $3FCE ALDL raw", "command fixed known PW count vector", "$3FCE raw counts match requested command and observed injector pulse width", "ALDL/debug raw counts and scope pulse width agree within defined tolerance", "raw counts change without matching pulse width, or pulse width changes without matching counts", "scope/logic analyzer; ALDL/debug map; fixed PW test vector", "yes", "yes", "maybe", "fuel-only runnable slice blocked until FUEL-001 through FUEL-004 pass", "high_static_bench_pending", "Primary proof that $3FCE maps to injector pulsewidth."],
+    ["FUEL-002", "fuel_pw_output", "EFI_PW_UNITS.md; MINIMAL_EFI_PW_WRITER.md", "3.0 ms PW vector", "D=$00C5", "$3FCE", "injector driver pulse width", "force D=$00C5 with fuel enabled and safe bench load", "scope sees about 3.006 ms pulse", "$00C5 produces approximately 3.006 ms because 197/65.536=3.006 ms", "observed pulse width inconsistent with 1/65536 second units", "scope/logic analyzer; bench injector load or simulator; ALDL/debug", "yes", "yes", "maybe", "fuel-only runnable slice blocked until FUEL-001 through FUEL-004 pass", "high_static_bench_pending", "Known vector for EFI PW unit proof."],
+    ["FUEL-003", "fuel_pw_output", "FUEL_MINIMAL_MODULE_INPUTS.md; MINIMAL_OS_BOOT_SAFE_STATE.md", "fuel no-pulse / zero gate", "minimal_fuel_enable; minimal_dfco_zero_gate; L3FCE/L3FCF", "$3FCE", "injector driver pulse absent", "force no-fuel or DFCO gate active", "$3FCE = 0 and no injector pulse", "no-fuel/DFCO gate forces zero output and no physical pulse", "nonzero $3FCE or injector pulse while no-fuel gate active", "ALDL/debug; scope/logic analyzer", "yes", "yes", "maybe", "fuel-only runnable slice blocked until FUEL-001 through FUEL-004 pass", "high_planning", "Proves safe zero gate."],
+    ["FUEL-004", "dropout_safe_state", "MINIMAL_OS_BOOT_SAFE_STATE.md; MINIMAL_OS_EXECUTION_SCHEDULER.md; EFI_PW_3FCE_CONTRACT.md", "dropout fuel safe state", "minimal_dropout_state; L3FCE/L3FCF", "$3FCE", "injector driver pulse absent", "simulate missing REF/DRP or unsafe runtime state", "dropout asserted, $3FCE = 0, no injector pulse", "dropout/unsafe state forces fuel no-pulse", "nonzero $3FCE or injector pulse during dropout", "REF/DRP simulator; ALDL/debug; scope", "yes", "yes", "maybe", "fuel-only runnable slice blocked until FUEL-001 through FUEL-004 pass", "high_planning", "Proves fuel output remains safe on signal loss."],
+    ["FUEL-005", "aldl_debug_visibility", "MINIMAL_OS_ALDL_DEBUG_MAP.md; FUEL_MINIMAL_MODULE_INPUTS.md", "low-PW transfer observability", "minimal_low_pw_tf_state; L024E; L0250; L3FCE/L3FCF", "$3FCE", "ALDL/debug low-PW transfer values", "run low-PW transfer test vector sequence", "input PW, corrected PW, and final $3FCE are observable", "ALDL/debug exposes enough state to validate low-PW transfer curve", "low-PW correction cannot be reconstructed from debug stream", "ALDL/debug logging; scripted PW vector sweep", "yes", "maybe", "yes", "low-PW correction implementation blocked until observable", "medium_planning", "Does not validate correction accuracy by itself; validates observability."],
+
+    ["SPARK-001", "spark_handoff", "SPARK_ASIC_HANDOFF_CONTRACT.md; MINIMAL_OS_ALDL_DEBUG_MAP.md", "spark ASIC handoff candidates", "L3FE8/L3FE6", "$3FE8/$3FE6", "ALDL/debug only; no write authority", "observe stock/source-side candidate values over events", "$3FE8/$3FE6 candidates are visible without any minimal writer", "candidate values can be logged and correlated to timing events", "candidate values absent or treated as implementation-ready without proof", "ALDL/debug; source trace; optional logic analyzer", "yes", "maybe", "yes", "no spark writer until SPARK-001 through SPARK-006 are resolved or replaced by safer strategy", "high_policy", "Observation only; debug exposure does not permit writes."],
+    ["SPARK-002", "spark_handoff", "SPARK_CONVERSION_EQUATION.md; SPARK_MINIMAL_MODULE_INPUTS.md", "spark intent and conversion path", "L01FD; L01EE; L004F bit0", "none", "ALDL/debug spark state", "run known RPM/MAP spark table points or simulated event stream", "desired spark, L01FD, L01EE, and sign flag correlate coherently", "spark accumulator/offset/sign path can be reconstructed", "values do not correlate or sign behavior is inconsistent", "ALDL/debug; scripted operating points", "yes", "no", "yes", "spark conversion implementation blocked until correlation proven", "high_static", "Proves source conversion state, not hardware authority."],
+    ["SPARK-003", "spark_handoff", "SPARK_TIMEBASE_PERIOD_CONTRACT.md; MINIMAL_OS_EXECUTION_SCHEDULER.md", "DRP/ref period basis", "L005F/L0060", "none", "REF/DRP input and ALDL/debug period", "feed known REF/DRP periods", "L005F/L0060 follows REF/DRP period and derived RPM", "period basis matches known input within tolerance", "period basis drifts, aliases, or cannot be correlated", "REF/DRP simulator; ALDL/debug; logic analyzer", "yes", "yes", "maybe", "spark and fuel RPM/timebase use blocked until period proof", "high_static", "Period basis feeds spark conversion and RPM display."],
+    ["SPARK-004", "spark_rolling_state", "SPARK_ROLLING_STATE_MODEL.md; SPARK_INIT_STATE.md", "rolling timing state", "L3FDC; L3FF6", "$3FDC/$3FF6", "ALDL/debug and optional ASIC observation", "capture across reset, first REF/DRP, crank, and run event sequences", "rolling state evolves deterministically across events", "rolling state seed/anchor behavior classifiable", "state jumps unpredictably or cannot be correlated", "ALDL/debug; REF/DRP simulator; optional logic analyzer", "yes", "maybe", "yes", "no spark rolling-state writer until SPARK-004 pass", "high_static", "Bench-gated rolling state proof."],
+    ["SPARK-005", "spark_rolling_state", "SPARK_EST_FAULT_MONITOR_CONTRACT.md; SPARK_ASIC_HANDOFF_CONTRACT.md", "status/mirror/ack path", "L3FEC -> L3FE4", "$3FEC/$3FE4", "ALDL/debug and optional ASIC status probe", "observe across spark events and EST monitor states", "$3FEC->$3FE4 behavior is visible and classifiable", "mirror/ack path role is classified or marked unused", "status behavior remains ambiguous but treated as required", "ALDL/debug; source trace; optional logic analyzer", "yes", "maybe", "yes", "no spark writer until mirror/ack requirement resolved", "medium_static", "Do not promote mirror/ack behavior without proof."],
+    ["SPARK-006", "spark_bypass_est", "SPARK_BYPASS_EST_TRANSITION.md; SPARK_MINIMAL_MODULE_BOUNDARY.md", "EST/bypass authority transition", "minimal_bypass_est_state; L004F bit7; L0044 bit3", "EST/bypass hardware TBD", "EST/bypass control/status pins if accessible", "capture key-on, crank, first REF/DRP, and run qualification", "physical authority transition can be classified", "safe authority strategy is known or output remains blocked", "physical authority unclear or unsafe but writer permitted", "scope/logic analyzer; ALDL/debug; REF/DRP simulator", "yes", "yes", "yes", "no physical EST/bypass authority code until SPARK-006 pass", "medium_contract", "May be replaced by a safer hardware strategy if documented."],
+
+    ["IAC-001", "iac_phase", "IAC_IDLE_AIR_OUTPUT_CONTRACT.md; IAC_PHASE_SEQUENCE_CONTRACT.md", "physical A/B mapping", "L3062 bits2/3; L004C bits2/3", "$3062", "IAC driver A/B input pins", "single-step or observe stock ring transitions", "L3062 bit2/bit3 physical A/B mapping classified", "each bit maps to a physical driver input or transform is documented", "pin mapping unknown but writer implemented", "scope/logic analyzer on IAC driver inputs; ALDL/debug", "yes", "yes", "yes", "no IAC writer until IAC-001 through IAC-009 resolved", "high_static", "First required IAC output proof."],
+    ["IAC-002", "iac_phase", "IAC_PHASE_SEQUENCE_CONTRACT.md; IAC_MINIMAL_MODULE_INPUTS.md", "desired greater than actual path", "L0007/L0008/L000A bits0/2/3", "$3062", "IAC A/B pins and ALDL/debug", "force desired > actual", "A/B ring follows direction bit0=0 sequence", "software ring and physical pin order are classifiable", "ring sequence differs or direction cannot be mapped", "ALDL/debug; scope/logic analyzer; controlled desired/actual state", "yes", "yes", "yes", "no IAC writer until direction/ring proven", "high_static", "Classifies one direction."],
+    ["IAC-003", "iac_phase", "IAC_PHASE_SEQUENCE_CONTRACT.md; IAC_MINIMAL_MODULE_INPUTS.md", "desired less than actual path", "L0007/L0008/L000A bits0/2/3", "$3062", "IAC A/B pins and ALDL/debug", "force desired < actual", "A/B ring follows reverse direction bit0=1 sequence", "reverse software ring and physical pin order are classifiable", "reverse sequence differs or direction cannot be mapped", "ALDL/debug; scope/logic analyzer; controlled desired/actual state", "yes", "yes", "yes", "no IAC writer until direction/ring proven", "high_static", "Classifies opposite direction."],
+    ["IAC-004", "iac_phase", "IAC_IDLE_AIR_OUTPUT_CONTRACT.md", "desired equals actual hold behavior", "L0007/L0008/L000A; L004C", "$3062", "IAC A/B pins and ALDL/debug", "force desired == actual", "A/B state holds; no step pulse occurs", "no physical step when desired equals actual", "step occurs despite zero error", "ALDL/debug; scope/logic analyzer", "yes", "yes", "maybe", "IAC hold behavior required before writer", "high_static", "Proves no-step hold behavior."],
+    ["IAC-005", "iac_enable", "IAC_ENABLE_FAULT_GATE_CONTRACT.md", "Enable physical behavior", "L000A bit4; L004C bit4; L3062 bit4", "$3062", "IAC Enable/driver enable pin", "observe enable bit during normal voltage and fault/low-voltage cases", "bit4 physical function classified", "Enable pin or driver behavior is identified", "bit4 assumed Enable without physical proof", "scope/logic analyzer; ALDL/debug; voltage variation", "yes", "yes", "yes", "no IAC writer until Enable physical behavior resolved", "high_static", "Enable may be driver enable or health gate; classify physically."],
+    ["IAC-006", "iac_enable", "IAC_ENABLE_FAULT_GATE_CONTRACT.md", "Enable not step-pulsed", "L000A bit4; L004C bit4; L3062 bit4", "$3062", "IAC Enable pin and A/B pins", "observe Enable during multi-step movement", "Enable remains gated/static rather than pulsed per step", "Enable behavior is not A/B step-pulsed", "Enable pulses per phase unexpectedly or glitches unsafe", "scope/logic analyzer; ALDL/debug", "yes", "yes", "yes", "no IAC writer until Enable timing proven", "high_static", "Confirms source rule on physical hardware."],
+    ["IAC-007", "iac_park", "IAC_INIT_PARK_CONTRACT.md; IAC_MINIMAL_MODULE_INPUTS.md", "L0008=0 physical movement", "L0008; L0007; L000A", "$3062", "IAC pintle motion or airflow response; A/B pins", "force/select L0008=0 path under bench-safe conditions", "physical movement direction classified", "L0008=0 maps to open or closed direction or no-motion policy documented", "movement direction unknown but implementation assumes it", "ALDL/debug; scope/logic analyzer; airflow/pintle observation if available", "yes", "yes", "yes", "no IAC writer until park direction resolved", "medium_static", "Classifies target-zero movement."],
+    ["IAC-008", "iac_park", "IAC_INIT_PARK_CONTRACT.md", "L4EB0=145 park-down behavior", "L4EB0; L0007; L0008", "$3062", "IAC pintle/airflow and A/B pins", "force/observe stock park-down path using L4EB0", "145-step park-down physical behavior classified", "park-down reaches expected stop or direction behavior documented", "park behavior unknown but seed trusted", "ALDL/debug; scope/logic analyzer; airflow/pintle observation if available", "yes", "yes", "yes", "no IAC writer until park behavior resolved", "high_static", "Classifies mechanical stop/seed validity."],
+    ["IAC-009", "iac_phase", "IAC_MINIMAL_MODULE_INPUTS.md; IAC_IDLE_AIR_OUTPUT_CONTRACT.md", "safe step cadence / rate limit", "minimal_iac_cadence; L000A; L3062", "$3062", "IAC A/B pins and step timing", "run controlled repeated step sequence", "safe step cadence measured and upper limit defined", "minimum safe delay/rate limit established", "writer implemented without cadence limit proof", "scope/logic analyzer; ALDL/debug; IAC load", "yes", "yes", "yes", "no IAC writer until cadence resolved", "medium_planning", "Cadence is required before any motion implementation."],
+
+    ["BOOT-001", "boot_safe_state", "MINIMAL_OS_BOOT_SAFE_STATE.md", "reset safe defaults", "minimal_output_safe_state", "mixed", "fuel/spark/IAC output probes", "reset / power cycle", "output-safe defaults entered; runtime outputs inactive", "no unsafe output activity during reset", "fuel/spark/IAC output activity appears before qualification", "scope/logic analyzer; ALDL/debug; reset control", "yes", "yes", "maybe", "runtime implementation blocked until boot defaults proven", "high_planning", "Top-level reset proof."],
+    ["BOOT-002", "boot_safe_state", "MINIMAL_OS_BOOT_SAFE_STATE.md; EFI_PW_3FCE_CONTRACT.md", "fuel zero before enable", "L3FCE/L3FCF; minimal_fuel_enable", "$3FCE", "injector driver pulse", "reset then wait before valid crank/fuel enable", "$3FCE stays zero and no injector pulse", "fuel remains zero until valid crank/fuel-enable state", "nonzero fuel appears before enable", "scope/logic analyzer; ALDL/debug", "yes", "yes", "maybe", "fuel-only runnable slice blocked until BOOT-002 and FUEL-001..004 pass", "high_planning", "Boot-safe fuel gate proof."],
+    ["BOOT-003", "dropout_safe_state", "MINIMAL_OS_BOOT_SAFE_STATE.md; MINIMAL_OS_EXECUTION_SCHEDULER.md", "missing REF/DRP dropout", "minimal_ref_drp_valid; minimal_dropout_state", "mixed", "REF/DRP input and output-safe probes", "remove/stop REF/DRP stream", "dropout state asserts and outputs move to safe policies", "dropout-safe state occurs on missing REF/DRP", "runtime remains active or outputs continue unsafe", "REF/DRP simulator; ALDL/debug; scope", "yes", "yes", "yes", "all runtime slices require dropout proof", "high_planning", "Signal-loss proof."],
+    ["BOOT-004", "dropout_safe_state", "MINIMAL_OS_BOOT_SAFE_STATE.md", "watchdog safe fallback", "minimal_watchdog_alive; minimal_output_safe_state", "mixed", "output-safe probes", "simulate foreground loop stall/watchdog failure", "watchdog-safe fallback requests output-safe defaults", "outputs return to safe defaults when watchdog proof fails", "outputs remain active after watchdog fault", "watchdog simulator or firmware test hook later; ALDL/debug; scope", "yes", "yes", "yes", "runtime scheduler blocked until watchdog fallback defined/proven", "medium_planning", "May require later bench hook to force fault."],
+    ["BOOT-005", "aldl_debug_visibility", "MINIMAL_OS_ALDL_DEBUG_MAP.md; MINIMAL_OS_BOOT_SAFE_STATE.md", "boot/dropout/watchdog debug visibility", "minimal_output_safe_state; minimal_dropout_state; minimal_watchdog_alive", "none", "ALDL/debug stream", "reset, dropout, watchdog-safe scenarios", "boot/dropout/watchdog states are visible in debug stream", "state transitions can be reconstructed from ALDL/debug", "safe-state cause cannot be diagnosed from debug stream", "ALDL/debug logging", "yes", "no", "yes", "bench proof package requires visibility before implementation", "high_planning", "Proves observability, not control authority."],
+    ["ALDL-001", "aldl_debug_visibility", "MINIMAL_OS_ALDL_DEBUG_MAP.md; MINIMAL_OS_STATE_VARIABLES.md", "debug map completeness", "all selected debug rows", "mixed", "ALDL/debug stream", "static review plus bench capture plan", "all Priority 1 values have a debug path", "every required bench proof row names required ALDL/debug values", "bench proof depends on values not exposed", "static review; ALDL/debug design review", "yes", "no", "no", "must pass before bench data capture plan freezes", "high_planning", "Completeness cross-check for proof matrix."],
+]
+
+
+def repo_root() -> Path:
+    return Path(__file__).resolve().parents[1]
+
+
+def resolve(path: str | Path) -> Path:
+    p = Path(path)
+    return p if p.is_absolute() else repo_root() / p
+
+
+def write_csv(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(FIELDS)
+        writer.writerows(ROWS)
+
+
+def write_md(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "# Bench Proof Package",
+        "",
+        "## Purpose",
+        "",
+        "Define the bench proof matrix required before implementation work proceeds.",
+        "",
+        "This document converts source/hardware contracts into physical and ALDL-observable proof tasks.",
+        "",
+        "This is still planning/test definition only:",
+        "",
+        "```text",
+        "no runtime ASM",
+        "no bench hook implementation",
+        "no ALDL packet code",
+        "no fuel-only runnable code yet",
+        "```",
+        "",
+        "## Scope",
+        "",
+        "Included:",
+        "",
+        "- fuel `$3FCE` pulsewidth proof",
+        "- spark handoff/rolling/bypass proof",
+        "- IAC A/B/Enable/park proof",
+        "- boot/dropout/watchdog proof",
+        "- ALDL/debug visibility proof",
+        "",
+        "Excluded:",
+        "",
+        "- tuning changes",
+        "- runtime ASM implementation",
+        "- ALDL packet implementation",
+        "- spark writer",
+        "- IAC writer",
+        "",
+        "## Implementation Gates",
+        "",
+        "Fuel-only runnable slice:",
+        "",
+        "- allowed after fuel PW output and boot-safe fuel gates are bench-proven",
+        "- specifically, `FUEL-001` through `FUEL-004` must pass before the first fuel-only runtime slice proceeds",
+        "",
+        "Spark implementation:",
+        "",
+        "- blocked until spark handoff, rolling state, EST/bypass authority, and safe-state behavior are bench-classified",
+        "- specifically, `SPARK-001` through `SPARK-006` must be resolved or explicitly replaced by a safer documented hardware strategy",
+        "",
+        "IAC implementation:",
+        "",
+        "- blocked until physical A/B mapping, direction, Enable behavior, park behavior, and cadence are bench-classified",
+        "- specifically, `IAC-001` through `IAC-009` must be resolved before any IAC writer is created",
+        "",
+        "## Proof Group Summary",
+        "",
+        "| Proof group | Count |",
+        "|---|---:|",
+    ]
+    counts = {}
+    for r in ROWS:
+        counts[r[1]] = counts.get(r[1], 0) + 1
+    for k in sorted(counts):
+        lines.append(f"| `{k}` | {counts[k]} |")
+    lines += [
+        "",
+        "## Proof Matrix",
+        "",
+        "| Proof ID | Group | State/signal | Forced condition | Expected observation | Pass condition | Gate |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for r in ROWS:
+        lines.append(f"| `{r[0]}` | `{r[1]}` | {r[3]} | {r[7]} | {r[8]} | {r[9]} | {r[15]} |")
+    lines += [
+        "",
+        "## Write-Authority Rule",
+        "",
+        "No proof row grants write authority by itself.",
+        "",
+        "```text",
+        "Observing $3FE8/$3FE6/$3FF6/$3FDC does not permit spark writes.",
+        "Observing L3062/L004C does not permit IAC writes.",
+        "Observing $3FCE does not permit nonzero fuel unless fuel gates permit it.",
+        "Bench hooks, if later implemented, must be explicitly gated and documented.",
+        "```",
+        "",
+        "## Unknown Mapping Rule",
+        "",
+        "Unknown physical mappings remain unresolved until bench data exists. The proof package may define how to observe them; it must not pre-classify them as solved.",
+        "",
+        "## Next Step",
+        "",
+        "After this package, choose:",
+        "",
+        "```text",
+        "first minimal fuel-only runnable slice",
+        "```",
+        "",
+        "That slice must remain limited to reset-safe state, available sensor/RPM/MAP inputs, open-loop fuel PW computation stub or fixed test PW, DFCO/no-fuel zero gate, `EFI_PW_WRITE` to `$3FCE` only, and ALDL/debug visibility. Spark and IAC writers remain forbidden.",
+    ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def main() -> int:
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--out-md", required=True)
+    p.add_argument("--out-csv", required=True)
+    args = p.parse_args()
+    write_csv(resolve(args.out_csv))
+    write_md(resolve(args.out_md))
+    print(f"BENCH_PROOF_PACKAGE: wrote {len(ROWS)} proof rows")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
