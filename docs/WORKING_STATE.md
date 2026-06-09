@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the first minimal fuel-only slice boundary pass:
+Current technical focus after the fuel SLICE-0 bench result capture pass:
 
 ```text
 hardware contracts: staged
@@ -21,7 +21,9 @@ state-variable boundary: complete as planning map
 ALDL/debug visibility boundary: complete as planning map
 bench proof package: complete as proof/test-definition map
 first minimal fuel-only slice boundary: complete as contract map
-next work: bench FUEL-001 through FUEL-004 OR implement SLICE-0 bench harness only
+fuel SLICE-0 bench harness: complete, bench-only / not engine-runnable
+fuel SLICE-0 bench result capture: complete, default status not_run
+next work: enter real bench data for FUEL-001/FUEL-002/FUEL-003 partial, and separately run dropout proof for FUEL-004
 ```
 
 ## Completed contract phase
@@ -46,6 +48,67 @@ IDLE_AIR_OUTPUT
 ALDL_DEBUG
 WATCHDOG_SAFE_STATE
 TRANSMISSION_EMISSIONS_EXCLUDED
+```
+
+### Fuel SLICE-0 bench result capture
+
+Completed:
+
+- `tools/verify_fuel_slice0_bench_results.py`
+- `maps/bench/fuel_slice0_bench_results.csv`
+- `docs/bench/FUEL_SLICE0_BENCH_RESULTS.md`
+- `docs/tests/FUEL_SLICE0_BENCH_RESULTS_TEST.md`
+
+Current result-capture discipline:
+
+```text
+Default proof status is not_run.
+The result CSV is the structured place for real scope/logic-analyzer/ALDL data.
+FUEL-001 vectors are present.
+FUEL-002 $00C5 / 197 / 3.005981 ms row is present.
+FUEL-003 zero-vector row is present and may become partial if only zero-vector evidence exists.
+FUEL-004 dropout row is present but cannot pass from SLICE-0 vector testing alone.
+pass_fail is controlled: not_run, pass, fail, partial.
+Any pass row must include measured_pw_ms or measured_register_or_debug_counts.
+FUEL-004 pass requires dropout/unsafe evidence.
+SLICE-1 cannot be marked allowed unless FUEL-001 through FUEL-004 are pass.
+```
+
+Current tolerance rule:
+
+```text
+pass if measured PW is within ±0.05 ms or ±3% of expected, whichever is larger
+
+$00C5 = 197 counts
+197 / 65.536 = 3.005981 ms
+initial acceptable range: 2.956 ms to 3.056 ms
+```
+
+### Fuel SLICE-0 bench harness
+
+Completed:
+
+- `source/minimal_os/fuel/slice0_bench_harness.asm`
+- `tools/verify_fuel_slice0_bench_harness.py`
+- `tests/static/fuel_slice0_bench_vectors.csv`
+- `docs/bench/FUEL_SLICE0_BENCH_HARNESS.md`
+- `docs/tests/FUEL_SLICE0_BENCH_HARNESS_TEST.md`
+
+Current harness discipline:
+
+```text
+bench-only
+not engine-runnable
+not scheduler-owned
+not reset-vector-owned
+not crank/run fuel control
+no direct $3FCE / L3FCE write in harness
+no spark writer
+no IAC writer
+no ALDL packet code
+no fuel math
+no sensor reads
+no VE table use
 ```
 
 ### First minimal fuel-only runnable slice boundary
@@ -480,6 +543,23 @@ Fuel-only slice boundary may not create implementation yet:
   no IAC writer
   no direct $3FE8/$3FE6/$3FF6/$3FDC/L3062 writes
 
+Fuel SLICE-0 bench harness boundaries:
+  bench-only
+  not engine-runnable
+  fixed vectors only
+  JSR EFI_PW_WRITE only
+  no direct $3FCE / L3FCE write in harness
+  no sensors
+  no fuel math
+  no VE tables
+  no ALDL packet code
+
+Fuel SLICE-0 bench result capture boundaries:
+  default status not_run
+  no proof pass without measured data
+  FUEL-004 cannot pass from vector testing alone
+  no SLICE-1 allowed claim unless FUEL-001 through FUEL-004 pass
+
 Calibration may not drive code by itself:
   no tuning changes
   no table selection as required unless tied to a hardware/source contract
@@ -488,17 +568,27 @@ Calibration may not drive code by itself:
 
 ## Current next target
 
-Valid next branches:
+Next action is bench-data capture, not code expansion:
 
 ```text
-bench FUEL-001 through FUEL-004
-implement SLICE-0 bench harness first, if explicitly bench-harness-only and not engine runnable
+run SLICE-0 vectors on bench
+record measured values in maps/bench/fuel_slice0_bench_results.csv
+run tools/verify_fuel_slice0_bench_results.py
 ```
 
-Forbidden next branch:
+Do not move to:
 
 ```text
-SLICE-1 engine-runnable fuel-only skeleton before FUEL-001 through FUEL-004 pass
+SLICE-1 engine-runnable fuel-only skeleton
+```
+
+until:
+
+```text
+FUEL-001 = pass
+FUEL-002 = pass
+FUEL-003 = pass
+FUEL-004 = pass
 ```
 
 ## Static-map note
