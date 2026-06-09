@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the minimal OS state-variable boundary pass:
+Current technical focus after the minimal OS ALDL/debug visibility boundary pass:
 
 ```text
 hardware contracts: staged
@@ -18,7 +18,8 @@ iac input boundary: complete as planning map
 execution scheduler boundary: complete as planning map
 boot/safe-state boundary: complete as planning map
 state-variable boundary: complete as planning map
-next work: MINIMAL_OS_ALDL_DEBUG_MAP, planning only
+ALDL/debug visibility boundary: complete as planning map
+next decision: bench proof package OR first minimal fuel-only runnable slice
 ```
 
 ## Completed contract phase
@@ -43,6 +44,40 @@ IDLE_AIR_OUTPUT
 ALDL_DEBUG
 WATCHDOG_SAFE_STATE
 TRANSMISSION_EMISSIONS_EXCLUDED
+```
+
+### ALDL / debug visibility boundary
+
+Completed:
+
+- `tools/build_minimal_os_aldl_debug_map.py`
+- `docs/contracts/MINIMAL_OS_ALDL_DEBUG_MAP.md`
+- `maps/contracts/minimal_os_aldl_debug_map.csv`
+- `docs/tests/MINIMAL_OS_ALDL_DEBUG_MAP_TEST.md`
+
+Current ALDL/debug discipline:
+
+```text
+No ALDL packet implementation created.
+No mode handler ASM created.
+No serial ISR changes created.
+No runtime code created.
+No write authority is granted by debug visibility.
+Fuel $3FCE raw counts and millisecond conversion are represented.
+Spark handoff/rolling candidates are debug-visible but bench-gated.
+IAC actual/desired/phase/enable/shadow/latch values are debug-visible but bench-gated.
+Scheduler/boot/dropout/watchdog values are represented.
+Trans/EGR/EVAP/emissions/stock mode-word ALDL baggage are excluded.
+Unknown debug values remain listed instead of guessed.
+```
+
+Current key debug guardrails:
+
+```text
+Debug exposure of $3FE8/$3FE6/$3FF6/$3FDC does not permit spark writes.
+Debug exposure of L3062/L004C does not permit IAC writes.
+Debug exposure of $3FCE does not permit nonzero fuel unless fuel gates permit it.
+ALDL visibility is observational only.
 ```
 
 ### State-variable boundary
@@ -348,27 +383,34 @@ State-variable map may not allocate RAM yet:
   no full stock RAM clone
   no carry-forward solely because a variable exists in stock code
 
+ALDL/debug map may not create runtime code yet:
+  no ALDL packet implementation
+  no mode handler ASM
+  no serial ISR changes
+  no write authority
+  no stock ALDL baggage solely because stock exposed it
+
 Calibration may not drive code by itself:
   no tuning changes
   no table selection as required unless tied to a hardware/source contract
   no trans/EGR/EVAP/emissions migration unless proven hardware-required
 ```
 
-## Current next target
+## Current decision point
 
-Next planning artifact, not code:
+Next useful fork:
 
 ```text
-docs/contracts/MINIMAL_OS_ALDL_DEBUG_MAP.md
-maps/contracts/minimal_os_aldl_debug_map.csv
-tools/build_minimal_os_aldl_debug_map.py
-docs/tests/MINIMAL_OS_ALDL_DEBUG_MAP_TEST.md
+bench proof package
+first minimal fuel-only runnable slice
 ```
 
-Purpose:
+Decision logic:
 
 ```text
-Decide which state variables get exposed for bench proof and live debugging before implementation.
+Fuel-only slice is the only plausible implementation path before spark and IAC output bench gates are closed.
+Spark and IAC remain output-bench-gated.
+Bench proof package can be prepared before any runtime implementation.
 ```
 
 ## Static-map note
