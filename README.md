@@ -30,14 +30,16 @@ Core state:
 
 - `docs/WORKING_STATE.md` — active project state and next target/decision point
 - `docs/contracts/*.md` — current subsystem contracts
-- `docs/bench/*.md` — bench proof packages
+- `docs/bench/*.md` — bench proof packages and harness notes
 - `docs/tests/*.md` — bench/static test plans
 - `maps/contracts/*.csv` — machine-readable contract summaries
 - `maps/bench/*.csv` — bench proof matrices
+- `tests/static/*.csv` — static vector tables
 - `maps/current/hardware_access_map_hw_only.csv` — current hardware-facing static map view
 - `maps/current/hardware_test_matrix.csv` — bench test matrix
 - `maps/by_subsystem/*.csv` — subsystem split maps
 - `source/31/BMHM_HAC_ORG_7100_to_end.asm` — source listing used by contract builders
+- `source/minimal_os/fuel/*.asm` — fuel-side source artifacts; only bench-safe/provisional paths where documented
 - `source/minimal_os/spark/README.md` — spark source API/layout boundary, no ASM implementation
 - `source/minimal_os/iac/README.md` — IAC source API/layout boundary, no ASM implementation
 - `tools/*.py` — repo-relative analysis/build tools
@@ -48,7 +50,34 @@ Legacy/static-base artifacts still present:
 
 Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists until it is committed.
 
-## Completed planning stack
+## Completed planning / bench-safe stack
+
+### Fuel SLICE-0 bench harness
+
+- `source/minimal_os/fuel/slice0_bench_harness.asm`
+- `tools/verify_fuel_slice0_bench_harness.py`
+- `tests/static/fuel_slice0_bench_vectors.csv`
+- `docs/bench/FUEL_SLICE0_BENCH_HARNESS.md`
+- `docs/tests/FUEL_SLICE0_BENCH_HARNESS_TEST.md`
+
+This is a non-engine-runnable bench harness only. It may only load fixed vectors into `D` and call `EFI_PW_WRITE`.
+
+Harness discipline:
+
+```text
+bench-only
+not engine-runnable
+not scheduler-owned
+not reset-vector-owned
+not crank/run fuel control
+no direct $3FCE / L3FCE write in harness
+no spark writer
+no IAC writer
+no ALDL packet code
+no fuel math
+no sensor reads
+no VE table use
+```
 
 ### First minimal fuel-only runnable slice boundary
 
@@ -62,8 +91,8 @@ This is a contract/planning boundary only. It defines SLICE-0/1/2 and blocks eng
 Slice discipline:
 
 ```text
-No runtime ASM created.
-No fuel-only runtime implementation created.
+No runtime ASM created by the boundary.
+No fuel-only runtime implementation created by the boundary.
 No spark or IAC writer created.
 SLICE-0 is explicitly not engine-runnable.
 SLICE-1 requires FUEL-001 through FUEL-004.
@@ -234,7 +263,7 @@ Valid next branches:
 
 ```text
 bench FUEL-001 through FUEL-004
-implement SLICE-0 bench harness first, if explicitly bench-harness-only and not engine runnable
+collect SLICE-0 bench harness data for FUEL-001, FUEL-002, and partial FUEL-003
 ```
 
 Forbidden next branch:
@@ -248,6 +277,12 @@ SLICE-1 engine-runnable fuel-only skeleton before FUEL-001 through FUEL-004 pass
 ```text
 Fuel may have a provisional runtime writer:
   D -> STD $3FCE
+
+SLICE-0 bench harness:
+  bench-only
+  not engine-runnable
+  fixed vectors only
+  JSR EFI_PW_WRITE only
 
 Spark may not yet have a writer:
   no SPARK_WRITE
@@ -264,8 +299,7 @@ IAC may not yet have a writer:
   no direct L3062 writer
   no idle strategy ASM
 
-Fuel-only slice boundary may not create implementation yet:
-  no runtime ASM
+Fuel-only slice boundary may not create engine-runnable implementation yet:
   no engine-runnable SLICE-1 before FUEL-001 through FUEL-004 pass
   no spark writer
   no IAC writer
