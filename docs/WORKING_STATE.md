@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the minimal OS ALDL/debug visibility boundary pass:
+Current technical focus after the bench proof package pass:
 
 ```text
 hardware contracts: staged
@@ -19,7 +19,8 @@ execution scheduler boundary: complete as planning map
 boot/safe-state boundary: complete as planning map
 state-variable boundary: complete as planning map
 ALDL/debug visibility boundary: complete as planning map
-next decision: bench proof package OR first minimal fuel-only runnable slice
+bench proof package: complete as proof/test-definition map
+next work: first minimal fuel-only runnable slice, constrained implementation only
 ```
 
 ## Completed contract phase
@@ -44,6 +45,45 @@ IDLE_AIR_OUTPUT
 ALDL_DEBUG
 WATCHDOG_SAFE_STATE
 TRANSMISSION_EMISSIONS_EXCLUDED
+```
+
+### Bench proof package
+
+Completed:
+
+- `tools/build_bench_proof_package.py`
+- `docs/bench/BENCH_PROOF_PACKAGE.md`
+- `maps/bench/bench_proof_matrix.csv`
+- `docs/tests/BENCH_PROOF_PACKAGE_TEST.md`
+
+Current bench proof discipline:
+
+```text
+No runtime ASM created.
+No bench-hook implementation created.
+No ALDL packet code created.
+No fuel-only runnable code created.
+Fuel $3FCE proof rows are defined.
+Spark handoff/rolling/bypass proof rows are defined and remain bench-gated.
+IAC A/B/Enable/park/cadence proof rows are defined and remain bench-gated.
+Boot/dropout/watchdog proof rows are defined.
+ALDL/debug visibility is tied to proof rows.
+No proof row grants write authority by itself.
+Unknown physical mappings remain unresolved until bench data exists.
+```
+
+Implementation gates:
+
+```text
+Fuel-only runnable slice:
+  allowed after fuel PW output and boot-safe fuel gates are bench-proven
+  FUEL-001 through FUEL-004 must pass before the first fuel-only runtime slice proceeds
+
+Spark implementation:
+  blocked until SPARK-001 through SPARK-006 are resolved or replaced by a safer documented hardware strategy
+
+IAC implementation:
+  blocked until IAC-001 through IAC-009 are resolved
 ```
 
 ### ALDL / debug visibility boundary
@@ -390,27 +430,46 @@ ALDL/debug map may not create runtime code yet:
   no write authority
   no stock ALDL baggage solely because stock exposed it
 
+Bench proof package may not create implementation yet:
+  no runtime ASM
+  no bench-hook implementation
+  no ALDL packet code
+  no fuel-only runnable code
+  no proof row grants write authority by itself
+
 Calibration may not drive code by itself:
   no tuning changes
   no table selection as required unless tied to a hardware/source contract
   no trans/EGR/EVAP/emissions migration unless proven hardware-required
 ```
 
-## Current decision point
+## Current next target
 
-Next useful fork:
+Next constrained implementation artifact:
 
 ```text
-bench proof package
 first minimal fuel-only runnable slice
 ```
 
-Decision logic:
+Allowed scope:
 
 ```text
-Fuel-only slice is the only plausible implementation path before spark and IAC output bench gates are closed.
-Spark and IAC remain output-bench-gated.
-Bench proof package can be prepared before any runtime implementation.
+reset-safe state
+sensor/RPM/MAP inputs as available
+open-loop fuel PW computation stub or fixed test PW
+DFCO/no-fuel zero gate
+EFI_PW_WRITE to $3FCE only
+ALDL/debug visibility
+```
+
+Forbidden scope:
+
+```text
+no spark writer
+no IAC writer
+no physical EST/bypass authority code
+no direct $3FE8/$3FE6/$3FF6/$3FDC writes
+no direct L3062 writes
 ```
 
 ## Static-map note
