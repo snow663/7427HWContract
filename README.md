@@ -72,6 +72,25 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 
 No IAC writer exists yet.
 
+### IAC minimal module inputs
+
+- `tools/build_iac_minimal_module_inputs.py`
+- `docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md`
+- `maps/contracts/iac_minimal_module_inputs.csv`
+- `docs/tests/IAC_MINIMAL_MODULE_INPUTS_TEST.md`
+
+This is a planning boundary only. It defines inputs needed before the already-mapped IAC path can be commanded safely:
+
+```text
+L0007 actual/present
+L0008 desired/target
+L000A state byte
+L004C output shadow
+L3062 hardware latch
+```
+
+No IAC motion, direct `L3062` writer, or idle strategy ASM is implemented by this pass.
+
 ### Fuel output contract
 
 - `docs/contracts/EFI_PW_3FCE_CONTRACT.md`
@@ -155,10 +174,10 @@ The index is a planning map, not a tuning artifact.
 Next planning artifact, not code:
 
 ```text
-docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md
-maps/contracts/iac_minimal_module_inputs.csv
-tools/build_iac_minimal_module_inputs.py
-docs/tests/IAC_MINIMAL_MODULE_INPUTS_TEST.md
+docs/contracts/MINIMAL_OS_EXECUTION_SCHEDULER.md
+maps/contracts/minimal_os_execution_scheduler.csv
+tools/build_minimal_os_execution_scheduler.py
+docs/tests/MINIMAL_OS_EXECUTION_SCHEDULER_TEST.md
 ```
 
 ## Current hard boundaries
@@ -175,9 +194,12 @@ Spark may not yet have a writer:
 
 IAC may not yet have a writer:
   no IAC_WRITE
+  no iac_output.asm
+  no iac_phase_step.asm
+  no iac_init_park.asm
+  no iac_enable_gate.asm
   no direct L3062 writer
-  no source/minimal_os/iac/*.asm yet
-  source/minimal_os/iac/README.md is documentation/API layout only
+  no idle strategy ASM
 
 Calibration may not drive code by itself:
   no tuning changes
