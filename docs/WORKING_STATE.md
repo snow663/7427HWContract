@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the bench proof package pass:
+Current technical focus after the first minimal fuel-only slice boundary pass:
 
 ```text
 hardware contracts: staged
@@ -20,7 +20,8 @@ boot/safe-state boundary: complete as planning map
 state-variable boundary: complete as planning map
 ALDL/debug visibility boundary: complete as planning map
 bench proof package: complete as proof/test-definition map
-next work: first minimal fuel-only runnable slice, constrained implementation only
+first minimal fuel-only slice boundary: complete as contract map
+next work: bench FUEL-001 through FUEL-004 OR implement SLICE-0 bench harness only
 ```
 
 ## Completed contract phase
@@ -46,6 +47,41 @@ ALDL_DEBUG
 WATCHDOG_SAFE_STATE
 TRANSMISSION_EMISSIONS_EXCLUDED
 ```
+
+### First minimal fuel-only runnable slice boundary
+
+Completed:
+
+- `tools/build_first_minimal_fuel_only_slice.py`
+- `docs/contracts/FIRST_MINIMAL_FUEL_ONLY_SLICE.md`
+- `maps/contracts/first_minimal_fuel_only_slice.csv`
+- `docs/tests/FIRST_MINIMAL_FUEL_ONLY_SLICE_TEST.md`
+
+Current slice discipline:
+
+```text
+No runtime ASM created.
+No fuel-only runtime implementation created.
+No spark ASM/writer created.
+No IAC ASM/writer created.
+Only EFI_PW_WRITE -> $3FCE is allowed in the fuel-only slice boundary.
+SLICE-0 is explicitly not engine-runnable.
+SLICE-1 is blocked until FUEL-001 through FUEL-004 pass.
+SLICE-2 is future-only after sensor/acquisition/fuel-model proof.
+Dropout forces $3FCE = 0.
+ALDL/debug raw counts and milliseconds visibility are required.
+Calibration cannot make the slice runnable by itself.
+Trans/EGR/EVAP remain excluded.
+```
+
+Current valid next branches:
+
+```text
+bench FUEL-001 through FUEL-004
+implement SLICE-0 bench harness first, if explicitly bench-harness-only and not engine runnable
+```
+
+Do not implement `SLICE-1` until the fuel proof rows are actually satisfied.
 
 ### Bench proof package
 
@@ -437,6 +473,13 @@ Bench proof package may not create implementation yet:
   no fuel-only runnable code
   no proof row grants write authority by itself
 
+Fuel-only slice boundary may not create implementation yet:
+  no runtime ASM
+  no engine-runnable SLICE-1 before FUEL-001 through FUEL-004 pass
+  no spark writer
+  no IAC writer
+  no direct $3FE8/$3FE6/$3FF6/$3FDC/L3062 writes
+
 Calibration may not drive code by itself:
   no tuning changes
   no table selection as required unless tied to a hardware/source contract
@@ -445,31 +488,17 @@ Calibration may not drive code by itself:
 
 ## Current next target
 
-Next constrained implementation artifact:
+Valid next branches:
 
 ```text
-first minimal fuel-only runnable slice
+bench FUEL-001 through FUEL-004
+implement SLICE-0 bench harness first, if explicitly bench-harness-only and not engine runnable
 ```
 
-Allowed scope:
+Forbidden next branch:
 
 ```text
-reset-safe state
-sensor/RPM/MAP inputs as available
-open-loop fuel PW computation stub or fixed test PW
-DFCO/no-fuel zero gate
-EFI_PW_WRITE to $3FCE only
-ALDL/debug visibility
-```
-
-Forbidden scope:
-
-```text
-no spark writer
-no IAC writer
-no physical EST/bypass authority code
-no direct $3FE8/$3FE6/$3FF6/$3FDC writes
-no direct L3062 writes
+SLICE-1 engine-runnable fuel-only skeleton before FUEL-001 through FUEL-004 pass
 ```
 
 ## Static-map note
