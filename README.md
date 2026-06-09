@@ -54,6 +54,26 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 - `maps/contracts/minimal_os_module_boundary.csv`
 - `docs/tests/MINIMAL_OS_MODULE_BOUNDARY_TEST.md`
 
+### State-variable boundary
+
+- `tools/build_minimal_os_state_variables.py`
+- `docs/contracts/MINIMAL_OS_STATE_VARIABLES.md`
+- `maps/contracts/minimal_os_state_variables.csv`
+- `docs/tests/MINIMAL_OS_STATE_VARIABLES_TEST.md`
+
+This is a planning boundary only. It consolidates source-proven symbols, hardware shadows, logical minimal-OS state, scheduler/boot/watchdog state, ALDL/debug state, explicit exclusions, and unknowns.
+
+State-variable discipline:
+
+```text
+No runtime ASM created.
+No RAM allocator created.
+No linker map created.
+Hardware shadows are separated from logical state.
+No full stock RAM map is created.
+No variable is carried forward solely because it exists in stock code.
+```
+
 ### Boot / safe-state boundary
 
 - `tools/build_minimal_os_boot_safe_state.py`
@@ -62,17 +82,6 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 - `docs/tests/MINIMAL_OS_BOOT_SAFE_STATE_TEST.md`
 
 This is a planning boundary only. It defines reset, output-safe defaults, RAM seed, REF wait, crank qualify, first valid period, run qualify, dropout, and watchdog-safe states.
-
-Boot/safe discipline:
-
-```text
-No reset vector ASM created.
-No startup implementation created.
-Fuel $3FCE zero/no-pulse state is represented.
-Nonzero fuel remains gated.
-Spark direct hardware writes remain forbidden.
-IAC direct L3062 writes remain forbidden.
-```
 
 ### Execution scheduler boundary
 
@@ -203,10 +212,10 @@ The index is a planning map, not a tuning artifact.
 Next planning artifact, not code:
 
 ```text
-docs/contracts/MINIMAL_OS_STATE_VARIABLES.md
-maps/contracts/minimal_os_state_variables.csv
-tools/build_minimal_os_state_variables.py
-docs/tests/MINIMAL_OS_STATE_VARIABLES_TEST.md
+docs/contracts/MINIMAL_OS_ALDL_DEBUG_MAP.md
+maps/contracts/minimal_os_aldl_debug_map.csv
+tools/build_minimal_os_aldl_debug_map.py
+docs/tests/MINIMAL_OS_ALDL_DEBUG_MAP_TEST.md
 ```
 
 ## Current hard boundaries
@@ -242,6 +251,13 @@ Boot/safe-state may not create startup code yet:
   no direct spark ASIC writes
   no direct IAC L3062 writes
   no nonzero fuel boot default
+
+State-variable map may not allocate RAM yet:
+  no allocator
+  no linker map
+  no runtime ASM
+  no full stock RAM clone
+  no carry-forward solely because a variable exists in stock code
 
 Calibration may not drive code by itself:
   no tuning changes
