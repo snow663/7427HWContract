@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the spark minimal-module input boundary pass:
+Current technical focus after the IAC minimal-module input boundary pass:
 
 ```text
 hardware contracts: staged
@@ -14,7 +14,8 @@ source-side module API boundaries: fuel partial, spark/IAC API-only
 calibration source index: complete as planning map
 fuel input boundary: complete as planning map
 spark input boundary: complete as planning map
-next work: IAC_MINIMAL_MODULE_INPUTS, planning only
+iac input boundary: complete as planning map
+next work: MINIMAL_OS_EXECUTION_SCHEDULER, planning only
 ```
 
 ## Completed contract phase
@@ -73,6 +74,66 @@ hardware latch write    = L004C -> L3062
 ```
 
 IAC is source/API staged only. No IAC writer exists yet.
+
+### IAC minimal module inputs
+
+Completed:
+
+- `tools/build_iac_minimal_module_inputs.py`
+- `docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md`
+- `maps/contracts/iac_minimal_module_inputs.csv`
+- `docs/tests/IAC_MINIMAL_MODULE_INPUTS_TEST.md`
+
+Current IAC input boundary:
+
+```text
+required / likely required:
+  RPM / engine speed
+  actual idle RPM
+  desired idle RPM
+  RPM error
+  coolant temperature
+  crank/run state
+  startup/crank air request
+  park/reset state
+  bad-shutdown state
+  reset-in-work state
+  R/S requested state
+  battery voltage
+  IAC enable/protection state
+  actual IAC position
+  actual-position seed validity
+  desired IAC target
+  IAC position error
+  step direction
+  A/B phase state
+  step cadence / rate limit
+  closed-throttle / idle-mode state
+  TPS / throttle state
+  stall/dropout safe state
+
+bench-gated:
+  physical A/B pin mapping
+  open/close direction
+  whether count increment opens or closes IAC
+  Enable physical function
+  park-down physical direction
+  L4EB0 physical meaning
+  whether every software step equals one motor step
+  safe step cadence
+  actual-position validity after normal shutdown
+```
+
+IAC input discipline:
+
+```text
+No IAC motion implemented.
+No IAC ASM writer created.
+No direct L3062 writer created.
+Phase, Enable, park/reset, and cadence behavior remain bench-gated.
+Trans/EGR/EVAP idle-adjacent sections remain excluded.
+Unknown IAC inputs remain listed instead of guessed.
+```
 
 ### Fuel output side
 
@@ -148,38 +209,6 @@ Completed:
 - `maps/contracts/spark_minimal_module_inputs.csv`
 - `docs/tests/SPARK_MINIMAL_MODULE_INPUTS_TEST.md`
 
-Current spark input boundary:
-
-```text
-required / likely required:
-  RPM / engine speed
-  MAP / load
-  TPS / throttle state
-  coolant temperature
-  baro / altitude basis
-  crank/run state
-  bypass/EST authority state
-  reference/DRP period basis
-  desired base spark table
-  startup spark
-  coolant spark modifier
-  MAP/RPM spark modifiers
-  spark latency correction
-  spark magnitude scale
-  degree-to-time conversion dependency
-  rolling timing state seed
-  spark enable / dropout safe state
-
-bench-gated:
-  physical EST/bypass authority trigger
-  $3FE8/$3FE6 exact physical role
-  $3FF6/$3FDC first-event seed
-  $3FEC->$3FE4 mirror/ack requirement
-  final LA906 packing/sign behavior
-  EST fault monitor side effects
-  knock-retard hardware behavior
-```
-
 Spark input discipline:
 
 ```text
@@ -238,9 +267,12 @@ Spark may not yet have a writer:
 
 IAC may not yet have a writer:
   no IAC_WRITE
+  no iac_output.asm
+  no iac_phase_step.asm
+  no iac_init_park.asm
+  no iac_enable_gate.asm
   no direct L3062 writer
-  no source/minimal_os/iac/*.asm yet
-  source/minimal_os/iac/README.md exists as documentation/API layout only
+  no idle strategy ASM
 
 Calibration may not drive code by itself:
   no tuning changes
@@ -253,19 +285,16 @@ Calibration may not drive code by itself:
 Next planning artifact, not code:
 
 ```text
-docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md
-maps/contracts/iac_minimal_module_inputs.csv
-tools/build_iac_minimal_module_inputs.py
-docs/tests/IAC_MINIMAL_MODULE_INPUTS_TEST.md
+docs/contracts/MINIMAL_OS_EXECUTION_SCHEDULER.md
+maps/contracts/minimal_os_execution_scheduler.csv
+tools/build_minimal_os_execution_scheduler.py
+docs/tests/MINIMAL_OS_EXECUTION_SCHEDULER_TEST.md
 ```
 
-Each input-boundary pass should reference:
+Purpose:
 
 ```text
-hardware/source contract need
-calibration source section(s)
-bench gate if physical behavior is not proven
-excluded/unknown status if not needed yet
+Define when RESET_INIT, SENSOR_ACQUIRE, REF_RPM_PERIOD, FUEL_OUTPUT, SPARK_OUTPUT, IDLE_AIR_OUTPUT, ALDL_DEBUG, and WATCHDOG_SAFE_STATE run relative to reset, REF/DRP events, timer events, foreground/service loops, and fault/dropout states.
 ```
 
 ## Static-map note
