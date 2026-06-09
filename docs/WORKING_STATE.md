@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the minimal OS execution scheduler boundary pass:
+Current technical focus after the minimal OS boot/safe-state boundary pass:
 
 ```text
 hardware contracts: staged
@@ -16,7 +16,8 @@ fuel input boundary: complete as planning map
 spark input boundary: complete as planning map
 iac input boundary: complete as planning map
 execution scheduler boundary: complete as planning map
-next work: MINIMAL_OS_BOOT_SAFE_STATE, planning only
+boot/safe-state boundary: complete as planning map
+next work: MINIMAL_OS_STATE_VARIABLES, planning only
 ```
 
 ## Completed contract phase
@@ -41,6 +42,29 @@ IDLE_AIR_OUTPUT
 ALDL_DEBUG
 WATCHDOG_SAFE_STATE
 TRANSMISSION_EMISSIONS_EXCLUDED
+```
+
+### Boot / safe-state boundary
+
+Completed:
+
+- `tools/build_minimal_os_boot_safe_state.py`
+- `docs/contracts/MINIMAL_OS_BOOT_SAFE_STATE.md`
+- `maps/contracts/minimal_os_boot_safe_state.csv`
+- `docs/tests/MINIMAL_OS_BOOT_SAFE_STATE_TEST.md`
+
+Current boot-safe discipline:
+
+```text
+No reset vector ASM created.
+No scheduler ASM created.
+No startup implementation created.
+Fuel $3FCE zero/no-pulse state is represented.
+Nonzero fuel remains gated by fuel calculation and no-fuel enable.
+Spark direct hardware writes remain forbidden.
+IAC direct L3062 writes remain forbidden.
+REF wait, crank qualify, first valid period, run qualify, dropout, and watchdog-safe states are represented.
+Unknown boot ownership remains listed instead of guessed.
 ```
 
 ### Execution scheduler boundary
@@ -284,6 +308,13 @@ Scheduler may not create runtime code yet:
   no new hardware writes
   no calibration-driven events without hardware/source contract ownership
 
+Boot/safe-state may not create startup code yet:
+  no reset vector ASM
+  no startup implementation
+  no direct spark ASIC writes
+  no direct IAC L3062 writes
+  no nonzero fuel boot default
+
 Calibration may not drive code by itself:
   no tuning changes
   no table selection as required unless tied to a hardware/source contract
@@ -295,16 +326,16 @@ Calibration may not drive code by itself:
 Next planning artifact, not code:
 
 ```text
-docs/contracts/MINIMAL_OS_BOOT_SAFE_STATE.md
-maps/contracts/minimal_os_boot_safe_state.csv
-tools/build_minimal_os_boot_safe_state.py
-docs/tests/MINIMAL_OS_BOOT_SAFE_STATE_TEST.md
+docs/contracts/MINIMAL_OS_STATE_VARIABLES.md
+maps/contracts/minimal_os_state_variables.csv
+tools/build_minimal_os_state_variables.py
+docs/tests/MINIMAL_OS_STATE_VARIABLES_TEST.md
 ```
 
 Purpose:
 
 ```text
-Turn scheduler ownership into a reset/crank/run safe-state machine without implementing the full OS.
+Consolidate the minimal RAM/state map across fuel, spark, IAC, scheduler, boot, watchdog, and ALDL without writing the OS.
 ```
 
 ## Static-map note
