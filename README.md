@@ -50,6 +50,27 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 
 ## Completed planning stack
 
+### First minimal fuel-only runnable slice boundary
+
+- `tools/build_first_minimal_fuel_only_slice.py`
+- `docs/contracts/FIRST_MINIMAL_FUEL_ONLY_SLICE.md`
+- `maps/contracts/first_minimal_fuel_only_slice.csv`
+- `docs/tests/FIRST_MINIMAL_FUEL_ONLY_SLICE_TEST.md`
+
+This is a contract/planning boundary only. It defines SLICE-0/1/2 and blocks engine-runnable fuel-only implementation until the required fuel bench proofs pass.
+
+Slice discipline:
+
+```text
+No runtime ASM created.
+No fuel-only runtime implementation created.
+No spark or IAC writer created.
+SLICE-0 is explicitly not engine-runnable.
+SLICE-1 requires FUEL-001 through FUEL-004.
+SLICE-2 is future-only after sensor/acquisition/fuel-model proof.
+Only EFI_PW_WRITE -> $3FCE is allowed by the fuel-only slice boundary.
+```
+
 ### Bench proof package
 
 - `tools/build_bench_proof_package.py`
@@ -209,31 +230,17 @@ The calibration index parses the local `31_HAC_calibration_extract_nowrap.html` 
 
 ## Current next target
 
-Next constrained implementation artifact:
+Valid next branches:
 
 ```text
-first minimal fuel-only runnable slice
+bench FUEL-001 through FUEL-004
+implement SLICE-0 bench harness first, if explicitly bench-harness-only and not engine runnable
 ```
 
-Allowed scope:
+Forbidden next branch:
 
 ```text
-reset-safe state
-sensor/RPM/MAP inputs as available
-open-loop fuel PW computation stub or fixed test PW
-DFCO/no-fuel zero gate
-EFI_PW_WRITE to $3FCE only
-ALDL/debug visibility
-```
-
-Forbidden scope:
-
-```text
-no spark writer
-no IAC writer
-no physical EST/bypass authority code
-no direct $3FE8/$3FE6/$3FF6/$3FDC writes
-no direct L3062 writes
+SLICE-1 engine-runnable fuel-only skeleton before FUEL-001 through FUEL-004 pass
 ```
 
 ## Current hard boundaries
@@ -256,6 +263,13 @@ IAC may not yet have a writer:
   no iac_enable_gate.asm
   no direct L3062 writer
   no idle strategy ASM
+
+Fuel-only slice boundary may not create implementation yet:
+  no runtime ASM
+  no engine-runnable SLICE-1 before FUEL-001 through FUEL-004 pass
+  no spark writer
+  no IAC writer
+  no direct $3FE8/$3FE6/$3FF6/$3FDC/L3062 writes
 
 Bench proof package may not create implementation yet:
   no runtime ASM
