@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the IAC minimal-module input boundary pass:
+Current technical focus after the minimal OS execution scheduler boundary pass:
 
 ```text
 hardware contracts: staged
@@ -15,7 +15,8 @@ calibration source index: complete as planning map
 fuel input boundary: complete as planning map
 spark input boundary: complete as planning map
 iac input boundary: complete as planning map
-next work: MINIMAL_OS_EXECUTION_SCHEDULER, planning only
+execution scheduler boundary: complete as planning map
+next work: MINIMAL_OS_BOOT_SAFE_STATE, planning only
 ```
 
 ## Completed contract phase
@@ -40,6 +41,49 @@ IDLE_AIR_OUTPUT
 ALDL_DEBUG
 WATCHDOG_SAFE_STATE
 TRANSMISSION_EMISSIONS_EXCLUDED
+```
+
+### Execution scheduler boundary
+
+Completed:
+
+- `tools/build_minimal_os_execution_scheduler.py`
+- `docs/contracts/MINIMAL_OS_EXECUTION_SCHEDULER.md`
+- `maps/contracts/minimal_os_execution_scheduler.csv`
+- `docs/tests/MINIMAL_OS_EXECUTION_SCHEDULER_TEST.md`
+
+Current scheduler discipline:
+
+```text
+No runtime scheduler ASM created.
+No new hardware writer created.
+Only $3FCE is provisionally allowed, and only through EFI_PW_WRITE / MINIMAL_EFI_PW_WRITER.
+Spark hardware writes remain forbidden.
+IAC L3062 writes remain forbidden.
+ALDL/debug owns visibility only, not control outputs.
+Unknown event ownership remains listed instead of guessed.
+```
+
+Current event classes represented:
+
+```text
+RESET_INIT
+CRANK_INIT
+REF_DRP_EVENT
+FUEL_CALC_EVENT
+FUEL_OUTPUT_EVENT
+SPARK_PERIOD_EVENT
+SPARK_OUTPUT_EVENT
+IAC_CADENCE_EVENT
+IAC_OUTPUT_EVENT
+SENSOR_SAMPLE_EVENT
+ALDL_SERVICE_EVENT
+WATCHDOG_SERVICE_EVENT
+DROPOUT_SAFE_STATE
+FOREGROUND_BACKGROUND_LOOP
+BENCH_ONLY_HOOK
+EXCLUDED
+UNKNOWN
 ```
 
 ### IAC / idle-air output side
@@ -83,46 +127,6 @@ Completed:
 - `docs/contracts/IAC_MINIMAL_MODULE_INPUTS.md`
 - `maps/contracts/iac_minimal_module_inputs.csv`
 - `docs/tests/IAC_MINIMAL_MODULE_INPUTS_TEST.md`
-
-Current IAC input boundary:
-
-```text
-required / likely required:
-  RPM / engine speed
-  actual idle RPM
-  desired idle RPM
-  RPM error
-  coolant temperature
-  crank/run state
-  startup/crank air request
-  park/reset state
-  bad-shutdown state
-  reset-in-work state
-  R/S requested state
-  battery voltage
-  IAC enable/protection state
-  actual IAC position
-  actual-position seed validity
-  desired IAC target
-  IAC position error
-  step direction
-  A/B phase state
-  step cadence / rate limit
-  closed-throttle / idle-mode state
-  TPS / throttle state
-  stall/dropout safe state
-
-bench-gated:
-  physical A/B pin mapping
-  open/close direction
-  whether count increment opens or closes IAC
-  Enable physical function
-  park-down physical direction
-  L4EB0 physical meaning
-  whether every software step equals one motor step
-  safe step cadence
-  actual-position validity after normal shutdown
-```
 
 IAC input discipline:
 
@@ -274,6 +278,12 @@ IAC may not yet have a writer:
   no direct L3062 writer
   no idle strategy ASM
 
+Scheduler may not create runtime code yet:
+  no runtime scheduler ASM
+  no module dispatch code
+  no new hardware writes
+  no calibration-driven events without hardware/source contract ownership
+
 Calibration may not drive code by itself:
   no tuning changes
   no table selection as required unless tied to a hardware/source contract
@@ -285,16 +295,16 @@ Calibration may not drive code by itself:
 Next planning artifact, not code:
 
 ```text
-docs/contracts/MINIMAL_OS_EXECUTION_SCHEDULER.md
-maps/contracts/minimal_os_execution_scheduler.csv
-tools/build_minimal_os_execution_scheduler.py
-docs/tests/MINIMAL_OS_EXECUTION_SCHEDULER_TEST.md
+docs/contracts/MINIMAL_OS_BOOT_SAFE_STATE.md
+maps/contracts/minimal_os_boot_safe_state.csv
+tools/build_minimal_os_boot_safe_state.py
+docs/tests/MINIMAL_OS_BOOT_SAFE_STATE_TEST.md
 ```
 
 Purpose:
 
 ```text
-Define when RESET_INIT, SENSOR_ACQUIRE, REF_RPM_PERIOD, FUEL_OUTPUT, SPARK_OUTPUT, IDLE_AIR_OUTPUT, ALDL_DEBUG, and WATCHDOG_SAFE_STATE run relative to reset, REF/DRP events, timer events, foreground/service loops, and fault/dropout states.
+Turn scheduler ownership into a reset/crank/run safe-state machine without implementing the full OS.
 ```
 
 ## Static-map note
