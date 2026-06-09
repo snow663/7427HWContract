@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the minimal OS boot/safe-state boundary pass:
+Current technical focus after the minimal OS state-variable boundary pass:
 
 ```text
 hardware contracts: staged
@@ -17,7 +17,8 @@ spark input boundary: complete as planning map
 iac input boundary: complete as planning map
 execution scheduler boundary: complete as planning map
 boot/safe-state boundary: complete as planning map
-next work: MINIMAL_OS_STATE_VARIABLES, planning only
+state-variable boundary: complete as planning map
+next work: MINIMAL_OS_ALDL_DEBUG_MAP, planning only
 ```
 
 ## Completed contract phase
@@ -42,6 +43,31 @@ IDLE_AIR_OUTPUT
 ALDL_DEBUG
 WATCHDOG_SAFE_STATE
 TRANSMISSION_EMISSIONS_EXCLUDED
+```
+
+### State-variable boundary
+
+Completed:
+
+- `tools/build_minimal_os_state_variables.py`
+- `docs/contracts/MINIMAL_OS_STATE_VARIABLES.md`
+- `maps/contracts/minimal_os_state_variables.csv`
+- `docs/tests/MINIMAL_OS_STATE_VARIABLES_TEST.md`
+
+Current state-variable discipline:
+
+```text
+No runtime ASM created.
+No RAM allocator created.
+No linker map created.
+Every carried-forward state variable has an owner.
+Hardware shadows are separated from logical state.
+Fuel $3FCE state is represented.
+Spark rolling/timebase/output candidates remain bench-gated where needed.
+IAC actual/desired/state/output shadow variables are represented.
+Boot/scheduler/dropout/watchdog/ALDL-debug state is represented.
+Trans/EGR/EVAP/emissions/unused GM mode baggage are excluded.
+Unknown state remains listed instead of guessed.
 ```
 
 ### Boot / safe-state boundary
@@ -315,6 +341,13 @@ Boot/safe-state may not create startup code yet:
   no direct IAC L3062 writes
   no nonzero fuel boot default
 
+State-variable map may not allocate RAM yet:
+  no allocator
+  no linker map
+  no runtime ASM
+  no full stock RAM clone
+  no carry-forward solely because a variable exists in stock code
+
 Calibration may not drive code by itself:
   no tuning changes
   no table selection as required unless tied to a hardware/source contract
@@ -326,16 +359,16 @@ Calibration may not drive code by itself:
 Next planning artifact, not code:
 
 ```text
-docs/contracts/MINIMAL_OS_STATE_VARIABLES.md
-maps/contracts/minimal_os_state_variables.csv
-tools/build_minimal_os_state_variables.py
-docs/tests/MINIMAL_OS_STATE_VARIABLES_TEST.md
+docs/contracts/MINIMAL_OS_ALDL_DEBUG_MAP.md
+maps/contracts/minimal_os_aldl_debug_map.csv
+tools/build_minimal_os_aldl_debug_map.py
+docs/tests/MINIMAL_OS_ALDL_DEBUG_MAP_TEST.md
 ```
 
 Purpose:
 
 ```text
-Consolidate the minimal RAM/state map across fuel, spark, IAC, scheduler, boot, watchdog, and ALDL without writing the OS.
+Decide which state variables get exposed for bench proof and live debugging before implementation.
 ```
 
 ## Static-map note
