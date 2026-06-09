@@ -54,6 +54,26 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 - `maps/contracts/minimal_os_module_boundary.csv`
 - `docs/tests/MINIMAL_OS_MODULE_BOUNDARY_TEST.md`
 
+### Boot / safe-state boundary
+
+- `tools/build_minimal_os_boot_safe_state.py`
+- `docs/contracts/MINIMAL_OS_BOOT_SAFE_STATE.md`
+- `maps/contracts/minimal_os_boot_safe_state.csv`
+- `docs/tests/MINIMAL_OS_BOOT_SAFE_STATE_TEST.md`
+
+This is a planning boundary only. It defines reset, output-safe defaults, RAM seed, REF wait, crank qualify, first valid period, run qualify, dropout, and watchdog-safe states.
+
+Boot/safe discipline:
+
+```text
+No reset vector ASM created.
+No startup implementation created.
+Fuel $3FCE zero/no-pulse state is represented.
+Nonzero fuel remains gated.
+Spark direct hardware writes remain forbidden.
+IAC direct L3062 writes remain forbidden.
+```
+
 ### Execution scheduler boundary
 
 - `tools/build_minimal_os_execution_scheduler.py`
@@ -183,10 +203,10 @@ The index is a planning map, not a tuning artifact.
 Next planning artifact, not code:
 
 ```text
-docs/contracts/MINIMAL_OS_BOOT_SAFE_STATE.md
-maps/contracts/minimal_os_boot_safe_state.csv
-tools/build_minimal_os_boot_safe_state.py
-docs/tests/MINIMAL_OS_BOOT_SAFE_STATE_TEST.md
+docs/contracts/MINIMAL_OS_STATE_VARIABLES.md
+maps/contracts/minimal_os_state_variables.csv
+tools/build_minimal_os_state_variables.py
+docs/tests/MINIMAL_OS_STATE_VARIABLES_TEST.md
 ```
 
 ## Current hard boundaries
@@ -215,6 +235,13 @@ Scheduler may not create runtime code yet:
   no module dispatch code
   no new hardware writes
   no calibration-driven events without hardware/source contract ownership
+
+Boot/safe-state may not create startup code yet:
+  no reset vector ASM
+  no startup implementation
+  no direct spark ASIC writes
+  no direct IAC L3062 writes
+  no nonzero fuel boot default
 
 Calibration may not drive code by itself:
   no tuning changes
