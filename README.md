@@ -28,7 +28,7 @@ Out of scope unless proven hardware-required:
 
 Core state:
 
-- `docs/WORKING_STATE.md` — active project state and next target
+- `docs/WORKING_STATE.md` — active project state and next target/decision point
 - `docs/contracts/*.md` — current subsystem contracts
 - `docs/tests/*.md` — bench/static test plans
 - `maps/contracts/*.csv` — machine-readable contract summaries
@@ -46,13 +46,32 @@ Legacy/static-base artifacts still present:
 
 Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists until it is committed.
 
-## Completed contract phase
+## Completed planning stack
 
 ### Minimal OS boundary
 
 - `docs/contracts/MINIMAL_OS_MODULE_BOUNDARY.md`
 - `maps/contracts/minimal_os_module_boundary.csv`
 - `docs/tests/MINIMAL_OS_MODULE_BOUNDARY_TEST.md`
+
+### ALDL / debug visibility boundary
+
+- `tools/build_minimal_os_aldl_debug_map.py`
+- `docs/contracts/MINIMAL_OS_ALDL_DEBUG_MAP.md`
+- `maps/contracts/minimal_os_aldl_debug_map.csv`
+- `docs/tests/MINIMAL_OS_ALDL_DEBUG_MAP_TEST.md`
+
+This is a planning boundary only. It defines which state variables and hardware-shadow candidates should be exposed for bench proof, first-run validation, and live troubleshooting.
+
+Debug-map discipline:
+
+```text
+No ALDL packet implementation created.
+No mode handler ASM created.
+No serial ISR changes created.
+No runtime code created.
+No write authority is granted by debug visibility.
+```
 
 ### State-variable boundary
 
@@ -62,17 +81,6 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 - `docs/tests/MINIMAL_OS_STATE_VARIABLES_TEST.md`
 
 This is a planning boundary only. It consolidates source-proven symbols, hardware shadows, logical minimal-OS state, scheduler/boot/watchdog state, ALDL/debug state, explicit exclusions, and unknowns.
-
-State-variable discipline:
-
-```text
-No runtime ASM created.
-No RAM allocator created.
-No linker map created.
-Hardware shadows are separated from logical state.
-No full stock RAM map is created.
-No variable is carried forward solely because it exists in stock code.
-```
 
 ### Boot / safe-state boundary
 
@@ -91,16 +99,6 @@ This is a planning boundary only. It defines reset, output-safe defaults, RAM se
 - `docs/tests/MINIMAL_OS_EXECUTION_SCHEDULER_TEST.md`
 
 This is a planning boundary only. It defines when reset, crank, REF/DRP, fuel, spark, IAC, ALDL, watchdog, and dropout-safe events are allowed to run.
-
-Scheduler discipline:
-
-```text
-No runtime scheduler ASM created.
-No new hardware writer created.
-Only $3FCE is provisionally allowed, and only through EFI_PW_WRITE.
-Spark hardware writes remain forbidden.
-IAC L3062 writes remain forbidden.
-```
 
 ### IAC / idle-air output contract
 
@@ -198,24 +196,21 @@ This is a planning boundary only. Spark output remains source-mapped but bench-g
 
 The calibration index parses the local `31_HAC_calibration_extract_nowrap.html` machine-readable JSON payload and classifies 226 calibration sections by module relevance.
 
-Index discipline:
+## Current decision point
+
+Next useful fork:
 
 ```text
-No section is marked required by the index alone.
-Transmission/EGR/EVAP/emissions remain excluded unless hardware-required.
-Unknown sections remain visible instead of being silently guessed.
-The index is a planning map, not a tuning artifact.
+bench proof package
+first minimal fuel-only runnable slice
 ```
 
-## Current next target
-
-Next planning artifact, not code:
+Decision logic:
 
 ```text
-docs/contracts/MINIMAL_OS_ALDL_DEBUG_MAP.md
-maps/contracts/minimal_os_aldl_debug_map.csv
-tools/build_minimal_os_aldl_debug_map.py
-docs/tests/MINIMAL_OS_ALDL_DEBUG_MAP_TEST.md
+Fuel-only slice is the only plausible implementation path before spark and IAC output bench gates are closed.
+Spark and IAC remain output-bench-gated.
+Bench proof package can be prepared before any runtime implementation.
 ```
 
 ## Current hard boundaries
@@ -258,6 +253,13 @@ State-variable map may not allocate RAM yet:
   no runtime ASM
   no full stock RAM clone
   no carry-forward solely because a variable exists in stock code
+
+ALDL/debug map may not create runtime code yet:
+  no ALDL packet implementation
+  no mode handler ASM
+  no serial ISR changes
+  no write authority
+  no stock ALDL baggage solely because stock exposed it
 
 Calibration may not drive code by itself:
   no tuning changes
