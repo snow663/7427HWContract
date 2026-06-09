@@ -30,8 +30,10 @@ Core state:
 
 - `docs/WORKING_STATE.md` — active project state and next target/decision point
 - `docs/contracts/*.md` — current subsystem contracts
+- `docs/bench/*.md` — bench proof packages
 - `docs/tests/*.md` — bench/static test plans
 - `maps/contracts/*.csv` — machine-readable contract summaries
+- `maps/bench/*.csv` — bench proof matrices
 - `maps/current/hardware_access_map_hw_only.csv` — current hardware-facing static map view
 - `maps/current/hardware_test_matrix.csv` — bench test matrix
 - `maps/by_subsystem/*.csv` — subsystem split maps
@@ -48,6 +50,25 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 
 ## Completed planning stack
 
+### Bench proof package
+
+- `tools/build_bench_proof_package.py`
+- `docs/bench/BENCH_PROOF_PACKAGE.md`
+- `maps/bench/bench_proof_matrix.csv`
+- `docs/tests/BENCH_PROOF_PACKAGE_TEST.md`
+
+This is a planning/test-definition package only. It defines proof tasks, pass/fail conditions, tooling needs, ALDL visibility needs, scope needs, bench hook needs, and implementation gates.
+
+Bench proof discipline:
+
+```text
+No runtime ASM created.
+No bench-hook implementation created.
+No ALDL packet code created.
+No fuel-only runnable code created.
+No proof row grants write authority by itself.
+```
+
 ### Minimal OS boundary
 
 - `docs/contracts/MINIMAL_OS_MODULE_BOUNDARY.md`
@@ -62,16 +83,6 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 - `docs/tests/MINIMAL_OS_ALDL_DEBUG_MAP_TEST.md`
 
 This is a planning boundary only. It defines which state variables and hardware-shadow candidates should be exposed for bench proof, first-run validation, and live troubleshooting.
-
-Debug-map discipline:
-
-```text
-No ALDL packet implementation created.
-No mode handler ASM created.
-No serial ISR changes created.
-No runtime code created.
-No write authority is granted by debug visibility.
-```
 
 ### State-variable boundary
 
@@ -196,21 +207,33 @@ This is a planning boundary only. Spark output remains source-mapped but bench-g
 
 The calibration index parses the local `31_HAC_calibration_extract_nowrap.html` machine-readable JSON payload and classifies 226 calibration sections by module relevance.
 
-## Current decision point
+## Current next target
 
-Next useful fork:
+Next constrained implementation artifact:
 
 ```text
-bench proof package
 first minimal fuel-only runnable slice
 ```
 
-Decision logic:
+Allowed scope:
 
 ```text
-Fuel-only slice is the only plausible implementation path before spark and IAC output bench gates are closed.
-Spark and IAC remain output-bench-gated.
-Bench proof package can be prepared before any runtime implementation.
+reset-safe state
+sensor/RPM/MAP inputs as available
+open-loop fuel PW computation stub or fixed test PW
+DFCO/no-fuel zero gate
+EFI_PW_WRITE to $3FCE only
+ALDL/debug visibility
+```
+
+Forbidden scope:
+
+```text
+no spark writer
+no IAC writer
+no physical EST/bypass authority code
+no direct $3FE8/$3FE6/$3FF6/$3FDC writes
+no direct L3062 writes
 ```
 
 ## Current hard boundaries
@@ -234,37 +257,12 @@ IAC may not yet have a writer:
   no direct L3062 writer
   no idle strategy ASM
 
-Scheduler may not create runtime code yet:
-  no runtime scheduler ASM
-  no module dispatch code
-  no new hardware writes
-  no calibration-driven events without hardware/source contract ownership
-
-Boot/safe-state may not create startup code yet:
-  no reset vector ASM
-  no startup implementation
-  no direct spark ASIC writes
-  no direct IAC L3062 writes
-  no nonzero fuel boot default
-
-State-variable map may not allocate RAM yet:
-  no allocator
-  no linker map
+Bench proof package may not create implementation yet:
   no runtime ASM
-  no full stock RAM clone
-  no carry-forward solely because a variable exists in stock code
-
-ALDL/debug map may not create runtime code yet:
-  no ALDL packet implementation
-  no mode handler ASM
-  no serial ISR changes
-  no write authority
-  no stock ALDL baggage solely because stock exposed it
-
-Calibration may not drive code by itself:
-  no tuning changes
-  no table selection as required unless tied to a hardware/source contract
-  no trans/EGR/EVAP/emissions migration unless proven hardware-required
+  no bench-hook implementation
+  no ALDL packet code
+  no fuel-only runnable code
+  no proof row grants write authority by itself
 ```
 
 ## Working rule
