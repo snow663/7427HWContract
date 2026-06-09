@@ -54,6 +54,25 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 - `maps/contracts/minimal_os_module_boundary.csv`
 - `docs/tests/MINIMAL_OS_MODULE_BOUNDARY_TEST.md`
 
+### Execution scheduler boundary
+
+- `tools/build_minimal_os_execution_scheduler.py`
+- `docs/contracts/MINIMAL_OS_EXECUTION_SCHEDULER.md`
+- `maps/contracts/minimal_os_execution_scheduler.csv`
+- `docs/tests/MINIMAL_OS_EXECUTION_SCHEDULER_TEST.md`
+
+This is a planning boundary only. It defines when reset, crank, REF/DRP, fuel, spark, IAC, ALDL, watchdog, and dropout-safe events are allowed to run.
+
+Scheduler discipline:
+
+```text
+No runtime scheduler ASM created.
+No new hardware writer created.
+Only $3FCE is provisionally allowed, and only through EFI_PW_WRITE.
+Spark hardware writes remain forbidden.
+IAC L3062 writes remain forbidden.
+```
+
 ### IAC / idle-air output contract
 
 - `docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md`
@@ -79,17 +98,7 @@ No IAC writer exists yet.
 - `maps/contracts/iac_minimal_module_inputs.csv`
 - `docs/tests/IAC_MINIMAL_MODULE_INPUTS_TEST.md`
 
-This is a planning boundary only. It defines inputs needed before the already-mapped IAC path can be commanded safely:
-
-```text
-L0007 actual/present
-L0008 desired/target
-L000A state byte
-L004C output shadow
-L3062 hardware latch
-```
-
-No IAC motion, direct `L3062` writer, or idle strategy ASM is implemented by this pass.
+This is a planning boundary only. It defines inputs needed before the already-mapped IAC path can be commanded safely.
 
 ### Fuel output contract
 
@@ -174,10 +183,10 @@ The index is a planning map, not a tuning artifact.
 Next planning artifact, not code:
 
 ```text
-docs/contracts/MINIMAL_OS_EXECUTION_SCHEDULER.md
-maps/contracts/minimal_os_execution_scheduler.csv
-tools/build_minimal_os_execution_scheduler.py
-docs/tests/MINIMAL_OS_EXECUTION_SCHEDULER_TEST.md
+docs/contracts/MINIMAL_OS_BOOT_SAFE_STATE.md
+maps/contracts/minimal_os_boot_safe_state.csv
+tools/build_minimal_os_boot_safe_state.py
+docs/tests/MINIMAL_OS_BOOT_SAFE_STATE_TEST.md
 ```
 
 ## Current hard boundaries
@@ -200,6 +209,12 @@ IAC may not yet have a writer:
   no iac_enable_gate.asm
   no direct L3062 writer
   no idle strategy ASM
+
+Scheduler may not create runtime code yet:
+  no runtime scheduler ASM
+  no module dispatch code
+  no new hardware writes
+  no calibration-driven events without hardware/source contract ownership
 
 Calibration may not drive code by itself:
   no tuning changes
