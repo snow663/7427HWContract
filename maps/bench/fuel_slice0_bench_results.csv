@@ -1,0 +1,9 @@
+proof_id,vector_name,commanded_counts_hex,commanded_counts_dec,expected_pw_ms,measured_pw_ms,measured_pulse_present,measured_register_or_debug_counts,aldl_counts_match,scope_channel,test_condition,pass_fail,evidence_file,notes
+FUEL-001,zero,$0000,0,0.000000,,,,,scope/ALDL,bench-only,not_run,,
+FUEL-001,one_ms,$0042,66,1.007080,,,,,scope/ALDL,bench-only,not_run,,
+FUEL-001,two_ms,$0083,131,1.998901,,,,,scope/ALDL,bench-only,not_run,,
+FUEL-001,three_ms,$00C5,197,3.005981,,,,,scope/ALDL,bench-only,not_run,,
+FUEL-001,four_ms,$0106,262,3.997803,,,,,scope/ALDL,bench-only,not_run,,
+FUEL-002,three_ms,$00C5,197,3.005981,,,,,scope,bench-only,not_run,,
+FUEL-003,zero,$0000,0,0.000000,,,,,scope/ALDL,bench-only zero vector,not_run,,
+FUEL-004,dropout_zero,$0000,0,0.000000,,,,,scope/ALDL,dropout path required,not_run,,
