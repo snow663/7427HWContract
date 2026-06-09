@@ -30,10 +30,10 @@ Core state:
 
 - `docs/WORKING_STATE.md` — active project state and next target/decision point
 - `docs/contracts/*.md` — current subsystem contracts
-- `docs/bench/*.md` — bench proof packages and harness notes
+- `docs/bench/*.md` — bench proof packages, harness notes, and result capture docs
 - `docs/tests/*.md` — bench/static test plans
 - `maps/contracts/*.csv` — machine-readable contract summaries
-- `maps/bench/*.csv` — bench proof matrices
+- `maps/bench/*.csv` — bench proof/result matrices
 - `tests/static/*.csv` — static vector tables
 - `maps/current/hardware_access_map_hw_only.csv` — current hardware-facing static map view
 - `maps/current/hardware_test_matrix.csv` — bench test matrix
@@ -51,6 +51,25 @@ Legacy/static-base artifacts still present:
 Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists until it is committed.
 
 ## Completed planning / bench-safe stack
+
+### Fuel SLICE-0 bench result capture
+
+- `tools/verify_fuel_slice0_bench_results.py`
+- `maps/bench/fuel_slice0_bench_results.csv`
+- `docs/bench/FUEL_SLICE0_BENCH_RESULTS.md`
+- `docs/tests/FUEL_SLICE0_BENCH_RESULTS_TEST.md`
+
+This is the structured result-capture package for SLICE-0 bench measurements. Default status is `not_run` until real scope/logic-analyzer/ALDL data is entered.
+
+Result-capture discipline:
+
+```text
+Default proof status is not_run.
+Any pass row must include measured_pw_ms or measured_register_or_debug_counts.
+FUEL-004 cannot pass from SLICE-0 vector testing alone.
+FUEL-004 pass requires dropout/unsafe path evidence.
+SLICE-1 cannot be marked allowed unless FUEL-001 through FUEL-004 are pass.
+```
 
 ### Fuel SLICE-0 bench harness
 
@@ -259,17 +278,27 @@ The calibration index parses the local `31_HAC_calibration_extract_nowrap.html` 
 
 ## Current next target
 
-Valid next branches:
+Next action is bench-data capture, not code expansion:
 
 ```text
-bench FUEL-001 through FUEL-004
-collect SLICE-0 bench harness data for FUEL-001, FUEL-002, and partial FUEL-003
+run SLICE-0 vectors on bench
+record measured values in maps/bench/fuel_slice0_bench_results.csv
+run tools/verify_fuel_slice0_bench_results.py
 ```
 
-Forbidden next branch:
+Do not move to:
 
 ```text
-SLICE-1 engine-runnable fuel-only skeleton before FUEL-001 through FUEL-004 pass
+SLICE-1 engine-runnable fuel-only skeleton
+```
+
+until:
+
+```text
+FUEL-001 = pass
+FUEL-002 = pass
+FUEL-003 = pass
+FUEL-004 = pass
 ```
 
 ## Current hard boundaries
@@ -283,6 +312,12 @@ SLICE-0 bench harness:
   not engine-runnable
   fixed vectors only
   JSR EFI_PW_WRITE only
+
+Fuel SLICE-0 bench result capture:
+  default status not_run
+  no proof pass without measured data
+  FUEL-004 cannot pass from vector testing alone
+  no SLICE-1 allowed claim unless FUEL-001 through FUEL-004 pass
 
 Spark may not yet have a writer:
   no SPARK_WRITE
