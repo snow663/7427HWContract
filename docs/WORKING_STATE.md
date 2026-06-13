@@ -6,14 +6,15 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly. The target is a clean minimal OS/control program that preserves required hardware behavior for fuel, spark, idle air, sensors, watchdog/reset, ALDL/debug, and engine protection.
 
-Current technical focus after the fuel SLICE-0 bench result capture pass:
+Current technical focus after the spark stock handoff preservation contract pass:
 
 ```text
 hardware contracts: staged
-source-side module API boundaries: fuel partial, spark/IAC API-only
+source-side module API boundaries: fuel partial, spark stock-handoff preservation, IAC API-only
 calibration source index: complete as planning map
 fuel input boundary: complete as planning map
 spark input boundary: complete as planning map
+spark stock handoff preservation: complete as static seam contract
 iac input boundary: complete as planning map
 execution scheduler boundary: complete as planning map
 boot/safe-state boundary: complete as planning map
@@ -146,6 +147,50 @@ implement SLICE-0 bench harness first, if explicitly bench-harness-only and not 
 
 Do not implement `SLICE-1` until the fuel proof rows are actually satisfied.
 
+### Spark stock handoff preservation contract
+
+Completed:
+
+- `tools/build_spark_stock_handoff_preservation_contract.py`
+- `docs/contracts/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT.md`
+- `maps/contracts/spark_stock_handoff_preservation_contract.csv`
+- `docs/tests/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT_TEST.md`
+
+Current spark authority policy:
+
+```text
+Clean OS may calculate desired spark.
+Clean OS may feed stock-compatible spark state.
+Preserved stock handoff routine owns all ASIC-facing spark writes.
+Direct custom ASIC spark writes remain forbidden.
+```
+
+Proof-category shift:
+
+```text
+custom_spark_writer:
+  blocked_bench_required
+
+stock_spark_handoff_preservation:
+  allowed_after_static_contract
+
+spark_physical_semantics:
+  deferred_bench_optional
+```
+
+Current preservation discipline:
+
+```text
+No spark implementation created.
+No SPARK_WRITE implementation created.
+No direct $3FE8/$3FE6/$3FF6/$3FDC writer created.
+Stock handoff preservation does not claim physical ASIC register semantics.
+Static proof must identify complete preserved handoff routine range.
+Static proof must identify required stock-compatible input state.
+Static proof must preserve output writes, write order, delay calls, interrupt assumptions, side effects, rolling state, mirror/ack/status behavior, and EST monitor behavior.
+First-event/reset/dropout seed state must be initialized safely before engine use.
+```
+
 ### Bench proof package
 
 Completed:
@@ -163,8 +208,8 @@ No bench-hook implementation created.
 No ALDL packet code created.
 No fuel-only runnable code created.
 Fuel $3FCE proof rows are defined.
-Spark handoff/rolling/bypass proof rows are defined and remain bench-gated.
-IAC A/B/Enable/park/cadence proof rows are defined and remain bench-gated.
+Spark handoff/rolling/bypass proof rows are defined but custom writer discovery is separate from stock handoff preservation.
+IAC A/B/Enable/park/cadence proof rows are defined and remain bench-gated unless stock IAC driver is preserved as black-box routine.
 Boot/dropout/watchdog proof rows are defined.
 ALDL/debug visibility is tied to proof rows.
 No proof row grants write authority by itself.
@@ -179,10 +224,11 @@ Fuel-only runnable slice:
   FUEL-001 through FUEL-004 must pass before the first fuel-only runtime slice proceeds
 
 Spark implementation:
-  blocked until SPARK-001 through SPARK-006 are resolved or replaced by a safer documented hardware strategy
+  stock handoff preservation is static-proof-gated
+  custom direct spark ASIC writer remains bench-required
 
 IAC implementation:
-  blocked until IAC-001 through IAC-009 are resolved
+  blocked until IAC-001 through IAC-009 are resolved unless stock IAC hardware driver is preserved as a black-box routine
 ```
 
 ### ALDL / debug visibility boundary
@@ -203,7 +249,7 @@ No serial ISR changes created.
 No runtime code created.
 No write authority is granted by debug visibility.
 Fuel $3FCE raw counts and millisecond conversion are represented.
-Spark handoff/rolling candidates are debug-visible but bench-gated.
+Spark handoff/rolling candidates are debug-visible but custom writer authority remains blocked.
 IAC actual/desired/phase/enable/shadow/latch values are debug-visible but bench-gated.
 Scheduler/boot/dropout/watchdog values are represented.
 Trans/EGR/EVAP/emissions/stock mode-word ALDL baggage are excluded.
@@ -213,7 +259,7 @@ Unknown debug values remain listed instead of guessed.
 Current key debug guardrails:
 
 ```text
-Debug exposure of $3FE8/$3FE6/$3FF6/$3FDC does not permit spark writes.
+Debug exposure of $3FE8/$3FE6/$3FF6/$3FDC does not permit direct custom spark writes.
 Debug exposure of L3062/L004C does not permit IAC writes.
 Debug exposure of $3FCE does not permit nonzero fuel unless fuel gates permit it.
 ALDL visibility is observational only.
@@ -237,7 +283,7 @@ No linker map created.
 Every carried-forward state variable has an owner.
 Hardware shadows are separated from logical state.
 Fuel $3FCE state is represented.
-Spark rolling/timebase/output candidates remain bench-gated where needed.
+Spark stock handoff state must be preserved if stock driver is used.
 IAC actual/desired/state/output shadow variables are represented.
 Boot/scheduler/dropout/watchdog/ALDL-debug state is represented.
 Trans/EGR/EVAP/emissions/unused GM mode baggage are excluded.
@@ -261,7 +307,7 @@ No scheduler ASM created.
 No startup implementation created.
 Fuel $3FCE zero/no-pulse state is represented.
 Nonzero fuel remains gated by fuel calculation and no-fuel enable.
-Spark direct hardware writes remain forbidden.
+Spark direct custom hardware writes remain forbidden; preserved stock handoff seed state is a static requirement.
 IAC direct L3062 writes remain forbidden.
 REF wait, crank qualify, first valid period, run qualify, dropout, and watchdog-safe states are represented.
 Unknown boot ownership remains listed instead of guessed.
@@ -282,7 +328,7 @@ Current scheduler discipline:
 No runtime scheduler ASM created.
 No new hardware writer created.
 Only $3FCE is provisionally allowed, and only through EFI_PW_WRITE / MINIMAL_EFI_PW_WRITER.
-Spark hardware writes remain forbidden.
+Direct custom spark hardware writes remain forbidden.
 IAC L3062 writes remain forbidden.
 ALDL/debug owns visibility only, not control outputs.
 Unknown event ownership remains listed instead of guessed.
@@ -358,7 +404,7 @@ IAC input discipline:
 No IAC motion implemented.
 No IAC ASM writer created.
 No direct L3062 writer created.
-Phase, Enable, park/reset, and cadence behavior remain bench-gated.
+Phase, Enable, park/reset, and cadence behavior remain bench-gated unless stock IAC driver is preserved as black-box routine.
 Trans/EGR/EVAP idle-adjacent sections remain excluded.
 Unknown IAC inputs remain listed instead of guessed.
 ```
@@ -424,9 +470,22 @@ Completed static/provisional contracts:
 - `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
 - `docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md`
 - `docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md`
+- `docs/contracts/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT.md`
 - `source/minimal_os/spark/README.md`
 
-Spark is source/API staged only. No spark writer exists yet.
+Spark output policy now distinguishes two paths:
+
+```text
+stock_spark_handoff_preservation:
+  static-proof-gated
+  stock routine is treated as proven hardware driver if preserved behavior-for-behavior
+
+custom_spark_writer:
+  bench-proof required
+  no direct raw-angle ASIC writer allowed
+```
+
+No spark implementation exists yet.
 
 ### Spark minimal module inputs
 
@@ -485,13 +544,18 @@ Fuel may have a provisional runtime writer:
   EFI_PW_WRITE:
     D -> STD $3FCE
 
-Spark may not yet have a writer:
+Spark stock handoff preservation path:
+  allowed only after static proof of complete stock routine, required inputs, side effects, write order, delays, seed state, and no alternate direct writer
+  physical ASIC semantics deferred, not blocking
+
+Spark custom writer path:
+  blocked_bench_required
   no SPARK_WRITE
-  no spark_handoff.asm
-  no spark_convert.asm
+  no spark_handoff.asm as custom writer
+  no spark_convert.asm as custom writer
   no direct $3FE8/$3FE6 writer
   no direct $3FF6/$3FDC rolling-state writer
-  no physical EST authority code
+  no physical EST authority code outside preserved stock path
 
 IAC may not yet have a writer:
   no IAC_WRITE
@@ -511,7 +575,7 @@ Scheduler may not create runtime code yet:
 Boot/safe-state may not create startup code yet:
   no reset vector ASM
   no startup implementation
-  no direct spark ASIC writes
+  no direct custom spark ASIC writes
   no direct IAC L3062 writes
   no nonzero fuel boot default
 
@@ -539,7 +603,7 @@ Bench proof package may not create implementation yet:
 Fuel-only slice boundary may not create implementation yet:
   no runtime ASM
   no engine-runnable SLICE-1 before FUEL-001 through FUEL-004 pass
-  no spark writer
+  no spark custom writer
   no IAC writer
   no direct $3FE8/$3FE6/$3FF6/$3FDC/L3062 writes
 
@@ -568,7 +632,7 @@ Calibration may not drive code by itself:
 
 ## Current next target
 
-Next action is bench-data capture, not code expansion:
+Fuel side next action remains bench-data capture, not code expansion:
 
 ```text
 run SLICE-0 vectors on bench
@@ -576,20 +640,16 @@ record measured values in maps/bench/fuel_slice0_bench_results.csv
 run tools/verify_fuel_slice0_bench_results.py
 ```
 
+Spark side next artifact, when resumed, should be static extraction/pinning of the preserved stock handoff routine range and dependencies, not a custom writer.
+
 Do not move to:
 
 ```text
 SLICE-1 engine-runnable fuel-only skeleton
+custom direct spark ASIC writer
 ```
 
-until:
-
-```text
-FUEL-001 = pass
-FUEL-002 = pass
-FUEL-003 = pass
-FUEL-004 = pass
-```
+until their gates are satisfied.
 
 ## Static-map note
 
