@@ -106,13 +106,31 @@ Preserved stock fuel scheduler/output driver owns all hardware-facing fuel write
 Direct custom fuel ASIC / $3FCE writers remain bench-proof gated.
 ```
 
+### Fuel stock-output-driver static proof index
+
+- `tools/build_fuel_stock_output_driver_static_proof_index.py`
+- `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX.md`
+- `maps/contracts/fuel_stock_output_driver_static_proof_index.csv`
+- `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX_TEST.md`
+
+This is a static proof/decision artifact only. It does not implement fuel ASM and does not create a fuel writer.
+
 Current fuel decision:
 
 ```text
 fuel stock-driver preservation contract: defined
-fuel stock-driver preservation proof: not complete
+fuel stock-driver preservation proof index: complete as current decision index
+fuel stock-driver preservation decision: incomplete_continue_3FCE_bench_route
 active fuel route: compact $3FCE SLICE-0 bench path
 FUEL-001 through FUEL-004: still gate SLICE-1 under active compact route
+```
+
+Current locked distinction:
+
+```text
+Fuel preservation contract exists
+≠ fuel preservation proof is complete
+≠ compact $3FCE bench gate is bypassed
 ```
 
 ### Spark stock handoff preservation contract
@@ -167,7 +185,17 @@ record measured values in maps/bench/fuel_slice0_bench_results.csv
 keep FUEL-004 not_run until real dropout/unsafe path is tested
 ```
 
-Fuel stock-driver preservation path, if chosen, is static extraction/pinning of the complete stock fuel scheduler/output-driver routine range and dependencies, not a custom writer.
+Fuel stock-driver preservation path, if chosen, continues from the static proof index:
+
+```text
+complete stock fuel scheduler/output-driver range
+all required BPW/fuel-mode/timer/dropout/no-fuel inputs
+all hardware writes and side effects
+order/delay/interrupt assumptions
+reset/first-event/dropout safety
+no alternate custom direct writer
+accepted_static_route vs rejected_3FCE_bench_route_required
+```
 
 Spark side, when resumed, should be static extraction/pinning of the complete preserved stock handoff routine range and dependencies, not a custom writer.
 
@@ -178,12 +206,13 @@ IAC side, when resumed, must either bench-prove a custom A/B/Enable/park writer 
 ```text
 No SLICE-1 engine-runnable fuel-only skeleton under the compact $3FCE path until FUEL-001 through FUEL-004 pass.
 No compact direct $3FCE writer promoted to engine-runnable without FUEL-001 through FUEL-004 proof unless complete stock fuel output-driver preservation supersedes that path.
+No fuel stock-driver preservation accepted while its decision remains incomplete_continue_3FCE_bench_route.
 No partial stock fuel output driver treated as complete.
 No custom direct spark ASIC writer without bench proof.
 No simplified raw-angle spark writer.
 No IAC direct L3062 writer without bench proof or complete stock-driver preservation.
 No ALDL packet implementation as a side effect of policy contracts.
-No runtime ASM from planning/policy contracts.
+No runtime ASM from planning/policy/static-proof contracts.
 No physical register meaning claims without trace or bench evidence, except explicitly deferred semantics for complete preserved stock drivers.
 ```
 
