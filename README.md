@@ -83,9 +83,9 @@ spark:
   physical spark ASIC semantics deferred, not blocking
 
 iac:
-  bench_required_unless_stock_driver_preserved
+  contract_defined_preservation_not_proven
   custom A/B/Enable/park writer remains bench-required
-  stock-driver preservation may reclassify IAC if complete stock IAC driver is preserved
+  stock-driver preservation may reclassify IAC only after complete stock IAC driver proof
 ```
 
 ### Fuel stock-output-driver preservation contract
@@ -151,6 +151,46 @@ Preserved stock handoff routine owns all ASIC-facing spark writes.
 Direct custom ASIC spark writes remain forbidden.
 ```
 
+### IAC stock-driver preservation contract
+
+- `tools/build_iac_stock_driver_preservation_contract.py`
+- `docs/contracts/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT.md`
+- `maps/contracts/iac_stock_driver_preservation_contract.csv`
+- `docs/tests/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT_TEST.md`
+
+This is a static decision-seam contract only. It does not implement IAC ASM and does not create a direct IAC writer.
+
+Current IAC decision:
+
+```text
+iac_stock_driver_preservation:
+  contract_defined_preservation_not_proven
+
+custom_iac_writer:
+  bench_required
+
+active_iac_route_if_work_resumes:
+  no custom direct IAC writer without bench proof
+  or complete stock IAC driver preservation proof first
+```
+
+IAC hardware authority model, if preservation is eventually accepted:
+
+```text
+clean idle-air decision
+→ stock-compatible IAC state
+→ preserved stock IAC output driver
+→ stock routine owns A/B/Enable/phase/park behavior
+```
+
+Current locked distinction:
+
+```text
+IAC preservation contract exists
+≠ IAC preservation proof is complete
+≠ custom A/B/Enable/park bench proof is bypassed
+```
+
 ### Fuel SLICE-0 bench path
 
 - `source/minimal_os/fuel/slice0_bench_harness.asm`
@@ -199,7 +239,7 @@ accepted_static_route vs rejected_3FCE_bench_route_required
 
 Spark side, when resumed, should be static extraction/pinning of the complete preserved stock handoff routine range and dependencies, not a custom writer.
 
-IAC side, when resumed, must either bench-prove a custom A/B/Enable/park writer or reframe as a preserved complete stock IAC hardware driver.
+IAC side, when resumed, must either bench-prove a custom A/B/Enable/park writer or complete stock IAC hardware-driver preservation proof first.
 
 ## Current hard boundaries
 
@@ -210,7 +250,7 @@ No fuel stock-driver preservation accepted while its decision remains incomplete
 No partial stock fuel output driver treated as complete.
 No custom direct spark ASIC writer without bench proof.
 No simplified raw-angle spark writer.
-No IAC direct L3062 writer without bench proof or complete stock-driver preservation.
+No IAC direct L3062/L3060/L3FFC writer without bench proof or complete stock-driver preservation.
 No ALDL packet implementation as a side effect of policy contracts.
 No runtime ASM from planning/policy/static-proof contracts.
 No physical register meaning claims without trace or bench evidence, except explicitly deferred semantics for complete preserved stock drivers.
