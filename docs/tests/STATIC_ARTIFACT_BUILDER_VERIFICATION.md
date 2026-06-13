@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Verify that committed static-artifact builder scripts reproduce their committed CSV/Markdown/test outputs.
+Verify that committed static-artifact builder scripts reproduce their committed CSV/Markdown/test outputs without falsely failing builders that require explicit CLI arguments.
 
 This is an internal repo consistency check only.
 
@@ -53,33 +53,62 @@ The verifier:
 
 ```text
 1. Discovers every committed tools/build_*.py builder.
-2. Copies the repository into a temporary directory.
-3. Runs each builder inside its own temporary repo copy.
-4. Compares the post-build temp tree against the committed repo tree.
-5. Reports any changed, missing, extra, or mismatched files.
-6. Treats mismatches as repo defects, not hardware findings.
+2. Checks whether the builder can be invoked safely as a zero-argument builder.
+3. Skips parameterized builders that need explicit CLI arguments unless they are listed in the manifest.
+4. Skips builders whose --help path fails without a manifest entry, including optional-dependency builders.
+5. Copies the repository into a temporary directory.
+6. Runs each runnable builder inside its own temporary repo copy.
+7. Compares the post-build temp tree against the committed repo tree.
+8. Reports changed, missing, extra, or mismatched files.
+9. Treats mismatches as repo defects, not hardware findings.
 ```
 
 The production working tree is not used as the build target. Builders run in temp copies so normal verification should not mutate source files.
 
+## Manifest rule
+
+Some builders are intentionally parameterized and require arguments such as:
+
+```text
+--out-md
+--out-csv
+--name
+--addr
+--watch
+--start-pc
+--end-pc
+--vectors
+--subsystem
+```
+
+Those builders must not be run with guessed arguments. They are skipped unless `BUILDER_INVOCATION_MANIFEST` in `tools/verify_static_artifact_builders.py` defines their canonical invocation.
+
+A skipped parameterized builder is not a hardware pass and not a builder-output pass. It means only:
+
+```text
+the verifier did not have a canonical invocation for this builder
+```
+
 ## Pass criteria
 
 ```text
-Every discovered builder exits with return code 0.
-No committed output differs after builder execution in the temp copy.
-No builder creates uncommitted output files.
-No builder deletes committed output files.
+All runnable zero-argument builders exit with return code 0.
+All manifest-driven builders exit with return code 0.
+No runnable builder changes committed output in the temp copy.
+No runnable builder creates uncommitted output files.
+No runnable builder deletes committed output files.
+Parameterized builders without manifest entries are reported as skips, not failures.
 ```
 
-Expected terminal summary:
+Expected terminal summary when no runnable-builder failures exist:
 
 ```text
-PASS: <N> static artifact builder(s) reproduce committed artifacts
+PASS: static builder verification completed with no runnable-builder failures
 ```
 
 ## Fail criteria
 
-Any of the following fails the verification:
+Any of the following fails the verification for a runnable builder:
 
 ```text
 builder timeout
@@ -118,11 +147,14 @@ iac_custom_writer:
 ## Result interpretation
 
 ```text
-verifier PASS:
-  static builders reproduce committed static artifacts
+verifier runnable-builder PASS:
+  runnable static builders reproduce committed static artifacts
+
+verifier SKIP:
+  builder requires manifest/canonical arguments or optional dependency handling
 
 verifier FAIL:
-  one or more static artifacts are stale, missing, extra, or generated differently
+  one or more runnable static artifacts are stale, missing, extra, or generated differently
 
 verifier PASS does not mean:
   hardware proof passed
@@ -137,6 +169,7 @@ verifier PASS does not mean:
 1. Inspect the failing builder and reported changed/missing/extra files.
 2. Decide whether the builder or committed output is authoritative.
 3. Update only the stale static artifact or the builder.
-4. Re-run the verifier.
-5. Do not change hardware gate decisions as part of repair unless a separate proof artifact justifies it.
+4. Add manifest entries only when the canonical invocation is known.
+5. Re-run the verifier.
+6. Do not change hardware gate decisions as part of repair unless a separate proof artifact justifies it.
 ```
