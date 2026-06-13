@@ -6,16 +6,18 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly, then build a clean minimal OS/control program that preserves required hardware behavior.
 
-Current technical focus after the stock-driver preservation policy pass:
+Current technical focus after the fuel stock-output-driver preservation contract pass:
 
 ```text
 stock driver preservation policy: complete as repo-level contract
 spark stock handoff preservation: complete as static seam contract
+fuel stock-output-driver preservation: contract defined, proof not complete
 fuel SLICE-0 bench harness: complete, bench-only / not engine-runnable
 fuel SLICE-0 bench result capture: complete, default status not_run
-fuel next work: run local verifiers and collect real bench data for FUEL-001/FUEL-002/FUEL-003 partial
-FUEL-004: not_run until real dropout/unsafe zero path is invoked
-SLICE-1: blocked until FUEL-001 through FUEL-004 pass
+fuel current active route: compact $3FCE SLICE-0 bench path remains active fallback
+fuel next work: run local verifiers and collect real bench data for FUEL-001/FUEL-002/FUEL-003 partial, or separately trace complete stock fuel output driver preservation proof
+FUEL-004: not_run until real dropout/unsafe zero path is invoked under the active compact path
+SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass
 ```
 
 ## Stock driver preservation policy
@@ -78,6 +80,47 @@ Blocked:
   claiming final engine safety solely from static preservation
 ```
 
+## Fuel stock-output-driver preservation
+
+Completed as static decision contract:
+
+- `tools/build_fuel_stock_output_driver_preservation_contract.py`
+- `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT.md`
+- `maps/contracts/fuel_stock_output_driver_preservation_contract.csv`
+- `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT_TEST.md`
+
+Fuel authority policy:
+
+```text
+Clean OS may calculate desired fuel mass / BPW / enrichment state.
+Clean OS may feed stock-compatible fuel state into a preserved stock fuel scheduler/output driver.
+Preserved stock fuel scheduler/output driver owns all hardware-facing fuel writes.
+Direct custom fuel ASIC / $3FCE writers remain bench-proof gated.
+```
+
+Proof-category split:
+
+```text
+preserved_stock_fuel_output_driver:
+  static-proof gated
+  proof not complete
+
+compact_direct_$3FCE_writer:
+  bench-proof gated
+  active fallback path
+
+fuel_physical_scheduler_semantics:
+  deferred only if complete stock output driver is preserved
+```
+
+Current fuel decision:
+
+```text
+The fuel stock-output-driver preservation contract is defined, but preservation proof is not complete.
+Therefore the compact $3FCE SLICE-0 bench path remains the active route.
+FUEL-001 through FUEL-004 still gate SLICE-1 under that active route.
+```
+
 ## Spark stock handoff preservation
 
 Completed:
@@ -125,7 +168,7 @@ Completed:
 - `docs/bench/FUEL_SLICE0_BENCH_RESULTS.md`
 - `docs/tests/FUEL_SLICE0_BENCH_RESULTS_TEST.md`
 
-Current fuel state:
+Current fuel bench state:
 
 ```text
 SLICE-0 harness: bench-only, fixed vectors only, not engine-runnable
@@ -134,7 +177,7 @@ FUEL-001: not_run until bench evidence entered
 FUEL-002: not_run until bench evidence entered
 FUEL-003: not_run; may become partial if only zero-vector path is proven
 FUEL-004: not_run until real dropout/unsafe zero path is invoked
-SLICE-1: blocked until FUEL-001 through FUEL-004 pass
+SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass
 ```
 
 Bench distinction:
@@ -151,7 +194,7 @@ These are not the same proof.
 
 ## Current next valid work
 
-Fuel side:
+Fuel compact `$3FCE` path:
 
 ```text
 run python tools/verify_fuel_slice0_bench_harness.py
@@ -159,6 +202,17 @@ run python tools/verify_fuel_slice0_bench_results.py
 bench SLICE-0 fixed vectors
 enter only measured evidence in maps/bench/fuel_slice0_bench_results.csv
 keep FUEL-004 not_run until real dropout/unsafe path is tested
+```
+
+Fuel stock-driver preservation path, if chosen:
+
+```text
+identify complete stock fuel scheduler/output-driver range
+identify all required BPW/fuel-mode/timer/dropout/no-fuel inputs
+identify all hardware writes and side effects
+prove order/delay/interrupt assumptions are preserved
+prove reset/first-event/dropout state is safe
+prove no alternate custom direct writer exists
 ```
 
 Spark side, when resumed:
@@ -179,13 +233,15 @@ or reframe as preserved complete stock IAC hardware driver
 ## Hard boundaries
 
 ```text
-No SLICE-1 engine-runnable fuel-only skeleton until FUEL-001 through FUEL-004 pass.
+No SLICE-1 engine-runnable fuel-only skeleton under the compact $3FCE path until FUEL-001 through FUEL-004 pass.
+No compact direct $3FCE writer promoted to engine-runnable without FUEL-001 through FUEL-004 proof unless complete stock fuel output-driver preservation supersedes that path.
+No partial stock fuel output driver treated as complete.
 No custom direct spark ASIC writer without bench proof.
 No simplified raw-angle spark writer.
 No IAC direct L3062 writer without bench proof or complete stock-driver preservation.
 No ALDL packet implementation as a side effect of policy contracts.
 No runtime ASM from planning/policy contracts.
-No physical register meaning claims without trace or bench evidence.
+No physical register meaning claims without trace or bench evidence, except explicitly deferred semantics for complete preserved stock drivers.
 ```
 
 ## Static-map note
