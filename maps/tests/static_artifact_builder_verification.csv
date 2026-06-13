@@ -1,0 +1,5 @@
+builder_scope,verification_status,expected_action,decision_effect,notes
+all_tools_build_py,pending_local_run,run tools/verify_static_artifact_builders.py --write-report,none,"Discovers every tools/build_*.py at runtime, runs each in a temporary repo copy, and compares generated outputs against committed files."
+static_artifact_builder_verification,not_hardware_proof,record repo-internal consistency only,none,"Mismatches are repo defects, not hardware findings."
+subsystem_gate_decisions,unchanged,no gate decision may be changed by this verifier,none,"Does not accept fuel stock-driver preservation, does not accept IAC stock-driver preservation, does not relax SLICE-1."
+runtime_artifacts,forbidden,no runtime ASM or hardware writer may be created,none,"Verifier is limited to static artifact reproducibility."
