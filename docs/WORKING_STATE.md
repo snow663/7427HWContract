@@ -6,18 +6,20 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly, then build a clean minimal OS/control program that preserves required hardware behavior.
 
-Current technical focus after the fuel stock-output-driver preservation contract pass:
+Current technical focus after the fuel stock-output-driver static proof index pass:
 
 ```text
 stock driver preservation policy: complete as repo-level contract
 spark stock handoff preservation: complete as static seam contract
 fuel stock-output-driver preservation: contract defined, proof not complete
+fuel stock-output-driver static proof index: complete as current decision index
+fuel stock-driver preservation decision: incomplete_continue_3FCE_bench_route
 fuel SLICE-0 bench harness: complete, bench-only / not engine-runnable
 fuel SLICE-0 bench result capture: complete, default status not_run
 fuel current active route: compact $3FCE SLICE-0 bench path remains active fallback
-fuel next work: run local verifiers and collect real bench data for FUEL-001/FUEL-002/FUEL-003 partial, or separately trace complete stock fuel output driver preservation proof
+fuel next work: run local verifiers and collect real bench data for FUEL-001/FUEL-002/FUEL-003 partial, or continue static proof work until stock-driver preservation can be accepted/rejected
 FUEL-004: not_run until real dropout/unsafe zero path is invoked under the active compact path
-SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass
+SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass unless complete stock fuel output-driver preservation is later accepted
 ```
 
 ## Stock driver preservation policy
@@ -121,6 +123,60 @@ Therefore the compact $3FCE SLICE-0 bench path remains the active route.
 FUEL-001 through FUEL-004 still gate SLICE-1 under that active route.
 ```
 
+## Fuel stock-output-driver static proof index
+
+Completed as current static decision index:
+
+- `tools/build_fuel_stock_output_driver_static_proof_index.py`
+- `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX.md`
+- `maps/contracts/fuel_stock_output_driver_static_proof_index.csv`
+- `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX_TEST.md`
+
+Current proof-index decision:
+
+```text
+fuel_stock_driver_preservation:
+  incomplete_continue_3FCE_bench_route
+
+active_fuel_route:
+  compact $3FCE SLICE-0 bench path
+
+SLICE-1:
+  still blocked under active compact route until FUEL-001 through FUEL-004 pass
+```
+
+What the proof index currently establishes:
+
+```text
+candidate stock normal-TBI fuel output path:
+  partially identified around source/31/BMHM_HAC_ORG_7100_to_end.asm:83FB-858A
+
+normal hardware-facing writes inside candidate range:
+  partially identified: $3FCE, $3FF2, $3FFC
+
+output-cycling $3FCE writes:
+  identified and excluded from production fuel-driver acceptance
+
+required stock-compatible inputs:
+  incomplete
+
+scheduler/timer/interrupt dependencies:
+  unresolved
+
+enable/disable/dropout/no-fuel paths:
+  incomplete
+```
+
+Locked interpretation:
+
+```text
+Fuel preservation contract exists
+≠ fuel preservation proof is complete
+≠ compact $3FCE bench gate is bypassed
+```
+
+Until this proof index is upgraded to `accepted_static_route`, the compact `$3FCE` bench route remains active and FUEL-001 through FUEL-004 still gate SLICE-1.
+
 ## Spark stock handoff preservation
 
 Completed:
@@ -207,12 +263,14 @@ keep FUEL-004 not_run until real dropout/unsafe path is tested
 Fuel stock-driver preservation path, if chosen:
 
 ```text
-identify complete stock fuel scheduler/output-driver range
-identify all required BPW/fuel-mode/timer/dropout/no-fuel inputs
-identify all hardware writes and side effects
+continue static proof index work from FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX
+prove complete stock fuel scheduler/output-driver range
+prove all required BPW/fuel-mode/timer/dropout/no-fuel inputs
+prove all hardware writes and side effects
 prove order/delay/interrupt assumptions are preserved
 prove reset/first-event/dropout state is safe
 prove no alternate custom direct writer exists
+then decide accepted_static_route vs rejected_3FCE_bench_route_required
 ```
 
 Spark side, when resumed:
@@ -235,12 +293,13 @@ or reframe as preserved complete stock IAC hardware driver
 ```text
 No SLICE-1 engine-runnable fuel-only skeleton under the compact $3FCE path until FUEL-001 through FUEL-004 pass.
 No compact direct $3FCE writer promoted to engine-runnable without FUEL-001 through FUEL-004 proof unless complete stock fuel output-driver preservation supersedes that path.
+No fuel stock-driver preservation accepted while its decision remains incomplete_continue_3FCE_bench_route.
 No partial stock fuel output driver treated as complete.
 No custom direct spark ASIC writer without bench proof.
 No simplified raw-angle spark writer.
 No IAC direct L3062 writer without bench proof or complete stock-driver preservation.
 No ALDL packet implementation as a side effect of policy contracts.
-No runtime ASM from planning/policy contracts.
+No runtime ASM from planning/policy/static-proof contracts.
 No physical register meaning claims without trace or bench evidence, except explicitly deferred semantics for complete preserved stock drivers.
 ```
 
