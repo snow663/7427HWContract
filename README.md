@@ -52,6 +52,37 @@ Note: do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists
 
 ## Completed planning / bench-safe stack
 
+### Spark stock handoff preservation contract
+
+- `tools/build_spark_stock_handoff_preservation_contract.py`
+- `docs/contracts/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT.md`
+- `maps/contracts/spark_stock_handoff_preservation_contract.csv`
+- `docs/tests/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT_TEST.md`
+
+This is a static seam contract only. It does not implement spark ASM and does not create a spark writer.
+
+Spark hardware authority model:
+
+```text
+Clean OS may calculate desired spark.
+Clean OS may feed stock-compatible spark state.
+Preserved stock handoff routine owns all ASIC-facing spark writes.
+Direct custom ASIC spark writes remain forbidden.
+```
+
+Spark proof categories:
+
+```text
+custom_spark_writer:
+  blocked_bench_required
+
+stock_spark_handoff_preservation:
+  allowed_after_static_contract
+
+spark_physical_semantics:
+  deferred_bench_optional
+```
+
 ### Fuel SLICE-0 bench result capture
 
 - `tools/verify_fuel_slice0_bench_results.py`
@@ -254,9 +285,22 @@ No fuel equation or tuning change is implemented by this pass.
 - `docs/contracts/SPARK_BYPASS_EST_TRANSITION.md`
 - `docs/contracts/SPARK_EST_FAULT_MONITOR_CONTRACT.md`
 - `docs/contracts/SPARK_MINIMAL_MODULE_BOUNDARY.md`
+- `docs/contracts/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT.md`
 - `source/minimal_os/spark/README.md`
 
-No spark writer exists yet. That boundary is intentional.
+Spark output policy now distinguishes two paths:
+
+```text
+stock_spark_handoff_preservation:
+  static-proof-gated
+  stock routine is treated as proven hardware driver if preserved behavior-for-behavior
+
+custom_spark_writer:
+  bench-proof required
+  no direct raw-angle ASIC writer allowed
+```
+
+No spark implementation exists yet.
 
 ### Spark minimal module inputs
 
@@ -265,7 +309,7 @@ No spark writer exists yet. That boundary is intentional.
 - `maps/contracts/spark_minimal_module_inputs.csv`
 - `docs/tests/SPARK_MINIMAL_MODULE_INPUTS_TEST.md`
 
-This is a planning boundary only. Spark output remains source-mapped but bench-gated. No spark writer, direct `$3FE8/$3FE6` writer, rolling-state writer, or physical EST/bypass code is implemented by this pass.
+This is a planning boundary only. Spark output remains source-mapped. Custom direct writes are still blocked; stock handoff preservation is static-proof-gated.
 
 ### Calibration source index
 
@@ -278,7 +322,7 @@ The calibration index parses the local `31_HAC_calibration_extract_nowrap.html` 
 
 ## Current next target
 
-Next action is bench-data capture, not code expansion:
+Fuel side next action is bench-data capture, not code expansion:
 
 ```text
 run SLICE-0 vectors on bench
@@ -286,20 +330,16 @@ record measured values in maps/bench/fuel_slice0_bench_results.csv
 run tools/verify_fuel_slice0_bench_results.py
 ```
 
+Spark side next artifact, when resumed, should be static extraction/pinning of the preserved stock handoff routine range and dependencies, not a custom writer.
+
 Do not move to:
 
 ```text
 SLICE-1 engine-runnable fuel-only skeleton
+custom direct spark ASIC writer
 ```
 
-until:
-
-```text
-FUEL-001 = pass
-FUEL-002 = pass
-FUEL-003 = pass
-FUEL-004 = pass
-```
+until their gates are satisfied.
 
 ## Current hard boundaries
 
@@ -319,11 +359,16 @@ Fuel SLICE-0 bench result capture:
   FUEL-004 cannot pass from vector testing alone
   no SLICE-1 allowed claim unless FUEL-001 through FUEL-004 pass
 
-Spark may not yet have a writer:
+Spark stock handoff preservation path:
+  allowed only after static proof of complete stock routine, required inputs, side effects, write order, delays, seed state, and no alternate direct writer
+  physical ASIC semantics deferred, not blocking
+
+Spark custom writer path:
+  blocked_bench_required
   no SPARK_WRITE
   no direct $3FE8/$3FE6 writer
   no direct $3FF6/$3FDC rolling-state writer
-  no physical EST authority code
+  no physical EST authority code outside preserved stock path
 
 IAC may not yet have a writer:
   no IAC_WRITE
@@ -336,7 +381,7 @@ IAC may not yet have a writer:
 
 Fuel-only slice boundary may not create engine-runnable implementation yet:
   no engine-runnable SLICE-1 before FUEL-001 through FUEL-004 pass
-  no spark writer
+  no spark custom writer
   no IAC writer
   no direct $3FE8/$3FE6/$3FF6/$3FDC/L3062 writes
 
