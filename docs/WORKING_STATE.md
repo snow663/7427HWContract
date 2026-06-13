@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly, then build a clean minimal OS/control program that preserves required hardware behavior.
 
-Current technical focus after the fuel stock-output-driver static proof index pass:
+Current technical focus after the IAC stock-driver preservation contract pass:
 
 ```text
 stock driver preservation policy: complete as repo-level contract
@@ -17,7 +17,9 @@ fuel stock-driver preservation decision: incomplete_continue_3FCE_bench_route
 fuel SLICE-0 bench harness: complete, bench-only / not engine-runnable
 fuel SLICE-0 bench result capture: complete, default status not_run
 fuel current active route: compact $3FCE SLICE-0 bench path remains active fallback
-fuel next work: run local verifiers and collect real bench data for FUEL-001/FUEL-002/FUEL-003 partial, or continue static proof work until stock-driver preservation can be accepted/rejected
+IAC stock-driver preservation: contract defined, proof not complete
+IAC custom direct writer: bench-required
+IAC active route if resumed: no direct L3062/L3060/L3FFC writer without bench proof or complete stock-driver preservation
 FUEL-004: not_run until real dropout/unsafe zero path is invoked under the active compact path
 SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass unless complete stock fuel output-driver preservation is later accepted
 ```
@@ -58,9 +60,9 @@ spark:
   physical spark ASIC semantics deferred, not blocking
 
 iac:
-  bench_required_unless_stock_driver_preserved
+  contract_defined_preservation_not_proven
   custom A/B/Enable/park writer remains bench-required
-  stock-driver preservation may reclassify IAC if complete stock IAC driver is preserved
+  stock-driver preservation may reclassify IAC only after complete stock IAC driver proof
 ```
 
 Guardrails:
@@ -70,14 +72,14 @@ Allowed:
   clean OS calculates desired state
   clean OS feeds stock-compatible state variables
   preserved stock driver owns hardware-facing writes
-  physical per-register semantics are documented as deferred
+  physical per-register semantics are documented as deferred only for complete stock-driver preservation
 
 Blocked:
   partial stock driver copy treated as complete
   unseeded state entering preserved stock driver
   custom direct ASIC writer without bench proof
   simplified raw-register writer without bench proof
-  deleting rolling state, mirror/ack behavior, monitor flags, or delay assumptions
+  deleting rolling state, mirror/ack behavior, monitor flags, delay assumptions, port shadows, or reset/park behavior
   claiming physical register meaning without trace or bench evidence
   claiming final engine safety solely from static preservation
 ```
@@ -210,6 +212,64 @@ spark_physical_semantics:
 
 No spark implementation exists yet.
 
+## IAC stock-driver preservation
+
+Completed as static decision contract:
+
+- `tools/build_iac_stock_driver_preservation_contract.py`
+- `docs/contracts/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT.md`
+- `maps/contracts/iac_stock_driver_preservation_contract.csv`
+- `docs/tests/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT_TEST.md`
+
+IAC authority policy if preservation is eventually accepted:
+
+```text
+clean idle-air decision
+→ stock-compatible IAC state
+→ preserved stock IAC output driver
+→ stock routine owns A/B/Enable/phase/park behavior
+```
+
+Current IAC decision:
+
+```text
+iac_stock_driver_preservation:
+  contract_defined_preservation_not_proven
+
+custom_iac_writer:
+  bench_required
+
+active_iac_route_if_work_resumes:
+  no custom direct IAC writer without bench proof
+  or complete stock IAC driver preservation proof first
+```
+
+Known source anchors only; not a completed proof:
+
+```text
+L925E setup candidate:
+  setup/park-related state, including L4EB0 -> L0007
+
+L93E1-L940A reset/park candidate:
+  reset-in-work, zero-position, run/start request, ignition-off, park, engine-running branches
+
+L9B10 / L9BD6 position update candidates:
+  decrement/increment L0007 present motor position
+
+LF405 / LFB14-LFB69 port-output candidates:
+  L3062 / L3060 / L3FFC interactions, port-shadow and strobe behavior
+```
+
+Locked interpretation:
+
+```text
+IAC preservation contract exists
+≠ IAC preservation proof is complete
+≠ custom A/B/Enable/park bench proof is bypassed
+```
+
+Until a later IAC static proof index reaches `accepted_static_route`, custom direct IAC output remains bench-gated.
+
 ## Fuel SLICE-0 bench path
 
 Completed:
@@ -284,8 +344,9 @@ not direct $3FE8/$3FE6/$3FF6/$3FDC writes
 IAC side, when resumed:
 
 ```text
-bench-proof custom A/B/Enable/park writer
-or reframe as preserved complete stock IAC hardware driver
+complete IAC stock-driver static proof index
+or bench-proof custom A/B/Enable/park writer
+no direct L3062/L3060/L3FFC writer until one route passes
 ```
 
 ## Hard boundaries
@@ -297,7 +358,9 @@ No fuel stock-driver preservation accepted while its decision remains incomplete
 No partial stock fuel output driver treated as complete.
 No custom direct spark ASIC writer without bench proof.
 No simplified raw-angle spark writer.
-No IAC direct L3062 writer without bench proof or complete stock-driver preservation.
+No IAC direct L3062/L3060/L3FFC writer without bench proof or complete stock-driver preservation.
+No IAC stock-driver preservation accepted while its decision remains contract_defined_preservation_not_proven.
+No partial stock IAC driver treated as complete.
 No ALDL packet implementation as a side effect of policy contracts.
 No runtime ASM from planning/policy/static-proof contracts.
 No physical register meaning claims without trace or bench evidence, except explicitly deferred semantics for complete preserved stock drivers.
