@@ -1,0 +1,50 @@
+name: Static Artifact Builder Verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/build_*.py"
+      - "tools/verify_static_artifact_builders.py"
+      - "docs/**"
+      - "maps/**"
+      - ".github/workflows/static-artifact-verifier.yml"
+
+jobs:
+  verify-static-artifacts:
+    name: Verify static artifact builders
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install optional builder dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas
+
+      - name: Run static artifact builder verifier
+        run: |
+          python tools/verify_static_artifact_builders.py --write-report
+
+      - name: Show verifier report diff
+        if: always()
+        run: |
+          git status --short
+          git diff -- maps/tests/static_artifact_builder_verification.csv || true
+
+      - name: Upload verifier report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-artifact-builder-verification-report
+          path: maps/tests/static_artifact_builder_verification.csv
+          if-no-files-found: error
