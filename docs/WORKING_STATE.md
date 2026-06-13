@@ -6,22 +6,87 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly, then build a clean minimal OS/control program that preserves required hardware behavior.
 
-Current technical focus after the IAC stock-driver preservation contract pass:
+Current technical focus after the hardware-output gate matrix pass:
 
 ```text
-stock driver preservation policy: complete as repo-level contract
-spark stock handoff preservation: complete as static seam contract
-fuel stock-output-driver preservation: contract defined, proof not complete
-fuel stock-output-driver static proof index: complete as current decision index
-fuel stock-driver preservation decision: incomplete_continue_3FCE_bench_route
-fuel SLICE-0 bench harness: complete, bench-only / not engine-runnable
-fuel SLICE-0 bench result capture: complete, default status not_run
-fuel current active route: compact $3FCE SLICE-0 bench path remains active fallback
+hardware output gate matrix: complete as current single-source subsystem gate summary
+stock driver preservation policy: complete as repo-level authority model
+spark stock handoff preservation: accepted static-proof route; no custom direct writer
+fuel stock-output-driver preservation: considered, proof incomplete
+fuel stock-output-driver static proof index: decision = incomplete_continue_3FCE_bench_route
+fuel current active route: compact $3FCE SLICE-0 bench path
+fuel SLICE-0 bench harness/result capture: complete, proof status not_run
 IAC stock-driver preservation: contract defined, proof not complete
 IAC custom direct writer: bench-required
-IAC active route if resumed: no direct L3062/L3060/L3FFC writer without bench proof or complete stock-driver preservation
 FUEL-004: not_run until real dropout/unsafe zero path is invoked under the active compact path
 SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass unless complete stock fuel output-driver preservation is later accepted
+```
+
+## Hardware output gate matrix
+
+Completed as the current project-level gate summary:
+
+- `tools/build_hardware_output_gate_matrix.py`
+- `docs/contracts/HARDWARE_OUTPUT_GATE_MATRIX.md`
+- `maps/contracts/hardware_output_gate_matrix.csv`
+- `docs/tests/HARDWARE_OUTPUT_GATE_MATRIX_TEST.md`
+
+Current route stack:
+
+```text
+Spark:
+  stock handoff preservation accepted as the working route
+  custom direct spark writer remains bench-required
+  physical ASIC spark semantics deferred
+
+Fuel:
+  stock output-driver preservation considered
+  decision = incomplete_continue_3FCE_bench_route
+  compact $3FCE SLICE-0 bench path remains active
+  SLICE-1 still blocked by FUEL-001 through FUEL-004
+
+IAC:
+  stock driver preservation contract defined
+  preservation proof not complete
+  custom direct A/B/Enable/park writer remains bench-required
+```
+
+Gate rows:
+
+```text
+fuel_compact_3FCE:
+  active_bench_route
+  FUEL-001 through FUEL-004 still gate SLICE-1
+
+fuel_stock_output_driver:
+  candidate_incomplete
+  cannot supersede compact $3FCE bench path yet
+
+spark_stock_handoff:
+  accepted_static_route
+  clean spark state may feed preserved stock handoff after static completeness proof
+
+spark_custom_writer:
+  blocked_bench_required
+
+iac_stock_driver:
+  contract_defined_not_proven
+  cannot bypass IAC bench proof yet
+
+iac_custom_writer:
+  blocked_bench_required
+```
+
+Non-relaxation clauses:
+
+```text
+The matrix does not make SLICE-1 legal.
+The matrix does not mark FUEL-001 through FUEL-004 passed.
+The matrix does not accept fuel stock-driver preservation.
+The matrix does not accept IAC stock-driver preservation.
+The matrix does not permit a custom direct spark writer.
+The matrix does not permit a custom direct IAC writer.
+The matrix does not create runtime ASM.
 ```
 
 ## Stock driver preservation policy
@@ -65,25 +130,6 @@ iac:
   stock-driver preservation may reclassify IAC only after complete stock IAC driver proof
 ```
 
-Guardrails:
-
-```text
-Allowed:
-  clean OS calculates desired state
-  clean OS feeds stock-compatible state variables
-  preserved stock driver owns hardware-facing writes
-  physical per-register semantics are documented as deferred only for complete stock-driver preservation
-
-Blocked:
-  partial stock driver copy treated as complete
-  unseeded state entering preserved stock driver
-  custom direct ASIC writer without bench proof
-  simplified raw-register writer without bench proof
-  deleting rolling state, mirror/ack behavior, monitor flags, delay assumptions, port shadows, or reset/park behavior
-  claiming physical register meaning without trace or bench evidence
-  claiming final engine safety solely from static preservation
-```
-
 ## Fuel stock-output-driver preservation
 
 Completed as static decision contract:
@@ -92,40 +138,6 @@ Completed as static decision contract:
 - `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT.md`
 - `maps/contracts/fuel_stock_output_driver_preservation_contract.csv`
 - `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT_TEST.md`
-
-Fuel authority policy:
-
-```text
-Clean OS may calculate desired fuel mass / BPW / enrichment state.
-Clean OS may feed stock-compatible fuel state into a preserved stock fuel scheduler/output driver.
-Preserved stock fuel scheduler/output driver owns all hardware-facing fuel writes.
-Direct custom fuel ASIC / $3FCE writers remain bench-proof gated.
-```
-
-Proof-category split:
-
-```text
-preserved_stock_fuel_output_driver:
-  static-proof gated
-  proof not complete
-
-compact_direct_$3FCE_writer:
-  bench-proof gated
-  active fallback path
-
-fuel_physical_scheduler_semantics:
-  deferred only if complete stock output driver is preserved
-```
-
-Current fuel decision:
-
-```text
-The fuel stock-output-driver preservation contract is defined, but preservation proof is not complete.
-Therefore the compact $3FCE SLICE-0 bench path remains the active route.
-FUEL-001 through FUEL-004 still gate SLICE-1 under that active route.
-```
-
-## Fuel stock-output-driver static proof index
 
 Completed as current static decision index:
 
