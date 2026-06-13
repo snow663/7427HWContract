@@ -29,10 +29,10 @@ Out of scope unless proven hardware-required:
 Core state:
 
 - `docs/WORKING_STATE.md` — active project state and next target/decision point
-- `docs/contracts/*.md` — current subsystem and policy contracts
+- `docs/contracts/*.md` — current subsystem, policy, and gate contracts
 - `docs/bench/*.md` — bench proof packages, harness notes, and result capture docs
 - `docs/tests/*.md` — bench/static test plans
-- `maps/contracts/*.csv` — machine-readable contract summaries
+- `maps/contracts/*.csv` — machine-readable contract/gate summaries
 - `maps/bench/*.csv` — bench proof/result matrices
 - `tests/static/*.csv` — static vector tables
 - `source/31/BMHM_HAC_ORG_7100_to_end.asm` — source listing used by contract builders
@@ -46,6 +46,56 @@ Legacy/static-base artifacts still present:
 - `maps/full/hardware_access_map_v0.2.csv` — original full static access map baseline
 
 Do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists until it is committed.
+
+## Current hardware-output gate matrix
+
+- `tools/build_hardware_output_gate_matrix.py`
+- `docs/contracts/HARDWARE_OUTPUT_GATE_MATRIX.md`
+- `maps/contracts/hardware_output_gate_matrix.csv`
+- `docs/tests/HARDWARE_OUTPUT_GATE_MATRIX_TEST.md`
+
+Single-source subsystem gate summary:
+
+```text
+Spark:
+  stock handoff preservation accepted as the working route
+  custom direct spark writer remains bench-required
+  physical ASIC spark semantics deferred
+
+Fuel:
+  stock output-driver preservation considered
+  decision = incomplete_continue_3FCE_bench_route
+  compact $3FCE SLICE-0 bench path remains active
+  SLICE-1 still blocked by FUEL-001 through FUEL-004
+
+IAC:
+  stock driver preservation contract defined
+  preservation proof not complete
+  custom direct A/B/Enable/park writer remains bench-required
+```
+
+Gate-row decisions:
+
+```text
+fuel_compact_3FCE: active_bench_route
+fuel_stock_output_driver: candidate_incomplete
+spark_stock_handoff: accepted_static_route
+spark_custom_writer: blocked_bench_required
+iac_stock_driver: contract_defined_not_proven
+iac_custom_writer: blocked_bench_required
+```
+
+Non-relaxation clauses:
+
+```text
+The matrix does not make SLICE-1 legal.
+The matrix does not mark FUEL-001 through FUEL-004 passed.
+The matrix does not accept fuel stock-driver preservation.
+The matrix does not accept IAC stock-driver preservation.
+The matrix does not permit a custom direct spark writer.
+The matrix does not permit a custom direct IAC writer.
+The matrix does not create runtime ASM.
+```
 
 ## Current policy stack
 
