@@ -30,22 +30,22 @@ Core state:
 
 - `docs/WORKING_STATE.md` — active project state and next target/decision point
 - `docs/contracts/*.md` — current subsystem, policy, and gate contracts
-- `docs/bench/*.md` — bench proof packages, harness notes, and result capture docs
+- `docs/bench/*.md` — bench proof packages, harness notes, run checklists, and result capture docs
 - `docs/tests/*.md` — bench/static test plans
 - `maps/contracts/*.csv` — machine-readable contract/gate summaries
-- `maps/bench/*.csv` — bench proof/result matrices
+- `maps/bench/*.csv` — bench proof/checklist/result matrices
+- `maps/full/hardware_access_map_v0.3.csv` — regenerated full static access map from `build_hw_map.py`
+- `maps/current/hardware_access_map_hw_only.csv` — regenerated hardware-only access map from `build_hw_map.py`
 - `tests/static/*.csv` — static vector tables
 - `source/31/BMHM_HAC_ORG_7100_to_end.asm` — source listing used by contract builders
 - `source/minimal_os/fuel/*.asm` — fuel-side source artifacts; only bench-safe/provisional paths where documented
 - `source/minimal_os/spark/README.md` — spark source API/layout boundary, no ASM implementation
 - `source/minimal_os/iac/README.md` — IAC source API/layout boundary, no ASM implementation
-- `tools/*.py` — repo-relative analysis/build tools
+- `tools/*.py` — repo-relative analysis/build/verification tools
 
 Legacy/static-base artifacts still present:
 
 - `maps/full/hardware_access_map_v0.2.csv` — original full static access map baseline
-
-Do not claim a regenerated `maps/full/hardware_access_map_v0.3.csv` exists until it is committed.
 
 ## Current hardware-output gate matrix
 
@@ -119,25 +119,6 @@ Custom direct writer:
   bench proof required
 ```
 
-Subsystem classification:
-
-```text
-fuel:
-  bench_required_unless_stock_driver_preserved
-  current compact $3FCE path remains bench-proof gated
-
-spark:
-  stock_preservation_allowed_after_static_contract
-  clean spark state -> preserved stock handoff routine
-  custom direct spark writer remains blocked/bench-required
-  physical spark ASIC semantics deferred, not blocking
-
-iac:
-  contract_defined_preservation_not_proven
-  custom A/B/Enable/park writer remains bench-required
-  stock-driver preservation may reclassify IAC only after complete stock IAC driver proof
-```
-
 ### Fuel stock-output-driver preservation contract
 
 - `tools/build_fuel_stock_output_driver_preservation_contract.py`
@@ -147,23 +128,12 @@ iac:
 
 This is a static decision-seam contract only. It does not implement fuel ASM and does not create a fuel writer.
 
-Fuel hardware authority model:
-
-```text
-Clean OS may calculate desired fuel mass / BPW / enrichment state.
-Clean OS may feed stock-compatible fuel state into a preserved stock fuel scheduler/output driver.
-Preserved stock fuel scheduler/output driver owns all hardware-facing fuel writes.
-Direct custom fuel ASIC / $3FCE writers remain bench-proof gated.
-```
-
 ### Fuel stock-output-driver static proof index
 
 - `tools/build_fuel_stock_output_driver_static_proof_index.py`
 - `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX.md`
 - `maps/contracts/fuel_stock_output_driver_static_proof_index.csv`
 - `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX_TEST.md`
-
-This is a static proof/decision artifact only. It does not implement fuel ASM and does not create a fuel writer.
 
 Current fuel decision:
 
@@ -192,15 +162,6 @@ Fuel preservation contract exists
 
 This is a static seam contract only. It does not implement spark ASM and does not create a spark writer.
 
-Spark hardware authority model:
-
-```text
-Clean OS may calculate desired spark.
-Clean OS may feed stock-compatible spark state.
-Preserved stock handoff routine owns all ASIC-facing spark writes.
-Direct custom ASIC spark writes remain forbidden.
-```
-
 ### IAC stock-driver preservation contract
 
 - `tools/build_iac_stock_driver_preservation_contract.py`
@@ -210,38 +171,7 @@ Direct custom ASIC spark writes remain forbidden.
 
 This is a static decision-seam contract only. It does not implement IAC ASM and does not create a direct IAC writer.
 
-Current IAC decision:
-
-```text
-iac_stock_driver_preservation:
-  contract_defined_preservation_not_proven
-
-custom_iac_writer:
-  bench_required
-
-active_iac_route_if_work_resumes:
-  no custom direct IAC writer without bench proof
-  or complete stock IAC driver preservation proof first
-```
-
-IAC hardware authority model, if preservation is eventually accepted:
-
-```text
-clean idle-air decision
-→ stock-compatible IAC state
-→ preserved stock IAC output driver
-→ stock routine owns A/B/Enable/phase/park behavior
-```
-
-Current locked distinction:
-
-```text
-IAC preservation contract exists
-≠ IAC preservation proof is complete
-≠ custom A/B/Enable/park bench proof is bypassed
-```
-
-### Fuel SLICE-0 bench path
+## Fuel SLICE-0 bench path
 
 - `source/minimal_os/fuel/slice0_bench_harness.asm`
 - `tools/verify_fuel_slice0_bench_harness.py`
@@ -252,12 +182,17 @@ IAC preservation contract exists
 - `maps/bench/fuel_slice0_bench_results.csv`
 - `docs/bench/FUEL_SLICE0_BENCH_RESULTS.md`
 - `docs/tests/FUEL_SLICE0_BENCH_RESULTS_TEST.md`
+- `tools/build_fuel_slice0_bench_execution_checklist.py`
+- `docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md`
+- `maps/bench/fuel_slice0_bench_execution_checklist.csv`
+- `docs/tests/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST_TEST.md`
 
 Current fuel bench state:
 
 ```text
 SLICE-0 harness: bench-only, fixed vectors only, not engine-runnable
 result capture: present, default proof status not_run
+bench execution checklist: present, no proof status change
 FUEL-001/FUEL-002/FUEL-003: waiting on bench evidence
 FUEL-004: not_run until real dropout/unsafe zero path is invoked
 SLICE-1: blocked under active compact route until FUEL-001 through FUEL-004 pass
@@ -270,6 +205,7 @@ Fuel compact `$3FCE` path remains bench-data capture, not code expansion:
 ```text
 run python tools/verify_fuel_slice0_bench_harness.py
 run python tools/verify_fuel_slice0_bench_results.py
+use docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md
 bench SLICE-0 fixed vectors
 record measured values in maps/bench/fuel_slice0_bench_results.csv
 keep FUEL-004 not_run until real dropout/unsafe path is tested
