@@ -6,7 +6,7 @@ This repository is the working directory for the 7427 hardware-contract reverse-
 
 Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly, then build a clean minimal OS/control program that preserves required hardware behavior.
 
-Current technical focus after the hardware-output gate matrix pass:
+Current technical focus after the hardware-output gate matrix and fuel bench-execution checklist pass:
 
 ```text
 hardware output gate matrix: complete as current single-source subsystem gate summary
@@ -16,6 +16,7 @@ fuel stock-output-driver preservation: considered, proof incomplete
 fuel stock-output-driver static proof index: decision = incomplete_continue_3FCE_bench_route
 fuel current active route: compact $3FCE SLICE-0 bench path
 fuel SLICE-0 bench harness/result capture: complete, proof status not_run
+fuel SLICE-0 bench execution checklist: complete as run checklist, no proof status change
 IAC stock-driver preservation: contract defined, proof not complete
 IAC custom direct writer: bench-required
 FUEL-004: not_run until real dropout/unsafe zero path is invoked under the active compact path
@@ -111,25 +112,6 @@ Custom direct writer:
   bench proof required
 ```
 
-Subsystem classification:
-
-```text
-fuel:
-  bench_required_unless_stock_driver_preserved
-  current compact $3FCE path remains bench-proof gated
-
-spark:
-  stock_preservation_allowed_after_static_contract
-  clean spark state -> preserved stock handoff routine
-  custom direct spark writer remains blocked/bench-required
-  physical spark ASIC semantics deferred, not blocking
-
-iac:
-  contract_defined_preservation_not_proven
-  custom A/B/Enable/park writer remains bench-required
-  stock-driver preservation may reclassify IAC only after complete stock IAC driver proof
-```
-
 ## Fuel stock-output-driver preservation
 
 Completed as static decision contract:
@@ -157,28 +139,6 @@ active_fuel_route:
 
 SLICE-1:
   still blocked under active compact route until FUEL-001 through FUEL-004 pass
-```
-
-What the proof index currently establishes:
-
-```text
-candidate stock normal-TBI fuel output path:
-  partially identified around source/31/BMHM_HAC_ORG_7100_to_end.asm:83FB-858A
-
-normal hardware-facing writes inside candidate range:
-  partially identified: $3FCE, $3FF2, $3FFC
-
-output-cycling $3FCE writes:
-  identified and excluded from production fuel-driver acceptance
-
-required stock-compatible inputs:
-  incomplete
-
-scheduler/timer/interrupt dependencies:
-  unresolved
-
-enable/disable/dropout/no-fuel paths:
-  incomplete
 ```
 
 Locked interpretation:
@@ -209,19 +169,6 @@ Preserved stock handoff routine owns all ASIC-facing spark writes.
 Direct custom ASIC spark writes remain forbidden.
 ```
 
-Proof-category split:
-
-```text
-custom_spark_writer:
-  blocked_bench_required
-
-stock_spark_handoff_preservation:
-  allowed_after_static_contract
-
-spark_physical_semantics:
-  deferred_bench_optional
-```
-
 No spark implementation exists yet.
 
 ## IAC stock-driver preservation
@@ -232,15 +179,6 @@ Completed as static decision contract:
 - `docs/contracts/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT.md`
 - `maps/contracts/iac_stock_driver_preservation_contract.csv`
 - `docs/tests/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT_TEST.md`
-
-IAC authority policy if preservation is eventually accepted:
-
-```text
-clean idle-air decision
-→ stock-compatible IAC state
-→ preserved stock IAC output driver
-→ stock routine owns A/B/Enable/phase/park behavior
-```
 
 Current IAC decision:
 
@@ -254,22 +192,6 @@ custom_iac_writer:
 active_iac_route_if_work_resumes:
   no custom direct IAC writer without bench proof
   or complete stock IAC driver preservation proof first
-```
-
-Known source anchors only; not a completed proof:
-
-```text
-L925E setup candidate:
-  setup/park-related state, including L4EB0 -> L0007
-
-L93E1-L940A reset/park candidate:
-  reset-in-work, zero-position, run/start request, ignition-off, park, engine-running branches
-
-L9B10 / L9BD6 position update candidates:
-  decrement/increment L0007 present motor position
-
-LF405 / LFB14-LFB69 port-output candidates:
-  L3062 / L3060 / L3FFC interactions, port-shadow and strobe behavior
 ```
 
 Locked interpretation:
@@ -295,12 +217,17 @@ Completed:
 - `maps/bench/fuel_slice0_bench_results.csv`
 - `docs/bench/FUEL_SLICE0_BENCH_RESULTS.md`
 - `docs/tests/FUEL_SLICE0_BENCH_RESULTS_TEST.md`
+- `tools/build_fuel_slice0_bench_execution_checklist.py`
+- `docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md`
+- `maps/bench/fuel_slice0_bench_execution_checklist.csv`
+- `docs/tests/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST_TEST.md`
 
 Current fuel bench state:
 
 ```text
 SLICE-0 harness: bench-only, fixed vectors only, not engine-runnable
 result capture: present, default proof status not_run
+bench execution checklist: present, no proof status change
 FUEL-001: not_run until bench evidence entered
 FUEL-002: not_run until bench evidence entered
 FUEL-003: not_run; may become partial if only zero-vector path is proven
@@ -327,6 +254,7 @@ Fuel compact `$3FCE` path:
 ```text
 run python tools/verify_fuel_slice0_bench_harness.py
 run python tools/verify_fuel_slice0_bench_results.py
+use docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md
 bench SLICE-0 fixed vectors
 enter only measured evidence in maps/bench/fuel_slice0_bench_results.csv
 keep FUEL-004 not_run until real dropout/unsafe path is tested
@@ -380,10 +308,9 @@ No physical register meaning claims without trace or bench evidence, except expl
 
 ## Static-map note
 
-The current repo still contains the original static full-map baseline:
+The current repo contains regenerated `build_hw_map.py` default outputs including:
 
 ```text
-maps/full/hardware_access_map_v0.2.csv
+maps/full/hardware_access_map_v0.3.csv
+maps/current/hardware_access_map_hw_only.csv
 ```
-
-Do not reference `maps/full/hardware_access_map_v0.3.csv` as committed until it is actually regenerated or uploaded.
