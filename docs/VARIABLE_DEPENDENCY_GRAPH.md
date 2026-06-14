@@ -1,99 +1,108 @@
-# 7427 Variable Dependency Graph v0.2
+# 7427 Variable Dependency Graph v0.1
 
-Static dependency draft. This file records confirmed visible chains and marks where deeper backward slicing is still needed.
+Static dependency sketch. Dynamic bus trace still required for side effects and units.
 
-## Fuel scheduler path — confirmed static chain anchors
-
-```text
-TOC5 compare write $301E / TOC4 compare write $301C
-← D compare value
-← TCNT $300E + delay/minimum lead-time clamp
-← L0821/L0823/L0825/L0827 compare scratch
-← L0250 BPW runtime pulse width
-← L024C/L024E/L0254 sync/async BPW handoff
-← BPW fuel math, battery multiplier, VE, AE, DFCO, crank fuel
-← MAP/RPM/TPS/CTS/BATT/VSS/state
-```
-
-Contract details to preserve:
+## Fuel pulsewidth path
 
 ```text
-clear TFLG1 bit at $3023
-set/clear TMSK1 bit at $3022
-set/clear TCTL1 output action bits at $3020
-write TOC4/TOC5 compare at $301C/$301E
+L02CF BPW
+← calculated run/crank base pulsewidth
+← VE / MAP / RPM / CTS / AFR modifiers / transient fuel
+
+L024C/L024E sync BPW
+← L02CF and sync/async mode logic
+← crank mode all-injectors-each-DRP branch
+
+L0254 async BPW
+← async fuel decision logic
+← AE / transient fuel handling
+
+L0250 working BPW
+← selected sync/async BPW
+← low-BPW correction
+← BPW bias L0256
+← min/max clamps
+
+HC11 TOC4/TOC5 compare values $301C/$301E
+← L0250 plus timer state
+← output compare setup $3020/$3022/$3023
 ```
 
-## Fuel math / AE / DFCO anchors
+## Fuel ASIC handoff path
 
 ```text
-L024E sync BPW
-← VE result L0231
-← current MAP L01C0/L01C6
-← RPM L0062/L0063/L0068
-← AFR L024A
-← injector flow calibration L4D92
-← BLM L0248 / PE and closed-loop modifiers if enabled
-← AE accumulators L023A/L023E/L023F
-← DFCO flags L0046 bit3 and mode word L003E bits
+$3FCE EFI PW / fuel handoff writes @ $8426/$8512/$FAEE/$FB44
+← L024E/L0254/L0250 fuel pulse state
+← async/sync mode decision
+← low-BPW thresholds L492A/L492C/L4974
+← final fuel math and AE/DFCO gating
 ```
 
-## Spark / EST anchors
+## Spark / EST path
 
 ```text
-ASIC spark handoff candidates $3FDC/$3FE4/$3FE6/$3FE8/$3FF6
-← spark delay/dwell/count value
-← final spark calculation
-← base spark table
-← idle correction / coolant correction / knock retard
-← MAP/RPM/CTS/state
+$3FE8 spark/EST timing write @ $ABAA
+← D = computed EST event time
+← L3FF6 EST fall counter and L3FC0 ref period timing
+← spark/dwell work variables around LAB8E-LABC8
+← final spark advance L01FD
+← base spark table $4166 or $428A
+← idle spark correction tables around $4502/$451B
+← coolant spark, altitude spark, low-octane retard, EGR spark correction, startup spark
+← MAP/RPM/TPS/CTS/VSS/state flags
 ```
-
-Unproven: exact unit conversion and latch timing for `$3FE6/$3FE8/$3FF6`.
-
-## Sensor acquisition anchors
 
 ```text
-ADC control $3030
-← channel select / conversion start command
-ADC results $3031-$3034
-→ raw sensor RAM L082D/L082E/L082F and related direct RAM
-→ filtered MAP/TPS/CTS/BATT variables
-→ fuel/spark/idle state
+$3FE6 spark handoff write @ $ABBA
+← D = timing/dwell companion value
+← L3FDC spark dwell/work period
+← same final spark/timing basis as $3FE8
 ```
-
-## ASIC/ref/status anchors
 
 ```text
-$3FCA read
-→ L0205 and RPM/event reference logic
-
-$3FFA read
-→ L0073 status mirror
-→ event/status branch logic
-→ scheduler/filtered RPM updates
-
-$3FC4 read
-→ L080D/L080C event-change tracking
+$3FDC spark dwell/work period @ $ABC0/$FAF7
+← X/D work value from EST scheduling math
+← dwell/spark timing counters and startup/default paths
 ```
 
-## IAC/output latch anchors
+## RPM/ref timing input
 
 ```text
-IAC desired/present state
-← idle target, RPM error, CTS, TPS, VSS
-→ phase/output bits
-→ external output latch path, including $3FFC and 306x candidates
+$3FC0 last DRP/ref period counter reads
+← ASIC/ref hardware
+→ RPM calculation L0062/L0063/L0068/L006A
+→ spark timing, fuel scheduling, idle logic, derivative RPM correction
 ```
-
-Unproven: exact physical phase-bit mapping.
-
-## Watchdog/init anchors
 
 ```text
-$303A COPRST
-← #$55 then #$AA cadence
-← reset path and periodic loop service
+$3FCA RPM/event counter reads
+← ASIC/ref hardware
+→ initialization/run counter L0205 and runtime RPM/event logic
 ```
 
-Preserve cadence until standalone OS boot is proven.
+## IAC / external output latch path
+
+```text
+$3FFC I/O D port writes
+← constants/mode-selected port images, e.g. $B93A/$B91A during init
+← ALDL/SCI and hardware output handshakes
+← likely external output latch state; exact IAC phase ownership still needs isolation
+```
+
+## ALDL/debug
+
+```text
+$302D SCCR2, $302E SCSR, $302F SCDR
+← ALDL message state L0360-L036C
+← SCI interrupt handler LF7EA/LF90B/LF822
+→ debug frame TX/RX and RAM/ROM read service
+```
+
+## Unknown hardware that cannot be discarded yet
+
+```text
+$3062/$3068/$306E/$306F
+← external 306x board register writes/status
+→ likely force-motor/output/ASIC-adjacent path from source comments
+→ keep as test items until board trace proves unused for minimal TBI manual OS
+```
