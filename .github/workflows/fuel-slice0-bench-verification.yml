@@ -1,0 +1,67 @@
+name: Fuel SLICE-0 Bench Verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/verify_fuel_slice0_bench_harness.py"
+      - "tools/verify_fuel_slice0_bench_results.py"
+      - "source/minimal_os/fuel/**"
+      - "tests/static/fuel_slice0_bench_vectors.csv"
+      - "maps/bench/fuel_slice0_bench_results.csv"
+      - "docs/bench/FUEL_SLICE0_BENCH_RESULTS.md"
+      - "docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md"
+      - ".github/workflows/fuel-slice0-bench-verification.yml"
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  fuel-slice0-bench-verification:
+    name: Verify fuel SLICE-0 bench harness/results
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify bench harness structure
+        run: |
+          python tools/verify_fuel_slice0_bench_harness.py
+
+      - name: Verify bench result table gates
+        run: |
+          python tools/verify_fuel_slice0_bench_results.py
+
+      - name: Show fuel bench result status
+        if: always()
+        run: |
+          echo "Fuel SLICE-0 bench result CSV:"
+          if [ -f maps/bench/fuel_slice0_bench_results.csv ]; then
+            cat maps/bench/fuel_slice0_bench_results.csv
+          else
+            echo "missing: maps/bench/fuel_slice0_bench_results.csv"
+          fi
+
+      - name: Upload fuel bench verification artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuel-slice0-bench-verification-artifacts
+          if-no-files-found: ignore
+          path: |
+            maps/bench/fuel_slice0_bench_results.csv
+            docs/bench/FUEL_SLICE0_BENCH_RESULTS.md
+            docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md
+            maps/bench/fuel_slice0_bench_execution_checklist.csv
