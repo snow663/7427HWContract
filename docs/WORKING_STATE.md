@@ -19,8 +19,51 @@ fuel SLICE-0 bench harness/result capture: complete, proof status not_run
 fuel SLICE-0 bench execution checklist: complete as run checklist, no proof status change
 IAC stock-driver preservation: contract defined, proof not complete
 IAC custom direct writer: bench-required
+whole-ROM write target network seed: committed as high-value seed map
+full-ROM write target sweep: builder/doc/test committed; generated CSV has 2215 rows and must be applied from local checkout/artifact if not already present
 FUEL-004: not_run until real dropout/unsafe zero path is invoked under the active compact path
 SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass unless complete stock fuel output-driver preservation is later accepted
+```
+
+## Static control-flow / data-flow layer
+
+Completed as static analysis scaffolding:
+
+- `tools/build_write_target_network_index.py`
+- `docs/contracts/WRITE_TARGET_NETWORK_INDEX.md`
+- `maps/contracts/write_target_network_index.csv`
+- `docs/tests/WRITE_TARGET_NETWORK_INDEX_TEST.md`
+- `tools/build_dispatcher_reverse_map.py`
+- `docs/contracts/DISPATCHER_REVERSE_MAP.md`
+- `maps/contracts/dispatcher_reverse_map.csv`
+- `docs/tests/DISPATCHER_REVERSE_MAP_TEST.md`
+- `tools/build_subsystem_isolation_index.py`
+- `docs/contracts/SUBSYSTEM_ISOLATION_INDEX.md`
+- `maps/contracts/subsystem_isolation_index.csv`
+- `docs/tests/SUBSYSTEM_ISOLATION_INDEX_TEST.md`
+
+Full sweep artifact:
+
+- `tools/build_full_rom_write_target_sweep.py`
+- `docs/analysis/FULL_ROM_WRITE_TARGET_SWEEP.md`
+- `docs/tests/FULL_ROM_WRITE_TARGET_SWEEP_TEST.md`
+- `maps/generated/full_rom_write_target_sweep.csv` — generated locally as 2215 rows; apply/push from normal checkout if not present after connector-side commit limits.
+
+Development rule:
+
+```text
+whole-ROM write sweep
+→ per-target read/write dossiers
+→ dispatcher reverse map
+→ subsystem isolation
+→ decide what minimal OS must keep
+```
+
+Deletion rule:
+
+```text
+Do not delete a variable because it looks unimportant.
+Delete only after its read/write network proves it does not feed hardware, safety, dispatch, scheduler state, rolling state, or a preserved stock driver.
 ```
 
 ## Hardware output gate matrix
@@ -258,59 +301,4 @@ use docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md
 bench SLICE-0 fixed vectors
 enter only measured evidence in maps/bench/fuel_slice0_bench_results.csv
 keep FUEL-004 not_run until real dropout/unsafe path is tested
-```
-
-Fuel stock-driver preservation path, if chosen:
-
-```text
-continue static proof index work from FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX
-prove complete stock fuel scheduler/output-driver range
-prove all required BPW/fuel-mode/timer/dropout/no-fuel inputs
-prove all hardware writes and side effects
-prove order/delay/interrupt assumptions are preserved
-prove reset/first-event/dropout state is safe
-prove no alternate custom direct writer exists
-then decide accepted_static_route vs rejected_3FCE_bench_route_required
-```
-
-Spark side, when resumed:
-
-```text
-static extraction/pinning of complete preserved stock handoff routine range and dependencies
-not a custom writer
-not direct $3FE8/$3FE6/$3FF6/$3FDC writes
-```
-
-IAC side, when resumed:
-
-```text
-complete IAC stock-driver static proof index
-or bench-proof custom A/B/Enable/park writer
-no direct L3062/L3060/L3FFC writer until one route passes
-```
-
-## Hard boundaries
-
-```text
-No SLICE-1 engine-runnable fuel-only skeleton under the compact $3FCE path until FUEL-001 through FUEL-004 pass.
-No compact direct $3FCE writer promoted to engine-runnable without FUEL-001 through FUEL-004 proof unless complete stock fuel output-driver preservation supersedes that path.
-No fuel stock-driver preservation accepted while its decision remains incomplete_continue_3FCE_bench_route.
-No partial stock fuel output driver treated as complete.
-No custom direct spark ASIC writer without bench proof.
-No simplified raw-angle spark writer.
-No IAC direct L3062/L3060/L3FFC writer without bench proof or complete stock-driver preservation.
-No IAC stock-driver preservation accepted while its decision remains contract_defined_preservation_not_proven.
-No partial stock IAC driver treated as complete.
-No ALDL packet implementation as a side effect of policy contracts.
-No runtime ASM from planning/policy/static-proof contracts.
-No physical register meaning claims without trace or bench evidence, except explicitly deferred semantics for complete preserved stock drivers.
-```
-
-## Static-map note
-
-The current repo contains regenerated `build_hw_map.py` default outputs including:
-
-```text
-maps/full/hardware_access_map_v0.3.csv
-maps/current/hardware_access_map_hw_only.csv
 ```
