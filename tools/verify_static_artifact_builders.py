@@ -10,6 +10,8 @@ Rules:
   - Run only builders that can be invoked with no required CLI arguments.
   - Skip parameterized builders unless added to BUILDER_INVOCATION_MANIFEST.
   - Run each builder in an isolated temporary repo copy.
+  - Run --help probes in an isolated temporary repo copy too, because some
+    existing zero-arg builders ignore --help and write artifacts as a side effect.
   - Compare generated files against the committed baseline.
   - Report mismatches as repo defects, not hardware findings.
 
@@ -92,7 +94,7 @@ def tail(text: str | bytes | None, max_lines: int = 20) -> str:
     if isinstance(text, bytes):
         text = text.decode("utf-8", errors="replace")
     lines = text.splitlines()
-    return "\\n".join(lines[-max_lines:])
+    return "\n".join(lines[-max_lines:])
 
 
 def run_cmd(cmd: list[str], cwd: Path, timeout_s: int = 60) -> subprocess.CompletedProcess[str]:
@@ -113,37 +115,6 @@ def discover_builders(root: Path) -> list[Path]:
 
 def builder_has_manifest(builder_rel: str) -> bool:
     return builder_rel in BUILDER_INVOCATION_MANIFEST
-
-
-def builder_requires_manifest(builder: Path) -> tuple[bool, str]:
-    """
-    Conservative check used to avoid false failures.
-
-    If --help fails, skip the builder unless a manifest entry exists. This catches
-    builders that import optional local deps, such as pandas, before argparse.
-
-    If --help succeeds but advertises common required output/selector args, skip
-    the builder unless a manifest entry exists. The verifier should not guess
-    canonical output paths for parameterized builders.
-    """
-    builder_rel = rel(builder)
-    if builder_has_manifest(builder_rel):
-        return False, "manifest_entry_present"
-
-    try:
-        proc = run_cmd([sys.executable, builder_rel, "--help"], REPO_ROOT, timeout_s=20)
-    except subprocess.TimeoutExpired:
-        return True, "skip_help_timeout_no_manifest"
-
-    if proc.returncode != 0:
-        return True, "skip_help_failed_no_manifest"
-
-    help_text = proc.stdout + proc.stderr
-    matched = [marker for marker in COMMON_REQUIRED_ARG_MARKERS if marker in help_text]
-    if matched:
-        return True, "skip_parameterized_no_manifest: " + ",".join(matched)
-
-    return False, "zero_arg_candidate"
 
 
 def copy_repo_to_temp(src: Path) -> Path:
@@ -179,6 +150,51 @@ def copy_repo_to_temp(src: Path) -> Path:
             raise RuntimeError(f"failed to prepare temp git repo: {cmd}: {proc.stderr}")
 
     return dst
+
+
+def run_help_probe_isolated(builder_rel: str) -> subprocess.CompletedProcess[str]:
+    """Run builder --help without allowing side effects in the real checkout."""
+    probe_copy = copy_repo_to_temp(REPO_ROOT)
+    try:
+        return run_cmd([sys.executable, builder_rel, "--help"], probe_copy, timeout_s=20)
+    finally:
+        shutil.rmtree(probe_copy.parent, ignore_errors=True)
+
+
+def builder_requires_manifest(builder: Path) -> tuple[bool, str]:
+    """
+    Conservative check used to avoid false failures.
+
+    If --help fails, skip the builder unless a manifest entry exists. This catches
+    builders that import optional local deps, such as pandas, before argparse.
+
+    If --help succeeds but advertises common required output/selector args, skip
+    the builder unless a manifest entry exists. The verifier should not guess
+    canonical output paths for parameterized builders.
+
+    The --help probe must run in a temp copy because several repo builders are
+    intentionally simple zero-arg scripts and may ignore --help, regenerate files,
+    and exit 0. Running those probes in the real checkout pollutes the baseline
+    for later builder comparisons.
+    """
+    builder_rel = rel(builder)
+    if builder_has_manifest(builder_rel):
+        return False, "manifest_entry_present"
+
+    try:
+        proc = run_help_probe_isolated(builder_rel)
+    except subprocess.TimeoutExpired:
+        return True, "skip_help_timeout_no_manifest"
+
+    if proc.returncode != 0:
+        return True, "skip_help_failed_no_manifest"
+
+    help_text = proc.stdout + proc.stderr
+    matched = [marker for marker in COMMON_REQUIRED_ARG_MARKERS if marker in help_text]
+    if matched:
+        return True, "skip_parameterized_no_manifest: " + ",".join(matched)
+
+    return False, "zero_arg_candidate"
 
 
 def git_status_changed_files(repo_copy: Path) -> tuple[list[str], list[str], list[str]]:
