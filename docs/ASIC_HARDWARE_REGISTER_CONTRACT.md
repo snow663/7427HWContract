@@ -40,7 +40,7 @@ Generated from static source walk. This is not a dynamic proof; unknown or infer
 | `0x3035` | BPROT EEPROM block protect | W:1 | 0x711A | 0x711A STAA $35,X ← A=0x1B | KEEP / required until bench proven otherwise |
 | `0x3038` | OPT2 | RMW:1 | 0x7115 |  | KEEP / required until bench proven otherwise |
 | `0x3039` | OPTION | W:2 | 0x710F, 0x7D89 | 0x710F STAA $39,X ← A=0xB8; 0x7D89 STAB L3039 ← B=0x08 | KEEP / required until bench proven otherwise |
-| `0x303A` | COPRST watchdog clear | W:10 | 0x7443, 0x7448, 0x79EA, 0x79ED, 0x7DB3, 0x9169, 0xF2EF, 0xF2F3, 0xFA87, 0xFA8A | 0x7443 STAA L303A ← A=0x55; 0x7448 STAA L303A ← A=0xAA; 0x79EA STAA L303A ← A=0xAA; 0x79ED STAB L303A ← B=0x55; 0x7DB3 STAA L303A ← A=0x55; 0x9169 STAB L303A ← B=0xAA; 0xF2EF STAA L303A ← A=0x55; 0xF2F3 STAA L303A ← A=0x55 | KEEP / required until bench proven otherwise |
+| `0x303A` | COPRST watchdog clear | W:10 | 0x7443, 0x7448, 0x79EA, 0x79ED, 0x7DB3, 0x9169, 0xF2EF, 0xF2F3, 0xFA87, 0xFA8A | 0x7443 STAA L303A ← A=0x55; 0x7448 STAA L303A ← A=0xAA; 0x79EA STAA L303A ← A=0xAA; 0x79ED STAB L303A ← B=0x55; 0x7DB3 STAA L303A ← A=0x55; 0x9169 STAB L303A ← B=0xAA; 0xF2EF STAA L303A ← A=0x55; 0xFA87 STAA L303A ← A=0xAA | KEEP / required until bench proven otherwise |
 | `0x303C` | indexed_resolved | W:1 | 0xCCA3 | 0xCCA3 STAA $003C,X ← A=0x15 | KEEP / required until bench proven otherwise |
 | `0x303E` | indexed_resolved | W:1 | 0xCC87 | 0xCC87 STAA $3E,X ← A=0x00 | KEEP / required until bench proven otherwise |
 | `0x303F` | CONFIG/EPROM config candidate | R:1 | 0x71C6 |  | KEEP / required until bench proven otherwise |

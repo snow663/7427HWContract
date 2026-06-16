@@ -3,13 +3,13 @@
 - Parsed source lines: 25885
 - Parsed instruction rows: 15002
 - Hardware/direct/ROM access rows emitted: 7507
-- Hardware-facing rows emitted: 427
+- Hardware-facing rows emitted: 693
 
 ## Address class counts
-- DIRECT_RAM: 4467
-- ROM_TABLE: 2200
+- DIRECT_RAM: 4364
+- ROM_TABLE: 2037
+- UNKNOWN_HW: 462
 - EXT_RAM: 412
-- UNKNOWN_HW: 196
 - HC11_REG: 129
 - ASIC_3FXX: 76
 - ALDL: 26
