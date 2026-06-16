@@ -1,0 +1,12 @@
+target_symbol,target_address,write_count,first_pc,first_routine_label,representative_instruction,write_widths,bitmasks,value_sources,x_y_bases_seen,call_contexts,nearby_branch_conditions_sample,candidate_role,confidence,write_sites_sample,notes
+L3FCE,$3FCE,pending_builder_run,,,,,,,,,,hardware sink:fuel pulsewidth,high,,known EFI pulsewidth command sink; compact route remains bench-proof gated
+L3FE8,$3FE8,pending_builder_run,,,,,,,,,,hardware sink/state:spark stock handoff,medium,,stock spark handoff preserved route owns this write
+L3FE6,$3FE6,pending_builder_run,,,,,,,,,,hardware sink/state:spark stock handoff,medium,,stock spark handoff preserved route owns this write
+L3FDC,$3FDC,pending_builder_run,,,,,,,,,,hardware sink/state:spark stock handoff,medium,,spark rolling/state candidate preserved with stock handoff
+L3FF6,$3FF6,pending_builder_run,,,,,,,,,,hardware sink/state:spark stock handoff,medium,,EST fall / rolling anchor candidate preserved with stock handoff
+L3FEC,$3FEC,pending_builder_run,,,,,,,,,,hardware sink/state:spark monitor source,medium,,source side of stock mirror/ack/status candidate
+L3FE4,$3FE4,pending_builder_run,,,,,,,,,,hardware sink/state:spark monitor destination,medium,,destination side of stock mirror/ack/status candidate
+L3062,$3062,pending_builder_run,,,,,,,,,,hardware sink/state:IAC candidate,medium,,IAC output/phase/enable/park candidate; custom writer bench-gated
+L3060,$3060,pending_builder_run,,,,,,,,,,hardware sink/state:IAC candidate,medium,,IAC output/phase/enable/park candidate; custom writer bench-gated
+L3FFC,$3FFC,pending_builder_run,,,,,,,,,,hardware sink/state:IAC/output-port candidate,medium,,IAC/output-port candidate; custom writer bench-gated
+L303A,$303A,pending_builder_run,,,,,,,,,,hardware sink:watchdog/COP,high,,COP/watchdog hardware candidate
