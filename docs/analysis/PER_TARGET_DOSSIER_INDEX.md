@@ -10,7 +10,7 @@ It does not extract read sites, consumer edges, or downstream proof yet. It does
 
 ## Source
 
-- source sweep: `/mnt/data/full_rom_write_target_sweep.csv`
+- source sweep: `maps/generated/full_rom_write_target_sweep.csv`
 - dossier rows: `793`
 
 ## Decision summary

@@ -8,7 +8,7 @@ This is a static analysis artifact only. It does not implement runtime ASM, rela
 
 ## Source
 
-- source file: `/mnt/data/source.asm`
+- source file: `source/31/BMHM_HAC_ORG_7100_to_end.asm`
 - target dossier rows emitted: `793`
 
 ## Write op coverage
