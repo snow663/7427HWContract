@@ -10,26 +10,26 @@ It does not extract read sites, consumer edges, or downstream proof yet. It does
 
 ## Source
 
-- source sweep: `maps/generated/full_rom_write_target_sweep.csv`
+- source sweep: `/mnt/data/full_rom_write_target_sweep.csv`
 - dossier rows: `793`
 
 ## Decision summary
 
-- `unknown_pending_read_consumer_edges`: 715
-- `unknown_review_safety_or_mode`: 36
-- `keep_or_preserve_until_proven_otherwise`: 28
-- `unknown_review_unresolved_indexed`: 13
-- `unknown_review_dispatch_context`: 1
+- `unknown_pending_read_consumer_edges`: 644
+- `unknown_review_safety_or_mode`: 72
+- `keep_or_preserve_until_proven_otherwise`: 59
+- `unknown_review_unresolved_indexed`: 14
+- `unknown_review_dispatch_context`: 4
 
 ## Review priority summary
 
-- `medium`: 751
-- `high`: 42
+- `medium`: 716
+- `high`: 77
 
 ## Hardware reachability status summary
 
-- `not_established_write_side_only`: 765
-- `hardware_or_preserved_driver_candidate`: 28
+- `not_established_write_side_only`: 734
+- `hardware_or_preserved_driver_candidate`: 59
 
 ## Required interpretation
 

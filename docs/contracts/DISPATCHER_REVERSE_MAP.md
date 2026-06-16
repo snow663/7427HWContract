@@ -4,77 +4,24 @@
 
 Reverse-map indirect dispatch and table-driven control flow so subsystem ownership can be inferred from both selector variables and landing routines.
 
-This exists because the code may not flow linearly as:
+This is a static analysis artifact only. It does not implement runtime ASM, relax hardware gates, or prove hardware behavior.
 
-```text
-routine A -> routine B -> routine C
-```
+## Source
 
-It may flow as:
+- source file: `/mnt/data/source.asm`
+- dispatcher rows emitted: `25`
+- dispatcher PCs observed: `7A4F, C3A8, C3AA, C3B0, C3B2, C3B8, C3BA, C3C0, C3C2, FAA5`
 
-```text
-state bits / math result / mode byte
--> index
--> dispatch table
--> computed jump/call
--> subsystem routine
-```
+## Key dispatcher classes
 
-This is a static analysis artifact only. It does not implement runtime ASM, change scheduling, or relax hardware-output gates.
+- Major-loop dispatcher: `L0002 & 0x0F -> table -> JSR 0,X`.
+- Output-control/ALDL dispatcher: `L038E -> JSR 0,X`; this is an indirect control block and must not be confused with production subsystem scheduling.
+- Other indexed `JMP/JSR` rows are retained as unresolved/mixed until selector and table semantics are proven.
 
-## Required map fields
+## Required reverse-map fields
 
-```text
-dispatcher_pc
-dispatcher_label
-index_source
-index_math
-mask_shift_add_operations
-table_address
-entry_width
-entry_count
-entry_index
-entry_value
-resolved_target
-target_label
-target_write_targets
-candidate_subsystem
-confidence
-notes
-```
-
-## Known dispatcher seeds
-
-```text
-7A4F:
-  major-loop dispatcher
-  selector = L0002 & 0x0F
-  table = $7A85
-  action = JSR 0,X
-
-FAA5:
-  output-control block dispatcher
-  selector/control block = L038E
-  action = JSR 0,X
-  note = likely ALDL/output-control path, not production subsystem scheduling
-```
-
-## Forward/reverse analysis rule
-
-Forward:
-
-```text
-which variable/index selects a dispatch entry?
-```
-
-Reverse:
-
-```text
-which entry lands in which routine, and what write targets does that routine own?
-```
+`dispatcher_pc`, `index_source`, `index_math`, `table_address`, `entry_value`, `resolved_target`, `target_write_targets`, `candidate_subsystem`, `confidence`, and `notes`.
 
 ## Isolation rule
 
-A routine reached only through a dispatcher must be kept reachable if it owns hardware, safety, scheduler, rolling-state, or preserved-driver side effects.
-
-Do not delete routines by linear call-tree assumptions alone.
+A routine reached only through a dispatcher must be kept reachable if it owns hardware, safety, scheduler, rolling-state, or preserved-driver side effects. Do not delete by linear call-tree assumptions alone.

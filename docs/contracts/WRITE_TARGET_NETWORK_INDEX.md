@@ -2,114 +2,69 @@
 
 ## Purpose
 
-Whole-ROM static write-target network index for the 7427 / `$31` source.
+Whole-ROM static sweep of write targets. This starts from mutations instead of subsystem names so that RAM, hardware, shadows, mode flags, safety gates, rolling state, and dispatcher selectors can be separated by read/write network context.
 
-This artifact changes the analysis model from subsystem names to write targets. It exists to answer:
+This is a static analysis artifact only. It does not implement runtime ASM, relax bench gates, or prove hardware behavior.
 
-```text
-What does every mutated RAM / hardware / state target participate in?
-```
+## Source
 
-It is a static analysis artifact only. It does not create runtime ASM, relax bench gates, or prove hardware behavior.
+- source file: `/mnt/data/source.asm`
+- target dossier rows emitted: `793`
 
-## Covered write classes
+## Write op coverage
 
-The builder sweeps mutation-style operations:
+- `ASL`: 11
+- `BCLR`: 34
+- `BSET`: 35
+- `CLR`: 31
+- `COM`: 2
+- `DEC`: 27
+- `INC`: 19
+- `LSR`: 1
+- `ROL`: 13
+- `ROR`: 11
+- `STAA`: 359
+- `STAB`: 75
+- `STD`: 145
+- `STX`: 25
+- `STY`: 5
 
-```text
-STAA STAB STD STS STX STY
-BSET BCLR
-CLR INC DEC COM NEG
-ASL/LSL LSR ROL ROR
-```
+## Candidate role counts
 
-Accumulator-only shifts/rotates are not treated as memory writes unless an operand target exists.
+- `RAM state/calculation/shadow`: 458
+- `ROM/data? unexpected write target`: 197
+- `mode flag/safety gate/state latch`: 72
+- `hardware register/ASIC/CPU peripheral`: 42
+- `unknown`: 14
+- `hardware sink/state:spark stock handoff`: 5
+- `hardware sink/state:IAC candidate`: 3
+- `hardware sink:watchdog/COP`: 1
+- `hardware sink:fuel pulsewidth`: 1
 
-## Indexed write handling
+## High-value target dossier seeds
 
-Indexed forms are retained and resolved when possible:
+| target | writes observed | role seed | note |
+|---|---:|---|---|
+| `L3FCE` | 4 | `hardware sink:fuel pulsewidth` | known EFI pulsewidth command sink |
+| `L3FE8` | 1 | `hardware sink/state:spark stock handoff` | spark stock handoff / rolling-state candidate |
+| `L3FE6` | 1 | `hardware sink/state:spark stock handoff` | spark stock handoff / rolling-state candidate |
+| `L3FDC` | 2 | `hardware sink/state:spark stock handoff` | spark stock handoff / rolling-state candidate |
+| `L3FF6` | 2 | `hardware sink/state:spark stock handoff` | spark stock handoff / rolling-state candidate |
+| `L3FEC` | 0 | `not written in sweep` | no write row emitted |
+| `L3FE4` | 1 | `hardware sink/state:spark stock handoff` | spark stock handoff / rolling-state candidate |
+| `L3062` | 4 | `hardware sink/state:IAC candidate` | IAC port/phase/enable/park candidate |
+| `L3060` | 2 | `hardware sink/state:IAC candidate` | IAC port/phase/enable/park candidate |
+| `L3FFC` | 13 | `hardware sink/state:IAC candidate` | IAC port/phase/enable/park candidate |
+| `L303A` | 10 | `hardware sink:watchdog/COP` | COP reset register candidate |
 
-```text
-STD $1E,X
-STAA $FA,Y
-BSET $20,X,#$04
-```
+## Indexing limitations
 
-The builder tracks simple immediate `LDX #$nnnn` / `LDY #$nnnn` bases in a linear pass. Unresolved indexed targets stay in the map as unresolved targets instead of being discarded.
-
-## Target dossier model
-
-Each target dossier records:
-
-```text
-target_symbol
-target_address
-write_count
-first_pc
-first_routine_label
-representative_instruction
-write_widths
-bitmasks
-value_sources
-x_y_bases_seen
-call_contexts
-nearby_branch_conditions_sample
-candidate_role
-confidence
-write_sites_sample
-notes
-```
-
-The map is a triage index, not a delete list.
-
-## Role classification
-
-Candidate roles include:
-
-```text
-hardware sink
-final command
-intermediate calculation
-shadow copy
-diagnostic mirror
-state latch
-rolling state
-mode flag
-safety gate
-dispatcher selector
-unknown
-```
-
-## High-value target seed list
-
-The following targets must stay under review until their read/write network and downstream use are proven:
-
-```text
-L3FCE   fuel pulsewidth hardware sink
-L3FE8   spark stock handoff candidate
-L3FE6   spark stock handoff candidate
-L3FDC   spark rolling/state candidate
-L3FF6   spark EST fall / rolling anchor candidate
-L3FEC   spark monitor/mirror source candidate
-L3FE4   spark monitor/mirror destination candidate
-L3062   IAC output/phase candidate
-L3060   IAC output/phase candidate
-L3FFC   IAC / output port candidate
-L303A   COP/watchdog hardware candidate
-```
+- Indexed writes are resolved only when the linear pass can see a recent immediate `LDX`/`LDY` base.
+- Branch context is nearby static context, not a full path-sensitive proof.
+- Read counts are symbol-token observations and are intended as triage hints, not complete dataflow proof.
+- A target is not safe to delete merely because its role is unknown or low confidence.
 
 ## Deletion rule
 
-Do not delete a variable because it looks unimportant.
+Do not delete a variable because it looks unimportant. Delete only after the read/write network proves it does not feed hardware, safety, dispatch, or a preserved stock driver.
 
-Delete only after its read/write network proves it does not feed:
-
-```text
-hardware
-safety
-dispatch
-scheduler state
-rolling state
-preserved stock driver input
-preserved stock driver side effect
-```

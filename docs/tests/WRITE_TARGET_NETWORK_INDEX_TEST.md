@@ -4,79 +4,34 @@
 
 Static test definition for the write-target network index.
 
-The artifact must verify that the builder:
+This test must verify that the artifact:
 
-```text
-sweeps mutation instructions across the source
-retains indexed write forms
-resolves indexed writes when base tracking is possible
-records unresolved writes instead of discarding them
-records target-level dossiers
-classifies candidate role conservatively
-```
+- sweeps mutation instructions across the source
+- includes indexed write forms where resolvable
+- records PC, routine label, instruction, target, write width, bitmask, value source, base tracking, branch context, role, confidence, and notes
+- treats unresolved or low-confidence targets as retained-for-review, not removable
+- does not create runtime ASM
+- does not relax fuel, spark, or IAC hardware gates
 
 ## Required output files
 
 ```text
-tools/build_write_target_network_index.py
-docs/contracts/WRITE_TARGET_NETWORK_INDEX.md
 maps/contracts/write_target_network_index.csv
+docs/contracts/WRITE_TARGET_NETWORK_INDEX.md
 ```
 
-## Required fields
+## Required write op coverage
 
 ```text
-target_symbol
-target_address
-write_count
-first_pc
-first_routine_label
-representative_instruction
-write_widths
-bitmasks
-value_sources
-x_y_bases_seen
-call_contexts
-nearby_branch_conditions_sample
-candidate_role
-confidence
-write_sites_sample
-notes
+STAA STAB STD STS STX STY BSET BCLR CLR INC DEC COM NEG ASL/LSL LSR ROL ROR
 ```
 
-## Required high-value target coverage
+Accumulator-only shifts/rotates must not be counted as memory writes unless an operand target exists.
 
-The committed seed map must include at least:
+## Required interpretation
 
-```text
-L3FCE
-L3FE8
-L3FE6
-L3FDC
-L3FF6
-L3FEC
-L3FE4
-L3062
-L3060
-L3FFC
-L303A
-```
-
-## Interpretation
-
-A write proves only that a target is mutated. It does not prove that target is required or removable.
-
-Importance must be decided from downstream reads, hardware reachability, safety reachability, dispatcher use, and preserved-driver dependency.
+A write proves only that a target is mutated. It does not prove target importance. Importance is determined by read/use/downstream routing.
 
 ## Non-relaxation clause
 
-This artifact must not:
-
-```text
-create runtime ASM
-permit deleting a target by appearance
-mark bench proof passed
-relax SLICE-1 gates
-permit a custom hardware writer
-replace subsystem-specific proof contracts
-```
+This artifact must not permit deleting a target, creating a hardware writer, bypassing bench proof, or changing any subsystem gate.
