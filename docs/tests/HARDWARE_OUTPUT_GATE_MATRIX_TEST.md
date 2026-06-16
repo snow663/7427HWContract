@@ -33,31 +33,6 @@ iac_stock_driver: contract_defined_not_proven
 iac_custom_writer: blocked_bench_required
 ```
 
-## Required route statements
-
-```text
-fuel_compact_3FCE:
-  compact $3FCE SLICE-0 bench route remains active
-  FUEL-001 through FUEL-004 still block SLICE-1
-
-fuel_stock_output_driver:
-  stock preservation is considered but incomplete
-  incomplete proof does not bypass $3FCE bench route
-
-spark_stock_handoff:
-  preserved stock handoff accepted as static-proof route
-  physical ASIC spark semantics deferred
-
-spark_custom_writer:
-  custom direct ASIC writer remains bench-required
-
-iac_stock_driver:
-  preservation contract defined but proof incomplete
-
-iac_custom_writer:
-  custom direct A/B/Enable/park writer remains bench-required
-```
-
 ## Static checks
 
 PASS requires:

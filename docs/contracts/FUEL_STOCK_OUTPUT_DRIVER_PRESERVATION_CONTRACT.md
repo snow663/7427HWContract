@@ -71,7 +71,7 @@ Fallback if incomplete: `compact_$3FCE_SLICE0_bench_path`
 
 ### FUEL-STOCK-003 — output_writes_and_side_effects
 
-Requirement: Identify all ASIC/hardware-facing writes and RAM side effects performed by the preserved routine, including `$3FCE` and any scheduler/timer/no-fuel state it owns.
+Requirement: Identify all ASIC/hardware-facing writes and RAM side effects performed by the preserved routine, including $3FCE and any scheduler/timer/no-fuel state it owns.
 
 Status: `required_not_proven`
 
@@ -101,7 +101,7 @@ Fallback if incomplete: `compact_$3FCE_SLICE0_bench_path`
 
 ### FUEL-STOCK-006 — no_alternate_custom_writer
 
-Requirement: Prove no alternate direct custom `$3FCE` / ASIC fuel writer exists outside the preserved stock driver path unless it remains bench-proof gated.
+Requirement: Prove no alternate direct custom $3FCE/ASIC fuel writer exists outside the preserved stock driver path unless it remains bench-proof gated.
 
 Status: `required_not_proven`
 
@@ -121,7 +121,7 @@ Fallback if incomplete: `compact_$3FCE_SLICE0_bench_path`
 
 ### FUEL-STOCK-FALLBACK — compact_direct_writer_fallback
 
-Requirement: If complete stock-driver preservation is not proven, retain the existing compact `$3FCE` writer path and require `FUEL-001` through `FUEL-004` bench proof before `SLICE-1`.
+Requirement: If complete stock-driver preservation is not proven, retain the existing compact $3FCE writer path and require FUEL-001 through FUEL-004 bench proof before SLICE-1.
 
 Status: `active_fallback`
 
