@@ -4,7 +4,8 @@ Static artifact builder verifier.
 
 Purpose:
   Verify repo-internal static artifact builders without falsely failing builders
-  that require explicit CLI arguments or optional local dependencies.
+  that require explicit CLI arguments, optional local dependencies, or platform
+  newline differences in generated text artifacts.
 
 Rules:
   - Run only builders that can be invoked with no required CLI arguments.
@@ -13,7 +14,10 @@ Rules:
   - Run --help probes in an isolated temporary repo copy too, because some
     existing zero-arg builders ignore --help and write artifacts as a side effect.
   - Compare generated files against the committed baseline.
-  - Report mismatches as repo defects, not hardware findings.
+  - For UTF-8 text artifacts, normalize CRLF/CR/LF before comparison so Windows
+    checkout autocrlf and Python csv.writer line endings do not create false
+    mismatch failures.
+  - Report true mismatches as repo defects, not hardware findings.
 
 This tool does NOT:
   - prove hardware behavior
@@ -197,7 +201,55 @@ def builder_requires_manifest(builder: Path) -> tuple[bool, str]:
     return False, "zero_arg_candidate"
 
 
-def git_status_changed_files(repo_copy: Path) -> tuple[list[str], list[str], list[str]]:
+def normalize_text_bytes(data: bytes) -> str | None:
+    """Return UTF-8 text with canonical LF newlines, or None for binary/non-UTF8."""
+    try:
+        text = data.decode("utf-8")
+    except UnicodeDecodeError:
+        return None
+    return text.replace("\r\n", "\n").replace("\r", "\n")
+
+
+def blob_bytes(repo_copy: Path, path: str) -> bytes | None:
+    proc = subprocess.run(
+        ["git", "show", f"HEAD:{path}"],
+        cwd=str(repo_copy),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    if proc.returncode != 0:
+        return None
+    return proc.stdout
+
+
+def is_newline_only_change(repo_copy: Path, path: str) -> bool:
+    """
+    True if the working file and committed blob differ only by line endings.
+
+    The repo is edited from Windows and Linux. Python csv.writer also defaults to
+    CRLF records. Exact-byte comparison would make platform newline policy look
+    like generated-content drift, so treat UTF-8 CRLF/CR/LF-only differences as
+    reproducible.
+    """
+    working_path = repo_copy / path
+    if not working_path.exists() or not working_path.is_file():
+        return False
+
+    committed = blob_bytes(repo_copy, path)
+    if committed is None:
+        return False
+
+    working = working_path.read_bytes()
+    committed_text = normalize_text_bytes(committed)
+    working_text = normalize_text_bytes(working)
+    if committed_text is None or working_text is None:
+        return False
+
+    return committed_text == working_text
+
+
+def git_status_changed_files(repo_copy: Path) -> tuple[list[str], list[str], list[str], list[str]]:
     proc = run_cmd(["git", "status", "--porcelain"], repo_copy, timeout_s=60)
     if proc.returncode != 0:
         raise RuntimeError(proc.stderr)
@@ -205,6 +257,7 @@ def git_status_changed_files(repo_copy: Path) -> tuple[list[str], list[str], lis
     changed: list[str] = []
     missing: list[str] = []
     extra: list[str] = []
+    newline_only: list[str] = []
 
     for line in proc.stdout.splitlines():
         if not line.strip():
@@ -215,10 +268,12 @@ def git_status_changed_files(repo_copy: Path) -> tuple[list[str], list[str], lis
             extra.append(path)
         elif "D" in status:
             missing.append(path)
+        elif is_newline_only_change(repo_copy, path):
+            newline_only.append(path)
         else:
             changed.append(path)
 
-    return sorted(changed), sorted(missing), sorted(extra)
+    return sorted(changed), sorted(missing), sorted(extra), sorted(newline_only)
 
 
 def verify_builder(repo_root: Path, builder: Path, timeout: int) -> BuilderResult:
@@ -258,7 +313,7 @@ def verify_builder(repo_root: Path, builder: Path, timeout: int) -> BuilderResul
                 notes=f"builder exceeded timeout_seconds={timeout}",
             )
 
-        changed, missing, extra = git_status_changed_files(repo_copy)
+        changed, missing, extra, newline_only = git_status_changed_files(repo_copy)
 
         if proc.returncode != 0:
             status = "fail_builder_returncode"
@@ -269,6 +324,9 @@ def verify_builder(repo_root: Path, builder: Path, timeout: int) -> BuilderResul
         else:
             status = "pass"
             notes = "builder output matches committed artifact(s)"
+
+        if newline_only:
+            notes += "; newline_only_ignored=" + ";".join(newline_only)
 
         return BuilderResult(
             builder_path=builder_rel,
@@ -384,7 +442,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"FAIL: {len(failures)} builder(s) did not reproduce committed artifacts")
         return 1
 
-    print(f"PASS: static builder verification completed with no runnable-builder failures")
+    print("PASS: static builder verification completed with no runnable-builder failures")
     return 0
 
 
