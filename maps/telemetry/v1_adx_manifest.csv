@@ -1,0 +1,9 @@
+fragment,purpose,value_policy
+v1_adx_core.csv,sensors lifecycle and air charge,raw plus engineering plus validity plus derived
+v1_adx_fuel_core.csv,fuel calculation contributors,engineering and derived
+v1_adx_feedback.csv,oxygen feedback contributors,engineering state and derived
+v1_adx_spark.csv,spark contributors,engineering state and derived
+v1_adx_idle.csv,idle contributors,engineering state and derived
+v1_adx_injector_characterization.csv,injector physical and derived flow values,setup plus derived read-only
+v1_adx_delivery_duration.csv,delivery timing model contributors,derived read-only
+v1_baro_policy.csv,pre-rotation MAP-derived barometric reference,derived read-only
