@@ -1,0 +1,15 @@
+item,status,value,evidence,blocking
+primary_target,CONFIRMED,"16197427 / $31 / BMHM","source/31/metadata.md; ROM-derived BMHM trace",no
+source_calibration_span,COMPLETE,"$4000-$70FF","31_HAC_calibration_extract_nowrap.html",no
+source_section_count,COMPLETE,226,"calibration extract stats",no
+source_record_count,COMPLETE,11916,"calibration extract stats",no
+source_fcb_count,COMPLETE,11431,"calibration extract stats",no
+source_fdb_count,COMPLETE,485,"calibration extract stats",no
+source_parse_errors,COMPLETE,0,"calibration extract stats",no
+source_warnings,REVIEW_REQUIRED,96,"calibration extract stats; generally symbolic/unparsed source operands must not be treated as numeric authority",yes_until_bin_audit
+odd_fdb_addresses,REVIEW_REQUIRED,212,"source-record scan; odd address is not automatically wrong but must be checked against BIN/address labeling",yes_until_bin_audit
+rom_anchor_4000_400f,MATCH_ROM_TRACE_ANCHOR,"25 17 00 00 00 00 68 8C 31 01 91 04 B7 82 03 10","source extract vs existing raw-ROM-derived BMHM report",no
+raw_target_bin,NOT_RETRIEVABLE,"BMHM_95_C-G-K_Truck_7_4TBI_4l80.bin","not present in repo/current local files; exact-name File Library/Drive search did not expose raw file",yes
+full_byte_word_comparison,PENDING_RAW_BIN,"11916 source records","tools/audit_calibration_against_bin.py prepared",yes
+correction_overlay,PENDING_RAW_BIN,"maps/closeout/calibration_bin_correction_overlay.csv","created by audit tool only after real BIN comparison",yes
+calibration_tuning_completion,BLOCKED_AT_98_PERCENT,98,"semantic extraction/ownership complete; numeric target-BIN audit pending",yes
