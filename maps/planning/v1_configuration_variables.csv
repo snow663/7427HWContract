@@ -1,0 +1,13 @@
+semantic_id,tuner_name,class,editable,units,owner,derivation_or_source,notes
+engine.displacement,Engine Displacement,physical_config,yes,L,air_charge,physical engine measurement,Must not be used as a tune correction
+engine.cylinder_count,Cylinder Count,physical_config,yes,count,engine_config,physical engine configuration,Normally fixed for installed engine
+fuel.injector_count,Injector Count,physical_config,yes,count,fuel_delivery,physical injector configuration,Count of installed active injectors
+fuel.injector.design_flow,Injector Design Flow,physical_config,yes,lb/hr_per_injector,fuel_delivery,injector characterized design point,Paired with injector design pressure
+fuel.injector.design_pressure,Injector Design Pressure,physical_config,yes,psi_gauge,fuel_delivery,injector characterized design point,Paired with injector design flow
+fuel.pressure.operating,Operating Fuel Pressure,operating_config,yes,psi_gauge,fuel_delivery,measured/current regulator setting,Primary value changed after fuel-pressure adjustment
+fuel.stoich_afr,Fuel Stoichiometric AFR,physical_config,yes,air_fuel_mass_ratio,fuel_model,configured fuel chemistry,Used with target lambda
+fuel.injector.effective_flow,Effective Injector Flow,derived,no,lb/hr_per_injector,fuel_delivery,"design_flow*sqrt(operating_pressure/design_pressure)",Read-only derived IFR used by runtime
+fuel.injector.effective_flow_internal,Effective Injector Flow Internal,derived,no,mg/ms_per_injector,fuel_delivery,unit conversion from effective injector flow,Implementation/ADX value
+fuel.injector.total_capacity,Total Effective Injector Capacity,derived,no,lb/hr_total,fuel_delivery,effective_flow*injector_count,Convenience/read-only
+air.mass_per_cylinder,Air Mass Per Cylinder,derived,no,mg/cylinder_cycle,air_charge,AIR_MASS_CYCLE/cylinder_count,ADX/read-only semantic quantity
+air.pressure_ratio,MAP/BARO Pressure Ratio,derived,no,ratio,air_charge,MAP_KPA_ABS/BARO_KPA_ABS,Used for hybrid SD/Alpha-N authority
