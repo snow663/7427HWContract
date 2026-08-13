@@ -1,0 +1,18 @@
+semantic_id,group,name,units,source,read_only,notes
+SPARK_STATE,Spark,Spark State,state,spark manager,yes,Crank idle blend or normal running context
+MAIN_SPARK,Spark,Main Spark,deg BTDC,spark manager,yes,Interpolated RPM load base timing
+CRANK_SPARK,Spark,Crank Spark,deg BTDC,spark manager,yes,Dedicated cranking timing
+IDLE_BASE_SPARK,Spark,Idle Base Spark,deg BTDC,spark manager,yes,Idle-specific base timing
+IDLE_BLEND,Spark,Idle Spark Blend,ratio,spark manager,yes,Blend between main and idle base timing
+STATE_BASE_SPARK,Spark,State Base Spark,deg BTDC,spark manager,yes,Selected or blended base timing
+CTS_SPARK_CORR,Spark,CTS Spark Correction,deg,spark manager,yes,Coolant temperature timing contribution
+MAT_SPARK_CORR,Spark,MAT Spark Correction,deg,spark manager,yes,Air temperature timing contribution
+PE_SPARK_CORR,Spark,High Load Spark Correction,deg,spark manager,yes,Optional explicit high-load contribution
+IDLE_SPARK_P,Spark,Idle Spark P Term,deg,idle spark controller,yes,Fast proportional idle timing correction
+IDLE_SPARK_D,Spark,Idle Spark Rate Term,deg,idle spark controller,yes,Fast rate damping term
+IDLE_SPARK_CORR,Spark,Idle Spark Correction,deg,idle spark controller,yes,Final bounded idle timing contribution
+KNOCK_EVENT,Spark,Knock Event,severity,knock manager,yes,Qualified normalized knock input
+KNOCK_RETARD,Spark,Knock Retard,deg,knock manager,yes,Current retard state
+SPARK_PRECLAMP,Spark,Spark Before Limits,deg BTDC,spark manager,yes,Sum of all timing contributors
+FINAL_SPARK,Spark,Final Spark,deg BTDC,spark manager,yes,Final bounded semantic timing request
+SPARK_CLAMP_ACTIVE,Spark,Spark Limit Active,bool,spark manager,yes,Indicates final timing was limited
