@@ -1,0 +1,6 @@
+semantic_id,class,units,source_or_formula,editable
+DELIVERY_MASS_PER_EVENT,derived,mg per event,requested cycle fuel divided by configured delivery events,no
+IDEAL_DELIVERY_TIME,derived,ms,delivery mass per event divided by effective flow,no
+SHORT_PULSE_CORRECTED_TIME,derived,ms,short-pulse inverse transfer of ideal delivery time,no
+DEADTIME_COMPENSATION,derived,ms,deadtime table versus battery voltage,no
+FINAL_DELIVERY_TIME,derived,ms,short-pulse corrected time plus deadtime compensation,no
