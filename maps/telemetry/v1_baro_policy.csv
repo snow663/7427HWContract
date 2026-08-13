@@ -1,0 +1,4 @@
+semantic_id,class,source,qualification,update_policy,units,editable,notes
+BARO_KPA_ABS,derived,MAP_KPA_ABS,MAP valid and engine stopped before rotation,capture once then hold for run cycle,kPa absolute,no,Ambient pressure reference
+BARO_VALID,state,MAP_VALID,qualified pre-rotation capture,latched for run cycle,boolean,no,False until capture succeeds
+PRESSURE_RATIO,derived,MAP_KPA_ABS and BARO_KPA_ABS,both valid,recalculate while inputs valid,ratio,no,MAP divided by captured BARO
