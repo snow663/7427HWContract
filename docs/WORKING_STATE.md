@@ -14,7 +14,7 @@ SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 working executable source: source/31/BMHM_HAC_ORG_7100_to_end.asm
 ```
 
-## Architecture rule
+## Architecture
 
 ```text
 CALIBRATION
@@ -28,18 +28,9 @@ HAL
 7427 HARDWARE CONTRACT
 ```
 
-Classification:
+Control algorithms may not directly touch HC11 peripheral addresses, ASIC addresses, stock hardware mailboxes, connector pins, or electrical polarity logic.
 
-```text
-mathematical/control relationship = algorithm
-values plugged into it             = calibration
-register/mailbox/port access       = hardware/HAL
-physical voltage/current/polarity  = bench endpoint
-```
-
-No replacement control algorithm may directly touch HC11 peripheral addresses, ASIC addresses, connector pins, or stock RAM mailboxes. Hardware-specific access belongs behind the 7427 HAL.
-
-## Extraction closeout — FROZEN
+## Extraction closeout — frozen
 
 ```text
 algorithm extraction           100%
@@ -48,201 +39,115 @@ diagnostics/failsafe           100%
 calibration/tuning             100%
 ```
 
-Authority artifacts:
+Calibration is now closed against the actual 64 KiB BMHM image. See:
 
-- `docs/closeout/7427_EXTRACTION_CLOSEOUT.md`
-- `docs/closeout/7427_DIAGNOSTIC_FAILSAFE_CLOSEOUT.md`
-- `docs/closeout/7427_PRODUCTION_CALIBRATION_MANIFEST.md`
 - `docs/closeout/7427_CALIBRATION_BIN_AUDIT_CLOSEOUT.md`
-- `docs/closeout/7427_COMPLETION_STATUS.md`
 - `maps/closeout/calibration_bin_production_correction_overlay.csv`
 
-Do not reopen these categories because additional stock code can be traced. Reopen only for contradictory executable/ROM evidence or deliberate scope expansion.
-
-## BMHM calibration audit result
-
-The actual target BIN supplied in `31.zip` has been used as numeric authority.
+Key numeric/source corrections:
 
 ```text
-records audited:            11,916
-exact matches:              11,700
-value mismatches:              120
-source-width errors:             96
-outside-BIN records:              0
-odd-address FDB reviews:        212
-label-width review rows:        138
+$4146/$4148/$414A → BMHM FF F5, not HAC FF FE
+second DFCO table repeated L4C80/L4C81 labels → actual $4C90/$4C91
+second L4EDB FCB 60 → phantom record; executable table base is $4EDC
+$50ED → BMHM D0, not HAC 00
 ```
 
-Production corrections are reviewed and machine-readable. Important fixes include:
-
-```text
-$4146/$4148/$414A  → use BMHM FF F5, not HAC FF FE
-second DFCO table source labels L4C80/L4C81 → actual addresses $4C90/$4C91
-second L4EDB FCB 60 → phantom source record; executable table base is $4EDC
-$50ED → use BMHM D0, not HAC 00
-```
-
-Remote-broadcast/service and excluded transmission source-layout defects remain recorded but do not block the standalone production engine-control OS.
+Do not reopen frozen extraction categories unless new executable/ROM evidence materially contradicts them or feature scope is deliberately expanded.
 
 ## Current completion
 
 ```text
-software-facing HW contract     92%
+software-facing HW contract     96%
 physical endpoint confirmation   0%
-replacement-OS implementation    5%
+replacement-OS implementation   12%
 complete runnable replacement    0%
 ```
 
-The current work phase is no longer open-ended reverse engineering.
+## Endpoint phase
 
-## Active phase — endpoint contract + engine-off safe runtime
+Committed:
 
-Required dataflow:
+- `docs/endpoints/7427_ENDPOINT_SETUP_TEST_CONFIRM.md`
+- `maps/endpoints/7427_endpoint_setup.csv`
+- `maps/endpoints/7427_endpoint_test_confirm.csv`
 
-```text
-physical inputs/timers
-        ↓
-HAL
-        ↓
-semantic sensor/event snapshot
-        ↓
-validation/substitution/lifecycle
-        ↓
-engine/control state
-        ↓
-production algorithms
-        ↓
-semantic command requests
-        ↓
-arbitration/safety
-        ↓
-HAL
-        ↓
-physical hardware
-```
+Every retained endpoint now has a Stage-1 setup record with software location, hardware class, expected electrical behavior, scaling/cadence, evidence level, permission default, and explicit bench procedure.
 
-### Stage 1 endpoint SETUP
+All Stage-2 physical rows remain `NOT_RUN`. Software proof does not count as physical proof.
 
-For every retained input/output record:
+## Replacement safe runtime
+
+Committed:
+
+- `source/replacement_os/include/runtime_abi.inc`
+- `source/replacement_os/core/safe_runtime.asm`
+- `source/replacement_os/hal/HAL_API.md`
+- `source/replacement_os/hal/adc_read.asm`
+- `source/replacement_os/hal/ref_read.asm`
+- `tools/verify_safe_runtime_boundary.py`
+
+Implemented semantic core:
 
 ```text
-semantic signal
-software acquisition/command location
-hardware class
-candidate connector/pin if known
-expected electrical behavior
-expected range/polarity/frequency
-scaling/conversion
-sample/update cadence
-evidence level
-explicit bench stimulus/test procedure
+actuator-disabled reset state
+6.25 ms semantic scheduler tick
+16-segment counter
+REF event ingestion
+REF dropout age / forced safe state
+key-off / shutdown-ready states
+calibration-validity gate
+semantic fuel/spark/IAC/pump/MIL requests
+single command-arbitration path
+debug heartbeat state
 ```
 
-Evidence levels:
+Implemented read-only HAL:
 
 ```text
-SOFTWARE_PROVEN
-ELECTRICAL_INFERRED
-PHYSICAL_PIN_INFERRED
-BENCH_CONFIRMED
+HC11 ADC control/result access only
+TPS raw
+MAP raw
+O2 raw
+coolant raw
+MAT raw/inversion
+battery raw
+REF period read from $3FC0
 ```
 
-### Stage 2 TEST-CONFIRM
+The safe core itself contains no hardware addresses. Direct `$30xx/$3Fxx` accesses exist only in the HAL files.
 
-Inputs:
+## Permission state
 
 ```text
-physical stimulus → raw software value → converted semantic value
+fuel_permission  = FALSE
+spark_permission = FALSE
+iac_permission   = FALSE
+pump_permission  = FALSE
+aux_permission   = FALSE
 ```
 
-Outputs:
+No routine in the safe core sets an actuator permission token.
+
+Existing subsystem gates remain valid:
 
 ```text
-semantic/software command → HAL/register/mailbox → physical output
+fuel: FUEL-001..FUEL-004 still require measured bench proof
+spark: preserved stock handoff route only; custom direct writer forbidden until bench proof
+IAC: no custom direct A/B/Enable/park writer until physical proof or completed preserved-driver proof
 ```
 
-Record applied command/stimulus, observed raw value, converted value, output response, polarity/monotonicity, scaling/timebase, connector/pin and PASS/FAIL. Only measured evidence may set `BENCH_CONFIRMED`.
-
-## Current hardware gates remain valid
-
-### Fuel
+## Next valid work
 
 ```text
-compact $3FCE SLICE-0 route remains bench-only
-FUEL-001..FUEL-004 remain not_run until measured evidence exists
-FUEL-004 requires actual dropout/unsafe zero-path evidence
-no engine-runnable injector permission yet
+1. bring up ALDL/development observability with all actuator permissions false
+2. bench BATTERY_IGN
+3. bench TPS/MAP/COOLANT/MAT/O2 input paths
+4. implement/verify validation + substitution layer above the read-only HAL
+5. bench REF/DRP timing input and period/RPM scaling
+6. then permission-gated IAC endpoint work
+7. then spark/EST
+8. then injector output using existing FUEL-001..FUEL-004 proof sequence
 ```
 
-### Spark
-
-```text
-stock handoff preservation is the accepted static route
-semantic spark calculation is allowed
-custom direct ASIC spark writer remains bench-required
-physical EST/BYPASS permission remains disabled
-```
-
-### IAC
-
-```text
-semantic IAC algorithm is complete
-stock-driver preservation proof is not yet complete
-custom direct A/B/Enable/park writer remains bench-required
-physical IAC permission remains disabled
-```
-
-Algorithm completion never authorizes an actuator.
-
-## Engine-off safe runtime implementation target
-
-Build next:
-
-```text
-RESET/BOOT
-  → relocate/init processor state
-  → initialize HAL-owned hardware only
-  → force all production actuator permissions FALSE
-
-BASE SCHEDULER
-  → 6.25 ms heartbeat-compatible timing
-  → semantic task/event flags
-  → overrun detection
-
-SENSOR ACQUISITION
-  → raw HAL snapshot
-  → no algorithm reads hardware directly
-
-VALIDATION/SUBSTITUTION
-  → MAP/TPS/CTS/MAT/O2/REF/battery validity
-  → deterministic substitutions from frozen diagnostic closeout
-
-LIFECYCLE
-  → key-on / crank / run / dropout / key-off / shutdown states
-
-ALDL/DEVELOPMENT OBSERVABILITY
-  → expose raw snapshot, converted values, validity, lifecycle, command requests and permission gates
-
-SAFE COMMAND ARBITRATION
-  → fuel_permission = FALSE
-  → spark_permission = FALSE
-  → iac_permission = FALSE
-  → retained auxiliary permissions = FALSE
-```
-
-No physical actuator may become active merely because its semantic request is nonzero.
-
-## Bring-up sequence
-
-```text
-safe runtime
-→ sensor endpoints
-→ IAC
-→ spark / EST / dwell
-→ injectors
-→ first controlled engine start
-→ closed loop / learning
-→ retained auxiliary outputs
-```
-
-The next repo work is normalized endpoint setup records plus engine-off safe-runtime source/API scaffolding, not more broad stock disassembly.
+Do not return to broad disassembly as a substitute for endpoint testing or implementation.
