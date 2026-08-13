@@ -1,9 +1,10 @@
 order,fragment,purpose,value_policy,status
 1,v1_adx_core.csv,"lifecycle REF geometry/acceptance sensors filtering BARO and air charge","raw ADC plus VDC plus unfiltered/filtered engineering values plus validity/substitution and derived state",canonical
 2,v1_adx_fuel_core.csv,fuel calculation contributors,engineering and derived,canonical
-3,v1_adx_feedback.csv,oxygen feedback contributors,engineering state and derived,canonical
+3,v1_adx_feedback.csv,oxygen input conditioning and feedback contributors,"raw ADC plus filtered engineering state and derived controller values",canonical
 4,v1_adx_spark.csv,spark contributors and final semantic timing,engineering state and derived,canonical
 5,v1_adx_idle.csv,idle contributors and software IAC state,engineering state and derived,canonical
 6,v1_adx_injector_characterization.csv,injector physical design point operating pressure and derived flow,setup echoes plus derived read-only,canonical
-7,v1_adx_delivery_duration.csv,delivery-mass and duration model contributors,derived read-only,canonical
-8,v1_baro_policy.csv,pre-rotation MAP-derived barometric reference policy,derived read-only,canonical
+7,v1_adx_delivery_geometry.csv,injector count and configurable delivery-event geometry,setup echoes read-only,canonical
+8,v1_adx_delivery_duration.csv,delivery-mass and duration model contributors,derived read-only,canonical
+9,v1_baro_policy.csv,pre-rotation MAP-derived barometric reference policy,derived read-only,canonical
