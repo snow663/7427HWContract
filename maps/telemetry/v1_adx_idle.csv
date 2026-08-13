@@ -1,0 +1,19 @@
+semantic_id,group,name,units,source,read_only,notes
+IDLE_STATE,Idle,Idle State,state,idle manager,yes,Idle qualification and transition context
+TARGET_IDLE_BASE,Idle,Base Target Idle,rpm,idle manager,yes,CTS-based steady target
+STARTUP_RPM_OFFSET,Idle,Startup RPM Offset,rpm,idle manager,yes,Post-start target offset
+TARGET_IDLE_RPM,Idle,Target Idle RPM,rpm,idle manager,yes,Final desired idle speed
+RPM_ERROR,Idle,Idle RPM Error,rpm,idle manager,yes,Target minus actual RPM
+RPM_ERROR_EFFECTIVE,Idle,Effective Idle Error,rpm,idle manager,yes,Error after deadband handling
+IAC_BASE,Idle,Base IAC Position,count,idle manager,yes,Steady feed-forward air position
+IAC_STARTUP_AIR,Idle,Startup IAC Air,count,idle manager,yes,Post-start airflow contribution
+IAC_FOLLOWER,Idle,IAC Follower,count,idle manager,yes,Return-to-idle transient airflow contribution
+IAC_P,Idle,IAC P Term,count,idle PI controller,yes,Proportional airflow correction
+IAC_I,Idle,IAC I Term,count,idle PI controller,yes,Integral airflow correction
+IAC_STALL_SAVE,Idle,IAC Stall Save,count,idle manager,yes,Large RPM-deficit recovery contribution
+IAC_TARGET_PRECLAMP,Idle,IAC Target Before Limits,count,idle manager,yes,Sum before position limits
+IAC_TARGET_CLAMPED,Idle,IAC Target Limited,count,idle manager,yes,Position-limited target before slew
+IAC_TARGET,Idle,Final IAC Target,count,idle manager,yes,Final desired software position
+IAC_ACTUAL_POSITION,Idle,IAC Actual Position,count,IAC compatibility layer,yes,Software-tracked actual position
+IAC_DIRECTION_STATE,Idle,IAC Direction,state,IAC compatibility layer,yes,Current step direction state
+IAC_SATURATED,Idle,IAC Saturated,bool,idle manager,yes,Indicates position limit is active
