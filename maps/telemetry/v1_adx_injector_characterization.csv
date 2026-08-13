@@ -1,0 +1,6 @@
+semantic_id,class,units,source_or_formula,editable
+INJECTOR_DESIGN_FLOW,setup,lb/hr per injector,configured design-point flow,yes
+INJECTOR_DESIGN_PRESSURE,setup,psi gauge,configured design-point pressure,yes
+OPERATING_FUEL_PRESSURE,setup,psi gauge,current measured operating pressure,yes
+EFFECTIVE_INJECTOR_FLOW,derived,lb/hr per injector,design flow * sqrt(operating pressure / design pressure),no
+EFFECTIVE_INJECTOR_FLOW_MG_MS,derived,mg/ms per injector,unit conversion from effective injector flow,no
