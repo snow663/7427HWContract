@@ -1,46 +1,75 @@
 semantic_id,group,name,units,source,read_only,notes
 LIFECYCLE_STATE,Lifecycle,Lifecycle State,state,lifecycle manager,yes,Primary reset stopped cranking running keyoff shutdown state
-ROTATION_VALID,Lifecycle,Rotation Valid,bool,REF manager,yes,Qualified engine rotation state
-RPM,Lifecycle,Engine Speed,rpm,REF manager,yes,Engineering RPM derived from REF timing
-RUN_LATCH,Lifecycle,Run Latched,bool,lifecycle manager,yes,Crank to run qualification result
+RUN_LATCH,Lifecycle,Run Latched,bool,lifecycle manager,yes,Crank-to-run qualification result
+REF_RAW_EVENT_COUNT,Rotation,REF Raw Event Count,count,REF acquisition,yes,Observed hardware reference edges before acceptance screening
+REF_ACCEPTED_EVENT_COUNT,Rotation,REF Accepted Event Count,count,rotation reference manager,yes,Edges accepted as real reference events
+REF_REJECTED_EDGE_COUNT,Rotation,REF Rejected Edge Count,count,rotation reference manager,yes,Rejected impossible or implausible edges
+REF_PERIOD,Rotation,REF Period,us or timer-equivalent,rotation reference manager,yes,Measured interval between accepted REF edges
+REF_AGE,Rotation,REF Age,ms,rotation reference manager,yes,Time since last accepted reference event
+REF_VALID,Rotation,REF Valid,bool,rotation reference manager,yes,Reference timing validity
+ROTATION_VALID,Rotation,Rotation Valid,bool,rotation reference manager,yes,Qualified engine rotation state
+RPM,Rotation,Engine Speed,rpm,rotation reference manager,yes,Derived from REF period and configured events per crank revolution
+REF_EVENTS_PER_CRANK_REV,Rotation,REF Events per Crank Revolution,events/rev,configuration,yes,Editable setup echoed in live data
+REF_EVENTS_PER_ENGINE_CYCLE,Rotation,REF Events per Engine Cycle,events/720deg,derived,yes,Two times REF events per crank revolution
+REF_EVENT_SPACING_DEG,Rotation,REF Event Spacing,crank deg,derived,yes,360 divided by REF events per crank revolution
+REF_TO_EVENT_TDC_OFFSET_DEG,Rotation,REF to Event TDC Offset,crank deg,configuration,yes,Signed setup phase applied before desired spark advance
+CYLINDER_COUNT,Rotation,Cylinder Count,count,configuration,yes,Physical engine cylinder count
+COMBUSTION_EVENT_SPACING_DEG,Rotation,Combustion Event Spacing,crank deg,derived,yes,720 divided by cylinder count
+REF_EVENTS_PER_COMBUSTION_EVENT,Rotation,REF Events per Combustion Event,ratio,derived,yes,Reference event-cycle count divided by cylinder count
 MAP_RAW,MAP,MAP ADC Raw,count,ADC acquisition,yes,Direct ADC observation
-MAP_VDC,MAP,MAP Input Voltage,V,ADC conversion,yes,Converted input voltage
-MAP_KPA_ABS,MAP,MAP Pressure,kPa abs,MAP transfer,yes,Engineering manifold pressure
+MAP_VDC,MAP,MAP Input Voltage,V,ADC electrical conversion,yes,Converted sensor input voltage
+MAP_KPA_UNFILTERED,MAP,MAP Pressure Unfiltered,kPa abs,MAP transfer,yes,Engineering pressure before low-pass filtering
+MAP_KPA_ABS,MAP,MAP Pressure Control,kPa abs,signal conditioning,yes,Filtered MAP used by normal control logic
+MAP_RATE,MAP,MAP Rate,kPa/s,signal conditioning,yes,Dedicated transient-rate signal
 MAP_VALID,MAP,MAP Valid,bool,sensor validation,yes,True measured validity only
-BARO_KPA_ABS,MAP,Barometric Pressure,kPa abs,BARO capture,yes,Captured from valid MAP before crank and held for run cycle
-BARO_VALID,MAP,BARO Valid,bool,BARO capture,yes,False if pre-crank MAP capture was not valid
-PRESSURE_RATIO,MAP,MAP to BARO Ratio,ratio,derived,yes,MAP divided by captured BARO
+MAP_FAULT_REASON,MAP,MAP Fault Reason,state,sensor validation,yes,Reason for invalid state if any
+BARO_KPA_ABS,MAP,Barometric Pressure,kPa abs,BARO capture,yes,Captured from valid filtered MAP before rotation and held for run cycle
+BARO_VALID,MAP,BARO Valid,bool,BARO capture,yes,False if pre-rotation MAP capture was not valid
+PRESSURE_RATIO,MAP,MAP to BARO Ratio,ratio,derived,yes,Filtered MAP divided by captured BARO
 TPS_RAW,TPS,TPS ADC Raw,count,ADC acquisition,yes,Direct ADC observation
-TPS_VDC,TPS,TPS Input Voltage,V,ADC conversion,yes,Converted input voltage
-TPS_PERCENT,TPS,Throttle Position,percent,TPS transfer,yes,Engineering throttle position
-TPS_RATE,TPS,Throttle Rate,percent/s,derived,yes,Filtered rate used by hybrid air model and AE
+TPS_VDC,TPS,TPS Input Voltage,V,ADC electrical conversion,yes,Converted sensor input voltage
+TPS_PERCENT_UNFILTERED,TPS,Throttle Position Unfiltered,percent,TPS transfer,yes,Engineering position before low-pass filtering
+TPS_PERCENT,TPS,Throttle Position Control,percent,signal conditioning,yes,Filtered throttle position used by control logic
+TPS_RATE,TPS,Throttle Rate,percent/s,signal conditioning,yes,Dedicated filtered rate used by hybrid air model and AE
 TPS_VALID,TPS,TPS Valid,bool,sensor validation,yes,True measured validity only
-MAT_ENABLED,MAT,MAT Enabled,bool,configuration,yes,Optional added sensor configured present
+TPS_FAULT_REASON,TPS,TPS Fault Reason,state,sensor validation,yes,Reason for invalid state if any
+MAT_ENABLED,MAT,MAT Installed,bool,configuration,yes,Optional added sensor configured present
 MAT_RAW,MAT,MAT ADC Raw,count,ADC acquisition,yes,Direct ADC observation
-MAT_VDC,MAT,MAT Input Voltage,V,ADC conversion,yes,Converted input voltage
-MAT_C,MAT,Measured Air Temperature,deg C,MAT transfer,yes,Measured engineering temperature
-MAT_K,MAT,Air Temperature,K,derived,yes,Absolute temperature used by air model
-MAT_CONTROL_C,MAT,Control Air Temperature,deg C,sensor fallback layer,yes,May be substituted while MAT_C remains invalid
+MAT_VDC,MAT,MAT Input Voltage,V,ADC electrical conversion,yes,Converted sensor input voltage
+MAT_C_UNFILTERED,MAT,MAT Temperature Unfiltered,deg C,MAT transfer,yes,Engineering temperature before filtering
+MAT_C,MAT,MAT Temperature Filtered,deg C,signal conditioning,yes,Filtered measured temperature while sensor valid
+MAT_CONTROL_C,MAT,MAT Control Temperature,deg C,sensor validation/fallback,yes,Filtered measurement or explicit fallback
+MAT_CONTROL_K,MAT,MAT Control Temperature Absolute,K,derived,yes,Absolute control temperature used by air-charge model
 MAT_VALID,MAT,MAT Valid,bool,sensor validation,yes,True measured validity only
-MAT_SUBSTITUTED,MAT,MAT Substituted,bool,sensor fallback layer,yes,Explicit fallback indicator
+MAT_SUBSTITUTED,MAT,MAT Substituted,bool,sensor validation/fallback,yes,Explicit fallback indicator
+MAT_FAULT_REASON,MAT,MAT Fault Reason,state,sensor validation,yes,Reason for invalid state if any
 CTS_RAW,CTS,CTS ADC Raw,count,ADC acquisition,yes,Direct ADC observation
-CTS_VDC,CTS,CTS Input Voltage,V,ADC conversion,yes,Converted input voltage
-CTS_C,CTS,Coolant Temperature,deg C,CTS transfer,yes,Measured engineering temperature
-CTS_CONTROL_C,CTS,Control Coolant Temperature,deg C,sensor fallback layer,yes,May be substituted while CTS_C remains invalid
+CTS_VDC,CTS,CTS Input Voltage,V,ADC electrical conversion,yes,Converted sensor input voltage
+CTS_C_UNFILTERED,CTS,Coolant Temperature Unfiltered,deg C,CTS transfer,yes,Engineering temperature before filtering
+CTS_C,CTS,Coolant Temperature Filtered,deg C,signal conditioning,yes,Filtered measured coolant temperature
+CTS_CONTROL_C,CTS,Control Coolant Temperature,deg C,sensor validation/fallback,yes,Filtered measurement or explicit fallback
 CTS_VALID,CTS,CTS Valid,bool,sensor validation,yes,True measured validity only
-CTS_SUBSTITUTED,CTS,CTS Substituted,bool,sensor fallback layer,yes,Explicit fallback indicator
+CTS_SUBSTITUTED,CTS,CTS Substituted,bool,sensor validation/fallback,yes,Explicit fallback indicator
+CTS_FAULT_REASON,CTS,CTS Fault Reason,state,sensor validation,yes,Reason for invalid state if any
 BATTERY_RAW,Battery,Battery ADC Raw,count,ADC acquisition,yes,Direct ADC observation
-BATTERY_V,Battery,Battery Voltage,V,battery transfer,yes,Engineering vehicle supply voltage
+BATTERY_INPUT_VDC,Battery,Battery ADC Input Voltage,V,ADC electrical conversion,yes,Voltage seen at PCM ADC input
+BATTERY_V_UNFILTERED,Battery,Battery Voltage Unfiltered,V,battery transfer,yes,Converted vehicle voltage before filtering
+BATTERY_V,Battery,Battery Voltage Control,V,signal conditioning,yes,Filtered supply voltage used for normal calculations
 BATTERY_VALID,Battery,Battery Valid,bool,sensor validation,yes,True measured validity only
+BATTERY_SUBSTITUTED,Battery,Battery Substituted,bool,sensor validation/fallback,yes,Explicit calculation fallback indicator
 VE_SD_USED,Air Charge,Speed Density VE,ratio,air charge manager,yes,Interpolated VE used in SD estimate
-AN_FILLING_USED,Air Charge,Alpha N Filling,ratio,air charge manager,yes,Interpolated RPM TPS filling value
+AN_FILLING_USED,Air Charge,Alpha N Filling,ratio,air charge manager,yes,Interpolated RPM/TPS filling value
 AIR_SD,Air Charge,Speed Density Air Mass,mg/cycle,air charge manager,yes,SD estimate before blending
-AIR_AN,Air Charge,Alpha N Air Mass,mg/cycle,air charge manager,yes,Alpha N estimate before blending
-AIR_MODEL_DELTA,Air Charge,Air Model Difference,mg/cycle,derived,yes,Alpha N minus SD
-AN_BASE_WEIGHT,Air Charge,Alpha N Base Authority,ratio,air charge manager,yes,Steady high load blend authority
-AN_TRANSIENT_STATE,Air Charge,Alpha N Transient Authority,ratio,air charge manager,yes,Temporary throttle movement authority
-AN_WEIGHT,Air Charge,Alpha N Total Authority,ratio,air charge manager,yes,Final bounded Alpha N weight
-SD_WEIGHT,Air Charge,Speed Density Authority,ratio,derived,yes,One minus Alpha N weight
+AIR_AN,Air Charge,Alpha N Air Mass,mg/cycle,air charge manager,yes,Alpha-N estimate before blending
+AIR_MODEL_DELTA,Air Charge,Air Model Difference,mg/cycle,derived,yes,Alpha-N minus SD
+AIR_MODEL_ERROR_PERCENT,Air Charge,Air Model Difference Percent,percent,derived,yes,Normalized disagreement for calibration diagnostics
+AN_BASE_WEIGHT,Air Charge,Alpha-N Base Authority,ratio,air charge manager,yes,Steady high-load blend authority
+AN_TIPIN_REQUEST,Air Charge,Alpha-N Tip-In Request,ratio,air charge manager,yes,Authority request from positive TPS rate
+AN_TIPOUT_REQUEST,Air Charge,Alpha-N Tip-Out Request,ratio,air charge manager,yes,Authority request from negative TPS rate
+AN_TRANSIENT_STATE,Air Charge,Alpha-N Transient Authority,ratio,air charge manager,yes,Temporary throttle-movement authority
+AN_WEIGHT,Air Charge,Alpha-N Total Authority,ratio,air charge manager,yes,Final bounded Alpha-N weight
+SD_WEIGHT,Air Charge,Speed Density Authority,ratio,derived,yes,One minus Alpha-N weight
 AIR_MASS_CYCLE,Air Charge,Final Air Mass,mg/cycle,air charge manager,yes,Single downstream airflow semantic quantity
-AIR_MODEL_MODE,Air Charge,Air Model Mode,state,air charge manager,yes,SD hybrid Alpha N fallback or invalid
+AIR_MASS_CYLINDER,Air Charge,Air Mass per Cylinder,mg/cylinder-cycle,derived,yes,Final air mass divided by configured cylinder count
+AIR_MODEL_MODE,Air Charge,Air Model Mode,state,air charge manager,yes,SD hybrid Alpha-N fallback or invalid
 AIR_MODEL_VALID,Air Charge,Air Model Valid,bool,air charge manager,yes,Final air estimate validity
