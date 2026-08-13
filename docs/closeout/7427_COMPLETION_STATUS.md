@@ -21,12 +21,10 @@ SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 | Calibration/tuning | **100%** | **FROZEN** |
 | V1 software-facing hardware contract | **100%** | **FROZEN FOR FIRST ENGINE-CONTROL SCOPE** |
 | Physical endpoint confirmation | **0%** | **DEFERRED VALIDATION / FUTURE NATIVE-DRIVER WORK** |
-| Replacement-OS implementation | **18%** | **ACTIVE; PRE-ASSEMBLY PLANNING GATE NOW FIRST** |
+| Replacement-OS implementation | **18%** | **ACTIVE; PRE-ASSEMBLY FORMULA/PLANNING GATE FIRST** |
 | Complete runnable replacement | **0%** | **AFTER PLANNING + TARGET-LINKED BUILD** |
 
 ## V1 architecture decision
-
-The first replacement uses preserved GM software-to-hardware command behavior instead of requiring complete electrical characterization first:
 
 ```text
 custom control algorithms
@@ -36,12 +34,24 @@ custom control algorithms
 → existing 7427 hardware
 ```
 
-Authority:
+V1 scope authority:
 
+- `docs/planning/V1_ENGINE_CONTROL_SCOPE.md`
 - `docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md`
-- `source/replacement_os/hal/gm_output_islands.asm`
 
-Current command-island state:
+Excluded from V1 executable scope:
+
+```text
+automatic transmission
+EGR
+EVAP
+secondary AIR
+A/C control / A/C idle compensation
+```
+
+Unused I/O is reserved/documented for future applications rather than carrying dead runtime logic.
+
+## Preserved command-island state
 
 ```text
 Fuel synchronous     LOCKED ABI + PORTED
@@ -50,12 +60,12 @@ IAC                   LOCKED ABI + PORTED
 Fuel pump             LOCKED ABI + PORTED
 Spark/EST             LOCKED ABI; complete rolling-state port pending
 MIL                   DEFERRED
-Unused I/O            DEFERRED
+Unused I/O            RESERVED FOR FUTURE USE
 ```
 
 The preserved command-island module is not currently called by the engine-off runtime.
 
-## Replacement OS currently implemented
+## Replacement OS components already present
 
 ```text
 semantic runtime ABI
@@ -71,61 +81,105 @@ read-only REF-period handoff
 preserved fuel sync/async, IAC and pump command-island module
 ```
 
-Important files:
+## Pre-assembly formula/control-model gate
 
-- `source/replacement_os/include/runtime_abi.inc`
-- `source/replacement_os/core/safe_runtime.asm`
-- `source/replacement_os/core/debug_frame.asm`
-- `source/replacement_os/hal/HAL_API.md`
-- `source/replacement_os/hal/adc_read.asm`
-- `source/replacement_os/hal/ref_read.asm`
-- `source/replacement_os/hal/gm_output_islands.asm`
+Formula design now precedes XDF/ADX/interface/memory implementation.
 
-## Pre-assembly planning gate
+Committed formula contracts:
 
-Before additional target assembly/integration work, freeze five implementation plans:
+- `docs/planning/V1_FUEL_CONTROL_FORMULA_CONTRACT.md`
+- `docs/planning/V1_SPARK_CONTROL_FORMULA_CONTRACT.md`
+- `docs/planning/V1_IDLE_CONTROL_FORMULA_CONTRACT.md`
 
-```text
-1. V1 calibration / XDF exposure matrix
-2. V1 telemetry / ADX matrix
-3. V1 module interface matrix
-4. V1 ROM/RAM memory layout
-5. V1 build/version manifest
-```
+### Fuel-model baseline
 
-Calibration/XDF rule:
+The V1 fuel system is **fuel-mass based, not pulse-width based**.
 
 ```text
-every tuner-facing control must have
-  a semantic ID
-  engineering units/range
-  one documented intended effect
-  explicit non-effects
-  owning algorithm/module
-  matching ADX observability where practical
+speed-density air mass
+→ target lambda
+→ requested fuel mass per 720-degree engine cycle
+→ startup/warmup/transient/feedback contributions
+→ event/injector delivery division
+→ pressure-corrected injector flow
+→ short-pulse model
+→ voltage deadtime
+→ command PW
+→ preserved GM fuel command island
 ```
 
-The new calibration model is intentionally designed around useful tuning intent, not around exposing every stock calibration byte.
-
-The XDF and ADX must derive from the same frozen semantic/calibration and telemetry definitions used by firmware so names, scaling, addresses, and live-data meaning cannot silently drift.
-
-This planning gate is now the immediate project milestone. Do not continue assembling the target image until these interfaces are defined well enough that implementation becomes mechanical rather than architectural guesswork.
-
-## Following major gate: first target-linked engine-off observability image
-
-After the pre-assembly planning gate is frozen, build the first target-linked engine-off image.
-
-Success means:
+For the TBI injector arrangement:
 
 ```text
-custom reset/startup executes on the 7427
-custom scheduler runs continuously
-read-only sensor sampling runs through the clean ABI
-REF/DRP period is visible during cranking
-debug/ALDL transport emits the defined semantic telemetry
-lifecycle, validity, RPM and requested-control state are observable
-all production-output permissions remain disabled
-preserved output-command islands remain uncalled
+FLOW_EFFECTIVE = FLOW_RATED * sqrt(P_FUEL_GAUGE / P_RATED)
 ```
 
-The complete spark/EST island remains the next major output module after the engine-off observability milestone.
+MAP is not part of injector differential pressure because the injectors discharge above the throttle plates.
+
+Mandatory ownership separation:
+
+```text
+VE                  -> engine air model only
+fuel pressure/flow  -> injector delivery conversion only
+deadtime            -> electrical opening compensation only
+short-pulse curve   -> injector nonlinearity only
+warmup              -> cold run enrichment only
+afterstart          -> post-start enrichment only
+AE                  -> additive transient fuel only
+PE                  -> target lambda only
+NB/WB feedback      -> one bounded feedback factor only
+DFCO                -> explicit zero-fuel state
+```
+
+### Spark-model baseline
+
+```text
+crank spark or main/idle base spark
++ CTS correction
++ MAT correction
++ optional explicit high-load correction
++ fast idle spark correction
+- knock retard
+→ final spark clamp
+→ preserved GM EST/ASIC island
+```
+
+### Idle-model baseline
+
+```text
+IAC airflow loop = slow PI / long-term control
+idle spark loop  = fast bounded damping
+```
+
+IAC target is composed from independently observable base, startup, follower, PI, and stall-save contributions. No automatic-transmission or A/C load terms exist.
+
+## Remaining planning order
+
+Before target assembly/integration:
+
+```text
+1. freeze lifecycle/state and sensor-validation formulas
+2. review/finalize fuel, spark, and idle formula contracts
+3. freeze V1 module interfaces
+4. generate calibration/XDF exposure matrix from formulas
+5. generate telemetry/ADX matrix from formulas
+6. freeze ROM/RAM memory layout
+7. freeze build/version manifest
+```
+
+Every tuner-facing control must have:
+
+```text
+stable semantic ID
+engineering units/range
+one documented intended effect
+explicit non-effects
+owning formula/module
+matching ADX observability where practical
+```
+
+XDF and ADX definitions must derive from the same semantic definitions used by firmware so names, scaling, addresses, and meaning cannot silently drift.
+
+## Following major gate
+
+After the formula/planning gate is frozen, build the first target-linked engine-off observability image with all production-output permissions false and preserved command islands uncalled.
