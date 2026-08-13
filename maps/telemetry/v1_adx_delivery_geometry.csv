@@ -1,0 +1,4 @@
+semantic_id,class,units,source_or_formula,editable
+INJECTOR_COUNT,setup_echo,count,configured physical injector count,no
+FUEL_DELIVERY_EVENTS_PER_ENGINE_CYCLE,setup_echo,events per 720deg,configured delivery geometry,no
+ACTIVE_INJECTORS_PER_EVENT,setup_echo,count,configured delivery geometry,no
