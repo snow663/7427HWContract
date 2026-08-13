@@ -1,0 +1,8 @@
+address_hex,source_record,source_bytes,bin_authority,review_class,resolution,production_scope
+$4146,"L4146 FDB 65534",FF FE,FF F5,PRODUCTION_NUMERIC_MISMATCH,"Use BMHM BIN FF F5; preserve MAX RETARD semantic use",included
+$4148,"L4148 FDB 65534",FF FE,FF F5,PRODUCTION_NUMERIC_MISMATCH,"Use BMHM BIN FF F5; preserve MAX RETARD DURING FUEL C/O semantic use",included
+$414A,"L414A FDB 65534",FF FE,FF F5,PRODUCTION_NUMERIC_MISMATCH,"Use BMHM BIN FF F5; preserve MAX RETARD DURING TORQUE MANAGEMENT FUEL C/O semantic use",included
+$4C80,"duplicate label in second DFCO RPM-vs-cool table: L4C80 FCB 64",40,"$4C90=40",SOURCE_LABEL_ADDRESS_TYPO,"Second table ORG is $4C8D; sequential address is $4C90. Do not overwrite real $4C80=69.",included
+$4C81,"duplicate label in second DFCO RPM-vs-cool table: L4C81 FCB 56",38,"$4C91=38",SOURCE_LABEL_ADDRESS_TYPO,"Second table ORG is $4C8D; sequential address is $4C91. Do not overwrite real $4C81=69.",included
+$4EDB,"second duplicate L4EDB FCB 60 ; Max time 60 sec?",3C,"$4EDB=46; executable table base=$4EDC",SOURCE_DUPLICATE_ORG_PHANTOM_RECORD,"Drop phantom second $4EDB record. Previous table legitimately ends at $4EDB=46; cold-offset-delay lookup executes from $4EDC.",included
+$50ED,"L50ED FCB 0",00,D0,PRODUCTION_NUMERIC_MISMATCH,"Use BMHM BIN D0 in integral gain factor vs %TPS table; executable lookup uses table rooted at $50E8.",included
