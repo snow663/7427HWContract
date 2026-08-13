@@ -33,6 +33,8 @@ VALID_BATTERY           EQU     $20
 VALID_REF               EQU     $40
 VALID_KNOCK             EQU     $80
 
+DEBUG_FRAME_LENGTH      EQU     24
+
 ; Runtime semantic state.
 ; Placement is intentionally not fixed here; linker/ORG policy owns placement.
 
@@ -118,5 +120,11 @@ DRV_PORTD_SHADOW:       RMB     1
 ; Debug/observability state.
 DEBUG_SEQUENCE:         RMB     1
 DEBUG_HEARTBEAT:        RMB     1
+DEBUG_TX_PENDING:       RMB     1
+DEBUG_TX_ACTIVE:        RMB     1
+DEBUG_TX_LENGTH:        RMB     1
+DEBUG_TX_INDEX:         RMB     1
+DEBUG_TX_CHECKSUM:      RMB     1
+DEBUG_TX_BUFFER:        RMB     DEBUG_FRAME_LENGTH
 
 RUNTIME_STATE_END:
