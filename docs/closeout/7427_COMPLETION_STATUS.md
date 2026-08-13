@@ -21,8 +21,8 @@ SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 | Calibration/tuning | **100%** | **FROZEN** |
 | V1 software-facing hardware contract | **100%** | **FROZEN FOR FIRST ENGINE-CONTROL SCOPE** |
 | Physical endpoint confirmation | **0%** | **DEFERRED VALIDATION / FUTURE NATIVE-DRIVER WORK** |
-| Replacement-OS implementation | **18%** | **ACTIVE** |
-| Complete runnable replacement | **0%** | **NEXT MAJOR GATE** |
+| Replacement-OS implementation | **18%** | **ACTIVE; PRE-ASSEMBLY PLANNING GATE NOW FIRST** |
+| Complete runnable replacement | **0%** | **AFTER PLANNING + TARGET-LINKED BUILD** |
 
 ## V1 architecture decision
 
@@ -81,35 +81,51 @@ Important files:
 - `source/replacement_os/hal/ref_read.asm`
 - `source/replacement_os/hal/gm_output_islands.asm`
 
-## Next major gate: first target-linked engine-off observability image
+## Pre-assembly planning gate
 
-This is now the highest-value milestone.
+Before additional target assembly/integration work, freeze five implementation plans:
+
+```text
+1. V1 calibration / XDF exposure matrix
+2. V1 telemetry / ADX matrix
+3. V1 module interface matrix
+4. V1 ROM/RAM memory layout
+5. V1 build/version manifest
+```
+
+Calibration/XDF rule:
+
+```text
+every tuner-facing control must have
+  a semantic ID
+  engineering units/range
+  one documented intended effect
+  explicit non-effects
+  owning algorithm/module
+  matching ADX observability where practical
+```
+
+The new calibration model is intentionally designed around useful tuning intent, not around exposing every stock calibration byte.
+
+The XDF and ADX must derive from the same frozen semantic/calibration and telemetry definitions used by firmware so names, scaling, addresses, and live-data meaning cannot silently drift.
+
+This planning gate is now the immediate project milestone. Do not continue assembling the target image until these interfaces are defined well enough that implementation becomes mechanical rather than architectural guesswork.
+
+## Following major gate: first target-linked engine-off observability image
+
+After the pre-assembly planning gate is frozen, build the first target-linked engine-off image.
 
 Success means:
 
 ```text
 custom reset/startup executes on the 7427
-custom 6.25 ms scheduler runs continuously
-watchdog/reset path remains stable
+custom scheduler runs continuously
 read-only sensor sampling runs through the clean ABI
 REF/DRP period is visible during cranking
-debug/ALDL transport emits the semantic snapshot frame
+debug/ALDL transport emits the defined semantic telemetry
 lifecycle, validity, RPM and requested-control state are observable
 all production-output permissions remain disabled
 preserved output-command islands remain uncalled
 ```
 
-Work required to reach that gate:
-
-```text
-target reset/vector/startup integration
-processor/timer initialization
-real SCI/ALDL debug byte transport
-scheduler integration of ADC sampling
-REF event integration
-validated/substituted semantic sensor layer
-link/ORG/memory layout and ROM build
-static verification that output-command islands remain unreachable
-```
-
-The complete spark/EST island is the next major output module, but it is not required to achieve the engine-off observability gate.
+The complete spark/EST island remains the next major output module after the engine-off observability milestone.
