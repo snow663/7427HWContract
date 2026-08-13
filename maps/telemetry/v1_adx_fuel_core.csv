@@ -2,7 +2,7 @@ semantic_id,group,name,units,source,read_only,notes
 LAMBDA_TARGET,Fuel,Target Lambda,lambda,combustion target manager,yes,Final desired mixture target
 BASE_FUEL_MASS_CYCLE,Fuel,Base Fuel Mass,mg/cycle,fuel model,yes,Air mass divided by stoich AFR and target lambda
 CRANK_FUEL_MASS_CYCLE,Fuel,Cranking Fuel Mass,mg/cycle,crank fuel module,yes,Dedicated cranking fuel request
-WARMUP_FACTOR,Fuel,Warmup Fuel Factor,ratio,warmup fuel module,yes,Temperature based running enrichment
+WARMUP_FACTOR,Fuel,Warmup Fuel Factor,ratio,warmup fuel module,yes,Temperature-based running enrichment
 AFTERSTART_ACTIVE,Fuel,Afterstart Active,bool,afterstart module,yes,Post run-entry enrichment qualifier
 AFTERSTART_ELAPSED,Fuel,Afterstart Elapsed,s,afterstart module,yes,Time since qualified crank-to-run transition
 AFTERSTART_FACTOR,Fuel,Afterstart Factor,ratio,afterstart module,yes,Current post-start multiplier
@@ -11,5 +11,5 @@ AE_MAP_INPUT,Fuel,AE MAP Input,kPa/s,AE module,yes,Positive MAP-rate input
 AE_FUEL_MASS_CYCLE,Fuel,AE Fuel Mass,mg/cycle,AE module,yes,Additive transient fuel request
 PE_ACTIVE,Fuel,Power Enrichment Active,bool,PE qualifier,yes,Target lambda may use PE calibration
 DFCO_ACTIVE,Fuel,DFCO Active,bool,DFCO qualifier,yes,Requested fuel mass is zero while active
-LEARN_FACTOR,Fuel,Learned Fuel Factor,ratio,learning module,yes,One if learning disabled
+LEARN_FACTOR,Fuel,Learned Fuel Factor,ratio,V1 policy constant,yes,Fixed at 1.000 in V1; adaptive long-term learning is reserved for a future explicit feature
 REQUESTED_FUEL_MASS_CYCLE,Fuel,Requested Fuel Mass,mg/cycle,fuel mass manager,yes,Final requested fuel mass before injector conversion
