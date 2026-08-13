@@ -6,101 +6,82 @@
 PCM: 16197427
 mask: $31
 BCC/object: BMHM
-target BIN: BMHM_95_C-G-K_Truck_7_4TBI_4l80.bin
+raw target BIN: 31/BMHM.BIN from supplied 31.zip
+BIN size: 65536 bytes
+SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 ```
 
-This document is the fixed status view for the closeout workflow. Percentages have explicit scope and must not be reduced because a later hardware/bench category remains incomplete.
-
-## Source-authority audit
-
-The project File Library contains older documents named `7427_Full_Control_Model.docx` and `16196395_PCM_Architecture_Custom_OS_Developer_Guide.docx`.
-
-They are **not canonical evidence for the current numeric/variant closeout**:
-
-- `7427_Full_Control_Model.docx` explicitly identifies its model as `$0E`.
-- `16196395_PCM_Architecture_Custom_OS_Developer_Guide.docx` is explicitly for the 16196395/BJKZ `$0E` target.
-
-They remain useful as historical architecture/HAL-boundary corroboration, especially the conclusion that board-level pin/polarity questions are a bench frontier. They do not override `$31` BMHM executable/ROM evidence.
-
-The `$31` tuning handbook is supporting calibration/tuning context only. It also states that BIN/mask/XDF verification precedes tuning, consistent with the current raw-BIN audit gate.
+Percentages have explicit scope and must not be reduced because a later hardware/bench category remains incomplete.
 
 ## Fixed completion table
 
 | Category | Current | Scope / completion definition | Status |
 |---|---:|---|---|
-| **algorithm extraction** | **100%** | Semantic production-control math/state relationships for retained fuel, spark/knock, crank/warmup/afterstart, AE/PE/DFCO/closed-loop fuel, and idle/IAC including control-law composition. Physical hardware behavior excluded. | **FROZEN** |
-| **scheduler/lifecycle** | **100%** | Reset/init ordering, 6.25 ms heartbeat and 16-segment production cadence, event/foreground relationship, REF/DRP lifecycle, crank/run qualification, stall/dropout, key-off delayed shutdown, overrun/watchdog responsibilities. Physical power-control pin effect excluded. | **FROZEN** |
-| **diagnostics/failsafe** | **100%** | Material validation/substitution/inhibit behavior that changes fuel/spark/idle/lifecycle. OEM DTC packing/reporting/bookkeeping excluded unless it changes behavior. | **FROZEN** |
-| **calibration/tuning** | **98%** | Source extraction and semantic ownership complete; production calibration manifest complete; byte/word source-vs-actual-BMHM-BIN audit and correction overlay still required. | **BLOCKED: RAW TARGET BIN NOT CURRENTLY RETRIEVABLE** |
-| **software-facing HW contract** | **92%** | CPU/ASIC/timer/register ownership and software command/acquisition paths are substantially mapped for fuel, spark, IAC, REF/timing, SCI/ALDL, watchdog/init. Remaining work is converting retained endpoints into one normalized HAL/API inventory and closing a few hardware register semantic details that do not require physical claims. | ACTIVE AFTER CALIBRATION FREEZE |
-| **physical endpoint confirmation** | **0%** | Requires actual connector/pin/electrical stimulus/measurement PASS records. Existing fuel bench result package is explicitly `not_run`; software proof does not count toward this percentage. | NOT STARTED / BENCH GATED |
-| **replacement-OS implementation** | **5%** | Existing skeleton/minimal fuel writer/bench harness count only as infrastructure. No engine-off integrated safe runtime with scheduler + sensor snapshot + validity + ALDL + arbitration exists yet. | NOT YET PHASE-GATED |
-| **complete runnable replacement** | **0%** | Requires integrated OS booting on target hardware, endpoint gates passed, controlled actuator enable, first start, closed-loop/learning validation, and safe shutdown/dropout. | NOT STARTED |
+| **algorithm extraction** | **100%** | Semantic production-control relationships for retained fuel, spark/knock, crank/warmup/afterstart, AE/PE/DFCO/closed-loop fuel, and idle/IAC. Physical hardware behavior excluded. | **FROZEN** |
+| **scheduler/lifecycle** | **100%** | Reset/init, heartbeat/dispatch, REF/DRP lifecycle, crank/run/stall/dropout, key-off delayed shutdown, overrun/watchdog responsibilities. | **FROZEN** |
+| **diagnostics/failsafe** | **100%** | Material validation, substitution, inhibit and safe-state behavior that changes production control. OEM DTC packing/reporting excluded unless behavior-changing. | **FROZEN** |
+| **calibration/tuning** | **100%** | Source extraction/ownership plus direct 11,916-record audit against the actual 64 KiB BMHM BIN, reviewed production corrections, width/address/alignment review, BIN-numeric-authority rule. | **FROZEN** |
+| **software-facing HW contract** | **92%** | CPU/ASIC/timer/register ownership and software paths substantially mapped; normalized endpoint/HAL inventory now active work. | ACTIVE |
+| **physical endpoint confirmation** | **0%** | Requires measured stimulus/command-to-pin evidence. Existing bench result rows remain `not_run`. | BENCH FRONTIER |
+| **replacement-OS implementation** | **5%** | Existing skeleton/minimal fuel writer/bench harness are infrastructure only; integrated engine-off safe runtime is now the next implementation target. | ACTIVE |
+| **complete runnable replacement** | **0%** | Requires target boot, endpoint gates, controlled actuator enable, first start, closed-loop/learning and shutdown/dropout validation. | NOT STARTED |
 
-## Why software-facing HW contract is not 100%
+## Calibration audit closeout
 
-This category is intentionally separate from physical endpoint confirmation.
+Authority artifact:
 
-Already strong/static:
+- `docs/closeout/7427_CALIBRATION_BIN_AUDIT_CLOSEOUT.md`
+- `maps/closeout/calibration_bin_production_correction_overlay.csv`
 
-```text
-HC11 relocation and timer register ownership
-full hardware-access/register maps
-ASIC register contract inventory
-REF period/count software interface
-fuel timer/output scheduling contracts
-spark timing conversion/handoff boundary
-IAC actual/desired/phase/output-shadow path
-SCI/ALDL architecture
-COP/watchdog service interface
-boot/init register sequencing
-```
-
-Still required for 100% software-facing contract:
+Audit result:
 
 ```text
-one normalized HAL endpoint/API table for every retained production input/output
-explicit semantic ownership for sensor acquisition channels and conversions
-explicit semantic ownership for retained auxiliary outputs (fuel pump, MIL, A/C/fan only if kept)
-final software-side classification of any shared ASIC mirror/ack register that must be preserved
-safe init/default/permission state for every retained HAL endpoint
+records audited:            11,916
+exact matches:              11,700
+value mismatches:              120
+source-width errors:             96
+outside-BIN records:              0
+odd-address FDB reviews:        212
+label-width review rows:        138
 ```
 
-None of those require claiming connector pins, physical polarity, or load current.
+Reviewed production-impact discrepancies:
 
-## Why physical endpoint confirmation is 0%
+```text
+$4146/$4148/$414A: HAC FF FE vs BMHM FF F5 → use BIN FF F5
+$4C80/$4C81 duplicate labels in second DFCO table → correct addresses $4C90/$4C91
+second $4EDB FCB 60 record → stale/phantom; executable indexes table from $4EDC
+$50ED: HAC 00 vs BMHM D0 → use BIN D0
+```
 
-The repo contains bench plans and structured result files, but the current fuel bench result artifact explicitly initializes all proof rows as `not_run`. A physical percentage cannot be earned from disassembly, source comments, board inference, or a prepared test plan.
+The remaining hard discrepancies are in optional `$31` remote-broadcast/service layout material or excluded transmission calibration and do not block standalone production engine-control reconstruction.
 
-Physical completion begins only when records contain actual applied stimulus/command and measured response with a confirmed pin/connector.
-
-## Current phase gate
+## Extraction phase gate
 
 ```text
 algorithm             100  FROZEN
 scheduler/lifecycle   100  FROZEN
 diagnostics/failsafe  100  FROZEN
-calibration/tuning     98  WAITING ONLY FOR RAW-BIN AUDIT
+calibration/tuning    100  FROZEN
 ```
 
-Therefore the project must **not** reopen algorithm/scheduler/diagnostic disassembly and must **not** call the bench shell a replacement OS.
+The reverse-engineering closeout gate is therefore **passed**.
 
-The next action is strictly:
+No frozen extraction category should be reopened unless new executable/ROM evidence materially contradicts it or the retained feature scope is deliberately expanded.
+
+## Current active phase
+
+Proceed directly with:
 
 ```text
-obtain/re-expose exact raw BMHM 64 KiB BIN
-→ run tools/audit_calibration_against_bin.py
-→ review correction overlay
-→ set calibration/tuning = 100% and FREEZE
-→ start normalized endpoint setup/test-confirm records
-→ implement engine-off actuator-disabled safe runtime
+normalized endpoint SETUP contracts
+→ bench TEST-CONFIRM records
+→ engine-off safe runtime
+→ sensor acquisition/validity
+→ IAC permission-gated bring-up
+→ spark/EST permission-gated bring-up
+→ injector permission-gated bring-up
+→ controlled first engine start
 ```
 
-## Freeze discipline
-
-A frozen 100% category reopens only when:
-
-1. new executable/ROM evidence directly contradicts a material semantic conclusion; or
-2. the user explicitly expands the production feature scope.
-
-A hardware pin uncertainty, electrical measurement, or bench failure does not lower algorithm/scheduler/diagnostic completion. It changes the software-facing-HW or physical-endpoint category instead.
+A complete algorithm never authorizes an actuator by itself.
