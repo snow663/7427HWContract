@@ -1,0 +1,19 @@
+endpoint_id,applied_stimulus_or_command,observed_raw_software_value,observed_converted_value,observed_pin_output_response,polarity_monotonicity,scaling_timebase,confirmed_connector_pin,pass_fail,evidence_level,notes
+TPS,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+MAP,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+COOLANT,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+MAT_IAT,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+O2_NARROWBAND,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+BATTERY_IGN,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+REF_DRP,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+KNOCK_EVENT,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+VSS_OPTIONAL,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,optional feature disabled initially
+AC_REQUEST_OPTIONAL,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,optional feature disabled initially
+EFI_PW,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,existing FUEL-001..FUEL-004 bench gates remain authoritative
+FUEL_PUMP,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+IAC_PHASE_ENABLE,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+SPARK_TIMING,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,use preserved stock handoff only until physical proof
+EST_BYPASS_AUTHORITY,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+ALDL_DEBUG,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,safe debug-only endpoint may be brought up before actuators
+POWER_HOLD_SHUTDOWN,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,
+MIL_OPTIONAL,,,,,,,,NOT_RUN,SOFTWARE_PROVEN,optional feature disabled initially
