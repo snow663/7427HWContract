@@ -8,11 +8,13 @@ This document defines the mathematical ownership and data flow for the V1 fuel s
 
 The fundamental quantity is **fuel mass required by the engine**, not pulse width. Pulse width is produced only by the injector/delivery model at the hardware boundary.
 
+Air-charge estimation is owned by `docs/planning/V1_AIR_CHARGE_FORMULA_CONTRACT.md`. The fuel model consumes the semantic output `AIR_MASS_CYCLE` and does not depend on whether it was produced by speed density, Alpha-N, or their V1 hybrid blend.
+
 ## 1. Core separation
 
 ```text
-AIR MODEL
-  -> air mass per complete 720-degree engine cycle
+AIR CHARGE MANAGER
+  -> AIR_MASS_CYCLE per complete 720-degree engine cycle
 
 COMBUSTION TARGET
   -> target lambda
@@ -33,7 +35,7 @@ PRESERVED GM FUEL COMMAND ISLAND
   -> hardware-facing command only
 ```
 
-No VE, lambda, warmup, feedback, or transient-fuel calculation is allowed to depend on the electrical output polarity or stock hardware-register encoding.
+No airflow-model calibration, lambda, warmup, feedback, or transient-fuel calculation is allowed to depend on the electrical output polarity or stock hardware-register encoding.
 
 ## 2. Units
 
@@ -44,7 +46,6 @@ pressure              kPa absolute for MAP; psi gauge for TBI fuel pressure conf
 volume                liters or cubic meters internally as required
 absolute temperature  kelvin
 engine speed           rpm
-VE                     ratio (1.000 = 100%)
 air mass               mg per complete engine cycle
 fuel mass              mg per complete engine cycle
 injector flow          mg/ms per injector internally; lb/hr may be tuner-facing
@@ -52,35 +53,31 @@ lambda                  ratio
 pulse width             ms semantically; fixed-point timer count only at final adapter
 ```
 
-## 3. Air mass model
+## 3. Air-charge input boundary
 
-V1 is speed-density based.
-
-For total engine displacement `Vd`, absolute manifold pressure `Pmap`, absolute inlet temperature `Tair`, air specific gas constant `Rair`, and volumetric efficiency `VE(RPM, MAP)`:
+The fuel model receives:
 
 ```text
-AIR_MASS_CYCLE = (Pmap * Vd * VE) / (Rair * Tair)
+AIR_MASS_CYCLE
 ```
 
-`AIR_MASS_CYCLE` means the total modeled inducted air mass for the complete engine over one 720-degree four-stroke cycle.
+from the V1 Air Charge Manager.
 
-RPM selects/interpolates the VE table and is used by scheduling/rate calculations, but RPM is not artificially multiplied into the per-cycle air-mass equation.
+The current V1 Air Charge Manager uses hybrid speed-density / Alpha-N estimation and separately exposes its internal contributors for TunerPro observability.
 
-### Ownership
-
-VE corrects the engine air model only.
-
-VE must not compensate for:
+The fuel calculation itself must not reach into:
 
 ```text
-injector flow error
-fuel-pressure error
-injector deadtime
-short-pulse nonlinearity
-cold-start enrichment
-AE
-oxygen-feedback bias
+VE_SD
+AN_FILLING
+AN_WEIGHT
+MAP-to-airflow internals
+TPS-to-airflow internals
 ```
+
+Those belong exclusively to the Air Charge Manager.
+
+This separation permits future replacement or extension of the airflow estimator without rewriting the fuel-demand, closed-loop, startup, transient-fuel, or injector-delivery equations.
 
 ## 4. Combustion target and base fuel mass
 
@@ -164,13 +161,13 @@ When PE is active:
 LAMBDA_TARGET = PE_LAMBDA_TARGET(RPM, LOAD)
 ```
 
-Qualification, hysteresis, and delay are state-machine terms and are not embedded into VE or injector calibration.
+The final load variable used for PE qualification will be defined in the lifecycle/load contract. Qualification, hysteresis, and delay are state-machine terms and are not embedded into airflow or injector calibration.
 
 ## 7. Acceleration enrichment / transient fuel
 
-AE is an **additive fuel-mass contribution**, not a VE alteration.
+AE is an **additive fuel-mass contribution**, not an airflow-model alteration.
 
-Positive throttle and MAP rates create independent transient requests:
+Positive throttle and MAP rates may create independent residual transient-fuel requests:
 
 ```text
 AE_TPS_INPUT = max(0, dTPS/dt)
@@ -199,6 +196,8 @@ Thus:
 FUEL_MASS_BEFORE_FEEDBACK = STEADY_FUEL_MASS_CYCLE + AE_FUEL_MASS_CYCLE
 ```
 
+The hybrid Alpha-N transient authority upstream improves **air-charge prediction** when throttle moves. AE remains downstream and is tuned only for residual fuel-transport behavior such as wall wetting, atomization, and mixture-delivery lag.
+
 Exact sample period and fixed-point scaling will be chosen during scheduler/implementation planning, but the semantic equation is fixed.
 
 ## 8. DFCO
@@ -213,7 +212,7 @@ AE generation = inhibited
 feedback integrators = frozen
 ```
 
-Exit behavior may use a separately named re-entry ramp if testing shows one is useful. Such a ramp must remain independent of VE and normal closed-loop correction.
+Exit behavior may use a separately named re-entry ramp if testing shows one is useful. Such a ramp must remain independent of airflow calibration and normal closed-loop correction.
 
 ## 9. Closed-loop feedback manager
 
@@ -329,7 +328,7 @@ If learning is disabled:
 LEARN_FACTOR = 1.000
 ```
 
-Feedback and learning must never modify the stored VE table directly during normal runtime.
+Feedback and learning must never modify the stored speed-density VE table or Alpha-N filling table directly during normal runtime.
 
 ## 11. TBI injector pressure/flow model
 
@@ -351,7 +350,7 @@ FLOW_EFFECTIVE = FLOW_RATED * sqrt(P_FUEL_GAUGE / P_RATED)
 
 MAP is not part of this injector-flow equation.
 
-`FLOW_EFFECTIVE` should normally be derived from the physical setup rather than manually tuned to correct VE or short-pulse behavior.
+`FLOW_EFFECTIVE` should normally be derived from the physical setup rather than manually tuned to correct airflow estimation or short-pulse behavior.
 
 ## 12. Delivery scheduling abstraction
 
@@ -386,7 +385,7 @@ This is the ideal linear hydraulic delivery time before electrical opening delay
 
 ## 14. Short-pulse model
 
-Short-pulse behavior is an injector characteristic and must not be corrected by falsifying injector flow or VE.
+Short-pulse behavior is an injector characteristic and must not be corrected by falsifying injector flow or either airflow model.
 
 Define an inverse transfer function:
 
@@ -463,7 +462,7 @@ REQUESTED_FUEL_MASS_CYCLE
 
 ## 17. Required future XDF controls derived from the formulas
 
-The formulas imply categories, but the XDF exposure matrix is not frozen yet.
+Air-model calibration is owned by the Air Charge Manager contract.
 
 Likely tuner-facing physical/setup values:
 
@@ -477,10 +476,9 @@ injector deadtime vs battery
 short-pulse correction curve
 ```
 
-Likely normal tune values:
+Likely normal fuel-tune values:
 
 ```text
-VE table
 normal target lambda if made variable
 PE target lambda
 cranking fuel mass vs CTS
@@ -495,15 +493,16 @@ optional learning authority/rate
 DFCO qualification/re-entry terms
 ```
 
+Air Charge Manager XDF controls include the speed-density VE table, Alpha-N filling table, and blend-authority calibrations and are documented separately.
+
 No address or binary representation is assigned here.
 
 ## 18. Required ADX observability derived from the formulas
 
-At minimum expose:
+At minimum expose fuel-side values:
 
 ```text
 AIR_MASS_CYCLE
-VE_USED
 LAMBDA_TARGET
 BASE_FUEL_MASS_CYCLE
 CRANK_FUEL_MASS_CYCLE
@@ -530,20 +529,20 @@ FINAL_STOCK_PW_COUNT
 DFCO_STATE
 ```
 
-This is what allows TunerPro to prove why final PW changed.
+The matching Air Charge Manager ADX channels expose `AIR_SD`, `AIR_AN`, model disagreement, and blend authority so TunerPro can distinguish airflow-model errors from downstream fuel-delivery errors.
 
 ## 19. Non-effect contract
 
 The following separations are mandatory:
 
 ```text
-VE changes air-model estimation only.
+Air Charge Manager changes modeled air mass only.
 Injector flow/pressure changes delivery conversion only.
 Deadtime changes electrical opening compensation only.
 Short-pulse calibration changes nonlinear injector delivery only.
 Warmup changes cold run fuel only.
 Afterstart changes post-start transient enrichment only.
-AE changes transient additive fuel only.
+AE changes residual transient additive fuel only.
 PE changes target lambda only.
 NB/WB feedback changes one bounded feedback factor only.
 DFCO explicitly commands zero fuel rather than corrupting another calibration.
