@@ -1,0 +1,8 @@
+order,fragment,authority_scope,status
+1,v1_calibration_engine_fuel.csv,engine setup air charge fuel injector feedback lifecycle,canonical
+2,v1_calibration_sensor_rotation.csv,ADC setup sensor transfers optional sensors rotation geometry delivery geometry,canonical
+3,v1_calibration_sensor_validation.csv,sensor validity plausibility fallbacks and feedback qualification,canonical
+4,v1_calibration_signal_conditioning.csv,analog filtering spike screening and REF plausibility filtering,canonical
+5,v1_calibration_spark.csv,spark idle-spark knock and final spark limits,canonical
+6,v1_calibration_idle_core.csv,target idle base IAC PI limits and stall threshold,canonical
+7,v1_calibration_idle_transition.csv,startup air follower slew stall recovery and idle qualification,canonical
