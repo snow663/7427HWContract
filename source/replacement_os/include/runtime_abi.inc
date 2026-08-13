@@ -74,6 +74,9 @@ SEM_KNOCK:              RMB     1
 ; Algorithm-side semantic requests.
 REQ_FUEL_PW_HI:         RMB     1
 REQ_FUEL_PW_LO:         RMB     1
+REQ_FUEL_ASYNC_PW_HI:   RMB     1
+REQ_FUEL_ASYNC_PW_LO:   RMB     1
+REQ_FUEL_ASYNC_PENDING: RMB     1
 REQ_SPARK_HI:           RMB     1
 REQ_SPARK_LO:           RMB     1
 REQ_IAC_TARGET:         RMB     1
@@ -92,6 +95,9 @@ PERM_AUX:               RMB     1
 CMD_FUEL_PW_HI:         RMB     1
 CMD_FUEL_PW_LO:         RMB     1
 CMD_FUEL_VALID:         RMB     1
+CMD_FUEL_ASYNC_PW_HI:   RMB     1
+CMD_FUEL_ASYNC_PW_LO:   RMB     1
+CMD_FUEL_ASYNC_VALID:   RMB     1
 CMD_SPARK_HI:           RMB     1
 CMD_SPARK_LO:           RMB     1
 CMD_SPARK_VALID:        RMB     1
@@ -101,6 +107,13 @@ CMD_PUMP:               RMB     1
 CMD_PUMP_VALID:         RMB     1
 CMD_MIL:                RMB     1
 CMD_AUX_VALID:          RMB     1
+
+; Preserved-output-driver private software state.
+; These are RAM variables only; core algorithms must not depend on them.
+; The HAL owns their interpretation.
+DRV_IAC_POSITION:       RMB     1
+DRV_IAC_STATE:          RMB     1
+DRV_PORTD_SHADOW:       RMB     1
 
 ; Debug/observability state.
 DEBUG_SEQUENCE:         RMB     1
