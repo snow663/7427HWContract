@@ -1,5 +1,7 @@
 semantic_id,group,name,units,source,read_only,notes
 SPARK_STATE,Spark,Spark State,state,spark manager,yes,Crank idle blend or normal running context
+SPARK_LOAD_SOURCE,Spark,Spark Load Source,state,spark manager,yes,MAP normally; BARO conservative fallback when MAP invalid and Alpha-N fallback is permitted
+SPARK_LOAD_KPA,Spark,Spark Load,kPa abs,spark manager,yes,Actual load value used to index the main spark table
 MAIN_SPARK,Spark,Main Spark,deg BTDC,spark manager,yes,Interpolated RPM by absolute-MAP base timing
 CRANK_SPARK,Spark,Crank Spark,deg BTDC,spark manager,yes,Dedicated cranking timing
 IDLE_BASE_SPARK,Spark,Idle Base Spark,deg BTDC,spark manager,yes,Idle-specific base timing
