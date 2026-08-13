@@ -11,56 +11,128 @@ BIN size: 65536 bytes
 SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 ```
 
-## Frozen reverse-engineering state
+## Canonical audit authority
+
+Current detailed status and authority map:
 
 ```text
-algorithm extraction            100% FROZEN
-scheduler/lifecycle             100% FROZEN
-diagnostics/failsafe            100% FROZEN
-calibration/tuning              100% FROZEN
-V1 software-facing HW contract  100% FROZEN
-physical endpoint confirmation    0% DEFERRED VALIDATION
-replacement-OS implementation    18% ACTIVE; PLANNING GATE FIRST
-complete runnable replacement     0%
+docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md
 ```
 
-## V1 scope
+Use that audit when this summary and an older planning artifact appear to disagree.
 
-Engine-control-only replacement OS. Excluded from V1 executable scope:
+## Frozen reverse-engineering / hardware-contract state
+
+```text
+algorithm extraction             100% FROZEN
+scheduler/lifecycle extraction   100% FROZEN
+diagnostics/failsafe extraction  100% FROZEN
+production calibration audit     100% FROZEN
+V1 software-facing HW contract   100% FROZEN
+physical endpoint confirmation     0% INTENTIONALLY DEFERRED
+```
+
+Do not reopen the frozen extraction categories unless contradictory executable/ROM evidence appears or V1 scope is intentionally expanded.
+
+## V1 executable scope
+
+V1 is engine-control only.
+
+Excluded:
 
 ```text
 automatic transmission
 EGR
 EVAP
 secondary AIR
-A/C control / A/C idle compensation
+A/C compressor control
+A/C idle-up / load compensation
 ```
 
 Unused I/O remains reserved/documented for future expansion.
 
-## Control-model planning now frozen
+## Replacement-OS planning status
 
-Committed planning authorities include:
+```text
+V1 feature scope                   100%
+control/formula semantics          100%
+physical/setup model               100%
+sensor transfer model              100%
+signal-conditioning model          100%
+rotation/reference geometry        100% for V1 validated trigger relationship
+module interfaces                  100%
+calibration/XDF semantic exposure  100%
+calibration table geometry         100%
+ADX semantic channel definition    100%
+degraded-operation policy          100%
+ROM/RAM address layout               0%
+binary fixed-point/storage layout    0%
+actual XDF generation                0%
+actual ADX packet/file generation    0%
+build/version manifest               0%
+```
+
+The semantic/control planning gate is now closed. The remaining pre-assembly gate is binary/memory/build architecture.
+
+## Current planning authorities
+
+### Formula / behavior
 
 ```text
 docs/planning/V1_ENGINE_CONTROL_SCOPE.md
+docs/planning/V1_AIR_CHARGE_FORMULA_CONTRACT.md
 docs/planning/V1_FUEL_CONTROL_FORMULA_CONTRACT.md
 docs/planning/V1_SPARK_CONTROL_FORMULA_CONTRACT.md
 docs/planning/V1_IDLE_CONTROL_FORMULA_CONTRACT.md
-docs/planning/V1_AIR_CHARGE_FORMULA_CONTRACT.md
-docs/planning/V1_PHYSICAL_CONFIGURATION_MODEL.md
 docs/planning/V1_ENGINE_LIFECYCLE_FORMULA_CONTRACT.md
 docs/planning/V1_SENSOR_SEMANTIC_VALIDATION_CONTRACT.md
 docs/planning/V1_SENSOR_TRANSFER_CALIBRATION.md
+docs/planning/V1_SIGNAL_CONDITIONING_FILTER_CONTRACT.md
+docs/planning/V1_PHYSICAL_CONFIGURATION_MODEL.md
+docs/planning/V1_ROTATION_REFERENCE_CONFIGURATION.md
 ```
 
-V1 air charge is hybrid speed-density / Alpha-N with one downstream semantic output:
+### Machine-readable planning
+
+```text
+maps/planning/v1_configuration_variables.csv
+maps/planning/v1_module_interface_matrix.csv
+maps/planning/v1_calibration_manifest.csv
+maps/planning/v1_table_geometry.csv
+maps/planning/v1_degraded_operation_policy.csv
+```
+
+There is no longer a separate `v1_module_interface_matrix_v2.csv`; the canonical interface matrix has been consolidated back to `v1_module_interface_matrix.csv`.
+
+All current calibration exposure fragments live under:
+
+```text
+maps/planning/calibration_fragments/
+```
+
+### Telemetry
+
+Canonical manifest:
+
+```text
+maps/telemetry/v1_adx_manifest.csv
+```
+
+It includes core sensor/REF/air-charge telemetry, fuel, feedback, spark, idle, injector characterization, fuel-delivery geometry/duration, and BARO policy.
+
+## Frozen design highlights
+
+### Air charge
+
+Hybrid speed-density / Alpha-N produces one downstream quantity:
 
 ```text
 AIR_MASS_CYCLE
 ```
 
-Fuel is mass-based. Injector characterization separates design point from operating pressure:
+Speed density is primary at steady state; Alpha-N supplies bounded high-load and transient prediction authority.
+
+### Injector physical model
 
 ```text
 EFFECTIVE_INJECTOR_FLOW =
@@ -68,66 +140,66 @@ EFFECTIVE_INJECTOR_FLOW =
     * sqrt(OPERATING_FUEL_PRESSURE / INJECTOR_DESIGN_PRESSURE)
 ```
 
-Analog inputs are converted from raw ADC observations to VDC and then through sensor-specific transfer calibration into engineering units before control logic consumes them.
+Design flow/design pressure describe the injector. Operating pressure describes the regulator setting. Effective IFR is derived/read-only.
 
-BARO is captured from qualified MAP before rotation and held for the run cycle.
+Fuel delivery geometry is separately configured by injector count, delivery events per 720-degree cycle, and active injectors per event.
 
-## Module-interface planning
+### Sensors
 
-Current machine-readable interface authority:
-
-```text
-v1_module_interface_matrix_v2.csv
-```
-
-The corrected dependency order is:
+Analog control inputs use:
 
 ```text
-sensor semantics
--> air charge
--> combustion target / lambda target
--> oxygen feedback
--> fuel mass
--> delivery model
+RAW ADC
+-> VDC
+-> VDC-to-engineering transfer table
+-> sensor-specific filtering
+-> validity/substitution
+-> control engineering value
 ```
 
-This avoids circular ownership between target-lambda generation and oxygen feedback.
+MAT/IAT is optional added hardware on the current L19 application.
 
-## Calibration/XDF exposure planning
+### BARO
 
-Machine-readable calibration fragments now cover:
+BARO is captured from valid filtered MAP before rotation/cranking and held for the run cycle.
+
+### Rotation/reference geometry
+
+Editable setup includes:
 
 ```text
-engine/fuel setup and tuning
-spark
-idle core
-idle transition
+CYLINDER_COUNT
+REF_EVENTS_PER_CRANK_REV
+REF_TO_EVENT_TDC_OFFSET_DEG
 ```
 
-Physical setup, behavioral tuning, and derived/read-only quantities are intentionally separated.
+For an 8-cylinder / 4-REF-events-per-crank-revolution setup, the derived REF and combustion spacing are both 90 crank degrees and the relationship is one REF event per combustion event.
 
-## ADX/telemetry planning
+REF offset aligns the software crank coordinate to true event TDC; it does not mechanically change rotor-to-cap phasing.
 
-Current telemetry manifest:
+### Filtering
+
+ADC/digital filtering is explicit and sensor-specific. TPS/MAP remain fast; CTS/MAT are slower; NB/WB preserve feedback dynamics. REF edges are timestamped directly and only screened for physically impossible/implausible events rather than delayed by generic debounce.
+
+### Spark/load
+
+V1 main spark and knock-threshold load axis is:
 
 ```text
-maps/telemetry/v1_adx_manifest.csv
+RPM x MAP kPa absolute
 ```
 
-It references:
+PE target lambda uses RPM x MAP/BARO pressure ratio. The optional extra PE spark-correction surface is not part of frozen V1.
+
+### Learning
+
+Long-term adaptive fuel learning is not part of V1:
 
 ```text
-v1_adx_core.csv
-v1_adx_fuel_core.csv
-v1_adx_feedback.csv
-v1_adx_spark.csv
-v1_adx_idle.csv
-v1_adx_injector_characterization.csv
-v1_adx_delivery_duration.csv
-v1_baro_policy.csv
+LEARN_FACTOR = 1.000
 ```
 
-Telemetry preserves raw diagnostics while exposing control-facing values in engineering units and showing intermediate contributors needed to explain final behavior.
+NB/WB runtime feedback remains supported.
 
 ## Preserved command-island state
 
@@ -141,19 +213,48 @@ MIL                   DEFERRED
 Unused I/O            RESERVED FOR FUTURE USE
 ```
 
-Preserved command islands remain uncalled by the current safe engine-off runtime.
+The current safe runtime does not call the preserved output-island module.
 
-## Remaining planning gate
-
-The formula, interface, calibration-exposure, and telemetry-definition stages are sufficiently frozen to proceed.
-
-Remaining pre-assembly work is now:
+## Replacement-OS implementation status
 
 ```text
-1. freeze ROM/RAM memory layout and telemetry snapshot allocation
-2. freeze build/version manifest
-3. reconcile target linker/ORG layout with preserved GM islands
-4. build first target-linked engine-off observability image
+replacement-OS implementation   ~18%
+complete runnable replacement     0%
 ```
 
-The first target-linked image must keep all production-output permissions false while proving reset/startup, scheduler, sensor acquisition, REF visibility during cranking, lifecycle state, semantic telemetry, and calibration validity.
+Current source is an engine-off scaffold, not an implementation of the newly frozen semantic model.
+
+Known implementation gaps include:
+
+```text
+runtime ABI still uses earlier byte/count placeholders and old lifecycle enum names
+engineering-unit sensor pipeline not implemented
+signal-conditioning/validation/substitution modules not implemented
+configurable REF geometry/RPM scaling not implemented
+hybrid SD/Alpha-N air-charge manager not implemented
+mass-based fuel algorithm not implemented
+spark/idle control algorithms not implemented
+SCI/ALDL transport not implemented
+final ADX packet/page layout not allocated
+ROM/RAM/linker/ORG/vector layout not frozen
+full spark/EST preserved island not ported
+```
+
+## Correct next gate
+
+Proceed in this order:
+
+```text
+1. choose binary fixed-point/storage encodings for every frozen semantic type
+2. allocate ROM calibration blocks using frozen table geometry
+3. allocate RAM runtime state and telemetry snapshot regions
+4. allocate ALDL/SCI packet pages/frames from the ADX manifest
+5. freeze linker/ORG/vector layout around preserved GM islands
+6. freeze build/version manifest
+7. refactor runtime_abi.inc to the consolidated semantic ABI
+8. build first target-linked engine-off observability image
+9. complete and validate the full spark/EST preserved island
+10. begin engine-running control implementation in frozen module order
+```
+
+No further broad algorithm extraction or architecture redesign is required before step 1 unless V1 scope changes or contradictory ROM/hardware evidence appears.
