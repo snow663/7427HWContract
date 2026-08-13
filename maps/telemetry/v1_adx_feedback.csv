@@ -1,14 +1,20 @@
 semantic_id,group,name,units,source,read_only,notes
 FEEDBACK_CONFIG_MODE,Feedback,Feedback Configured Mode,state,configuration,yes,Open loop NB only WB only or dual
 FEEDBACK_QUALIFIED,Feedback,Feedback Qualified,bool,feedback manager,yes,Common operating qualification state
-NB_VOLTAGE,Feedback,Narrowband Voltage,V,NB input,yes,Measured narrowband signal
+NB_RAW,Feedback,Narrowband ADC Raw,count,ADC acquisition,yes,Direct NB-channel ADC observation
+NB_VDC_UNFILTERED,Feedback,Narrowband Voltage Unfiltered,V,ADC electrical conversion,yes,Converted NB input before signal filtering
+NB_VOLTAGE,Feedback,Narrowband Voltage Filtered,V,signal conditioning,yes,Filtered NB signal used for rich/lean interpretation
 NB_VALID,Feedback,Narrowband Valid,bool,sensor validation,yes,True measured validity
-NB_SIGN,Feedback,Narrowband Rich Lean State,state,feedback manager,yes,Lean positive rich negative neutral frozen
+NB_SIGN,Feedback,Narrowband Rich Lean State,state,feedback manager,yes,Lean positive rich negative neutral/frozen
+NB_SWITCH_ACTIVITY,Feedback,Narrowband Switch Activity,rate,feedback manager,yes,Qualified switching activity diagnostic
 NB_BIAS,Feedback,Narrowband Bias,ratio,feedback manager,yes,Bounded NB integral state
-WB_VOLTAGE,Feedback,Wideband Voltage,V,WB input,yes,Analog controller signal
-WB_LAMBDA,Feedback,Measured Wideband Lambda,lambda,WB transfer,yes,Converted measured lambda
+WB_RAW,Feedback,Wideband ADC Raw,count,ADC acquisition,yes,Direct wideband-controller ADC observation
+WB_VDC_UNFILTERED,Feedback,Wideband Voltage Unfiltered,V,ADC electrical conversion,yes,Converted controller input before filtering
+WB_VOLTAGE,Feedback,Wideband Voltage Filtered,V,signal conditioning,yes,Filtered controller voltage supplied to transfer function
+WB_LAMBDA_UNFILTERED,Feedback,Wideband Lambda Unfiltered,lambda,WB transfer,yes,Converted lambda before optional lambda-domain filtering
+WB_LAMBDA,Feedback,Measured Wideband Lambda,lambda,signal conditioning,yes,Filtered measured lambda used by feedback controller
 WB_VALID,Feedback,Wideband Valid,bool,sensor validation,yes,True measured validity
 WB_ERROR,Feedback,Wideband Lambda Error,ratio,feedback manager,yes,Measured over target minus one
 WB_FACTOR,Feedback,Wideband Correction,ratio,feedback manager,yes,Bounded WB correction
-DUAL_NB_BIAS,Feedback,Dual Mode NB Bias,ratio,feedback manager,yes,Slow stoich centering bias in dual mode
+DUAL_NB_BIAS,Feedback,Dual Mode NB Bias,ratio,feedback manager,yes,Slow stoich-centering bias in dual mode
 FEEDBACK_FACTOR,Feedback,Final Feedback Factor,ratio,feedback manager,yes,Single correction supplied to fuel model
