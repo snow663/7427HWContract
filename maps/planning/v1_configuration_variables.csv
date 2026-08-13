@@ -1,13 +1,32 @@
 semantic_id,tuner_name,class,editable,units,owner,derivation_or_source,notes
-engine.displacement,Engine Displacement,physical_config,yes,L,air_charge,physical engine measurement,Must not be used as a tune correction
-engine.cylinder_count,Cylinder Count,physical_config,yes,count,engine_config,physical engine configuration,Normally fixed for installed engine
-fuel.injector_count,Injector Count,physical_config,yes,count,fuel_delivery,physical injector configuration,Count of installed active injectors
+engine.displacement,Engine Displacement,physical_config,yes,L,physical_configuration,physical engine measurement,Actual swept volume only
+engine.cylinder_count,Cylinder Count,physical_config,yes,count,physical_configuration,physical engine configuration,Editable for alternate engine applications
+rotation.ref_events_per_crank_rev,REF Events per Crank Revolution,physical_config,yes,events/rev,rotation_reference,reference hardware geometry,Independent of cylinder count
+rotation.ref_to_event_tdc_offset,REF to Event TDC Offset,physical_config,yes,crank_deg,rotation_reference,measured reference phase,"Positive means REF occurs before corresponding event TDC"
+rotation.ref_events_per_cycle,REF Events per Engine Cycle,derived,no,events/720deg,rotation_reference,2*ref_events_per_crank_rev,Read-only
+rotation.ref_event_spacing,REF Event Spacing,derived,no,crank_deg,rotation_reference,360/ref_events_per_crank_rev,Read-only
+rotation.combustion_event_spacing,Combustion Event Spacing,derived,no,crank_deg,rotation_reference,720/cylinder_count,Read-only
+rotation.ref_events_per_combustion_event,REF Events per Combustion Event,derived,no,ratio,rotation_reference,ref_events_per_cycle/cylinder_count,V1 production scheduling supports explicitly validated relationships
+fuel.injector_count,Injector Count,physical_config,yes,count,physical_configuration,physical injector configuration,Count of installed active injectors
+fuel.delivery.events_per_engine_cycle,Fuel Delivery Events per Engine Cycle,physical_config,yes,events/720deg,fuel_delivery,configured delivery geometry,Defines mass division only
+fuel.delivery.active_injectors_per_event,Active Injectors per Delivery Event,physical_config,yes,count,fuel_delivery,configured delivery geometry,Defines mass division only
 fuel.injector.design_flow,Injector Design Flow,physical_config,yes,lb/hr_per_injector,fuel_delivery,injector characterized design point,Paired with injector design pressure
 fuel.injector.design_pressure,Injector Design Pressure,physical_config,yes,psi_gauge,fuel_delivery,injector characterized design point,Paired with injector design flow
-fuel.pressure.operating,Operating Fuel Pressure,operating_config,yes,psi_gauge,fuel_delivery,measured/current regulator setting,Primary value changed after fuel-pressure adjustment
+fuel.pressure.operating,Operating Fuel Pressure,operating_config,yes,psi_gauge,fuel_delivery,measured/current regulator setting,Primary value changed after regulator adjustment
 fuel.stoich_afr,Fuel Stoichiometric AFR,physical_config,yes,air_fuel_mass_ratio,fuel_model,configured fuel chemistry,Used with target lambda
 fuel.injector.effective_flow,Effective Injector Flow,derived,no,lb/hr_per_injector,fuel_delivery,"design_flow*sqrt(operating_pressure/design_pressure)",Read-only derived IFR used by runtime
 fuel.injector.effective_flow_internal,Effective Injector Flow Internal,derived,no,mg/ms_per_injector,fuel_delivery,unit conversion from effective injector flow,Implementation/ADX value
 fuel.injector.total_capacity,Total Effective Injector Capacity,derived,no,lb/hr_total,fuel_delivery,effective_flow*injector_count,Convenience/read-only
+sensor.mat.enabled,MAT/IAT Installed,physical_config,yes,bool,sensor_configuration,installed optional sensor,False is not a fault
+sensor.nb.enabled,Narrowband O2 Installed,physical_config,yes,bool,sensor_configuration,installed optional sensor,False is not a fault
+sensor.wb.enabled,Wideband Input Installed,physical_config,yes,bool,sensor_configuration,installed optional analog input,False is not a fault
+sensor.knock.enabled,Knock Sensing Installed,physical_config,yes,bool,sensor_configuration,installed optional sensing path,False is not a fault
+adc.reference_voltage,ADC Reference Voltage,hardware_config,yes,V,adc_electrical_conversion,characterized ADC reference,Used to derive volts from raw counts
+sensor.tps.transfer,TPS Transfer,setup_table,yes,V_to_percent,sensor_transfer,TPS closed/WOT endpoints or generic table,Sensor definition only
+sensor.map.transfer,MAP Transfer,setup_table,yes,V_to_kPa_abs,sensor_transfer,piecewise-linear voltage table,Sensor definition only
+sensor.mat.transfer,MAT Transfer,setup_table,yes,V_to_degC,sensor_transfer,piecewise-linear voltage table,Optional added MAT sensor definition
+sensor.cts.transfer,CTS Transfer,setup_table,yes,V_to_degC,sensor_transfer,piecewise-linear voltage table,Sensor definition only
+sensor.wb.transfer,Wideband Transfer,setup_table,yes,V_to_lambda,sensor_transfer,piecewise-linear controller-output table,Sensor definition only
+sensor.battery.transfer,Battery Transfer,setup_table,yes,inputV_to_vehicleV,sensor_transfer,piecewise-linear or two-point transfer,Hardware definition only
 air.mass_per_cylinder,Air Mass Per Cylinder,derived,no,mg/cylinder_cycle,air_charge,AIR_MASS_CYCLE/cylinder_count,ADX/read-only semantic quantity
 air.pressure_ratio,MAP/BARO Pressure Ratio,derived,no,ratio,air_charge,MAP_KPA_ABS/BARO_KPA_ABS,Used for hybrid SD/Alpha-N authority
