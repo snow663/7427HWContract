@@ -1,0 +1,8 @@
+island,retained_scope,custom_input,stock_boundary,hardware_targets,required_stock_side_effects,physical_detail_required_before_use,status
+fuel_sync,yes,final_16bit_stock_pw_count,L0250_equivalent_final_PW_to_STD_L3FCE,$3FCE,zero_command_semantic_preserved,no,LOCKED
+fuel_async,yes,final_16bit_async_pw_count,L8548_hardware_tail,$3FF2;$3FFC,$3FFC_bit2_clear_then_set_trigger_with_LF3ED_call_delays,no,LOCKED
+iac,yes,desired_iac_position,L91C2-L920D_plus_F40F-F411,$3062,zero_step_direction_reversal;A_B_phase_ring;$E3_shadow_mask;$1C_iac_bits,no,LOCKED
+fuel_pump,yes,boolean_request,FF_or_00_to_L306F,$306F,stock_on_byte_FF;stock_off_byte_00,no,LOCKED
+spark_est,yes,final_signed_stock_format_spark,L01EE/L01F0_to_AB41-ABC8,$3FE8;$3FE6;$3FDC;$3FF6;$3FEC;$3FE4,REF_period_conversion;latency_compensation;rolling_state;dwell_state;LF3ED_delays;opaque_$3FEC_to_$3FE4_sync,no,LOCKED_ABI_CODE_PORT_ACTIVE
+mil,no,boolean_request,deferred,deferred,deferred,no,DEFERRED
+unused_io,no,none,deferred,deferred,deferred,no,DEFERRED
