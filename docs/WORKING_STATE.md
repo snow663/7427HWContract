@@ -1,304 +1,342 @@
 # Working State
 
-This repository is the working directory for the 7427 hardware-contract reverse-engineering project. Do not treat downloadable ZIPs as primary project state. Git history is the version record.
+This repository is the working directory for the 7427 hardware-contract and replacement-OS project. Git history is the version record. Downloadable ZIPs and older File Library documents are supporting evidence, not automatic current authority.
 
-## Current focus
-
-Extract the CPU-to-hardware contract for the GM 16197427 PCM using the `$31` BMHM/HAC disassembly, then build a clean minimal OS/control program that preserves required hardware behavior.
-
-Current technical focus after the hardware-output gate matrix and fuel bench-execution checklist pass:
+## Current primary target
 
 ```text
-hardware output gate matrix: complete as current single-source subsystem gate summary
-stock driver preservation policy: complete as repo-level authority model
-spark stock handoff preservation: accepted static-proof route; no custom direct writer
-fuel stock-output-driver preservation: considered, proof incomplete
-fuel stock-output-driver static proof index: decision = incomplete_continue_3FCE_bench_route
-fuel current active route: compact $3FCE SLICE-0 bench path
-fuel SLICE-0 bench harness/result capture: complete, proof status not_run
-fuel SLICE-0 bench execution checklist: complete as run checklist, no proof status change
-IAC stock-driver preservation: contract defined, proof not complete
-IAC custom direct writer: bench-required
-whole-ROM write target network seed: committed as high-value seed map
-full-ROM write target sweep: builder/doc/test committed; generated CSV has 2215 rows and must be applied from local checkout/artifact if not already present
-FUEL-004: not_run until real dropout/unsafe zero path is invoked under the active compact path
-SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass unless complete stock fuel output-driver preservation is later accepted
+PCM: 16197427
+mask: $31
+BCC/object: BMHM
+target production ROM: BMHM_95_C-G-K_Truck_7_4TBI_4l80.bin
+working executable source: source/31/BMHM_HAC_ORG_7100_to_end.asm
 ```
 
-## Static control-flow / data-flow layer
+The current closeout authority is:
 
-Completed as static analysis scaffolding:
+- `docs/closeout/7427_EXTRACTION_CLOSEOUT.md`
+- `docs/closeout/7427_DIAGNOSTIC_FAILSAFE_CLOSEOUT.md`
+- `docs/closeout/7427_PRODUCTION_CALIBRATION_MANIFEST.md`
+- `docs/closeout/7427_COMPLETION_STATUS.md`
+- `maps/closeout/calibration_bin_audit_status.csv`
+- `tools/audit_calibration_against_bin.py`
 
-- `tools/build_write_target_network_index.py`
-- `docs/contracts/WRITE_TARGET_NETWORK_INDEX.md`
-- `maps/contracts/write_target_network_index.csv`
-- `docs/tests/WRITE_TARGET_NETWORK_INDEX_TEST.md`
-- `tools/build_dispatcher_reverse_map.py`
-- `docs/contracts/DISPATCHER_REVERSE_MAP.md`
-- `maps/contracts/dispatcher_reverse_map.csv`
-- `docs/tests/DISPATCHER_REVERSE_MAP_TEST.md`
-- `tools/build_subsystem_isolation_index.py`
-- `docs/contracts/SUBSYSTEM_ISOLATION_INDEX.md`
-- `maps/contracts/subsystem_isolation_index.csv`
-- `docs/tests/SUBSYSTEM_ISOLATION_INDEX_TEST.md`
-
-Full sweep artifact:
-
-- `tools/build_full_rom_write_target_sweep.py`
-- `docs/analysis/FULL_ROM_WRITE_TARGET_SWEEP.md`
-- `docs/tests/FULL_ROM_WRITE_TARGET_SWEEP_TEST.md`
-- `maps/generated/full_rom_write_target_sweep.csv` — generated locally as 2215 rows; apply/push from normal checkout if not present after connector-side commit limits.
-
-Development rule:
+## Architecture rule
 
 ```text
-whole-ROM write sweep
-→ per-target read/write dossiers
-→ dispatcher reverse map
-→ subsystem isolation
-→ decide what minimal OS must keep
+CALIBRATION
+    ↓
+ALGORITHM / CONTROL LOGIC
+    ↓
+COMMANDS / ARBITRATION
+    ↓
+HAL
+    ↓
+7427 HARDWARE CONTRACT
 ```
 
-Deletion rule:
+Classification:
 
 ```text
-Do not delete a variable because it looks unimportant.
-Delete only after its read/write network proves it does not feed hardware, safety, dispatch, scheduler state, rolling state, or a preserved stock driver.
+mathematical/control relationship = algorithm
+values plugged into it             = calibration
+register/mailbox/port access       = hardware/HAL
+physical voltage/current/polarity  = bench endpoint
 ```
 
-## Hardware output gate matrix
+No control algorithm in the replacement OS may directly touch HC11 peripheral addresses, ASIC addresses, connector pins, or stock RAM mailboxes. Hardware-specific access belongs behind the 7427 HAL.
 
-Completed as the current project-level gate summary:
+## Extraction closeout status
 
-- `tools/build_hardware_output_gate_matrix.py`
-- `docs/contracts/HARDWARE_OUTPUT_GATE_MATRIX.md`
-- `maps/contracts/hardware_output_gate_matrix.csv`
-- `docs/tests/HARDWARE_OUTPUT_GATE_MATRIX_TEST.md`
-
-Current route stack:
+Scoped to semantic production-control extraction only:
 
 ```text
-Spark:
-  stock handoff preservation accepted as the working route
-  custom direct spark writer remains bench-required
-  physical ASIC spark semantics deferred
-
-Fuel:
-  stock output-driver preservation considered
-  decision = incomplete_continue_3FCE_bench_route
-  compact $3FCE SLICE-0 bench path remains active
-  SLICE-1 still blocked by FUEL-001 through FUEL-004
-
-IAC:
-  stock driver preservation contract defined
-  preservation proof not complete
-  custom direct A/B/Enable/park writer remains bench-required
+algorithm extraction           100%  FROZEN
+scheduler/lifecycle            100%  FROZEN
+diagnostics/failsafe           100%  FROZEN
+calibration/tuning              98%  WAITING ONLY FOR RAW TARGET-BIN AUDIT
 ```
 
-Gate rows:
+Do not reduce the first three percentages because hardware bench work remains.
+
+Do not reopen a frozen category merely because more stock code can be traced. Reopen only for contradictory executable/ROM evidence or an explicitly expanded production feature scope.
+
+## What the closeout pass resolved
+
+### Spark
+
+The prior “remaining spark trace” is no longer an algorithm backlog item.
+
+The `$31` source now has a consolidated semantic path covering:
 
 ```text
-fuel_compact_3FCE:
-  active_bench_route
-  FUEL-001 through FUEL-004 still gate SLICE-1
-
-fuel_stock_output_driver:
-  candidate_incomplete
-  cannot supersede compact $3FCE bench path yet
-
-spark_stock_handoff:
-  accepted_static_route
-  clean spark state may feed preserved stock handoff after static completeness proof
-
-spark_custom_writer:
-  blocked_bench_required
-
-iac_stock_driver:
-  contract_defined_not_proven
-  cannot bypass IAC bench proof yet
-
-iac_custom_writer:
-  blocked_bench_required
+base/open/closed-throttle spark
++ coolant/MAT/altitude/WOT/startup/idle corrections
+- configured biases
+- low-octane retard
+- knock/burst-knock contribution where enabled
+- knock-sensor-fail fixed protective retard
+→ final spark intent
+→ distributor/base-setting transform and clamps
+→ degree/time + latency/REF-period conversion
+→ rolling timing state / ASIC handoff boundary
 ```
 
-Non-relaxation clauses:
+Physical `$3Fxx` role/pin/polarity and EST/BYPASS authority remain HAL/bench questions only.
+
+### IAC / idle
+
+The prior “idle/IAC loop breakdown” is no longer an algorithm backlog item.
+
+The `$31` source now has a consolidated semantic path covering:
 
 ```text
-The matrix does not make SLICE-1 legal.
-The matrix does not mark FUEL-001 through FUEL-004 passed.
-The matrix does not accept fuel stock-driver preservation.
-The matrix does not accept IAC stock-driver preservation.
-The matrix does not permit a custom direct spark writer.
-The matrix does not permit a custom direct IAC writer.
-The matrix does not create runtime ASM.
+park/reset/startup state
+desired idle RPM selection
+closed-loop qualification/delay
+RPM error and high/low sign
+integral/base airflow
+± proportional term
+± derivative term
+follower / P-N-drive / A-C / power-steer / DFCO transition terms where used
+altitude correction
+flow-to-step conversion
+desired IAC count
+actual-vs-desired step request
+zero-step direction reversal
+A/B phase-ring progression
+output-shadow merge
 ```
 
-## Stock driver preservation policy
+Physical coil pins, direction/open-close polarity, current, hard stop, and `L3062` connector behavior remain endpoint tests.
 
-Completed:
+### Scheduler / lifecycle
 
-- `tools/build_stock_driver_preservation_policy.py`
-- `docs/contracts/STOCK_DRIVER_PRESERVATION_POLICY.md`
-- `maps/contracts/stock_driver_preservation_policy.csv`
-- `docs/tests/STOCK_DRIVER_PRESERVATION_POLICY_TEST.md`
-
-Repo-level rule:
+Production-relevant lifecycle is frozen:
 
 ```text
-Preserved stock driver:
-  static completeness proof required
-  input/state seeding proof required
-  side effects/order/delay proof required
-  no physical per-register proof required before use
-
-Custom direct writer:
-  bench proof required
+reset/init
+HC11 register relocation
+TOC3 6.25 ms heartbeat
+16-segment / 100 ms complete dispatch pattern
+REF/DRP event ownership and run qualification
+crank/run/stall/dropout state
+major-loop overrun detection
+key-off state clearing
+delayed shutdown using L4009/L027E
+watchdog-safe responsibility
 ```
 
-## Fuel stock-output-driver preservation
+The physical effect of final power-control register writes is HAL/bench work.
 
-Completed as static decision contract:
+### Diagnostics / failsafe
 
-- `tools/build_fuel_stock_output_driver_preservation_contract.py`
-- `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT.md`
-- `maps/contracts/fuel_stock_output_driver_preservation_contract.csv`
-- `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT_TEST.md`
+Replacement-relevant fault behavior is separated from DTC bookkeeping.
 
-Completed as current static decision index:
-
-- `tools/build_fuel_stock_output_driver_static_proof_index.py`
-- `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX.md`
-- `maps/contracts/fuel_stock_output_driver_static_proof_index.csv`
-- `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX_TEST.md`
-
-Current proof-index decision:
+Material behaviors include:
 
 ```text
-fuel_stock_driver_preservation:
-  incomplete_continue_3FCE_bench_route
-
-active_fuel_route:
-  compact $3FCE SLICE-0 bench path
-
-SLICE-1:
-  still blocked under active compact route until FUEL-001 through FUEL-004 pass
+MAP invalid      → TPS/RPM-derived substitute, else calibrated safe default
+TPS invalid      → calibrated default before filtering
+coolant invalid  → calibrated safe-warm default
+MAT/IAT invalid  → calibrated default
+O2 invalid       → no closed-loop feedback/trim update
+knock invalid    → calibrated fixed protective retard
+REF/DRP invalid  → fuel no-pulse + spark safe intent + period invalidation
+battery invalid  → output permission/key-off/IAC motion gating
+NVRAM invalid    → deterministic learned-state/IAC seeds
+cal invalid      → do not enable production actuators
+scheduler fault  → safe-state policy
 ```
 
-Locked interpretation:
+A DTC is not itself a fallback.
+
+## Calibration state and the only remaining extraction blocker
+
+The source calibration extract is structurally complete:
 
 ```text
-Fuel preservation contract exists
-≠ fuel preservation proof is complete
-≠ compact $3FCE bench gate is bypassed
+226 sections
+11,916 labeled records
+11,431 FCB
+485 FDB
+$4000-$70FF
+0 parse errors
+96 retained source/extraction warnings
 ```
 
-Until this proof index is upgraded to `accepted_static_route`, the compact `$3FCE` bench route remains active and FUEL-001 through FUEL-004 still gate SLICE-1.
+The production-control calibration manifest replaces heuristic keyword classification as the ownership authority.
 
-## Spark stock handoff preservation
-
-Completed:
-
-- `tools/build_spark_stock_handoff_preservation_contract.py`
-- `docs/contracts/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT.md`
-- `maps/contracts/spark_stock_handoff_preservation_contract.csv`
-- `docs/tests/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT_TEST.md`
-
-Spark authority policy:
+The source header `$4000-$400F` matches existing raw-ROM-derived BMHM evidence:
 
 ```text
-Clean OS may calculate desired spark.
-Clean OS may feed stock-compatible spark state.
-Preserved stock handoff routine owns all ASIC-facing spark writes.
-Direct custom ASIC spark writes remain forbidden.
+25 17 00 00 00 00 68 8C 31 01 91 04 B7 82 03 10
 ```
 
-No spark implementation exists yet.
+But the exact 64 KiB raw BMHM production BIN is not currently present in the repo/current local files and was not exposed by exact-name File Library/Drive search. Therefore the complete source-vs-BIN byte/word audit cannot honestly be claimed yet.
 
-## IAC stock-driver preservation
-
-Completed as static decision contract:
-
-- `tools/build_iac_stock_driver_preservation_contract.py`
-- `docs/contracts/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT.md`
-- `maps/contracts/iac_stock_driver_preservation_contract.csv`
-- `docs/tests/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT_TEST.md`
-
-Current IAC decision:
+Prepared audit:
 
 ```text
-iac_stock_driver_preservation:
-  contract_defined_preservation_not_proven
-
-custom_iac_writer:
-  bench_required
-
-active_iac_route_if_work_resumes:
-  no custom direct IAC writer without bench proof
-  or complete stock IAC driver preservation proof first
+python tools/audit_calibration_against_bin.py \
+  --extract 31_HAC_calibration_extract_nowrap.html \
+  --bin BMHM_95_C-G-K_Truck_7_4TBI_4l80.bin \
+  --audit maps/closeout/calibration_bin_audit.csv \
+  --overlay maps/closeout/calibration_bin_correction_overlay.csv
 ```
 
-Locked interpretation:
+The audit records value mismatches, source-width problems, FDB address alignment review, and label/address-width review. BIN bytes remain numeric authority.
+
+Until that exact raw-BIN audit is run:
 
 ```text
-IAC preservation contract exists
-≠ IAC preservation proof is complete
-≠ custom A/B/Enable/park bench proof is bypassed
+calibration/tuning = 98%
 ```
 
-Until a later IAC static proof index reaches `accepted_static_route`, custom direct IAC output remains bench-gated.
+No amount of additional disassembly substitutes for the missing numeric authority.
 
-## Fuel SLICE-0 bench path
+## Source-authority cleanup
 
-Completed:
-
-- `source/minimal_os/fuel/slice0_bench_harness.asm`
-- `tools/verify_fuel_slice0_bench_harness.py`
-- `tests/static/fuel_slice0_bench_vectors.csv`
-- `docs/bench/FUEL_SLICE0_BENCH_HARNESS.md`
-- `docs/tests/FUEL_SLICE0_BENCH_HARNESS_TEST.md`
-- `tools/verify_fuel_slice0_bench_results.py`
-- `maps/bench/fuel_slice0_bench_results.csv`
-- `docs/bench/FUEL_SLICE0_BENCH_RESULTS.md`
-- `docs/tests/FUEL_SLICE0_BENCH_RESULTS_TEST.md`
-- `tools/build_fuel_slice0_bench_execution_checklist.py`
-- `docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md`
-- `maps/bench/fuel_slice0_bench_execution_checklist.csv`
-- `docs/tests/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST_TEST.md`
-
-Current fuel bench state:
+Older File Library documents include:
 
 ```text
-SLICE-0 harness: bench-only, fixed vectors only, not engine-runnable
-result capture: present, default proof status not_run
-bench execution checklist: present, no proof status change
-FUEL-001: not_run until bench evidence entered
-FUEL-002: not_run until bench evidence entered
-FUEL-003: not_run; may become partial if only zero-vector path is proven
-FUEL-004: not_run until real dropout/unsafe zero path is invoked
-SLICE-1: blocked under current compact path until FUEL-001 through FUEL-004 pass
+7427_Full_Control_Model.docx                    → explicitly $0E
+16196395_PCM_Architecture_Custom_OS_Developer_Guide.docx → 16196395 / BJKZ / $0E
 ```
 
-Bench distinction:
+They are historical/corroborating architecture material only. They do not override the current `$31` BMHM variant.
+
+The `$31` tuning handbook remains supporting tuning context and correctly reinforces the rule that BIN/mask/file identity must be verified before calibration work.
+
+## Hardware-contract state
+
+Current software-facing hardware-contract completion is tracked separately from physical proof.
 
 ```text
-$0000 vector:
-  proves commanded zero / no-pulse path
-
-dropout/unsafe zero:
-  proves safety gate behavior
-
-These are not the same proof.
+software-facing HW contract     92%
+physical endpoint confirmation   0%
 ```
 
-## Current next valid work
+Static/software-facing evidence is already strong for:
 
-Fuel compact `$3FCE` path:
+- HC11 relocated register ownership;
+- hardware-access/write-target maps;
+- ASIC register inventory;
+- REF period/count software interface;
+- fuel timer/output scheduling;
+- spark conversion/handoff boundary;
+- IAC actual/desired/phase/output-shadow path;
+- SCI/ALDL interface;
+- COP/watchdog service path;
+- boot/init sequencing.
+
+Software-facing work still required for 100%:
 
 ```text
-run python tools/verify_fuel_slice0_bench_harness.py
-run python tools/verify_fuel_slice0_bench_results.py
-use docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md
-bench SLICE-0 fixed vectors
-enter only measured evidence in maps/bench/fuel_slice0_bench_results.csv
-keep FUEL-004 not_run until real dropout/unsafe path is tested
+one normalized HAL endpoint/API inventory for every retained production endpoint
+sensor acquisition/conversion ownership in that inventory
+retained auxiliary-output ownership only for features actually kept
+final semantic treatment of shared ASIC mirror/ACK state that must survive
+safe init/default/permission state for every retained HAL endpoint
 ```
+
+These are software/HAL tasks. They do not require claiming a connector pin or physical polarity.
+
+## Physical bench frontier
+
+Existing physical proof is not counted until measured evidence exists.
+
+`docs/bench/FUEL_SLICE0_BENCH_RESULTS.md` and `maps/bench/fuel_slice0_bench_results.csv` currently remain `not_run`.
+
+Therefore:
+
+```text
+physical endpoint confirmation = 0%
+```
+
+Bench boundaries include:
+
+- exact injector header mapping and downstream polarity/current;
+- exact EST/BYPASS physical pin/authority behavior;
+- ASIC-to-header ignition trace relationships;
+- injector fault-feedback physical path;
+- IAC A/B/enable pin mapping, polarity, current, hard-stop direction;
+- sensor connector/pin voltage/frequency transfer and monotonicity;
+- retained auxiliary output pin behavior.
+
+## Existing stock-driver / bench gates remain valid
+
+The closeout does not relax existing output proof gates.
+
+### Fuel
+
+```text
+stock output-driver preservation: not yet accepted complete
+active route: compact $3FCE SLICE-0 bench path
+FUEL-001..FUEL-004: not_run until measured bench evidence exists
+FUEL-004 specifically requires actual dropout/unsafe zero-path evidence
+SLICE-1 remains blocked under compact route until FUEL-001..FUEL-004 pass
+```
+
+### Spark
+
+```text
+stock handoff preservation: accepted static route
+clean OS may calculate semantic spark
+preserved stock-compatible handoff may own ASIC writes
+custom direct ASIC spark writer remains bench-required
+```
+
+### IAC
+
+```text
+stock driver preservation contract exists
+preservation proof is not complete
+custom direct A/B/enable/park writer remains bench-required
+```
+
+A control algorithm being complete does not authorize its actuator.
+
+## Replacement OS status
+
+```text
+replacement-OS implementation  5%
+complete runnable replacement   0%
+```
+
+Existing skeleton/minimal fuel writer/bench harness count as infrastructure only. They are not an engine-control OS and are not hardware-/production-ready.
+
+No engine-runnable actuator slice should be enabled before the closeout phase gate and endpoint permissions are satisfied.
+
+## Next valid work
+
+Strict order:
+
+```text
+1. Re-expose the exact raw BMHM 64 KiB production BIN.
+2. Run tools/audit_calibration_against_bin.py.
+3. Review/commit calibration_bin_audit.csv and calibration_bin_correction_overlay.csv.
+4. Set calibration/tuning to 100% and FREEZE the fourth extraction category.
+5. Build normalized Stage-1 endpoint SETUP records from existing contracts.
+6. Execute physical input tests stimulus → raw/converted software value.
+7. Execute physical output tests semantic command → HAL/register → pin response.
+8. Implement engine-off safe runtime:
+      reset/boot
+      scheduler
+      sensor acquisition
+      lifecycle
+      diagnostics/validity
+      ALDL/development observability
+      safe command arbitration
+      all production actuator permissions disabled
+9. Bring up one endpoint at a time behind explicit permission gates:
+      sensors
+      IAC
+      spark/EST
+      injectors
+      first controlled start
+      closed loop/learning
+      retained auxiliary outputs
+```
+
+Do not proceed to open-ended disassembly as a substitute for any of these steps.
