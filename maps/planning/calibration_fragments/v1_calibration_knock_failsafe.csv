@@ -1,0 +1,2 @@
+semantic_id,category,label,class,shape,units,owner,exposure,intended_effect,explicit_non_effects
+SPK_KNOCK_FAIL_RETARD,Spark Knock,Knock sensing failure retard,ADVANCED,scalar,deg,knock_manager,XDF,"applies fixed conservative retard when knock sensing is configured but invalid","does not imply knock is actually occurring and does not alter the knock threshold table"
