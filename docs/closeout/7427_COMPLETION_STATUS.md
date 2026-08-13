@@ -1,114 +1,115 @@
 # 7427 Completion Status
 
-## Current primary target
+## Primary target
 
 ```text
 PCM: 16197427
 mask: $31
 BCC/object: BMHM
-raw target BIN: 31/BMHM.BIN from supplied 31.zip
+raw target BIN: 31/BMHM.BIN
 BIN size: 65536 bytes
 SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 ```
 
-Percentages have explicit scope and must not be reduced because a later hardware/bench category remains incomplete.
+## Current status
 
-## Fixed completion table
+| Category | Current | Status |
+|---|---:|---|
+| Algorithm extraction | **100%** | **FROZEN** |
+| Scheduler/lifecycle | **100%** | **FROZEN** |
+| Diagnostics/failsafe | **100%** | **FROZEN** |
+| Calibration/tuning | **100%** | **FROZEN** |
+| V1 software-facing hardware contract | **100%** | **FROZEN FOR FIRST ENGINE-CONTROL SCOPE** |
+| Physical endpoint confirmation | **0%** | **DEFERRED VALIDATION / FUTURE NATIVE-DRIVER WORK** |
+| Replacement-OS implementation | **18%** | **ACTIVE** |
+| Complete runnable replacement | **0%** | **NEXT MAJOR GATE** |
 
-| Category | Current | Scope / completion definition | Status |
-|---|---:|---|---|
-| **algorithm extraction** | **100%** | Semantic production-control relationships for retained fuel, spark/knock, crank/warmup/afterstart, AE/PE/DFCO/closed-loop fuel, and idle/IAC. Physical hardware behavior excluded. | **FROZEN** |
-| **scheduler/lifecycle** | **100%** | Reset/init, heartbeat/dispatch, REF/DRP lifecycle, crank/run/stall/dropout, key-off delayed shutdown, overrun/watchdog responsibilities. | **FROZEN** |
-| **diagnostics/failsafe** | **100%** | Material validation, substitution, inhibit and safe-state behavior that changes production control. OEM DTC packing/reporting excluded unless behavior-changing. | **FROZEN** |
-| **calibration/tuning** | **100%** | Source extraction/ownership plus direct 11,916-record audit against the actual 64 KiB BMHM BIN, reviewed production corrections, width/address/alignment review, BIN-numeric-authority rule. | **FROZEN** |
-| **software-facing HW contract** | **96%** | Normalized Stage-1 endpoint inventory now exists for retained ADC/timing inputs and fuel/pump/IAC/spark/debug/shutdown outputs; HAL API and safe defaults are defined. Remaining 4% is endpoint-specific HAL implementation plus final shared-register/auxiliary semantic pinning without making physical claims. | ACTIVE |
-| **physical endpoint confirmation** | **0%** | Stage-2 result matrix exists, but every physical endpoint remains `NOT_RUN` until measured stimulus/command-to-pin evidence is entered. | BENCH FRONTIER |
-| **replacement-OS implementation** | **12%** | Semantic runtime ABI, actuator-disabled safe init, 6.25 ms scheduler core, REF/dropout/key-off lifecycle entry points, safe arbitration, debug heartbeat, HAL boundary and static safety verifier now exist. No target-linked processor/timer/ADC/SCI HAL or bootable ROM yet. | ACTIVE |
-| **complete runnable replacement** | **0%** | Requires target boot, endpoint gates, controlled actuator enable, first start, closed-loop/learning and shutdown/dropout validation. | NOT STARTED |
+## V1 architecture decision
 
-## Extraction phase gate — PASSED
-
-```text
-algorithm             100  FROZEN
-scheduler/lifecycle   100  FROZEN
-diagnostics/failsafe  100  FROZEN
-calibration/tuning    100  FROZEN
-```
-
-Calibration authority artifacts:
-
-- `docs/closeout/7427_CALIBRATION_BIN_AUDIT_CLOSEOUT.md`
-- `maps/closeout/calibration_bin_production_correction_overlay.csv`
-
-Reviewed production corrections:
+The first replacement uses preserved GM software-to-hardware command behavior instead of requiring complete electrical characterization first:
 
 ```text
-$4146/$4148/$414A: use BMHM FF F5, not HAC FF FE
-second DFCO table labels L4C80/L4C81: correct addresses are $4C90/$4C91
-second L4EDB FCB 60: phantom source record; executable table base is $4EDC
-$50ED: use BMHM D0, not HAC 00
+custom control algorithms
+→ semantic requests
+→ compatibility/arbitration layer
+→ preserved GM command islands
+→ existing 7427 hardware
 ```
 
-No frozen extraction category should be reopened unless new executable/ROM evidence materially contradicts it or retained feature scope is deliberately expanded.
+Authority:
 
-## Endpoint contract phase
+- `docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md`
+- `source/replacement_os/hal/gm_output_islands.asm`
 
-Committed:
-
-- `docs/endpoints/7427_ENDPOINT_SETUP_TEST_CONFIRM.md`
-- `maps/endpoints/7427_endpoint_setup.csv`
-- `maps/endpoints/7427_endpoint_test_confirm.csv`
-
-The Stage-1 setup inventory explicitly separates software proof from electrical/pin proof. Stage-2 begins at zero and can advance only from measured evidence.
-
-Initial actuator policy remains:
+Current command-island state:
 
 ```text
-fuel_permission  = FALSE
-spark_permission = FALSE
-iac_permission   = FALSE
-pump_permission  = FALSE
-aux_permission   = FALSE
+Fuel synchronous     LOCKED ABI + PORTED
+Fuel asynchronous    LOCKED ABI + PORTED
+IAC                   LOCKED ABI + PORTED
+Fuel pump             LOCKED ABI + PORTED
+Spark/EST             LOCKED ABI; complete rolling-state port pending
+MIL                   DEFERRED
+Unused I/O            DEFERRED
 ```
 
-## Replacement OS phase
+The preserved command-island module is not currently called by the engine-off runtime.
 
-Committed:
+## Replacement OS currently implemented
+
+```text
+semantic runtime ABI
+actuator-disabled safe initialization
+6.25 ms semantic scheduler / 16-segment counter
+REF event ingestion and dropout-safe state
+key-off/shutdown semantic states
+calibration-validity gate
+semantic command arbitration
+read-only TPS/MAP/O2/coolant/MAT/battery acquisition paths
+read-only REF-period handoff
+24-byte semantic debug frame builder with checksum
+preserved fuel sync/async, IAC and pump command-island module
+```
+
+Important files:
 
 - `source/replacement_os/include/runtime_abi.inc`
 - `source/replacement_os/core/safe_runtime.asm`
+- `source/replacement_os/core/debug_frame.asm`
 - `source/replacement_os/hal/HAL_API.md`
-- `tools/verify_safe_runtime_boundary.py`
+- `source/replacement_os/hal/adc_read.asm`
+- `source/replacement_os/hal/ref_read.asm`
+- `source/replacement_os/hal/gm_output_islands.asm`
 
-Current core behavior:
+## Next major gate: first target-linked engine-off observability image
 
-```text
-safe initialization
-6.25 ms semantic tick / 16-segment counter
-REF-event ingestion without hardware ownership
-REF dropout-age tracking
-forced dropout state
-key-off and shutdown-ready states
-calibration-validity gate
-semantic fuel/spark/IAC/pump/MIL requests
-single safe arbitration path
-all output command-valid flags inactive unless permission token is present
-debug heartbeat/snapshot sequencing
-```
+This is now the highest-value milestone.
 
-The safe core contains no direct hardware addresses and does not expose a routine that sets an actuator permission token.
-
-## Next implementation order
+Success means:
 
 ```text
-1. implement read-only ADC HAL + engine-off debug transport
-2. bench-confirm BATTERY_IGN and ALDL_DEBUG
-3. bench-confirm TPS/MAP/COOLANT/MAT/O2 inputs
-4. implement frozen validation/substitution layer above HAL
-5. implement REF/DRP read-only/event HAL and bench-confirm period scaling
-6. only then begin permission-gated IAC output work
-7. spark/EST after IAC endpoint proof
-8. injector output after existing FUEL-001..FUEL-004 proof
+custom reset/startup executes on the 7427
+custom 6.25 ms scheduler runs continuously
+watchdog/reset path remains stable
+read-only sensor sampling runs through the clean ABI
+REF/DRP period is visible during cranking
+debug/ALDL transport emits the semantic snapshot frame
+lifecycle, validity, RPM and requested-control state are observable
+all production-output permissions remain disabled
+preserved output-command islands remain uncalled
 ```
 
-A complete algorithm never authorizes an actuator by itself.
+Work required to reach that gate:
+
+```text
+target reset/vector/startup integration
+processor/timer initialization
+real SCI/ALDL debug byte transport
+scheduler integration of ADC sampling
+REF event integration
+validated/substituted semantic sensor layer
+link/ORG/memory layout and ROM build
+static verification that output-command islands remain unreachable
+```
+
+The complete spark/EST island is the next major output module, but it is not required to achieve the engine-off observability gate.
