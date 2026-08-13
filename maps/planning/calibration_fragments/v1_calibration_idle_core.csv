@@ -1,0 +1,11 @@
+semantic_id,category,label,class,shape,units,owner,exposure,intended_effect,explicit_non_effects
+IDLE_TARGET_RPM,Idle,Target idle RPM,PRIMARY_TUNE,1D,CTS_to_rpm,idle_controller,XDF,"sets desired steady idle speed","does not change base IAC position"
+IDLE_BASE_IAC,Idle Air,Base IAC position,PRIMARY_TUNE,1D,CTS_to_counts,idle_controller,XDF,"sets steady feedforward bypass-air position","does not correct fueling"
+IDLE_RPM_DEADBAND,Idle Control,Idle RPM deadband,ADVANCED,scalar,rpm,idle_controller,XDF,"sets RPM-error band treated as zero","does not change target RPM"
+IDLE_IAC_KP,Idle Control,IAC proportional gain,PRIMARY_TUNE,scalar,counts_per_rpm,idle_controller,XDF,"sets immediate airflow correction from RPM error","does not change idle spark gain"
+IDLE_IAC_KI,Idle Control,IAC integral gain,PRIMARY_TUNE,scalar,counts_per_rpm_s,idle_controller,XDF,"sets long-term airflow correction accumulation","does not change base IAC feedforward"
+IDLE_I_MIN,Idle Control,IAC integral minimum,ADVANCED,scalar,counts,idle_controller,XDF,"bounds negative integral correction","does not set physical IAC minimum"
+IDLE_I_MAX,Idle Control,IAC integral maximum,ADVANCED,scalar,counts,idle_controller,XDF,"bounds positive integral correction","does not set physical IAC maximum"
+IDLE_IAC_MIN,Idle Limits,Minimum IAC target,ADVANCED,scalar,counts,idle_controller,XDF,"sets hard lower desired IAC position","does not alter PI gains"
+IDLE_IAC_MAX,Idle Limits,Maximum IAC target,ADVANCED,scalar,counts,idle_controller,XDF,"sets hard upper desired IAC position","does not alter PI gains"
+IDLE_STALL_SAVE_RPM,Idle Recovery,Stall-save RPM,PRIMARY_TUNE,scalar,rpm,idle_controller,XDF,"sets RPM below which emergency idle-air recovery begins","does not define confirmed stall lifecycle"
