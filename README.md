@@ -1,247 +1,270 @@
 # 7427HWContract
 
-Working repository for the GM 16197427 `7427` PCM hardware-contract reverse-engineering project.
+Working repository for the GM 16197427 `7427` PCM hardware-contract reverse-engineering and replacement-OS project.
 
-The repo is the project state. Downloadable ZIPs/CSVs are exports only and should not become the primary working record.
+The repo is the project state. Git history is the version record. Exported ZIPs/CSVs are not the primary working record.
 
 ## Objective
 
-Extract the HC11 CPU-to-hardware/ASIC contract from the stock `$31` BMHM/HAC ROM/disassembly, then use that contract to build a clean minimal engine-control OS:
+Build a clean engine-control OS for the `7427` using the stock `$31` BMHM/HAC executable as the software/hardware authority where appropriate.
+
+V1 engine-control scope includes:
 
 - speed-density TBI fuel
+- bounded Alpha-N air-charge assistance/fallback
 - spark control
 - IAC/idle air control
 - AE / PE / DFCO
 - crank / warmup / afterstart fuel
 - injector low-pulsewidth transfer correction
+- NB/WB oxygen feedback
+- knock handling
 - ALDL/debug visibility
 
-Out of scope unless proven hardware-required:
+Out of V1 scope unless hardware-required:
 
 - automatic transmission strategy
 - TCC strategy
-- EGR behavior
-- EVAP/purge behavior
+- EGR
+- EVAP/purge
+- secondary AIR
+- A/C compressor/idle-up strategy
 - inherited GM mode-word baggage
+
+Unused I/O remains documented/reserved for later expansion.
+
+## Current architecture
+
+```text
+CALIBRATION / XDF
+        ↓
+ENGINEERING-UNIT INPUT + CONTROL SYSTEM
+        ↓
+SEMANTIC REQUESTS / ARBITRATION
+        ↓
+PRESERVED GM COMMAND ISLANDS + HAL
+        ↓
+7427 HARDWARE
+```
+
+The first-running-engine route preserves source-proven GM software-to-hardware command behavior. Complete electrical characterization of every retained output is not a prerequisite when its complete stock command island is preserved.
+
+## Current status
+
+Frozen reverse engineering:
+
+```text
+algorithm extraction             100%
+scheduler/lifecycle extraction   100%
+diagnostics/failsafe extraction  100%
+production calibration audit     100%
+V1 software-facing HW contract   100%
+physical endpoint confirmation     0% intentionally deferred
+```
+
+Frozen V1 semantic planning:
+
+```text
+feature scope                     100%
+control/formula semantics         100%
+physical/setup model              100%
+sensor transfer model             100%
+signal conditioning               100%
+rotation/reference geometry        100% for validated V1 relationship
+module interfaces                 100%
+calibration semantic exposure     100%
+calibration table geometry        100%
+telemetry semantic channels       100%
+degraded-operation policy         100%
+```
+
+Implementation:
+
+```text
+replacement-OS implementation    ~19%
+complete engine-running image      0%
+```
+
+The project has crossed from broad reverse engineering/planning into **ROM implementation**.
+
+## ROM-first implementation rule
+
+The executable image is the placement authority.
+
+We do **not** freeze a complete RAM partition, complete fixed-point matrix, XDF address map, or ADX packet map before the code exists.
+
+```text
+hardware-proven boundaries
+        ↓
+build replacement ROM
+        ↓
+allocate RAM/calibration objects as real modules require them
+        ↓
+verify assembly/binary map
+        ↓
+XDF describes actual calibration layout
+        ↓
+ADX describes actual telemetry packet layout
+```
+
+Frozen semantic units and table geometry remain design authority. Exact storage representation and address become fixed when implementation creates the object.
+
+Implementation-order authority:
+
+- `docs/implementation/ROM_FIRST_BUILD_PATH.md`
+- `docs/WORKING_STATE.md`
+
+## First replacement ROM master
+
+Current master source:
+
+```text
+source/replacement_os/7427_rom.asm
+```
+
+Current stock-proven placement anchors:
+
+```text
+low runtime RAM begins       $0000
+stock stack top              $03FF
+additional stock-used RAM    $0800-$08FF
+HC11 reset register base     $1000
+HC11 relocated register base $3000
+stock calibration/header     $4000+
+first replacement code ORG   $7100
+HC11 vector window           $FFC0-$FFFF
+external reset vector        $FFFE
+```
+
+The first master currently:
+
+- enters through the real external reset vector
+- sets the stock stack top
+- relocates HC11 registers `$1000 -> $3000`
+- applies the source-proven CPU-side reset configuration
+- clears only RAM allocated by the current build
+- initializes semantic state with every actuator permission disabled
+- initializes IAC software state without commanding the IAC output
+- services the COP in a stable engine-off loop
+- sends every unowned interrupt/vector to a COP-serviced safe halt
+- links existing command-island source without calling production-output commit routines
+
+It is not yet an engine-running image.
+
+## Preserved output islands
+
+```text
+fuel synchronous   LOCKED + PORTED
+fuel async / AE    LOCKED + PORTED
+IAC                LOCKED + PORTED
+fuel pump          LOCKED + PORTED
+spark / EST        ABI LOCKED; complete rolling-state port pending
+MIL                deferred
+unused I/O         reserved
+```
+
+Authority:
+
+- `docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md`
+- `source/replacement_os/hal/gm_output_islands.asm`
+
+Current first-image permissions remain:
+
+```text
+fuel  = FALSE
+spark = FALSE
+IAC   = FALSE
+pump  = FALSE
+aux   = FALSE
+```
+
+## ADC evidence correction found during ROM bootstrap
+
+The earlier ADC HAL called `$3008` `HC11_OPTION`.
+
+Stock routine `F275` proves `$3008` is relocated CPU PORTD and that bits 3..5 are used as the external ADC/multiplexer selector. The actual relocated HC11 OPTION register written by stock reset is `$3039`.
+
+`source/replacement_os/hal/adc_read.asm` now uses the corrected PORTD/mux semantics.
 
 ## Current repo index
 
-Core state:
+Primary state/authority:
 
-- `docs/WORKING_STATE.md` — active project state and next target/decision point
-- `docs/contracts/*.md` — current subsystem, policy, and gate contracts
-- `docs/bench/*.md` — bench proof packages, harness notes, run checklists, and result capture docs
-- `docs/tests/*.md` — bench/static test plans
-- `maps/contracts/*.csv` — machine-readable contract/gate summaries
-- `maps/bench/*.csv` — bench proof/checklist/result matrices
-- `maps/full/hardware_access_map_v0.3.csv` — regenerated full static access map from `build_hw_map.py`
-- `maps/current/hardware_access_map_hw_only.csv` — regenerated hardware-only access map from `build_hw_map.py`
-- `tests/static/*.csv` — static vector tables
-- `source/31/BMHM_HAC_ORG_7100_to_end.asm` — source listing used by contract builders
-- `source/minimal_os/fuel/*.asm` — fuel-side source artifacts; only bench-safe/provisional paths where documented
-- `source/minimal_os/spark/README.md` — spark source API/layout boundary, no ASM implementation
-- `source/minimal_os/iac/README.md` — IAC source API/layout boundary, no ASM implementation
-- `tools/*.py` — repo-relative analysis/build/verification tools
+- `docs/WORKING_STATE.md`
+- `docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md`
+- `docs/closeout/7427_COMPLETION_STATUS.md`
+- `docs/implementation/ROM_FIRST_BUILD_PATH.md`
 
-Legacy/static-base artifacts still present:
+Replacement ROM/source:
 
-- `maps/full/hardware_access_map_v0.2.csv` — original full static access map baseline
+- `source/replacement_os/7427_rom.asm`
+- `source/replacement_os/include/target_layout.inc`
+- `source/replacement_os/include/runtime_abi.inc`
+- `source/replacement_os/core/*.asm`
+- `source/replacement_os/hal/*.asm`
+- `source/replacement_os/hal/*.inc`
 
-## Current hardware-output gate matrix
+Frozen planning data:
 
-- `tools/build_hardware_output_gate_matrix.py`
-- `docs/contracts/HARDWARE_OUTPUT_GATE_MATRIX.md`
-- `maps/contracts/hardware_output_gate_matrix.csv`
-- `docs/tests/HARDWARE_OUTPUT_GATE_MATRIX_TEST.md`
+- `maps/planning/v1_configuration_variables.csv`
+- `maps/planning/v1_module_interface_matrix.csv`
+- `maps/planning/v1_calibration_manifest.csv`
+- `maps/planning/v1_table_geometry.csv`
+- `maps/planning/v1_degraded_operation_policy.csv`
+- `maps/telemetry/v1_adx_manifest.csv`
 
-Single-source subsystem gate summary:
+Stock evidence/source:
+
+- `source/31/BMHM_HAC_ORG_7100_to_end.asm`
+- `docs/contracts/*.md`
+- `maps/contracts/*.csv`
+- `maps/full/hardware_access_map_v0.3.csv`
+- `maps/current/hardware_access_map_hw_only.csv`
+
+Historical/bench evidence remains under:
+
+- `docs/bench/`
+- `maps/bench/`
+- `docs/tests/`
+- `tests/static/`
+- `source/minimal_os/`
+
+Those artifacts remain useful evidence but no longer define the project frontier when they conflict with the current working-state/implementation authorities.
+
+## Verification
+
+ROM bootstrap structural checks:
 
 ```text
-Spark:
-  stock handoff preservation accepted as the working route
-  custom direct spark writer remains bench-required
-  physical ASIC spark semantics deferred
-
-Fuel:
-  stock output-driver preservation considered
-  decision = incomplete_continue_3FCE_bench_route
-  compact $3FCE SLICE-0 bench path remains active
-  SLICE-1 still blocked by FUEL-001 through FUEL-004
-
-IAC:
-  stock driver preservation contract defined
-  preservation proof not complete
-  custom direct A/B/Enable/park writer remains bench-required
+python tools/verify_rom_bootstrap.py
 ```
 
-Gate-row decisions:
+The verifier currently enforces:
+
+- low-RAM allocation remains below the stock stack
+- exactly 32 vector entries cover `$FFC0-$FFFE`
+- external reset points to `RESET_ENTRY`
+- the first ROM master contains no production-output commit calls
+- ADC mux semantics identify `$3008` as PORTD
+- reset-time OPTION uses the source-proven `$39` offset (`$3039` after relocation)
+
+An HC11 assembler/toolchain and binary/map verification are the next build-layer addition.
+
+## Next work order
 
 ```text
-fuel_compact_3FCE: active_bench_route
-fuel_stock_output_driver: candidate_incomplete
-spark_stock_handoff: accepted_static_route
-spark_custom_writer: blocked_bench_required
-iac_stock_driver: contract_defined_not_proven
-iac_custom_writer: blocked_bench_required
-```
-
-Non-relaxation clauses:
-
-```text
-The matrix does not make SLICE-1 legal.
-The matrix does not mark FUEL-001 through FUEL-004 passed.
-The matrix does not accept fuel stock-driver preservation.
-The matrix does not accept IAC stock-driver preservation.
-The matrix does not permit a custom direct spark writer.
-The matrix does not permit a custom direct IAC writer.
-The matrix does not create runtime ASM.
-```
-
-## Current policy stack
-
-### Stock driver preservation policy
-
-- `tools/build_stock_driver_preservation_policy.py`
-- `docs/contracts/STOCK_DRIVER_PRESERVATION_POLICY.md`
-- `maps/contracts/stock_driver_preservation_policy.csv`
-- `docs/tests/STOCK_DRIVER_PRESERVATION_POLICY_TEST.md`
-
-Repo-level rule:
-
-```text
-Preserved stock driver:
-  static completeness proof required
-  input/state seeding proof required
-  side effects/order/delay proof required
-  no physical per-register proof required before use
-
-Custom direct writer:
-  bench proof required
-```
-
-### Fuel stock-output-driver preservation contract
-
-- `tools/build_fuel_stock_output_driver_preservation_contract.py`
-- `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT.md`
-- `maps/contracts/fuel_stock_output_driver_preservation_contract.csv`
-- `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT_TEST.md`
-
-This is a static decision-seam contract only. It does not implement fuel ASM and does not create a fuel writer.
-
-### Fuel stock-output-driver static proof index
-
-- `tools/build_fuel_stock_output_driver_static_proof_index.py`
-- `docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX.md`
-- `maps/contracts/fuel_stock_output_driver_static_proof_index.csv`
-- `docs/tests/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX_TEST.md`
-
-Current fuel decision:
-
-```text
-fuel stock-driver preservation contract: defined
-fuel stock-driver preservation proof index: complete as current decision index
-fuel stock-driver preservation decision: incomplete_continue_3FCE_bench_route
-active fuel route: compact $3FCE SLICE-0 bench path
-FUEL-001 through FUEL-004: still gate SLICE-1 under active compact route
-```
-
-Current locked distinction:
-
-```text
-Fuel preservation contract exists
-≠ fuel preservation proof is complete
-≠ compact $3FCE bench gate is bypassed
-```
-
-### Spark stock handoff preservation contract
-
-- `tools/build_spark_stock_handoff_preservation_contract.py`
-- `docs/contracts/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT.md`
-- `maps/contracts/spark_stock_handoff_preservation_contract.csv`
-- `docs/tests/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT_TEST.md`
-
-This is a static seam contract only. It does not implement spark ASM and does not create a spark writer.
-
-### IAC stock-driver preservation contract
-
-- `tools/build_iac_stock_driver_preservation_contract.py`
-- `docs/contracts/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT.md`
-- `maps/contracts/iac_stock_driver_preservation_contract.csv`
-- `docs/tests/IAC_STOCK_DRIVER_PRESERVATION_CONTRACT_TEST.md`
-
-This is a static decision-seam contract only. It does not implement IAC ASM and does not create a direct IAC writer.
-
-## Fuel SLICE-0 bench path
-
-- `source/minimal_os/fuel/slice0_bench_harness.asm`
-- `tools/verify_fuel_slice0_bench_harness.py`
-- `tests/static/fuel_slice0_bench_vectors.csv`
-- `docs/bench/FUEL_SLICE0_BENCH_HARNESS.md`
-- `docs/tests/FUEL_SLICE0_BENCH_HARNESS_TEST.md`
-- `tools/verify_fuel_slice0_bench_results.py`
-- `maps/bench/fuel_slice0_bench_results.csv`
-- `docs/bench/FUEL_SLICE0_BENCH_RESULTS.md`
-- `docs/tests/FUEL_SLICE0_BENCH_RESULTS_TEST.md`
-- `tools/build_fuel_slice0_bench_execution_checklist.py`
-- `docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md`
-- `maps/bench/fuel_slice0_bench_execution_checklist.csv`
-- `docs/tests/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST_TEST.md`
-
-Current fuel bench state:
-
-```text
-SLICE-0 harness: bench-only, fixed vectors only, not engine-runnable
-result capture: present, default proof status not_run
-bench execution checklist: present, no proof status change
-FUEL-001/FUEL-002/FUEL-003: waiting on bench evidence
-FUEL-004: not_run until real dropout/unsafe zero path is invoked
-SLICE-1: blocked under active compact route until FUEL-001 through FUEL-004 pass
-```
-
-## Current next target
-
-Fuel compact `$3FCE` path remains bench-data capture, not code expansion:
-
-```text
-run python tools/verify_fuel_slice0_bench_harness.py
-run python tools/verify_fuel_slice0_bench_results.py
-use docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md
-bench SLICE-0 fixed vectors
-record measured values in maps/bench/fuel_slice0_bench_results.csv
-keep FUEL-004 not_run until real dropout/unsafe path is tested
-```
-
-Fuel stock-driver preservation path, if chosen, continues from the static proof index:
-
-```text
-complete stock fuel scheduler/output-driver range
-all required BPW/fuel-mode/timer/dropout/no-fuel inputs
-all hardware writes and side effects
-order/delay/interrupt assumptions
-reset/first-event/dropout safety
-no alternate custom direct writer
-accepted_static_route vs rejected_3FCE_bench_route_required
-```
-
-Spark side, when resumed, should be static extraction/pinning of the complete preserved stock handoff routine range and dependencies, not a custom writer.
-
-IAC side, when resumed, must either bench-prove a custom A/B/Enable/park writer or complete stock IAC hardware-driver preservation proof first.
-
-## Current hard boundaries
-
-```text
-No SLICE-1 engine-runnable fuel-only skeleton under the compact $3FCE path until FUEL-001 through FUEL-004 pass.
-No compact direct $3FCE writer promoted to engine-runnable without FUEL-001 through FUEL-004 proof unless complete stock fuel output-driver preservation supersedes that path.
-No fuel stock-driver preservation accepted while its decision remains incomplete_continue_3FCE_bench_route.
-No partial stock fuel output driver treated as complete.
-No custom direct spark ASIC writer without bench proof.
-No simplified raw-angle spark writer.
-No IAC direct L3062/L3060/L3FFC writer without bench proof or complete stock-driver preservation.
-No ALDL packet implementation as a side effect of policy contracts.
-No runtime ASM from planning/policy/static-proof contracts.
-No physical register meaning claims without trace or bench evidence, except explicitly deferred semantics for complete preserved stock drivers.
+1. assemble/verify source/replacement_os/7427_rom.asm and inspect its binary/map
+2. enforce actual ROM/RAM/vector collision checks from assembler output
+3. bring up read-only ADC acquisition
+4. bring up read-only REF acquisition and configurable cranking RPM visibility
+5. add the base scheduler timer interrupt
+6. add SCI/ALDL engine-off debug transport
+7. add calibration header/integrity and real calibration objects as algorithms require them
+8. complete the full spark/EST preserved island
+9. implement engine-running modules in frozen interface order
+10. generate/maintain XDF and ADX definitions from the actual built layouts
 ```
 
 ## Working rule
 
-Use stable filenames for current work. Let Git history preserve versions. Avoid creating parallel `almost same` copies unless there is a real branch/release reason.
+Use stable filenames for current work. Let Git history preserve versions. Avoid parallel `almost same` copies unless there is a real branch/release reason.
