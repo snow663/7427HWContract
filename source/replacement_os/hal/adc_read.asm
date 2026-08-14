@@ -7,13 +7,16 @@
 ;   C56F battery read
 ;   DBFB MAT read
 ;
-; This file performs ADC control/result access only.
+; This file performs ADC/multiplexer control and ADC result access only.
 ; It MUST NOT write injector, spark, IAC, pump, or auxiliary output registers.
 ;
-; Requires semantic RAM definitions from runtime_abi.inc.
+; Requires semantic RAM definitions from runtime_abi.inc and HAL-private RAM
+; from hal_ram.inc.
 
 ; Relocated HC11 register addresses proven by stock INIT policy.
-HC11_OPTION             EQU     $3008
+; IMPORTANT: $3008 is CPU PORTD, not the HC11 OPTION register. Stock F275
+; uses PORTD bits 3..5 as the external ADC/multiplexer selector.
+HC11_PORTD              EQU     $3008
 HC11_ADCTL              EQU     $3030
 HC11_ADR1               EQU     $3031
 HC11_ADR2               EQU     $3032
@@ -21,28 +24,29 @@ HC11_ADR3               EQU     $3033
 HC11_ADR4               EQU     $3034
 
 ADC_COMPLETE            EQU     $80
-ADC_DELAY_MASK          EQU     $38
-
-; HAL diagnostic state only; placement handled with other HAL RAM.
-HAL_ADC_TIMEOUT:        RMB     1
+ADC_MUX_MASK            EQU     $38
 
 ; --------------------------------------------------
-; HAL_ADC_SET_DELAY
+; HAL_ADC_SET_MUX_SELECT
 ; --------------------------------------------------
-; A = stock delay selector before <<3.
-; Preserves the source-proven $3008 bits3..5 update from F275.
+; A = stock selector value before <<3.
+; Preserves the source-proven F275 behavior:
+;   clear PORTD bits3..5
+;   OR in (A << 3) & $38
 ;
-HAL_ADC_SET_DELAY:
+; This is an external ADC/mux selection operation, not an HC11 OPTION write.
+;
+HAL_ADC_SET_MUX_SELECT:
         PSHB
         TAB
-        LDAA    HC11_OPTION
+        LDAA    HC11_PORTD
         ANDA    #$C7              ; clear bits3..5
         ASLB
         ASLB
         ASLB
-        ANDB    #ADC_DELAY_MASK
+        ANDB    #ADC_MUX_MASK
         ABA
-        STAA    HC11_OPTION
+        STAA    HC11_PORTD
         PULB
         RTS
 
@@ -92,14 +96,15 @@ HAL_PRIMARY_DONE:
 ; --------------------------------------------------
 ; HAL_SAMPLE_COOLANT_BATTERY
 ; --------------------------------------------------
-; Mirrors stock F22E group setup sufficiently for the two retained values:
+; Mirrors stock F22E group selection sufficiently for the retained values:
+;   selector 1
 ;   ADR3 -> coolant raw
 ;   ADR4 -> battery raw
 ; ADR2 is intentionally ignored by the minimal engine-control runtime.
 ;
 HAL_SAMPLE_COOLANT_BATTERY:
         LDAA    #$01
-        JSR     HAL_ADC_SET_DELAY
+        JSR     HAL_ADC_SET_MUX_SELECT
         LDAA    #$11
         JSR     HAL_ADC_START_WAIT
         LDAA    HAL_ADC_TIMEOUT
@@ -116,14 +121,14 @@ HAL_COOL_BATT_DONE:
 ; HAL_SAMPLE_MAT
 ; --------------------------------------------------
 ; Stock DBFB path:
-;   delay selector 4
+;   mux selector 4
 ;   ADCTL mode 1
 ;   read ADR4
 ;   invert value before semantic storage
 ;
 HAL_SAMPLE_MAT:
         LDAA    #$04
-        JSR     HAL_ADC_SET_DELAY
+        JSR     HAL_ADC_SET_MUX_SELECT
         LDAA    #$01
         JSR     HAL_ADC_START_WAIT
         LDAA    HAL_ADC_TIMEOUT
@@ -143,7 +148,7 @@ HAL_MAT_DONE:
 ;
 HAL_SAMPLE_BATTERY_STOCK_MODE:
         LDAA    #$02
-        JSR     HAL_ADC_SET_DELAY
+        JSR     HAL_ADC_SET_MUX_SELECT
         LDAA    #$01
         JSR     HAL_ADC_START_WAIT
         LDAA    HAL_ADC_TIMEOUT
