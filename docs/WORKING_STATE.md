@@ -12,14 +12,21 @@ raw target BIN: 31/BMHM.BIN
 BIN size: 65536 bytes
 SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 working executable source: source/31/BMHM_HAC_ORG_7100_to_end.asm
+replacement ROM master: source/replacement_os/7427_rom.asm
 ```
 
 ## Current authority
 
-Detailed consolidated audit:
+Detailed consolidated semantic/planning audit:
 
 ```text
 docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md
+```
+
+Current implementation-order authority:
+
+```text
+docs/implementation/ROM_FIRST_BUILD_PATH.md
 ```
 
 Status summary:
@@ -28,7 +35,7 @@ Status summary:
 docs/closeout/7427_COMPLETION_STATUS.md
 ```
 
-Machine-readable planning authorities:
+Machine-readable semantic/planning authorities:
 
 ```text
 maps/planning/v1_configuration_variables.csv
@@ -82,15 +89,39 @@ calibration/XDF semantic exposure  100%
 calibration table geometry         100%
 ADX semantic channel definition    100%
 degraded-operation policy          100%
-
-ROM/RAM address layout               0%
-binary fixed-point/storage layout    0%
-actual XDF generation                0%
-actual ADX packet/file generation    0%
-build/version manifest               0%
 ```
 
-The broad semantic/planning gate is closed. The current task frontier is binary representation and memory architecture.
+The broad semantic/planning gate is closed.
+
+Binary storage widths, exact RAM addresses, exact calibration addresses, XDF addresses, and ADX packet addresses are **implementation outputs**, not a new broad planning gate. They are fixed when the ROM implementation actually creates the corresponding object.
+
+## ROM-first implementation policy
+
+The executable image is now the placement authority.
+
+```text
+hardware-proven boundaries
+    -> build/link replacement ROM
+    -> allocate RAM/calibration objects as modules need them
+    -> verify actual assembly/binary map
+    -> define XDF from actual calibration layout
+    -> define ADX from actual telemetry packet layout
+```
+
+Do not freeze a complete global RAM partition or complete fixed-point matrix ahead of the executable.
+
+Current stock-proven placement anchors used by the first ROM master:
+
+```text
+stack top                    $03FF
+additional stock-used RAM    $0800-$08FF
+HC11 reset register base     $1000
+HC11 relocated register base $3000
+stock calibration/header     $4000+
+first replacement code ORG   $7100
+vector window                $FFC0-$FFFF
+external reset vector        $FFFE
+```
 
 ## Key frozen V1 setup decisions
 
@@ -124,17 +155,21 @@ Derived values are read-only.
 ## Current implementation status
 
 ```text
-replacement-OS implementation   ~18%
-complete runnable replacement     0%
+replacement-OS implementation   ~19%
+complete engine-running image     0%
 ```
 
-The source tree is still the earlier engine-off scaffold and intentionally trails the now-frozen semantic plan.
+The source tree now contains a target ROM master in addition to the earlier engine-off scaffold. The new master has not yet been assembler/binary-map verified.
 
-Current implementation components:
+Current implementation components include:
 
+- `source/replacement_os/7427_rom.asm`
+- `source/replacement_os/include/target_layout.inc`
 - `source/replacement_os/include/runtime_abi.inc`
 - `source/replacement_os/core/safe_runtime.asm`
 - `source/replacement_os/core/debug_frame.asm`
+- `source/replacement_os/hal/init_safe.asm`
+- `source/replacement_os/hal/hal_ram.inc`
 - `source/replacement_os/hal/HAL_API.md`
 - `source/replacement_os/hal/adc_read.asm`
 - `source/replacement_os/hal/ref_read.asm`
@@ -143,8 +178,14 @@ Current implementation components:
 Implemented scaffold pieces:
 
 ```text
+real target ROM master / ORG structure
+real HC11 vector table with reset entry and safe traps
+stock-proven $1000->$3000 HC11 register relocation
+stock-proven CPU-side startup register values
+incremental low-RAM allocation model
+COP-serviced stable engine-off idle loop
 safe initialization
-6.25 ms scheduler / 16-segment counter
+6.25 ms semantic scheduler / 16-segment counter
 basic REF-event/dropout scaffold
 key-off/shutdown safe state
 calibration-validity gate
@@ -157,6 +198,8 @@ preserved sync/async fuel, IAC and pump command modules
 Not yet implemented from the consolidated plan:
 
 ```text
+assembler/toolchain verification of 7427_rom.asm
+binary/map generation and collision checks
 new lifecycle enum/state semantics
 ADC-count -> VDC -> engineering transfer pipeline
 sensor-specific filtering and validation/substitution
@@ -166,7 +209,7 @@ mass-based fuel model and injector model
 spark/idle/knock control algorithms
 SCI/ALDL transport
 final telemetry packet/page layout
-ROM/RAM/linker/ORG/vector layout
+calibration objects/addresses for implemented algorithms
 full spark/EST preserved island
 ```
 
@@ -189,7 +232,7 @@ MIL                deferred
 unused I/O         reserved
 ```
 
-The current safe runtime does not call these output modules.
+The first ROM master links these modules but does not call any production output island.
 
 ## Current output policy
 
@@ -203,19 +246,25 @@ aux permission   = FALSE
 
 That remains mandatory for the first target-linked image.
 
+## Evidence correction during ROM bootstrap
+
+The earlier ADC HAL called `$3008` `HC11_OPTION`. Stock `F275` proves `$3008` is relocated CPU PORTD and bits 3..5 are used as the external ADC/mux selector. The actual relocated HC11 OPTION register written during reset is `$3039`.
+
+`source/replacement_os/hal/adc_read.asm` now uses the corrected PORTD/mux semantics.
+
 ## Next work order
 
 ```text
-1. fixed-point/storage encoding matrix
-2. ROM calibration allocation from frozen table geometry
-3. RAM runtime-state and telemetry-snapshot allocation
-4. ALDL/SCI packet-page allocation
-5. linker/ORG/vector layout around preserved islands
-6. build/version manifest
-7. refactor runtime_abi.inc to the consolidated semantic ABI
-8. first target-linked engine-off observability image
-9. full spark/EST preserved island
-10. engine-running modules in frozen interface order
+1. assemble/verify source/replacement_os/7427_rom.asm and inspect its map
+2. add a build/map verifier that enforces RAM<stack and exact vector placement
+3. bring up read-only ADC acquisition in the ROM loop/scheduler
+4. bring up read-only REF acquisition and configurable cranking RPM visibility
+5. add the base scheduler timer interrupt
+6. add SCI/ALDL engine-off debug transport
+7. add calibration header/integrity data and then real calibration objects as algorithms need them
+8. complete the full spark/EST preserved island
+9. implement engine-running modules in frozen interface order
+10. generate/maintain XDF and ADX definitions from the actual built layouts
 ```
 
-The first target-linked image must still keep every production-output permission false while proving reset/startup, scheduler, engineering sensor acquisition, configurable REF/RPM visibility during cranking, lifecycle/validity state, telemetry transport, and calibration integrity.
+The first target-linked image must keep every production-output permission false while reset/startup, execution stability, input acquisition, REF/RPM visibility, scheduler timing, telemetry transport, and calibration integrity are proven.
