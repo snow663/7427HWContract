@@ -9,17 +9,30 @@ BCC/object: BMHM
 raw target BIN: 31/BMHM.BIN
 BIN size: 65536 bytes
 SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
+replacement ROM master: source/replacement_os/7427_rom.asm
 ```
 
-## Canonical audit authority
+## Canonical authorities
 
-Current detailed status and authority map:
+Semantic/planning audit:
 
 ```text
 docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md
 ```
 
-Use that audit when this summary and an older planning artifact appear to disagree.
+Current implementation order:
+
+```text
+docs/implementation/ROM_FIRST_BUILD_PATH.md
+```
+
+Current working state:
+
+```text
+docs/WORKING_STATE.md
+```
+
+The consolidation audit remains authoritative for frozen V1 semantics. The ROM-first implementation document supersedes its older suggested pre-assembly ordering where that ordering attempted to freeze every binary/RAM address before an executable existed.
 
 ## Frozen reverse-engineering / hardware-contract state
 
@@ -51,7 +64,7 @@ A/C idle-up / load compensation
 
 Unused I/O remains reserved/documented for future expansion.
 
-## Replacement-OS planning status
+## Replacement-OS semantic planning status
 
 ```text
 V1 feature scope                   100%
@@ -65,14 +78,11 @@ calibration/XDF semantic exposure  100%
 calibration table geometry         100%
 ADX semantic channel definition    100%
 degraded-operation policy          100%
-ROM/RAM address layout               0%
-binary fixed-point/storage layout    0%
-actual XDF generation                0%
-actual ADX packet/file generation    0%
-build/version manifest               0%
 ```
 
-The semantic/control planning gate is now closed. The remaining pre-assembly gate is binary/memory/build architecture.
+The semantic/control planning gate is closed.
+
+Exact binary storage widths, RAM addresses, calibration addresses, XDF addresses, and ADX packet offsets are now treated as implementation outputs. They become fixed when the ROM implementation actually creates the corresponding object.
 
 ## Current planning authorities
 
@@ -100,25 +110,14 @@ maps/planning/v1_module_interface_matrix.csv
 maps/planning/v1_calibration_manifest.csv
 maps/planning/v1_table_geometry.csv
 maps/planning/v1_degraded_operation_policy.csv
+maps/telemetry/v1_adx_manifest.csv
 ```
-
-There is no longer a separate `v1_module_interface_matrix_v2.csv`; the canonical interface matrix has been consolidated back to `v1_module_interface_matrix.csv`.
 
 All current calibration exposure fragments live under:
 
 ```text
 maps/planning/calibration_fragments/
 ```
-
-### Telemetry
-
-Canonical manifest:
-
-```text
-maps/telemetry/v1_adx_manifest.csv
-```
-
-It includes core sensor/REF/air-charge telemetry, fuel, feedback, spark, idle, injector characterization, fuel-delivery geometry/duration, and BARO policy.
 
 ## Frozen design highlights
 
@@ -130,7 +129,7 @@ Hybrid speed-density / Alpha-N produces one downstream quantity:
 AIR_MASS_CYCLE
 ```
 
-Speed density is primary at steady state; Alpha-N supplies bounded high-load and transient prediction authority.
+Speed density is primary at steady state; Alpha-N supplies bounded high-load/transient prediction authority and the defined MAP-failure fallback route.
 
 ### Injector physical model
 
@@ -140,9 +139,7 @@ EFFECTIVE_INJECTOR_FLOW =
     * sqrt(OPERATING_FUEL_PRESSURE / INJECTOR_DESIGN_PRESSURE)
 ```
 
-Design flow/design pressure describe the injector. Operating pressure describes the regulator setting. Effective IFR is derived/read-only.
-
-Fuel delivery geometry is separately configured by injector count, delivery events per 720-degree cycle, and active injectors per event.
+Fuel-delivery geometry is separately configured by injector count, delivery events per 720-degree cycle, and active injectors per event.
 
 ### Sensors
 
@@ -173,13 +170,7 @@ REF_EVENTS_PER_CRANK_REV
 REF_TO_EVENT_TDC_OFFSET_DEG
 ```
 
-For an 8-cylinder / 4-REF-events-per-crank-revolution setup, the derived REF and combustion spacing are both 90 crank degrees and the relationship is one REF event per combustion event.
-
-REF offset aligns the software crank coordinate to true event TDC; it does not mechanically change rotor-to-cap phasing.
-
-### Filtering
-
-ADC/digital filtering is explicit and sensor-specific. TPS/MAP remain fast; CTS/MAT are slower; NB/WB preserve feedback dynamics. REF edges are timestamped directly and only screened for physically impossible/implausible events rather than delayed by generic debounce.
+For the intended V8 / 4-REF-events-per-crank-revolution case, REF spacing and combustion spacing are both 90 crank degrees and the relationship is one REF event per combustion event.
 
 ### Spark/load
 
@@ -189,7 +180,7 @@ V1 main spark and knock-threshold load axis is:
 RPM x MAP kPa absolute
 ```
 
-PE target lambda uses RPM x MAP/BARO pressure ratio. The optional extra PE spark-correction surface is not part of frozen V1.
+PE target lambda uses RPM x MAP/BARO pressure ratio.
 
 ### Learning
 
@@ -199,7 +190,7 @@ Long-term adaptive fuel learning is not part of V1:
 LEARN_FACTOR = 1.000
 ```
 
-NB/WB runtime feedback remains supported.
+Runtime NB/WB feedback remains supported.
 
 ## Preserved command-island state
 
@@ -213,48 +204,71 @@ MIL                   DEFERRED
 Unused I/O            RESERVED FOR FUTURE USE
 ```
 
-The current safe runtime does not call the preserved output-island module.
+The first replacement-ROM master links these sources but does not call production output commits.
 
 ## Replacement-OS implementation status
 
 ```text
-replacement-OS implementation   ~18%
-complete runnable replacement     0%
+replacement-OS implementation   ~19%
+complete engine-running image     0%
 ```
 
-Current source is an engine-off scaffold, not an implementation of the newly frozen semantic model.
+The implementation now contains a real target ROM master and vector layout in addition to the earlier engine-off semantic scaffold.
 
-Known implementation gaps include:
+Current ROM-bootstrap components include:
 
 ```text
-runtime ABI still uses earlier byte/count placeholders and old lifecycle enum names
-engineering-unit sensor pipeline not implemented
-signal-conditioning/validation/substitution modules not implemented
-configurable REF geometry/RPM scaling not implemented
-hybrid SD/Alpha-N air-charge manager not implemented
-mass-based fuel algorithm not implemented
-spark/idle control algorithms not implemented
-SCI/ALDL transport not implemented
-final ADX packet/page layout not allocated
-ROM/RAM/linker/ORG/vector layout not frozen
-full spark/EST preserved island not ported
+source/replacement_os/7427_rom.asm
+source/replacement_os/include/target_layout.inc
+source/replacement_os/include/runtime_abi.inc
+source/replacement_os/hal/init_safe.asm
+source/replacement_os/hal/hal_ram.inc
+source/replacement_os/core/safe_runtime.asm
+source/replacement_os/core/debug_frame.asm
+source/replacement_os/hal/adc_read.asm
+source/replacement_os/hal/ref_read.asm
+source/replacement_os/hal/gm_output_islands.asm
 ```
+
+The first master currently provides:
+
+```text
+real external-reset vector
+stock stack top $03FF
+stock-proven HC11 register relocation $1000 -> $3000
+stock-proven CPU-side reset register values
+sequential low-RAM allocation
+clear-only-allocated-RAM startup
+all actuator permissions false
+COP-serviced stable engine-off loop
+safe trap for every unowned vector
+```
+
+It has not yet been verified with the final HC11 assembler/toolchain or inspected as a generated binary/map.
+
+## Evidence correction found during bootstrap
+
+The earlier ADC HAL mislabeled `$3008` as `HC11_OPTION`.
+
+Stock BMHM `F275` proves `$3008` is relocated CPU PORTD and bits 3..5 are used as the external ADC/multiplexer selector. The actual relocated HC11 OPTION register used during reset is `$3039`.
+
+That correction is now reflected in `source/replacement_os/hal/adc_read.asm`.
 
 ## Correct next gate
 
-Proceed in this order:
+Proceed from the ROM outward:
 
 ```text
-1. choose binary fixed-point/storage encodings for every frozen semantic type
-2. allocate ROM calibration blocks using frozen table geometry
-3. allocate RAM runtime state and telemetry snapshot regions
-4. allocate ALDL/SCI packet pages/frames from the ADX manifest
-5. freeze linker/ORG/vector layout around preserved GM islands
-6. freeze build/version manifest
-7. refactor runtime_abi.inc to the consolidated semantic ABI
-8. build first target-linked engine-off observability image
-9. complete and validate the full spark/EST preserved island
-10. begin engine-running control implementation in frozen module order
+1. select/verify the HC11 assembler toolchain and assemble source/replacement_os/7427_rom.asm
+2. inspect the actual binary/map and enforce RAM/ROM/vector collision checks
+3. bring up read-only ADC acquisition
+4. bring up read-only REF acquisition and configurable cranking RPM visibility
+5. add the base scheduler timer interrupt
+6. add SCI/ALDL engine-off debug transport
+7. add calibration header/integrity and calibration objects as implemented algorithms require them
+8. complete and validate the full spark/EST preserved island
+9. implement engine-running control modules in frozen interface order
+10. generate/maintain XDF and ADX definitions from the actual built layouts
 ```
 
-No further broad algorithm extraction or architecture redesign is required before step 1 unless V1 scope changes or contradictory ROM/hardware evidence appears.
+No further broad algorithm extraction or architecture redesign is required unless V1 scope changes or contradictory ROM/hardware evidence appears.
