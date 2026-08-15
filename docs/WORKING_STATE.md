@@ -14,6 +14,7 @@ SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 working executable source: source/31/BMHM_HAC_ORG_7100_to_end.asm
 replacement ROM master: source/replacement_os/7427_rom.asm
 selected assembler: MGTEK ASM11 / MiniIDE
+proven assembler version: ASM11 V1.26 Build 144 for WIN32 (x86)
 ```
 
 ## Current authority
@@ -35,6 +36,7 @@ ROM-first implementation authority:
 ```text
 docs/implementation/ROM_FIRST_BUILD_PATH.md
 docs/implementation/ASM11_MINIIDE_BUILD.md
+docs/implementation/ASM11_BOOTSTRAP_PROOF.md
 source/replacement_os/7427_rom.asm
 source/replacement_os/include/target_layout.inc
 ```
@@ -105,7 +107,7 @@ These semantic decisions are frozen requirements. They are not a requirement to 
 
 ## ROM-first implementation state
 
-Implemented on the current ROM-first branch:
+Implemented/proven on the current ROM-first branch:
 
 ```text
 stock-proven stack top             $03FF
@@ -115,9 +117,20 @@ vector window                       $FFC0-$FFFF
 external reset vector               $FFFE -> RESET_ENTRY
 runtime RAM allocation              sequential from $0000
 additional proven RAM               $0800-$08FF reserved until needed
-first ROM master                    source/replacement_os/7427_rom.asm
 selected assembler                  MGTEK ASM11 / MiniIDE
+proven ASM11 build                  V1.26 Build 144, 0 warnings / 0 errors
+Milestone-A executable              $7100-$7136
+Milestone-A vector table            $FFC0-$FFFF
+Milestone-A 64K BIN SHA256          c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
 structural bootstrap verifier       tools/verify_rom_bootstrap.py
+S19 -> 64K BIN converter            tools/s19_to_64k_bin.py
+```
+
+Milestone-A proof authority:
+
+```text
+docs/implementation/ASM11_BOOTSTRAP_PROOF.md
+source/replacement_os/7427_bootstrap_miniide.asm
 ```
 
 The first image deliberately does not pre-partition RAM by subsystem and does not allocate final calibration blocks before their code exists.
@@ -155,6 +168,8 @@ Derived values are read-only.
 
 ```text
 source/replacement_os/7427_rom.asm
+source/replacement_os/7427_bootstrap_miniide.asm
+source/replacement_os/7427_inputs_miniide.asm
 source/replacement_os/include/target_layout.inc
 source/replacement_os/include/runtime_abi.inc
 source/replacement_os/core/safe_runtime.asm
@@ -183,13 +198,15 @@ semantic request/arbitration scaffold
 read-only ADC/REF acquisition modules
 24-byte bring-up debug frame builder
 preserved sync/async fuel, IAC and pump command modules
+proven ASM11 Milestone-A bootstrap build and deterministic 64K conversion
 ```
 
-Not yet implemented/integrated:
+Not yet implemented/integrated/proven:
 
 ```text
-successful ASM11 assembly + listing inspection
-read-only acquisition calls from live ROM loop/ISR
+clean ASM11 Milestone-B input-acquisition build/listing
+live PCM execution/bench proof
+read-only acquisition proof on live PCM
 engineering ADC-count -> VDC -> engineering transfer pipeline
 sensor-specific filtering and validation/substitution
 configurable REF event count / RPM scaling / TDC offset
@@ -240,16 +257,15 @@ That remains mandatory through the first target-linked observability image.
 ## Current work order
 
 ```text
-1. assemble source/replacement_os/7427_rom.asm with MGTEK ASM11 / MiniIDE
-2. inspect the actual listing, addresses, vectors and generated absolute output
-3. freeze only the bootstrap/toolchain facts proven by that build
-4. integrate read-only ADC acquisition into the live ROM
-5. integrate REF acquisition / cranking observability
-6. add SCI/ALDL debug transport
-7. implement engineering sensor pipeline and allocate its RAM/calibration as required
-8. implement lifecycle/REF geometry and allocate required state/calibration
-9. continue engine-control modules in frozen semantic interface order
-10. derive XDF/ADX definitions from the resulting ROM/packet layouts
+1. assemble source/replacement_os/7427_inputs_miniide.asm with proven ASM11 V1.26
+2. inspect its actual listing, RAM allocation, input addresses and vectors
+3. convert the clean absolute S19 to a 64 KiB BIN with tools/s19_to_64k_bin.py
+4. add SCI/ALDL debug transport while keeping all actuator authority absent
+5. bench-observe ADC/REF values on the real PCM
+6. implement engineering sensor pipeline and allocate its RAM/calibration as required
+7. implement lifecycle/REF geometry and allocate required state/calibration
+8. continue engine-control modules in frozen semantic interface order
+9. derive XDF/ADX definitions from the resulting ROM/packet layouts
 ```
 
 For each module:
