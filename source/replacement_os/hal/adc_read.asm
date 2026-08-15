@@ -62,7 +62,12 @@ HAL_ADC_START_WAIT:
         STAA    HC11_ADCTL
         LDAB    #12               ; stock bounded wait count from F25F
 HAL_ADC_WAIT_LOOP:
-        BRSET   HC11_ADCTL,#ADC_COMPLETE,HAL_ADC_WAIT_DONE
+        ; BRSET absolute,$mask,label is a direct-page form on ASM11 and cannot
+        ; encode relocated ADCTL=$3030. Use an explicit extended read/test so
+        ; the target address remains $3030 rather than being truncated to $30.
+        LDAA    HC11_ADCTL
+        BITA    #ADC_COMPLETE
+        BNE     HAL_ADC_WAIT_DONE
         DECB
         BNE     HAL_ADC_WAIT_LOOP
         LDAA    #$01
