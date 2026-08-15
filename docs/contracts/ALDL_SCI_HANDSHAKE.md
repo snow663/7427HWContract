@@ -26,6 +26,20 @@ $302E  SCSR
 $302F  SCDR
 ```
 
+## Required stock board-control baseline
+
+Before normal serial activity, BMHM startup selects the TBI branch because calibration `$400B bit0` is clear and writes:
+
+```text
+$3FFC/$3FFD = $B93A
+```
+
+This is the known production TBI startup baseline for the 16-bit board-control pair.
+
+The replacement ALDL bring-up image must establish this known baseline before performing any read/modify/write of `$3FFC/$3FFD`. Reading an unspecified reset value and writing it back would preserve unknown states in neighboring board-control bits.
+
+The `$B93A` baseline has low-byte `$3FFD bit2` clear, corresponding to the released ALDL-driver state used before transmit.
+
 ## Stock transmit-start sequence
 
 At `F637-F645`, stock BMHM performs:
@@ -112,8 +126,8 @@ These are distinct software-facing hardware controls and must never be collapsed
 
 ## Replacement-OS rule
 
-The ALDL HAL may preserve the stock 16-bit read/modify/write access sequence and `LF3ED` call-delay behavior, but it must modify only the low-byte `$3FFD` bit-2 state for serial-driver control.
+The ALDL HAL must first establish the stock BMHM/TBI `$B93A` baseline, then preserve the stock 16-bit read/modify/write access sequence and `LF3ED` call-delay behavior while modifying only low-byte `$3FFD bit2` for serial-driver control.
 
-The asynchronous-fuel HAL continues to own the high-byte `$3FFC` bit-2 trigger.
+The asynchronous-fuel HAL continues to own high-byte `$3FFC bit2`.
 
 The first ALDL bring-up image remains engine-off and must not enable fuel, spark, IAC, pump, or other actuator authority.
