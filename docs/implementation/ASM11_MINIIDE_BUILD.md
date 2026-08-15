@@ -4,19 +4,49 @@
 
 The replacement ROM source targets the **MGTEK ASM11** 68HC11 cross-assembler supplied with MiniIDE.
 
-MGTEK describes ASM11 as a Motorola 68HC11 cross-assembler that accepts common assembler syntax and can run either inside MiniIDE or from the command line.
+The user's installed/proven tool is:
 
-The project should therefore prefer conservative ASM11-compatible source syntax rather than introduce toolchain-specific extensions that are not needed by the 7427 ROM.
+```text
+ASM11, 68HC11 Cross Assembler V1.26 Build 144 for WIN32 (x86)
+```
 
-## Master source
+Do not use `asm12.exe`; MiniIDE may default to the separate 68HC12 assembler.
+
+## Proven command-line invocation
+
+The assembler executable is installed at:
+
+```text
+C:\Program Files (x86)\MGTEK\MiniIDE\asm11.exe
+```
+
+A proven build command is:
+
+```bat
+cd "C:\Program Files (x86)\MGTEK\MiniIDE"
+asm11 -l "C:\path\to\source.asm"
+```
+
+`-l` requests the listing. ASM11 emits absolute Motorola S-record output (`.s19`) and a listing (`.lst`).
+
+## Build sources
+
+Maintainable modular master:
 
 ```text
 source/replacement_os/7427_rom.asm
 ```
 
-Open/assemble this file as the top-level source. It includes the RAM declarations, bootstrap/HAL modules, safe runtime, read-only input modules, preserved output islands, and vector table.
+Self-contained PC bring-up stages:
 
-## Source syntax currently relied on
+```text
+source/replacement_os/7427_bootstrap_miniide.asm   Milestone A: reset/bootstrap/vectors
+source/replacement_os/7427_inputs_miniide.asm      Milestone B: read-only ADC/REF acquisition
+```
+
+The self-contained files intentionally remove `INCLUDE` path setup from the first PC tests. The modular source tree remains the long-term implementation authority.
+
+## Source syntax relied on
 
 ```text
 INCLUDE
@@ -29,60 +59,91 @@ FDB
 
 plus ordinary Motorola 68HC11 instruction mnemonics and semicolon comments.
 
-No linker script is required for the first bootstrap. Placement is expressed directly by `ORG` and symbols in:
+No linker script is required for the current stages. Placement is expressed directly by `ORG` and symbols.
+
+## Milestone-A proof
+
+Milestone A assembled on the user's PC with:
 
 ```text
-source/replacement_os/include/target_layout.inc
+0 warnings
+0 errors
 ```
 
-## First PC build procedure
-
-1. Open `source/replacement_os/7427_rom.asm` in MiniIDE.
-2. Select ASM11 / 68HC11 assembly if MiniIDE exposes an assembler choice.
-3. Assemble the master source without changing any addresses to make an error disappear.
-4. Preserve the complete assembler listing and generated S-record/object output.
-5. Record the exact MiniIDE/ASM11 version shown on the PC.
-6. If assembly fails, preserve the first complete error list. Treat syntax/path errors separately from real address/range errors.
-
-The first successful listing becomes the practical placement authority for runtime symbols and code labels.
-
-## What must be checked in the first listing
+The actual ASM11 listing proved:
 
 ```text
-RESET_ENTRY             = $7100
+RESET_ENTRY                 $7100
+HAL_INIT_PROCESSOR_SAFE     $710C
+HAL_SERVICE_COP             $7126
+HAL_FATAL_SAFE_LOOP         $7131
+executable bytes            $7100-$7136
+vector table                $FFC0-$FFFF
+external reset vector       $FFFE -> $7100
+```
+
+See:
+
+```text
+docs/implementation/ASM11_BOOTSTRAP_PROOF.md
+```
+
+## 64 KiB BIN conversion
+
+ASM11's `.s19` preserves the absolute 16-bit target addresses. Convert it without relocation using:
+
+```text
+tools/s19_to_64k_bin.py
+```
+
+Example:
+
+```bat
+python tools\s19_to_64k_bin.py 7427_bootstrap_miniide.s19 7427_bootstrap_64k.bin
+```
+
+Conversion policy:
+
+```text
+image size             exactly 65536 bytes
+unrepresented bytes    $FF
+S-record addresses     preserved exactly
+reset vector            remains at $FFFE
+```
+
+The first proven Milestone-A conversion produced:
+
+```text
+reset vector: $7100
+SHA256: c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
+```
+
+## Listing checks for every stage
+
+```text
 STACK_TOP               = $03FF
-RAM_ALLOC_END           < $03FF
+RAM_ALLOC_END           < $03FF when RAM exists
 ROM_CODE_END            < $FFC0
 vector table begins     = $FFC0
 external reset vector   = $FFFE -> RESET_ENTRY
 ```
 
-Also verify that all included modules resolve exactly once and that there are no overlapping `ORG` ranges.
+Also verify that there are no overlapping ORG ranges, address-truncation warnings, or branch-range errors.
 
-## First-image safety condition
+ASM11 warnings about an address being outside `$00-$FF` are **not** harmless when emitted for a direct-page-only instruction. The ADC `BRSET` issue discovered during bring-up is the example: absolute `$3030` had to be replaced with an explicit extended `LDAA` + `BITA` test.
 
-A successful assembly is **not** yet an engine-running image.
+## Output safety condition
 
-The bootstrap must continue to satisfy all of the following:
+A successful assembly is not yet an engine-running image.
+
+Through the observability stages:
 
 ```text
-PERM_FUEL  never enabled
-PERM_SPARK never enabled
-PERM_IAC   never enabled
-PERM_PUMP  never enabled
-PERM_AUX   never enabled
-
-no call to HAL_GM_FUEL_SYNC_COMMIT
-no call to HAL_GM_FUEL_ASYNC_COMMIT
-no call to HAL_GM_IAC_COMMIT
-no call to HAL_GM_PUMP_COMMIT
-no executable spark commit
+no fuel authority
+no spark authority
+no IAC authority
+no pump authority
+no auxiliary-output authority
 ```
 
-The first hardware run is only intended to prove reset, processor relocation, stable execution, ROM/vector placement, and then read-only observability as those pieces are enabled.
-
-## Output conversion policy
-
-Do not define the final 64 KiB BIN conversion procedure until the actual ASM11 output generated on the user's PC has been inspected. The assembler output is expected to preserve absolute addresses; any S-record-to-BIN conversion must fill unrepresented ROM space deliberately and must preserve the `$FFFE` reset vector exactly.
-
-Once the first successful ASM11 output and listing are available, add the exact reproducible command/build procedure to this document and automate conversion/verification in `tools/`.
+Milestone A contains no actuator command routines. Milestone B adds only CPU/ADC/mux configuration and read-only input acquisition. Production output commits remain outside the execution path until explicitly enabled later one permission at a time.
