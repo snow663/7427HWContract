@@ -14,14 +14,17 @@
 ;   - no IAC command writes
 ;   - no fuel-pump command writes
 ;   - no auxiliary-output command writes
-;   - ALDL driver control modifies only LOW BYTE $3FFD bit2 through the same
-;     16-bit read/modify/write form used by stock BMHM
+;   - ALDL driver control modifies only LOW BYTE $3FFD bit2
 ;   - all non-SCI interrupt vectors enter a COP-serviced safe trap
 ;
 ; IMPORTANT
-;   This is an engine-off bench bring-up image. The $3FFC/$3FFD register pair
-;   contains other board controls. ALDL uses B/low-byte bit2 ($3FFD); async fuel
-;   uses A/high-byte bit2 ($3FFC). They are distinct controls.
+;   Stock BMHM/TBI startup writes $B93A to the $3FFC/$3FFD pair before normal
+;   serial activity. Milestone C now establishes that same known baseline
+;   before performing any ALDL read/modify/write. This avoids preserving an
+;   unknown power-on state in neighboring board-control bits.
+;
+;   ALDL uses B/low-byte bit2 ($3FFD); async fuel uses A/high-byte bit2
+;   ($3FFC). They are distinct controls.
 ;
 ; Frame v0, 14 bytes:
 ;   00  $A5 start
@@ -127,6 +130,9 @@ SCI_TCIE                EQU     $40
 SCI_RX_ONLY             EQU     $04
 ALDL_DRIVER_BIT         EQU     $04
 
+; Stock BMHM production TBI baseline selected at startup when $400B bit0=0.
+GM_ASIC_IO_D_TBI_BASE   EQU     $B93A
+
 ; ---------------------------------------------------------------------------
 ; Executable ROM
 ; ---------------------------------------------------------------------------
@@ -215,18 +221,30 @@ HAL_INIT_PROCESSOR_INPUT_SAFE:
 ; ---------------------------------------------------------------------------
 ; SCI / ALDL idle setup
 ; ---------------------------------------------------------------------------
-; Stock LCC7C programs BAUD=$04. For this transmit-only bring-up SCCR1 is 0
-; and the receiver is left enabled without RX interrupts between frames.
+; Stock facts retained here:
+;   BAUD=$04
+;   BMHM/TBI startup $3FFC/$3FFD baseline=$B93A
+;   ALDL release state = low-byte bit2 clear
 ;
 HAL_INIT_SCI_IDLE:
+        ; Establish the known stock TBI board-control baseline before any RMW.
+        LDD     #GM_ASIC_IO_D_TBI_BASE
+        STD     GM_ASIC_IO_D
+        JSR     HAL_GM_DELAY_RTS
+
         LDAA    #SCI_BAUD_8192
         STAA    HC11_BAUD
         CLRA
         STAA    HC11_SCCR1
+
+        ; Clear any stale receive status/data before enabling the receiver.
+        LDAA    HC11_SCSR
+        LDAA    HC11_SCDR
+
         LDAA    #SCI_RX_ONLY
         STAA    HC11_SCCR2
 
-        ; Release the external ALDL driver: stock form modifies B/low byte bit2.
+        ; Explicitly retain ALDL released state with stock 16-bit RMW form.
         LDD     GM_ASIC_IO_D
         JSR     HAL_GM_DELAY_RTS
         ANDB    #$FB
