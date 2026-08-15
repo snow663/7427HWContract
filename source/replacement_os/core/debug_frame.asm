@@ -32,10 +32,16 @@
 
 OS_DEBUG_BUILD_FRAME:
         ; Do not overwrite a frame that is pending or being transported.
+        ; Use nearby conditional branches plus JMP because the full frame
+        ; builder is larger than the HC11 +/-127-byte relative branch range.
         LDAA    DEBUG_TX_PENDING
-        BNE     OS_DEBUG_BUILD_DONE
+        BEQ     OS_DEBUG_CHECK_ACTIVE
+        JMP     OS_DEBUG_BUILD_DONE
+OS_DEBUG_CHECK_ACTIVE:
         LDAA    DEBUG_TX_ACTIVE
-        BNE     OS_DEBUG_BUILD_DONE
+        BEQ     OS_DEBUG_BUILD_START
+        JMP     OS_DEBUG_BUILD_DONE
+OS_DEBUG_BUILD_START:
 
         CLR     DEBUG_TX_CHECKSUM
         LDX     #DEBUG_TX_BUFFER
