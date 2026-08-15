@@ -15,7 +15,9 @@
 GM_EFI_SYNC_PW          EQU     $3FCE
 GM_EFI_ASYNC_PW         EQU     $3FF2
 GM_ASIC_IO_D            EQU     $3FFC
-GM_CPU_PORT_D           EQU     $3062
+; IMPORTANT: $3062 is the stock IAC/board output latch used by the preserved
+; driver path. It is NOT relocated HC11 PORTD; CPU PORTD is $3008.
+GM_IAC_OUTPUT_LATCH     EQU     $3062
 GM_FUEL_PUMP_LATCH      EQU     $306F
 
 ; -------------------------------------------------------
@@ -219,7 +221,7 @@ HAL_GM_IAC_MERGE:
         ANDB    #$1C
         ABA
         STAA    DRV_PORTD_SHADOW
-        STAA    GM_CPU_PORT_D
+        STAA    GM_IAC_OUTPUT_LATCH
         CLI
         RTS
 
