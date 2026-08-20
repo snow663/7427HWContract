@@ -86,14 +86,19 @@ $FFFE reset vector points to the replacement entry
 absolute S-record output can be deterministically converted to a 64 KiB BIN
 ```
 
-It does **not** yet prove live PCM execution, ADC behavior, REF behavior, serial transport, or any actuator output.
+It does **not** prove live PCM execution, ADC behavior, REF behavior, serial transport, or any actuator output.
 
-## Next gate
+## Historical milestone boundary
 
-Milestone B is intentionally still engine-off and output-free:
+Milestone A is closed. Milestone B subsequently received its own clean ASM11/listing/S19/BIN proof; see:
 
 ```text
-source/replacement_os/7427_inputs_miniide.asm
+docs/implementation/MILESTONE_B_BUILD_PROOF.md
 ```
 
-It adds only source-proven input-side configuration and read-only ADC/REF acquisition. Its first requirement is another clean ASM11 build/listing before any hardware test.
+Do not use this Milestone-A document to determine the current next gate. Current implementation state and work order are maintained in:
+
+```text
+docs/WORKING_STATE.md
+docs/closeout/7427_IMPLEMENTATION_CONSOLIDATION_AUDIT_2026-08-19.md
+```
