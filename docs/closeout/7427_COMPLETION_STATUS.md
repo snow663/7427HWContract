@@ -9,30 +9,33 @@ BCC/object: BMHM
 raw target BIN: 31/BMHM.BIN
 BIN size: 65536 bytes
 SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
-replacement ROM master: source/replacement_os/7427_rom.asm
+replacement modular ROM master: source/replacement_os/7427_rom.asm
 selected assembler: MGTEK ASM11 / MiniIDE
+proven assembler: ASM11 V1.26 Build 144 for WIN32 (x86)
 ```
 
-## Canonical audit authority
+## Canonical authority split
 
-Current detailed reverse-engineering/semantic authority map:
+Current implementation/status authority:
+
+```text
+docs/WORKING_STATE.md
+docs/closeout/7427_IMPLEMENTATION_CONSOLIDATION_AUDIT_2026-08-19.md
+docs/implementation/ROM_FIRST_BUILD_PATH.md
+docs/implementation/ASM11_MINIIDE_BUILD.md
+```
+
+Frozen semantic-planning authority:
 
 ```text
 docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md
+maps/planning/*.csv
+maps/telemetry/v1_adx_manifest.csv
 ```
 
-Current executable implementation authority:
+The 2026-08-13 planning audit remains valid for V1 semantics. Its historical implementation-next-step section is superseded by the 2026-08-19 implementation audit/current working state.
 
-```text
-docs/implementation/ROM_FIRST_BUILD_PATH.md
-docs/implementation/ASM11_MINIIDE_BUILD.md
-docs/WORKING_STATE.md
-source/replacement_os/7427_rom.asm
-```
-
-The consolidated planning audit remains authoritative for frozen control semantics. It no longer dictates that all binary representations and addresses must be frozen before an executable ROM is built.
-
-## Frozen reverse-engineering / hardware-contract state
+## Frozen reverse-engineering / semantic state
 
 ```text
 algorithm extraction             100% FROZEN
@@ -40,57 +43,69 @@ scheduler/lifecycle extraction   100% FROZEN
 diagnostics/failsafe extraction  100% FROZEN
 production calibration audit     100% FROZEN
 V1 software-facing HW contract   100% FROZEN
-physical endpoint confirmation     0% INTENTIONALLY DEFERRED
+physical endpoint confirmation     0% intentionally deferred
+
+V1 feature scope                  100% FROZEN
+control/formula semantics         100% FROZEN
+physical/setup model              100% FROZEN
+sensor transfer model             100% FROZEN
+signal-conditioning model         100% FROZEN
+rotation/reference geometry       100% for validated V1 relationship
+module interfaces                 100% FROZEN
+calibration semantic exposure     100% FROZEN
+calibration table geometry        100% FROZEN
+telemetry semantic channels       100% FROZEN
+degraded-operation policy         100% FROZEN
 ```
 
-Do not reopen the frozen extraction categories unless contradictory executable/ROM evidence appears or V1 scope is intentionally expanded.
+Binary addresses/widths, RAM placement, calibration placement, packet offsets, XDF addresses and ADX offsets are frozen incrementally from the implemented ROM rather than globally before assembly.
 
-## V1 executable scope
+## Proven ROM implementation milestones
 
-V1 is engine-control only.
-
-Excluded:
+### Milestone A — reset/bootstrap/vectors
 
 ```text
-automatic transmission
-EGR
-EVAP
-secondary AIR
-A/C compressor control
-A/C idle-up / load compensation
+source: source/replacement_os/7427_bootstrap_miniide.asm
+ASM11: 0 warnings / 0 errors
+code: $7100-$7136
+vectors: $FFC0-$FFFF
+reset: $FFFE -> $7100
+BIN SHA256: c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
 ```
 
-Unused I/O remains reserved/documented for future expansion.
+Proof: `docs/implementation/ASM11_BOOTSTRAP_PROOF.md`.
 
-## Replacement-OS semantic planning status
+### Milestone B — read-only ADC/REF acquisition
 
 ```text
-V1 feature scope                   100%
-control/formula semantics          100%
-physical/setup model               100%
-sensor transfer model              100%
-signal-conditioning model          100%
-rotation/reference geometry        100% for V1 validated trigger relationship
-module interfaces                  100%
-calibration/XDF semantic exposure  100%
-calibration table geometry         100%
-ADX semantic channel definition    100%
-degraded-operation policy          100%
+source: source/replacement_os/7427_inputs_miniide.asm
+ASM11: 0 warnings / 0 errors
+RAM: $0000-$0009
+code: $7100-$71D7
+vectors: $FFC0-$FFFF
+reset: $FFFE -> $7100
+BIN SHA256: 28462ef9dbf3b6f0de59b68662fb26916dc87abea35ff7d67a0d572d42f92848
 ```
 
-The semantic/control planning gate is closed.
+Proof: `docs/implementation/MILESTONE_B_BUILD_PROOF.md`.
 
-Binary representation, RAM placement, calibration placement, packet offsets, XDF addresses, and ADX offsets are now frozen incrementally from the implemented executable rather than globally before assembly.
+Milestone B proves the build/layout of the read-only acquisition image. Its `$3FC0` REF/DRP read is not yet live-REF proof because the stock ASIC/register startup sequence is intentionally absent.
 
-## ROM-first implementation status
+### Milestone C — SCI/ALDL engine-off observability
 
-The first target ROM master now exists.
+Status:
 
 ```text
-source/replacement_os/7427_rom.asm
+SOURCE IMPLEMENTED
+ASSEMBLY/LISTING PROOF PENDING
+BENCH PROOF PENDING
 ```
 
-Current hard/proven placement anchors:
+Source: `source/replacement_os/7427_aldl_tx_miniide.asm`.
+
+Implemented source behavior includes 8192-baud SCI, the stock BMHM/TBI `$B93A` board-control baseline, low-byte `$3FFD bit2` ALDL driver control, SCI interrupt TX, and a 14-byte raw-input frame. It contains no production fuel/spark/IAC/pump/aux output authority.
+
+## Current hard placement facts
 
 ```text
 stock/replacement stack top       $03FF
@@ -101,138 +116,30 @@ external reset vector             $FFFE
 additional stock-proven RAM       $0800-$08FF
 ```
 
-Current runtime state is allocated sequentially from low RAM by assembly-time `RMB` declarations. No artificial subsystem blocks are frozen in advance.
+Milestone-specific RAM placement is proven from each assembly listing. The modular implementation continues to allocate runtime RAM incrementally rather than reserving artificial subsystem blocks.
 
-Selected assembler:
+## Current source roles
 
-```text
-MGTEK ASM11 / MiniIDE
-```
-
-The next executable proof is a successful ASM11 assembly and inspection of its listing/output.
-
-## Current planning authorities
-
-### Formula / behavior
+Maintainable modular authority:
 
 ```text
-docs/planning/V1_ENGINE_CONTROL_SCOPE.md
-docs/planning/V1_AIR_CHARGE_FORMULA_CONTRACT.md
-docs/planning/V1_FUEL_CONTROL_FORMULA_CONTRACT.md
-docs/planning/V1_SPARK_CONTROL_FORMULA_CONTRACT.md
-docs/planning/V1_IDLE_CONTROL_FORMULA_CONTRACT.md
-docs/planning/V1_ENGINE_LIFECYCLE_FORMULA_CONTRACT.md
-docs/planning/V1_SENSOR_SEMANTIC_VALIDATION_CONTRACT.md
-docs/planning/V1_SENSOR_TRANSFER_CALIBRATION.md
-docs/planning/V1_SIGNAL_CONDITIONING_FILTER_CONTRACT.md
-docs/planning/V1_PHYSICAL_CONFIGURATION_MODEL.md
-docs/planning/V1_ROTATION_REFERENCE_CONFIGURATION.md
+source/replacement_os/7427_rom.asm
+source/replacement_os/include/*.inc
+source/replacement_os/core/*.asm
+source/replacement_os/hal/*.asm
 ```
 
-### Machine-readable semantic planning
+Self-contained proof stages:
 
 ```text
-maps/planning/v1_configuration_variables.csv
-maps/planning/v1_module_interface_matrix.csv
-maps/planning/v1_calibration_manifest.csv
-maps/planning/v1_table_geometry.csv
-maps/planning/v1_degraded_operation_policy.csv
+7427_bootstrap_miniide.asm   Milestone A
+7427_inputs_miniide.asm      Milestone B
+7427_aldl_tx_miniide.asm     Milestone C
 ```
 
-These specify required concepts, geometry and behavior. They are inputs to implementation, not a preassigned memory map.
+`7427_rom_miniide.asm` is a flattened convenience form, not independent source authority.
 
-### Telemetry
-
-Canonical semantic manifest:
-
-```text
-maps/telemetry/v1_adx_manifest.csv
-```
-
-Actual packet offsets will be assigned when the transport/packet is implemented, then the ADX will describe that packet.
-
-## Frozen design highlights
-
-### Air charge
-
-Hybrid speed-density / Alpha-N produces one downstream quantity:
-
-```text
-AIR_MASS_CYCLE
-```
-
-Speed density is primary at steady state; Alpha-N supplies bounded high-load and transient prediction authority.
-
-### Injector physical model
-
-```text
-EFFECTIVE_INJECTOR_FLOW =
-    INJECTOR_DESIGN_FLOW
-    * sqrt(OPERATING_FUEL_PRESSURE / INJECTOR_DESIGN_PRESSURE)
-```
-
-Design flow/design pressure describe the injector. Operating pressure describes the regulator setting. Effective IFR is derived/read-only.
-
-Fuel delivery geometry is separately configured by injector count, delivery events per 720-degree cycle, and active injectors per event.
-
-### Sensors
-
-Analog control inputs use:
-
-```text
-RAW ADC
--> VDC
--> VDC-to-engineering transfer table
--> sensor-specific filtering
--> validity/substitution
--> control engineering value
-```
-
-MAT/IAT is optional added hardware on the current L19 application.
-
-### BARO
-
-BARO is captured from valid filtered MAP before rotation/cranking and held for the run cycle.
-
-### Rotation/reference geometry
-
-Editable setup includes:
-
-```text
-CYLINDER_COUNT
-REF_EVENTS_PER_CRANK_REV
-REF_TO_EVENT_TDC_OFFSET_DEG
-```
-
-For an 8-cylinder / 4-REF-events-per-crank-revolution setup, the derived REF and combustion spacing are both 90 crank degrees and the relationship is one REF event per combustion event.
-
-REF offset aligns the software crank coordinate to true event TDC; it does not mechanically change rotor-to-cap phasing.
-
-### Filtering
-
-ADC/digital filtering is explicit and sensor-specific. TPS/MAP remain fast; CTS/MAT are slower; NB/WB preserve feedback dynamics. REF edges are timestamped directly and only screened for physically impossible/implausible events rather than delayed by generic debounce.
-
-### Spark/load
-
-V1 main spark and knock-threshold load axis is:
-
-```text
-RPM x MAP kPa absolute
-```
-
-PE target lambda uses RPM x MAP/BARO pressure ratio. The optional extra PE spark-correction surface is not part of frozen V1.
-
-### Learning
-
-Long-term adaptive fuel learning is not part of V1:
-
-```text
-LEARN_FACTOR = 1.000
-```
-
-NB/WB runtime feedback remains supported.
-
-## Preserved command-island state
+## Preserved command islands
 
 ```text
 Fuel synchronous     LOCKED ABI + PORTED
@@ -241,59 +148,59 @@ IAC                   LOCKED ABI + PORTED
 Fuel pump             LOCKED ABI + PORTED
 Spark/EST             LOCKED ABI; complete rolling-state port pending
 MIL                   DEFERRED
-Unused I/O            RESERVED FOR FUTURE USE
+Unused I/O            RESERVED
 ```
 
-The first ROM master links the existing completed output-island source but does not call its production commit routines.
+The observability milestones grant no production actuator authority.
 
-## First-image safety state
+## Important current hardware/software contracts
 
 ```text
-fuel permission  = FALSE
-spark permission = FALSE
-IAC permission   = FALSE
-pump permission  = FALSE
-aux permission   = FALSE
+$3008 = relocated PORTD / external ADC mux selector
+$3039 = relocated HC11 OPTION
+$3FFC/$3FFD stock BMHM/TBI baseline = $B93A
+ALDL driver control = low-byte $3FFD bit2
+async-fuel control = high-byte $3FFC bit2
 ```
 
-Unowned interrupt vectors route to a COP-serviced safe loop. Only external reset enters the replacement reset path.
-
-## Current implementation gaps
+Spark log interpretation is now explicitly locked in `docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md`:
 
 ```text
-successful ASM11 assembly/listing inspection not yet performed
-live read-only ADC calls not yet integrated
-live REF/cranking observability not yet integrated
-engineering sensor pipeline not implemented
-configurable REF geometry/RPM scaling not implemented
-hybrid SD/Alpha-N manager not implemented
-mass-based fuel algorithm not implemented
-spark/idle control algorithms not implemented
-SCI/ALDL transport not implemented
-final telemetry packet/page not implemented
-calibration objects not yet allocated into replacement ROM
-actual XDF not generated
-actual ADX not generated
-full spark/EST preserved island not ported
+ALDL Spark Advance = post-normal-KR spark
+ALDL Knock Retard  = amount removed by knock logic
+```
+
+## Current gaps
+
+```text
+Milestone-C assembly/listing/S19/BIN proof
+live PCM execution proof
+live ADC acquisition proof
+minimum safe ASIC initialization for meaningful REF/cranking observability
+engineering sensor conversion/filter/validation pipeline
+configurable REF geometry/RPM scaling/TDC offset
+hybrid SD/Alpha-N air-charge manager
+mass-based fuel/injector model
+spark/idle/knock control algorithms
+full spark/EST preserved island
+production telemetry packet/page
+calibration ROM objects
+actual XDF
+actual production ADX
 ```
 
 ## Correct next gate
 
-Proceed in this order:
-
 ```text
-1. assemble source/replacement_os/7427_rom.asm with MGTEK ASM11 / MiniIDE
-2. inspect listing, RAM symbols, code end, ORG regions, vectors and assembler output
-3. freeze the verified bootstrap/toolchain facts
-4. integrate read-only ADC acquisition into live replacement execution
-5. integrate REF acquisition and cranking observability
-6. add SCI/ALDL read-only debug transport
-7. implement sensor conversion/filter/validation, allocating ROM/RAM as required
-8. implement lifecycle and configurable REF geometry
-9. continue engine-control modules in frozen semantic interface order
-10. generate XDF and ADX definitions from the actual built layouts
+1. assemble 7427_aldl_tx_miniide.asm with ASM11 V1.26
+2. inspect listing/RAM/code/vectors/SCI ISR and absolute hardware accesses
+3. validate S19 and convert to deterministic 64 KiB BIN
+4. bench-run Milestone C engine-off and verify ALDL output/driver release
+5. verify real ADC observations
+6. establish minimum safe ASIC startup needed for REF/cranking observability
+7. fold proven B/C behavior into the modular ROM master
+8. implement engineering sensor pipeline + configurable REF geometry
+9. complete spark/EST rolling-state island
+10. continue engine-running modules in frozen interface order
+11. generate XDF/ADX from actual built layouts
 ```
-
-For every implementation step, choose the narrowest binary representation that satisfies the module, assemble it, inspect the map/listing, and only then freeze addresses/encodings that have become external interfaces.
-
-No broad algorithm extraction or full-memory preallocation is required before step 1 unless V1 scope changes or contradictory ROM/hardware evidence appears.
