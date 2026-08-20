@@ -1,202 +1,252 @@
 # Working State
 
-This repository is the working directory for the 7427 hardware-contract and replacement-OS project. Git history is the version record.
+This file is the single live project/workstream authority for `7427HWContract`.
 
-## Current primary target
+Git history preserves prior states. Files under `docs/closeout/` are historical checkpoints unless this file explicitly promotes one back into current authority.
 
-```text
-PCM: 16197427
-mask: $31
-BCC/object: BMHM
-raw target BIN: 31/BMHM.BIN
-BIN size: 65536 bytes
-SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
-working stock executable source: source/31/BMHM_HAC_ORG_7100_to_end.asm
-replacement modular ROM master: source/replacement_os/7427_rom.asm
-selected assembler: MGTEK ASM11 / MiniIDE
-proven assembler: ASM11 V1.26 Build 144 for WIN32 (x86)
-```
-
-## Current authority
-
-Implementation/current-state authority:
+## Current active truck target
 
 ```text
-docs/WORKING_STATE.md
-docs/closeout/7427_IMPLEMENTATION_CONSOLIDATION_AUDIT_2026-08-19.md
-docs/closeout/7427_COMPLETION_STATUS.md
-docs/implementation/ROM_FIRST_BUILD_PATH.md
-docs/implementation/ASM11_MINIIDE_BUILD.md
+PCM:                 16197427
+mask:                $31
+engine:              L19 7.4L TBI
+current running BIN: 2.bin
+2.bin SHA-256:       2387d708c8d4cc82b78fabda579e48b7daef79f331543a54b669b70b6262877e
 ```
 
-Frozen semantic-planning authority:
+`2.bin` is the calibration-value authority for the truck as it is running now.
+
+When a byte/table/threshold statement is explicitly described as a `2.bin` fact, use the current running `2.bin` value rather than assuming the stock BMHM calibration value.
+
+The numbered tune archive/BIN itself is treated as an external reference artifact identified by filename and SHA-256 unless it is explicitly committed later.
+
+## Stock algorithm/source authority
 
 ```text
-docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md
-docs/planning/V1_*.md
-maps/planning/v1_configuration_variables.csv
-maps/planning/v1_module_interface_matrix.csv
-maps/planning/v1_calibration_manifest.csv
-maps/planning/v1_table_geometry.csv
-maps/planning/v1_degraded_operation_policy.csv
-maps/telemetry/v1_adx_manifest.csv
+mask/object:          $31 / BMHM
+stock executable ASM: source/31/BMHM_HAC_ORG_7100_to_end.asm
+stock reference BIN: BMHM.BIN
+stock BIN SHA-256:    6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
+processor:            MC68HC11-family
+relocated registers:  $3000
 ```
 
-The 2026-08-13 planning audit remains authoritative for frozen semantics, but its historical implementation-next-step section is superseded by this file and the 2026-08-19 implementation audit.
+The stock BMHM/HAC executable is the algorithm, ordering, RAM-dataflow and hardware-interface authority where static proof is being derived.
 
-## Architecture / placement policy
+Do not confuse these two authorities:
 
 ```text
-SEMANTIC / PHYSICAL CONTROL REQUIREMENTS
-    ↓
-IMPLEMENTED ROM + RUNTIME STATE
-    ↓
-SEMANTIC REQUESTS / ARBITRATION
-    ↓
-PRESERVED GM COMMAND ISLANDS + HAL
-    ↓
-7427 HARDWARE
-
-built ROM / packet layout
-    ↓
-XDF / ADX definitions
+stock BMHM/HAC source  -> what the $31 code does
+current running 2.bin  -> which calibration values the truck is using now
 ```
 
-The executable is the placement authority. Runtime/calibration objects get concrete widths and addresses as implementation creates them. XDF/ADX describes those built layouts afterward.
+## Active workstream
 
-## Frozen reverse-engineering state
+The active workstream is **truck-first stock-$31 runtime/calibration decoding and tuning**.
+
+Goals:
 
 ```text
-algorithm extraction             100% FROZEN
-scheduler/lifecycle extraction   100% FROZEN
-diagnostics/failsafe extraction  100% FROZEN
-production calibration audit     100% FROZEN
-V1 software-facing HW contract   100% FROZEN
-physical endpoint confirmation     0% intentionally deferred
+road-log reconstruction
+fuel / VE / PE / AE / BLM diagnosis
+spark / knock reconstruction
+VSS authority removal for the manual/cable-speedometer truck
+ALDL timing/field interpretation
+capture of every reusable stock behavior as a durable contract
 ```
 
-Do not reopen these broad extraction categories unless contradictory executable/ROM evidence appears or V1 scope changes.
+Replacement-OS work remains valid and retained, but it is not the primary active workstream. It advances when truck-focused reverse engineering establishes reusable hardware, algorithm, scheduler, telemetry, state-machine or command-interface behavior.
 
-## Frozen V1 semantic planning
+Workflow authority:
 
 ```text
-feature scope                     100%
-control/formula semantics         100%
-physical/setup model              100%
-sensor transfer model             100%
-signal conditioning               100%
-rotation/reference geometry        100% for validated V1 relationship
-module interfaces                 100%
-calibration semantic exposure     100%
-calibration table geometry        100%
-telemetry semantic channels       100%
-degraded-operation policy         100%
+docs/TRUCK_FIRST_RUNTIME_DECODING.md
 ```
 
-## ROM-first implementation checkpoint
+## Current reusable runtime contracts
 
-### Milestone A — bootstrap/vector image: PROVEN
+Primary current contracts include:
 
 ```text
-source: source/replacement_os/7427_bootstrap_miniide.asm
-ASM11:  0 warnings / 0 errors
-code:   $7100-$7136
-vectors:$FFC0-$FFFF
-reset:  $FFFE -> $7100
-BIN:    65536 bytes
-SHA256: c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
+docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md
+docs/contracts/SPARK_UPSTREAM_MODIFIER_CONTRACT.md
+docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md
+docs/contracts/FUEL_CALCULATION_TRACE_CONTRACT.md
+docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md
+docs/contracts/ALDL_SCI_HANDSHAKE.md
 ```
 
-Proof: `docs/implementation/ASM11_BOOTSTRAP_PROOF.md`.
-
-### Milestone B — read-only ADC/REF acquisition image: PROVEN BUILD
+Important locked interpretations:
 
 ```text
-source: source/replacement_os/7427_inputs_miniide.asm
-ASM11:  0 warnings / 0 errors
-RAM:    $0000-$0009
-code:   $7100-$71D7
-vectors:$FFC0-$FFFF
-reset:  $FFFE -> $7100
-BIN:    65536 bytes
-SHA256: 28462ef9dbf3b6f0de59b68662fb26916dc87abea35ff7d67a0d572d42f92848
+ALDL Spark Advance = post-normal-KR commanded spark
+ALDL Knock Retard  = amount removed by normal knock logic
 ```
 
-Proof: `docs/implementation/MILESTONE_B_BUILD_PROOF.md`.
-
-Milestone B proves the source can build with the input-path addresses and allocation shown in its listing. It does **not** prove live REF observability from `$3FC0`; the stock firmware initializes the `$3FC0-$3FFA` ASIC/register island and Milestone B deliberately does not.
-
-### Milestone C — engine-off ALDL observability image: SOURCE READY / UNPROVEN
+Approximate pre-normal-KR demand is therefore:
 
 ```text
-source: source/replacement_os/7427_aldl_tx_miniide.asm
-frame:  14-byte raw-input frame
-SCI:    8192 baud
-board baseline: $3FFC/$3FFD = $B93A before ALDL RMW
-ALDL driver: low byte $3FFD bit2
-actuator authority: none
+logged spark + logged KR
 ```
 
-`docs/contracts/ALDL_SCI_HANDSHAKE.md` is the stock handoff authority.
+subject to ALDL serialization skew and upstream modifiers.
 
-Milestone C has not yet received the same ASM11 listing/S19/BIN proof as A and B and has not been bench-run on the PCM.
+`ALDL Spark + KR` is not automatically the raw main-table cell because coolant, PE/WOT, altitude, startup, low-octane adaptive retard and other upstream terms can already be present.
 
-## Maintainable source model
+## ALDL serialization rule
+
+`$31` 8192-baud ALDL is not an atomic RAM snapshot. Fields are live-dereferenced as their bytes are serialized.
+
+For the current engine message, VSS is transmitted substantially earlier than BPW. Therefore:
+
+```text
+row N:   VSS looks normal, BPW changes
+row N+1: VSS displays a glitch
+```
+
+**does not prove** BPW changed before the VSS event internally.
+
+Authority:
+
+```text
+docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md
+docs/investigations/VSS_FUELING_TRANSPORT_REASSESSMENT_2026-08-20.md
+```
+
+The transport reassessment supersedes any earlier investigation wording that inferred exact VSS/BPW internal ordering from host-row order alone.
+
+## Current VSS conclusion for 2.bin
+
+The current running `2.bin` contains real engine-control consumers of raw and filtered VSS.
+
+There is no globally neutral forced VSS value:
+
+```text
+VSS = 0   activates/qualifies low-speed/stationary behaviors
+VSS = 255 can exercise high-speed/limiter-related behaviors
+```
+
+For this manual truck with no trustworthy PCM VSS input, the preferred architecture is:
+
+```text
+VSS acquisition / optional telemetry may remain
+                |
+                X  no required engine authority
+                |
+engine control uses RPM / MAP / TPS / ECT / O2 / knock / REF / baro etc.
+```
+
+Consumer-by-consumer authority audit:
+
+```text
+docs/investigations/BIN2_VSS_AUTHORITY_AUDIT_2026-08-20.md
+maps/analysis/bin2_vss_consumer_audit.csv
+```
+
+The earlier BPW-drop trace remains useful for its BLM/MAP/INT evidence, but its row-order temporal inference is superseded by the ALDL transport reassessment.
+
+## Current fuel-model decoding checkpoint
+
+The stock running fuel path has been traced from speed-density air charge through the final TBI handoff.
+
+Static ordering currently establishes, at minimum:
+
+```text
+MAP / charge temperature / displacement / VE
+  -> cylinder air charge
+  -> commanded-AFR divisor
+  -> injector-flow divisor
+  -> base synchronous PW
+  -> EGR displacement term
+  -> BLM
+  -> fuel-state / DFCO / cut logic
+  -> baro correction
+  -> battery PW correction
+  -> closed-loop INT/P correction
+  -> MAP AE synchronous adder
+  -> TBI sync/async arbitration
+  -> short-PW shaping
+  -> injector opening/deadtime offset
+  -> final synchronous command
+  -> $3FCE
+```
+
+TPS/MAP transient logic can also produce asynchronous fuel through `$3FF2` / `$3FFC bit2`.
+
+Fixed-point external-unit normalization that is not yet proven remains explicitly classified as pending/replay-validation work in the contract rather than guessed.
+
+Authority:
+
+```text
+docs/contracts/FUEL_CALCULATION_TRACE_CONTRACT.md
+```
+
+## Replacement-OS checkpoint
+
+The replacement-OS work remains preserved and valid.
 
 Long-term modular source authority:
 
 ```text
 source/replacement_os/7427_rom.asm
-source/replacement_os/include/target_layout.inc
-source/replacement_os/include/runtime_abi.inc
+source/replacement_os/include/*.inc
 source/replacement_os/core/*.asm
 source/replacement_os/hal/*.asm
-source/replacement_os/hal/*.inc
 ```
 
-Proof-stage sources:
+Self-contained MiniIDE sources are proof-stage vehicles, not independent long-term implementations.
+
+### Milestone A — bootstrap/vector image: PROVEN BUILD
 
 ```text
-source/replacement_os/7427_bootstrap_miniide.asm   Milestone A
-source/replacement_os/7427_inputs_miniide.asm      Milestone B
-source/replacement_os/7427_aldl_tx_miniide.asm     Milestone C
+source:  source/replacement_os/7427_bootstrap_miniide.asm
+ASM11:   0 warnings / 0 errors
+code:    $7100-$7136
+vectors: $FFC0-$FFFF
+reset:   $FFFE -> $7100
+BIN SHA-256:
+c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
 ```
 
-The `*_miniide.asm` sources are deliberate self-contained proof vehicles. Proven changes must be folded into the modular tree; they must not become a permanently divergent second implementation.
+### Milestone B — read-only ADC/REF acquisition image: PROVEN BUILD
 
-`source/replacement_os/7427_rom_miniide.asm` is only a flattened convenience form of the modular tree and is not independent authority.
+```text
+source:  source/replacement_os/7427_inputs_miniide.asm
+ASM11:   0 warnings / 0 errors
+RAM:     $0000-$0009
+code:    $7100-$71D7
+vectors: $FFC0-$FFFF
+reset:   $FFFE -> $7100
+BIN SHA-256:
+28462ef9dbf3b6f0de59b68662fb26916dc87abea35ff7d67a0d572d42f92848
+```
 
-## Important proven corrections/contracts
+Milestone B does not yet prove meaningful live REF data from `$3FC0` because the stock ASIC/register startup sequence is intentionally absent.
 
-### ADC/register correction
+### Milestone C — engine-off ALDL observability: SOURCE READY / UNPROVEN
+
+```text
+source: source/replacement_os/7427_aldl_tx_miniide.asm
+SCI:    8192 baud
+frame:  14-byte raw-input frame
+board baseline before ALDL RMW: $3FFC/$3FFD = $B93A
+ALDL driver: low byte $3FFD bit2
+actuator authority: none
+```
+
+Assembly/listing/S19/BIN proof and bench execution remain pending.
+
+## Important hardware contracts retained
 
 ```text
 $3008 = relocated CPU PORTD / external ADC-mux selector
 $3039 = relocated HC11 OPTION register
+$3FFC/$3FFD stock BMHM/TBI startup baseline = $B93A
+$3FFD bit2 = ALDL external-driver control
+$3FFC bit2 = async-fuel-related control
 ```
 
-### ALDL board-control baseline
-
-Stock BMHM/TBI startup establishes:
-
-```text
-$3FFC/$3FFD = $B93A
-```
-
-before normal serial activity. ALDL external-driver control is low-byte `$3FFD bit2`; async-fuel control uses high-byte `$3FFC bit2` and is a distinct control.
-
-### ALDL spark / knock-retard ordering
-
-Authority: `docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md`.
-
-```text
-ALDL Spark Advance = post-normal-KR spark
-ALDL Knock Retard  = amount normal knock logic removed
-```
-
-Do not subtract KR from logged Spark Advance again. Approximate pre-KR demand is `logged spark + KR`, subject to serialized ALDL sampling skew.
-
-## Preserved command islands
+Preserved command islands:
 
 ```text
 fuel synchronous   LOCKED + PORTED
@@ -208,85 +258,67 @@ MIL                deferred
 unused I/O         reserved
 ```
 
-Authority:
+No observability milestone grants production actuator authority.
+
+## Source-trace artifacts
+
+The project also has a source-derived `$31` HAC trace package generated from the broader raw source, including ORG blocks, labeled data declarations and high-value XDF seed candidates.
+
+Provenance index:
 
 ```text
-docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md
-source/replacement_os/hal/gm_output_islands.asm
+maps/source_trace/README.md
 ```
 
-## Current output policy
+The raw source-trace archive is identified by SHA-256 in that file. Source-derived rows are evidence/index material; inherited XDF labels/scales are not treated as authority unless independently verified.
 
-Through the observability milestones:
+## Experimental utilities
 
 ```text
-fuel permission  = FALSE
-spark permission = FALSE
-IAC permission   = FALSE
-pump permission  = FALSE
-aux permission   = FALSE
+tools/distributor_phasing_sim.py
 ```
 
-## Implemented/proven vs pending
+The distributor simulator is a geometry exploration/visualization tool. It is **not** stock `$31` ignition-algorithm authority.
 
-Proven/build-verified:
+## Authority order
+
+For current work, use:
 
 ```text
-ASM11 toolchain and absolute S19 workflow
-Milestone-A reset/bootstrap/vector image
-Milestone-B input-acquisition image
-S19 checksum validation / deterministic 64 KiB conversion
-stock register relocation and ADC mux addresses used by Milestone B
+1. docs/WORKING_STATE.md
+2. docs/TRUCK_FIRST_RUNTIME_DECODING.md
+3. current docs/contracts/*.md and maps/contracts/*.csv
+4. current investigation/reassessment docs, respecting explicit supersession
+5. source/31/BMHM_HAC_ORG_7100_to_end.asm for executable proof
+6. current running 2.bin for current calibration-byte truth
+7. source/replacement_os/* for replacement-OS implementation state
+8. frozen V1 planning documents/maps for semantic design requirements
+9. docs/closeout/* as historical checkpoints only
 ```
 
-Implemented in source but not yet build/bench-proven:
+Frozen semantic planning remains in:
 
 ```text
-Milestone-C SCI/ALDL engine-off telemetry image
-```
-
-Pending:
-
-```text
-live PCM execution proof for replacement images
-live ADC acquisition proof
-minimum safe ASIC initialization and live REF/cranking proof
-engineering ADC-count -> VDC -> engineering transfer pipeline
-sensor-specific filtering / validity / substitution
-configurable REF event count, RPM scaling and TDC offset
-hybrid SD/Alpha-N air-charge manager
-mass-based fuel/injector model
-spark/idle/knock control algorithms
-full spark/EST preserved island
-final telemetry packet/page
-calibration ROM objects and actual XDF
-actual production ADX
+docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md
+docs/planning/V1_*.md
+maps/planning/*.csv
+maps/telemetry/v1_adx_manifest.csv
 ```
 
 ## Current work order
 
-```text
-1. assemble source/replacement_os/7427_aldl_tx_miniide.asm with ASM11 V1.26
-2. inspect its listing, RAM allocation, code end, vectors, SCI ISR and absolute accesses
-3. checksum-validate S19 and convert to deterministic 64 KiB BIN
-4. bench-run Milestone C engine-off and verify ALDL frame/driver release behavior
-5. bench-verify ADC values
-6. determine/implement the minimum safe ASIC initialization required for meaningful REF/cranking observability
-7. fold proven B/C behavior into source/replacement_os/7427_rom.asm and modular HAL/core files
-8. implement engineering sensor pipeline and configurable REF geometry
-9. complete preserved spark/EST rolling-state handoff
-10. continue engine-running modules in frozen semantic interface order
-11. derive XDF/ADX from actual ROM/packet layouts
-```
-
-For each module:
+Primary truck-first work:
 
 ```text
-implement behavior
--> choose only the representation actually required
--> allocate ROM/RAM
--> assemble
--> inspect map/listing
--> lock externally depended-on representation
--> expose it in XDF/ADX when appropriate
+1. use current running 2.bin as the byte/table baseline for road-log diagnosis
+2. remove/neutralize inappropriate VSS engine authority consumer-by-consumer
+3. continue exact fuel/spark/knock/transient-state reconstruction from executable + logs
+4. capture every proven reusable behavior as a contract/map
+5. keep ALDL serialization skew in all fast-event causality analysis
 ```
+
+Replacement-OS work resumes from the preserved Milestone-C checkpoint whenever that workstream is intentionally selected or when truck-runtime decoding provides a reusable implementation dependency.
+
+## Working rule
+
+Use stable filenames for live authority. Let Git history preserve versions. Keep proof-stage files only where they serve a distinct reproducibility purpose; do not maintain parallel `almost-the-same` authorities.
