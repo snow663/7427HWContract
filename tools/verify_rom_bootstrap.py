@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Structural checks for the first 7427 replacement-ROM master.
+"""Structural checks for the 7427 replacement-ROM modular master.
 
-This is intentionally not an assembler. It catches placement/policy mistakes
-before an HC11 assembler/toolchain is selected and added to CI.
+This is intentionally not an assembler and not a hardware proof. It catches
+placement/policy mistakes in the maintainable modular source and complements
+the proven ASM11 listing/S19/BIN workflow and separate bench validation.
 """
 
 from pathlib import Path
