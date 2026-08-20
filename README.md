@@ -2,154 +2,133 @@
 
 Working repository for the GM 16197427 `7427` PCM hardware-contract reverse-engineering and replacement-OS project.
 
-The repo is the project state. Git history is the version record. Exported ZIPs/CSVs are not the primary working record.
+The repository is the project state. Git history is the version record; exported ZIPs/CSVs are not the primary working record.
 
 ## Objective
 
 Build a clean engine-control OS for the `7427` using the stock `$31` BMHM/HAC executable as the software/hardware authority where appropriate.
 
-V1 engine-control scope includes:
+V1 engine-control scope includes speed-density TBI fuel, bounded Alpha-N assistance/fallback, spark, IAC/idle, AE/PE/DFCO, crank/warmup/afterstart fuel, injector low-PW correction, oxygen feedback, knock handling, and ALDL/debug visibility.
 
-- speed-density TBI fuel
-- bounded Alpha-N air-charge assistance/fallback
-- spark control
-- IAC/idle air control
-- AE / PE / DFCO
-- crank / warmup / afterstart fuel
-- injector low-pulsewidth transfer correction
-- NB/WB oxygen feedback
-- knock handling
-- ALDL/debug visibility
+Automatic-transmission strategy, TCC, EGR, EVAP, secondary AIR, and A/C control are outside V1 unless hardware-required. Unused I/O remains reserved/documented.
 
-Out of V1 scope unless hardware-required:
+## Authority order
 
-- automatic transmission strategy
-- TCC strategy
-- EGR
-- EVAP/purge
-- secondary AIR
-- A/C compressor/idle-up strategy
-- inherited GM mode-word baggage
-
-Unused I/O remains documented/reserved for later expansion.
-
-## Current architecture
+Use these as current authority:
 
 ```text
-CALIBRATION / XDF
+1. docs/WORKING_STATE.md
+2. docs/closeout/7427_IMPLEMENTATION_CONSOLIDATION_AUDIT_2026-08-19.md
+3. docs/closeout/7427_COMPLETION_STATUS.md
+4. docs/implementation/ROM_FIRST_BUILD_PATH.md
+5. docs/implementation/ASM11_MINIIDE_BUILD.md
+6. current docs/contracts/*.md and maps/contracts/*.csv for proven hardware behavior
+7. docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md for frozen V1 semantic planning
+```
+
+The 2026-08-13 planning audit remains semantic-design authority. Its old implementation-next-step section is historical and is superseded by the current working state and 2026-08-19 implementation audit.
+
+## Architecture
+
+```text
+SEMANTIC / PHYSICAL CONTROL REQUIREMENTS
         ↓
-ENGINEERING-UNIT INPUT + CONTROL SYSTEM
+IMPLEMENTED ROM + RUNTIME STATE
         ↓
 SEMANTIC REQUESTS / ARBITRATION
         ↓
 PRESERVED GM COMMAND ISLANDS + HAL
         ↓
 7427 HARDWARE
+
+built ROM / packet layout
+        ↓
+XDF / ADX definitions
 ```
 
-The first-running-engine route preserves source-proven GM software-to-hardware command behavior. Complete electrical characterization of every retained output is not a prerequisite when its complete stock command island is preserved.
+The executable image is the placement authority. RAM, calibration, XDF addresses, and ADX packet offsets are frozen incrementally as real implementation requires them; they are not globally preallocated in advance.
 
-## Current status
+## Current implementation checkpoint
 
-Frozen reverse engineering:
+### Milestone A — bootstrap/vector proof: PROVEN
+
+Source:
 
 ```text
-algorithm extraction             100%
-scheduler/lifecycle extraction   100%
-diagnostics/failsafe extraction  100%
-production calibration audit     100%
-V1 software-facing HW contract   100%
-physical endpoint confirmation     0% intentionally deferred
+source/replacement_os/7427_bootstrap_miniide.asm
 ```
 
-Frozen V1 semantic planning:
+Proof:
 
 ```text
-feature scope                     100%
-control/formula semantics         100%
-physical/setup model              100%
-sensor transfer model             100%
-signal conditioning               100%
-rotation/reference geometry        100% for validated V1 relationship
-module interfaces                 100%
-calibration semantic exposure     100%
-calibration table geometry        100%
-telemetry semantic channels       100%
-degraded-operation policy         100%
+ASM11 V1.26 Build 144
+0 warnings / 0 errors
+code $7100-$7136
+vector table $FFC0-$FFFF
+reset $FFFE -> $7100
+64 KiB BIN SHA256 c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
 ```
 
-Implementation:
+Authority: `docs/implementation/ASM11_BOOTSTRAP_PROOF.md`.
+
+### Milestone B — read-only input acquisition: PROVEN BUILD
+
+Source:
 
 ```text
-replacement-OS implementation    ~19%
-complete engine-running image      0%
+source/replacement_os/7427_inputs_miniide.asm
 ```
 
-The project has crossed from broad reverse engineering/planning into **ROM implementation**.
-
-## ROM-first implementation rule
-
-The executable image is the placement authority.
-
-We do **not** freeze a complete RAM partition, complete fixed-point matrix, XDF address map, or ADX packet map before the code exists.
+Proof:
 
 ```text
-hardware-proven boundaries
-        ↓
-build replacement ROM
-        ↓
-allocate RAM/calibration objects as real modules require them
-        ↓
-verify assembly/binary map
-        ↓
-XDF describes actual calibration layout
-        ↓
-ADX describes actual telemetry packet layout
+ASM11 V1.26 Build 144
+0 warnings / 0 errors
+RAM $0000-$0009
+code $7100-$71D7
+reset $FFFE -> $7100
+64 KiB BIN SHA256 28462ef9dbf3b6f0de59b68662fb26916dc87abea35ff7d67a0d572d42f92848
 ```
 
-Frozen semantic units and table geometry remain design authority. Exact storage representation and address become fixed when implementation creates the object.
+Authority: `docs/implementation/MILESTONE_B_BUILD_PROOF.md`.
 
-Implementation-order authority:
+Milestone B samples the proven ADC paths and reads `$3FC0`; that `$3FC0` read is **not yet live-REF proof** because the stock ASIC/register island normally receives startup initialization that Milestone B deliberately omits.
 
-- `docs/implementation/ROM_FIRST_BUILD_PATH.md`
-- `docs/WORKING_STATE.md`
+### Milestone C — engine-off ALDL observability: SOURCE READY, NOT YET PROVEN
 
-## First replacement ROM master
+Source:
 
-Current master source:
+```text
+source/replacement_os/7427_aldl_tx_miniide.asm
+```
+
+Current implementation adds:
+
+```text
+8192-baud SCI transmit path
+stock BMHM/TBI $3FFC/$3FFD = $B93A startup baseline
+ALDL external-driver control on low byte $3FFD bit2
+14-byte raw-input debug frame
+SCI interrupt transmit service
+all production actuator outputs still disabled/absent
+```
+
+Authority for the stock handoff: `docs/contracts/ALDL_SCI_HANDSHAKE.md`.
+
+The next proof is to assemble Milestone C with the proven ASM11 toolchain, inspect the listing/S19/BIN, then bench-test it on the PCM with no actuator authority.
+
+## Maintainable source vs proof-stage sources
+
+Long-term maintainable modular authority:
 
 ```text
 source/replacement_os/7427_rom.asm
+source/replacement_os/include/*.inc
+source/replacement_os/core/*.asm
+source/replacement_os/hal/*.asm
 ```
 
-Current stock-proven placement anchors:
-
-```text
-low runtime RAM begins       $0000
-stock stack top              $03FF
-additional stock-used RAM    $0800-$08FF
-HC11 reset register base     $1000
-HC11 relocated register base $3000
-stock calibration/header     $4000+
-first replacement code ORG   $7100
-HC11 vector window           $FFC0-$FFFF
-external reset vector        $FFFE
-```
-
-The first master currently:
-
-- enters through the real external reset vector
-- sets the stock stack top
-- relocates HC11 registers `$1000 -> $3000`
-- applies the source-proven CPU-side reset configuration
-- clears only RAM allocated by the current build
-- initializes semantic state with every actuator permission disabled
-- initializes IAC software state without commanding the IAC output
-- services the COP in a stable engine-off loop
-- sends every unowned interrupt/vector to a COP-serviced safe halt
-- links existing command-island source without calling production-output commit routines
-
-It is not yet an engine-running image.
+Self-contained `*_miniide.asm` files are deliberate bring-up/proof stages for the user's ASM11/MiniIDE workflow. They are not independent long-term implementations. Once a stage is proven, its verified behavior should be folded back into the modular master rather than maintaining two drifting codebases.
 
 ## Preserved output islands
 
@@ -165,106 +144,71 @@ unused I/O         reserved
 
 Authority:
 
-- `docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md`
-- `source/replacement_os/hal/gm_output_islands.asm`
-
-Current first-image permissions remain:
-
 ```text
-fuel  = FALSE
-spark = FALSE
-IAC   = FALSE
-pump  = FALSE
-aux   = FALSE
+docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md
+source/replacement_os/hal/gm_output_islands.asm
 ```
 
-## ADC evidence correction found during ROM bootstrap
+No current observability milestone grants fuel, spark, IAC, pump, or auxiliary-output authority.
 
-The earlier ADC HAL called `$3008` `HC11_OPTION`.
+## Spark/ALDL interpretation proof
 
-Stock routine `F275` proves `$3008` is relocated CPU PORTD and that bits 3..5 are used as the external ADC/multiplexer selector. The actual relocated HC11 OPTION register written by stock reset is `$3039`.
-
-`source/replacement_os/hal/adc_read.asm` now uses the corrected PORTD/mux semantics.
-
-## Current repo index
-
-Primary state/authority:
-
-- `docs/WORKING_STATE.md`
-- `docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md`
-- `docs/closeout/7427_COMPLETION_STATUS.md`
-- `docs/implementation/ROM_FIRST_BUILD_PATH.md`
-
-Replacement ROM/source:
-
-- `source/replacement_os/7427_rom.asm`
-- `source/replacement_os/include/target_layout.inc`
-- `source/replacement_os/include/runtime_abi.inc`
-- `source/replacement_os/core/*.asm`
-- `source/replacement_os/hal/*.asm`
-- `source/replacement_os/hal/*.inc`
-
-Frozen planning data:
-
-- `maps/planning/v1_configuration_variables.csv`
-- `maps/planning/v1_module_interface_matrix.csv`
-- `maps/planning/v1_calibration_manifest.csv`
-- `maps/planning/v1_table_geometry.csv`
-- `maps/planning/v1_degraded_operation_policy.csv`
-- `maps/telemetry/v1_adx_manifest.csv`
-
-Stock evidence/source:
-
-- `source/31/BMHM_HAC_ORG_7100_to_end.asm`
-- `docs/contracts/*.md`
-- `maps/contracts/*.csv`
-- `maps/full/hardware_access_map_v0.3.csv`
-- `maps/current/hardware_access_map_hw_only.csv`
-
-Historical/bench evidence remains under:
-
-- `docs/bench/`
-- `maps/bench/`
-- `docs/tests/`
-- `tests/static/`
-- `source/minimal_os/`
-
-Those artifacts remain useful evidence but no longer define the project frontier when they conflict with the current working-state/implementation authorities.
-
-## Verification
-
-ROM bootstrap structural checks:
+`docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md` locks down a tuning-critical `$31` fact:
 
 ```text
-python tools/verify_rom_bootstrap.py
+ALDL Spark Advance = post-normal-KR spark value
+ALDL Knock Retard  = amount removed by knock logic
 ```
 
-The verifier currently enforces:
+Do not subtract logged KR from logged Spark Advance a second time. The contract traces `L01FD -> L01EE`, the explicit KR subtraction, `L01EE -> L01F0`, and the ALDL `$31F0 -> $01F0` address alias.
 
-- low-RAM allocation remains below the stock stack
-- exactly 32 vector entries cover `$FFC0-$FFFE`
-- external reset points to `RESET_ENTRY`
-- the first ROM master contains no production-output commit calls
-- ADC mux semantics identify `$3008` as PORTD
-- reset-time OPTION uses the source-proven `$39` offset (`$3039` after relocation)
+## Frozen semantic planning
 
-An HC11 assembler/toolchain and binary/map verification are the next build-layer addition.
+Machine-readable semantic requirements remain:
+
+```text
+maps/planning/v1_configuration_variables.csv
+maps/planning/v1_module_interface_matrix.csv
+maps/planning/v1_calibration_manifest.csv
+maps/planning/v1_table_geometry.csv
+maps/planning/v1_degraded_operation_policy.csv
+maps/telemetry/v1_adx_manifest.csv
+```
+
+These define required concepts and geometry, not preassigned binary placement.
+
+## Toolchain / verification
+
+Selected and proven assembler:
+
+```text
+MGTEK ASM11 / MiniIDE
+ASM11 V1.26 Build 144 for WIN32 (x86)
+```
+
+Utilities:
+
+```text
+tools/verify_rom_bootstrap.py
+tools/s19_to_64k_bin.py
+```
 
 ## Next work order
 
 ```text
-1. assemble/verify source/replacement_os/7427_rom.asm and inspect its binary/map
-2. enforce actual ROM/RAM/vector collision checks from assembler output
-3. bring up read-only ADC acquisition
-4. bring up read-only REF acquisition and configurable cranking RPM visibility
-5. add the base scheduler timer interrupt
-6. add SCI/ALDL engine-off debug transport
-7. add calibration header/integrity and real calibration objects as algorithms require them
-8. complete the full spark/EST preserved island
-9. implement engine-running modules in frozen interface order
-10. generate/maintain XDF and ADX definitions from the actual built layouts
+1. assemble source/replacement_os/7427_aldl_tx_miniide.asm with proven ASM11 V1.26
+2. inspect listing, RAM allocation, code end, vectors, SCI ISR and all absolute addresses
+3. validate S19 and convert to deterministic 64 KiB BIN
+4. bench-run Milestone C engine-off and verify ALDL frame/driver behavior
+5. verify raw ADC acquisition on the real PCM
+6. determine minimum safe ASIC initialization required for meaningful REF/cranking observability
+7. fold proven Milestone B/C behavior into the modular ROM master
+8. implement engineering sensor conversion/filter/validation and configurable REF geometry
+9. complete the full spark/EST preserved island
+10. implement engine-running control modules in frozen semantic-interface order
+11. derive XDF/ADX definitions from the actual built ROM and telemetry layouts
 ```
 
 ## Working rule
 
-Use stable filenames for current work. Let Git history preserve versions. Avoid parallel `almost same` copies unless there is a real branch/release reason.
+Use stable filenames for current authority. Let Git history preserve versions. Avoid parallel `almost same` copies unless they are deliberate proof stages or releases.
