@@ -8,8 +8,6 @@ on:
       - "tools/verify_rom_bootstrap.py"
       - ".github/workflows/rom-bootstrap-verification.yml"
   push:
-    branches:
-      - "agent/rom-first-bootstrap"
     paths:
       - "source/replacement_os/**"
       - "tools/verify_rom_bootstrap.py"
