@@ -2,114 +2,139 @@
 
 ## Decision
 
-The replacement OS will be built from the executable ROM outward.
+The replacement OS is built from the executable ROM outward.
 
-The project will **not** freeze a complete binary-encoding matrix, RAM partition,
-XDF address map, or ADX packet map before implementation.
+The project will **not** freeze a complete binary-encoding matrix, RAM partition, XDF address map, or ADX packet map before implementation. The built ROM and its assembly/listing output are the placement authority.
 
-The built ROM and its assembly/map output are the placement authority.
-
-## Why
+## Fixed boundaries
 
 The hardware contract already provides the fixed boundaries that matter:
 
-- stock reset code begins at `$7100`
-- stock stack top is `$03FF`
-- HC11 registers relocate from `$1000` to `$3000`
-- calibration/header data exists at `$4000+`
-- active HC11 vectors occupy `$FFD6-$FFFE`
-- stock code proves additional RAM use at `$0800-$08FF`
-- hardware/ASIC addresses remain owned by the HAL
+```text
+stock/replacement stack top       $03FF
+HC11 reset register base          $1000
+HC11 relocated register base      $3000
+stock calibration/header region   $4000+
+first replacement code ORG        $7100
+HC11 vector window                $FFC0-$FFFF
+external reset vector             $FFFE
+additional stock-used RAM         $0800-$08FF
+```
 
-Everything else can be allocated when the implementation creates a real need.
+Hardware/ASIC addresses remain owned by the HAL/contracts.
 
 ## Allocation policy
 
 ### RAM
 
-RAM is allocated incrementally.
-
 ```text
 module needs state
-    -> add state to semantic or HAL-private RAM declarations
-    -> assembler assigns the next location
-    -> build/map verifies no collision with stack or hardware
+-> add semantic or HAL-private state declaration
+-> assembler assigns actual location
+-> listing/map proves no collision with stack/hardware
 ```
 
-Do not reserve broad fixed subsystem blocks merely for organizational symmetry.
-If a later module needs a different location for direct-page, timing, interrupt,
-or hardware reasons, move the symbol and let the map remain authoritative.
+Do not reserve broad subsystem blocks merely for organizational symmetry.
 
 ### Calibration ROM
 
-Calibration storage is created with the code that consumes it.
-
 ```text
-implement control feature
-    -> define the required scalar/table
-    -> choose only the representation needed by that implementation
-    -> allocate it in ROM
-    -> expose the resulting address/scaling in the definition
+implement feature
+-> define required scalar/table
+-> choose representation needed by implementation
+-> allocate in ROM
+-> assemble/inspect
+-> expose actual address/scaling in XDF metadata
 ```
 
-Frozen semantic units and table geometry remain design authority, but they do
-not require addresses to exist before the executable exists.
+Frozen semantic units/table geometry remain design authority; addresses do not need to exist before the consuming code exists.
 
-### XDF
+### XDF / ADX
 
-The XDF describes the actual calibration layout in the built ROM.
+The XDF describes the actual calibration layout of the built ROM. The ADX describes the actual telemetry packet/page implemented by the ROM. Semantic planning manifests define required concepts/channels, not preassigned offsets.
 
-It does not dictate ROM placement ahead of the implementation.
+## Source roles
 
-### ADX
-
-The ADX describes the actual telemetry packet/page layout implemented by the
-ROM. The semantic telemetry manifest remains the channel-requirement authority,
-but packet addresses are assigned when transport is built.
-
-## Current first ROM milestone
-
-`source/replacement_os/7427_rom.asm` is the first master image.
-
-Its initial job is deliberately small:
-
-1. enter through the real external-reset vector
-2. set the stock-proven stack top
-3. relocate HC11 registers to `$3000`
-4. apply the stock-proven CPU-side startup register values
-5. clear only RAM allocated by the current build
-6. initialize semantic state with all actuator permissions disabled
-7. initialize IAC software state without touching the IAC hardware latch
-8. service the COP indefinitely in a stable engine-off loop
-9. route every unowned interrupt to a COP-serviced safe halt
-
-This image does **not** yet take control of fuel, spark, IAC, pump, or auxiliary
-outputs.
-
-## Next implementation increments
-
-Proceed by adding one observable capability at a time:
+Maintainable modular authority:
 
 ```text
-ROM bootstrap / vectors
-    -> verify assembly and binary map
-    -> read-only ADC acquisition
-    -> read-only REF acquisition / cranking RPM
-    -> base scheduler timer
-    -> SCI/ALDL debug transport
-    -> calibration header/integrity object
-    -> first real calibration objects as algorithms are implemented
-    -> preserved spark/EST island
-    -> engine-running control modules
+source/replacement_os/7427_rom.asm
+source/replacement_os/include/*.inc
+source/replacement_os/core/*.asm
+source/replacement_os/hal/*.asm
 ```
 
-Each increment must preserve the rule that no production output becomes
-executable merely because its module is linked.
+Self-contained ASM11 bring-up stages:
+
+```text
+7427_bootstrap_miniide.asm   Milestone A
+7427_inputs_miniide.asm      Milestone B
+7427_aldl_tx_miniide.asm     Milestone C
+```
+
+These proof-stage sources deliberately avoid include-path/toolchain friction. They are not intended to become a permanently divergent implementation; verified behavior is folded back into the modular source.
+
+## Current checkpoint — 2026-08-19
+
+### Milestone A: PROVEN
+
+Bootstrap/reset/vector image assembled with ASM11 V1.26 Build 144 at 0 warnings / 0 errors. The deterministic 64 KiB image has reset `$FFFE -> $7100` and SHA256:
+
+```text
+c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
+```
+
+### Milestone B: PROVEN BUILD
+
+Read-only ADC/REF acquisition image assembled with 0 warnings / 0 errors.
+
+```text
+RAM $0000-$0009
+code $7100-$71D7
+vectors $FFC0-$FFFF
+reset $FFFE -> $7100
+SHA256 28462ef9dbf3b6f0de59b68662fb26916dc87abea35ff7d67a0d572d42f92848
+```
+
+The `$3FC0` read is build-proven but not yet live-REF-proven because the stock ASIC/register initialization is intentionally absent.
+
+### Milestone C: SOURCE READY / PROOF PENDING
+
+`source/replacement_os/7427_aldl_tx_miniide.asm` adds engine-off SCI/ALDL observability on top of the Milestone-B acquisition approach.
+
+It establishes the source-proven BMHM/TBI board-control baseline:
+
+```text
+$3FFC/$3FFD = $B93A
+```
+
+before ALDL read/modify/write, uses low-byte `$3FFD bit2` for the external ALDL driver, configures 8192-baud SCI, and transmits a 14-byte raw-input frame. Production actuator authority remains absent.
+
+The next gate is assembly/listing/S19/BIN proof followed by engine-off bench proof.
+
+## Increment rule
+
+Advance one observable capability at a time:
+
+```text
+proven bootstrap
+-> proven read-only ADC image
+-> engine-off ALDL telemetry
+-> live ADC proof
+-> minimum safe ASIC initialization / live REF proof
+-> integrate proven observability into modular master
+-> engineering sensor pipeline
+-> configurable REF geometry/lifecycle
+-> calibration objects as algorithms require them
+-> complete preserved spark/EST island
+-> engine-running control modules
+```
+
+No production output becomes executable merely because its module is linked.
 
 ## Definition generation rule
 
-For every implemented calibration or telemetry object, retain enough metadata
-to generate/maintain its external definition:
+For every implemented calibration or telemetry object retain:
 
 ```text
 symbol
@@ -118,17 +143,24 @@ storage width
 signedness
 scaling / conversion
 engineering unit
-table dimensions / axis symbols if applicable
+table dimensions / axes if applicable
 ```
 
-That metadata follows the executable allocation. It does not precede it.
+That metadata follows executable allocation rather than preceding it.
 
-## Evidence correction discovered during bootstrap
+## Evidence corrections retained
 
-The earlier ADC HAL labeled `$3008` as `HC11_OPTION`. Stock `F275` proves `$3008`
-is relocated CPU PORTD and that bits 3..5 are used as the external ADC/mux
-selector. The actual relocated HC11 OPTION register used during reset is
-`$3039`.
+### ADC register identity
 
-The bootstrap corrects that naming/semantic error before it can become part of
-the new ROM contract.
+Stock `F275` proves:
+
+```text
+$3008 = relocated CPU PORTD, used for external ADC/mux selection
+$3039 = relocated HC11 OPTION
+```
+
+The earlier `$3008 = OPTION` interpretation is superseded.
+
+### ALDL board-control baseline
+
+Stock BMHM/TBI startup writes `$B93A` to `$3FFC/$3FFD` before normal serial activity. Replacement ALDL bring-up must establish that known baseline before manipulating low-byte `$3FFD bit2`; preserving an unspecified reset value would leave neighboring board-control bits unknown.
