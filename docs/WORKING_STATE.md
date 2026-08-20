@@ -11,39 +11,29 @@ BCC/object: BMHM
 raw target BIN: 31/BMHM.BIN
 BIN size: 65536 bytes
 SHA-256: 6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
-working executable source: source/31/BMHM_HAC_ORG_7100_to_end.asm
-replacement ROM master: source/replacement_os/7427_rom.asm
+working stock executable source: source/31/BMHM_HAC_ORG_7100_to_end.asm
+replacement modular ROM master: source/replacement_os/7427_rom.asm
 selected assembler: MGTEK ASM11 / MiniIDE
-proven assembler version: ASM11 V1.26 Build 144 for WIN32 (x86)
+proven assembler: ASM11 V1.26 Build 144 for WIN32 (x86)
 ```
 
 ## Current authority
 
-Detailed consolidated audit:
+Implementation/current-state authority:
+
+```text
+docs/WORKING_STATE.md
+docs/closeout/7427_IMPLEMENTATION_CONSOLIDATION_AUDIT_2026-08-19.md
+docs/closeout/7427_COMPLETION_STATUS.md
+docs/implementation/ROM_FIRST_BUILD_PATH.md
+docs/implementation/ASM11_MINIIDE_BUILD.md
+```
+
+Frozen semantic-planning authority:
 
 ```text
 docs/closeout/7427_V1_PLANNING_CONSOLIDATION_AUDIT.md
-```
-
-Status summary:
-
-```text
-docs/closeout/7427_COMPLETION_STATUS.md
-```
-
-ROM-first implementation authority:
-
-```text
-docs/implementation/ROM_FIRST_BUILD_PATH.md
-docs/implementation/ASM11_MINIIDE_BUILD.md
-docs/implementation/ASM11_BOOTSTRAP_PROOF.md
-source/replacement_os/7427_rom.asm
-source/replacement_os/include/target_layout.inc
-```
-
-Machine-readable planning authorities remain semantic requirements, not preassigned binary placement:
-
-```text
+docs/planning/V1_*.md
 maps/planning/v1_configuration_variables.csv
 maps/planning/v1_module_interface_matrix.csv
 maps/planning/v1_calibration_manifest.csv
@@ -52,7 +42,9 @@ maps/planning/v1_degraded_operation_policy.csv
 maps/telemetry/v1_adx_manifest.csv
 ```
 
-## Architecture
+The 2026-08-13 planning audit remains authoritative for frozen semantics, but its historical implementation-next-step section is superseded by this file and the 2026-08-19 implementation audit.
+
+## Architecture / placement policy
 
 ```text
 SEMANTIC / PHYSICAL CONTROL REQUIREMENTS
@@ -70,165 +62,141 @@ built ROM / packet layout
 XDF / ADX definitions
 ```
 
-The first-running-engine route preserves verified stock software-to-hardware command behavior. Full electrical characterization is not a prerequisite for the V1 software contract.
+The executable is the placement authority. Runtime/calibration objects get concrete widths and addresses as implementation creates them. XDF/ADX describes those built layouts afterward.
 
-The executable is now the placement authority. Calibration and runtime objects receive concrete representations and addresses as their consuming modules are implemented. XDF/ADX files describe those built layouts afterward rather than dictating them in advance.
-
-## Frozen reverse-engineering status
+## Frozen reverse-engineering state
 
 ```text
-algorithm extraction             100%
-scheduler/lifecycle extraction   100%
-diagnostics/failsafe extraction  100%
-production calibration audit     100%
-V1 software-facing HW contract   100%
+algorithm extraction             100% FROZEN
+scheduler/lifecycle extraction   100% FROZEN
+diagnostics/failsafe extraction  100% FROZEN
+production calibration audit     100% FROZEN
+V1 software-facing HW contract   100% FROZEN
 physical endpoint confirmation     0% intentionally deferred
 ```
 
-Do not reopen the frozen extraction categories unless new executable/ROM evidence materially contradicts them or V1 scope is deliberately expanded.
+Do not reopen these broad extraction categories unless contradictory executable/ROM evidence appears or V1 scope changes.
 
-## Replacement-OS planning status
-
-```text
-V1 feature scope                   100%
-control/formula semantics          100%
-physical/setup model               100%
-sensor transfer model              100%
-signal conditioning                100%
-rotation/reference geometry        100% for V1 validated trigger relationship
-module interfaces                  100%
-calibration/XDF semantic exposure  100%
-calibration table geometry         100%
-ADX semantic channel definition    100%
-degraded-operation policy          100%
-```
-
-These semantic decisions are frozen requirements. They are not a requirement to pre-freeze every future byte width, RAM address, calibration address, or packet offset before implementation.
-
-## ROM-first implementation state
-
-Implemented/proven on the current ROM-first branch:
+## Frozen V1 semantic planning
 
 ```text
-stock-proven stack top             $03FF
-replacement executable origin      $7100
-HC11 relocated register base       $3000
-vector window                       $FFC0-$FFFF
-external reset vector               $FFFE -> RESET_ENTRY
-runtime RAM allocation              sequential from $0000
-additional proven RAM               $0800-$08FF reserved until needed
-selected assembler                  MGTEK ASM11 / MiniIDE
-proven ASM11 build                  V1.26 Build 144, 0 warnings / 0 errors
-Milestone-A executable              $7100-$7136
-Milestone-A vector table            $FFC0-$FFFF
-Milestone-A 64K BIN SHA256          c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
-structural bootstrap verifier       tools/verify_rom_bootstrap.py
-S19 -> 64K BIN converter            tools/s19_to_64k_bin.py
+feature scope                     100%
+control/formula semantics         100%
+physical/setup model              100%
+sensor transfer model             100%
+signal conditioning               100%
+rotation/reference geometry        100% for validated V1 relationship
+module interfaces                 100%
+calibration semantic exposure     100%
+calibration table geometry        100%
+telemetry semantic channels       100%
+degraded-operation policy         100%
 ```
 
-Milestone-A proof authority:
+## ROM-first implementation checkpoint
+
+### Milestone A — bootstrap/vector image: PROVEN
 
 ```text
-docs/implementation/ASM11_BOOTSTRAP_PROOF.md
-source/replacement_os/7427_bootstrap_miniide.asm
+source: source/replacement_os/7427_bootstrap_miniide.asm
+ASM11:  0 warnings / 0 errors
+code:   $7100-$7136
+vectors:$FFC0-$FFFF
+reset:  $FFFE -> $7100
+BIN:    65536 bytes
+SHA256: c8980013fb2223dfec6e6536f2e9f3815a66a9c555a50ac25989fbfe15b9279e
 ```
 
-The first image deliberately does not pre-partition RAM by subsystem and does not allocate final calibration blocks before their code exists.
+Proof: `docs/implementation/ASM11_BOOTSTRAP_PROOF.md`.
 
-## Key frozen V1 setup decisions
+### Milestone B — read-only ADC/REF acquisition image: PROVEN BUILD
 
 ```text
-hybrid air model            speed-density + bounded Alpha-N
-main spark load axis        RPM x MAP kPa absolute
-PE target load axis         RPM x MAP/BARO pressure ratio
-BARO                        valid MAP captured before rotation and held for run
-MAT/IAT                     optional added sensor
-analog sensor transfer      VDC -> engineering-unit 1-D table
-fuel learning               disabled in V1; LEARN_FACTOR=1.000
+source: source/replacement_os/7427_inputs_miniide.asm
+ASM11:  0 warnings / 0 errors
+RAM:    $0000-$0009
+code:   $7100-$71D7
+vectors:$FFC0-$FFFF
+reset:  $FFFE -> $7100
+BIN:    65536 bytes
+SHA256: 28462ef9dbf3b6f0de59b68662fb26916dc87abea35ff7d67a0d572d42f92848
 ```
 
-Editable physical geometry includes:
+Proof: `docs/implementation/MILESTONE_B_BUILD_PROOF.md`.
+
+Milestone B proves the source can build with the input-path addresses and allocation shown in its listing. It does **not** prove live REF observability from `$3FC0`; the stock firmware initializes the `$3FC0-$3FFA` ASIC/register island and Milestone B deliberately does not.
+
+### Milestone C — engine-off ALDL observability image: SOURCE READY / UNPROVEN
 
 ```text
-engine displacement
-cylinder count
-REF events per crank revolution
-signed REF-to-event-TDC offset
-injector count
-fuel-delivery events per 720-degree cycle
-active injectors per delivery event
-injector design flow
-injector design pressure
-operating fuel pressure
+source: source/replacement_os/7427_aldl_tx_miniide.asm
+frame:  14-byte raw-input frame
+SCI:    8192 baud
+board baseline: $3FFC/$3FFD = $B93A before ALDL RMW
+ALDL driver: low byte $3FFD bit2
+actuator authority: none
 ```
 
-Derived values are read-only.
+`docs/contracts/ALDL_SCI_HANDSHAKE.md` is the stock handoff authority.
 
-## Current implementation components
+Milestone C has not yet received the same ASM11 listing/S19/BIN proof as A and B and has not been bench-run on the PCM.
+
+## Maintainable source model
+
+Long-term modular source authority:
 
 ```text
 source/replacement_os/7427_rom.asm
-source/replacement_os/7427_bootstrap_miniide.asm
-source/replacement_os/7427_inputs_miniide.asm
 source/replacement_os/include/target_layout.inc
 source/replacement_os/include/runtime_abi.inc
-source/replacement_os/core/safe_runtime.asm
-source/replacement_os/core/debug_frame.asm
-source/replacement_os/hal/HAL_API.md
-source/replacement_os/hal/hal_ram.inc
-source/replacement_os/hal/init_safe.asm
-source/replacement_os/hal/adc_read.asm
-source/replacement_os/hal/ref_read.asm
-source/replacement_os/hal/gm_output_islands.asm
+source/replacement_os/core/*.asm
+source/replacement_os/hal/*.asm
+source/replacement_os/hal/*.inc
 ```
 
-Implemented scaffold pieces:
+Proof-stage sources:
 
 ```text
-real ROM master / reset vector
-source-proven HC11 register relocation
-minimum safe processor initialization
-sequential runtime RAM allocation
-safe initialization
-6.25 ms semantic scheduler scaffold
-basic REF-event/dropout scaffold
-key-off/shutdown safe state
-calibration-validity gate
-semantic request/arbitration scaffold
-read-only ADC/REF acquisition modules
-24-byte bring-up debug frame builder
-preserved sync/async fuel, IAC and pump command modules
-proven ASM11 Milestone-A bootstrap build and deterministic 64K conversion
+source/replacement_os/7427_bootstrap_miniide.asm   Milestone A
+source/replacement_os/7427_inputs_miniide.asm      Milestone B
+source/replacement_os/7427_aldl_tx_miniide.asm     Milestone C
 ```
 
-Not yet implemented/integrated/proven:
+The `*_miniide.asm` sources are deliberate self-contained proof vehicles. Proven changes must be folded into the modular tree; they must not become a permanently divergent second implementation.
+
+`source/replacement_os/7427_rom_miniide.asm` is only a flattened convenience form of the modular tree and is not independent authority.
+
+## Important proven corrections/contracts
+
+### ADC/register correction
 
 ```text
-clean ASM11 Milestone-B input-acquisition build/listing
-live PCM execution/bench proof
-read-only acquisition proof on live PCM
-engineering ADC-count -> VDC -> engineering transfer pipeline
-sensor-specific filtering and validation/substitution
-configurable REF event count / RPM scaling / TDC offset
-hybrid SD/Alpha-N air-charge manager
-mass-based fuel model and injector model
-spark/idle/knock control algorithms
-SCI/ALDL transport
-final telemetry packet/page
-calibration ROM objects and actual XDF
-full spark/EST preserved island
+$3008 = relocated CPU PORTD / external ADC-mux selector
+$3039 = relocated HC11 OPTION register
 ```
+
+### ALDL board-control baseline
+
+Stock BMHM/TBI startup establishes:
+
+```text
+$3FFC/$3FFD = $B93A
+```
+
+before normal serial activity. ALDL external-driver control is low-byte `$3FFD bit2`; async-fuel control uses high-byte `$3FFC bit2` and is a distinct control.
+
+### ALDL spark / knock-retard ordering
+
+Authority: `docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md`.
+
+```text
+ALDL Spark Advance = post-normal-KR spark
+ALDL Knock Retard  = amount normal knock logic removed
+```
+
+Do not subtract KR from logged Spark Advance again. Approximate pre-KR demand is `logged spark + KR`, subject to serialized ALDL sampling skew.
 
 ## Preserved command islands
-
-Authority:
-
-```text
-docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md
-source/replacement_os/hal/gm_output_islands.asm
-```
-
-Current state:
 
 ```text
 fuel synchronous   LOCKED + PORTED
@@ -240,9 +208,16 @@ MIL                deferred
 unused I/O         reserved
 ```
 
-The current ROM master links the completed preserved islands but does not call their production commit functions.
+Authority:
+
+```text
+docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md
+source/replacement_os/hal/gm_output_islands.asm
+```
 
 ## Current output policy
+
+Through the observability milestones:
 
 ```text
 fuel permission  = FALSE
@@ -252,32 +227,66 @@ pump permission  = FALSE
 aux permission   = FALSE
 ```
 
-That remains mandatory through the first target-linked observability image.
+## Implemented/proven vs pending
+
+Proven/build-verified:
+
+```text
+ASM11 toolchain and absolute S19 workflow
+Milestone-A reset/bootstrap/vector image
+Milestone-B input-acquisition image
+S19 checksum validation / deterministic 64 KiB conversion
+stock register relocation and ADC mux addresses used by Milestone B
+```
+
+Implemented in source but not yet build/bench-proven:
+
+```text
+Milestone-C SCI/ALDL engine-off telemetry image
+```
+
+Pending:
+
+```text
+live PCM execution proof for replacement images
+live ADC acquisition proof
+minimum safe ASIC initialization and live REF/cranking proof
+engineering ADC-count -> VDC -> engineering transfer pipeline
+sensor-specific filtering / validity / substitution
+configurable REF event count, RPM scaling and TDC offset
+hybrid SD/Alpha-N air-charge manager
+mass-based fuel/injector model
+spark/idle/knock control algorithms
+full spark/EST preserved island
+final telemetry packet/page
+calibration ROM objects and actual XDF
+actual production ADX
+```
 
 ## Current work order
 
 ```text
-1. assemble source/replacement_os/7427_inputs_miniide.asm with proven ASM11 V1.26
-2. inspect its actual listing, RAM allocation, input addresses and vectors
-3. convert the clean absolute S19 to a 64 KiB BIN with tools/s19_to_64k_bin.py
-4. add SCI/ALDL debug transport while keeping all actuator authority absent
-5. bench-observe ADC/REF values on the real PCM
-6. implement engineering sensor pipeline and allocate its RAM/calibration as required
-7. implement lifecycle/REF geometry and allocate required state/calibration
-8. continue engine-control modules in frozen semantic interface order
-9. derive XDF/ADX definitions from the resulting ROM/packet layouts
+1. assemble source/replacement_os/7427_aldl_tx_miniide.asm with ASM11 V1.26
+2. inspect its listing, RAM allocation, code end, vectors, SCI ISR and absolute accesses
+3. checksum-validate S19 and convert to deterministic 64 KiB BIN
+4. bench-run Milestone C engine-off and verify ALDL frame/driver release behavior
+5. bench-verify ADC values
+6. determine/implement the minimum safe ASIC initialization required for meaningful REF/cranking observability
+7. fold proven B/C behavior into source/replacement_os/7427_rom.asm and modular HAL/core files
+8. implement engineering sensor pipeline and configurable REF geometry
+9. complete preserved spark/EST rolling-state handoff
+10. continue engine-running modules in frozen semantic interface order
+11. derive XDF/ADX from actual ROM/packet layouts
 ```
 
 For each module:
 
 ```text
 implement behavior
-→ choose only the representation actually required
-→ allocate ROM/RAM
-→ assemble
-→ inspect map/listing
-→ lock externally depended-on representation
-→ expose it in XDF/ADX when appropriate
+-> choose only the representation actually required
+-> allocate ROM/RAM
+-> assemble
+-> inspect map/listing
+-> lock externally depended-on representation
+-> expose it in XDF/ADX when appropriate
 ```
-
-This prevents planning artifacts from becoming artificial hardware constraints while still keeping every address collision and external ABI explicit.
