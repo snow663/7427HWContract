@@ -1,5 +1,7 @@
 # 7427 Static Analysis Summary v0.3
 
+> Historical static-pass summary. Retain this as evidence of the v0.3 source-classification pass, not as the current project work order. Current hardware conclusions in `docs/contracts/` and current implementation state in `docs/WORKING_STATE.md` / `docs/closeout/7427_IMPLEMENTATION_CONSOLIDATION_AUDIT_2026-08-19.md` supersede the priority list below where later proof exists.
+
 - Parsed source lines: 25885
 - Parsed instruction rows: 15002
 - Hardware/direct/ROM access rows emitted: 7507
@@ -24,7 +26,7 @@
 ## UNKNOWN_HW addresses/ranges found (16)
 0x305C, 0x305D, 0x305E, 0x305F, 0x3060, 0x3061, 0x3062, 0x3063, 0x3064, 0x3065, 0x3067, 0x3068, 0x306A, 0x306C, 0x306E, 0x306F
 
-## Highest-priority next traces
+## Highest-priority next traces at time of v0.3 static pass
 1. Prove `$3FCE` EFI pulsewidth handoff first; scope injector output while forcing known values.
 2. Passive observer log of `$301C/$301E/$3020/$3022/$3023` only if `$3FCE` alone does not explain injector pulse behavior.
 3. Passive observer log of `$3FDC/$3FE6/$3FE8/$3FF6` to prove spark handoff units and write order.
