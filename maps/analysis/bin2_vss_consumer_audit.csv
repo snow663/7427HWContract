@@ -1,0 +1,44 @@
+address,input,subsystem,bin2_status,engine_core,recommended_elimination
+0x7F45,L0284,TPS acceleration enrichment,ACTIVE,YES,remove low-speed VSS multiplier and retain TPS/MAP-rate AE
+0x7F9A,L0284,closed-TPS VE selection,ACTIVE,YES,replace VSS gate with closed-TPS plus RPM<1100 idle-context gate
+0x8073,L0812,manual low-speed abuse fuel cut,CONDITIONAL_ACTIVE,YES,bypass VSS-based abuse path
+0x80C5,L0284,MPH overspeed fuel cut,ACTIVE,YES,bypass MPH branch while retaining RPM limiter
+0x8213,L0284,DFCO speed qualification,ACTIVE,YES,remove 10/7-mph gate and retain TPS/MAP/RPM/ECT logic
+0x82BC,L0284,decel enlean low-speed multiplier,ACTIVE_ON_DECEL,YES,skip low-speed-only multiplier
+0x82FC,L0284,derivative RPM-ratio qualification,DORMANT_BY_$48DD_255,YES,remove VSS gate for future-proof engine-only derivative
+0x8765,L0284,closed-loop lean-decel special handling,DORMANT_BY_$490B_0,YES,bypass VSS-specific special handling or use MAP/RPM only
+0x899B,L0284,idle-state classification,ACTIVE,YES,replace VSS with TPS plus RPM<=1100
+0x8A92,L0284,PE delay bypass,BEHAVIOR_NEUTRAL_BY_$4921_0,YES,optional hardening remove VSS read
+0x8BCF,L0284,cold PE qualification,CONDITIONAL_ACTIVE,YES,remove VSS gate and retain coolant/RPM/PE qualification
+0x8C79,L0284,PE speed-delta calculation,LATENT_BY_$4926_0000,YES,force local speed-delta state to zero
+0x8C88,L0284,PE previous-speed storage,LATENT_BY_$4926_0000,YES,store zero previous-speed state
+0x8CA0,L0284,idle BLM-cell selection,ACTIVE,YES,replace VSS with TPS plus RPM<1100
+0x8EE9,L0284,electronic governor,DORMANT_$400F_BIT0_0_AND_$50DA_0,NO,leave dormant
+0x99F2,L0284,closed-loop IAC qualification,ACTIVE,YES,replace VSS with RPM<1100 while retaining TPS qualification
+0x9C4D,L0284,IAC proportional-authority speed limiter,CONDITIONAL_ACTIVE,YES,bypass speed-based authority limiter
+0x9D15,L0284,throttle-follower delay lookup,ACTIVE,YES,use fixed local 0-mph lookup input; retain original Bin2 table
+0x9D47,L0284,throttle-follower filter lookup,ACTIVE,YES,use fixed local 0-mph lookup input; retain original Bin2 table
+0x9EA7,L0284,first-drive-away IAC kickdown,BEHAVIOR_NEUTRAL_BY_$4EC0_255,YES,optional local zero hardening
+0x9F6C,L0284,throttle-kicker qualification,CONDITIONAL_ACTIVE,YES,remove local VSS gate
+0x9FD3,L0284,throttle-kicker qualification,CONDITIONAL_ACTIVE,YES,remove local VSS gate
+0xA3F2,L0284,IAC motor reset trigger,ACTIVE,YES,delete running VSS-triggered reset and retain key-off reset
+0xA85A,L0284,idle spark qualification,ACTIVE,YES,replace VSS with RPM<1100; retain TPS/coolant/RPM-error logic
+0xAA9D,L0284,normal knock low-speed qualification,ACTIVE,YES,always execute existing RPM>=800 qualification
+0xACFC,L0284,shift-light/gear estimator,PERIPHERAL,NO,leave isolated or disable separately
+0xADB4,L0284,TH700R4 TCC load-vs-speed,DORMANT_$400F_BIT6_0,NO,leave dormant
+0xADDE,L0284,TH700R4 TCC lock/unlock,DORMANT_$400F_BIT6_0,NO,leave dormant
+0xAE11,L0284,TH700R4 TCC road-speed limits,DORMANT_$400F_BIT6_0,NO,leave dormant
+0xCBD6,L0284,A/C clutch speed qualification,DORMANT_$400F_BIT2_0,NO,leave dormant
+0xCF94,L0284,EGR speed qualification,BEHAVIOR_NEUTRAL_BY_$46FE_0,NO,leave peripheral
+0xD2EC,L0284,canister purge speed qualification,PERIPHERAL,NO,isolate/disable with purge feature if desired
+0xD2F9,L0284,purge zero-speed reset,BEHAVIOR_NEUTRAL_BY_$402F_0,NO,leave peripheral
+0xD4B1,L0812,VSS producer raw-speed store,PRODUCER,NO,retain for telemetry
+0xD4C8,L0812,VSS producer raw-speed store,PRODUCER,NO,retain for telemetry
+0xD4DA,L0812,VSS filter input,PRODUCER,NO,retain for telemetry
+0xD4DD,L0284,VSS filter old-state input,PRODUCER,NO,retain for telemetry
+0xD4E7,L0284,VSS filter output,PRODUCER,NO,retain for telemetry
+0xDC17,L0284,MAT DTC23 qualification,DIAGNOSTIC_MASK_DISABLED,NO,no core authority
+0xDDC3,L0284,DTC16 VSS-buffer diagnostic,ACTIVE_DIAGNOSTIC,YES,prevent DTC16 state bit from setting
+0xDE2F,L0284,DTC24 output-speed diagnostic,ACTIVE_DIAGNOSTIC,NO,prevent DTC24 state bit from setting
+0xDEBF,L0284,EGR DTC32 qualification,DIAGNOSTIC_MASK_DISABLED,NO,no core authority
+DERIVED_L0818,L0284,PE absolute speed-delta,BEHAVIOR_NEUTRAL_BY_$4926_0000,YES,zero locally or bypass PE speed-delta comparison
