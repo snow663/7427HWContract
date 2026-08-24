@@ -1,0 +1,14 @@
+address,function,BMHM_0.3.2_behavior
+$7F95-$7F98,closed-throttle VE selector,Use $FF8B virtual TPS-switch threshold; <= threshold stays closed-throttle VE
+$899B,central idle classifier hook,JMP $FEF8; replaces VSS/TPS-only idle qualification
+$8C98-$8CA7,BLM idle-cell selector,Cell 16 only when centralized L0050.b7 TRUE-IDLE is set
+$99F2-$99F9,IAC closed-loop qualifier,Use centralized TRUE-IDLE state instead of VSS
+$A85A,idle spark qualifier,JMP $FF30; idle spark requires centralized TRUE-IDLE
+$E4FC,lambda-mode hook,JMP $FF40; closed-throttle OL / part-load CL architecture
+$FEF8-$FF1F,TRUE-IDLE state routine,Corrected TPS + RPM hysteresis -> L0050.b7
+$FF30-$FF39,idle-spark state gate,TRUE-IDLE -> stock idle spark; otherwise stock bypass
+$FF40-$FF5E,closed-throttle lambda gate,FE9F bit0 forces OL when corrected TPS <= $FF8B
+$FF88,True Idle Enter RPM,raw 44; X*25 = 1100 RPM
+$FF89,True Idle Exit RPM,raw 48; X*25 = 1200 RPM
+$FF8A,Virtual Idle Switch Enter TPS,raw 2; X*100/256 = 0.78125%
+$FF8B,Virtual Idle Switch Exit TPS,raw 3; X*100/256 = 1.171875%
