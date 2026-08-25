@@ -1,0 +1,5 @@
+address,function,BMHM_0.3.4_change
+$B12E-$B12F,TPS upward auto-zero decel source,"SUBA L00D7 filtered VSS -> SUBA L0062 engine RPM/25"
+$B160-$B161,TPS auto-zero reference update,"LDAA L00D7 filtered VSS -> LDAA L0062 engine RPM/25"
+$00F7,TPS auto-zero event reference RAM,"Repurposed within this routine from previous filtered VSS to previous RPM/25"
+$5B2A,TPS zero-learning decel threshold,"Raw 10 retained; semantics become 250 RPM cumulative drop"
