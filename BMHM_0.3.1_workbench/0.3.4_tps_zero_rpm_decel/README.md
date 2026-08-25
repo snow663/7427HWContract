@@ -7,10 +7,39 @@ Experimental successor to BMHM 0.3.3. This revision removes the specifically tra
 - File: `BMHM_0.3.4.bin`
 - Base: `BMHM_0.3.3.bin`
 - Base SHA-256: `08c61b87013ade0c226e5edaea36a9b11874d73f62e74365d187f6fd625c2040`
-- SHA-256: `e024b988bd0b47b0399d772a5a655b7a4a0d7eed9d27eb7966739ecb1875c73f`
+- Signed SHA-256: `48a43c32625427dbbeaa42a3c97ae2a000864c289d846a812cf5b9bc7433d9ed`
 - `$31` checksum: `$3C9E` at `$4006-$4007`
+- Platform/version signature `$4002-$4005`: `00 03 00 04`
 
 The binary itself is distributed separately from this workbench documentation.
+
+## Version signature
+
+Starting with this build, BMHM uses the stock platform-ID bytes as a version signature so ordinary stock ALDL logs can identify the exact BIN revision that produced them.
+
+Encoding:
+
+```text
+$4002 = major version byte
+$4003 = minor version byte
+$4004-$4005 = patch/build number, big-endian 16-bit
+```
+
+Therefore BMHM 0.3.4 is:
+
+```text
+00 03 00 04
+```
+
+Examples:
+
+```text
+0.3.5 -> 00 03 00 05
+0.4.0 -> 00 04 00 00
+1.0.0 -> 01 00 00 00
+```
+
+The `$31` checksum starts at `$4008`, so the platform signature does not change the stored calibration checksum.
 
 ## Change
 
