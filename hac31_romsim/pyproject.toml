@@ -12,6 +12,9 @@ dependencies = []
 [project.scripts]
 hac31-romsim = "romsim.cli:main"
 
+[project.gui-scripts]
+hac31-romsim-gui = "romsim.gui:main"
+
 [tool.setuptools]
 packages = ["romsim", "romsim.profiles"]
 

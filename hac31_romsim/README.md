@@ -18,6 +18,7 @@ This first build is anchored to `snow663/7427HWContract` commit `c902ff4c53356c0
 - Chronological streaming JSONL containing bus accesses, outputs, and scenario/interrupt events.
 - ROM write protection; deliberate debugger patches require the separate `patch` command.
 - Stock `BMHM.BIN` and current `2.bin` SHA-256 identity recognition.
+- Native Tkinter operator GUI with BIN/scenario file pickers, Run/Pause/Reset, instruction and cycle-budget stepping, live inputs, raw ADC controls, breakpoints, interrupts, CPU state, mapped registers, memory editing, and trace/output views.
 
 ## Authority and uncertainty
 
@@ -57,7 +58,31 @@ The major pieces are intentionally separate:
 - `romsim/simulator.py` — execution control, breakpoints, interrupts, BIN identity, and coordination.
 - `romsim/cli.py` — batch interface and interactive operator console.
 
-## Run it
+## Start the clickable GUI
+
+No command line is required for normal Windows operation. Install Python 3.10 or newer, open the `hac31_romsim` folder, and double-click either launcher:
+
+```text
+Launch_ROM_Simulator.cmd
+launch_gui.pyw
+```
+
+The GUI opens without a console window. Click **Load BIN**, select `BMHM.BIN`, `2.bin`, or another 64K/48K/32K image, and operate the simulator from the visible controls. The BIN on disk remains unchanged; even the GUI's deliberate **Patch ROM** action changes only the in-memory simulation session.
+
+The same GUI can be launched explicitly when diagnosing Python file associations:
+
+```powershell
+py -3 -m romsim.gui
+```
+
+Installing the project adds a Windows GUI entry point:
+
+```powershell
+py -3 -m pip install .
+hac31-romsim-gui
+```
+
+## Command-line and automated operation
 
 No third-party Python packages are required.
 
@@ -133,4 +158,3 @@ The current truck `2.bin` digest recorded by the repo is:
 4. Bind ADC mux selections to physical sensors using the repo's sensor semantic validation work.
 5. Convert the CPU to micro-operations for true E-clock/pin-level stepping.
 6. Add ALDL live-dereference serialization timing so virtual rows reproduce field-order skew.
-

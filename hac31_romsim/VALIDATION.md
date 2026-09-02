@@ -28,7 +28,7 @@ The supplied HAC HTML and source-trace CSVs were used only to check source locat
 ## Automated tests
 
 ```text
-9 tests passed with the exact stock BMHM integration image; 7 self-contained tests pass without a ROM file.
+12 tests pass with the exact stock BMHM integration image; 10 self-contained tests pass without a ROM file.
 ```
 
 Coverage includes:
@@ -41,6 +41,8 @@ Coverage includes:
 - E/32 reference-period contract model.
 - ROM write protection and explicit debugger patching.
 - Named/traced `$3FCE` fuel output handoff.
+- Headless import of the desktop GUI without opening a window.
+- GUI workbench controls for PCM-style numeric notation, inputs, stepping, breakpoints, memory reads, ROM protection, and explicit session-only patches.
 
 ## Stock BMHM real-ROM smoke run
 

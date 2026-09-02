@@ -141,7 +141,7 @@ hac31_romsim/
 tools/distributor_phasing_sim.py
 ```
 
-`hac31_romsim/` is the contract-driven MC68HC11/7427 ROM simulator. It executes real BIN images behind a modeled memory, RAM, HC11 peripheral, and external-I/O bus; provides stepping, continuous execution, operator inputs, scenarios, breakpoints, and chronological traces; and keeps modeled or HAC-derived behavior visibly below repository contracts and bench proof.
+`hac31_romsim/` is the contract-driven MC68HC11/7427 ROM simulator. Its native clickable operator GUI loads and executes real BIN images behind a modeled memory, RAM, HC11 peripheral, and external-I/O bus; provides Run/Pause/Reset, stepping, live inputs, raw ADC controls, scenarios, breakpoints, interrupts, memory inspection, and chronological trace/output views; and keeps modeled or HAC-derived behavior visibly below repository contracts and bench proof.
 
 The distributor-phasing simulator is an exploratory geometry tool, not stock `$31` ignition-algorithm authority.
 
