@@ -137,8 +137,11 @@ It contains source-derived ORG/data/XDF-seed inventory metadata. Source comments
 ## Experimental tools
 
 ```text
+hac31_romsim/
 tools/distributor_phasing_sim.py
 ```
+
+`hac31_romsim/` is the contract-driven MC68HC11/7427 ROM simulator. It executes real BIN images behind a modeled memory, RAM, HC11 peripheral, and external-I/O bus; provides stepping, continuous execution, operator inputs, scenarios, breakpoints, and chronological traces; and keeps modeled or HAC-derived behavior visibly below repository contracts and bench proof.
 
 The distributor-phasing simulator is an exploratory geometry tool, not stock `$31` ignition-algorithm authority.
 

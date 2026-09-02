@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hac31-romsim"
+version = "0.1.0"
+description = "Contract-driven MC68HC11/GM 16197427 $31 ROM simulator"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+hac31-romsim = "romsim.cli:main"
+
+[tool.setuptools]
+packages = ["romsim", "romsim.profiles"]
+
+[tool.setuptools.package-data]
+"romsim.profiles" = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

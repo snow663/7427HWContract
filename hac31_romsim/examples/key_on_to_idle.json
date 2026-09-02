@@ -1,0 +1,21 @@
+{
+  "events": [
+    {
+      "cycle": 0,
+      "inputs": {"state": "KEY_ON", "rpm": 0, "battery_v": 12.4, "adc.0": 128, "adc.7": 128},
+      "writes": [{"address": "0x3FFA", "value": "0x00"}, {"address": "0x3FFB", "value": "0x00"}],
+      "note": "Unknown packed ASIC status is supplied explicitly."
+    },
+    {
+      "cycle": 200000,
+      "inputs": {"state": "CRANK", "rpm": 180, "map_kpa": 70, "tps_pct": 2},
+      "note": "Reference IRQ generation begins from the contract timing model."
+    },
+    {
+      "cycle": 800000,
+      "inputs": {"state": "IDLE", "rpm": 800, "map_kpa": 34, "tps_pct": 0.4},
+      "note": "High-level MAP/TPS values annotate traces; raw ADC channels remain explicit."
+    }
+  ]
+}
+
