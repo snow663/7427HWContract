@@ -65,6 +65,17 @@ docs/TRUCK_FIRST_RUNTIME_DECODING.md
 
 ## Current reusable runtime contracts
 
+Factory-code structure and exact stock-state tracing are also active analysis tasks. The first reviewed-data pass excludes `$C2D6-$C409` from the dispatcher/write-target inventories and adds direct read/write, control-reference, and entry-point indexes under `maps/structure/`.
+
+Method, current structural findings, and the ordered investigation queue:
+
+```text
+docs/analysis/FACTORY_CODE_STRUCTURE.md
+maps/structure/factory_re_worklist.csv
+```
+
+The first additional state trace is `docs/contracts/SPARK_L01EC_INTEGER_STATE.md`. Structural enumeration is separate from semantic understanding, binary verification, or runtime proof; these outputs establish no whole-ROM completion percentage.
+
 Primary current contracts include:
 
 ```text
@@ -72,6 +83,7 @@ docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md
 docs/contracts/SPARK_UPSTREAM_MODIFIER_CONTRACT.md
 docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md
 docs/contracts/FUEL_CALCULATION_TRACE_CONTRACT.md
+docs/contracts/SPARK_L01EC_INTEGER_STATE.md
 docs/contracts/PRESERVED_OUTPUT_DRIVER_ISLANDS.md
 docs/contracts/ALDL_SCI_HANDSHAKE.md
 ```

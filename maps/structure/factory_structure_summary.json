@@ -1,0 +1,31 @@
+{
+  "candidate_entry_points": 257,
+  "control_edge_rows": 4521,
+  "direct_control_into_reviewed_data": [],
+  "directly_referenced_memory_bytes": 1648,
+  "listing_statements": 15870,
+  "memory_access_rows": 6744,
+  "memory_resolution_counts": {
+    "direct": 5706,
+    "unresolved_indexed": 1038
+  },
+  "reviewed_embedded_data_bytes": 308,
+  "reviewed_regions_sha256": "e21ca78397e4b144ec98ac7edcab976042e478e9ac6c24887de13c90053572d3",
+  "scope": "source_listing_structure_only;not_binary_verified;not_semantic_completion;not_reachability_proof",
+  "source": "source/31/BMHM_HAC_ORG_7100_to_end.asm",
+  "source_sha256": "7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c",
+  "statement_classification_counts": {
+    "declared_data": 930,
+    "instruction_candidate": 14676,
+    "reviewed_embedded_data": 245,
+    "test_opcode_review": 10,
+    "undecoded_review": 9
+  },
+  "unresolved_direct_control_operands": [
+    "A40B"
+  ],
+  "unresolved_indirect_control_sites": [
+    "7A4F",
+    "FAA5"
+  ]
+}

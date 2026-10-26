@@ -13,10 +13,12 @@ Static analysis only: no runtime ASM, no hardware-output gate relaxation, no ben
 ```text
 source: source/31/BMHM_HAC_ORG_7100_to_end.asm
 output: maps/generated/full_rom_write_target_sweep.csv
-rows observed in local generation: 2215
+rows after reviewed-data exclusion: 2187
 ```
 
 The generated CSV was produced locally from the same source and is available as an external artifact when connector size prevents committing the full 617 KB CSV directly.
+
+The 28 apparent mutations in `$C2D6-$C409` are excluded by the source-hash-checked overlay in `maps/structure/reviewed_source_regions.csv`. The previous 2,215-row inventory included these data bytes. See `FACTORY_CODE_STRUCTURE.md` for the evidence and the separate direct read/write index.
 
 ## Write classes swept
 

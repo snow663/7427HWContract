@@ -1,0 +1,11 @@
+region_id,start,end,classification,source_sha256,evidence_pcs,reason
+TRANS-PTR-C2D6,C2D6,C2F7,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C849;C853;C872;D8FE;D91F,Table base loaded at C849 and consumed by LD8FE pointer lookup; extent ends before computed next base C2F8
+TRANS-PTR-C2F8,C2F8,C319,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C849;C858;C85A;C85F;D8FE,Computed table base C2D6+22; extent ends before C31A
+TRANS-PTR-C31A,C31A,C33B,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C849;C850;C852;C872;D8FE,Computed table base C2D6+44; extent ends before C33C
+TRANS-PTR-C33C,C33C,C35D,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C850;C852;C858;C85A;C85F;D8FE,Computed table base C2D6+44+22; extent ends before directly loaded base C35E
+TRANS-PTR-C35E,C35E,C37F,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C06D;C072;C074;D8FE,Base C35E passed with current-gear index to LD8FE; extent ends before directly loaded base C380
+TRANS-PTR-C380,C380,C3A1,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C19F;C1A2;C1A6;D8FE,Base C380 passed with current-gear index to LD8FE; extent ends before directly loaded base C3A2
+TRANS-PTR-C3A2,C3A2,C3C3,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C088;C08B;C08F;D8FE,Base C3A2 passed to LD8FE; apparent JMP rows C3A8-C3C2 are pointer bytes rather than dispatch instructions
+TRANS-PTR-C3C4,C3C4,C3E5,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C1C4;C1C7;C1CB;D8FE,Base C3C4 passed to LD8FE; extent ends before directly loaded base C3E6
+TRANS-PTR-C3E6,C3E6,C3F7,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C881;C88C;D92E;D934,Base C3E6 passed through LD92E to LD8FE; extent ends before computed base C3F8
+TRANS-PTR-C3F8,C3F8,C409,data,7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c,C881;C888;C88A;C88C;D934;C40A,Computed base C3E6+12; extent matches following pointer block and next source routine begins at C40A

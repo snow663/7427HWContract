@@ -13,6 +13,7 @@ from collections import Counter, defaultdict, deque
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
+from factory_structure import data_region, load_regions
 
 SOURCE_CANDIDATES = [
     Path("source/31/BMHM_HAC_ORG_7100_to_end.asm"),
@@ -84,11 +85,14 @@ def split_operands(operands: str) -> list[str]:
 
 def parse_source(path: Path) -> list[ParsedLine]:
     rows: list[ParsedLine] = []
+    reviewed_regions = load_regions(path)
     for raw in path.read_text(encoding="utf-8", errors="ignore").splitlines():
         m = LINE_RE.match(raw)
         if not m:
             continue
         pc, label, op, operands, comment = m.groups()
+        if data_region(int(pc, 16), reviewed_regions):
+            continue
         rows.append(ParsedLine(pc.upper(), label or "", op.upper(), strip_comment_operands(operands or ""), comment or "", raw.rstrip()))
     return rows
 
@@ -325,7 +329,7 @@ def write_csv(path: Path, rows: list[dict[str, str]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fields = list(rows[0].keys()) if rows else []
     with path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer = csv.DictWriter(fh, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -374,6 +378,7 @@ def write_md(path: Path, rows: list[dict[str, str]], source: Path) -> None:
     lines.append("")
     lines.append("## Indexing limitations")
     lines.append("")
+    lines.append("- Reviewed embedded data is excluded using `maps/structure/reviewed_source_regions.csv`, checked against the source hash.")
     lines.append("- Indexed writes are resolved only when the linear pass can see a recent immediate `LDX`/`LDY` base.")
     lines.append("- Branch context is nearby static context, not a full path-sensitive proof.")
     lines.append("- Read counts are symbol-token observations and are intended as triage hints, not complete dataflow proof.")

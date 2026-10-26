@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse,csv,re
 from collections import deque
 from pathlib import Path
+from factory_structure import data_region, load_regions
 SOURCE=Path('source/31/BMHM_HAC_ORG_7100_to_end.asm')
 OUT=Path('maps/generated/full_rom_write_target_sweep.csv')
 WRITE_OPS={"STAA","STAB","STD","STS","STX","STY","BSET","BCLR","CLR","INC","DEC","COM","NEG","ASL","LSL","LSR","ROL","ROR"}
@@ -82,10 +83,15 @@ def dispatcher_context(pc,branches):
 
 def build(src):
     rows=[]; routine=''; xb=None; yb=None; branches=deque(maxlen=6)
+    reviewed_regions = load_regions(src)
     for line in src.read_text(encoding='utf-8',errors='ignore').splitlines():
         m=LINE_RE.match(line)
         if not m: continue
         pc,label,op,operands,comment=m.groups(); pc=pc.upper(); op=op.upper()
+        if data_region(int(pc, 16), reviewed_regions):
+            xb = yb = None
+            branches.clear()
+            continue
         if label: routine=label.upper()
         operands=(operands or '').split(';',1)[0].strip(); ops=split_operands(operands)
         if op in {'LDX','LDY'} and ops:

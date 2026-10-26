@@ -2,6 +2,12 @@
 
 Machine-readable maps, generated access inventories, current runtime-analysis tables, frozen planning manifests, and source-derived trace indexes.
 
+## Factory-code structure
+
+`maps/structure/` contains the reviewed code/data overlay, source entry-point evidence, control-flow references, and direct memory read/write indexes. Use `docs/analysis/FACTORY_CODE_STRUCTURE.md` for the interpretation and next tracing order.
+
+The first reviewed data block is `$C2D6-$C409`. The dispatcher/write-target builders consume that overlay. Older broad hardware-access maps are coarse inventories and may still contain data-as-code rows; they do not override this reviewed classification or measure semantic completion.
+
 ## Current hardware-access outputs
 
 ```text

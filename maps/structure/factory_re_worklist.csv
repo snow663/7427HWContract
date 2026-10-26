@@ -1,0 +1,11 @@
+item_id,scope,status,evidence,next_required_proof
+STRUCT-001,C2D6-C409 lookup descriptors,source_structure_reviewed,reviewed_source_regions.csv;D8FE-D92D,Verify exact bytes against target BMHM ROM
+STRUCT-002,C3A2 apparent indexed jumps,excluded_as_data,C088-C08F;factory_control_edges.csv,Preserve exclusion on regeneration
+STRUCT-003,Whole-listing direct memory references,enumerated_not_semantically_closed,factory_memory_accesses.csv;factory_state_index.csv,Add indexed aliases and register-value propagation by bounded routine
+STRUCT-004,A40B malformed LA4656 destination,open_source_defect,A40B,Read actual branch bytes and resolve destination without guessing
+STRUCT-005,Function entry extents and reachability,open_structure,factory_entry_points.csv;factory_control_edges.csv,Build basic blocks from roots and reviewed dispatch tables with unresolved edges retained
+SPARK-001,01EC integer producer and direct readers,source_integer_dataflow_traced,docs/contracts/SPARK_L01EC_INTEGER_STATE.md,Trace 083F and 01EA plus initialization and execution cadence
+SPARK-002,AB89-ABC8 stack and rolling-state bridge,open_integer_model,SPARK_CONVERSION_EQUATION.md;factory_state_index.csv,Resolve exact stack and wrap arithmetic before converting to physical units
+FUEL-001,024E run-fuel updates and 3FCE handoff,open_indexed_dependencies,FUEL_CALCULATION_TRACE_CONTRACT.md;factory_state_index.csv,Trace helper-pointer writes and numeric normalization then replay all retained modes
+IAC-001,Idle controller and output-service cadence,open_context_closure,IAC_IDLE_AIR_OUTPUT_CONTRACT.md;factory_entry_points.csv,Prove caller frequency and interactions with reset and output-shadow service
+FACTORY-001,Transmission emissions service and full diagnostics,open_full_program_scope,7427_EXTRACTION_CLOSEOUT.md,Create bounded function and state dossiers instead of inheriting replacement-scope exclusions

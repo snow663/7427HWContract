@@ -8,32 +8,32 @@ This is a static analysis artifact only. It does not implement runtime ASM, rela
 
 ## Source
 
-- source file: `source\31\BMHM_HAC_ORG_7100_to_end.asm`
-- target dossier rows emitted: `793`
+- source file: `source/31/BMHM_HAC_ORG_7100_to_end.asm`
+- target dossier rows emitted: `771`
 
 ## Write op coverage
 
 - `ASL`: 11
 - `BCLR`: 34
-- `BSET`: 35
+- `BSET`: 34
 - `CLR`: 31
 - `COM`: 2
-- `DEC`: 27
-- `INC`: 19
+- `DEC`: 14
+- `INC`: 12
 - `LSR`: 1
 - `ROL`: 13
 - `ROR`: 11
 - `STAA`: 359
-- `STAB`: 75
+- `STAB`: 74
 - `STD`: 145
 - `STX`: 25
 - `STY`: 5
 
 ## Candidate role counts
 
-- `RAM state/calculation/shadow`: 458
-- `ROM/data? unexpected write target`: 197
-- `mode flag/safety gate/state latch`: 72
+- `RAM state/calculation/shadow`: 457
+- `ROM/data? unexpected write target`: 177
+- `mode flag/safety gate/state latch`: 71
 - `hardware register/ASIC/CPU peripheral`: 42
 - `unknown`: 14
 - `hardware sink/state:spark stock handoff`: 5
@@ -59,6 +59,7 @@ This is a static analysis artifact only. It does not implement runtime ASM, rela
 
 ## Indexing limitations
 
+- Reviewed embedded data is excluded using `maps/structure/reviewed_source_regions.csv`, checked against the source hash.
 - Indexed writes are resolved only when the linear pass can see a recent immediate `LDX`/`LDY` base.
 - Branch context is nearby static context, not a full path-sensitive proof.
 - Read counts are symbol-token observations and are intended as triage hints, not complete dataflow proof.
