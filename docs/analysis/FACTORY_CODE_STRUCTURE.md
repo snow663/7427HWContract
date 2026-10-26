@@ -18,6 +18,10 @@ A populated CSV row is enumeration evidence. It is not proof of semantic underst
 
 No percentage is produced by this pass. An all-program percentage requires a reviewed denominator and a status/evidence ledger for every included region/function. The earlier conversational 85–90% estimate was qualitative, not an audited coverage metric.
 
+## Actual-ROM verification
+
+The reviewed descriptor block and its principal callers/reader are now checked against the actual hash-identified stock BMHM ROM. See `FACTORY_ROM_STRUCTURE_PROOF.md` and `maps/structure/bmhm_rom_structure_evidence.json` for the raw byte evidence. All 144 descriptor words are recorded in `bmhm_rom_lookup_pointers.csv`; all 72 nonzero entries point into calibration space. This verifies the reviewed data use without claiming that all code/data overlap or whole-ROM reachability has been excluded.
+
 ## First completed structural correction
 
 `$C2D6-$C409` is 308 bytes of lookup descriptors/pointers, divided into ten blocks in `maps/structure/reviewed_source_regions.csv`. The evidence is the immediate/computed table bases and the actual reader routines, not the disassembler's apparent mnemonics.
@@ -31,7 +35,7 @@ No percentage is produced by this pass. An all-program percentage requires a rev
 | `$C3C4` | `$C1C4` | `$D8FE` at `$C1CB` |
 | `$C3E6`, `$C3F8` | `$C881`, optional `$12` addition | `$D92E`, which calls `$D8FE` |
 
-`$D8FE-$D92D` reads the descriptor header, selects an indexed pointer, reads that pointer, and returns with carry indicating failure/success. This is data access. It does not execute the apparent instructions in these tables. Extents follow the independently loaded/computed next bases and the next source routine at `$C40A`; exact descriptor bytes remain subject to raw-ROM verification.
+`$D8FE-$D92D` reads the descriptor header, selects an indexed pointer, reads that pointer, and returns with carry indicating failure/success. This is data access. The reader does not execute the apparent instructions in these tables. Extents follow the independently loaded/computed next bases and the next source routine at `$C40A`; the descriptor bytes and header-derived extents have now been verified against the actual BMHM ROM.
 
 Consequences of excluding the reviewed data:
 

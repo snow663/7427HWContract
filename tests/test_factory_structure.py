@@ -16,6 +16,7 @@ import build_dispatcher_reverse_map as dispatch
 import build_factory_structure as structure
 import build_full_rom_write_target_sweep as sweep
 import build_write_target_network_index as network
+import verify_factory_rom_structure as rom_proof
 from factory_structure import (
     SOURCE, REGIONS, Statement, control_edge, data_region, load_regions, memory_access,
     parse_listing,
@@ -107,6 +108,38 @@ class FactoryStructureTests(unittest.TestCase):
         self.assertEqual(summary["direct_control_into_reviewed_data"], [])
         self.assertEqual(set(summary["unresolved_indirect_control_sites"]), {"7A4F", "FAA5"})
         self.assertIn("not_semantic_completion", summary["scope"])
+
+    def test_recorded_rom_bytes_form_the_documented_pointer_table(self):
+        evidence = json.loads(rom_proof.EVIDENCE.read_text())
+        content = rom_proof.POINTERS.read_text()
+        rom_proof.check_recorded(evidence, content)
+        rows = list(csv.DictReader(io.StringIO(content)))
+        self.assertEqual(len(rows), 144)
+        self.assertEqual(sum(r["target_region"] == "null" for r in rows), 72)
+        words = {r["word_address"]: r["word_value"] for r in rows}
+        self.assertEqual((words["C3A8"], words["C3AA"]), ("6E08", "6E19"))
+        self.assertEqual((words["C2F4"], words["C2F6"]), ("6BD7", "6BE8"))
+
+    def test_wrong_or_partial_rom_is_rejected_before_using_its_ranges(self):
+        with self.assertRaisesRegex(ValueError, "65,536"):
+            rom_proof.inspect_rom(bytes(308))
+        with self.assertRaisesRegex(ValueError, "SHA-256"):
+            rom_proof.inspect_rom(bytes(65536))
+
+    def test_jump_cannot_replace_the_recorded_pointer_read(self):
+        evidence = json.loads(rom_proof.EVIDENCE.read_text())
+        block = next(b for b in evidence["byte_ranges"] if b["purpose"] == "pointer_lookup_helper")
+        data = bytearray.fromhex(block["bytes_hex"])
+        data[0xD91F - 0xD8FE] = 0x6E  # JMP 0,X instead of LDX 0,X
+        block["bytes_hex"] = data.hex(" ").upper()
+        with self.assertRaisesRegex(ValueError, "opcode mismatch"):
+            rom_proof.check_recorded(evidence, rom_proof.POINTERS.read_text())
+
+    def test_pointer_csv_must_agree_with_recorded_rom_bytes(self):
+        evidence = json.loads(rom_proof.EVIDENCE.read_text())
+        content = rom_proof.POINTERS.read_text().replace("6E08", "6E09", 1)
+        with self.assertRaisesRegex(ValueError, "pointer CSV differs"):
+            rom_proof.check_recorded(evidence, content)
 
 
 if __name__ == "__main__":

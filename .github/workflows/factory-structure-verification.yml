@@ -6,6 +6,7 @@ on:
     paths:
       - "tools/factory_structure.py"
       - "tools/build_factory_structure.py"
+      - "tools/verify_factory_rom_structure.py"
       - "tools/build_full_rom_write_target_sweep.py"
       - "tools/build_per_target_dossier_index.py"
       - "tools/build_dispatcher_reverse_map.py"
@@ -20,6 +21,7 @@ on:
     paths:
       - "tools/factory_structure.py"
       - "tools/build_factory_structure.py"
+      - "tools/verify_factory_rom_structure.py"
       - "tools/build_full_rom_write_target_sweep.py"
       - "tools/build_per_target_dossier_index.py"
       - "tools/build_dispatcher_reverse_map.py"
@@ -42,6 +44,8 @@ jobs:
         run: python -m unittest discover -s tests -p test_factory_structure.py -v
       - name: Check generated structural indexes
         run: python tools/build_factory_structure.py --check
+      - name: Check recorded ROM evidence consistency
+        run: python tools/verify_factory_rom_structure.py --check-recorded
       - name: Regenerate consumers of reviewed data boundaries
         run: |
           python tools/build_full_rom_write_target_sweep.py

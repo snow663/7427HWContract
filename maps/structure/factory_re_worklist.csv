@@ -1,5 +1,5 @@
 item_id,scope,status,evidence,next_required_proof
-STRUCT-001,C2D6-C409 lookup descriptors,source_structure_reviewed,reviewed_source_regions.csv;D8FE-D92D,Verify exact bytes against target BMHM ROM
+STRUCT-001,C2D6-C409 lookup descriptors,rom_bytes_and_data_use_verified,bmhm_rom_structure_evidence.json;bmhm_rom_lookup_pointers.csv;D8FE-D92D,Complete reachability and any overlapping-code review
 STRUCT-002,C3A2 apparent indexed jumps,excluded_as_data,C088-C08F;factory_control_edges.csv,Preserve exclusion on regeneration
 STRUCT-003,Whole-listing direct memory references,enumerated_not_semantically_closed,factory_memory_accesses.csv;factory_state_index.csv,Add indexed aliases and register-value propagation by bounded routine
 STRUCT-004,A40B malformed LA4656 destination,open_source_defect,A40B,Read actual branch bytes and resolve destination without guessing

@@ -76,6 +76,8 @@ maps/structure/factory_re_worklist.csv
 
 The first additional state trace is `docs/contracts/SPARK_L01EC_INTEGER_STATE.md`. Structural enumeration is separate from semantic understanding, binary verification, or runtime proof; these outputs establish no whole-ROM completion percentage.
 
+The `$C2D6-$C409` descriptor bytes and principal caller/reader instructions are now verified against actual `BMHM.BIN` bytes with the stock SHA-256 above. The byte evidence, 144 pointer words, and precise limits of this classification are recorded in `docs/analysis/FACTORY_ROM_STRUCTURE_PROOF.md`. Full-ROM reachability and the rest of the listing remain separate work.
+
 Primary current contracts include:
 
 ```text
