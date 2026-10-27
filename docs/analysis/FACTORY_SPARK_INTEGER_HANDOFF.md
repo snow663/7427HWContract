@@ -1,6 +1,6 @@
 # Factory spark: exact integer terms and handoff
 
-The normal factory path now has an exact integer model from the command entering `$AB3E` through the four writes ending at `$ABC8`. The producers of `$01EA`, `$083F`, and `$01EC`, their software initialization, and their update admission are also traced against actual BMHM bytes. Five previously unresolved indexed accesses are local stack accesses. This closes this bounded arithmetic/dataflow gap; the entire upstream spark calculation and physical ASIC behavior remain separate work.
+The normal factory path now has an exact integer model from the command entering `$AB3E` through the four writes ending at `$ABC8`. The producers of `$01EA`, `$083F`, and `$01EC`, their software initialization, and their update admission are also traced against actual BMHM bytes. Five previously unresolved indexed accesses are local stack accesses. The completed [upstream spark calculation](FACTORY_UPSTREAM_SPARK_CALCULATIONS.md) now supplies the command's resident producers; physical ASIC behavior retains its own boundary.
 
 ## Authority and proof scope
 
@@ -111,7 +111,7 @@ The indexed boot clears establish software zero values for `$005F` (`$716A`), `$
 
 The ordinary scheduler calls `$A466` at `$79FC` on even phases when `$001A bit5` is clear. Its nominal admission interval is two TOC3 ticks, approximately 12.496948 ms. Busy/pending coalescing and other gates prevent treating this as a physical execution-frequency guarantee.
 
-The reference IRQ sets `$0050 bit5` at `$7513` when `$0044 bit4` is clear. `$A4EC` consumes that flag. On its new-reference path the code clears the flag, clears byte `$0260`, decays `$01EA`, and clears the missing-reference byte `$0202`.
+The reference IRQ sets `$0050 bit5` at `$7513` when `$0044 bit4` is clear. `$A4EC` consumes that flag. On its new-reference path the code clears the flag, clears word `$0260` (`FD 02 60` at `$A4F8`), decays `$01EA`, and clears the missing-reference byte `$0202`.
 
 - While `$004F bit7` is clear, the first reference sets `$0044 bit3` and jumps to `$AC51`, bypassing period/term conversion.
 - Later references require `$3FC0 < wordROM4133`. At or above the threshold, `$0210` is reset and conversion is bypassed. Below it, the byte counter increments; reaching `byteROM4142` sets `$004F bit7`, clears `$0210`, resets `$01F2`, and admits `$A5E5`. The counter arithmetic is byte arithmetic; these are not time units.
@@ -130,6 +130,6 @@ python tools/verify_factory_spark.py --check-recorded
 python -m unittest discover -s tests -p 'test_factory_*.py' -v
 ```
 
-The 71 factory tests and 14 CPU/simulator tests pass, including the actual-ROM 100,000-instruction regression. A recorded check establishes excerpt/output consistency; full-image mode additionally checks the complete hash before using its bytes.
+A recorded check establishes excerpt/output consistency; full-image mode additionally checks the complete hash before using its bytes. The live verification checkpoint is recorded in `docs/WORKING_STATE.md`.
 
-Next, apply this same method to the factory `$024E` fuel accumulator and `$3FCE` handoff: enumerate caller-bound helper updates, reduce every normalization/mode branch, close initialization, and predict exact output words against ROM execution. Spark's remaining separate dependencies are upstream command construction, the `$180F` extension, post-handoff monitoring, physical timebases/ASIC behavior, and interrupt interleavings. Transmission, emissions, service, and diagnostics also remain in the full-factory denominator; this bounded closure supplies no whole-ROM completion percentage.
+The running-fuel integer handoff and upstream fuel/spark/O2/BLM calculation documentation are now completed in their companion contracts. [FACTORY_ENGINE_CALCULATION_CLOSURE.md](FACTORY_ENGINE_CALCULATION_CLOSURE.md) defines the combined scope. Separate dependencies include opaque extensions, post-handoff monitoring, physical timebases/ASIC behavior, interrupt interleavings and the named raw/cross-controller interfaces. Transmission, emissions, service and diagnostics remain in the full-factory denominator; this bounded closure supplies no whole-ROM completion percentage.

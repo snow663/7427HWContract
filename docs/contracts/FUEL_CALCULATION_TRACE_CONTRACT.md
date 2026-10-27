@@ -27,6 +27,8 @@ This exact contract takes precedence over the approximate equations below. In pa
 
 The full stock-image SHA-256 is `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`. Byte-specific `2.bin` values retained below are the separately recorded tune reference, not newly verified stock bytes or a re-read of the running tune.
 
+The upstream calculation work is also complete: [FACTORY_UPSTREAM_FUEL_CALCULATIONS.md](../analysis/FACTORY_UPSTREAM_FUEL_CALCULATIONS.md) closes coordinates, density/charge temperature, VE, AFR/PE/startup, AE, crank equation and local delivery, and EGR inputs; [FACTORY_CLOSED_LOOP_AND_LEARNING.md](../analysis/FACTORY_CLOSED_LOOP_AND_LEARNING.md) closes O2 I/P and BLM. [FACTORY_ENGINE_CALCULATION_CLOSURE.md](../analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md) is the scope/checklist authority. Raw sensor and cross-controller interfaces remain explicit; those separate controllers are not silently declared understood.
+
 ## Classification
 
 ```text
@@ -42,7 +44,7 @@ TPS-AE/ASYNC-PATH:                   CONFIRMED STATIC
 SYNC/ASYNC-TBI-ARBITRATION:          CONFIRMED STATIC
 INJECTOR-DEADTIME/OFFSET-PATH:       CONFIRMED STATIC
 CRANK-FUEL-SEPARATE-PATH:            CONFIRMED STATIC
-RAW-INTEGER-NORMALIZATION:          ROM-VERIFIED FOR DOCUMENTED RUNNING SLICE
+RAW-INTEGER-NORMALIZATION:          ROM-VERIFIED RUNNING + DOCUMENTED UPSTREAM/CRANK
 PHYSICAL-UNIT-NORMALIZATION:        SEPARATE FROM RAW INTEGER CLOSURE
 ```
 
@@ -211,7 +213,7 @@ For literal `2.bin`:
 $4D94 = 206
 ```
 
-The stock comments identify this as the application-specific cylinder-volume/unit-conversion term for the 7.4 L engine.
+The stock comments identify this as the application-specific cylinder-volume/unit-conversion term for the 7.4 L engine. Its raw consumer is exact in the handoff contract; the upstream contract now proves the produced density/temperature ranges and optional MAT blend without guessing external units.
 
 ---
 
@@ -360,7 +362,7 @@ The code subtracts an EGR-related fresh-air displacement correction from `L024E`
 8049: STD   L024E
 ```
 
-For an EGR-disabled calibration this path should normally collapse toward no effective displacement correction, but the executable ordering remains part of the fuel pipeline.
+The fraction producer and its qualification/filter are now exact in the upstream contract. A disabled command does not necessarily make the fraction immediately zero: filtering retains state, and the alternative fraction equation has an explicit invalid-divide quotient when its air-quantity denominator is zero. Retain that produced state when reconstructing this displacement correction.
 
 ---
 
@@ -661,7 +663,7 @@ $4DBF  crank BARO correction
 $4DC3  crank TPS correction
 ```
 
-This means first-start / second-start / hot-restart behavior should eventually be reconstructed as its own replay path instead of being forced into the running speed-density model.
+The dedicated equation, startup seeds/decays, event gain and delivery choices are now documented in `FACTORY_UPSTREAM_FUEL_CALCULATIONS.md`. Stock BMHM sends crank fuel through REF-triggered async delivery; the optional main-task and timer alternatives retain their exact gates. This completes the resident crank calculation documentation independently of the running speed-density model.
 
 ---
 
@@ -719,11 +721,11 @@ For road analysis, think of `$31` fueling as the following named layers:
 
 ---
 
-## 21. Completed running-fuel documentation and remaining boundaries
+## 21. Completed fuel-calculation documentation and interfaces
 
 The raw running calculation, normalization, state gates, correction order, short/minimum shaping, synchronous output, and asynchronous packet/trigger sequence are now documented exactly in `FACTORY_FUEL_INTEGER_HANDOFF.md`. The accompanying ROM instruction, access, dependency, and example maps are under `maps/structure/factory_fuel_*.csv`.
 
-The derivation accepts the already produced `$0231` VE, `$0236` charge-temperature denominator, `$0257` density, `$024A` commanded AFR, `$0248` BLM, and transient/mode inputs. The isolated `$026F` INT/P combination and `$0256` offset lookup are included. The separate crank equation at `$85B2`, upstream sensor/VE/AFR/AE state machines, later work after `$852C`, cross-task flag lifetimes, physical-unit normalization, and injector delivery remain separately scoped. The original source-only descriptions of those upstream paths above retain their stated evidence level.
+The running derivation accepts `$0231` VE, `$0236` charge-temperature denominator, `$0257` density, `$024A` commanded AFR, `$0248` BLM and transient/mode inputs. Their resident producers, the separate `$85B2` crank equation, scheduled O2/AFR/learning tail and local startup/run/diagnostic/service qualifications are now documented in the upstream companion contracts. Those exact contracts take precedence over the conceptual descriptions here. Full raw acquisition, IAC/governor/transmission and diagnostic/service state machines, external extensions, interrupt interleavings, physical-unit normalization and injector response retain explicit boundaries in the closure index.
 
 For log interpretation, distinguish `$024E` corrected calculation, `$0254` pre-route snapshot, route-dependent `$024C`, possibly retained `$0250`, the actual `$3FCE` synchronous write, and any `$3FF2/$3FFC` asynchronous emission. Those are distinct quantities with explicit update conditions, rather than interchangeable BPW channels.
 

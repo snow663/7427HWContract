@@ -64,4 +64,4 @@ The current `$01EC` value therefore participates as a difference against the `$3
 
 `tools/factory_spark.py` defines the integer models; `tests/test_factory_spark.py` checks them against actual ROM execution, including every 16-bit reference-term/decay input and boundary/random producer and handoff cases. `maps/structure/bmhm_spark_rom_evidence.json` pins the bytes and image identity.
 
-Physical timebase, ASIC register behavior, interrupt interleavings, upstream spark command construction, the external `$180F` extension, and monitoring after `$ABCB` remain separate dependencies. This closure does not assign `$01EC` a physical dwell/latency interpretation.
+Upstream spark command construction is now documented in [FACTORY_UPSTREAM_SPARK_CALCULATIONS.md](../analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md). Physical timebase, ASIC register behavior, interrupt interleavings, external extensions and monitoring after `$ABCB` retain their separate boundaries in the engine-calculation closure index. This closure does not assign `$01EC` a physical dwell/latency interpretation.

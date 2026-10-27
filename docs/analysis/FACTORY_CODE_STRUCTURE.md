@@ -77,7 +77,11 @@ All 32 scheduler discrepancies and that additional branch correction flow throug
 5. **Check predictions independently.** Compare against target ROM bytes, isolated execution, or sufficiently complete replay data. An undocumented state/input is a remaining dependency. A generator reproducing its own equation is not independent validation.
 6. **Extend across the whole factory scope.** Include transmission, emissions, service, and complete diagnostic behavior before claiming whole-program understanding. Review disconnected code and data explicitly instead of dropping it because the truck does not use it.
 
-The normal spark rolling-state bridge is now closed as an integer transformation in `FACTORY_SPARK_INTEGER_HANDOFF.md`, with `$01EA/$083F/$01EC` producers, software initialization, and update admission. The equations predict the four ordered writes using separate live samples; physical units, upstream intent, extensions, and monitor code remain separate. The running-fuel calculation and `$3FCE` handoff are now documented in `FACTORY_FUEL_INTEGER_HANDOFF.md`, including helper normalization, correction/mode branches, packet accounting, sync/async output, INT/P combination, and offset lookup. Its upstream input producers and separate crank equation retain their own boundaries.
+The normal spark rolling-state bridge is closed as an integer transformation in `FACTORY_SPARK_INTEGER_HANDOFF.md`, with `$01EA/$083F/$01EC` producers, software initialization and update admission. The equations predict the four ordered writes using separate live samples. The running-fuel calculation and `$3FCE` handoff are documented in `FACTORY_FUEL_INTEGER_HANDOFF.md`, including helper normalization, correction/mode branches, packet accounting, sync/async output, INT/P combination and offset lookup.
+
+[FACTORY_ENGINE_CALCULATION_CLOSURE.md](FACTORY_ENGINE_CALCULATION_CLOSURE.md) now closes their named resident upstream dependencies: load/RPM coordinates, density/charge temperature, VE, AFR/PE/startup, AE, crank/event delivery, EGR inputs, O2/BLM and all resident spark modifiers/knock producers through `$AB3E`. The detailed fuel, spark and adaptive-controller documents preserve table headers, integer operations, retained state and execution context. The evidence adds 50 reviewed blocks and 3,403 instruction starts; those counts are not a whole-ROM denominator. It also classifies the source `$B968` apparent RPM store as lookup-pointer data in this local state audit, without silently changing the global source index or claiming complete overlap/reachability review.
+
+The upstream-calculation worklist can be crossed off within that scope. Complete raw acquisition/diagnostic owners, IAC and governor controllers, transmission, service paths, broader emissions, low-memory extensions, post-handoff monitoring, physical units/device behavior and interrupt interleavings remain distinct work. Their arithmetic consumer interfaces are explicit in the closure index.
 
 ## ROM-backed scheduler extension
 
@@ -123,6 +127,7 @@ python tools/build_write_target_network_index.py
 python tools/build_subsystem_isolation_index.py
 python -m unittest discover -s tests -p test_factory_structure.py -v
 python tools/build_factory_structure.py --check
+python tools/verify_factory_upstream.py --check-recorded
 ```
 
 The tests cover data/code confusion, retention of real dispatchers and injector writes, evidence-hash mismatch, word-byte overlap, bit-branch classification, malformed source labels, and unresolved indexed accesses. They validate the structural extraction, not factory physical behavior.

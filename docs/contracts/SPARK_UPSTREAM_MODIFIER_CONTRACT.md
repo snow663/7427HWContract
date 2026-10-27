@@ -6,6 +6,8 @@ Lock down the stock `$31` spark terms that exist **upstream of normal knock reta
 
 This complements `SPARK_ALDL_KR_ORDERING_CONTRACT.md`.
 
+The completed stock-ROM arithmetic authority is [FACTORY_UPSTREAM_SPARK_CALCULATIONS.md](../analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md), with shared helpers, producer scope and remaining controller interfaces in [FACTORY_ENGINE_CALCULATION_CLOSURE.md](../analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md). It covers all resident modifiers, knock producers/learning, signed limits and service edits through `$AB3E`. This document retains the tuning interpretation and separately recorded `2.bin` facts below; those tune bytes were not re-read during the stock-ROM pass.
+
 The practical reason is that:
 
 ```text
@@ -18,10 +20,10 @@ reconstructs the spark state immediately before **normal KR**, but it is not aut
 
 ```text
 OPEN-THROTTLE-SPARK-GEOMETRY:       CONFIRMED STATIC/CALIBRATION
-UPSTREAM-SPARK-SUMMATION:           CONFIRMED STATIC
+UPSTREAM-SPARK-SUMMATION:           ROM-VERIFIED WORD ARITHMETIC
 COOLANT-BIAS CONTRIBUTION:          CONFIRMED STATIC + BIN-2 BYTE VERIFIED
-PE/WOT-SPARK-ADDER:                 CONFIRMED STATIC + BIN-2 BYTE VERIFIED
-LOW-OCTANE-BEFORE-NORMAL-KR:         CONFIRMED STATIC
+PE/WOT-SPARK-ADDER:                 ROM-VERIFIED + RECORDED BIN-2 FACTS
+LOW-OCTANE-BEFORE-NORMAL-KR:         ROM-VERIFIED
 BIN-2 CURRENT-CAL FACTS:             BYTE VERIFIED
 ```
 
@@ -45,8 +47,8 @@ SHA-256: 2387d708c8d4cc82b78fabda579e48b7daef79f331543a54b669b70b6262877e
 The open-throttle spark table is declared at `$4166`:
 
 ```text
-$4166  MIN MAP value
-$4167  MIN RPM value
+$4166  A / RPM lower offset
+$4167  B / load lower offset
 $4168  17 lines/block
 $4169  first actual spark data byte
 ```
@@ -151,7 +153,7 @@ A816:  SUBB  L015A       ; additional runtime retard/correction term
 A81B:  STD   L01FD       ; FINAL SPK ADV
 ```
 
-Thus `L01FD` is already a **composite spark demand**, not a raw table cell.
+Thus `L01FD` is already a **16-bit composite spark demand**, not a raw table cell. The EGR word is rounded with wrapping before its high byte enters the sum. Borrow is propagated into the high byte of every subtraction; the completed ROM contract supplies that exact equation and all subsequent corrections.
 
 A compact representation is:
 
@@ -165,7 +167,7 @@ L01FD ~=
   + EGR/filter contribution
   - calibration biases
   - low-octane adaptive retard L020B
-  - L015A runtime correction
+  - L015A transmission-supplied retard
   + applicable state-specific terms
 ```
 
@@ -241,7 +243,7 @@ This is a **bias mismatch effect**, not a claim that every coolant operating poi
 
 ## 4. PE/WOT spark adder
 
-The WOT/PE spark correction path is explicitly gated by PE-active state and knock-system status:
+The WOT/PE spark correction requires coolant strictly above `$45DA`, PE-active state and no knock-system fault. Otherwise it stores zero. Its admitted path is:
 
 ```asm
 CABC:  BRSET L0019,#$10,LCAD2   ; skip if knock-sensor error
@@ -271,7 +273,7 @@ At the spark scale:
 6 * 90/256 = 2.109375 deg
 ```
 
-Because the table result is multiplied by `L0278`, the contribution is slewed with PE rather than necessarily appearing instantaneously at full value.
+The exact stock operation is `floor((table_result*L0278+128)/256)`. Because the table result is multiplied by `L0278`, the contribution is slewed with PE rather than necessarily appearing instantaneously at full value.
 
 For `2.bin` the PE/WOT spark term therefore ranges approximately:
 
@@ -422,5 +424,5 @@ $43AF       coolant compensation spark table
 $44BF-$44CF WOT/PE spark advance correction vs RPM
 $45BD       low-octane base spark-retard maximum
 $45BE-$45C6 low-octane retard multiplier vs RPM
-$45C7-$45DA low-octane retard multiplier vs MAP
+$45C7-$45D7 low-octane retard multiplier vs load (17 knots)
 ```

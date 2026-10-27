@@ -12,6 +12,10 @@ on:
       - "tools/factory_fuel_replay.py"
       - "tools/factory_integer_replay.py"
       - "tools/verify_factory_fuel.py"
+      - "tools/verify_factory_upstream.py"
+      - "docs/analysis/FACTORY_*CALCULATIONS.md"
+      - "docs/analysis/FACTORY_CLOSED_LOOP_AND_LEARNING.md"
+      - "docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md"
       - "tests/test_factory_fuel.py"
       - "tools/factory_spark_replay.py"
       - "tools/verify_factory_spark.py"
@@ -49,6 +53,10 @@ on:
       - "tools/factory_fuel_replay.py"
       - "tools/factory_integer_replay.py"
       - "tools/verify_factory_fuel.py"
+      - "tools/verify_factory_upstream.py"
+      - "docs/analysis/FACTORY_*CALCULATIONS.md"
+      - "docs/analysis/FACTORY_CLOSED_LOOP_AND_LEARNING.md"
+      - "docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md"
       - "tests/test_factory_fuel.py"
       - "tools/factory_spark_replay.py"
       - "tools/verify_factory_spark.py"
@@ -98,6 +106,8 @@ jobs:
         run: python tools/verify_factory_spark.py --check-recorded
       - name: Check fuel documentation evidence against recorded ROM excerpts
         run: python tools/verify_factory_fuel.py --check-recorded
+      - name: Check upstream engine documentation against recorded ROM excerpts
+        run: python tools/verify_factory_upstream.py --check-recorded
       - name: Regenerate ROM-backed spark conversion contract
         run: python tools/build_spark_conversion_equation.py --out-md docs/contracts/SPARK_CONVERSION_EQUATION.md --out-csv maps/contracts/spark_conversion_equation.csv --vectors tests/static/spark_conversion_vectors.csv
       - name: Regenerate consumers of reviewed data boundaries

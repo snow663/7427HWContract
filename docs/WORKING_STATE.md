@@ -44,6 +44,8 @@ current running 2.bin  -> which calibration values the truck is using now
 
 The active workstream is **truck-first stock-$31 runtime/calibration decoding and tuning**.
 
+The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within the explicit resident-calculation scope in `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; simulator development and tuning changes are not required for that closure.
+
 Goals:
 
 ```text
@@ -117,8 +119,8 @@ that shifted the combined timing product and period is superseded: the timing
 product remains on the stack while a separate negated-period anchor is formed.
 The current suite has 90 factory tests and 16 CPU/simulator tests, including the
 actual-ROM 100,000-instruction regression. Physical units, ASIC effects,
-interrupt interleavings, upstream intent, external extension, and monitor code
-remain separate work. The running-fuel documentation is now completed below.
+interrupt interleavings, external extension and monitor code retain separate
+boundaries. Running-fuel and resident upstream calculations are completed below.
 
 `docs/analysis/FACTORY_FUEL_INTEGER_HANDOFF.md` now documents the raw running-fuel
 calculation at `$7FD8-$852B`, all `$024E` correction/mode branches, synchronous
@@ -129,12 +131,44 @@ The docs preserve division truncation, the BLM double limit, additive INT,
 wrapped final offset, persistent packet fractions, and the async bypass that
 leaves `$0250` unchanged. ROM bytes and access/dependency/example maps are under
 `maps/structure/factory_fuel_*` and `bmhm_fuel_rom_evidence.json`.
-The separate crank equation, upstream sensor/VE/AFR/AE producers, cross-task
-flag lifetimes, and physical output behavior are outside that running slice.
+The separate crank equation and upstream producers are outside that particular
+running slice, and are now documented in the companion contracts below.
+
+`docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md` closes the named upstream
+calculation worklist: MAP/BARO/TPS/coolant and RPM coordinates, density and
+charge temperature, both VE table geometries, AFR/PE/startup, MAP/TPS AE and
+histories, crank/event gain and local delivery, EGR inputs, O2 I/P, BLM
+selection/learning/reset, composite spark, idle/transient/decel modifiers,
+knock IRQ/decay/low-octane learning, signed limits and local service overrides.
+The three detailed producer documents are:
+
+```text
+docs/analysis/FACTORY_UPSTREAM_FUEL_CALCULATIONS.md
+docs/analysis/FACTORY_CLOSED_LOOP_AND_LEARNING.md
+docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md
+```
+
+The new actual-ROM evidence covers 50 blocks, 3,403 decoded instruction starts,
+826 branch rows and 54 selected state contracts in `factory_upstream_*.csv` and
+`bmhm_upstream_rom_evidence.json`. `tools/verify_factory_upstream.py` checks
+full-image identity and recorded regeneration consistency, not a whole-program
+semantic coverage percentage or a mechanical proof of every equation.
+It records the alternate RPM producer at `$AC51`, the source `$B968` false
+writer as lookup-pointer data, and the `$A4F8` **word** clear of `$0260`.
+The slot-F bit4 early return and the slower CTS/environment admission are
+explicit, so nominal task rates are not mistaken for identical state ages.
+
+Remaining separate factory work includes the raw acquisition/diagnostic and
+switch/gear owners, complete IAC and governor controllers, transmission,
+service/serial state machines, emissions beyond the reviewed EGR arithmetic,
+post-handoff monitoring, opaque low-memory extensions, full reachability and
+physical device/interrupt behavior. Their consumer interfaces are documented;
+those controller implementations are not crossed off by this calculation pass.
 
 Primary current contracts include:
 
 ```text
+docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md
 docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md
 docs/contracts/SPARK_UPSTREAM_MODIFIER_CONTRACT.md
 docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md
@@ -215,7 +249,7 @@ The earlier BPW-drop trace remains useful for its BLM/MAP/INT evidence, but its 
 
 ## Current fuel-model decoding checkpoint
 
-The stock running fuel path has been traced from speed-density air charge through the final TBI handoff.
+The stock running fuel path and its resident upstream air/AFR/AE/O2/BLM producers are documented, together with the separate crank equation and reference-event delivery. Use the engine-calculation closure index for scope, shared math, cadence and the remaining input/controller interfaces.
 
 Static ordering currently establishes, at minimum:
 

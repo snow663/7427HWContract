@@ -39,6 +39,17 @@ explicit memory references, state dependencies, and raw-state examples. The
 document distinguishes calculations, retained telemetry words, sync/async
 selection, and ordered device writes, with upstream boundaries stated directly.
 
+`factory_upstream_*.csv` and `bmhm_upstream_rom_evidence.json` complete the
+resident engine-calculation producer documentation: 50 reviewed blocks,
+3,403 decoded instruction starts, 826 branch rows and 54 selected state
+contracts. Use `FACTORY_ENGINE_CALCULATION_CLOSURE.md` for the checklist,
+shared math, cadence, initialization and raw/cross-controller interfaces.
+The state audit distinguishes direct ROM stores from other source-index
+candidates, including `$B968` lookup-pointer data. It does not assert that the
+global listing index is entirely byte-reviewed. External `$1800/$1812/$1815`
+calls retain explicit boundaries. Reproduce with
+`python tools/verify_factory_upstream.py --check-recorded` or a full `--rom`.
+
 ## Current hardware-access outputs
 
 ```text

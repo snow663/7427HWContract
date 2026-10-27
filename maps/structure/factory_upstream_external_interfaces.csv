@@ -1,0 +1,4 @@
+pc,bytes_hex,target,boundary
+8C6A,BD 18 00,1800,external RAM/extension implementation not in mapped stock ROM; resident call and guard documented
+A9E4,BD 18 12,1812,external RAM/extension implementation not in mapped stock ROM; resident call and guard documented
+D029,BD 18 15,1815,external RAM/extension implementation not in mapped stock ROM; resident call and guard documented

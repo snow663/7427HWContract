@@ -1,0 +1,3404 @@
+block,pc,bytes_hex,mnemonic,operand,access,width_bits,address,address_mode
+boot_sensor_seeds,7393,B6 08 2E,LDAA,$082E,R,8,082E,extended
+boot_sensor_seeds,7396,B7 01 C6,STAA,$01C6,W,8,01C6,extended
+boot_sensor_seeds,7399,B7 01 C3,STAA,$01C3,W,8,01C3,extended
+boot_sensor_seeds,739C,80 1A,SUBA,#$1A,,,,immediate
+boot_sensor_seeds,739E,C6 97,LDAB,#$97,,,,immediate
+boot_sensor_seeds,73A0,3D,MUL,,,,,inherent
+boot_sensor_seeds,73A1,C3 00 40,ADDD,#$0040,,,,immediate
+boot_sensor_seeds,73A4,05,ASLD,,,,,inherent
+boot_sensor_seeds,73A5,24 03,BCC,$73AA,,,,relative
+boot_sensor_seeds,73A7,CC FF FF,LDD,#$FFFF,,,,immediate
+boot_sensor_seeds,73AA,B7 01 C0,STAA,$01C0,W,8,01C0,extended
+boot_sensor_seeds,73AD,B7 01 C7,STAA,$01C7,W,8,01C7,extended
+boot_sensor_seeds,73B0,BD C6 14,JSR,$C614,,,,extended
+boot_sensor_seeds,73B3,14 4E 01,BSET,"$4E,#$01",RW,8,004E,direct
+boot_sensor_seeds,73B6,14 43 80,BSET,"$43,#$80",RW,8,0043,direct
+boot_sensor_seeds,73B9,15 04 10,BCLR,"$04,#$10",RW,8,0004,direct
+boot_sensor_seeds,73BC,96 06,LDAA,$06,R,8,0006,direct
+boot_sensor_seeds,73BE,36,PSHA,,,,,inherent
+boot_sensor_seeds,73BF,BD C9 6A,JSR,$C96A,,,,extended
+boot_sensor_seeds,73C2,BD C9 F7,JSR,$C9F7,,,,extended
+boot_sensor_seeds,73C5,BD CA 6B,JSR,$CA6B,,,,extended
+boot_sensor_seeds,73C8,96 06,LDAA,$06,R,8,0006,direct
+boot_sensor_seeds,73CA,B7 02 82,STAA,$0282,W,8,0282,extended
+boot_sensor_seeds,73CD,33,PULB,,,,,inherent
+boot_sensor_seeds,73CE,F1 49 5A,CMPB,$495A,R,8,495A,extended
+boot_sensor_seeds,73D1,25 08,BCS,$73DB,,,,relative
+boot_sensor_seeds,73D3,B1 49 5B,CMPA,$495B,R,8,495B,extended
+boot_sensor_seeds,73D6,25 03,BCS,$73DB,,,,relative
+boot_sensor_seeds,73D8,14 04 10,BSET,"$04,#$10",RW,8,0004,direct
+boot_sensor_seeds,73DB,BD 92 5E,JSR,$925E,,,,extended
+boot_sensor_seeds,73DE,B6 48 BE,LDAA,$48BE,R,8,48BE,extended
+boot_sensor_seeds,73E1,B7 01 D5,STAA,$01D5,W,8,01D5,extended
+boot_sensor_seeds,73E4,B7 01 D0,STAA,$01D0,W,8,01D0,extended
+boot_sensor_seeds,73E7,B7 01 D2,STAA,$01D2,W,8,01D2,extended
+boot_sensor_seeds,73EA,BD B1 AC,JSR,$B1AC,,,,extended
+boot_sensor_seeds,73ED,BD B0 E4,JSR,$B0E4,,,,extended
+boot_sensor_seeds,73F0,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+boot_sensor_seeds,73F3,B7 01 DC,STAA,$01DC,W,8,01DC,extended
+boot_sensor_seeds,73F6,B7 01 DA,STAA,$01DA,W,8,01DA,extended
+boot_sensor_seeds,73F9,B7 01 DB,STAA,$01DB,W,8,01DB,extended
+boot_sensor_seeds,73FC,B7 01 DE,STAA,$01DE,W,8,01DE,extended
+boot_crank_count_seed,744F,13 04 08 06,BRCLR,"$04,#$08,$7459",R,8,0004,direct
+boot_crank_count_seed,7453,B6 4D 96,LDAA,$4D96,R,8,4D96,extended
+boot_crank_count_seed,7456,B7 02 CE,STAA,$02CE,W,8,02CE,extended
+reference_input,750F,12 44 10 03,BRSET,"$44,#$10,$7516",R,8,0044,direct
+reference_input,7513,14 50 20,BSET,"$50,#$20",RW,8,0050,direct
+reference_input,7516,C6 FF,LDAB,#$FF,,,,immediate
+reference_input,7518,F7 30 6F,STAB,$306F,W,8,306F,extended
+reference_input,751B,13 50 01 0F,BRCLR,"$50,#$01,$752E",R,8,0050,direct
+reference_input,751F,86 05,LDAA,#$05,,,,immediate
+reference_input,7521,B7 30 30,STAA,$3030,W,8,3030,extended
+reference_input,7524,05,ASLD,,,,,inherent
+reference_input,7525,3D,MUL,,,,,inherent
+reference_input,7526,3D,MUL,,,,,inherent
+reference_input,7527,3D,MUL,,,,,inherent
+reference_input,7528,B6 30 31,LDAA,$3031,R,8,3031,extended
+reference_input,752B,B7 08 2E,STAA,$082E,W,8,082E,extended
+reference_input,752E,13 4F 10 03,BRCLR,"$4F,#$10,$7535",R,8,004F,direct
+reference_input,7532,7E 76 50,JMP,$7650,,,,extended
+reference_input,7535,DC 68,LDD,$68,R,16,0068,direct
+reference_input,7537,DD 6A,STD,$6A,W,16,006A,direct
+reference_input,7539,12 44 10 0B,BRSET,"$44,#$10,$7548",R,8,0044,direct
+reference_input,753D,F6 02 CD,LDAB,$02CD,R,8,02CD,extended
+reference_input,7540,5C,INCB,,,,,inherent
+reference_input,7541,27 0F,BEQ,$7552,,,,relative
+reference_input,7543,F7 02 CD,STAB,$02CD,W,8,02CD,extended
+reference_input,7546,20 0A,BRA,$7552,,,,relative
+reference_input,7548,CE 30 00,LDX,#$3000,,,,immediate
+reference_input,754B,86 01,LDAA,#$01,,,,immediate
+reference_input,754D,A7 23,STAA,"$23,X",W,8,,indexed_x
+reference_input,754F,7E 77 C6,JMP,$77C6,,,,extended
+reference_input,7552,96 06,LDAA,$06,R,8,0006,direct
+reference_input,7554,CE 4D CD,LDX,#$4DCD,,,,immediate
+reference_input,7557,BD F4 C1,JSR,$F4C1,,,,extended
+reference_input,755A,B1 02 CD,CMPA,$02CD,R,8,02CD,extended
+reference_input,755D,24 E9,BCC,$7548,,,,relative
+reference_input,755F,CE 40 0C,LDX,#$400C,,,,immediate
+reference_input,7562,1F 00 04 13,BRCLR,"$00,X,#$04,$7579",R,8,,indexed_x
+reference_input,7566,FC 02 CF,LDD,$02CF,R,16,02CF,extended
+reference_input,7569,BD 78 27,JSR,$7827,,,,extended
+reference_input,756C,FD 02 4C,STD,$024C,W,16,024C,extended
+reference_input,756F,CE 40 0B,LDX,#$400B,,,,immediate
+reference_input,7572,1E 00 10 06,BRSET,"$00,X,#$10,$757C",R,8,,indexed_x
+reference_input,7576,7E 76 2A,JMP,$762A,,,,extended
+reference_input,7579,7E 76 30,JMP,$7630,,,,extended
+reference_input,757C,13 19 40 07,BRCLR,"$19,#$40,$7587",R,8,0019,direct
+reference_input,7580,04,LSRD,,,,,inherent
+reference_input,7581,FD 02 4C,STD,$024C,W,16,024C,extended
+reference_input,7584,7E 76 2A,JMP,$762A,,,,extended
+reference_input,7587,FB 02 56,ADDB,$0256,R,8,0256,extended
+reference_input,758A,89 00,ADCA,#$00,,,,immediate
+reference_input,758C,2A 03,BPL,$7591,,,,relative
+reference_input,758E,CC 7F FF,LDD,#$7FFF,,,,immediate
+reference_input,7591,FD 02 50,STD,$0250,W,16,0250,extended
+reference_input,7594,CE 30 00,LDX,#$3000,,,,immediate
+reference_input,7597,1E 23 01 5C,BRSET,"$23,X,#$01,$75F7",R,8,,indexed_x
+reference_input,759B,B6 02 CD,LDAA,$02CD,R,8,02CD,extended
+reference_input,759E,81 01,CMPA,#$01,,,,immediate
+reference_input,75A0,26 05,BNE,$75A7,,,,relative
+reference_input,75A2,14 53 20,BSET,"$53,#$20",RW,8,0053,direct
+reference_input,75A5,20 24,BRA,$75CB,,,,relative
+reference_input,75A7,13 53 20 20,BRCLR,"$53,#$20,$75CB",R,8,0053,direct
+reference_input,75AB,3C,PSHX,,,,,inherent
+reference_input,75AC,CE 02 50,LDX,#$0250,,,,immediate
+reference_input,75AF,B6 49 60,LDAA,$4960,R,8,4960,extended
+reference_input,75B2,BD F5 50,JSR,$F550,,,,extended
+reference_input,75B5,38,PULX,,,,,inherent
+reference_input,75B6,05,ASLD,,,,,inherent
+reference_input,75B7,24 03,BCC,$75BC,,,,relative
+reference_input,75B9,CC FF FF,LDD,#$FFFF,,,,immediate
+reference_input,75BC,FD 02 50,STD,$0250,W,16,0250,extended
+reference_input,75BF,B6 02 CE,LDAA,$02CE,R,8,02CE,extended
+reference_input,75C2,4A,DECA,,,,,inherent
+reference_input,75C3,81 FF,CMPA,#$FF,,,,immediate
+reference_input,75C5,26 01,BNE,$75C8,,,,relative
+reference_input,75C7,4C,INCA,,,,,inherent
+reference_input,75C8,B7 02 CE,STAA,$02CE,W,8,02CE,extended
+reference_input,75CB,1C 20 03,BSET,"$20,X,#$03",RW,8,,indexed_x
+reference_input,75CE,1C 0B 08,BSET,"$0B,X,#$08",RW,8,,indexed_x
+reference_input,75D1,BD 78 5A,JSR,$785A,,,,extended
+reference_input,75D4,FC 02 50,LDD,$0250,R,16,0250,extended
+reference_input,75D7,05,ASLD,,,,,inherent
+reference_input,75D8,24 03,BCC,$75DD,,,,relative
+reference_input,75DA,CC FF FF,LDD,#$FFFF,,,,immediate
+reference_input,75DD,E3 0E,ADDD,"$0E,X",R,16,,indexed_x
+reference_input,75DF,FD 08 25,STD,$0825,W,16,0825,extended
+reference_input,75E2,1D 20 01,BCLR,"$20,X,#$01",RW,8,,indexed_x
+reference_input,75E5,EC 0E,LDD,"$0E,X",R,16,,indexed_x
+reference_input,75E7,C3 00 02,ADDD,#$0002,,,,immediate
+reference_input,75EA,1A B3 08 25,CPD,$0825,R,16,0825,extended
+reference_input,75EE,2A 03,BPL,$75F3,,,,relative
+reference_input,75F0,FC 08 25,LDD,$0825,R,16,0825,extended
+reference_input,75F3,ED 1E,STD,"$1E,X",W,16,,indexed_x
+reference_input,75F5,20 39,BRA,$7630,,,,relative
+reference_input,75F7,86 01,LDAA,#$01,,,,immediate
+reference_input,75F9,A7 23,STAA,"$23,X",W,8,,indexed_x
+reference_input,75FB,7F 08 4E,CLR,$084E,W,8,084E,extended
+reference_input,75FE,1C 20 0C,BSET,"$20,X,#$0C",RW,8,,indexed_x
+reference_input,7601,1C 0B 10,BSET,"$0B,X,#$10",RW,8,,indexed_x
+reference_input,7604,15 53 20,BCLR,"$53,#$20",RW,8,0053,direct
+reference_input,7607,FC 02 50,LDD,$0250,R,16,0250,extended
+reference_input,760A,05,ASLD,,,,,inherent
+reference_input,760B,24 03,BCC,$7610,,,,relative
+reference_input,760D,CC FF FF,LDD,#$FFFF,,,,immediate
+reference_input,7610,E3 0E,ADDD,"$0E,X",R,16,,indexed_x
+reference_input,7612,FD 08 27,STD,$0827,W,16,0827,extended
+reference_input,7615,1D 20 04,BCLR,"$20,X,#$04",RW,8,,indexed_x
+reference_input,7618,EC 0E,LDD,"$0E,X",R,16,,indexed_x
+reference_input,761A,C3 00 02,ADDD,#$0002,,,,immediate
+reference_input,761D,1A B3 08 27,CPD,$0827,R,16,0827,extended
+reference_input,7621,2A 03,BPL,$7626,,,,relative
+reference_input,7623,FC 08 27,LDD,$0827,R,16,0827,extended
+reference_input,7626,ED 1C,STD,"$1C,X",W,16,,indexed_x
+reference_input,7628,20 06,BRA,$7630,,,,relative
+reference_input,762A,FC 02 4C,LDD,$024C,R,16,024C,extended
+reference_input,762D,BD 85 48,JSR,$8548,,,,extended
+reference_input,7630,B6 02 CE,LDAA,$02CE,R,8,02CE,extended
+reference_input,7633,4C,INCA,,,,,inherent
+reference_input,7634,26 02,BNE,$7638,,,,relative
+reference_input,7636,86 F0,LDAA,#$F0,,,,immediate
+reference_input,7638,B7 02 CE,STAA,$02CE,W,8,02CE,extended
+reference_input,763B,D6 55,LDAB,$55,R,8,0055,direct
+reference_input,763D,F1 4D 98,CMPB,$4D98,R,8,4D98,extended
+reference_input,7640,22 0B,BHI,$764D,,,,relative
+reference_input,7642,B1 4D 97,CMPA,$4D97,R,8,4D97,extended
+reference_input,7645,23 06,BLS,$764D,,,,relative
+reference_input,7647,B6 4D 97,LDAA,$4D97,R,8,4D97,extended
+reference_input,764A,B7 02 CE,STAA,$02CE,W,8,02CE,extended
+reference_input,764D,7E 77 C6,JMP,$77C6,,,,extended
+hot_restart_events,7650,B6 02 C9,LDAA,$02C9,R,8,02C9,extended
+hot_restart_events,7653,27 41,BEQ,$7696,,,,relative
+hot_restart_events,7655,B6 02 68,LDAA,$0268,R,8,0268,extended
+hot_restart_events,7658,4C,INCA,,,,,inherent
+hot_restart_events,7659,27 03,BEQ,$765E,,,,relative
+hot_restart_events,765B,B7 02 68,STAA,$0268,W,8,0268,extended
+hot_restart_events,765E,CE 4C BF,LDX,#$4CBF,,,,immediate
+hot_restart_events,7661,96 06,LDAA,$06,R,8,0006,direct
+hot_restart_events,7663,BD F4 C1,JSR,$F4C1,,,,extended
+hot_restart_events,7666,16,TAB,,,,,inherent
+hot_restart_events,7667,CE 4C D0,LDX,#$4CD0,,,,immediate
+hot_restart_events,766A,B6 02 CE,LDAA,$02CE,R,8,02CE,extended
+hot_restart_events,766D,48,ASLA,,,,,inherent
+hot_restart_events,766E,48,ASLA,,,,,inherent
+hot_restart_events,766F,24 02,BCC,$7673,,,,relative
+hot_restart_events,7671,86 FF,LDAA,#$FF,,,,immediate
+hot_restart_events,7673,BD F4 C1,JSR,$F4C1,,,,extended
+hot_restart_events,7676,3D,MUL,,,,,inherent
+hot_restart_events,7677,B1 02 68,CMPA,$0268,R,8,0268,extended
+hot_restart_events,767A,24 1A,BCC,$7696,,,,relative
+hot_restart_events,767C,7C 08 1E,INC,$081E,RW,8,081E,extended
+hot_restart_events,767F,B6 08 1E,LDAA,$081E,R,8,081E,extended
+hot_restart_events,7682,B1 49 64,CMPA,$4964,R,8,4964,extended
+hot_restart_events,7685,25 0F,BCS,$7696,,,,relative
+hot_restart_events,7687,7F 08 1E,CLR,$081E,W,8,081E,extended
+hot_restart_events,768A,B6 02 C9,LDAA,$02C9,R,8,02C9,extended
+hot_restart_events,768D,B0 02 67,SUBA,$0267,R,8,0267,extended
+hot_restart_events,7690,24 01,BCC,$7693,,,,relative
+hot_restart_events,7692,4F,CLRA,,,,,inherent
+hot_restart_events,7693,B7 02 C9,STAA,$02C9,W,8,02C9,extended
+crank_event_gain,7827,37,PSHB,,,,,inherent
+crank_event_gain,7828,36,PSHA,,,,,inherent
+crank_event_gain,7829,F6 02 CE,LDAB,$02CE,R,8,02CE,extended
+crank_event_gain,782C,C1 17,CMPB,#$17,,,,immediate
+crank_event_gain,782E,23 07,BLS,$7837,,,,relative
+crank_event_gain,7830,C4 07,ANDB,#$07,,,,immediate
+crank_event_gain,7832,CE 4E 26,LDX,#$4E26,,,,immediate
+crank_event_gain,7835,20 14,BRA,$784B,,,,relative
+crank_event_gain,7837,CE 4E 0E,LDX,#$4E0E,,,,immediate
+crank_event_gain,783A,12 04 10 0D,BRSET,"$04,#$10,$784B",R,8,0004,direct
+crank_event_gain,783E,CE 4D F6,LDX,#$4DF6,,,,immediate
+crank_event_gain,7841,96 06,LDAA,$06,R,8,0006,direct
+crank_event_gain,7843,B1 4D 99,CMPA,$4D99,R,8,4D99,extended
+crank_event_gain,7846,24 03,BCC,$784B,,,,relative
+crank_event_gain,7848,CE 4D DE,LDX,#$4DDE,,,,immediate
+crank_event_gain,784B,3A,ABX,,,,,inherent
+crank_event_gain,784C,A6 00,LDAA,"$00,X",R,8,,indexed_x
+crank_event_gain,784E,30,TSX,,,,,inherent
+crank_event_gain,784F,BD F5 50,JSR,$F550,,,,extended
+crank_event_gain,7852,38,PULX,,,,,inherent
+crank_event_gain,7853,05,ASLD,,,,,inherent
+crank_event_gain,7854,24 03,BCC,$7859,,,,relative
+crank_event_gain,7856,CC FF FF,LDD,#$FFFF,,,,immediate
+crank_event_gain,7859,39,RTS,,,,,inherent
+MAP_lag,7BA7,BD F3 EE,JSR,$F3EE,,,,extended
+MAP_lag,7BAA,B6 08 2E,LDAA,$082E,R,8,082E,extended
+MAP_lag,7BAD,D6 6F,LDAB,$6F,R,8,006F,direct
+MAP_lag,7BAF,C5 48,BITB,#$48,,,,immediate
+MAP_lag,7BB1,27 29,BEQ,$7BDC,,,,relative
+MAP_lag,7BB3,13 4F 10 22,BRCLR,"$4F,#$10,$7BD9",R,8,004F,direct
+MAP_lag,7BB7,B6 4E 69,LDAA,$4E69,R,8,4E69,extended
+MAP_lag,7BBA,F6 01 D9,LDAB,$01D9,R,8,01D9,extended
+MAP_lag,7BBD,3D,MUL,,,,,inherent
+MAP_lag,7BBE,05,ASLD,,,,,inherent
+MAP_lag,7BBF,25 18,BCS,$7BD9,,,,relative
+MAP_lag,7BC1,05,ASLD,,,,,inherent
+MAP_lag,7BC2,25 15,BCS,$7BD9,,,,relative
+MAP_lag,7BC4,36,PSHA,,,,,inherent
+MAP_lag,7BC5,96 62,LDAA,$62,R,8,0062,direct
+MAP_lag,7BC7,44,LSRA,,,,,inherent
+MAP_lag,7BC8,CE 4E 6A,LDX,#$4E6A,,,,immediate
+MAP_lag,7BCB,C6 10,LDAB,#$10,,,,immediate
+MAP_lag,7BCD,BD F4 9A,JSR,$F49A,,,,extended
+MAP_lag,7BD0,33,PULB,,,,,inherent
+MAP_lag,7BD1,1B,ABA,,,,,inherent
+MAP_lag,7BD2,25 05,BCS,$7BD9,,,,relative
+MAP_lag,7BD4,B1 4E 68,CMPA,$4E68,R,8,4E68,extended
+MAP_lag,7BD7,23 03,BLS,$7BDC,,,,relative
+MAP_lag,7BD9,B6 4E 68,LDAA,$4E68,R,8,4E68,extended
+MAP_lag,7BDC,F6 41 38,LDAB,$4138,R,8,4138,extended
+MAP_lag,7BDF,12 47 01 03,BRSET,"$47,#$01,$7BE6",R,8,0047,direct
+MAP_lag,7BE3,F6 41 37,LDAB,$4137,R,8,4137,extended
+MAP_lag,7BE6,FE 01 C3,LDX,$01C3,R,16,01C3,extended
+MAP_lag,7BE9,BD F4 59,JSR,$F459,,,,extended
+MAP_lag,7BEC,FD 01 C3,STD,$01C3,W,16,01C3,extended
+MAP_lag,7BEF,58,ASLB,,,,,inherent
+MAP_lag,7BF0,89 00,ADCA,#$00,,,,immediate
+MAP_lag,7BF2,B7 01 C6,STAA,$01C6,W,8,01C6,extended
+fuel_mode_and_AE,7D4B,FE 02 7E,LDX,$027E,R,16,027E,extended
+fuel_mode_and_AE,7D4E,13 44 10 3E,BRCLR,"$44,#$10,$7D90",R,8,0044,direct
+fuel_mode_and_AE,7D52,8C 00 08,CPX,#$0008,,,,immediate
+fuel_mode_and_AE,7D55,25 56,BCS,$7DAD,,,,relative
+fuel_mode_and_AE,7D57,15 04 83,BCLR,"$04,#$83",RW,8,0004,direct
+fuel_mode_and_AE,7D5A,15 19 40,BCLR,"$19,#$40",RW,8,0019,direct
+fuel_mode_and_AE,7D5D,15 19 20,BCLR,"$19,#$20",RW,8,0019,direct
+fuel_mode_and_AE,7D60,4F,CLRA,,,,,inherent
+fuel_mode_and_AE,7D61,5F,CLRB,,,,,inherent
+fuel_mode_and_AE,7D62,DD FD,STD,$FD,W,16,00FD,direct
+fuel_mode_and_AE,7D64,FD 02 4C,STD,$024C,W,16,024C,extended
+fuel_mode_and_AE,7D67,97 62,STAA,$62,W,8,0062,direct
+fuel_mode_and_AE,7D69,B7 02 CD,STAA,$02CD,W,8,02CD,extended
+fuel_mode_and_AE,7D6C,B7 02 CE,STAA,$02CE,W,8,02CE,extended
+fuel_mode_and_AE,7D6F,B7 02 68,STAA,$0268,W,8,0268,extended
+fuel_mode_and_AE,7D72,14 51 08,BSET,"$51,#$08",RW,8,0051,direct
+fuel_mode_and_AE,7D75,15 86 08,BCLR,"$86,#$08",RW,8,0086,direct
+fuel_mode_and_AE,7D78,15 4F 80,BCLR,"$4F,#$80",RW,8,004F,direct
+fuel_mode_and_AE,7D7B,15 4F 10,BCLR,"$4F,#$10",RW,8,004F,direct
+fuel_mode_and_AE,7D7E,15 04 08,BCLR,"$04,#$08",RW,8,0004,direct
+fuel_mode_and_AE,7D81,BC 40 09,CPX,$4009,R,16,4009,extended
+fuel_mode_and_AE,7D84,25 27,BCS,$7DAD,,,,relative
+fuel_mode_and_AE,7D86,CC 50 08,LDD,#$5008,,,,immediate
+fuel_mode_and_AE,7D89,F7 30 39,STAB,$3039,W,8,3039,extended
+fuel_mode_and_AE,7D8C,06,TAP,,,,,inherent
+fuel_mode_and_AE,7D8D,CF,STOP,,,,,inherent
+fuel_mode_and_AE,7D8E,20 FE,BRA,$7D8E,,,,relative
+fuel_mode_and_AE,7D90,13 51 08 13,BRCLR,"$51,#$08,$7DA7",R,8,0051,direct
+fuel_mode_and_AE,7D94,15 51 08,BCLR,"$51,#$08",RW,8,0051,direct
+fuel_mode_and_AE,7D97,15 46 80,BCLR,"$46,#$80",RW,8,0046,direct
+fuel_mode_and_AE,7D9A,15 44 08,BCLR,"$44,#$08",RW,8,0044,direct
+fuel_mode_and_AE,7D9D,15 3E 08,BCLR,"$3E,#$08",RW,8,003E,direct
+fuel_mode_and_AE,7DA0,4F,CLRA,,,,,inherent
+fuel_mode_and_AE,7DA1,B7 02 23,STAA,$0223,W,8,0223,extended
+fuel_mode_and_AE,7DA4,B7 02 7D,STAA,$027D,W,8,027D,extended
+fuel_mode_and_AE,7DA7,14 86 08,BSET,"$86,#$08",RW,8,0086,direct
+fuel_mode_and_AE,7DAA,CE FF FF,LDX,#$FFFF,,,,immediate
+fuel_mode_and_AE,7DAD,08,INX,,,,,inherent
+fuel_mode_and_AE,7DAE,FF 02 7E,STX,$027E,W,16,027E,extended
+fuel_mode_and_AE,7DB1,86 55,LDAA,#$55,,,,immediate
+fuel_mode_and_AE,7DB3,B7 30 3A,STAA,$303A,W,8,303A,extended
+fuel_mode_and_AE,7DB6,96 41,LDAA,$41,R,8,0041,direct
+fuel_mode_and_AE,7DB8,84 10,ANDA,#$10,,,,immediate
+fuel_mode_and_AE,7DBA,7D 40 0F,TST,$400F,R,8,400F,extended
+fuel_mode_and_AE,7DBD,2B 05,BMI,$7DC4,,,,relative
+fuel_mode_and_AE,7DBF,D6 89,LDAB,$89,R,8,0089,direct
+fuel_mode_and_AE,7DC1,C4 20,ANDB,#$20,,,,immediate
+fuel_mode_and_AE,7DC3,1B,ABA,,,,,inherent
+fuel_mode_and_AE,7DC4,D6 47,LDAB,$47,R,8,0047,direct
+fuel_mode_and_AE,7DC6,C4 FE,ANDB,#$FE,,,,immediate
+fuel_mode_and_AE,7DC8,11,CBA,,,,,inherent
+fuel_mode_and_AE,7DC9,26 1C,BNE,$7DE7,,,,relative
+fuel_mode_and_AE,7DCB,D6 63,LDAB,$63,R,8,0063,direct
+fuel_mode_and_AE,7DCD,D0 65,SUBB,$65,R,8,0065,direct
+fuel_mode_and_AE,7DCF,24 01,BCC,$7DD2,,,,relative
+fuel_mode_and_AE,7DD1,50,NEGB,,,,,inherent
+fuel_mode_and_AE,7DD2,F1 41 3A,CMPB,$413A,R,8,413A,extended
+fuel_mode_and_AE,7DD5,22 10,BHI,$7DE7,,,,relative
+fuel_mode_and_AE,7DD7,13 50 80 0C,BRCLR,"$50,#$80,$7DE7",R,8,0050,direct
+fuel_mode_and_AE,7DDB,13 3E A0 08,BRCLR,"$3E,#$A0,$7DE7",R,8,003E,direct
+fuel_mode_and_AE,7DDF,F6 01 C5,LDAB,$01C5,R,8,01C5,extended
+fuel_mode_and_AE,7DE2,27 0B,BEQ,$7DEF,,,,relative
+fuel_mode_and_AE,7DE4,5A,DECB,,,,,inherent
+fuel_mode_and_AE,7DE5,20 03,BRA,$7DEA,,,,relative
+fuel_mode_and_AE,7DE7,F6 41 39,LDAB,$4139,R,8,4139,extended
+fuel_mode_and_AE,7DEA,F7 01 C5,STAB,$01C5,W,8,01C5,extended
+fuel_mode_and_AE,7DED,8A 01,ORAA,#$01,,,,immediate
+fuel_mode_and_AE,7DEF,97 47,STAA,$47,W,8,0047,direct
+fuel_mode_and_AE,7DF1,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+fuel_mode_and_AE,7DF4,B7 01 DA,STAA,$01DA,W,8,01DA,extended
+fuel_mode_and_AE,7DF7,BD B1 CF,JSR,$B1CF,,,,extended
+fuel_mode_and_AE,7DFA,12 98 01 05,BRSET,"$98,#$01,$7E03",R,8,0098,direct
+fuel_mode_and_AE,7DFE,B7 01 D9,STAA,$01D9,W,8,01D9,extended
+fuel_mode_and_AE,7E01,20 06,BRA,$7E09,,,,relative
+fuel_mode_and_AE,7E03,B6 5B 23,LDAA,$5B23,R,8,5B23,extended
+fuel_mode_and_AE,7E06,B7 01 D9,STAA,$01D9,W,8,01D9,extended
+fuel_mode_and_AE,7E09,F6 48 BD,LDAB,$48BD,R,8,48BD,extended
+fuel_mode_and_AE,7E0C,12 50 80 0A,BRSET,"$50,#$80,$7E1A",R,8,0050,direct
+fuel_mode_and_AE,7E10,B6 02 7B,LDAA,$027B,R,8,027B,extended
+fuel_mode_and_AE,7E13,CE 4D 05,LDX,#$4D05,,,,immediate
+fuel_mode_and_AE,7E16,BD F4 C1,JSR,$F4C1,,,,extended
+fuel_mode_and_AE,7E19,16,TAB,,,,,inherent
+fuel_mode_and_AE,7E1A,B6 48 BB,LDAA,$48BB,R,8,48BB,extended
+fuel_mode_and_AE,7E1D,B1 01 D5,CMPA,$01D5,R,8,01D5,extended
+fuel_mode_and_AE,7E20,22 0B,BHI,$7E2D,,,,relative
+fuel_mode_and_AE,7E22,B6 48 BC,LDAA,$48BC,R,8,48BC,extended
+fuel_mode_and_AE,7E25,B1 01 D5,CMPA,$01D5,R,8,01D5,extended
+fuel_mode_and_AE,7E28,25 03,BCS,$7E2D,,,,relative
+fuel_mode_and_AE,7E2A,B6 01 D5,LDAA,$01D5,R,8,01D5,extended
+fuel_mode_and_AE,7E2D,FE 01 D2,LDX,$01D2,R,16,01D2,extended
+fuel_mode_and_AE,7E30,BD F4 59,JSR,$F459,,,,extended
+fuel_mode_and_AE,7E33,FD 01 D2,STD,$01D2,W,16,01D2,extended
+fuel_mode_and_AE,7E36,B6 40 0F,LDAA,$400F,R,8,400F,extended
+fuel_mode_and_AE,7E39,84 01,ANDA,#$01,,,,immediate
+fuel_mode_and_AE,7E3B,27 03,BEQ,$7E40,,,,relative
+fuel_mode_and_AE,7E3D,BD 90 D3,JSR,$90D3,,,,extended
+fuel_mode_and_AE,7E40,F6 01 C6,LDAB,$01C6,R,8,01C6,extended
+fuel_mode_and_AE,7E43,4F,CLRA,,,,,inherent
+fuel_mode_and_AE,7E44,CE 02 B6,LDX,#$02B6,,,,immediate
+fuel_mode_and_AE,7E47,03,FDIV,,,,,inherent
+fuel_mode_and_AE,7E48,8F,XGDX,,,,,inherent
+fuel_mode_and_AE,7E49,C3 0A 59,ADDD,#$0A59,,,,immediate
+fuel_mode_and_AE,7E4C,FD 02 57,STD,$0257,W,16,0257,extended
+fuel_mode_and_AE,7E4F,12 4F 10 53,BRSET,"$4F,#$10,$7EA6",R,8,004F,direct
+fuel_mode_and_AE,7E53,BD AE 5C,JSR,$AE5C,,,,extended
+fuel_mode_and_AE,7E56,5F,CLRB,,,,,inherent
+fuel_mode_and_AE,7E57,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+fuel_mode_and_AE,7E5A,FD 01 C7,STD,$01C7,W,16,01C7,extended
+fuel_mode_and_AE,7E5D,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+fuel_mode_and_AE,7E60,FD 01 DE,STD,$01DE,W,16,01DE,extended
+fuel_mode_and_AE,7E63,FD 01 DC,STD,$01DC,W,16,01DC,extended
+fuel_mode_and_AE,7E66,BD 85 B2,JSR,$85B2,,,,extended
+fuel_mode_and_AE,7E69,05,ASLD,,,,,inherent
+fuel_mode_and_AE,7E6A,24 03,BCC,$7E6F,,,,relative
+fuel_mode_and_AE,7E6C,CC FF FF,LDD,#$FFFF,,,,immediate
+fuel_mode_and_AE,7E6F,FD 02 CF,STD,$02CF,W,16,02CF,extended
+fuel_mode_and_AE,7E72,BD C5 6F,JSR,$C56F,,,,extended
+fuel_mode_and_AE,7E75,96 55,LDAA,$55,R,8,0055,direct
+fuel_mode_and_AE,7E77,CE 49 88,LDX,#$4988,,,,immediate
+fuel_mode_and_AE,7E7A,BD F4 C1,JSR,$F4C1,,,,extended
+fuel_mode_and_AE,7E7D,CE 02 CF,LDX,#$02CF,,,,immediate
+fuel_mode_and_AE,7E80,BD F5 50,JSR,$F550,,,,extended
+fuel_mode_and_AE,7E83,FD 02 CF,STD,$02CF,W,16,02CF,extended
+fuel_mode_and_AE,7E86,CE 40 0C,LDX,#$400C,,,,immediate
+fuel_mode_and_AE,7E89,1E 00 04 0D,BRSET,"$00,X,#$04,$7E9A",R,8,,indexed_x
+fuel_mode_and_AE,7E8D,96 06,LDAA,$06,R,8,0006,direct
+fuel_mode_and_AE,7E8F,CE 4D CD,LDX,#$4DCD,,,,immediate
+fuel_mode_and_AE,7E92,BD F4 C1,JSR,$F4C1,,,,extended
+fuel_mode_and_AE,7E95,B1 02 CD,CMPA,$02CD,R,8,02CD,extended
+fuel_mode_and_AE,7E98,23 03,BLS,$7E9D,,,,relative
+fuel_mode_and_AE,7E9A,7E 85 2C,JMP,$852C,,,,extended
+fuel_mode_and_AE,7E9D,FC 02 CF,LDD,$02CF,R,16,02CF,extended
+fuel_mode_and_AE,7EA0,BD 78 27,JSR,$7827,,,,extended
+fuel_mode_and_AE,7EA3,7E 84 F5,JMP,$84F5,,,,extended
+fuel_mode_and_AE,7EA6,BD AE 5C,JSR,$AE5C,,,,extended
+fuel_mode_and_AE,7EA9,12 3D 02 05,BRSET,"$3D,#$02,$7EB2",R,8,003D,direct
+fuel_mode_and_AE,7EAD,4F,CLRA,,,,,inherent
+fuel_mode_and_AE,7EAE,5F,CLRB,,,,,inherent
+fuel_mode_and_AE,7EAF,7E 84 F5,JMP,$84F5,,,,extended
+fuel_mode_and_AE,7EB2,5F,CLRB,,,,,inherent
+fuel_mode_and_AE,7EB3,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+fuel_mode_and_AE,7EB6,B3 01 C7,SUBD,$01C7,R,16,01C7,extended
+fuel_mode_and_AE,7EB9,23 5C,BLS,$7F17,,,,relative
+fuel_mode_and_AE,7EBB,C3 00 80,ADDD,#$0080,,,,immediate
+fuel_mode_and_AE,7EBE,B7 01 CA,STAA,$01CA,W,8,01CA,extended
+fuel_mode_and_AE,7EC1,F6 48 C0,LDAB,$48C0,R,8,48C0,extended
+fuel_mode_and_AE,7EC4,12 50 80 03,BRSET,"$50,#$80,$7ECB",R,8,0050,direct
+fuel_mode_and_AE,7EC8,F6 48 BF,LDAB,$48BF,R,8,48BF,extended
+fuel_mode_and_AE,7ECB,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+fuel_mode_and_AE,7ECE,B1 48 C1,CMPA,$48C1,R,8,48C1,extended
+fuel_mode_and_AE,7ED1,22 05,BHI,$7ED8,,,,relative
+fuel_mode_and_AE,7ED3,58,ASLB,,,,,inherent
+fuel_mode_and_AE,7ED4,24 02,BCC,$7ED8,,,,relative
+fuel_mode_and_AE,7ED6,C6 FF,LDAB,#$FF,,,,immediate
+fuel_mode_and_AE,7ED8,B6 01 CA,LDAA,$01CA,R,8,01CA,extended
+fuel_mode_and_AE,7EDB,11,CBA,,,,,inherent
+fuel_mode_and_AE,7EDC,23 3C,BLS,$7F1A,,,,relative
+fuel_mode_and_AE,7EDE,CE 4B 49,LDX,#$4B49,,,,immediate
+fuel_mode_and_AE,7EE1,BD F4 B6,JSR,$F4B6,,,,extended
+fuel_mode_and_AE,7EE4,F6 01 D9,LDAB,$01D9,R,8,01D9,extended
+fuel_mode_and_AE,7EE7,F1 48 C2,CMPB,$48C2,R,8,48C2,extended
+fuel_mode_and_AE,7EEA,23 05,BLS,$7EF1,,,,relative
+fuel_mode_and_AE,7EEC,48,ASLA,,,,,inherent
+fuel_mode_and_AE,7EED,24 02,BCC,$7EF1,,,,relative
+fuel_mode_and_AE,7EEF,86 FF,LDAA,#$FF,,,,immediate
+fuel_mode_and_AE,7EF1,36,PSHA,,,,,inherent
+fuel_mode_and_AE,7EF2,96 62,LDAA,$62,R,8,0062,direct
+fuel_mode_and_AE,7EF4,C6 10,LDAB,#$10,,,,immediate
+fuel_mode_and_AE,7EF6,CE 4B A4,LDX,#$4BA4,,,,immediate
+fuel_mode_and_AE,7EF9,BD F4 9A,JSR,$F49A,,,,extended
+fuel_mode_and_AE,7EFC,33,PULB,,,,,inherent
+fuel_mode_and_AE,7EFD,3D,MUL,,,,,inherent
+fuel_mode_and_AE,7EFE,05,ASLD,,,,,inherent
+fuel_mode_and_AE,7EFF,24 02,BCC,$7F03,,,,relative
+fuel_mode_and_AE,7F01,86 FF,LDAA,#$FF,,,,immediate
+fuel_mode_and_AE,7F03,F6 02 3D,LDAB,$023D,R,8,023D,extended
+fuel_mode_and_AE,7F06,3D,MUL,,,,,inherent
+fuel_mode_and_AE,7F07,04,LSRD,,,,,inherent
+fuel_mode_and_AE,7F08,04,LSRD,,,,,inherent
+fuel_mode_and_AE,7F09,04,LSRD,,,,,inherent
+fuel_mode_and_AE,7F0A,04,LSRD,,,,,inherent
+fuel_mode_and_AE,7F0B,04,LSRD,,,,,inherent
+fuel_mode_and_AE,7F0C,4D,TSTA,,,,,inherent
+fuel_mode_and_AE,7F0D,27 02,BEQ,$7F11,,,,relative
+fuel_mode_and_AE,7F0F,C6 FF,LDAB,#$FF,,,,immediate
+fuel_mode_and_AE,7F11,17,TBA,,,,,inherent
+fuel_mode_and_AE,7F12,14 05 80,BSET,"$05,#$80",RW,8,0005,direct
+fuel_mode_and_AE,7F15,20 07,BRA,$7F1E,,,,relative
+fuel_mode_and_AE,7F17,7F 01 CA,CLR,$01CA,W,8,01CA,extended
+fuel_mode_and_AE,7F1A,4F,CLRA,,,,,inherent
+fuel_mode_and_AE,7F1B,15 05 80,BCLR,"$05,#$80",RW,8,0005,direct
+fuel_mode_and_AE,7F1E,B7 02 3E,STAA,$023E,W,8,023E,extended
+fuel_mode_and_AE,7F21,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+fuel_mode_and_AE,7F24,B0 01 DC,SUBA,$01DC,R,8,01DC,extended
+fuel_mode_and_AE,7F27,23 43,BLS,$7F6C,,,,relative
+fuel_mode_and_AE,7F29,7D 01 DD,TST,$01DD,R,8,01DD,extended
+fuel_mode_and_AE,7F2C,2A 03,BPL,$7F31,,,,relative
+fuel_mode_and_AE,7F2E,4A,DECA,,,,,inherent
+fuel_mode_and_AE,7F2F,27 3B,BEQ,$7F6C,,,,relative
+fuel_mode_and_AE,7F31,12 05 40 05,BRSET,"$05,#$40,$7F3A",R,8,0005,direct
+fuel_mode_and_AE,7F35,B1 48 C3,CMPA,$48C3,R,8,48C3,extended
+fuel_mode_and_AE,7F38,23 32,BLS,$7F6C,,,,relative
+fuel_mode_and_AE,7F3A,48,ASLA,,,,,inherent
+fuel_mode_and_AE,7F3B,24 02,BCC,$7F3F,,,,relative
+fuel_mode_and_AE,7F3D,86 FF,LDAA,#$FF,,,,immediate
+fuel_mode_and_AE,7F3F,CE 4B 4F,LDX,#$4B4F,,,,immediate
+fuel_mode_and_AE,7F42,BD F4 C1,JSR,$F4C1,,,,extended
+fuel_mode_and_AE,7F45,F6 02 84,LDAB,$0284,R,8,0284,extended
+fuel_mode_and_AE,7F48,F1 48 C5,CMPB,$48C5,R,8,48C5,extended
+fuel_mode_and_AE,7F4B,24 0D,BCC,$7F5A,,,,relative
+fuel_mode_and_AE,7F4D,F6 48 C4,LDAB,$48C4,R,8,48C4,extended
+fuel_mode_and_AE,7F50,3D,MUL,,,,,inherent
+fuel_mode_and_AE,7F51,C3 00 40,ADDD,#$0040,,,,immediate
+fuel_mode_and_AE,7F54,05,ASLD,,,,,inherent
+fuel_mode_and_AE,7F55,24 03,BCC,$7F5A,,,,relative
+fuel_mode_and_AE,7F57,CC FF FF,LDD,#$FFFF,,,,immediate
+fuel_mode_and_AE,7F5A,F6 01 E4,LDAB,$01E4,R,8,01E4,extended
+fuel_mode_and_AE,7F5D,3D,MUL,,,,,inherent
+fuel_mode_and_AE,7F5E,C3 00 40,ADDD,#$0040,,,,immediate
+fuel_mode_and_AE,7F61,05,ASLD,,,,,inherent
+fuel_mode_and_AE,7F62,24 03,BCC,$7F67,,,,relative
+fuel_mode_and_AE,7F64,CC FF FF,LDD,#$FFFF,,,,immediate
+fuel_mode_and_AE,7F67,14 05 40,BSET,"$05,#$40",RW,8,0005,direct
+fuel_mode_and_AE,7F6A,20 04,BRA,$7F70,,,,relative
+fuel_mode_and_AE,7F6C,4F,CLRA,,,,,inherent
+fuel_mode_and_AE,7F6D,15 05 40,BCLR,"$05,#$40",RW,8,0005,direct
+fuel_mode_and_AE,7F70,B7 02 3F,STAA,$023F,W,8,023F,extended
+fuel_mode_and_AE,7F73,13 02 02 0F,BRCLR,"$02,#$02,$7F86",R,8,0002,direct
+fuel_mode_and_AE,7F77,F6 01 E5,LDAB,$01E5,R,8,01E5,extended
+fuel_mode_and_AE,7F7A,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+fuel_mode_and_AE,7F7D,FE 01 DC,LDX,$01DC,R,16,01DC,extended
+fuel_mode_and_AE,7F80,BD F4 59,JSR,$F459,,,,extended
+fuel_mode_and_AE,7F83,FD 01 DC,STD,$01DC,W,16,01DC,extended
+VE_selection,7F86,F6 01 C0,LDAB,$01C0,R,8,01C0,extended
+VE_selection,7F89,C1 40,CMPB,#$40,,,,immediate
+VE_selection,7F8B,23 05,BLS,$7F92,,,,relative
+VE_selection,7F8D,54,LSRB,,,,,inherent
+VE_selection,7F8E,C9 00,ADCB,#$00,,,,immediate
+VE_selection,7F90,CB 20,ADDB,#$20,,,,immediate
+VE_selection,7F92,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+VE_selection,7F95,B1 48 DA,CMPA,$48DA,R,8,48DA,extended
+VE_selection,7F98,24 0E,BCC,$7FA8,,,,relative
+VE_selection,7F9A,B6 02 84,LDAA,$0284,R,8,0284,extended
+VE_selection,7F9D,B1 48 D8,CMPA,$48D8,R,8,48D8,extended
+VE_selection,7FA0,24 06,BCC,$7FA8,,,,relative
+VE_selection,7FA2,96 62,LDAA,$62,R,8,0062,direct
+VE_selection,7FA4,81 48,CMPA,#$48,,,,immediate
+VE_selection,7FA6,25 0D,BCS,$7FB5,,,,relative
+VE_selection,7FA8,96 62,LDAA,$62,R,8,0062,direct
+VE_selection,7FAA,CE 49 D5,LDX,#$49D5,,,,immediate
+VE_selection,7FAD,14 4F 08,BSET,"$4F,#$08",RW,8,004F,direct
+VE_selection,7FB0,BD F4 DE,JSR,$F4DE,,,,extended
+VE_selection,7FB3,20 20,BRA,$7FD5,,,,relative
+VE_selection,7FB5,96 63,LDAA,$63,R,8,0063,direct
+VE_selection,7FB7,81 90,CMPA,#$90,,,,immediate
+VE_selection,7FB9,23 02,BLS,$7FBD,,,,relative
+VE_selection,7FBB,86 90,LDAA,#$90,,,,immediate
+VE_selection,7FBD,CE 4A 88,LDX,#$4A88,,,,immediate
+VE_selection,7FC0,BD F4 DE,JSR,$F4DE,,,,extended
+VE_selection,7FC3,13 4F 08 0E,BRCLR,"$4F,#$08,$7FD5",R,8,004F,direct
+VE_selection,7FC7,F6 02 0F,LDAB,$020F,R,8,020F,extended
+VE_selection,7FCA,F1 49 0F,CMPB,$490F,R,8,490F,extended
+VE_selection,7FCD,22 03,BHI,$7FD2,,,,relative
+VE_selection,7FCF,14 4F 20,BSET,"$4F,#$20",RW,8,004F,direct
+VE_selection,7FD2,15 4F 08,BCLR,"$4F,#$08",RW,8,004F,direct
+VE_selection,7FD5,B7 02 31,STAA,$0231,W,8,0231,extended
+crank_equation,858B,FE 3F C0,LDX,$3FC0,R,16,3FC0,extended
+crank_equation,858E,B6 41 41,LDAA,$4141,R,8,4141,extended
+crank_equation,8591,C6 20,LDAB,#$20,,,,immediate
+crank_equation,8593,3D,MUL,,,,,inherent
+crank_equation,8594,17,TBA,,,,,inherent
+crank_equation,8595,27 07,BEQ,$859E,,,,relative
+crank_equation,8597,3C,PSHX,,,,,inherent
+crank_equation,8598,30,TSX,,,,,inherent
+crank_equation,8599,BD F5 50,JSR,$F550,,,,extended
+crank_equation,859C,38,PULX,,,,,inherent
+crank_equation,859D,8F,XGDX,,,,,inherent
+crank_equation,859E,8C 00 00,CPX,#$0000,,,,immediate
+crank_equation,85A1,22 03,BHI,$85A6,,,,relative
+crank_equation,85A3,4F,CLRA,,,,,inherent
+crank_equation,85A4,20 0B,BRA,$85B1,,,,relative
+crank_equation,85A6,CC 02 66,LDD,#$0266,,,,immediate
+crank_equation,85A9,03,FDIV,,,,,inherent
+crank_equation,85AA,8F,XGDX,,,,,inherent
+crank_equation,85AB,81 7F,CMPA,#$7F,,,,immediate
+crank_equation,85AD,23 02,BLS,$85B1,,,,relative
+crank_equation,85AF,86 7F,LDAA,#$7F,,,,immediate
+crank_equation,85B1,39,RTS,,,,,inherent
+crank_equation,85B2,96 06,LDAA,$06,R,8,0006,direct
+crank_equation,85B4,CE 4D 9C,LDX,#$4D9C,,,,immediate
+crank_equation,85B7,BD F4 C1,JSR,$F4C1,,,,extended
+crank_equation,85BA,CE 4D 9A,LDX,#$4D9A,,,,immediate
+crank_equation,85BD,BD F5 50,JSR,$F550,,,,extended
+crank_equation,85C0,37,PSHB,,,,,inherent
+crank_equation,85C1,36,PSHA,,,,,inherent
+crank_equation,85C2,B6 02 CE,LDAA,$02CE,R,8,02CE,extended
+crank_equation,85C5,B1 4D 95,CMPA,$4D95,R,8,4D95,extended
+crank_equation,85C8,23 17,BLS,$85E1,,,,relative
+crank_equation,85CA,BD 85 8B,JSR,$858B,,,,extended
+crank_equation,85CD,CE 4D AD,LDX,#$4DAD,,,,immediate
+crank_equation,85D0,13 04 10 03,BRCLR,"$04,#$10,$85D7",R,8,0004,direct
+crank_equation,85D4,CE 4D B6,LDX,#$4DB6,,,,immediate
+crank_equation,85D7,BD F4 C1,JSR,$F4C1,,,,extended
+crank_equation,85DA,30,TSX,,,,,inherent
+crank_equation,85DB,BD F5 50,JSR,$F550,,,,extended
+crank_equation,85DE,38,PULX,,,,,inherent
+crank_equation,85DF,37,PSHB,,,,,inherent
+crank_equation,85E0,36,PSHA,,,,,inherent
+crank_equation,85E1,B6 01 CC,LDAA,$01CC,R,8,01CC,extended
+crank_equation,85E4,C6 60,LDAB,#$60,,,,immediate
+crank_equation,85E6,CE 4D BF,LDX,#$4DBF,,,,immediate
+crank_equation,85E9,BD F4 BD,JSR,$F4BD,,,,extended
+crank_equation,85EC,30,TSX,,,,,inherent
+crank_equation,85ED,BD F5 50,JSR,$F550,,,,extended
+crank_equation,85F0,38,PULX,,,,,inherent
+crank_equation,85F1,05,ASLD,,,,,inherent
+crank_equation,85F2,24 03,BCC,$85F7,,,,relative
+crank_equation,85F4,CC FF FF,LDD,#$FFFF,,,,immediate
+crank_equation,85F7,25 19,BCS,$8612,,,,relative
+crank_equation,85F9,37,PSHB,,,,,inherent
+crank_equation,85FA,36,PSHA,,,,,inherent
+crank_equation,85FB,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+crank_equation,85FE,CE 4D C3,LDX,#$4DC3,,,,immediate
+crank_equation,8601,BD F4 B6,JSR,$F4B6,,,,extended
+crank_equation,8604,30,TSX,,,,,inherent
+crank_equation,8605,BD F5 50,JSR,$F550,,,,extended
+crank_equation,8608,38,PULX,,,,,inherent
+crank_equation,8609,05,ASLD,,,,,inherent
+crank_equation,860A,25 03,BCS,$860F,,,,relative
+crank_equation,860C,05,ASLD,,,,,inherent
+crank_equation,860D,24 03,BCC,$8612,,,,relative
+crank_equation,860F,CC FF FF,LDD,#$FFFF,,,,immediate
+crank_equation,8612,39,RTS,,,,,inherent
+battery_ignition_state,8613,96 A7,LDAA,$A7,R,8,00A7,direct
+battery_ignition_state,8615,81 5A,CMPA,#$5A,,,,immediate
+battery_ignition_state,8617,24 0C,BCC,$8625,,,,relative
+battery_ignition_state,8619,81 28,CMPA,#$28,,,,immediate
+battery_ignition_state,861B,24 1F,BCC,$863C,,,,relative
+battery_ignition_state,861D,14 44 10,BSET,"$44,#$10",RW,8,0044,direct
+battery_ignition_state,8620,15 50 01,BCLR,"$50,#$01",RW,8,0050,direct
+battery_ignition_state,8623,20 17,BRA,$863C,,,,relative
+battery_ignition_state,8625,13 44 10 06,BRCLR,"$44,#$10,$862F",R,8,0044,direct
+battery_ignition_state,8629,FE 3F CA,LDX,$3FCA,R,16,3FCA,extended
+battery_ignition_state,862C,FF 02 05,STX,$0205,W,16,0205,extended
+battery_ignition_state,862F,15 44 10,BCLR,"$44,#$10",RW,8,0044,direct
+battery_ignition_state,8632,B6 40 0C,LDAA,$400C,R,8,400C,extended
+battery_ignition_state,8635,85 01,BITA,#$01,,,,immediate
+battery_ignition_state,8637,27 03,BEQ,$863C,,,,relative
+battery_ignition_state,8639,14 50 01,BSET,"$50,#$01",RW,8,0050,direct
+battery_ignition_state,863C,39,RTS,,,,,inherent
+O2_preparation,863D,13 4F 10 21,BRCLR,"$4F,#$10,$8662",R,8,004F,direct
+O2_preparation,8641,CE 48 FF,LDX,#$48FF,,,,immediate
+O2_preparation,8644,13 50 80 03,BRCLR,"$50,#$80,$864B",R,8,0050,direct
+O2_preparation,8648,CE 49 03,LDX,#$4903,,,,immediate
+O2_preparation,864B,12 3E 80 02,BRSET,"$3E,#$80,$8651",R,8,003E,direct
+O2_preparation,864F,08,INX,,,,,inherent
+O2_preparation,8650,08,INX,,,,,inherent
+O2_preparation,8651,B6 01 D5,LDAA,$01D5,R,8,01D5,extended
+O2_preparation,8654,A1 00,CMPA,"$00,X",R,8,,indexed_x
+O2_preparation,8656,22 04,BHI,$865C,,,,relative
+O2_preparation,8658,A1 01,CMPA,"$01,X",R,8,,indexed_x
+O2_preparation,865A,24 06,BCC,$8662,,,,relative
+O2_preparation,865C,7F 02 41,CLR,$0241,W,8,0241,extended
+O2_preparation,865F,14 04 01,BSET,"$04,#$01",RW,8,0004,direct
+O2_preparation,8662,B6 02 32,LDAA,$0232,R,8,0232,extended
+O2_preparation,8665,F6 49 49,LDAB,$4949,R,8,4949,extended
+O2_preparation,8668,3D,MUL,,,,,inherent
+O2_preparation,8669,05,ASLD,,,,,inherent
+O2_preparation,866A,25 07,BCS,$8673,,,,relative
+O2_preparation,866C,05,ASLD,,,,,inherent
+O2_preparation,866D,25 04,BCS,$8673,,,,relative
+O2_preparation,866F,81 80,CMPA,#$80,,,,immediate
+O2_preparation,8671,23 02,BLS,$8675,,,,relative
+O2_preparation,8673,86 80,LDAA,#$80,,,,immediate
+O2_preparation,8675,B7 02 7B,STAA,$027B,W,8,027B,extended
+O2_preparation,8678,C6 03,LDAB,#$03,,,,immediate
+O2_preparation,867A,13 50 80 0D,BRCLR,"$50,#$80,$868B",R,8,0050,direct
+O2_preparation,867E,FC 49 4A,LDD,$494A,R,16,494A,extended
+O2_preparation,8681,FD 02 6D,STD,$026D,W,16,026D,extended
+O2_preparation,8684,B6 49 4C,LDAA,$494C,R,8,494C,extended
+O2_preparation,8687,B7 02 6C,STAA,$026C,W,8,026C,extended
+O2_preparation,868A,5F,CLRB,,,,,inherent
+O2_preparation,868B,37,PSHB,,,,,inherent
+O2_preparation,868C,86 09,LDAA,#$09,,,,immediate
+O2_preparation,868E,3D,MUL,,,,,inherent
+O2_preparation,868F,CE 4C E1,LDX,#$4CE1,,,,immediate
+O2_preparation,8692,3A,ABX,,,,,inherent
+O2_preparation,8693,B6 02 7B,LDAA,$027B,R,8,027B,extended
+O2_preparation,8696,BD F4 C1,JSR,$F4C1,,,,extended
+O2_preparation,8699,CE 02 6B,LDX,#$026B,,,,immediate
+O2_preparation,869C,33,PULB,,,,,inherent
+O2_preparation,869D,5D,TSTB,,,,,inherent
+O2_preparation,869E,27 06,BEQ,$86A6,,,,relative
+O2_preparation,86A0,3A,ABX,,,,,inherent
+O2_preparation,86A1,A7 00,STAA,"$00,X",W,8,,indexed_x
+O2_preparation,86A3,5A,DECB,,,,,inherent
+O2_preparation,86A4,20 E5,BRA,$868B,,,,relative
+O2_preparation,86A6,13 70 04 03,BRCLR,"$70,#$04,$86AD",R,8,0070,direct
+O2_preparation,86AA,B6 4E 58,LDAA,$4E58,R,8,4E58,extended
+O2_preparation,86AD,B7 02 6B,STAA,$026B,W,8,026B,extended
+O2_preparation,86B0,D6 3E,LDAB,$3E,R,8,003E,direct
+O2_preparation,86B2,B6 02 6C,LDAA,$026C,R,8,026C,extended
+O2_preparation,86B5,BB 49 47,ADDA,$4947,R,8,4947,extended
+O2_preparation,86B8,25 05,BCS,$86BF,,,,relative
+O2_preparation,86BA,B1 01 D5,CMPA,$01D5,R,8,01D5,extended
+O2_preparation,86BD,25 19,BCS,$86D8,,,,relative
+O2_preparation,86BF,B6 02 6C,LDAA,$026C,R,8,026C,extended
+O2_preparation,86C2,B0 49 47,SUBA,$4947,R,8,4947,extended
+O2_preparation,86C5,25 05,BCS,$86CC,,,,relative
+O2_preparation,86C7,B1 01 D5,CMPA,$01D5,R,8,01D5,extended
+O2_preparation,86CA,22 08,BHI,$86D4,,,,relative
+O2_preparation,86CC,B6 01 D5,LDAA,$01D5,R,8,01D5,extended
+O2_preparation,86CF,B1 01 D4,CMPA,$01D4,R,8,01D4,extended
+O2_preparation,86D2,22 04,BHI,$86D8,,,,relative
+O2_preparation,86D4,C4 BF,ANDB,#$BF,,,,immediate
+O2_preparation,86D6,20 02,BRA,$86DA,,,,relative
+O2_preparation,86D8,CA 40,ORAB,#$40,,,,immediate
+O2_preparation,86DA,D1 3E,CMPB,$3E,R,8,003E,direct
+O2_preparation,86DC,27 09,BEQ,$86E7,,,,relative
+O2_preparation,86DE,7C 02 75,INC,$0275,RW,8,0275,extended
+O2_preparation,86E1,14 43 10,BSET,"$43,#$10",RW,8,0043,direct
+O2_preparation,86E4,4F,CLRA,,,,,inherent
+O2_preparation,86E5,20 06,BRA,$86ED,,,,relative
+O2_preparation,86E7,B6 02 7C,LDAA,$027C,R,8,027C,extended
+O2_preparation,86EA,4C,INCA,,,,,inherent
+O2_preparation,86EB,27 03,BEQ,$86F0,,,,relative
+O2_preparation,86ED,B7 02 7C,STAA,$027C,W,8,027C,extended
+O2_preparation,86F0,D7 3E,STAB,$3E,W,8,003E,direct
+O2_preparation,86F2,13 3B 10 10,BRCLR,"$3B,#$10,$8706",R,8,003B,direct
+O2_preparation,86F6,CE 03 91,LDX,#$0391,,,,immediate
+O2_preparation,86F9,1F 00 01 09,BRCLR,"$00,X,#$01,$8706",R,8,,indexed_x
+O2_preparation,86FD,1F 01 01 02,BRCLR,"$01,X,#$01,$8703",R,8,,indexed_x
+O2_preparation,8701,20 76,BRA,$8779,,,,relative
+O2_preparation,8703,7E 87 90,JMP,$8790,,,,extended
+O2_preparation,8706,12 3E 80 04,BRSET,"$3E,#$80,$870E",R,8,003E,direct
+O2_preparation,870A,13 52 80 6E,BRCLR,"$52,#$80,$877C",R,8,0052,direct
+O2_preparation,870E,12 46 08 64,BRSET,"$46,#$08,$8776",R,8,0046,direct
+O2_preparation,8712,12 3D 20 60,BRSET,"$3D,#$20,$8776",R,8,003D,direct
+O2_preparation,8716,12 52 40 5C,BRSET,"$52,#$40,$8776",R,8,0052,direct
+O2_preparation,871A,CE 40 0C,LDX,#$400C,,,,immediate
+O2_preparation,871D,1F 00 20 09,BRCLR,"$00,X,#$20,$872A",R,8,,indexed_x
+O2_preparation,8721,13 6E 08 05,BRCLR,"$6E,#$08,$872A",R,8,006E,direct
+O2_preparation,8725,15 6E 08,BCLR,"$6E,#$08",RW,8,006E,direct
+O2_preparation,8728,20 4F,BRA,$8779,,,,relative
+O2_preparation,872A,CE 40 0C,LDX,#$400C,,,,immediate
+O2_preparation,872D,1E 00 10 04,BRSET,"$00,X,#$10,$8735",R,8,,indexed_x
+O2_preparation,8731,1F 00 40 04,BRCLR,"$00,X,#$40,$8739",R,8,,indexed_x
+O2_preparation,8735,12 3D 04 40,BRSET,"$3D,#$04,$8779",R,8,003D,direct
+O2_preparation,8739,13 4F 20 05,BRCLR,"$4F,#$20,$8742",R,8,004F,direct
+O2_preparation,873D,15 4F 20,BCLR,"$4F,#$20",RW,8,004F,direct
+O2_preparation,8740,20 37,BRA,$8779,,,,relative
+O2_preparation,8742,13 3D 10 0B,BRCLR,"$3D,#$10,$8751",R,8,003D,direct
+O2_preparation,8746,12 3E 40 46,BRSET,"$3E,#$40,$8790",R,8,003E,direct
+O2_preparation,874A,B6 02 0F,LDAA,$020F,R,8,020F,extended
+O2_preparation,874D,2A 41,BPL,$8790,,,,relative
+O2_preparation,874F,20 28,BRA,$8779,,,,relative
+O2_preparation,8751,F6 01 C0,LDAB,$01C0,R,8,01C0,extended
+O2_preparation,8754,F1 49 0B,CMPB,$490B,R,8,490B,extended
+O2_preparation,8757,22 37,BHI,$8790,,,,relative
+O2_preparation,8759,D6 62,LDAB,$62,R,8,0062,direct
+O2_preparation,875B,F1 49 0C,CMPB,$490C,R,8,490C,extended
+O2_preparation,875E,23 30,BLS,$8790,,,,relative
+O2_preparation,8760,F1 49 0D,CMPB,$490D,R,8,490D,extended
+O2_preparation,8763,22 2B,BHI,$8790,,,,relative
+O2_preparation,8765,F6 02 84,LDAB,$0284,R,8,0284,extended
+O2_preparation,8768,F1 49 0E,CMPB,$490E,R,8,490E,extended
+O2_preparation,876B,25 23,BCS,$8790,,,,relative
+O2_preparation,876D,12 3E 40 1F,BRSET,"$3E,#$40,$8790",R,8,003E,direct
+O2_preparation,8771,B6 02 0F,LDAA,$020F,R,8,020F,extended
+O2_preparation,8774,2A 1A,BPL,$8790,,,,relative
+O2_preparation,8776,14 71 04,BSET,"$71,#$04",RW,8,0071,direct
+O2_preparation,8779,14 6E 01,BSET,"$6E,#$01",RW,8,006E,direct
+O2_preparation,877C,86 80,LDAA,#$80,,,,immediate
+O2_preparation,877E,B7 02 0F,STAA,$020F,W,8,020F,extended
+O2_preparation,8781,86 66,LDAA,#$66,,,,immediate
+O2_preparation,8783,B7 01 D2,STAA,$01D2,W,8,01D2,extended
+O2_preparation,8786,4F,CLRA,,,,,inherent
+O2_preparation,8787,B7 02 5F,STAA,$025F,W,8,025F,extended
+O2_preparation,878A,B7 02 7A,STAA,$027A,W,8,027A,extended
+O2_preparation,878D,7E 89 11,JMP,$8911,,,,extended
+O2_control,8790,B6 01 D2,LDAA,$01D2,R,8,01D2,extended
+O2_control,8793,B1 02 6D,CMPA,$026D,R,8,026D,extended
+O2_control,8796,22 0E,BHI,$87A6,,,,relative
+O2_control,8798,B0 02 6E,SUBA,$026E,R,8,026E,extended
+O2_control,879B,25 03,BCS,$87A0,,,,relative
+O2_control,879D,4F,CLRA,,,,,inherent
+O2_control,879E,20 1E,BRA,$87BE,,,,relative
+O2_control,87A0,40,NEGA,,,,,inherent
+O2_control,87A1,15 46 02,BCLR,"$46,#$02",RW,8,0046,direct
+O2_control,87A4,20 0A,BRA,$87B0,,,,relative
+O2_control,87A6,B0 02 6D,SUBA,$026D,R,8,026D,extended
+O2_control,87A9,F6 49 55,LDAB,$4955,R,8,4955,extended
+O2_control,87AC,3D,MUL,,,,,inherent
+O2_control,87AD,14 46 02,BSET,"$46,#$02",RW,8,0046,direct
+O2_control,87B0,13 50 80 04,BRCLR,"$50,#$80,$87B8",R,8,0050,direct
+O2_control,87B4,F6 49 56,LDAB,$4956,R,8,4956,extended
+O2_control,87B7,3D,MUL,,,,,inherent
+O2_control,87B8,81 60,CMPA,#$60,,,,immediate
+O2_control,87BA,23 02,BLS,$87BE,,,,relative
+O2_control,87BC,86 60,LDAA,#$60,,,,immediate
+O2_control,87BE,B7 02 80,STAA,$0280,W,8,0280,extended
+O2_control,87C1,48,ASLA,,,,,inherent
+O2_control,87C2,CE 4D 0E,LDX,#$4D0E,,,,immediate
+O2_control,87C5,BD F4 C1,JSR,$F4C1,,,,extended
+O2_control,87C8,B7 02 7A,STAA,$027A,W,8,027A,extended
+O2_control,87CB,13 50 80 44,BRCLR,"$50,#$80,$8813",R,8,0050,direct
+O2_control,87CF,B6 49 4D,LDAA,$494D,R,8,494D,extended
+O2_control,87D2,36,PSHA,,,,,inherent
+O2_control,87D3,CE 49 4F,LDX,#$494F,,,,immediate
+O2_control,87D6,18 CE 49 52,LDY,#$4952,,,,immediate
+O2_control,87DA,12 3E 40 08,BRSET,"$3E,#$40,$87E6",R,8,003E,direct
+O2_control,87DE,0F,SEI,,,,,inherent
+O2_control,87DF,96 3F,LDAA,$3F,R,8,003F,direct
+O2_control,87E1,88 05,EORA,#$05,,,,immediate
+O2_control,87E3,97 3F,STAA,$3F,W,8,003F,direct
+O2_control,87E5,0E,CLI,,,,,inherent
+O2_control,87E6,12 3F 03 0E,BRSET,"$3F,#$03,$87F8",R,8,003F,direct
+O2_control,87EA,12 3F 0C 0A,BRSET,"$3F,#$0C,$87F8",R,8,003F,direct
+O2_control,87EE,18 A6 01,LDAA,"$01,Y",R,8,,indexed_y
+O2_control,87F1,B7 02 62,STAA,$0262,W,8,0262,extended
+O2_control,87F4,08,INX,,,,,inherent
+O2_control,87F5,08,INX,,,,,inherent
+O2_control,87F6,20 0B,BRA,$8803,,,,relative
+O2_control,87F8,18 A6 00,LDAA,"$00,Y",R,8,,indexed_y
+O2_control,87FB,B7 02 62,STAA,$0262,W,8,0262,extended
+O2_control,87FE,12 3E 40 01,BRSET,"$3E,#$40,$8803",R,8,003E,direct
+O2_control,8802,08,INX,,,,,inherent
+O2_control,8803,A6 00,LDAA,"$00,X",R,8,,indexed_x
+O2_control,8805,F6 02 7A,LDAB,$027A,R,8,027A,extended
+O2_control,8808,3D,MUL,,,,,inherent
+O2_control,8809,05,ASLD,,,,,inherent
+O2_control,880A,25 03,BCS,$880F,,,,relative
+O2_control,880C,05,ASLD,,,,,inherent
+O2_control,880D,24 2D,BCC,$883C,,,,relative
+O2_control,880F,86 FF,LDAA,#$FF,,,,immediate
+O2_control,8811,20 29,BRA,$883C,,,,relative
+O2_control,8813,B6 02 7B,LDAA,$027B,R,8,027B,extended
+O2_control,8816,CE 4D 28,LDX,#$4D28,,,,immediate
+O2_control,8819,BD F4 C1,JSR,$F4C1,,,,extended
+O2_control,881C,36,PSHA,,,,,inherent
+O2_control,881D,96 62,LDAA,$62,R,8,0062,direct
+O2_control,881F,81 90,CMPA,#$90,,,,immediate
+O2_control,8821,23 02,BLS,$8825,,,,relative
+O2_control,8823,86 90,LDAA,#$90,,,,immediate
+O2_control,8825,F6 01 C0,LDAB,$01C0,R,8,01C0,extended
+O2_control,8828,54,LSRB,,,,,inherent
+O2_control,8829,CE 4D 31,LDX,#$4D31,,,,immediate
+O2_control,882C,BD F4 DE,JSR,$F4DE,,,,extended
+O2_control,882F,F6 02 7A,LDAB,$027A,R,8,027A,extended
+O2_control,8832,3D,MUL,,,,,inherent
+O2_control,8833,C3 00 40,ADDD,#$0040,,,,immediate
+O2_control,8836,05,ASLD,,,,,inherent
+O2_control,8837,24 03,BCC,$883C,,,,relative
+O2_control,8839,CC FF FF,LDD,#$FFFF,,,,immediate
+O2_control,883C,B7 02 7A,STAA,$027A,W,8,027A,extended
+O2_control,883F,B6 02 80,LDAA,$0280,R,8,0280,extended
+O2_control,8842,48,ASLA,,,,,inherent
+O2_control,8843,CE 4D 1B,LDX,#$4D1B,,,,immediate
+O2_control,8846,BD F4 C1,JSR,$F4C1,,,,extended
+O2_control,8849,33,PULB,,,,,inherent
+O2_control,884A,1B,ABA,,,,,inherent
+O2_control,884B,24 02,BCC,$884F,,,,relative
+O2_control,884D,86 FF,LDAA,#$FF,,,,immediate
+O2_control,884F,36,PSHA,,,,,inherent
+O2_control,8850,B6 02 80,LDAA,$0280,R,8,0280,extended
+O2_control,8853,48,ASLA,,,,,inherent
+O2_control,8854,CE 4D 85,LDX,#$4D85,,,,immediate
+O2_control,8857,BD F4 C1,JSR,$F4C1,,,,extended
+O2_control,885A,F6 02 6B,LDAB,$026B,R,8,026B,extended
+O2_control,885D,3D,MUL,,,,,inherent
+O2_control,885E,13 50 80 07,BRCLR,"$50,#$80,$8869",R,8,0050,direct
+O2_control,8862,BB 02 62,ADDA,$0262,R,8,0262,extended
+O2_control,8865,24 02,BCC,$8869,,,,relative
+O2_control,8867,86 FF,LDAA,#$FF,,,,immediate
+O2_control,8869,B7 02 6B,STAA,$026B,W,8,026B,extended
+O2_control,886C,B7 02 81,STAA,$0281,W,8,0281,extended
+O2_control,886F,96 46,LDAA,$46,R,8,0046,direct
+O2_control,8871,84 02,ANDA,#$02,,,,immediate
+O2_control,8873,D6 3E,LDAB,$3E,R,8,003E,direct
+O2_control,8875,C4 40,ANDB,#$40,,,,immediate
+O2_control,8877,1B,ABA,,,,,inherent
+O2_control,8878,33,PULB,,,,,inherent
+O2_control,8879,27 04,BEQ,$887F,,,,relative
+O2_control,887B,81 42,CMPA,#$42,,,,immediate
+O2_control,887D,26 4E,BNE,$88CD,,,,relative
+O2_control,887F,B6 02 80,LDAA,$0280,R,8,0280,extended
+O2_control,8882,48,ASLA,,,,,inherent
+O2_control,8883,B1 49 48,CMPA,$4948,R,8,4948,extended
+O2_control,8886,22 05,BHI,$888D,,,,relative
+O2_control,8888,7F 02 5F,CLR,$025F,W,8,025F,extended
+O2_control,888B,20 40,BRA,$88CD,,,,relative
+O2_control,888D,B6 02 5F,LDAA,$025F,R,8,025F,extended
+O2_control,8890,B1 02 6B,CMPA,$026B,R,8,026B,extended
+O2_control,8893,25 03,BCS,$8898,,,,relative
+O2_control,8895,4F,CLRA,,,,,inherent
+O2_control,8896,20 01,BRA,$8899,,,,relative
+O2_control,8898,4C,INCA,,,,,inherent
+O2_control,8899,B7 02 5F,STAA,$025F,W,8,025F,extended
+O2_control,889C,26 2F,BNE,$88CD,,,,relative
+O2_control,889E,B6 02 0F,LDAA,$020F,R,8,020F,extended
+O2_control,88A1,12 46 02 10,BRSET,"$46,#$02,$88B5",R,8,0046,direct
+O2_control,88A5,B1 49 11,CMPA,$4911,R,8,4911,extended
+O2_control,88A8,27 20,BEQ,$88CA,,,,relative
+O2_control,88AA,13 52 80 04,BRCLR,"$52,#$80,$88B2",R,8,0052,direct
+O2_control,88AE,81 80,CMPA,#$80,,,,immediate
+O2_control,88B0,24 18,BCC,$88CA,,,,relative
+O2_control,88B2,4C,INCA,,,,,inherent
+O2_control,88B3,20 15,BRA,$88CA,,,,relative
+O2_control,88B5,CE 40 0B,LDX,#$400B,,,,immediate
+O2_control,88B8,1F 00 08 04,BRCLR,"$00,X,#$08,$88C0",R,8,,indexed_x
+O2_control,88BC,12 44 02 0D,BRSET,"$44,#$02,$88CD",R,8,0044,direct
+O2_control,88C0,B1 49 10,CMPA,$4910,R,8,4910,extended
+O2_control,88C3,27 05,BEQ,$88CA,,,,relative
+O2_control,88C5,12 3F 80 01,BRSET,"$3F,#$80,$88CA",R,8,003F,direct
+O2_control,88C9,4A,DECA,,,,,inherent
+O2_control,88CA,B7 02 0F,STAA,$020F,W,8,020F,extended
+O2_control,88CD,B6 02 7C,LDAA,$027C,R,8,027C,extended
+O2_control,88D0,11,CBA,,,,,inherent
+O2_control,88D1,23 0F,BLS,$88E2,,,,relative
+O2_control,88D3,FB 49 4E,ADDB,$494E,R,8,494E,extended
+O2_control,88D6,24 02,BCC,$88DA,,,,relative
+O2_control,88D8,C6 FF,LDAB,#$FF,,,,immediate
+O2_control,88DA,11,CBA,,,,,inherent
+O2_control,88DB,24 05,BCC,$88E2,,,,relative
+O2_control,88DD,7F 02 7A,CLR,$027A,W,8,027A,extended
+O2_control,88E0,20 07,BRA,$88E9,,,,relative
+O2_control,88E2,13 52 80 03,BRCLR,"$52,#$80,$88E9",R,8,0052,direct
+O2_control,88E6,7F 02 7A,CLR,$027A,W,8,027A,extended
+O2_control,88E9,B6 02 7A,LDAA,$027A,R,8,027A,extended
+O2_control,88EC,13 3E 40 21,BRCLR,"$3E,#$40,$8911",R,8,003E,direct
+O2_control,88F0,CE 40 0B,LDX,#$400B,,,,immediate
+O2_control,88F3,1F 00 08 0F,BRCLR,"$00,X,#$08,$8906",R,8,,indexed_x
+O2_control,88F7,13 44 02 0B,BRCLR,"$44,#$02,$8906",R,8,0044,direct
+O2_control,88FB,B6 49 12,LDAA,$4912,R,8,4912,extended
+O2_control,88FE,B1 02 7A,CMPA,$027A,R,8,027A,extended
+O2_control,8901,24 03,BCC,$8906,,,,relative
+O2_control,8903,B7 02 7A,STAA,$027A,W,8,027A,extended
+O2_control,8906,B6 02 0F,LDAA,$020F,R,8,020F,extended
+O2_control,8909,B0 02 7A,SUBA,$027A,R,8,027A,extended
+O2_control,890C,24 0A,BCC,$8918,,,,relative
+O2_control,890E,4F,CLRA,,,,,inherent
+O2_control,890F,20 07,BRA,$8918,,,,relative
+O2_control,8911,BB 02 0F,ADDA,$020F,R,8,020F,extended
+O2_control,8914,24 02,BCC,$8918,,,,relative
+O2_control,8916,86 FF,LDAA,#$FF,,,,immediate
+O2_control,8918,80 80,SUBA,#$80,,,,immediate
+O2_control,891A,B7 02 6F,STAA,$026F,W,8,026F,extended
+O2_control,891D,39,RTS,,,,,inherent
+AFR_base,891E,B6 48 E7,LDAA,$48E7,R,8,48E7,extended
+AFR_base,8921,D6 3E,LDAB,$3E,R,8,003E,direct
+AFR_base,8923,C5 A0,BITB,#$A0,,,,immediate
+AFR_base,8925,27 11,BEQ,$8938,,,,relative
+AFR_base,8927,B7 02 4A,STAA,$024A,W,8,024A,extended
+AFR_base,892A,CE 40 0D,LDX,#$400D,,,,immediate
+AFR_base,892D,1F 00 01 3C,BRCLR,"$00,X,#$01,$896D",R,8,,indexed_x
+AFR_base,8931,D6 06,LDAB,$06,R,8,0006,direct
+AFR_base,8933,F1 48 D1,CMPB,$48D1,R,8,48D1,extended
+AFR_base,8936,22 1A,BHI,$8952,,,,relative
+AFR_base,8938,CE 4B BA,LDX,#$4BBA,,,,immediate
+AFR_base,893B,F6 01 C9,LDAB,$01C9,R,8,01C9,extended
+AFR_base,893E,A6 00,LDAA,"$00,X",R,8,,indexed_x
+AFR_base,8940,27 03,BEQ,$8945,,,,relative
+AFR_base,8942,F6 01 C0,LDAB,$01C0,R,8,01C0,extended
+AFR_base,8945,08,INX,,,,,inherent
+AFR_base,8946,54,LSRB,,,,,inherent
+AFR_base,8947,96 06,LDAA,$06,R,8,0006,direct
+AFR_base,8949,81 C0,CMPA,#$C0,,,,immediate
+AFR_base,894B,23 02,BLS,$894F,,,,relative
+AFR_base,894D,86 C0,LDAA,#$C0,,,,immediate
+AFR_base,894F,BD F4 DE,JSR,$F4DE,,,,extended
+AFR_base,8952,B0 02 C8,SUBA,$02C8,R,8,02C8,extended
+AFR_base,8955,24 01,BCC,$8958,,,,relative
+AFR_base,8957,4F,CLRA,,,,,inherent
+AFR_base,8958,13 50 80 13,BRCLR,"$50,#$80,$896F",R,8,0050,direct
+AFR_base,895C,B1 02 72,CMPA,$0272,R,8,0272,extended
+AFR_base,895F,23 03,BLS,$8964,,,,relative
+AFR_base,8961,B6 02 72,LDAA,$0272,R,8,0272,extended
+AFR_base,8964,C6 3C,LDAB,#$3C,,,,immediate
+AFR_base,8966,F7 02 66,STAB,$0266,W,8,0266,extended
+AFR_base,8969,5F,CLRB,,,,,inherent
+AFR_base,896A,FD 02 64,STD,$0264,W,16,0264,extended
+AFR_base,896D,20 29,BRA,$8998,,,,relative
+AFR_base,896F,F6 02 66,LDAB,$0266,R,8,0266,extended
+AFR_base,8972,27 14,BEQ,$8988,,,,relative
+AFR_base,8974,5A,DECB,,,,,inherent
+AFR_base,8975,F7 02 66,STAB,$0266,W,8,0266,extended
+AFR_base,8978,B1 02 64,CMPA,$0264,R,8,0264,extended
+AFR_base,897B,23 0B,BLS,$8988,,,,relative
+AFR_base,897D,FE 02 64,LDX,$0264,R,16,0264,extended
+AFR_base,8980,F6 48 EC,LDAB,$48EC,R,8,48EC,extended
+AFR_base,8983,BD F4 59,JSR,$F459,,,,extended
+AFR_base,8986,20 06,BRA,$898E,,,,relative
+AFR_base,8988,5F,CLRB,,,,,inherent
+AFR_base,8989,FD 02 64,STD,$0264,W,16,0264,extended
+AFR_base,898C,20 0A,BRA,$8998,,,,relative
+AFR_base,898E,FD 02 64,STD,$0264,W,16,0264,extended
+AFR_base,8991,58,ASLB,,,,,inherent
+AFR_base,8992,89 00,ADCA,#$00,,,,immediate
+AFR_base,8994,24 02,BCC,$8998,,,,relative
+AFR_base,8996,86 FF,LDAA,#$FF,,,,immediate
+AFR_base,8998,B7 02 4A,STAA,$024A,W,8,024A,extended
+AFR_base,899B,B6 02 84,LDAA,$0284,R,8,0284,extended
+AFR_base,899E,B1 48 D9,CMPA,$48D9,R,8,48D9,extended
+AFR_base,89A1,22 68,BHI,$8A0B,,,,relative
+AFR_base,89A3,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+AFR_base,89A6,B1 48 DA,CMPA,$48DA,R,8,48DA,extended
+AFR_base,89A9,22 60,BHI,$8A0B,,,,relative
+AFR_base,89AB,14 50 80,BSET,"$50,#$80",RW,8,0050,direct
+AFR_base,89AE,B6 02 72,LDAA,$0272,R,8,0272,extended
+AFR_base,89B1,B1 02 4A,CMPA,$024A,R,8,024A,extended
+AFR_base,89B4,22 63,BHI,$8A19,,,,relative
+AFR_base,89B6,D6 06,LDAB,$06,R,8,0006,direct
+AFR_base,89B8,F1 48 E2,CMPB,$48E2,R,8,48E2,extended
+AFR_base,89BB,23 49,BLS,$8A06,,,,relative
+AFR_base,89BD,F6 48 DE,LDAB,$48DE,R,8,48DE,extended
+AFR_base,89C0,27 24,BEQ,$89E6,,,,relative
+AFR_base,89C2,CE 40 0B,LDX,#$400B,,,,immediate
+AFR_base,89C5,1E 00 02 04,BRSET,"$00,X,#$02,$89CD",R,8,,indexed_x
+AFR_base,89C9,12 41 20 4C,BRSET,"$41,#$20,$8A19",R,8,0041,direct
+AFR_base,89CD,13 50 02 0D,BRCLR,"$50,#$02,$89DE",R,8,0050,direct
+AFR_base,89D1,F6 02 71,LDAB,$0271,R,8,0271,extended
+AFR_base,89D4,F1 48 DF,CMPB,$48DF,R,8,48DF,extended
+AFR_base,89D7,23 1D,BLS,$89F6,,,,relative
+AFR_base,89D9,B6 02 72,LDAA,$0272,R,8,0272,extended
+AFR_base,89DC,20 44,BRA,$8A22,,,,relative
+AFR_base,89DE,F6 48 DE,LDAB,$48DE,R,8,48DE,extended
+AFR_base,89E1,F1 02 71,CMPB,$0271,R,8,0271,extended
+AFR_base,89E4,24 10,BCC,$89F6,,,,relative
+AFR_base,89E6,C6 80,LDAB,#$80,,,,immediate
+AFR_base,89E8,B6 02 0F,LDAA,$020F,R,8,020F,extended
+AFR_base,89EB,81 80,CMPA,#$80,,,,immediate
+AFR_base,89ED,24 01,BCC,$89F0,,,,relative
+AFR_base,89EF,40,NEGA,,,,,inherent
+AFR_base,89F0,1B,ABA,,,,,inherent
+AFR_base,89F1,B1 48 F8,CMPA,$48F8,R,8,48F8,extended
+AFR_base,89F4,23 0B,BLS,$8A01,,,,relative
+AFR_base,89F6,D6 02,LDAB,$02,R,8,0002,direct
+AFR_base,89F8,C1 27,CMPB,#$27,,,,immediate
+AFR_base,89FA,26 23,BNE,$8A1F,,,,relative
+AFR_base,89FC,7C 02 71,INC,$0271,RW,8,0271,extended
+AFR_base,89FF,20 1E,BRA,$8A1F,,,,relative
+AFR_base,8A01,14 50 02,BSET,"$50,#$02",RW,8,0050,direct
+AFR_base,8A04,20 16,BRA,$8A1C,,,,relative
+AFR_base,8A06,14 50 02,BSET,"$50,#$02",RW,8,0050,direct
+AFR_base,8A09,20 17,BRA,$8A22,,,,relative
+AFR_base,8A0B,DC FD,LDD,$FD,R,16,00FD,direct
+AFR_base,8A0D,1A B3 48 E0,CPD,$48E0,R,16,48E0,extended
+AFR_base,8A11,25 03,BCS,$8A16,,,,relative
+AFR_base,8A13,14 3F 40,BSET,"$3F,#$40",RW,8,003F,direct
+AFR_base,8A16,15 50 80,BCLR,"$50,#$80",RW,8,0050,direct
+AFR_base,8A19,15 50 02,BCLR,"$50,#$02",RW,8,0050,direct
+AFR_base,8A1C,7F 02 71,CLR,$0271,W,8,0271,extended
+AFR_base,8A1F,B6 02 4A,LDAA,$024A,R,8,024A,extended
+AFR_base,8A22,12 3E 80 36,BRSET,"$3E,#$80,$8A5C",R,8,003E,direct
+AFR_base,8A26,13 04 10 06,BRCLR,"$04,#$10,$8A30",R,8,0004,direct
+AFR_base,8A2A,B0 49 5C,SUBA,$495C,R,8,495C,extended
+AFR_base,8A2D,24 01,BCC,$8A30,,,,relative
+AFR_base,8A2F,4F,CLRA,,,,,inherent
+AFR_base,8A30,D6 06,LDAB,$06,R,8,0006,direct
+AFR_base,8A32,F1 48 E4,CMPB,$48E4,R,8,48E4,extended
+AFR_base,8A35,23 25,BLS,$8A5C,,,,relative
+AFR_base,8A37,F1 48 E5,CMPB,$48E5,R,8,48E5,extended
+AFR_base,8A3A,24 20,BCC,$8A5C,,,,relative
+AFR_base,8A3C,12 41 20 16,BRSET,"$41,#$20,$8A56",R,8,0041,direct
+AFR_base,8A40,F6 08 2C,LDAB,$082C,R,8,082C,extended
+AFR_base,8A43,F1 48 E6,CMPB,$48E6,R,8,48E6,extended
+AFR_base,8A46,22 14,BHI,$8A5C,,,,relative
+AFR_base,8A48,5C,INCB,,,,,inherent
+AFR_base,8A49,27 03,BEQ,$8A4E,,,,relative
+AFR_base,8A4B,F7 08 2C,STAB,$082C,W,8,082C,extended
+AFR_base,8A4E,B0 48 EA,SUBA,$48EA,R,8,48EA,extended
+AFR_base,8A51,24 09,BCC,$8A5C,,,,relative
+AFR_base,8A53,4F,CLRA,,,,,inherent
+AFR_base,8A54,20 06,BRA,$8A5C,,,,relative
+AFR_base,8A56,B0 48 EB,SUBA,$48EB,R,8,48EB,extended
+AFR_base,8A59,24 01,BCC,$8A5C,,,,relative
+AFR_base,8A5B,4F,CLRA,,,,,inherent
+AFR_base,8A5C,F6 49 13,LDAB,$4913,R,8,4913,extended
+AFR_base,8A5F,13 72 40 03,BRCLR,"$72,#$40,$8A66",R,8,0072,direct
+AFR_base,8A63,F6 4E 7B,LDAB,$4E7B,R,8,4E7B,extended
+AFR_base,8A66,11,CBA,,,,,inherent
+AFR_base,8A67,23 01,BLS,$8A6A,,,,relative
+AFR_base,8A69,17,TBA,,,,,inherent
+AFR_base,8A6A,F6 02 68,LDAB,$0268,R,8,0268,extended
+AFR_base,8A6D,F1 49 5F,CMPB,$495F,R,8,495F,extended
+AFR_base,8A70,25 16,BCS,$8A88,,,,relative
+AFR_base,8A72,D6 06,LDAB,$06,R,8,0006,direct
+AFR_base,8A74,F1 49 61,CMPB,$4961,R,8,4961,extended
+AFR_base,8A77,22 08,BHI,$8A81,,,,relative
+AFR_base,8A79,B0 02 C9,SUBA,$02C9,R,8,02C9,extended
+AFR_base,8A7C,24 0A,BCC,$8A88,,,,relative
+AFR_base,8A7E,4F,CLRA,,,,,inherent
+AFR_base,8A7F,20 07,BRA,$8A88,,,,relative
+AFR_base,8A81,BB 02 C9,ADDA,$02C9,R,8,02C9,extended
+AFR_base,8A84,24 02,BCC,$8A88,,,,relative
+AFR_base,8A86,86 FF,LDAA,#$FF,,,,immediate
+AFR_base,8A88,B7 02 4A,STAA,$024A,W,8,024A,extended
+PE_state,8A8B,12 4F 10 03,BRSET,"$4F,#$10,$8A92",R,8,004F,direct
+PE_state,8A8F,7E 8C 6D,JMP,$8C6D,,,,extended
+PE_state,8A92,B6 02 84,LDAA,$0284,R,8,0284,extended
+PE_state,8A95,B1 49 21,CMPA,$4921,R,8,4921,extended
+PE_state,8A98,24 10,BCC,$8AAA,,,,relative
+PE_state,8A9A,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+PE_state,8A9D,B1 49 22,CMPA,$4922,R,8,4922,extended
+PE_state,8AA0,22 08,BHI,$8AAA,,,,relative
+PE_state,8AA2,14 3D 01,BSET,"$3D,#$01",RW,8,003D,direct
+PE_state,8AA5,7F 02 63,CLR,$0263,W,8,0263,extended
+PE_state,8AA8,20 0F,BRA,$8AB9,,,,relative
+PE_state,8AAA,B6 02 63,LDAA,$0263,R,8,0263,extended
+PE_state,8AAD,B1 49 23,CMPA,$4923,R,8,4923,extended
+PE_state,8AB0,24 07,BCC,$8AB9,,,,relative
+PE_state,8AB2,4C,INCA,,,,,inherent
+PE_state,8AB3,B7 02 63,STAA,$0263,W,8,0263,extended
+PE_state,8AB6,14 3D 01,BSET,"$3D,#$01",RW,8,003D,direct
+PE_state,8AB9,C6 20,LDAB,#$20,,,,immediate
+PE_state,8ABB,CE 4C 5A,LDX,#$4C5A,,,,immediate
+PE_state,8ABE,96 62,LDAA,$62,R,8,0062,direct
+PE_state,8AC0,BD F4 9A,JSR,$F49A,,,,extended
+PE_state,8AC3,B7 01 E0,STAA,$01E0,W,8,01E0,extended
+PE_state,8AC6,CE 4C 7F,LDX,#$4C7F,,,,immediate
+PE_state,8AC9,96 62,LDAA,$62,R,8,0062,direct
+PE_state,8ACB,BD F4 9A,JSR,$F49A,,,,extended
+PE_state,8ACE,B7 01 E1,STAA,$01E1,W,8,01E1,extended
+PE_state,8AD1,CE 4C 64,LDX,#$4C64,,,,immediate
+PE_state,8AD4,96 62,LDAA,$62,R,8,0062,direct
+PE_state,8AD6,BD F4 9A,JSR,$F49A,,,,extended
+PE_state,8AD9,B7 01 E2,STAA,$01E2,W,8,01E2,extended
+PE_state,8ADC,16,TAB,,,,,inherent
+PE_state,8ADD,13 3D 20 06,BRCLR,"$3D,#$20,$8AE7",R,8,003D,direct
+PE_state,8AE1,F0 49 17,SUBB,$4917,R,8,4917,extended
+PE_state,8AE4,24 01,BCC,$8AE7,,,,relative
+PE_state,8AE6,5F,CLRB,,,,,inherent
+PE_state,8AE7,F1 01 D9,CMPB,$01D9,R,8,01D9,extended
+PE_state,8AEA,25 03,BCS,$8AEF,,,,relative
+PE_state,8AEC,7E 8B FC,JMP,$8BFC,,,,extended
+PE_state,8AEF,12 3F 20 5E,BRSET,"$3F,#$20,$8B51",R,8,003F,direct
+PE_state,8AF3,96 63,LDAA,$63,R,8,0063,direct
+PE_state,8AF5,90 65,SUBA,$65,R,8,0065,direct
+PE_state,8AF7,24 01,BCC,$8AFA,,,,relative
+PE_state,8AF9,4F,CLRA,,,,,inherent
+PE_state,8AFA,B1 49 14,CMPA,$4914,R,8,4914,extended
+PE_state,8AFD,23 06,BLS,$8B05,,,,relative
+PE_state,8AFF,14 3F 20,BSET,"$3F,#$20",RW,8,003F,direct
+PE_state,8B02,7E 8B 51,JMP,$8B51,,,,extended
+PE_state,8B05,D6 06,LDAB,$06,R,8,0006,direct
+PE_state,8B07,F1 49 16,CMPB,$4916,R,8,4916,extended
+PE_state,8B0A,22 45,BHI,$8B51,,,,relative
+PE_state,8B0C,F1 49 15,CMPB,$4915,R,8,4915,extended
+PE_state,8B0F,23 40,BLS,$8B51,,,,relative
+PE_state,8B11,F6 49 18,LDAB,$4918,R,8,4918,extended
+PE_state,8B14,D1 62,CMPB,$62,R,8,0062,direct
+PE_state,8B16,23 39,BLS,$8B51,,,,relative
+PE_state,8B18,B6 01 E3,LDAA,$01E3,R,8,01E3,extended
+PE_state,8B1B,F6 01 D9,LDAB,$01D9,R,8,01D9,extended
+PE_state,8B1E,F0 01 DB,SUBB,$01DB,R,8,01DB,extended
+PE_state,8B21,25 03,BCS,$8B26,,,,relative
+PE_state,8B23,11,CBA,,,,,inherent
+PE_state,8B24,23 28,BLS,$8B4E,,,,relative
+PE_state,8B26,B6 01 CD,LDAA,$01CD,R,8,01CD,extended
+PE_state,8B29,91 62,CMPA,$62,R,8,0062,direct
+PE_state,8B2B,23 07,BLS,$8B34,,,,relative
+PE_state,8B2D,12 3D 20 03,BRSET,"$3D,#$20,$8B34",R,8,003D,direct
+PE_state,8B31,7E 8B FC,JMP,$8BFC,,,,extended
+PE_state,8B34,12 3D 01 03,BRSET,"$3D,#$01,$8B3B",R,8,003D,direct
+PE_state,8B38,7E 8B F3,JMP,$8BF3,,,,extended
+PE_state,8B3B,F6 02 77,LDAB,$0277,R,8,0277,extended
+PE_state,8B3E,F1 49 1A,CMPB,$491A,R,8,491A,extended
+PE_state,8B41,5C,INCB,,,,,inherent
+PE_state,8B42,25 13,BCS,$8B57,,,,relative
+PE_state,8B44,F6 02 78,LDAB,$0278,R,8,0278,extended
+PE_state,8B47,FB 49 1B,ADDB,$491B,R,8,491B,extended
+PE_state,8B4A,24 07,BCC,$8B53,,,,relative
+PE_state,8B4C,20 03,BRA,$8B51,,,,relative
+PE_state,8B4E,14 3F 20,BSET,"$3F,#$20",RW,8,003F,direct
+PE_state,8B51,C6 FF,LDAB,#$FF,,,,immediate
+PE_state,8B53,F7 02 78,STAB,$0278,W,8,0278,extended
+PE_state,8B56,5F,CLRB,,,,,inherent
+PE_state,8B57,F7 02 77,STAB,$0277,W,8,0277,extended
+PE_state,8B5A,14 3D 20,BSET,"$3D,#$20",RW,8,003D,direct
+PE_state,8B5D,CE 4C 6E,LDX,#$4C6E,,,,immediate
+PE_state,8B60,96 62,LDAA,$62,R,8,0062,direct
+PE_state,8B62,BD F4 C1,JSR,$F4C1,,,,extended
+PE_state,8B65,16,TAB,,,,,inherent
+PE_state,8B66,B6 02 69,LDAA,$0269,R,8,0269,extended
+PE_state,8B69,B1 49 1D,CMPA,$491D,R,8,491D,extended
+PE_state,8B6C,22 53,BHI,$8BC1,,,,relative
+PE_state,8B6E,96 02,LDAA,$02,R,8,0002,direct
+PE_state,8B70,81 07,CMPA,#$07,,,,immediate
+PE_state,8B72,26 03,BNE,$8B77,,,,relative
+PE_state,8B74,7C 02 69,INC,$0269,RW,8,0269,extended
+PE_state,8B77,96 62,LDAA,$62,R,8,0062,direct
+PE_state,8B79,B1 49 18,CMPA,$4918,R,8,4918,extended
+PE_state,8B7C,24 43,BCC,$8BC1,,,,relative
+PE_state,8B7E,96 06,LDAA,$06,R,8,0006,direct
+PE_state,8B80,B1 49 1E,CMPA,$491E,R,8,491E,extended
+PE_state,8B83,22 3C,BHI,$8BC1,,,,relative
+PE_state,8B85,B1 49 15,CMPA,$4915,R,8,4915,extended
+PE_state,8B88,23 37,BLS,$8BC1,,,,relative
+PE_state,8B8A,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+PE_state,8B8D,B1 01 E0,CMPA,$01E0,R,8,01E0,extended
+PE_state,8B90,22 2F,BHI,$8BC1,,,,relative
+PE_state,8B92,B0 01 E2,SUBA,$01E2,R,8,01E2,extended
+PE_state,8B95,24 02,BCC,$8B99,,,,relative
+PE_state,8B97,86 00,LDAA,#$00,,,,immediate
+PE_state,8B99,37,PSHB,,,,,inherent
+PE_state,8B9A,36,PSHA,,,,,inherent
+PE_state,8B9B,B6 01 E0,LDAA,$01E0,R,8,01E0,extended
+PE_state,8B9E,B0 01 E2,SUBA,$01E2,R,8,01E2,extended
+PE_state,8BA1,24 02,BCC,$8BA5,,,,relative
+PE_state,8BA3,86 00,LDAA,#$00,,,,immediate
+PE_state,8BA5,5F,CLRB,,,,,inherent
+PE_state,8BA6,8F,XGDX,,,,,inherent
+PE_state,8BA7,32,PULA,,,,,inherent
+PE_state,8BA8,5F,CLRB,,,,,inherent
+PE_state,8BA9,03,FDIV,,,,,inherent
+PE_state,8BAA,8F,XGDX,,,,,inherent
+PE_state,8BAB,F6 49 25,LDAB,$4925,R,8,4925,extended
+PE_state,8BAE,3D,MUL,,,,,inherent
+PE_state,8BAF,89 00,ADCA,#$00,,,,immediate
+PE_state,8BB1,16,TAB,,,,,inherent
+PE_state,8BB2,B6 49 25,LDAA,$4925,R,8,4925,extended
+PE_state,8BB5,10,SBA,,,,,inherent
+PE_state,8BB6,24 02,BCC,$8BBA,,,,relative
+PE_state,8BB8,86 00,LDAA,#$00,,,,immediate
+PE_state,8BBA,33,PULB,,,,,inherent
+PE_state,8BBB,1B,ABA,,,,,inherent
+PE_state,8BBC,24 02,BCC,$8BC0,,,,relative
+PE_state,8BBE,86 FF,LDAA,#$FF,,,,immediate
+PE_state,8BC0,16,TAB,,,,,inherent
+PE_state,8BC1,96 06,LDAA,$06,R,8,0006,direct
+PE_state,8BC3,B1 49 1C,CMPA,$491C,R,8,491C,extended
+PE_state,8BC6,22 15,BHI,$8BDD,,,,relative
+PE_state,8BC8,96 62,LDAA,$62,R,8,0062,direct
+PE_state,8BCA,B1 49 1F,CMPA,$491F,R,8,491F,extended
+PE_state,8BCD,24 0E,BCC,$8BDD,,,,relative
+PE_state,8BCF,B6 02 84,LDAA,$0284,R,8,0284,extended
+PE_state,8BD2,B1 49 20,CMPA,$4920,R,8,4920,extended
+PE_state,8BD5,24 06,BCC,$8BDD,,,,relative
+PE_state,8BD7,F0 49 24,SUBB,$4924,R,8,4924,extended
+PE_state,8BDA,24 01,BCC,$8BDD,,,,relative
+PE_state,8BDC,5F,CLRB,,,,,inherent
+PE_state,8BDD,B6 02 4A,LDAA,$024A,R,8,024A,extended
+PE_state,8BE0,10,SBA,,,,,inherent
+PE_state,8BE1,23 55,BLS,$8C38,,,,relative
+PE_state,8BE3,F6 02 78,LDAB,$0278,R,8,0278,extended
+PE_state,8BE6,3D,MUL,,,,,inherent
+PE_state,8BE7,89 00,ADCA,#$00,,,,immediate
+PE_state,8BE9,16,TAB,,,,,inherent
+PE_state,8BEA,B6 02 4A,LDAA,$024A,R,8,024A,extended
+PE_state,8BED,10,SBA,,,,,inherent
+PE_state,8BEE,B7 02 4A,STAA,$024A,W,8,024A,extended
+PE_state,8BF1,20 45,BRA,$8C38,,,,relative
+PE_state,8BF3,FC 08 18,LDD,$0818,R,16,0818,extended
+PE_state,8BF6,1A B3 49 26,CPD,$4926,R,16,4926,extended
+PE_state,8BFA,24 11,BCC,$8C0D,,,,relative
+PE_state,8BFC,F6 02 76,LDAB,$0276,R,8,0276,extended
+PE_state,8BFF,F1 49 19,CMPB,$4919,R,8,4919,extended
+PE_state,8C02,5C,INCB,,,,,inherent
+PE_state,8C03,25 24,BCS,$8C29,,,,relative
+PE_state,8C05,7F 02 78,CLR,$0278,W,8,0278,extended
+PE_state,8C08,7F 02 69,CLR,$0269,W,8,0269,extended
+PE_state,8C0B,20 25,BRA,$8C32,,,,relative
+PE_state,8C0D,F6 02 76,LDAB,$0276,R,8,0276,extended
+PE_state,8C10,26 06,BNE,$8C18,,,,relative
+PE_state,8C12,14 3D 01,BSET,"$3D,#$01",RW,8,003D,direct
+PE_state,8C15,7E 8B 56,JMP,$8B56,,,,extended
+PE_state,8C18,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+PE_state,8C1B,B1 01 E0,CMPA,$01E0,R,8,01E0,extended
+PE_state,8C1E,23 08,BLS,$8C28,,,,relative
+PE_state,8C20,F0 01 E1,SUBB,$01E1,R,8,01E1,extended
+PE_state,8C23,24 04,BCC,$8C29,,,,relative
+PE_state,8C25,5F,CLRB,,,,,inherent
+PE_state,8C26,20 01,BRA,$8C29,,,,relative
+PE_state,8C28,5A,DECB,,,,,inherent
+PE_state,8C29,96 02,LDAA,$02,R,8,0002,direct
+PE_state,8C2B,81 17,CMPA,#$17,,,,immediate
+PE_state,8C2D,26 03,BNE,$8C32,,,,relative
+PE_state,8C2F,F7 02 76,STAB,$0276,W,8,0276,extended
+PE_state,8C32,15 3D 21,BCLR,"$3D,#$21",RW,8,003D,direct
+PE_state,8C35,15 3F 20,BCLR,"$3F,#$20",RW,8,003F,direct
+AFR_final,8C38,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+AFR_final,8C3B,B7 01 DB,STAA,$01DB,W,8,01DB,extended
+AFR_final,8C3E,13 52 40 11,BRCLR,"$52,#$40,$8C53",R,8,0052,direct
+AFR_final,8C42,B6 02 32,LDAA,$0232,R,8,0232,extended
+AFR_final,8C45,CE 49 99,LDX,#$4999,,,,immediate
+AFR_final,8C48,BD F4 C1,JSR,$F4C1,,,,extended
+AFR_final,8C4B,B1 02 4A,CMPA,$024A,R,8,024A,extended
+AFR_final,8C4E,22 03,BHI,$8C53,,,,relative
+AFR_final,8C50,B7 02 4A,STAA,$024A,W,8,024A,extended
+AFR_final,8C53,13 3B 10 0F,BRCLR,"$3B,#$10,$8C66",R,8,003B,direct
+AFR_final,8C57,B6 03 95,LDAA,$0395,R,8,0395,extended
+AFR_final,8C5A,85 04,BITA,#$04,,,,immediate
+AFR_final,8C5C,27 08,BEQ,$8C66,,,,relative
+AFR_final,8C5E,B6 03 97,LDAA,$0397,R,8,0397,extended
+AFR_final,8C61,B7 02 4A,STAA,$024A,W,8,024A,extended
+AFR_final,8C64,20 07,BRA,$8C6D,,,,relative
+AFR_final,8C66,13 86 40 03,BRCLR,"$86,#$40,$8C6D",R,8,0086,direct
+AFR_final,8C6A,BD 18 00,JSR,$1800,,,,extended
+AFR_final,8C6D,B6 02 4A,LDAA,$024A,R,8,024A,extended
+AFR_final,8C70,B7 02 4B,STAA,$024B,W,8,024B,extended
+BLM_cell_selection,8C73,96 02,LDAA,$02,R,8,0002,direct
+BLM_cell_selection,8C75,81 9F,CMPA,#$9F,,,,immediate
+BLM_cell_selection,8C77,26 15,BNE,$8C8E,,,,relative
+BLM_cell_selection,8C79,FC 02 84,LDD,$0284,R,16,0284,extended
+BLM_cell_selection,8C7C,B3 08 1A,SUBD,$081A,R,16,081A,extended
+BLM_cell_selection,8C7F,24 04,BCC,$8C85,,,,relative
+BLM_cell_selection,8C81,40,NEGA,,,,,inherent
+BLM_cell_selection,8C82,50,NEGB,,,,,inherent
+BLM_cell_selection,8C83,82 00,SBCA,#$00,,,,immediate
+BLM_cell_selection,8C85,FD 08 18,STD,$0818,W,16,0818,extended
+BLM_cell_selection,8C88,FC 02 84,LDD,$0284,R,16,0284,extended
+BLM_cell_selection,8C8B,FD 08 1A,STD,$081A,W,16,081A,extended
+BLM_cell_selection,8C8E,15 3D 04,BCLR,"$3D,#$04",RW,8,003D,direct
+BLM_cell_selection,8C91,B6 48 F6,LDAA,$48F6,R,8,48F6,extended
+BLM_cell_selection,8C94,85 01,BITA,#$01,,,,immediate
+BLM_cell_selection,8C96,27 33,BEQ,$8CCB,,,,relative
+BLM_cell_selection,8C98,F6 01 D9,LDAB,$01D9,R,8,01D9,extended
+BLM_cell_selection,8C9B,F1 48 DA,CMPB,$48DA,R,8,48DA,extended
+BLM_cell_selection,8C9E,24 2B,BCC,$8CCB,,,,relative
+BLM_cell_selection,8CA0,F6 02 84,LDAB,$0284,R,8,0284,extended
+BLM_cell_selection,8CA3,F1 48 D9,CMPB,$48D9,R,8,48D9,extended
+BLM_cell_selection,8CA6,24 23,BCC,$8CCB,,,,relative
+BLM_cell_selection,8CA8,C6 10,LDAB,#$10,,,,immediate
+BLM_cell_selection,8CAA,85 02,BITA,#$02,,,,immediate
+BLM_cell_selection,8CAC,27 05,BEQ,$8CB3,,,,relative
+BLM_cell_selection,8CAE,13 41 10 01,BRCLR,"$41,#$10,$8CB3",R,8,0041,direct
+BLM_cell_selection,8CB2,5C,INCB,,,,,inherent
+BLM_cell_selection,8CB3,85 04,BITA,#$04,,,,immediate
+BLM_cell_selection,8CB5,27 06,BEQ,$8CBD,,,,relative
+BLM_cell_selection,8CB7,13 41 20 02,BRCLR,"$41,#$20,$8CBD",R,8,0041,direct
+BLM_cell_selection,8CBB,CB 02,ADDB,#$02,,,,immediate
+BLM_cell_selection,8CBD,13 51 01 02,BRCLR,"$51,#$01,$8CC3",R,8,0051,direct
+BLM_cell_selection,8CC1,C6 14,LDAB,#$14,,,,immediate
+BLM_cell_selection,8CC3,F1 02 47,CMPB,$0247,R,8,0247,extended
+BLM_cell_selection,8CC6,27 72,BEQ,$8D3A,,,,relative
+BLM_cell_selection,8CC8,7E 8D 73,JMP,$8D73,,,,extended
+BLM_cell_selection,8CCB,F6 02 47,LDAB,$0247,R,8,0247,extended
+BLM_cell_selection,8CCE,C1 10,CMPB,#$10,,,,immediate
+BLM_cell_selection,8CD0,24 6A,BCC,$8D3C,,,,relative
+BLM_cell_selection,8CD2,C4 03,ANDB,#$03,,,,immediate
+BLM_cell_selection,8CD4,CE 48 EE,LDX,#$48EE,,,,immediate
+BLM_cell_selection,8CD7,3A,ABX,,,,,inherent
+BLM_cell_selection,8CD8,09,DEX,,,,,inherent
+BLM_cell_selection,8CD9,5D,TSTB,,,,,inherent
+BLM_cell_selection,8CDA,27 0F,BEQ,$8CEB,,,,relative
+BLM_cell_selection,8CDC,A6 00,LDAA,"$00,X",R,8,,indexed_x
+BLM_cell_selection,8CDE,B0 48 F4,SUBA,$48F4,R,8,48F4,extended
+BLM_cell_selection,8CE1,25 04,BCS,$8CE7,,,,relative
+BLM_cell_selection,8CE3,91 62,CMPA,$62,R,8,0062,direct
+BLM_cell_selection,8CE5,22 55,BHI,$8D3C,,,,relative
+BLM_cell_selection,8CE7,C1 03,CMPB,#$03,,,,immediate
+BLM_cell_selection,8CE9,27 0B,BEQ,$8CF6,,,,relative
+BLM_cell_selection,8CEB,A6 01,LDAA,"$01,X",R,8,,indexed_x
+BLM_cell_selection,8CED,BB 48 F4,ADDA,$48F4,R,8,48F4,extended
+BLM_cell_selection,8CF0,25 04,BCS,$8CF6,,,,relative
+BLM_cell_selection,8CF2,91 62,CMPA,$62,R,8,0062,direct
+BLM_cell_selection,8CF4,25 46,BCS,$8D3C,,,,relative
+BLM_cell_selection,8CF6,F6 02 47,LDAB,$0247,R,8,0247,extended
+BLM_cell_selection,8CF9,C4 0C,ANDB,#$0C,,,,immediate
+BLM_cell_selection,8CFB,54,LSRB,,,,,inherent
+BLM_cell_selection,8CFC,54,LSRB,,,,,inherent
+BLM_cell_selection,8CFD,CE 48 F1,LDX,#$48F1,,,,immediate
+BLM_cell_selection,8D00,3A,ABX,,,,,inherent
+BLM_cell_selection,8D01,09,DEX,,,,,inherent
+BLM_cell_selection,8D02,5D,TSTB,,,,,inherent
+BLM_cell_selection,8D03,27 1C,BEQ,$8D21,,,,relative
+BLM_cell_selection,8D05,A6 00,LDAA,"$00,X",R,8,,indexed_x
+BLM_cell_selection,8D07,B0 48 F5,SUBA,$48F5,R,8,48F5,extended
+BLM_cell_selection,8D0A,25 11,BCS,$8D1D,,,,relative
+BLM_cell_selection,8D0C,18 CE 40 0E,LDY,#$400E,,,,immediate
+BLM_cell_selection,8D10,B1 01 CF,CMPA,$01CF,R,8,01CF,extended
+BLM_cell_selection,8D13,18 1E 00 01 03,BRSET,"$00,Y,#$01,$8D1B",R,8,,indexed_y
+BLM_cell_selection,8D18,B1 01 C0,CMPA,$01C0,R,8,01C0,extended
+BLM_cell_selection,8D1B,22 1F,BHI,$8D3C,,,,relative
+BLM_cell_selection,8D1D,C1 03,CMPB,#$03,,,,immediate
+BLM_cell_selection,8D1F,27 16,BEQ,$8D37,,,,relative
+BLM_cell_selection,8D21,A6 01,LDAA,"$01,X",R,8,,indexed_x
+BLM_cell_selection,8D23,BB 48 F5,ADDA,$48F5,R,8,48F5,extended
+BLM_cell_selection,8D26,25 0F,BCS,$8D37,,,,relative
+BLM_cell_selection,8D28,B1 01 CF,CMPA,$01CF,R,8,01CF,extended
+BLM_cell_selection,8D2B,CE 40 0E,LDX,#$400E,,,,immediate
+BLM_cell_selection,8D2E,1E 00 01 03,BRSET,"$00,X,#$01,$8D35",R,8,,indexed_x
+BLM_cell_selection,8D32,B1 01 C0,CMPA,$01C0,R,8,01C0,extended
+BLM_cell_selection,8D35,25 05,BCS,$8D3C,,,,relative
+BLM_cell_selection,8D37,F6 02 47,LDAB,$0247,R,8,0247,extended
+BLM_cell_selection,8D3A,20 3D,BRA,$8D79,,,,relative
+BLM_cell_selection,8D3C,5F,CLRB,,,,,inherent
+BLM_cell_selection,8D3D,96 62,LDAA,$62,R,8,0062,direct
+BLM_cell_selection,8D3F,B1 48 EE,CMPA,$48EE,R,8,48EE,extended
+BLM_cell_selection,8D42,25 0D,BCS,$8D51,,,,relative
+BLM_cell_selection,8D44,5C,INCB,,,,,inherent
+BLM_cell_selection,8D45,B1 48 EF,CMPA,$48EF,R,8,48EF,extended
+BLM_cell_selection,8D48,25 07,BCS,$8D51,,,,relative
+BLM_cell_selection,8D4A,5C,INCB,,,,,inherent
+BLM_cell_selection,8D4B,B1 48 F0,CMPA,$48F0,R,8,48F0,extended
+BLM_cell_selection,8D4E,25 01,BCS,$8D51,,,,relative
+BLM_cell_selection,8D50,5C,INCB,,,,,inherent
+BLM_cell_selection,8D51,B6 01 CF,LDAA,$01CF,R,8,01CF,extended
+BLM_cell_selection,8D54,CE 40 0E,LDX,#$400E,,,,immediate
+BLM_cell_selection,8D57,1E 00 01 03,BRSET,"$00,X,#$01,$8D5E",R,8,,indexed_x
+BLM_cell_selection,8D5B,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+BLM_cell_selection,8D5E,B1 48 F1,CMPA,$48F1,R,8,48F1,extended
+BLM_cell_selection,8D61,25 10,BCS,$8D73,,,,relative
+BLM_cell_selection,8D63,CB 04,ADDB,#$04,,,,immediate
+BLM_cell_selection,8D65,B1 48 F2,CMPA,$48F2,R,8,48F2,extended
+BLM_cell_selection,8D68,25 09,BCS,$8D73,,,,relative
+BLM_cell_selection,8D6A,CB 04,ADDB,#$04,,,,immediate
+BLM_cell_selection,8D6C,B1 48 F3,CMPA,$48F3,R,8,48F3,extended
+BLM_cell_selection,8D6F,25 02,BCS,$8D73,,,,relative
+BLM_cell_selection,8D71,CB 04,ADDB,#$04,,,,immediate
+BLM_cell_selection,8D73,14 3D 0C,BSET,"$3D,#$0C",RW,8,003D,direct
+BLM_cell_selection,8D76,14 6E 01,BSET,"$6E,#$01",RW,8,006E,direct
+BLM_cell_selection,8D79,CE 02 B3,LDX,#$02B3,,,,immediate
+BLM_cell_selection,8D7C,3A,ABX,,,,,inherent
+BLM_cell_selection,8D7D,A6 00,LDAA,"$00,X",R,8,,indexed_x
+BLM_cell_selection,8D7F,B1 48 FC,CMPA,$48FC,R,8,48FC,extended
+BLM_cell_selection,8D82,22 0E,BHI,$8D92,,,,relative
+BLM_cell_selection,8D84,C1 10,CMPB,#$10,,,,immediate
+BLM_cell_selection,8D86,25 05,BCS,$8D8D,,,,relative
+BLM_cell_selection,8D88,B1 48 FA,CMPA,$48FA,R,8,48FA,extended
+BLM_cell_selection,8D8B,20 03,BRA,$8D90,,,,relative
+BLM_cell_selection,8D8D,B1 48 F9,CMPA,$48F9,R,8,48F9,extended
+BLM_cell_selection,8D90,24 06,BCC,$8D98,,,,relative
+BLM_cell_selection,8D92,14 46 40,BSET,"$46,#$40",RW,8,0046,direct
+BLM_cell_selection,8D95,BD F2 80,JSR,$F280,,,,extended
+BLM_cell_selection,8D98,B7 02 48,STAA,$0248,W,8,0248,extended
+BLM_cell_selection,8D9B,F7 02 47,STAB,$0247,W,8,0247,extended
+BLM_transitions,8D9E,CE 40 0C,LDX,#$400C,,,,immediate
+BLM_transitions,8DA1,1E 00 10 4A,BRSET,"$00,X,#$10,$8DEF",R,8,,indexed_x
+BLM_transitions,8DA5,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+BLM_transitions,8DA8,B1 48 DA,CMPA,$48DA,R,8,48DA,extended
+BLM_transitions,8DAB,25 09,BCS,$8DB6,,,,relative
+BLM_transitions,8DAD,13 52 04 0E,BRCLR,"$52,#$04,$8DBF",R,8,0052,direct
+BLM_transitions,8DB1,15 52 04,BCLR,"$52,#$04",RW,8,0052,direct
+BLM_transitions,8DB4,20 33,BRA,$8DE9,,,,relative
+BLM_transitions,8DB6,12 52 04 05,BRSET,"$52,#$04,$8DBF",R,8,0052,direct
+BLM_transitions,8DBA,14 52 04,BSET,"$52,#$04",RW,8,0052,direct
+BLM_transitions,8DBD,20 2A,BRA,$8DE9,,,,relative
+BLM_transitions,8DBF,B6 02 49,LDAA,$0249,R,8,0249,extended
+BLM_transitions,8DC2,B0 02 48,SUBA,$0248,R,8,0248,extended
+BLM_transitions,8DC5,27 1F,BEQ,$8DE6,,,,relative
+BLM_transitions,8DC7,2B 0F,BMI,$8DD8,,,,relative
+BLM_transitions,8DC9,B1 49 09,CMPA,$4909,R,8,4909,extended
+BLM_transitions,8DCC,25 18,BCS,$8DE6,,,,relative
+BLM_transitions,8DCE,B6 02 0F,LDAA,$020F,R,8,020F,extended
+BLM_transitions,8DD1,B1 49 07,CMPA,$4907,R,8,4907,extended
+BLM_transitions,8DD4,22 10,BHI,$8DE6,,,,relative
+BLM_transitions,8DD6,20 11,BRA,$8DE9,,,,relative
+BLM_transitions,8DD8,40,NEGA,,,,,inherent
+BLM_transitions,8DD9,B1 49 0A,CMPA,$490A,R,8,490A,extended
+BLM_transitions,8DDC,25 08,BCS,$8DE6,,,,relative
+BLM_transitions,8DDE,B6 02 0F,LDAA,$020F,R,8,020F,extended
+BLM_transitions,8DE1,B1 49 08,CMPA,$4908,R,8,4908,extended
+BLM_transitions,8DE4,24 03,BCC,$8DE9,,,,relative
+BLM_transitions,8DE6,15 3D 04,BCLR,"$3D,#$04",RW,8,003D,direct
+BLM_transitions,8DE9,B6 02 48,LDAA,$0248,R,8,0248,extended
+BLM_transitions,8DEC,B7 02 49,STAA,$0249,W,8,0249,extended
+decel_history_lags,8DEF,B6 02 40,LDAA,$0240,R,8,0240,extended
+decel_history_lags,8DF2,26 26,BNE,$8E1A,,,,relative
+decel_history_lags,8DF4,B6 48 C8,LDAA,$48C8,R,8,48C8,extended
+decel_history_lags,8DF7,B7 02 40,STAA,$0240,W,8,0240,extended
+decel_history_lags,8DFA,F6 48 C9,LDAB,$48C9,R,8,48C9,extended
+decel_history_lags,8DFD,FE 01 DE,LDX,$01DE,R,16,01DE,extended
+decel_history_lags,8E00,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+decel_history_lags,8E03,BD F4 59,JSR,$F459,,,,extended
+decel_history_lags,8E06,FD 01 DE,STD,$01DE,W,16,01DE,extended
+decel_history_lags,8E09,F6 01 CB,LDAB,$01CB,R,8,01CB,extended
+decel_history_lags,8E0C,FE 01 C7,LDX,$01C7,R,16,01C7,extended
+decel_history_lags,8E0F,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+decel_history_lags,8E12,BD F4 59,JSR,$F459,,,,extended
+decel_history_lags,8E15,FD 01 C7,STD,$01C7,W,16,01C7,extended
+decel_history_lags,8E18,20 03,BRA,$8E1D,,,,relative
+decel_history_lags,8E1A,7A 02 40,DEC,$0240,RW,8,0240,extended
+BLM_learning,8E1D,13 3E 02 47,BRCLR,"$3E,#$02,$8E68",R,8,003E,direct
+BLM_learning,8E21,12 3D 08 43,BRSET,"$3D,#$08,$8E68",R,8,003D,direct
+BLM_learning,8E25,B6 02 0F,LDAA,$020F,R,8,020F,extended
+BLM_learning,8E28,81 80,CMPA,#$80,,,,immediate
+BLM_learning,8E2A,27 3C,BEQ,$8E68,,,,relative
+BLM_learning,8E2C,F6 02 74,LDAB,$0274,R,8,0274,extended
+BLM_learning,8E2F,5C,INCB,,,,,inherent
+BLM_learning,8E30,2B 09,BMI,$8E3B,,,,relative
+BLM_learning,8E32,F7 02 74,STAB,$0274,W,8,0274,extended
+BLM_learning,8E35,58,ASLB,,,,,inherent
+BLM_learning,8E36,F1 02 6B,CMPB,$026B,R,8,026B,extended
+BLM_learning,8E39,25 6B,BCS,$8EA6,,,,relative
+BLM_learning,8E3B,F6 02 73,LDAB,$0273,R,8,0273,extended
+BLM_learning,8E3E,5C,INCB,,,,,inherent
+BLM_learning,8E3F,27 08,BEQ,$8E49,,,,relative
+BLM_learning,8E41,F7 02 73,STAB,$0273,W,8,0273,extended
+BLM_learning,8E44,F1 48 ED,CMPB,$48ED,R,8,48ED,extended
+BLM_learning,8E47,25 5D,BCS,$8EA6,,,,relative
+BLM_learning,8E49,CE 48 F7,LDX,#$48F7,,,,immediate
+BLM_learning,8E4C,18 CE 48 F9,LDY,#$48F9,,,,immediate
+BLM_learning,8E50,F6 02 47,LDAB,$0247,R,8,0247,extended
+BLM_learning,8E53,C1 10,CMPB,#$10,,,,immediate
+BLM_learning,8E55,25 03,BCS,$8E5A,,,,relative
+BLM_learning,8E57,08,INX,,,,,inherent
+BLM_learning,8E58,18 08,INY,,,,,inherent
+BLM_learning,8E5A,80 80,SUBA,#$80,,,,immediate
+BLM_learning,8E5C,25 0D,BCS,$8E6B,,,,relative
+BLM_learning,8E5E,A1 00,CMPA,"$00,X",R,8,,indexed_x
+BLM_learning,8E60,23 44,BLS,$8EA6,,,,relative
+BLM_learning,8E62,12 3E 40 40,BRSET,"$3E,#$40,$8EA6",R,8,003E,direct
+BLM_learning,8E66,20 0C,BRA,$8E74,,,,relative
+BLM_learning,8E68,7E 8E 9F,JMP,$8E9F,,,,extended
+BLM_learning,8E6B,40,NEGA,,,,,inherent
+BLM_learning,8E6C,A1 00,CMPA,"$00,X",R,8,,indexed_x
+BLM_learning,8E6E,23 36,BLS,$8EA6,,,,relative
+BLM_learning,8E70,13 3E 40 32,BRCLR,"$3E,#$40,$8EA6",R,8,003E,direct
+BLM_learning,8E74,CE 02 B3,LDX,#$02B3,,,,immediate
+BLM_learning,8E77,3A,ABX,,,,,inherent
+BLM_learning,8E78,A6 00,LDAA,"$00,X",R,8,,indexed_x
+BLM_learning,8E7A,13 3E 40 0F,BRCLR,"$3E,#$40,$8E8D",R,8,003E,direct
+BLM_learning,8E7E,B0 48 FB,SUBA,$48FB,R,8,48FB,extended
+BLM_learning,8E81,25 05,BCS,$8E88,,,,relative
+BLM_learning,8E83,18 A1 00,CMPA,"$00,Y",R,8,,indexed_y
+BLM_learning,8E86,24 12,BCC,$8E9A,,,,relative
+BLM_learning,8E88,18 A6 00,LDAA,"$00,Y",R,8,,indexed_y
+BLM_learning,8E8B,20 0D,BRA,$8E9A,,,,relative
+BLM_learning,8E8D,BB 48 FB,ADDA,$48FB,R,8,48FB,extended
+BLM_learning,8E90,25 05,BCS,$8E97,,,,relative
+BLM_learning,8E92,B1 48 FC,CMPA,$48FC,R,8,48FC,extended
+BLM_learning,8E95,23 03,BLS,$8E9A,,,,relative
+BLM_learning,8E97,B6 48 FC,LDAA,$48FC,R,8,48FC,extended
+BLM_learning,8E9A,A7 00,STAA,"$00,X",W,8,,indexed_x
+BLM_learning,8E9C,B7 02 48,STAA,$0248,W,8,0248,extended
+BLM_learning,8E9F,5F,CLRB,,,,,inherent
+BLM_learning,8EA0,F7 02 74,STAB,$0274,W,8,0274,extended
+BLM_learning,8EA3,F7 02 73,STAB,$0273,W,8,0273,extended
+BLM_learning,8EA6,15 3D 08,BCLR,"$3D,#$08",RW,8,003D,direct
+BLM_learning,8EA9,96 63,LDAA,$63,R,8,0063,direct
+BLM_learning,8EAB,97 65,STAA,$65,W,8,0065,direct
+BLM_learning,8EAD,B6 01 D5,LDAA,$01D5,R,8,01D5,extended
+BLM_learning,8EB0,B7 01 D4,STAA,$01D4,W,8,01D4,extended
+BLM_learning,8EB3,39,RTS,,,,,inherent
+load_coordinates,A466,C6 97,LDAB,#$97,,,,immediate
+load_coordinates,A468,B6 02 F4,LDAA,$02F4,R,8,02F4,extended
+load_coordinates,A46B,B0 01 C6,SUBA,$01C6,R,8,01C6,extended
+load_coordinates,A46E,22 02,BHI,$A472,,,,relative
+load_coordinates,A470,86 01,LDAA,#$01,,,,immediate
+load_coordinates,A472,3D,MUL,,,,,inherent
+load_coordinates,A473,C3 00 40,ADDD,#$0040,,,,immediate
+load_coordinates,A476,05,ASLD,,,,,inherent
+load_coordinates,A477,24 03,BCC,$A47C,,,,relative
+load_coordinates,A479,CC FF FF,LDD,#$FFFF,,,,immediate
+load_coordinates,A47C,40,NEGA,,,,,inherent
+load_coordinates,A47D,B7 01 C9,STAA,$01C9,W,8,01C9,extended
+load_coordinates,A480,C6 97,LDAB,#$97,,,,immediate
+load_coordinates,A482,B6 01 C6,LDAA,$01C6,R,8,01C6,extended
+load_coordinates,A485,80 1A,SUBA,#$1A,,,,immediate
+load_coordinates,A487,24 03,BCC,$A48C,,,,relative
+load_coordinates,A489,4F,CLRA,,,,,inherent
+load_coordinates,A48A,20 0A,BRA,$A496,,,,relative
+load_coordinates,A48C,3D,MUL,,,,,inherent
+load_coordinates,A48D,C3 00 40,ADDD,#$0040,,,,immediate
+load_coordinates,A490,05,ASLD,,,,,inherent
+load_coordinates,A491,24 03,BCC,$A496,,,,relative
+load_coordinates,A493,CC FF FF,LDD,#$FFFF,,,,immediate
+load_coordinates,A496,B7 01 C0,STAA,$01C0,W,8,01C0,extended
+load_coordinates,A499,B6 01 CE,LDAA,$01CE,R,8,01CE,extended
+load_coordinates,A49C,5F,CLRB,,,,,inherent
+load_coordinates,A49D,FE 02 57,LDX,$0257,R,16,0257,extended
+load_coordinates,A4A0,8F,XGDX,,,,,inherent
+load_coordinates,A4A1,03,FDIV,,,,,inherent
+load_coordinates,A4A2,8F,XGDX,,,,,inherent
+load_coordinates,A4A3,83 20 00,SUBD,#$2000,,,,immediate
+load_coordinates,A4A6,24 03,BCC,$A4AB,,,,relative
+load_coordinates,A4A8,CC 00 00,LDD,#$0000,,,,immediate
+load_coordinates,A4AB,05,ASLD,,,,,inherent
+load_coordinates,A4AC,24 02,BCC,$A4B0,,,,relative
+load_coordinates,A4AE,86 FF,LDAA,#$FF,,,,immediate
+load_coordinates,A4B0,B7 01 CF,STAA,$01CF,W,8,01CF,extended
+run_admission,A4B3,15 18 10,BCLR,"$18,#$10",RW,8,0018,direct
+run_admission,A4B6,15 6F 08,BCLR,"$6F,#$08",RW,8,006F,direct
+run_admission,A4B9,12 6F 04 24,BRSET,"$6F,#$04,$A4E1",R,8,006F,direct
+run_admission,A4BD,B6 08 2E,LDAA,$082E,R,8,082E,extended
+run_admission,A4C0,B1 4E 64,CMPA,$4E64,R,8,4E64,extended
+run_admission,A4C3,24 1C,BCC,$A4E1,,,,relative
+run_admission,A4C5,B6 02 29,LDAA,$0229,R,8,0229,extended
+run_admission,A4C8,B1 4E 66,CMPA,$4E66,R,8,4E66,extended
+run_admission,A4CB,22 19,BHI,$A4E6,,,,relative
+run_admission,A4CD,96 61,LDAA,$61,R,8,0061,direct
+run_admission,A4CF,B1 4E 65,CMPA,$4E65,R,8,4E65,extended
+run_admission,A4D2,25 08,BCS,$A4DC,,,,relative
+run_admission,A4D4,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+run_admission,A4D7,B1 4E 67,CMPA,$4E67,R,8,4E67,extended
+run_admission,A4DA,23 05,BLS,$A4E1,,,,relative
+run_admission,A4DC,7C 02 29,INC,$0229,RW,8,0229,extended
+run_admission,A4DF,20 0B,BRA,$A4EC,,,,relative
+run_admission,A4E1,7F 02 29,CLR,$0229,W,8,0229,extended
+run_admission,A4E4,20 06,BRA,$A4EC,,,,relative
+run_admission,A4E6,14 18 10,BSET,"$18,#$10",RW,8,0018,direct
+run_admission,A4E9,14 6F 08,BSET,"$6F,#$08",RW,8,006F,direct
+run_admission,A4EC,13 50 20 4D,BRCLR,"$50,#$20,$A53D",R,8,0050,direct
+run_admission,A4F0,15 50 20,BCLR,"$50,#$20",RW,8,0050,direct
+run_admission,A4F3,14 50 04,BSET,"$50,#$04",RW,8,0050,direct
+run_admission,A4F6,4F,CLRA,,,,,inherent
+run_admission,A4F7,5F,CLRB,,,,,inherent
+run_admission,A4F8,FD 02 60,STD,$0260,W,16,0260,extended
+run_admission,A4FB,FC 01 EA,LDD,$01EA,R,16,01EA,extended
+run_admission,A4FE,04,LSRD,,,,,inherent
+run_admission,A4FF,04,LSRD,,,,,inherent
+run_admission,A500,04,LSRD,,,,,inherent
+run_admission,A501,43,COMA,,,,,inherent
+run_admission,A502,53,COMB,,,,,inherent
+run_admission,A503,F3 01 EA,ADDD,$01EA,R,16,01EA,extended
+run_admission,A506,2A 02,BPL,$A50A,,,,relative
+run_admission,A508,4F,CLRA,,,,,inherent
+run_admission,A509,5F,CLRB,,,,,inherent
+run_admission,A50A,FD 01 EA,STD,$01EA,W,16,01EA,extended
+run_admission,A50D,7F 02 02,CLR,$0202,W,8,0202,extended
+run_admission,A510,13 4F 80 2C,BRCLR,"$4F,#$80,$A540",R,8,004F,direct
+run_admission,A514,12 4F 10 03,BRSET,"$4F,#$10,$A51B",R,8,004F,direct
+run_admission,A518,BD A5 81,JSR,$A581,,,,extended
+run_admission,A51B,13 4F 40 60,BRCLR,"$4F,#$40,$A57F",R,8,004F,direct
+run_admission,A51F,12 51 40 5C,BRSET,"$51,#$40,$A57F",R,8,0051,direct
+run_admission,A523,F6 41 4E,LDAB,$414E,R,8,414E,extended
+run_admission,A526,FE 01 F2,LDX,$01F2,R,16,01F2,extended
+run_admission,A529,8C FE F0,CPX,#$FEF0,,,,immediate
+run_admission,A52C,22 0A,BHI,$A538,,,,relative
+run_admission,A52E,86 FF,LDAA,#$FF,,,,immediate
+run_admission,A530,BD F4 59,JSR,$F459,,,,extended
+run_admission,A533,FD 01 F2,STD,$01F2,W,16,01F2,extended
+run_admission,A536,20 47,BRA,$A57F,,,,relative
+run_admission,A538,14 51 40,BSET,"$51,#$40",RW,8,0051,direct
+run_admission,A53B,20 42,BRA,$A57F,,,,relative
+run_admission,A53D,7E A5 9B,JMP,$A59B,,,,extended
+run_admission,A540,12 44 08 06,BRSET,"$44,#$08,$A54A",R,8,0044,direct
+run_admission,A544,14 44 08,BSET,"$44,#$08",RW,8,0044,direct
+run_admission,A547,7E AC 51,JMP,$AC51,,,,extended
+run_admission,A54A,12 4F 10 03,BRSET,"$4F,#$10,$A551",R,8,004F,direct
+run_admission,A54E,BD A5 81,JSR,$A581,,,,extended
+run_admission,A551,FC 3F C0,LDD,$3FC0,R,16,3FC0,extended
+run_admission,A554,1A B3 41 33,CPD,$4133,R,16,4133,extended
+run_admission,A558,25 06,BCS,$A560,,,,relative
+run_admission,A55A,7F 02 10,CLR,$0210,W,8,0210,extended
+run_admission,A55D,7E AC 51,JMP,$AC51,,,,extended
+run_admission,A560,7C 02 10,INC,$0210,RW,8,0210,extended
+run_admission,A563,B6 02 10,LDAA,$0210,R,8,0210,extended
+run_admission,A566,B1 41 42,CMPA,$4142,R,8,4142,extended
+run_admission,A569,24 03,BCC,$A56E,,,,relative
+run_admission,A56B,7E AC 51,JMP,$AC51,,,,extended
+run_admission,A56E,14 4F 80,BSET,"$4F,#$80",RW,8,004F,direct
+run_admission,A571,7F 02 10,CLR,$0210,W,8,0210,extended
+run_admission,A574,14 04 08,BSET,"$04,#$08",RW,8,0004,direct
+run_admission,A577,15 51 40,BCLR,"$51,#$40",RW,8,0051,direct
+run_admission,A57A,4F,CLRA,,,,,inherent
+run_admission,A57B,5F,CLRB,,,,,inherent
+run_admission,A57C,FD 01 F2,STD,$01F2,W,16,01F2,extended
+run_admission,A57F,20 64,BRA,$A5E5,,,,relative
+run_admission,A581,FC 3F C0,LDD,$3FC0,R,16,3FC0,extended
+run_admission,A584,1A B3 41 35,CPD,$4135,R,16,4135,extended
+run_admission,A588,24 0C,BCC,$A596,,,,relative
+run_admission,A58A,B6 02 11,LDAA,$0211,R,8,0211,extended
+run_admission,A58D,4C,INCA,,,,,inherent
+run_admission,A58E,B1 41 43,CMPA,$4143,R,8,4143,extended
+run_admission,A591,25 04,BCS,$A597,,,,relative
+run_admission,A593,14 4F 10,BSET,"$4F,#$10",RW,8,004F,direct
+run_admission,A596,4F,CLRA,,,,,inherent
+run_admission,A597,B7 02 11,STAA,$0211,W,8,0211,extended
+run_admission,A59A,39,RTS,,,,,inherent
+run_admission,A59B,FE 02 60,LDX,$0260,R,16,0260,extended
+run_admission,A59E,BC 49 62,CPX,$4962,R,16,4962,extended
+run_admission,A5A1,24 06,BCC,$A5A9,,,,relative
+run_admission,A5A3,08,INX,,,,,inherent
+run_admission,A5A4,FF 02 60,STX,$0260,W,16,0260,extended
+run_admission,A5A7,20 04,BRA,$A5AD,,,,relative
+run_admission,A5A9,4F,CLRA,,,,,inherent
+run_admission,A5AA,B7 30 6F,STAA,$306F,W,8,306F,extended
+run_admission,A5AD,8C 00 A0,CPX,#$00A0,,,,immediate
+run_admission,A5B0,25 0C,BCS,$A5BE,,,,relative
+run_admission,A5B2,0F,SEI,,,,,inherent
+run_admission,A5B3,B6 4D 96,LDAA,$4D96,R,8,4D96,extended
+run_admission,A5B6,B1 02 CE,CMPA,$02CE,R,8,02CE,extended
+run_admission,A5B9,24 03,BCC,$A5BE,,,,relative
+run_admission,A5BB,B7 02 CE,STAA,$02CE,W,8,02CE,extended
+run_admission,A5BE,0E,CLI,,,,,inherent
+run_admission,A5BF,B6 02 02,LDAA,$0202,R,8,0202,extended
+run_admission,A5C2,81 17,CMPA,#$17,,,,immediate
+run_admission,A5C4,25 14,BCS,$A5DA,,,,relative
+run_admission,A5C6,15 4F 90,BCLR,"$4F,#$90",RW,8,004F,direct
+run_admission,A5C9,15 44 08,BCLR,"$44,#$08",RW,8,0044,direct
+run_admission,A5CC,CC FF FF,LDD,#$FFFF,,,,immediate
+run_admission,A5CF,DD 5F,STD,$5F,W,16,005F,direct
+run_admission,A5D1,CE 30 60,LDX,#$3060,,,,immediate
+run_admission,A5D4,1D 00 10,BCLR,"$00,X,#$10",RW,8,,indexed_x
+run_admission,A5D7,3F,SWI,,,,,inherent
+run_admission,A5D8,20 FD,BRA,$A5D7,,,,relative
+run_admission,A5DA,12 4F 80 03,BRSET,"$4F,#$80,$A5E1",R,8,004F,direct
+run_admission,A5DE,7E AC 51,JMP,$AC51,,,,extended
+run_admission,A5E1,4C,INCA,,,,,inherent
+run_admission,A5E2,B7 02 02,STAA,$0202,W,8,0202,extended
+RPM_coordinates,A5E5,FC 3F C0,LDD,$3FC0,R,16,3FC0,extended
+RPM_coordinates,A5E8,DD 5F,STD,$5F,W,16,005F,direct
+RPM_coordinates,A5EA,FD 01 E8,STD,$01E8,W,16,01E8,extended
+RPM_coordinates,A5ED,CE 00 5F,LDX,#$005F,,,,immediate
+RPM_coordinates,A5F0,B6 41 41,LDAA,$4141,R,8,4141,extended
+RPM_coordinates,A5F3,C6 20,LDAB,#$20,,,,immediate
+RPM_coordinates,A5F5,3D,MUL,,,,,inherent
+RPM_coordinates,A5F6,17,TBA,,,,,inherent
+RPM_coordinates,A5F7,27 05,BEQ,$A5FE,,,,relative
+RPM_coordinates,A5F9,BD F5 50,JSR,$F550,,,,extended
+RPM_coordinates,A5FC,DD 5F,STD,$5F,W,16,005F,direct
+RPM_coordinates,A5FE,DC 5F,LDD,$5F,R,16,005F,direct
+RPM_coordinates,A600,05,ASLD,,,,,inherent
+RPM_coordinates,A601,8F,XGDX,,,,,inherent
+RPM_coordinates,A602,CC 01 33,LDD,#$0133,,,,immediate
+RPM_coordinates,A605,03,FDIV,,,,,inherent
+RPM_coordinates,A606,8F,XGDX,,,,,inherent
+RPM_coordinates,A607,FD 08 3D,STD,$083D,W,16,083D,extended
+RPM_coordinates,A60A,81 60,CMPA,#$60,,,,immediate
+RPM_coordinates,A60C,25 09,BCS,$A617,,,,relative
+RPM_coordinates,A60E,C3 40 80,ADDD,#$4080,,,,immediate
+RPM_coordinates,A611,24 0B,BCC,$A61E,,,,relative
+RPM_coordinates,A613,86 FF,LDAA,#$FF,,,,immediate
+RPM_coordinates,A615,20 07,BRA,$A61E,,,,relative
+RPM_coordinates,A617,05,ASLD,,,,,inherent
+RPM_coordinates,A618,83 1F 80,SUBD,#$1F80,,,,immediate
+RPM_coordinates,A61B,24 01,BCC,$A61E,,,,relative
+RPM_coordinates,A61D,4F,CLRA,,,,,inherent
+RPM_coordinates,A61E,97 61,STAA,$61,W,8,0061,direct
+RPM_coordinates,A620,FC 08 3D,LDD,$083D,R,16,083D,extended
+RPM_coordinates,A623,C3 00 80,ADDD,#$0080,,,,immediate
+RPM_coordinates,A626,82 00,SBCA,#$00,,,,immediate
+RPM_coordinates,A628,97 62,STAA,$62,W,8,0062,direct
+RPM_coordinates,A62A,FE 02 8E,LDX,$028E,R,16,028E,extended
+RPM_coordinates,A62D,F6 50 E4,LDAB,$50E4,R,8,50E4,extended
+RPM_coordinates,A630,BD F4 59,JSR,$F459,,,,extended
+RPM_coordinates,A633,FD 02 8E,STD,$028E,W,16,028E,extended
+RPM_coordinates,A636,C3 00 80,ADDD,#$0080,,,,immediate
+RPM_coordinates,A639,D6 02,LDAB,$02,R,8,0002,direct
+RPM_coordinates,A63B,C4 1F,ANDB,#$1F,,,,immediate
+RPM_coordinates,A63D,C1 04,CMPB,#$04,,,,immediate
+RPM_coordinates,A63F,26 0A,BNE,$A64B,,,,relative
+RPM_coordinates,A641,16,TAB,,,,,inherent
+RPM_coordinates,A642,F0 02 8C,SUBB,$028C,R,8,028C,extended
+RPM_coordinates,A645,F7 02 8D,STAB,$028D,W,8,028D,extended
+RPM_coordinates,A648,B7 02 8C,STAA,$028C,W,8,028C,extended
+RPM_coordinates,A64B,FC 08 3D,LDD,$083D,R,16,083D,extended
+RPM_coordinates,A64E,05,ASLD,,,,,inherent
+RPM_coordinates,A64F,25 08,BCS,$A659,,,,relative
+RPM_coordinates,A651,05,ASLD,,,,,inherent
+RPM_coordinates,A652,25 05,BCS,$A659,,,,relative
+RPM_coordinates,A654,C3 00 80,ADDD,#$0080,,,,immediate
+RPM_coordinates,A657,24 02,BCC,$A65B,,,,relative
+RPM_coordinates,A659,86 FF,LDAA,#$FF,,,,immediate
+RPM_coordinates,A65B,97 67,STAA,$67,W,8,0067,direct
+RPM_coordinates,A65D,5F,CLRB,,,,,inherent
+RPM_coordinates,A65E,DE 68,LDX,$68,R,16,0068,direct
+RPM_coordinates,A660,27 0A,BEQ,$A66C,,,,relative
+RPM_coordinates,A662,CE 00 68,LDX,#$0068,,,,immediate
+RPM_coordinates,A665,18 CE 45 17,LDY,#$4517,,,,immediate
+RPM_coordinates,A669,BD F4 79,JSR,$F479,,,,extended
+RPM_coordinates,A66C,DD 68,STD,$68,W,16,0068,direct
+RPM_coordinates,A66E,FC 08 3D,LDD,$083D,R,16,083D,extended
+RPM_coordinates,A671,05,ASLD,,,,,inherent
+RPM_coordinates,A672,24 03,BCC,$A677,,,,relative
+RPM_coordinates,A674,CC FF FF,LDD,#$FFFF,,,,immediate
+RPM_coordinates,A677,B7 08 37,STAA,$0837,W,8,0837,extended
+RPM_coordinates,A67A,DE 63,LDX,$63,R,16,0063,direct
+RPM_coordinates,A67C,27 07,BEQ,$A685,,,,relative
+RPM_coordinates,A67E,18 CE 41 53,LDY,#$4153,,,,immediate
+RPM_coordinates,A682,BD F4 36,JSR,$F436,,,,extended
+RPM_coordinates,A685,DD 63,STD,$63,W,16,0063,direct
+not_running_RPM,AC51,CE FF FF,LDX,#$FFFF,,,,immediate
+not_running_RPM,AC54,13 44 08 46,BRCLR,"$44,#$08,$AC9E",R,8,0044,direct
+not_running_RPM,AC58,FC 3F C0,LDD,$3FC0,R,16,3FC0,extended
+not_running_RPM,AC5B,DD 5F,STD,$5F,W,16,005F,direct
+not_running_RPM,AC5D,FD 01 E8,STD,$01E8,W,16,01E8,extended
+not_running_RPM,AC60,CE 00 5F,LDX,#$005F,,,,immediate
+not_running_RPM,AC63,B6 41 41,LDAA,$4141,R,8,4141,extended
+not_running_RPM,AC66,C6 20,LDAB,#$20,,,,immediate
+not_running_RPM,AC68,3D,MUL,,,,,inherent
+not_running_RPM,AC69,17,TBA,,,,,inherent
+not_running_RPM,AC6A,27 05,BEQ,$AC71,,,,relative
+not_running_RPM,AC6C,BD F5 50,JSR,$F550,,,,extended
+not_running_RPM,AC6F,DD 5F,STD,$5F,W,16,005F,direct
+not_running_RPM,AC71,DC 5F,LDD,$5F,R,16,005F,direct
+not_running_RPM,AC73,05,ASLD,,,,,inherent
+not_running_RPM,AC74,8F,XGDX,,,,,inherent
+not_running_RPM,AC75,CC 01 33,LDD,#$0133,,,,immediate
+not_running_RPM,AC78,03,FDIV,,,,,inherent
+not_running_RPM,AC79,3C,PSHX,,,,,inherent
+not_running_RPM,AC7A,32,PULA,,,,,inherent
+not_running_RPM,AC7B,33,PULB,,,,,inherent
+not_running_RPM,AC7C,81 60,CMPA,#$60,,,,immediate
+not_running_RPM,AC7E,25 09,BCS,$AC89,,,,relative
+not_running_RPM,AC80,C3 40 80,ADDD,#$4080,,,,immediate
+not_running_RPM,AC83,24 0B,BCC,$AC90,,,,relative
+not_running_RPM,AC85,86 FF,LDAA,#$FF,,,,immediate
+not_running_RPM,AC87,20 07,BRA,$AC90,,,,relative
+not_running_RPM,AC89,05,ASLD,,,,,inherent
+not_running_RPM,AC8A,83 1F 80,SUBD,#$1F80,,,,immediate
+not_running_RPM,AC8D,24 01,BCC,$AC90,,,,relative
+not_running_RPM,AC8F,4F,CLRA,,,,,inherent
+not_running_RPM,AC90,97 61,STAA,$61,W,8,0061,direct
+not_running_RPM,AC92,3C,PSHX,,,,,inherent
+not_running_RPM,AC93,32,PULA,,,,,inherent
+not_running_RPM,AC94,33,PULB,,,,,inherent
+not_running_RPM,AC95,C3 00 80,ADDD,#$0080,,,,immediate
+not_running_RPM,AC98,82 00,SBCA,#$00,,,,immediate
+not_running_RPM,AC9A,97 62,STAA,$62,W,8,0062,direct
+not_running_RPM,AC9C,20 02,BRA,$ACA0,,,,relative
+not_running_RPM,AC9E,DF 5F,STX,$5F,W,16,005F,direct
+not_running_RPM,ACA0,15 4B 10,BCLR,"$4B,#$10",RW,8,004B,direct
+not_running_RPM,ACA3,15 50 04,BCLR,"$50,#$04",RW,8,0050,direct
+not_running_RPM,ACA6,39,RTS,,,,,inherent
+spark_base_terms,A706,F6 01 C0,LDAB,$01C0,R,8,01C0,extended
+spark_base_terms,A709,F7 01 C1,STAB,$01C1,W,8,01C1,extended
+spark_base_terms,A70C,CE 41 66,LDX,#$4166,,,,immediate
+spark_base_terms,A70F,13 50 40 03,BRCLR,"$50,#$40,$A716",R,8,0050,direct
+spark_base_terms,A713,CE 42 8A,LDX,#$428A,,,,immediate
+spark_base_terms,A716,F6 01 C0,LDAB,$01C0,R,8,01C0,extended
+spark_base_terms,A719,96 61,LDAA,$61,R,8,0061,direct
+spark_base_terms,A71B,81 40,CMPA,#$40,,,,immediate
+spark_base_terms,A71D,23 08,BLS,$A727,,,,relative
+spark_base_terms,A71F,96 62,LDAA,$62,R,8,0062,direct
+spark_base_terms,A721,8B 10,ADDA,#$10,,,,immediate
+spark_base_terms,A723,24 02,BCC,$A727,,,,relative
+spark_base_terms,A725,86 FF,LDAA,#$FF,,,,immediate
+spark_base_terms,A727,BD F4 DE,JSR,$F4DE,,,,extended
+spark_base_terms,A72A,B7 01 F8,STAA,$01F8,W,8,01F8,extended
+spark_base_terms,A72D,CE 43 AE,LDX,#$43AE,,,,immediate
+spark_base_terms,A730,F6 01 C9,LDAB,$01C9,R,8,01C9,extended
+spark_base_terms,A733,A6 00,LDAA,"$00,X",R,8,,indexed_x
+spark_base_terms,A735,27 03,BEQ,$A73A,,,,relative
+spark_base_terms,A737,F6 01 C0,LDAB,$01C0,R,8,01C0,extended
+spark_base_terms,A73A,08,INX,,,,,inherent
+spark_base_terms,A73B,54,LSRB,,,,,inherent
+spark_base_terms,A73C,96 06,LDAA,$06,R,8,0006,direct
+spark_base_terms,A73E,81 B0,CMPA,#$B0,,,,immediate
+spark_base_terms,A740,23 09,BLS,$A74B,,,,relative
+spark_base_terms,A742,81 D0,CMPA,#$D0,,,,immediate
+spark_base_terms,A744,23 02,BLS,$A748,,,,relative
+spark_base_terms,A746,86 D0,LDAA,#$D0,,,,immediate
+spark_base_terms,A748,80 58,SUBA,#$58,,,,immediate
+spark_base_terms,A74A,48,ASLA,,,,,inherent
+spark_base_terms,A74B,BD F4 DE,JSR,$F4DE,,,,extended
+spark_base_terms,A74E,D6 50,LDAB,$50,R,8,0050,direct
+spark_base_terms,A750,2A 0F,BPL,$A761,,,,relative
+spark_base_terms,A752,D6 06,LDAB,$06,R,8,0006,direct
+spark_base_terms,A754,F1 41 40,CMPB,$4140,R,8,4140,extended
+spark_base_terms,A757,24 08,BCC,$A761,,,,relative
+spark_base_terms,A759,B1 41 3C,CMPA,$413C,R,8,413C,extended
+spark_base_terms,A75C,24 03,BCC,$A761,,,,relative
+spark_base_terms,A75E,B6 41 3C,LDAA,$413C,R,8,413C,extended
+spark_base_terms,A761,B7 01 F9,STAA,$01F9,W,8,01F9,extended
+spark_base_terms,A764,B6 40 0D,LDAA,$400D,R,8,400D,extended
+spark_base_terms,A767,85 04,BITA,#$04,,,,immediate
+spark_base_terms,A769,27 0F,BEQ,$A77A,,,,relative
+spark_base_terms,A76B,B6 01 CC,LDAA,$01CC,R,8,01CC,extended
+spark_base_terms,A76E,F6 01 C9,LDAB,$01C9,R,8,01C9,extended
+spark_base_terms,A771,CE 44 D5,LDX,#$44D5,,,,immediate
+spark_base_terms,A774,BD F4 DE,JSR,$F4DE,,,,extended
+spark_base_terms,A777,B7 01 FB,STAA,$01FB,W,8,01FB,extended
+spark_base_terms,A77A,F6 08 41,LDAB,$0841,R,8,0841,extended
+spark_base_terms,A77D,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+spark_base_terms,A780,CE 45 C7,LDX,#$45C7,,,,immediate
+spark_base_terms,A783,BD F4 C1,JSR,$F4C1,,,,extended
+spark_base_terms,A786,3D,MUL,,,,,inherent
+spark_base_terms,A787,89 00,ADCA,#$00,,,,immediate
+spark_base_terms,A789,F6 02 0A,LDAB,$020A,R,8,020A,extended
+spark_base_terms,A78C,3D,MUL,,,,,inherent
+spark_base_terms,A78D,89 00,ADCA,#$00,,,,immediate
+spark_base_terms,A78F,B7 02 0B,STAA,$020B,W,8,020B,extended
+spark_sum,A792,B6 41 3E,LDAA,$413E,R,8,413E,extended
+spark_sum,A795,5F,CLRB,,,,,inherent
+spark_sum,A796,13 6E 80 3A,BRCLR,"$6E,#$80,$A7D4",R,8,006E,direct
+spark_sum,A79A,CE 48 5F,LDX,#$485F,,,,immediate
+spark_sum,A79D,F6 01 B2,LDAB,$01B2,R,8,01B2,extended
+spark_sum,A7A0,86 C0,LDAA,#$C0,,,,immediate
+spark_sum,A7A2,3D,MUL,,,,,inherent
+spark_sum,A7A3,16,TAB,,,,,inherent
+spark_sum,A7A4,A6 00,LDAA,"$00,X",R,8,,indexed_x
+spark_sum,A7A6,27 16,BEQ,$A7BE,,,,relative
+spark_sum,A7A8,F6 01 C9,LDAB,$01C9,R,8,01C9,extended
+spark_sum,A7AB,50,NEGB,,,,,inherent
+spark_sum,A7AC,C1 40,CMPB,#$40,,,,immediate
+spark_sum,A7AE,22 03,BHI,$A7B3,,,,relative
+spark_sum,A7B0,58,ASLB,,,,,inherent
+spark_sum,A7B1,20 0B,BRA,$A7BE,,,,relative
+spark_sum,A7B3,C0 40,SUBB,#$40,,,,immediate
+spark_sum,A7B5,54,LSRB,,,,,inherent
+spark_sum,A7B6,CB 80,ADDB,#$80,,,,immediate
+spark_sum,A7B8,C1 C0,CMPB,#$C0,,,,immediate
+spark_sum,A7BA,23 02,BLS,$A7BE,,,,relative
+spark_sum,A7BC,C6 C0,LDAB,#$C0,,,,immediate
+spark_sum,A7BE,96 62,LDAA,$62,R,8,0062,direct
+spark_sum,A7C0,81 A0,CMPA,#$A0,,,,immediate
+spark_sum,A7C2,23 02,BLS,$A7C6,,,,relative
+spark_sum,A7C4,86 A0,LDAA,#$A0,,,,immediate
+spark_sum,A7C6,44,LSRA,,,,,inherent
+spark_sum,A7C7,08,INX,,,,,inherent
+spark_sum,A7C8,BD F4 DE,JSR,$F4DE,,,,extended
+spark_sum,A7CB,F6 48 5E,LDAB,$485E,R,8,485E,extended
+spark_sum,A7CE,FE 01 F4,LDX,$01F4,R,16,01F4,extended
+spark_sum,A7D1,BD F4 59,JSR,$F459,,,,extended
+spark_sum,A7D4,FD 01 F4,STD,$01F4,W,16,01F4,extended
+spark_sum,A7D7,C3 00 80,ADDD,#$0080,,,,immediate
+spark_sum,A7DA,16,TAB,,,,,inherent
+spark_sum,A7DB,CE 00 00,LDX,#$0000,,,,immediate
+spark_sum,A7DE,3A,ABX,,,,,inherent
+spark_sum,A7DF,F6 01 FB,LDAB,$01FB,R,8,01FB,extended
+spark_sum,A7E2,3A,ABX,,,,,inherent
+spark_sum,A7E3,F6 01 F8,LDAB,$01F8,R,8,01F8,extended
+spark_sum,A7E6,3A,ABX,,,,,inherent
+spark_sum,A7E7,F6 01 FC,LDAB,$01FC,R,8,01FC,extended
+spark_sum,A7EA,3A,ABX,,,,,inherent
+spark_sum,A7EB,F6 01 F9,LDAB,$01F9,R,8,01F9,extended
+spark_sum,A7EE,3A,ABX,,,,,inherent
+spark_sum,A7EF,F6 02 CB,LDAB,$02CB,R,8,02CB,extended
+spark_sum,A7F2,3A,ABX,,,,,inherent
+spark_sum,A7F3,8F,XGDX,,,,,inherent
+spark_sum,A7F4,F0 41 3B,SUBB,$413B,R,8,413B,extended
+spark_sum,A7F7,82 00,SBCA,#$00,,,,immediate
+spark_sum,A7F9,F0 41 3C,SUBB,$413C,R,8,413C,extended
+spark_sum,A7FC,82 00,SBCA,#$00,,,,immediate
+spark_sum,A7FE,F0 41 3D,SUBB,$413D,R,8,413D,extended
+spark_sum,A801,82 00,SBCA,#$00,,,,immediate
+spark_sum,A803,F0 41 3E,SUBB,$413E,R,8,413E,extended
+spark_sum,A806,82 00,SBCA,#$00,,,,immediate
+spark_sum,A808,13 A4 0F 05,BRCLR,"$A4,#$0F,$A811",R,8,00A4,direct
+spark_sum,A80C,F0 55 F2,SUBB,$55F2,R,8,55F2,extended
+spark_sum,A80F,82 00,SBCA,#$00,,,,immediate
+spark_sum,A811,F0 02 0B,SUBB,$020B,R,8,020B,extended
+spark_sum,A814,82 00,SBCA,#$00,,,,immediate
+spark_sum,A816,F0 01 5A,SUBB,$015A,R,8,015A,extended
+spark_sum,A819,82 00,SBCA,#$00,,,,immediate
+spark_sum,A81B,FD 01 FD,STD,$01FD,W,16,01FD,extended
+spark_MAT,A81E,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+spark_MAT,A821,CE 44 9D,LDX,#$449D,,,,immediate
+spark_MAT,A824,12 41 02 03,BRSET,"$41,#$02,$A82B",R,8,0041,direct
+spark_MAT,A828,CE 44 AE,LDX,#$44AE,,,,immediate
+spark_MAT,A82B,BD F4 C1,JSR,$F4C1,,,,extended
+spark_MAT,A82E,F6 01 FA,LDAB,$01FA,R,8,01FA,extended
+spark_MAT,A831,3D,MUL,,,,,inherent
+spark_MAT,A832,B7 08 3C,STAA,$083C,W,8,083C,extended
+spark_MAT,A835,13 41 02 0D,BRCLR,"$41,#$02,$A846",R,8,0041,direct
+spark_MAT,A839,FC 01 FD,LDD,$01FD,R,16,01FD,extended
+spark_MAT,A83C,F0 08 3C,SUBB,$083C,R,8,083C,extended
+spark_MAT,A83F,82 00,SBCA,#$00,,,,immediate
+spark_MAT,A841,FD 01 FD,STD,$01FD,W,16,01FD,extended
+spark_MAT,A844,20 08,BRA,$A84E,,,,relative
+spark_MAT,A846,16,TAB,,,,,inherent
+spark_MAT,A847,FE 01 FD,LDX,$01FD,R,16,01FD,extended
+spark_MAT,A84A,3A,ABX,,,,,inherent
+spark_MAT,A84B,FF 01 FD,STX,$01FD,W,16,01FD,extended
+spark_idle,A84E,DE FD,LDX,$FD,R,16,00FD,direct
+spark_idle,A850,BC 41 5E,CPX,$415E,R,16,415E,extended
+spark_idle,A853,24 02,BCC,$A857,,,,relative
+spark_idle,A855,20 5A,BRA,$A8B1,,,,relative
+spark_idle,A857,CE 45 02,LDX,#$4502,,,,immediate
+spark_idle,A85A,B6 02 84,LDAA,$0284,R,8,0284,extended
+spark_idle,A85D,B1 41 5A,CMPA,$415A,R,8,415A,extended
+spark_idle,A860,24 4F,BCC,$A8B1,,,,relative
+spark_idle,A862,B6 41 5B,LDAA,$415B,R,8,415B,extended
+spark_idle,A865,13 50 40 03,BRCLR,"$50,#$40,$A86C",R,8,0050,direct
+spark_idle,A869,B6 41 5C,LDAA,$415C,R,8,415C,extended
+spark_idle,A86C,B1 01 D9,CMPA,$01D9,R,8,01D9,extended
+spark_idle,A86F,22 02,BHI,$A873,,,,relative
+spark_idle,A871,20 3E,BRA,$A8B1,,,,relative
+spark_idle,A873,D6 06,LDAB,$06,R,8,0006,direct
+spark_idle,A875,F1 41 5D,CMPB,$415D,R,8,415D,extended
+spark_idle,A878,23 37,BLS,$A8B1,,,,relative
+spark_idle,A87A,5F,CLRB,,,,,inherent
+spark_idle,A87B,B6 08 57,LDAA,$0857,R,8,0857,extended
+spark_idle,A87E,12 50 80 0C,BRSET,"$50,#$80,$A88E",R,8,0050,direct
+spark_idle,A882,BB 41 60,ADDA,$4160,R,8,4160,extended
+spark_idle,A885,24 07,BCC,$A88E,,,,relative
+spark_idle,A887,15 53 01,BCLR,"$53,#$01",RW,8,0053,direct
+spark_idle,A88A,93 63,SUBD,$63,R,16,0063,direct
+spark_idle,A88C,20 23,BRA,$A8B1,,,,relative
+spark_idle,A88E,93 63,SUBD,$63,R,16,0063,direct
+spark_idle,A890,25 05,BCS,$A897,,,,relative
+spark_idle,A892,15 53 01,BCLR,"$53,#$01",RW,8,0053,direct
+spark_idle,A895,20 0A,BRA,$A8A1,,,,relative
+spark_idle,A897,14 53 01,BSET,"$53,#$01",RW,8,0053,direct
+spark_idle,A89A,40,NEGA,,,,,inherent
+spark_idle,A89B,50,NEGB,,,,,inherent
+spark_idle,A89C,82 00,SBCA,#$00,,,,immediate
+spark_idle,A89E,CE 44 F0,LDX,#$44F0,,,,immediate
+spark_idle,A8A1,3C,PSHX,,,,,inherent
+spark_idle,A8A2,05,ASLD,,,,,inherent
+spark_idle,A8A3,25 08,BCS,$A8AD,,,,relative
+spark_idle,A8A5,81 08,CMPA,#$08,,,,immediate
+spark_idle,A8A7,25 0E,BCS,$A8B7,,,,relative
+spark_idle,A8A9,8B 38,ADDA,#$38,,,,immediate
+spark_idle,A8AB,24 0D,BCC,$A8BA,,,,relative
+spark_idle,A8AD,86 FF,LDAA,#$FF,,,,immediate
+spark_idle,A8AF,20 09,BRA,$A8BA,,,,relative
+spark_idle,A8B1,15 50 40,BCLR,"$50,#$40",RW,8,0050,direct
+spark_idle,A8B4,7E A9 06,JMP,$A906,,,,extended
+spark_idle,A8B7,05,ASLD,,,,,inherent
+spark_idle,A8B8,05,ASLD,,,,,inherent
+spark_idle,A8B9,05,ASLD,,,,,inherent
+spark_idle,A8BA,BD F4 99,JSR,$F499,,,,extended
+spark_idle,A8BD,38,PULX,,,,,inherent
+spark_idle,A8BE,36,PSHA,,,,,inherent
+spark_idle,A8BF,C6 08,LDAB,#$08,,,,immediate
+spark_idle,A8C1,3A,ABX,,,,,inherent
+spark_idle,A8C2,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+spark_idle,A8C5,BD F4 99,JSR,$F499,,,,extended
+spark_idle,A8C8,33,PULB,,,,,inherent
+spark_idle,A8C9,3D,MUL,,,,,inherent
+spark_idle,A8CA,13 53 01 01,BRCLR,"$53,#$01,$A8CF",R,8,0053,direct
+spark_idle,A8CE,40,NEGA,,,,,inherent
+spark_idle,A8CF,36,PSHA,,,,,inherent
+spark_idle,A8D0,CE 45 1B,LDX,#$451B,,,,immediate
+spark_idle,A8D3,96 6C,LDAA,$6C,R,8,006C,direct
+spark_idle,A8D5,80 60,SUBA,#$60,,,,immediate
+spark_idle,A8D7,24 03,BCC,$A8DC,,,,relative
+spark_idle,A8D9,4F,CLRA,,,,,inherent
+spark_idle,A8DA,20 06,BRA,$A8E2,,,,relative
+spark_idle,A8DC,81 3F,CMPA,#$3F,,,,immediate
+spark_idle,A8DE,23 02,BLS,$A8E2,,,,relative
+spark_idle,A8E0,86 3F,LDAA,#$3F,,,,immediate
+spark_idle,A8E2,48,ASLA,,,,,inherent
+spark_idle,A8E3,48,ASLA,,,,,inherent
+spark_idle,A8E4,BD F4 C1,JSR,$F4C1,,,,extended
+spark_idle,A8E7,33,PULB,,,,,inherent
+spark_idle,A8E8,1B,ABA,,,,,inherent
+spark_idle,A8E9,B0 45 14,SUBA,$4514,R,8,4514,extended
+spark_idle,A8EC,2B 0C,BMI,$A8FA,,,,relative
+spark_idle,A8EE,B1 45 15,CMPA,$4515,R,8,4515,extended
+spark_idle,A8F1,23 03,BLS,$A8F6,,,,relative
+spark_idle,A8F3,B6 45 15,LDAA,$4515,R,8,4515,extended
+spark_idle,A8F6,16,TAB,,,,,inherent
+spark_idle,A8F7,4F,CLRA,,,,,inherent
+spark_idle,A8F8,20 03,BRA,$A8FD,,,,relative
+spark_idle,A8FA,16,TAB,,,,,inherent
+spark_idle,A8FB,86 FF,LDAA,#$FF,,,,immediate
+spark_idle,A8FD,F3 01 FD,ADDD,$01FD,R,16,01FD,extended
+spark_idle,A900,FD 01 FD,STD,$01FD,W,16,01FD,extended
+spark_idle,A903,14 50 40,BSET,"$50,#$40",RW,8,0050,direct
+spark_transient,A906,96 06,LDAA,$06,R,8,0006,direct
+spark_transient,A908,B1 46 F2,CMPA,$46F2,R,8,46F2,extended
+spark_transient,A90B,25 6D,BCS,$A97A,,,,relative
+spark_transient,A90D,B1 46 F3,CMPA,$46F3,R,8,46F3,extended
+spark_transient,A910,22 68,BHI,$A97A,,,,relative
+spark_transient,A912,B6 40 0F,LDAA,$400F,R,8,400F,extended
+spark_transient,A915,85 80,BITA,#$80,,,,immediate
+spark_transient,A917,27 61,BEQ,$A97A,,,,relative
+spark_transient,A919,13 50 80 09,BRCLR,"$50,#$80,$A926",R,8,0050,direct
+spark_transient,A91D,B6 08 37,LDAA,$0837,R,8,0837,extended
+spark_transient,A920,5F,CLRB,,,,,inherent
+spark_transient,A921,FD 08 38,STD,$0838,W,16,0838,extended
+spark_transient,A924,20 54,BRA,$A97A,,,,relative
+spark_transient,A926,96 63,LDAA,$63,R,8,0063,direct
+spark_transient,A928,B0 08 38,SUBA,$0838,R,8,0838,extended
+spark_transient,A92B,B7 08 3A,STAA,$083A,W,8,083A,extended
+spark_transient,A92E,CE 46 F4,LDX,#$46F4,,,,immediate
+spark_transient,A931,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+spark_transient,A934,44,LSRA,,,,,inherent
+spark_transient,A935,44,LSRA,,,,,inherent
+spark_transient,A936,BD F4 C1,JSR,$F4C1,,,,extended
+spark_transient,A939,16,TAB,,,,,inherent
+spark_transient,A93A,B6 08 37,LDAA,$0837,R,8,0837,extended
+spark_transient,A93D,FE 08 38,LDX,$0838,R,16,0838,extended
+spark_transient,A940,BD F4 59,JSR,$F459,,,,extended
+spark_transient,A943,FD 08 38,STD,$0838,W,16,0838,extended
+spark_transient,A946,CE 46 EC,LDX,#$46EC,,,,immediate
+spark_transient,A949,B6 08 3A,LDAA,$083A,R,8,083A,extended
+spark_transient,A94C,2A 04,BPL,$A952,,,,relative
+spark_transient,A94E,08,INX,,,,,inherent
+spark_transient,A94F,08,INX,,,,,inherent
+spark_transient,A950,08,INX,,,,,inherent
+spark_transient,A951,40,NEGA,,,,,inherent
+spark_transient,A952,E6 00,LDAB,"$00,X",R,8,,indexed_x
+spark_transient,A954,3D,MUL,,,,,inherent
+spark_transient,A955,AB 01,ADDA,"$01,X",R,8,,indexed_x
+spark_transient,A957,A1 02,CMPA,"$02,X",R,8,,indexed_x
+spark_transient,A959,23 02,BLS,$A95D,,,,relative
+spark_transient,A95B,A6 02,LDAA,"$02,X",R,8,,indexed_x
+spark_transient,A95D,B7 08 3B,STAA,$083B,W,8,083B,extended
+spark_transient,A960,B6 08 3A,LDAA,$083A,R,8,083A,extended
+spark_transient,A963,2A 0A,BPL,$A96F,,,,relative
+spark_transient,A965,FC 01 FD,LDD,$01FD,R,16,01FD,extended
+spark_transient,A968,FB 08 3B,ADDB,$083B,R,8,083B,extended
+spark_transient,A96B,89 00,ADCA,#$00,,,,immediate
+spark_transient,A96D,20 08,BRA,$A977,,,,relative
+spark_transient,A96F,FC 01 FD,LDD,$01FD,R,16,01FD,extended
+spark_transient,A972,F0 08 3B,SUBB,$083B,R,8,083B,extended
+spark_transient,A975,82 00,SBCA,#$00,,,,immediate
+spark_transient,A977,FD 01 FD,STD,$01FD,W,16,01FD,extended
+spark_decel,A97A,FC 01 FD,LDD,$01FD,R,16,01FD,extended
+spark_decel,A97D,13 46 08 22,BRCLR,"$46,#$08,$A9A3",R,8,0046,direct
+spark_decel,A981,14 51 20,BSET,"$51,#$20",RW,8,0051,direct
+spark_decel,A984,4F,CLRA,,,,,inherent
+spark_decel,A985,5F,CLRB,,,,,inherent
+spark_decel,A986,FD 01 F2,STD,$01F2,W,16,01F2,extended
+spark_decel,A989,F6 41 52,LDAB,$4152,R,8,4152,extended
+spark_decel,A98C,B6 01 F9,LDAA,$01F9,R,8,01F9,extended
+spark_decel,A98F,B0 41 3C,SUBA,$413C,R,8,413C,extended
+spark_decel,A992,2B 02,BMI,$A996,,,,relative
+spark_decel,A994,1B,ABA,,,,,inherent
+spark_decel,A995,16,TAB,,,,,inherent
+spark_decel,A996,F7 02 08,STAB,$0208,W,8,0208,extended
+spark_decel,A999,FC 01 FD,LDD,$01FD,R,16,01FD,extended
+spark_decel,A99C,F0 02 08,SUBB,$0208,R,8,0208,extended
+spark_decel,A99F,82 00,SBCA,#$00,,,,immediate
+spark_decel,A9A1,20 3A,BRA,$A9DD,,,,relative
+spark_decel,A9A3,13 51 20 39,BRCLR,"$51,#$20,$A9E0",R,8,0051,direct
+spark_decel,A9A7,F6 41 4F,LDAB,$414F,R,8,414F,extended
+spark_decel,A9AA,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+spark_decel,A9AD,B1 41 51,CMPA,$4151,R,8,4151,extended
+spark_decel,A9B0,23 03,BLS,$A9B5,,,,relative
+spark_decel,A9B2,F6 41 50,LDAB,$4150,R,8,4150,extended
+spark_decel,A9B5,FE 01 F2,LDX,$01F2,R,16,01F2,extended
+spark_decel,A9B8,8C FE F0,CPX,#$FEF0,,,,immediate
+spark_decel,A9BB,22 0A,BHI,$A9C7,,,,relative
+spark_decel,A9BD,86 FF,LDAA,#$FF,,,,immediate
+spark_decel,A9BF,BD F4 59,JSR,$F459,,,,extended
+spark_decel,A9C2,FD 01 F2,STD,$01F2,W,16,01F2,extended
+spark_decel,A9C5,20 03,BRA,$A9CA,,,,relative
+spark_decel,A9C7,15 51 20,BCLR,"$51,#$20",RW,8,0051,direct
+spark_decel,A9CA,F6 02 08,LDAB,$0208,R,8,0208,extended
+spark_decel,A9CD,B6 01 F2,LDAA,$01F2,R,8,01F2,extended
+spark_decel,A9D0,3D,MUL,,,,,inherent
+spark_decel,A9D1,89 00,ADCA,#$00,,,,immediate
+spark_decel,A9D3,16,TAB,,,,,inherent
+spark_decel,A9D4,4F,CLRA,,,,,inherent
+spark_decel,A9D5,F3 01 FD,ADDD,$01FD,R,16,01FD,extended
+spark_decel,A9D8,F0 02 08,SUBB,$0208,R,8,0208,extended
+spark_decel,A9DB,82 00,SBCA,#$00,,,,immediate
+spark_decel,A9DD,FD 01 FD,STD,$01FD,W,16,01FD,extended
+spark_pre_knock_override,A9E0,13 86 40 03,BRCLR,"$86,#$40,$A9E7",R,8,0086,direct
+spark_pre_knock_override,A9E4,BD 18 12,JSR,$1812,,,,extended
+spark_pre_knock_override,A9E7,B6 4E 90,LDAA,$4E90,R,8,4E90,extended
+spark_pre_knock_override,A9EA,85 02,BITA,#$02,,,,immediate
+spark_pre_knock_override,A9EC,27 2C,BEQ,$AA1A,,,,relative
+spark_pre_knock_override,A9EE,13 36 20 25,BRCLR,"$36,#$20,$AA17",R,8,0036,direct
+spark_pre_knock_override,A9F2,96 06,LDAA,$06,R,8,0006,direct
+spark_pre_knock_override,A9F4,B1 41 61,CMPA,$4161,R,8,4161,extended
+spark_pre_knock_override,A9F7,23 1E,BLS,$AA17,,,,relative
+spark_pre_knock_override,A9F9,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+spark_pre_knock_override,A9FC,12 53 10 07,BRSET,"$53,#$10,$AA07",R,8,0053,direct
+spark_pre_knock_override,AA00,B1 41 64,CMPA,$4164,R,8,4164,extended
+spark_pre_knock_override,AA03,22 12,BHI,$AA17,,,,relative
+spark_pre_knock_override,AA05,20 05,BRA,$AA0C,,,,relative
+spark_pre_knock_override,AA07,B1 41 65,CMPA,$4165,R,8,4165,extended
+spark_pre_knock_override,AA0A,22 0B,BHI,$AA17,,,,relative
+spark_pre_knock_override,AA0C,FC 41 62,LDD,$4162,R,16,4162,extended
+spark_pre_knock_override,AA0F,FD 01 FD,STD,$01FD,W,16,01FD,extended
+spark_pre_knock_override,AA12,14 53 10,BSET,"$53,#$10",RW,8,0053,direct
+spark_pre_knock_override,AA15,20 03,BRA,$AA1A,,,,relative
+spark_pre_knock_override,AA17,15 53 10,BCLR,"$53,#$10",RW,8,0053,direct
+spark_reference_burst,AA1A,FC 01 FD,LDD,$01FD,R,16,01FD,extended
+spark_reference_burst,AA1D,F0 41 32,SUBB,$4132,R,8,4132,extended
+spark_reference_burst,AA20,82 00,SBCA,#$00,,,,immediate
+spark_reference_burst,AA22,FD 01 EE,STD,$01EE,W,16,01EE,extended
+spark_reference_burst,AA25,FC 41 44,LDD,$4144,R,16,4144,extended
+spark_reference_burst,AA28,B3 01 EE,SUBD,$01EE,R,16,01EE,extended
+spark_reference_burst,AA2B,2E 06,BGT,$AA33,,,,relative
+spark_reference_burst,AA2D,F3 01 EE,ADDD,$01EE,R,16,01EE,extended
+spark_reference_burst,AA30,FD 01 EE,STD,$01EE,W,16,01EE,extended
+spark_reference_burst,AA33,B6 40 0F,LDAA,$400F,R,8,400F,extended
+spark_reference_burst,AA36,85 08,BITA,#$08,,,,immediate
+spark_reference_burst,AA38,27 47,BEQ,$AA81,,,,relative
+spark_reference_burst,AA3A,12 50 10 43,BRSET,"$50,#$10,$AA81",R,8,0050,direct
+spark_reference_burst,AA3E,96 06,LDAA,$06,R,8,0006,direct
+spark_reference_burst,AA40,B1 45 DA,CMPA,$45DA,R,8,45DA,extended
+spark_reference_burst,AA43,23 3C,BLS,$AA81,,,,relative
+spark_reference_burst,AA45,13 6E 02 15,BRCLR,"$6E,#$02,$AA5E",R,8,006E,direct
+spark_reference_burst,AA49,7A 02 0E,DEC,$020E,RW,8,020E,extended
+spark_reference_burst,AA4C,26 03,BNE,$AA51,,,,relative
+spark_reference_burst,AA4E,15 6E 02,BCLR,"$6E,#$02",RW,8,006E,direct
+spark_reference_burst,AA51,FC 01 EE,LDD,$01EE,R,16,01EE,extended
+spark_reference_burst,AA54,F0 08 42,SUBB,$0842,R,8,0842,extended
+spark_reference_burst,AA57,82 00,SBCA,#$00,,,,immediate
+spark_reference_burst,AA59,FD 01 EE,STD,$01EE,W,16,01EE,extended
+spark_reference_burst,AA5C,20 23,BRA,$AA81,,,,relative
+spark_reference_burst,AA5E,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+spark_reference_burst,AA61,B1 46 DF,CMPA,$46DF,R,8,46DF,extended
+spark_reference_burst,AA64,24 1B,BCC,$AA81,,,,relative
+spark_reference_burst,AA66,F6 01 D9,LDAB,$01D9,R,8,01D9,extended
+spark_reference_burst,AA69,F1 46 E0,CMPB,$46E0,R,8,46E0,extended
+spark_reference_burst,AA6C,24 13,BCC,$AA81,,,,relative
+spark_reference_burst,AA6E,F0 01 DA,SUBB,$01DA,R,8,01DA,extended
+spark_reference_burst,AA71,25 0E,BCS,$AA81,,,,relative
+spark_reference_burst,AA73,F1 46 E1,CMPB,$46E1,R,8,46E1,extended
+spark_reference_burst,AA76,25 09,BCS,$AA81,,,,relative
+spark_reference_burst,AA78,14 6E 02,BSET,"$6E,#$02",RW,8,006E,direct
+spark_reference_burst,AA7B,B6 46 E2,LDAA,$46E2,R,8,46E2,extended
+spark_reference_burst,AA7E,B7 02 0E,STAA,$020E,W,8,020E,extended
+spark_normal_knock,AA81,0F,SEI,,,,,inherent
+spark_normal_knock,AA82,F6 02 0D,LDAB,$020D,R,8,020D,extended
+spark_normal_knock,AA85,7F 02 0D,CLR,$020D,W,8,020D,extended
+spark_normal_knock,AA88,0E,CLI,,,,,inherent
+spark_normal_knock,AA89,12 6E 02 0D,BRSET,"$6E,#$02,$AA9A",R,8,006E,direct
+spark_normal_knock,AA8D,13 16 60 02,BRCLR,"$16,#$60,$AA93",R,8,0016,direct
+spark_normal_knock,AA91,20 0A,BRA,$AA9D,,,,relative
+spark_normal_knock,AA93,96 06,LDAA,$06,R,8,0006,direct
+spark_normal_knock,AA95,B1 45 DA,CMPA,$45DA,R,8,45DA,extended
+spark_normal_knock,AA98,24 03,BCC,$AA9D,,,,relative
+spark_normal_knock,AA9A,4F,CLRA,,,,,inherent
+spark_normal_knock,AA9B,20 2E,BRA,$AACB,,,,relative
+spark_normal_knock,AA9D,B6 02 84,LDAA,$0284,R,8,0284,extended
+spark_normal_knock,AAA0,B1 45 D8,CMPA,$45D8,R,8,45D8,extended
+spark_normal_knock,AAA3,24 07,BCC,$AAAC,,,,relative
+spark_normal_knock,AAA5,96 63,LDAA,$63,R,8,0063,direct
+spark_normal_knock,AAA7,B1 45 D9,CMPA,$45D9,R,8,45D9,extended
+spark_normal_knock,AAAA,25 30,BCS,$AADC,,,,relative
+spark_normal_knock,AAAC,13 19 10 05,BRCLR,"$19,#$10,$AAB5",R,8,0019,direct
+spark_normal_knock,AAB0,B6 4E 77,LDAA,$4E77,R,8,4E77,extended
+spark_normal_knock,AAB3,20 16,BRA,$AACB,,,,relative
+spark_normal_knock,AAB5,B6 08 43,LDAA,$0843,R,8,0843,extended
+spark_normal_knock,AAB8,3D,MUL,,,,,inherent
+spark_normal_knock,AAB9,05,ASLD,,,,,inherent
+spark_normal_knock,AABA,25 05,BCS,$AAC1,,,,relative
+spark_normal_knock,AABC,BB 02 0C,ADDA,$020C,R,8,020C,extended
+spark_normal_knock,AABF,24 02,BCC,$AAC3,,,,relative
+spark_normal_knock,AAC1,86 FF,LDAA,#$FF,,,,immediate
+spark_normal_knock,AAC3,16,TAB,,,,,inherent
+spark_normal_knock,AAC4,B6 08 44,LDAA,$0844,R,8,0844,extended
+spark_normal_knock,AAC7,11,CBA,,,,,inherent
+spark_normal_knock,AAC8,23 01,BLS,$AACB,,,,relative
+spark_normal_knock,AACA,17,TBA,,,,,inherent
+spark_normal_knock,AACB,B7 02 0C,STAA,$020C,W,8,020C,extended
+spark_normal_knock,AACE,44,LSRA,,,,,inherent
+spark_normal_knock,AACF,36,PSHA,,,,,inherent
+spark_normal_knock,AAD0,30,TSX,,,,,inherent
+spark_normal_knock,AAD1,FC 01 EE,LDD,$01EE,R,16,01EE,extended
+spark_normal_knock,AAD4,E0 00,SUBB,"$00,X",R,8,,indexed_x
+spark_normal_knock,AAD6,82 00,SBCA,#$00,,,,immediate
+spark_normal_knock,AAD8,FD 01 EE,STD,$01EE,W,16,01EE,extended
+spark_normal_knock,AADB,31,INS,,,,,inherent
+spark_limits_override,AADC,B6 01 5A,LDAA,$015A,R,8,015A,extended
+spark_limits_override,AADF,27 16,BEQ,$AAF7,,,,relative
+spark_limits_override,AAE1,FC 41 4A,LDD,$414A,R,16,414A,extended
+spark_limits_override,AAE4,12 A4 08 07,BRSET,"$A4,#$08,$AAEF",R,8,00A4,direct
+spark_limits_override,AAE8,13 A4 17 0B,BRCLR,"$A4,#$17,$AAF7",R,8,00A4,direct
+spark_limits_override,AAEC,FC 41 4C,LDD,$414C,R,16,414C,extended
+spark_limits_override,AAEF,1A B3 01 EE,CPD,$01EE,R,16,01EE,extended
+spark_limits_override,AAF3,2D 25,BLT,$AB1A,,,,relative
+spark_limits_override,AAF5,20 20,BRA,$AB17,,,,relative
+spark_limits_override,AAF7,13 51 20 13,BRCLR,"$51,#$20,$AB0E",R,8,0051,direct
+spark_limits_override,AAFB,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+spark_limits_override,AAFE,B1 48 DA,CMPA,$48DA,R,8,48DA,extended
+spark_limits_override,AB01,22 0B,BHI,$AB0E,,,,relative
+spark_limits_override,AB03,FC 41 48,LDD,$4148,R,16,4148,extended
+spark_limits_override,AB06,1A B3 01 EE,CPD,$01EE,R,16,01EE,extended
+spark_limits_override,AB0A,2D 0E,BLT,$AB1A,,,,relative
+spark_limits_override,AB0C,20 09,BRA,$AB17,,,,relative
+spark_limits_override,AB0E,FC 41 46,LDD,$4146,R,16,4146,extended
+spark_limits_override,AB11,1A B3 01 EE,CPD,$01EE,R,16,01EE,extended
+spark_limits_override,AB15,2D 03,BLT,$AB1A,,,,relative
+spark_limits_override,AB17,FD 01 EE,STD,$01EE,W,16,01EE,extended
+spark_limits_override,AB1A,FC 01 EE,LDD,$01EE,R,16,01EE,extended
+spark_limits_override,AB1D,13 3B 10 1D,BRCLR,"$3B,#$10,$AB3E",R,8,003B,direct
+spark_limits_override,AB21,CE 03 95,LDX,#$0395,,,,immediate
+spark_limits_override,AB24,1F 00 08 16,BRCLR,"$00,X,#$08,$AB3E",R,8,,indexed_x
+spark_limits_override,AB28,1E 00 10 02,BRSET,"$00,X,#$10,$AB2E",R,8,,indexed_x
+spark_limits_override,AB2C,4F,CLRA,,,,,inherent
+spark_limits_override,AB2D,5F,CLRB,,,,,inherent
+spark_limits_override,AB2E,1E 00 20 07,BRSET,"$00,X,#$20,$AB39",R,8,,indexed_x
+spark_limits_override,AB32,FB 03 98,ADDB,$0398,R,8,0398,extended
+spark_limits_override,AB35,89 00,ADCA,#$00,,,,immediate
+spark_limits_override,AB37,20 05,BRA,$AB3E,,,,relative
+spark_limits_override,AB39,F0 03 98,SUBB,$0398,R,8,0398,extended
+spark_limits_override,AB3C,82 00,SBCA,#$00,,,,immediate
+fuel_authorization,AE5C,B6 40 0D,LDAA,$400D,R,8,400D,extended
+fuel_authorization,AE5F,85 40,BITA,#$40,,,,immediate
+fuel_authorization,AE61,27 1E,BEQ,$AE81,,,,relative
+fuel_authorization,AE63,12 3D 02 1D,BRSET,"$3D,#$02,$AE84",R,8,003D,direct
+fuel_authorization,AE67,FE 30 12,LDX,$3012,R,16,3012,extended
+fuel_authorization,AE6A,3C,PSHX,,,,,inherent
+fuel_authorization,AE6B,32,PULA,,,,,inherent
+fuel_authorization,AE6C,33,PULB,,,,,inherent
+fuel_authorization,AE6D,B3 08 51,SUBD,$0851,R,16,0851,extended
+fuel_authorization,AE70,27 12,BEQ,$AE84,,,,relative
+fuel_authorization,AE72,FF 08 51,STX,$0851,W,16,0851,extended
+fuel_authorization,AE75,1A B3 51 8B,CPD,$518B,R,16,518B,extended
+fuel_authorization,AE79,22 09,BHI,$AE84,,,,relative
+fuel_authorization,AE7B,1A B3 51 8D,CPD,$518D,R,16,518D,extended
+fuel_authorization,AE7F,25 03,BCS,$AE84,,,,relative
+fuel_authorization,AE81,14 3D 02,BSET,"$3D,#$02",RW,8,003D,direct
+fuel_authorization,AE84,39,RTS,,,,,inherent
+TPS_coordinate,B1CF,FC 02 F6,LDD,$02F6,R,16,02F6,extended
+TPS_coordinate,B1D2,C3 00 80,ADDD,#$0080,,,,immediate
+TPS_coordinate,B1D5,16,TAB,,,,,inherent
+TPS_coordinate,B1D6,96 A6,LDAA,$A6,R,8,00A6,direct
+TPS_coordinate,B1D8,10,SBA,,,,,inherent
+TPS_coordinate,B1D9,24 01,BCC,$B1DC,,,,relative
+TPS_coordinate,B1DB,4F,CLRA,,,,,inherent
+TPS_coordinate,B1DC,F6 5B 26,LDAB,$5B26,R,8,5B26,extended
+TPS_coordinate,B1DF,3D,MUL,,,,,inherent
+TPS_coordinate,B1E0,C3 00 20,ADDD,#$0020,,,,immediate
+TPS_coordinate,B1E3,05,ASLD,,,,,inherent
+TPS_coordinate,B1E4,25 03,BCS,$B1E9,,,,relative
+TPS_coordinate,B1E6,05,ASLD,,,,,inherent
+TPS_coordinate,B1E7,24 03,BCC,$B1EC,,,,relative
+TPS_coordinate,B1E9,CC FF FF,LDD,#$FFFF,,,,immediate
+TPS_coordinate,B1EC,B7 01 A6,STAA,$01A6,W,8,01A6,extended
+TPS_coordinate,B1EF,39,RTS,,,,,inherent
+BARO_coordinates,C583,CE 5D 02,LDX,#$5D02,,,,immediate
+BARO_coordinates,C586,1F 00 04 1C,BRCLR,"$00,X,#$04,$C5A6",R,8,,indexed_x
+BARO_coordinates,C58A,CE 30 00,LDX,#$3000,,,,immediate
+BARO_coordinates,C58D,0F,SEI,,,,,inherent
+BARO_coordinates,C58E,86 05,LDAA,#$05,,,,immediate
+BARO_coordinates,C590,BD F2 75,JSR,$F275,,,,extended
+BARO_coordinates,C593,86 01,LDAA,#$01,,,,immediate
+BARO_coordinates,C595,BD F2 5F,JSR,$F25F,,,,extended
+BARO_coordinates,C598,0E,CLI,,,,,inherent
+BARO_coordinates,C599,A6 34,LDAA,"$34,X",R,8,,indexed_x
+BARO_coordinates,C59B,B7 02 F3,STAA,$02F3,W,8,02F3,extended
+BARO_coordinates,C59E,8B 0B,ADDA,#$0B,,,,immediate
+BARO_coordinates,C5A0,24 67,BCC,$C609,,,,relative
+BARO_coordinates,C5A2,86 FF,LDAA,#$FF,,,,immediate
+BARO_coordinates,C5A4,20 63,BRA,$C609,,,,relative
+BARO_coordinates,C5A6,4F,CLRA,,,,,inherent
+BARO_coordinates,C5A7,12 44 10 54,BRSET,"$44,#$10,$C5FF",R,8,0044,direct
+BARO_coordinates,C5AB,F6 01 C6,LDAB,$01C6,R,8,01C6,extended
+BARO_coordinates,C5AE,F1 02 F4,CMPB,$02F4,R,8,02F4,extended
+BARO_coordinates,C5B1,22 4C,BHI,$C5FF,,,,relative
+BARO_coordinates,C5B3,12 6F 40 62,BRSET,"$6F,#$40,$C619",R,8,006F,direct
+BARO_coordinates,C5B7,96 6F,LDAA,$6F,R,8,006F,direct
+BARO_coordinates,C5B9,84 0C,ANDA,#$0C,,,,immediate
+BARO_coordinates,C5BB,27 05,BEQ,$C5C2,,,,relative
+BARO_coordinates,C5BD,F1 4E 68,CMPB,$4E68,R,8,4E68,extended
+BARO_coordinates,C5C0,25 57,BCS,$C619,,,,relative
+BARO_coordinates,C5C2,96 61,LDAA,$61,R,8,0061,direct
+BARO_coordinates,C5C4,B1 41 54,CMPA,$4154,R,8,4154,extended
+BARO_coordinates,C5C7,22 4B,BHI,$C614,,,,relative
+BARO_coordinates,C5C9,B1 41 55,CMPA,$4155,R,8,4155,extended
+BARO_coordinates,C5CC,25 46,BCS,$C614,,,,relative
+BARO_coordinates,C5CE,96 06,LDAA,$06,R,8,0006,direct
+BARO_coordinates,C5D0,B1 41 59,CMPA,$4159,R,8,4159,extended
+BARO_coordinates,C5D3,25 3F,BCS,$C614,,,,relative
+BARO_coordinates,C5D5,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+BARO_coordinates,C5D8,B1 41 56,CMPA,$4156,R,8,4156,extended
+BARO_coordinates,C5DB,23 37,BLS,$C614,,,,relative
+BARO_coordinates,C5DD,B0 01 DE,SUBA,$01DE,R,8,01DE,extended
+BARO_coordinates,C5E0,24 01,BCC,$C5E3,,,,relative
+BARO_coordinates,C5E2,40,NEGA,,,,,inherent
+BARO_coordinates,C5E3,B1 41 57,CMPA,$4157,R,8,4157,extended
+BARO_coordinates,C5E6,22 2C,BHI,$C614,,,,relative
+BARO_coordinates,C5E8,96 62,LDAA,$62,R,8,0062,direct
+BARO_coordinates,C5EA,C6 AB,LDAB,#$AB,,,,immediate
+BARO_coordinates,C5EC,3D,MUL,,,,,inherent
+BARO_coordinates,C5ED,89 00,ADCA,#$00,,,,immediate
+BARO_coordinates,C5EF,81 80,CMPA,#$80,,,,immediate
+BARO_coordinates,C5F1,23 02,BLS,$C5F5,,,,relative
+BARO_coordinates,C5F3,86 80,LDAA,#$80,,,,immediate
+BARO_coordinates,C5F5,F6 01 D9,LDAB,$01D9,R,8,01D9,extended
+BARO_coordinates,C5F8,54,LSRB,,,,,inherent
+BARO_coordinates,C5F9,CE 45 58,LDX,#$4558,,,,immediate
+BARO_coordinates,C5FC,BD F4 DE,JSR,$F4DE,,,,extended
+BARO_coordinates,C5FF,BB 01 C6,ADDA,$01C6,R,8,01C6,extended
+BARO_coordinates,C602,24 02,BCC,$C606,,,,relative
+BARO_coordinates,C604,86 FF,LDAA,#$FF,,,,immediate
+BARO_coordinates,C606,B7 02 F3,STAA,$02F3,W,8,02F3,extended
+BARO_coordinates,C609,F6 41 58,LDAB,$4158,R,8,4158,extended
+BARO_coordinates,C60C,FE 02 F4,LDX,$02F4,R,16,02F4,extended
+BARO_coordinates,C60F,BD F4 59,JSR,$F459,,,,extended
+BARO_coordinates,C612,20 0C,BRA,$C620,,,,relative
+BARO_coordinates,C614,B6 02 F4,LDAA,$02F4,R,8,02F4,extended
+BARO_coordinates,C617,26 0A,BNE,$C623,,,,relative
+BARO_coordinates,C619,B6 4E 68,LDAA,$4E68,R,8,4E68,extended
+BARO_coordinates,C61C,5F,CLRB,,,,,inherent
+BARO_coordinates,C61D,B7 02 F3,STAA,$02F3,W,8,02F3,extended
+BARO_coordinates,C620,FD 02 F4,STD,$02F4,W,16,02F4,extended
+BARO_coordinates,C623,16,TAB,,,,,inherent
+BARO_coordinates,C624,86 8F,LDAA,#$8F,,,,immediate
+BARO_coordinates,C626,C0 0D,SUBB,#$0D,,,,immediate
+BARO_coordinates,C628,25 05,BCS,$C62F,,,,relative
+BARO_coordinates,C62A,86 97,LDAA,#$97,,,,immediate
+BARO_coordinates,C62C,3D,MUL,,,,,inherent
+BARO_coordinates,C62D,89 00,ADCA,#$00,,,,immediate
+BARO_coordinates,C62F,B7 01 CC,STAA,$01CC,W,8,01CC,extended
+BARO_coordinates,C632,C6 60,LDAB,#$60,,,,immediate
+BARO_coordinates,C634,CE 4B 60,LDX,#$4B60,,,,immediate
+BARO_coordinates,C637,BD F4 BD,JSR,$F4BD,,,,extended
+BARO_coordinates,C63A,B7 01 E4,STAA,$01E4,W,8,01E4,extended
+BARO_coordinates,C63D,B6 01 CC,LDAA,$01CC,R,8,01CC,extended
+BARO_coordinates,C640,C6 60,LDAB,#$60,,,,immediate
+BARO_coordinates,C642,CE 4C 89,LDX,#$4C89,,,,immediate
+BARO_coordinates,C645,BD F4 BD,JSR,$F4BD,,,,extended
+BARO_coordinates,C648,B7 01 E3,STAA,$01E3,W,8,01E3,extended
+BARO_coordinates,C64B,B6 01 CC,LDAA,$01CC,R,8,01CC,extended
+BARO_coordinates,C64E,C6 60,LDAB,#$60,,,,immediate
+BARO_coordinates,C650,CE 49 75,LDX,#$4975,,,,immediate
+BARO_coordinates,C653,BD F4 BD,JSR,$F4BD,,,,extended
+BARO_coordinates,C656,B7 01 CD,STAA,$01CD,W,8,01CD,extended
+BARO_coordinates,C659,B6 01 CC,LDAA,$01CC,R,8,01CC,extended
+BARO_coordinates,C65C,C6 60,LDAB,#$60,,,,immediate
+BARO_coordinates,C65E,CE 49 D1,LDX,#$49D1,,,,immediate
+BARO_coordinates,C661,BD F4 BD,JSR,$F4BD,,,,extended
+BARO_coordinates,C664,B7 01 CE,STAA,$01CE,W,8,01CE,extended
+BARO_coordinates,C667,39,RTS,,,,,inherent
+coolant_coordinate,C96A,B6 08 2D,LDAA,$082D,R,8,082D,extended
+coolant_coordinate,C96D,CE FC 45,LDX,#$FC45,,,,immediate
+coolant_coordinate,C970,12 43 80 07,BRSET,"$43,#$80,$C97B",R,8,0043,direct
+coolant_coordinate,C974,12 4E 01 03,BRSET,"$4E,#$01,$C97B",R,8,004E,direct
+coolant_coordinate,C978,CE FD 45,LDX,#$FD45,,,,immediate
+coolant_coordinate,C97B,16,TAB,,,,,inherent
+coolant_coordinate,C97C,3A,ABX,,,,,inherent
+coolant_coordinate,C97D,A6 00,LDAA,"$00,X",R,8,,indexed_x
+coolant_coordinate,C97F,97 A8,STAA,$A8,W,8,00A8,direct
+coolant_coordinate,C981,81 78,CMPA,#$78,,,,immediate
+coolant_coordinate,C983,22 09,BHI,$C98E,,,,relative
+coolant_coordinate,C985,81 6A,CMPA,#$6A,,,,immediate
+coolant_coordinate,C987,22 08,BHI,$C991,,,,relative
+coolant_coordinate,C989,14 4E 01,BSET,"$4E,#$01",RW,8,004E,direct
+coolant_coordinate,C98C,20 03,BRA,$C991,,,,relative
+coolant_coordinate,C98E,15 4E 01,BCLR,"$4E,#$01",RW,8,004E,direct
+coolant_coordinate,C991,13 16 60 11,BRCLR,"$16,#$60,$C9A6",R,8,0016,direct
+coolant_coordinate,C995,B6 5B 1A,LDAA,$5B1A,R,8,5B1A,extended
+coolant_coordinate,C998,DE FD,LDX,$FD,R,16,00FD,direct
+coolant_coordinate,C99A,BC 5B 18,CPX,$5B18,R,16,5B18,extended
+coolant_coordinate,C99D,22 03,BHI,$C9A2,,,,relative
+coolant_coordinate,C99F,B6 5B 1B,LDAA,$5B1B,R,8,5B1B,extended
+coolant_coordinate,C9A2,97 06,STAA,$06,W,8,0006,direct
+coolant_coordinate,C9A4,20 04,BRA,$C9AA,,,,relative
+coolant_coordinate,C9A6,96 A8,LDAA,$A8,R,8,00A8,direct
+coolant_coordinate,C9A8,97 06,STAA,$06,W,8,0006,direct
+coolant_coordinate,C9AA,15 43 80,BCLR,"$43,#$80",RW,8,0043,direct
+coolant_coordinate,C9AD,96 06,LDAA,$06,R,8,0006,direct
+coolant_coordinate,C9AF,80 10,SUBA,#$10,,,,immediate
+coolant_coordinate,C9B1,24 03,BCC,$C9B6,,,,relative
+coolant_coordinate,C9B3,4F,CLRA,,,,,inherent
+coolant_coordinate,C9B4,20 06,BRA,$C9BC,,,,relative
+coolant_coordinate,C9B6,81 C0,CMPA,#$C0,,,,immediate
+coolant_coordinate,C9B8,23 02,BLS,$C9BC,,,,relative
+coolant_coordinate,C9BA,86 C0,LDAA,#$C0,,,,immediate
+coolant_coordinate,C9BC,B7 02 83,STAA,$0283,W,8,0283,extended
+coolant_coordinate,C9BF,39,RTS,,,,,inherent
+environmental_lookup_inputs,C9F7,B6 02 83,LDAA,$0283,R,8,0283,extended
+environmental_lookup_inputs,C9FA,CE 4B 64,LDX,#$4B64,,,,immediate
+environmental_lookup_inputs,C9FD,BD F4 C1,JSR,$F4C1,,,,extended
+environmental_lookup_inputs,CA00,B7 01 E5,STAA,$01E5,W,8,01E5,extended
+environmental_lookup_inputs,CA03,B6 02 83,LDAA,$0283,R,8,0283,extended
+environmental_lookup_inputs,CA06,44,LSRA,,,,,inherent
+environmental_lookup_inputs,CA07,CE 4C 8D,LDX,#$4C8D,,,,immediate
+environmental_lookup_inputs,CA0A,BD F4 C1,JSR,$F4C1,,,,extended
+environmental_lookup_inputs,CA0D,B7 02 43,STAA,$0243,W,8,0243,extended
+environmental_lookup_inputs,CA10,CE 4B AD,LDX,#$4BAD,,,,immediate
+environmental_lookup_inputs,CA13,96 06,LDAA,$06,R,8,0006,direct
+environmental_lookup_inputs,CA15,81 C0,CMPA,#$C0,,,,immediate
+environmental_lookup_inputs,CA17,23 02,BLS,$CA1B,,,,relative
+environmental_lookup_inputs,CA19,86 C0,LDAA,#$C0,,,,immediate
+environmental_lookup_inputs,CA1B,BD F4 C1,JSR,$F4C1,,,,extended
+environmental_lookup_inputs,CA1E,12 3F 40 0E,BRSET,"$3F,#$40,$CA30",R,8,003F,direct
+environmental_lookup_inputs,CA22,D6 06,LDAB,$06,R,8,0006,direct
+environmental_lookup_inputs,CA24,F1 48 E3,CMPB,$48E3,R,8,48E3,extended
+environmental_lookup_inputs,CA27,22 07,BHI,$CA30,,,,relative
+environmental_lookup_inputs,CA29,B0 48 E8,SUBA,$48E8,R,8,48E8,extended
+environmental_lookup_inputs,CA2C,24 02,BCC,$CA30,,,,relative
+environmental_lookup_inputs,CA2E,86 00,LDAA,#$00,,,,immediate
+environmental_lookup_inputs,CA30,B7 02 72,STAA,$0272,W,8,0272,extended
+environmental_lookup_inputs,CA33,CE 4B 3C,LDX,#$4B3C,,,,immediate
+environmental_lookup_inputs,CA36,B6 02 83,LDAA,$0283,R,8,0283,extended
+environmental_lookup_inputs,CA39,BD F4 C1,JSR,$F4C1,,,,extended
+environmental_lookup_inputs,CA3C,B7 01 CB,STAA,$01CB,W,8,01CB,extended
+environmental_lookup_inputs,CA3F,CE 47 5F,LDX,#$475F,,,,immediate
+environmental_lookup_inputs,CA42,96 06,LDAA,$06,R,8,0006,direct
+environmental_lookup_inputs,CA44,C6 50,LDAB,#$50,,,,immediate
+environmental_lookup_inputs,CA46,BD F4 9A,JSR,$F49A,,,,extended
+environmental_lookup_inputs,CA49,B7 01 BB,STAA,$01BB,W,8,01BB,extended
+environmental_lookup_inputs,CA4C,96 06,LDAA,$06,R,8,0006,direct
+environmental_lookup_inputs,CA4E,80 99,SUBA,#$99,,,,immediate
+environmental_lookup_inputs,CA50,24 02,BCC,$CA54,,,,relative
+environmental_lookup_inputs,CA52,86 00,LDAA,#$00,,,,immediate
+environmental_lookup_inputs,CA54,48,ASLA,,,,,inherent
+environmental_lookup_inputs,CA55,48,ASLA,,,,,inherent
+environmental_lookup_inputs,CA56,24 02,BCC,$CA5A,,,,relative
+environmental_lookup_inputs,CA58,86 FF,LDAA,#$FF,,,,immediate
+environmental_lookup_inputs,CA5A,C6 99,LDAB,#$99,,,,immediate
+environmental_lookup_inputs,CA5C,3D,MUL,,,,,inherent
+environmental_lookup_inputs,CA5D,89 00,ADCA,#$00,,,,immediate
+environmental_lookup_inputs,CA5F,CE 46 E3,LDX,#$46E3,,,,immediate
+environmental_lookup_inputs,CA62,BD F4 99,JSR,$F499,,,,extended
+environmental_lookup_inputs,CA65,B7 08 42,STAA,$0842,W,8,0842,extended
+environmental_lookup_inputs,CA68,7E CB 14,JMP,$CB14,,,,extended
+spark_lookup_inputs,CA6B,4F,CLRA,,,,,inherent
+spark_lookup_inputs,CA6C,CE 40 0B,LDX,#$400B,,,,immediate
+spark_lookup_inputs,CA6F,1F 00 40 3E,BRCLR,"$00,X,#$40,$CAB1",R,8,,indexed_x
+spark_lookup_inputs,CA73,B6 02 2F,LDAA,$022F,R,8,022F,extended
+spark_lookup_inputs,CA76,81 C0,CMPA,#$C0,,,,immediate
+spark_lookup_inputs,CA78,25 04,BCS,$CA7E,,,,relative
+spark_lookup_inputs,CA7A,86 C0,LDAA,#$C0,,,,immediate
+spark_lookup_inputs,CA7C,20 07,BRA,$CA85,,,,relative
+spark_lookup_inputs,CA7E,81 50,CMPA,#$50,,,,immediate
+spark_lookup_inputs,CA80,24 03,BCC,$CA85,,,,relative
+spark_lookup_inputs,CA82,4F,CLRA,,,,,inherent
+spark_lookup_inputs,CA83,20 2C,BRA,$CAB1,,,,relative
+spark_lookup_inputs,CA85,CE 44 39,LDX,#$4439,,,,immediate
+spark_lookup_inputs,CA88,E6 00,LDAB,"$00,X",R,8,,indexed_x
+spark_lookup_inputs,CA8A,27 0A,BEQ,$CA96,,,,relative
+spark_lookup_inputs,CA8C,D6 62,LDAB,$62,R,8,0062,direct
+spark_lookup_inputs,CA8E,C1 B0,CMPB,#$B0,,,,immediate
+spark_lookup_inputs,CA90,23 0D,BLS,$CA9F,,,,relative
+spark_lookup_inputs,CA92,C6 B0,LDAB,#$B0,,,,immediate
+spark_lookup_inputs,CA94,20 09,BRA,$CA9F,,,,relative
+spark_lookup_inputs,CA96,F6 01 C9,LDAB,$01C9,R,8,01C9,extended
+spark_lookup_inputs,CA99,C0 50,SUBB,#$50,,,,immediate
+spark_lookup_inputs,CA9B,24 02,BCC,$CA9F,,,,relative
+spark_lookup_inputs,CA9D,C6 00,LDAB,#$00,,,,immediate
+spark_lookup_inputs,CA9F,08,INX,,,,,inherent
+spark_lookup_inputs,CAA0,BD F4 DE,JSR,$F4DE,,,,extended
+spark_lookup_inputs,CAA3,B0 41 3F,SUBA,$413F,R,8,413F,extended
+spark_lookup_inputs,CAA6,2B 05,BMI,$CAAD,,,,relative
+spark_lookup_inputs,CAA8,15 41 02,BCLR,"$41,#$02",RW,8,0041,direct
+spark_lookup_inputs,CAAB,20 04,BRA,$CAB1,,,,relative
+spark_lookup_inputs,CAAD,14 41 02,BSET,"$41,#$02",RW,8,0041,direct
+spark_lookup_inputs,CAB0,40,NEGA,,,,,inherent
+spark_lookup_inputs,CAB1,B7 01 FA,STAA,$01FA,W,8,01FA,extended
+spark_lookup_inputs,CAB4,4F,CLRA,,,,,inherent
+spark_lookup_inputs,CAB5,D6 06,LDAB,$06,R,8,0006,direct
+spark_lookup_inputs,CAB7,F1 45 DA,CMPB,$45DA,R,8,45DA,extended
+spark_lookup_inputs,CABA,23 16,BLS,$CAD2,,,,relative
+spark_lookup_inputs,CABC,12 19 10 12,BRSET,"$19,#$10,$CAD2",R,8,0019,direct
+spark_lookup_inputs,CAC0,13 3D 20 0E,BRCLR,"$3D,#$20,$CAD2",R,8,003D,direct
+spark_lookup_inputs,CAC4,CE 44 BF,LDX,#$44BF,,,,immediate
+spark_lookup_inputs,CAC7,96 62,LDAA,$62,R,8,0062,direct
+spark_lookup_inputs,CAC9,BD F4 C1,JSR,$F4C1,,,,extended
+spark_lookup_inputs,CACC,F6 02 78,LDAB,$0278,R,8,0278,extended
+spark_lookup_inputs,CACF,3D,MUL,,,,,inherent
+spark_lookup_inputs,CAD0,89 00,ADCA,#$00,,,,immediate
+spark_lookup_inputs,CAD2,B7 01 FC,STAA,$01FC,W,8,01FC,extended
+spark_lookup_inputs,CAD5,96 62,LDAA,$62,R,8,0062,direct
+spark_lookup_inputs,CAD7,44,LSRA,,,,,inherent
+spark_lookup_inputs,CAD8,CE 45 BE,LDX,#$45BE,,,,immediate
+spark_lookup_inputs,CADB,BD F4 C1,JSR,$F4C1,,,,extended
+spark_lookup_inputs,CADE,B7 08 41,STAA,$0841,W,8,0841,extended
+spark_lookup_inputs,CAE1,CE 45 94,LDX,#$4594,,,,immediate
+spark_lookup_inputs,CAE4,96 62,LDAA,$62,R,8,0062,direct
+spark_lookup_inputs,CAE6,BD F4 C1,JSR,$F4C1,,,,extended
+spark_lookup_inputs,CAE9,B7 08 43,STAA,$0843,W,8,0843,extended
+spark_lookup_inputs,CAEC,13 3D 20 0D,BRCLR,"$3D,#$20,$CAFD",R,8,003D,direct
+spark_lookup_inputs,CAF0,CE 45 85,LDX,#$4585,,,,immediate
+spark_lookup_inputs,CAF3,96 62,LDAA,$62,R,8,0062,direct
+spark_lookup_inputs,CAF5,44,LSRA,,,,,inherent
+spark_lookup_inputs,CAF6,C6 10,LDAB,#$10,,,,immediate
+spark_lookup_inputs,CAF8,BD F4 BD,JSR,$F4BD,,,,extended
+spark_lookup_inputs,CAFB,20 14,BRA,$CB11,,,,relative
+spark_lookup_inputs,CAFD,86 FF,LDAA,#$FF,,,,immediate
+spark_lookup_inputs,CAFF,D6 6F,LDAB,$6F,R,8,006F,direct
+spark_lookup_inputs,CB01,C5 48,BITB,#$48,,,,immediate
+spark_lookup_inputs,CB03,26 03,BNE,$CB08,,,,relative
+spark_lookup_inputs,CB05,B6 01 C9,LDAA,$01C9,R,8,01C9,extended
+spark_lookup_inputs,CB08,44,LSRA,,,,,inherent
+spark_lookup_inputs,CB09,C6 20,LDAB,#$20,,,,immediate
+spark_lookup_inputs,CB0B,CE 45 8D,LDX,#$458D,,,,immediate
+spark_lookup_inputs,CB0E,BD F4 BD,JSR,$F4BD,,,,extended
+spark_lookup_inputs,CB11,B7 08 44,STAA,$0844,W,8,0844,extended
+spark_lookup_inputs,CB14,39,RTS,,,,,inherent
+knock_reference_word,CDF7,5F,CLRB,,,,,inherent
+knock_reference_word,CDF8,12 51 10 0E,BRSET,"$51,#$10,$CE0A",R,8,0051,direct
+knock_reference_word,CDFC,12 4F 80 07,BRSET,"$4F,#$80,$CE07",R,8,004F,direct
+knock_reference_word,CE00,13 71 80 06,BRCLR,"$71,#$80,$CE0A",R,8,0071,direct
+knock_reference_word,CE04,5A,DECB,,,,,inherent
+knock_reference_word,CE05,20 03,BRA,$CE0A,,,,relative
+knock_reference_word,CE07,F6 01 AF,LDAB,$01AF,R,8,01AF,extended
+knock_reference_word,CE0A,86 F0,LDAA,#$F0,,,,immediate
+knock_reference_word,CE0C,FD 3F D8,STD,$3FD8,W,16,3FD8,extended
+knock_reference_word,CE0F,39,RTS,,,,,inherent
+low_octane,CE10,96 02,LDAA,$02,R,8,0002,direct
+low_octane,CE12,81 06,CMPA,#$06,,,,immediate
+low_octane,CE14,26 65,BNE,$CE7B,,,,relative
+low_octane,CE16,F6 02 09,LDAB,$0209,R,8,0209,extended
+low_octane,CE19,12 19 10 47,BRSET,"$19,#$10,$CE64",R,8,0019,direct
+low_octane,CE1D,96 06,LDAA,$06,R,8,0006,direct
+low_octane,CE1F,B1 45 B6,CMPA,$45B6,R,8,45B6,extended
+low_octane,CE22,23 54,BLS,$CE78,,,,relative
+low_octane,CE24,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+low_octane,CE27,B1 45 B7,CMPA,$45B7,R,8,45B7,extended
+low_octane,CE2A,25 4C,BCS,$CE78,,,,relative
+low_octane,CE2C,B0 01 C2,SUBA,$01C2,R,8,01C2,extended
+low_octane,CE2F,25 05,BCS,$CE36,,,,relative
+low_octane,CE31,B1 45 B8,CMPA,$45B8,R,8,45B8,extended
+low_octane,CE34,22 42,BHI,$CE78,,,,relative
+low_octane,CE36,B6 02 0C,LDAA,$020C,R,8,020C,extended
+low_octane,CE39,B1 45 BA,CMPA,$45BA,R,8,45BA,extended
+low_octane,CE3C,23 1A,BLS,$CE58,,,,relative
+low_octane,CE3E,B1 45 B9,CMPA,$45B9,R,8,45B9,extended
+low_octane,CE41,23 35,BLS,$CE78,,,,relative
+low_octane,CE43,12 52 01 08,BRSET,"$52,#$01,$CE4F",R,8,0052,direct
+low_octane,CE47,14 52 01,BSET,"$52,#$01",RW,8,0052,direct
+low_octane,CE4A,15 52 02,BCLR,"$52,#$02",RW,8,0052,direct
+low_octane,CE4D,20 1B,BRA,$CE6A,,,,relative
+low_octane,CE4F,FB 45 BB,ADDB,$45BB,R,8,45BB,extended
+low_octane,CE52,24 16,BCC,$CE6A,,,,relative
+low_octane,CE54,C6 FF,LDAB,#$FF,,,,immediate
+low_octane,CE56,20 12,BRA,$CE6A,,,,relative
+low_octane,CE58,12 52 02 08,BRSET,"$52,#$02,$CE64",R,8,0052,direct
+low_octane,CE5C,14 52 02,BSET,"$52,#$02",RW,8,0052,direct
+low_octane,CE5F,15 52 01,BCLR,"$52,#$01",RW,8,0052,direct
+low_octane,CE62,20 06,BRA,$CE6A,,,,relative
+low_octane,CE64,F0 45 BC,SUBB,$45BC,R,8,45BC,extended
+low_octane,CE67,24 01,BCC,$CE6A,,,,relative
+low_octane,CE69,5F,CLRB,,,,,inherent
+low_octane,CE6A,F7 02 09,STAB,$0209,W,8,0209,extended
+low_octane,CE6D,B6 45 BD,LDAA,$45BD,R,8,45BD,extended
+low_octane,CE70,3D,MUL,,,,,inherent
+low_octane,CE71,89 00,ADCA,#$00,,,,immediate
+low_octane,CE73,B7 02 0A,STAA,$020A,W,8,020A,extended
+low_octane,CE76,20 03,BRA,$CE7B,,,,relative
+low_octane,CE78,15 52 03,BCLR,"$52,#$03",RW,8,0052,direct
+low_octane,CE7B,39,RTS,,,,,inherent
+knock_interrupt,CE7C,86 80,LDAA,#$80,,,,immediate
+knock_interrupt,CE7E,B7 30 23,STAA,$3023,W,8,3023,extended
+knock_interrupt,CE81,FC 3F C8,LDD,$3FC8,R,16,3FC8,extended
+knock_interrupt,CE84,37,PSHB,,,,,inherent
+knock_interrupt,CE85,36,PSHA,,,,,inherent
+knock_interrupt,CE86,B3 02 03,SUBD,$0203,R,16,0203,extended
+knock_interrupt,CE89,4D,TSTA,,,,,inherent
+knock_interrupt,CE8A,27 02,BEQ,$CE8E,,,,relative
+knock_interrupt,CE8C,C6 FF,LDAB,#$FF,,,,immediate
+knock_interrupt,CE8E,38,PULX,,,,,inherent
+knock_interrupt,CE8F,FF 02 03,STX,$0203,W,16,0203,extended
+knock_interrupt,CE92,17,TBA,,,,,inherent
+knock_interrupt,CE93,CE 45 DB,LDX,#$45DB,,,,immediate
+knock_interrupt,CE96,D6 62,LDAB,$62,R,8,0062,direct
+knock_interrupt,CE98,54,LSRB,,,,,inherent
+knock_interrupt,CE99,54,LSRB,,,,,inherent
+knock_interrupt,CE9A,3A,ABX,,,,,inherent
+knock_interrupt,CE9B,A0 00,SUBA,"$00,X",R,8,,indexed_x
+knock_interrupt,CE9D,23 1B,BLS,$CEBA,,,,relative
+knock_interrupt,CE9F,CE 46 1C,LDX,#$461C,,,,immediate
+knock_interrupt,CEA2,D6 62,LDAB,$62,R,8,0062,direct
+knock_interrupt,CEA4,54,LSRB,,,,,inherent
+knock_interrupt,CEA5,54,LSRB,,,,,inherent
+knock_interrupt,CEA6,3A,ABX,,,,,inherent
+knock_interrupt,CEA7,AB 00,ADDA,"$00,X",R,8,,indexed_x
+knock_interrupt,CEA9,24 04,BCC,$CEAF,,,,relative
+knock_interrupt,CEAB,C6 FF,LDAB,#$FF,,,,immediate
+knock_interrupt,CEAD,20 08,BRA,$CEB7,,,,relative
+knock_interrupt,CEAF,16,TAB,,,,,inherent
+knock_interrupt,CEB0,FB 02 0D,ADDB,$020D,R,8,020D,extended
+knock_interrupt,CEB3,24 02,BCC,$CEB7,,,,relative
+knock_interrupt,CEB5,C6 FF,LDAB,#$FF,,,,immediate
+knock_interrupt,CEB7,F7 02 0D,STAB,$020D,W,8,020D,extended
+knock_interrupt,CEBA,3B,RTI,,,,,inherent
+knock_decay_fault,CEBB,12 02 10 1C,BRSET,"$02,#$10,$CEDB",R,8,0002,direct
+knock_decay_fault,CEBF,CE 45 A5,LDX,#$45A5,,,,immediate
+knock_decay_fault,CEC2,96 62,LDAA,$62,R,8,0062,direct
+knock_decay_fault,CEC4,BD F4 C1,JSR,$F4C1,,,,extended
+knock_decay_fault,CEC7,F6 02 0C,LDAB,$020C,R,8,020C,extended
+knock_decay_fault,CECA,3D,MUL,,,,,inherent
+knock_decay_fault,CECB,89 00,ADCA,#$00,,,,immediate
+knock_decay_fault,CECD,40,NEGA,,,,,inherent
+knock_decay_fault,CECE,26 02,BNE,$CED2,,,,relative
+knock_decay_fault,CED0,86 FF,LDAA,#$FF,,,,immediate
+knock_decay_fault,CED2,BB 02 0C,ADDA,$020C,R,8,020C,extended
+knock_decay_fault,CED5,25 01,BCS,$CED8,,,,relative
+knock_decay_fault,CED7,4F,CLRA,,,,,inherent
+knock_decay_fault,CED8,B7 02 0C,STAA,$020C,W,8,020C,extended
+knock_decay_fault,CEDB,B6 5B 03,LDAA,$5B03,R,8,5B03,extended
+knock_decay_fault,CEDE,84 10,ANDA,#$10,,,,immediate
+knock_decay_fault,CEE0,27 33,BEQ,$CF15,,,,relative
+knock_decay_fault,CEE2,CE 30 00,LDX,#$3000,,,,immediate
+knock_decay_fault,CEE5,86 00,LDAA,#$00,,,,immediate
+knock_decay_fault,CEE7,BD F2 75,JSR,$F275,,,,extended
+knock_decay_fault,CEEA,0F,SEI,,,,,inherent
+knock_decay_fault,CEEB,86 01,LDAA,#$01,,,,immediate
+knock_decay_fault,CEED,BD F2 5F,JSR,$F25F,,,,extended
+knock_decay_fault,CEF0,0E,CLI,,,,,inherent
+knock_decay_fault,CEF1,A6 34,LDAA,"$34,X",R,8,,indexed_x
+knock_decay_fault,CEF3,B1 4E 75,CMPA,$4E75,R,8,4E75,extended
+knock_decay_fault,CEF6,22 05,BHI,$CEFD,,,,relative
+knock_decay_fault,CEF8,B1 4E 76,CMPA,$4E76,R,8,4E76,extended
+knock_decay_fault,CEFB,24 12,BCC,$CF0F,,,,relative
+knock_decay_fault,CEFD,B6 02 07,LDAA,$0207,R,8,0207,extended
+knock_decay_fault,CF00,B1 4E 74,CMPA,$4E74,R,8,4E74,extended
+knock_decay_fault,CF03,22 05,BHI,$CF0A,,,,relative
+knock_decay_fault,CF05,7C 02 07,INC,$0207,RW,8,0207,extended
+knock_decay_fault,CF08,20 0B,BRA,$CF15,,,,relative
+knock_decay_fault,CF0A,14 19 10,BSET,"$19,#$10",RW,8,0019,direct
+knock_decay_fault,CF0D,20 06,BRA,$CF15,,,,relative
+knock_decay_fault,CF0F,15 19 10,BCLR,"$19,#$10",RW,8,0019,direct
+knock_decay_fault,CF12,7F 02 07,CLR,$0207,W,8,0207,extended
+knock_decay_fault,CF15,39,RTS,,,,,inherent
+EGR_desired,CF16,CE 46 F9,LDX,#$46F9,,,,immediate
+EGR_desired,CF19,B6 40 0B,LDAA,$400B,R,8,400B,extended
+EGR_desired,CF1C,85 40,BITA,#$40,,,,immediate
+EGR_desired,CF1E,27 0E,BEQ,$CF2E,,,,relative
+EGR_desired,CF20,B6 02 30,LDAA,$0230,R,8,0230,extended
+EGR_desired,CF23,E6 04,LDAB,"$04,X",R,8,,indexed_x
+EGR_desired,CF25,12 6E 80 02,BRSET,"$6E,#$80,$CF2B",R,8,006E,direct
+EGR_desired,CF29,E6 03,LDAB,"$03,X",R,8,,indexed_x
+EGR_desired,CF2B,11,CBA,,,,,inherent
+EGR_desired,CF2C,23 5B,BLS,$CF89,,,,relative
+EGR_desired,CF2E,B6 02 82,LDAA,$0282,R,8,0282,extended
+EGR_desired,CF31,A1 00,CMPA,"$00,X",R,8,,indexed_x
+EGR_desired,CF33,23 08,BLS,$CF3D,,,,relative
+EGR_desired,CF35,A6 02,LDAA,"$02,X",R,8,,indexed_x
+EGR_desired,CF37,91 06,CMPA,$06,R,8,0006,direct
+EGR_desired,CF39,22 4E,BHI,$CF89,,,,relative
+EGR_desired,CF3B,20 06,BRA,$CF43,,,,relative
+EGR_desired,CF3D,A6 01,LDAA,"$01,X",R,8,,indexed_x
+EGR_desired,CF3F,91 06,CMPA,$06,R,8,0006,direct
+EGR_desired,CF41,22 46,BHI,$CF89,,,,relative
+EGR_desired,CF43,13 18 30 02,BRCLR,"$18,#$30,$CF49",R,8,0018,direct
+EGR_desired,CF47,20 40,BRA,$CF89,,,,relative
+EGR_desired,CF49,A6 0A,LDAA,"$0A,X",R,8,,indexed_x
+EGR_desired,CF4B,13 6E 10 02,BRCLR,"$6E,#$10,$CF51",R,8,006E,direct
+EGR_desired,CF4F,A6 0B,LDAA,"$0B,X",R,8,,indexed_x
+EGR_desired,CF51,B1 01 C0,CMPA,$01C0,R,8,01C0,extended
+EGR_desired,CF54,25 05,BCS,$CF5B,,,,relative
+EGR_desired,CF56,15 6E 10,BCLR,"$6E,#$10",RW,8,006E,direct
+EGR_desired,CF59,20 2E,BRA,$CF89,,,,relative
+EGR_desired,CF5B,14 6E 10,BSET,"$6E,#$10",RW,8,006E,direct
+EGR_desired,CF5E,96 6F,LDAA,$6F,R,8,006F,direct
+EGR_desired,CF60,85 24,BITA,#$24,,,,immediate
+EGR_desired,CF62,26 15,BNE,$CF79,,,,relative
+EGR_desired,CF64,A6 08,LDAA,"$08,X",R,8,,indexed_x
+EGR_desired,CF66,13 6E 20 02,BRCLR,"$6E,#$20,$CF6C",R,8,006E,direct
+EGR_desired,CF6A,A6 09,LDAA,"$09,X",R,8,,indexed_x
+EGR_desired,CF6C,B1 01 D9,CMPA,$01D9,R,8,01D9,extended
+EGR_desired,CF6F,25 05,BCS,$CF76,,,,relative
+EGR_desired,CF71,15 6E 20,BCLR,"$6E,#$20",RW,8,006E,direct
+EGR_desired,CF74,20 13,BRA,$CF89,,,,relative
+EGR_desired,CF76,14 6E 20,BSET,"$6E,#$20",RW,8,006E,direct
+EGR_desired,CF79,D6 62,LDAB,$62,R,8,0062,direct
+EGR_desired,CF7B,A6 06,LDAA,"$06,X",R,8,,indexed_x
+EGR_desired,CF7D,13 6E 40 02,BRCLR,"$6E,#$40,$CF83",R,8,006E,direct
+EGR_desired,CF81,A6 07,LDAA,"$07,X",R,8,,indexed_x
+EGR_desired,CF83,11,CBA,,,,,inherent
+EGR_desired,CF84,23 07,BLS,$CF8D,,,,relative
+EGR_desired,CF86,15 6E 40,BCLR,"$6E,#$40",RW,8,006E,direct
+EGR_desired,CF89,4F,CLRA,,,,,inherent
+EGR_desired,CF8A,7E D0 10,JMP,$D010,,,,extended
+EGR_desired,CF8D,14 6E 40,BSET,"$6E,#$40",RW,8,006E,direct
+EGR_desired,CF90,12 16 10 08,BRSET,"$16,#$10,$CF9C",R,8,0016,direct
+EGR_desired,CF94,B6 02 84,LDAA,$0284,R,8,0284,extended
+EGR_desired,CF97,B1 46 FE,CMPA,$46FE,R,8,46FE,extended
+EGR_desired,CF9A,25 ED,BCS,$CF89,,,,relative
+EGR_desired,CF9C,A6 0C,LDAA,"$0C,X",R,8,,indexed_x
+EGR_desired,CF9E,12 6E 04 02,BRSET,"$6E,#$04,$CFA4",R,8,006E,direct
+EGR_desired,CFA2,A6 0D,LDAA,"$0D,X",R,8,,indexed_x
+EGR_desired,CFA4,B1 01 C9,CMPA,$01C9,R,8,01C9,extended
+EGR_desired,CFA7,24 05,BCC,$CFAE,,,,relative
+EGR_desired,CFA9,15 6E 04,BCLR,"$6E,#$04",RW,8,006E,direct
+EGR_desired,CFAC,20 DB,BRA,$CF89,,,,relative
+EGR_desired,CFAE,14 6E 04,BSET,"$6E,#$04",RW,8,006E,direct
+EGR_desired,CFB1,A6 0E,LDAA,"$0E,X",R,8,,indexed_x
+EGR_desired,CFB3,B1 01 D9,CMPA,$01D9,R,8,01D9,extended
+EGR_desired,CFB6,25 D1,BCS,$CF89,,,,relative
+EGR_desired,CFB8,A6 0F,LDAA,"$0F,X",R,8,,indexed_x
+EGR_desired,CFBA,B1 02 4A,CMPA,$024A,R,8,024A,extended
+EGR_desired,CFBD,22 CA,BHI,$CF89,,,,relative
+EGR_desired,CFBF,12 46 08 C6,BRSET,"$46,#$08,$CF89",R,8,0046,direct
+EGR_desired,CFC3,B6 40 0D,LDAA,$400D,R,8,400D,extended
+EGR_desired,CFC6,85 08,BITA,#$08,,,,immediate
+EGR_desired,CFC8,27 04,BEQ,$CFCE,,,,relative
+EGR_desired,CFCA,13 3E 80 BB,BRCLR,"$3E,#$80,$CF89",R,8,003E,direct
+EGR_desired,CFCE,CE 47 0A,LDX,#$470A,,,,immediate
+EGR_desired,CFD1,F6 01 CF,LDAB,$01CF,R,8,01CF,extended
+EGR_desired,CFD4,A6 00,LDAA,"$00,X",R,8,,indexed_x
+EGR_desired,CFD6,81 02,CMPA,#$02,,,,immediate
+EGR_desired,CFD8,27 0A,BEQ,$CFE4,,,,relative
+EGR_desired,CFDA,F6 01 C9,LDAB,$01C9,R,8,01C9,extended
+EGR_desired,CFDD,A6 00,LDAA,"$00,X",R,8,,indexed_x
+EGR_desired,CFDF,27 03,BEQ,$CFE4,,,,relative
+EGR_desired,CFE1,F6 01 C0,LDAB,$01C0,R,8,01C0,extended
+EGR_desired,CFE4,08,INX,,,,,inherent
+EGR_desired,CFE5,54,LSRB,,,,,inherent
+EGR_desired,CFE6,96 62,LDAA,$62,R,8,0062,direct
+EGR_desired,CFE8,81 A0,CMPA,#$A0,,,,immediate
+EGR_desired,CFEA,23 02,BLS,$CFEE,,,,relative
+EGR_desired,CFEC,86 A0,LDAA,#$A0,,,,immediate
+EGR_desired,CFEE,BD F4 DE,JSR,$F4DE,,,,extended
+EGR_desired,CFF1,16,TAB,,,,,inherent
+EGR_desired,CFF2,B6 01 BB,LDAA,$01BB,R,8,01BB,extended
+EGR_desired,CFF5,3D,MUL,,,,,inherent
+EGR_desired,CFF6,05,ASLD,,,,,inherent
+EGR_desired,CFF7,24 02,BCC,$CFFB,,,,relative
+EGR_desired,CFF9,86 FF,LDAA,#$FF,,,,immediate
+EGR_desired,CFFB,36,PSHA,,,,,inherent
+EGR_desired,CFFC,CE 47 67,LDX,#$4767,,,,immediate
+EGR_desired,CFFF,F6 01 CC,LDAB,$01CC,R,8,01CC,extended
+EGR_desired,D002,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+EGR_desired,D005,44,LSRA,,,,,inherent
+EGR_desired,D006,BD F4 DE,JSR,$F4DE,,,,extended
+EGR_desired,D009,33,PULB,,,,,inherent
+EGR_desired,D00A,3D,MUL,,,,,inherent
+EGR_desired,D00B,05,ASLD,,,,,inherent
+EGR_desired,D00C,24 02,BCC,$D010,,,,relative
+EGR_desired,D00E,86 FF,LDAA,#$FF,,,,immediate
+EGR_desired,D010,B1 47 09,CMPA,$4709,R,8,4709,extended
+EGR_desired,D013,24 02,BCC,$D017,,,,relative
+EGR_desired,D015,20 0A,BRA,$D021,,,,relative
+EGR_desired,D017,12 51 10 06,BRSET,"$51,#$10,$D021",R,8,0051,direct
+EGR_desired,D01B,12 72 20 02,BRSET,"$72,#$20,$D021",R,8,0072,direct
+EGR_desired,D01F,20 01,BRA,$D022,,,,relative
+EGR_desired,D021,4F,CLRA,,,,,inherent
+EGR_desired,D022,B7 01 AE,STAA,$01AE,W,8,01AE,extended
+EGR_desired,D025,13 86 40 03,BRCLR,"$86,#$40,$D02C",R,8,0086,direct
+EGR_desired,D029,BD 18 15,JSR,$1815,,,,extended
+EGR_desired,D02C,13 3B 10 0D,BRCLR,"$3B,#$10,$D03D",R,8,003B,direct
+EGR_desired,D030,B6 03 93,LDAA,$0393,R,8,0393,extended
+EGR_desired,D033,85 02,BITA,#$02,,,,immediate
+EGR_desired,D035,27 06,BEQ,$D03D,,,,relative
+EGR_desired,D037,B6 03 94,LDAA,$0394,R,8,0394,extended
+EGR_desired,D03A,B7 01 AE,STAA,$01AE,W,8,01AE,extended
+EGR_desired,D03D,39,RTS,,,,,inherent
+EGR_fraction,D03E,CE 40 0D,LDX,#$400D,,,,immediate
+EGR_fraction,D041,1E 00 20 04,BRSET,"$00,X,#$20,$D049",R,8,,indexed_x
+EGR_fraction,D045,1F 00 04 3F,BRCLR,"$00,X,#$04,$D088",R,8,,indexed_x
+EGR_fraction,D049,15 6E 80,BCLR,"$6E,#$80",RW,8,006E,direct
+EGR_fraction,D04C,12 70 01 09,BRSET,"$70,#$01,$D059",R,8,0070,direct
+EGR_fraction,D050,12 70 04 0B,BRSET,"$70,#$04,$D05F",R,8,0070,direct
+EGR_fraction,D054,B6 01 AF,LDAA,$01AF,R,8,01AF,extended
+EGR_fraction,D057,26 03,BNE,$D05C,,,,relative
+EGR_fraction,D059,4F,CLRA,,,,,inherent
+EGR_fraction,D05A,20 28,BRA,$D084,,,,relative
+EGR_fraction,D05C,14 6E 80,BSET,"$6E,#$80",RW,8,006E,direct
+EGR_fraction,D05F,CE 47 8A,LDX,#$478A,,,,immediate
+EGR_fraction,D062,F6 01 C9,LDAB,$01C9,R,8,01C9,extended
+EGR_fraction,D065,50,NEGB,,,,,inherent
+EGR_fraction,D066,C1 40,CMPB,#$40,,,,immediate
+EGR_fraction,D068,22 03,BHI,$D06D,,,,relative
+EGR_fraction,D06A,58,ASLB,,,,,inherent
+EGR_fraction,D06B,20 0B,BRA,$D078,,,,relative
+EGR_fraction,D06D,C0 40,SUBB,#$40,,,,immediate
+EGR_fraction,D06F,54,LSRB,,,,,inherent
+EGR_fraction,D070,CB 80,ADDB,#$80,,,,immediate
+EGR_fraction,D072,C1 C0,CMPB,#$C0,,,,immediate
+EGR_fraction,D074,23 02,BLS,$D078,,,,relative
+EGR_fraction,D076,C6 C0,LDAB,#$C0,,,,immediate
+EGR_fraction,D078,96 62,LDAA,$62,R,8,0062,direct
+EGR_fraction,D07A,81 A0,CMPA,#$A0,,,,immediate
+EGR_fraction,D07C,23 02,BLS,$D080,,,,relative
+EGR_fraction,D07E,86 A0,LDAA,#$A0,,,,immediate
+EGR_fraction,D080,44,LSRA,,,,,inherent
+EGR_fraction,D081,BD F4 DE,JSR,$F4DE,,,,extended
+EGR_fraction,D084,36,PSHA,,,,,inherent
+EGR_fraction,D085,7E D1 21,JMP,$D121,,,,extended
+EGR_fraction,D088,15 6E 80,BCLR,"$6E,#$80",RW,8,006E,direct
+EGR_fraction,D08B,12 70 01 74,BRSET,"$70,#$01,$D103",R,8,0070,direct
+EGR_fraction,D08F,12 72 20 70,BRSET,"$72,#$20,$D103",R,8,0072,direct
+EGR_fraction,D093,12 70 04 35,BRSET,"$70,#$04,$D0CC",R,8,0070,direct
+EGR_fraction,D097,CE 40 0D,LDX,#$400D,,,,immediate
+EGR_fraction,D09A,1F 00 02 19,BRCLR,"$00,X,#$02,$D0B7",R,8,,indexed_x
+EGR_fraction,D09E,1F 00 10 04,BRCLR,"$00,X,#$10,$D0A6",R,8,,indexed_x
+EGR_fraction,D0A2,12 50 80 5D,BRSET,"$50,#$80,$D103",R,8,0050,direct
+EGR_fraction,D0A6,F6 01 B9,LDAB,$01B9,R,8,01B9,extended
+EGR_fraction,D0A9,F1 48 5A,CMPB,$485A,R,8,485A,extended
+EGR_fraction,D0AC,25 55,BCS,$D103,,,,relative
+EGR_fraction,D0AE,DE FD,LDX,$FD,R,16,00FD,direct
+EGR_fraction,D0B0,BC 48 5B,CPX,$485B,R,16,485B,extended
+EGR_fraction,D0B3,25 4E,BCS,$D103,,,,relative
+EGR_fraction,D0B5,20 08,BRA,$D0BF,,,,relative
+EGR_fraction,D0B7,F6 01 AF,LDAB,$01AF,R,8,01AF,extended
+EGR_fraction,D0BA,F1 48 5D,CMPB,$485D,R,8,485D,extended
+EGR_fraction,D0BD,25 44,BCS,$D103,,,,relative
+EGR_fraction,D0BF,14 6E 80,BSET,"$6E,#$80",RW,8,006E,direct
+EGR_fraction,D0C2,B6 01 B9,LDAA,$01B9,R,8,01B9,extended
+EGR_fraction,D0C5,CE 40 0D,LDX,#$400D,,,,immediate
+EGR_fraction,D0C8,1E 00 02 03,BRSET,"$00,X,#$02,$D0CF",R,8,,indexed_x
+EGR_fraction,D0CC,B6 01 AE,LDAA,$01AE,R,8,01AE,extended
+EGR_fraction,D0CF,C6 A0,LDAB,#$A0,,,,immediate
+EGR_fraction,D0D1,3D,MUL,,,,,inherent
+EGR_fraction,D0D2,89 00,ADCA,#$00,,,,immediate
+EGR_fraction,D0D4,36,PSHA,,,,,inherent
+EGR_fraction,D0D5,B6 02 32,LDAA,$0232,R,8,0232,extended
+EGR_fraction,D0D8,CE 47 D3,LDX,#$47D3,,,,immediate
+EGR_fraction,D0DB,BD F4 C1,JSR,$F4C1,,,,extended
+EGR_fraction,D0DE,F6 01 C9,LDAB,$01C9,R,8,01C9,extended
+EGR_fraction,D0E1,50,NEGB,,,,,inherent
+EGR_fraction,D0E2,1B,ABA,,,,,inherent
+EGR_fraction,D0E3,24 02,BCC,$D0E7,,,,relative
+EGR_fraction,D0E5,86 FF,LDAA,#$FF,,,,immediate
+EGR_fraction,D0E7,B7 01 B0,STAA,$01B0,W,8,01B0,extended
+EGR_fraction,D0EA,81 40,CMPA,#$40,,,,immediate
+EGR_fraction,D0EC,25 0B,BCS,$D0F9,,,,relative
+EGR_fraction,D0EE,80 40,SUBA,#$40,,,,immediate
+EGR_fraction,D0F0,44,LSRA,,,,,inherent
+EGR_fraction,D0F1,8B 40,ADDA,#$40,,,,immediate
+EGR_fraction,D0F3,81 90,CMPA,#$90,,,,immediate
+EGR_fraction,D0F5,25 02,BCS,$D0F9,,,,relative
+EGR_fraction,D0F7,86 90,LDAA,#$90,,,,immediate
+EGR_fraction,D0F9,16,TAB,,,,,inherent
+EGR_fraction,D0FA,32,PULA,,,,,inherent
+EGR_fraction,D0FB,CE 47 E5,LDX,#$47E5,,,,immediate
+EGR_fraction,D0FE,BD F4 DE,JSR,$F4DE,,,,extended
+EGR_fraction,D101,20 01,BRA,$D104,,,,relative
+EGR_fraction,D103,4F,CLRA,,,,,inherent
+EGR_fraction,D104,B7 01 B1,STAA,$01B1,W,8,01B1,extended
+EGR_fraction,D107,F6 47 E4,LDAB,$47E4,R,8,47E4,extended
+EGR_fraction,D10A,3D,MUL,,,,,inherent
+EGR_fraction,D10B,04,LSRD,,,,,inherent
+EGR_fraction,D10C,24 03,BCC,$D111,,,,relative
+EGR_fraction,D10E,C3 00 01,ADDD,#$0001,,,,immediate
+EGR_fraction,D111,FE 02 32,LDX,$0232,R,16,0232,extended
+EGR_fraction,D114,03,FDIV,,,,,inherent
+EGR_fraction,D115,3C,PSHX,,,,,inherent
+EGR_fraction,D116,32,PULA,,,,,inherent
+EGR_fraction,D117,33,PULB,,,,,inherent
+EGR_fraction,D118,81 FF,CMPA,#$FF,,,,immediate
+EGR_fraction,D11A,27 04,BEQ,$D120,,,,relative
+EGR_fraction,D11C,5D,TSTB,,,,,inherent
+EGR_fraction,D11D,2A 01,BPL,$D120,,,,relative
+EGR_fraction,D11F,4C,INCA,,,,,inherent
+EGR_fraction,D120,36,PSHA,,,,,inherent
+EGR_fraction,D121,CE 48 56,LDX,#$4856,,,,immediate
+EGR_fraction,D124,B6 01 CC,LDAA,$01CC,R,8,01CC,extended
+EGR_fraction,D127,C6 60,LDAB,#$60,,,,immediate
+EGR_fraction,D129,BD F4 BD,JSR,$F4BD,,,,extended
+EGR_fraction,D12C,33,PULB,,,,,inherent
+EGR_fraction,D12D,3D,MUL,,,,,inherent
+EGR_fraction,D12E,5D,TSTB,,,,,inherent
+EGR_fraction,D12F,2A 01,BPL,$D132,,,,relative
+EGR_fraction,D131,4C,INCA,,,,,inherent
+EGR_fraction,D132,36,PSHA,,,,,inherent
+EGR_fraction,D133,B6 02 32,LDAA,$0232,R,8,0232,extended
+EGR_fraction,D136,81 40,CMPA,#$40,,,,immediate
+EGR_fraction,D138,23 02,BLS,$D13C,,,,relative
+EGR_fraction,D13A,86 40,LDAA,#$40,,,,immediate
+EGR_fraction,D13C,CE 47 CE,LDX,#$47CE,,,,immediate
+EGR_fraction,D13F,BD F4 C1,JSR,$F4C1,,,,extended
+EGR_fraction,D142,16,TAB,,,,,inherent
+EGR_fraction,D143,32,PULA,,,,,inherent
+EGR_fraction,D144,FE 01 B2,LDX,$01B2,R,16,01B2,extended
+EGR_fraction,D147,BD F4 59,JSR,$F459,,,,extended
+EGR_fraction,D14A,FD 01 B2,STD,$01B2,W,16,01B2,extended
+EGR_fraction,D14D,39,RTS,,,,,inherent
+temperature_startup_admission,E286,CE 5B 04,LDX,#$5B04,,,,immediate
+temperature_startup_admission,E289,1F 00 04 3B,BRCLR,"$00,X,#$04,$E2C8",R,8,,indexed_x
+temperature_startup_admission,E28D,15 1A 04,BCLR,"$1A,#$04",RW,8,001A,direct
+temperature_startup_admission,E290,12 72 01 31,BRSET,"$72,#$01,$E2C5",R,8,0072,direct
+temperature_startup_admission,E294,D6 A7,LDAB,$A7,R,8,00A7,direct
+temperature_startup_admission,E296,F1 4E 88,CMPB,$4E88,R,8,4E88,extended
+temperature_startup_admission,E299,25 2D,BCS,$E2C8,,,,relative
+temperature_startup_admission,E29B,96 55,LDAA,$55,R,8,0055,direct
+temperature_startup_admission,E29D,13 72 02 0B,BRCLR,"$72,#$02,$E2AC",R,8,0072,direct
+temperature_startup_admission,E2A1,13 4F 10 23,BRCLR,"$4F,#$10,$E2C8",R,8,004F,direct
+temperature_startup_admission,E2A5,B1 4E 87,CMPA,$4E87,R,8,4E87,extended
+temperature_startup_admission,E2A8,24 1E,BCC,$E2C8,,,,relative
+temperature_startup_admission,E2AA,20 19,BRA,$E2C5,,,,relative
+temperature_startup_admission,E2AC,F6 02 2A,LDAB,$022A,R,8,022A,extended
+temperature_startup_admission,E2AF,5C,INCB,,,,,inherent
+temperature_startup_admission,E2B0,F7 02 2A,STAB,$022A,W,8,022A,extended
+temperature_startup_admission,E2B3,F1 4E 85,CMPB,$4E85,R,8,4E85,extended
+temperature_startup_admission,E2B6,22 0A,BHI,$E2C2,,,,relative
+temperature_startup_admission,E2B8,B1 4E 86,CMPA,$4E86,R,8,4E86,extended
+temperature_startup_admission,E2BB,25 0B,BCS,$E2C8,,,,relative
+temperature_startup_admission,E2BD,14 72 02,BSET,"$72,#$02",RW,8,0072,direct
+temperature_startup_admission,E2C0,20 06,BRA,$E2C8,,,,relative
+temperature_startup_admission,E2C2,14 72 01,BSET,"$72,#$01",RW,8,0072,direct
+temperature_startup_admission,E2C5,14 1A 04,BSET,"$1A,#$04",RW,8,001A,direct
+temperature_startup_admission,E2C8,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E2CA,CE 40 0B,LDX,#$400B,,,,immediate
+temperature_startup_admission,E2CD,1F 00 40 1C,BRCLR,"$00,X,#$40,$E2ED",R,8,,indexed_x
+temperature_startup_admission,E2D1,B6 02 32,LDAA,$0232,R,8,0232,extended
+temperature_startup_admission,E2D4,CE 4A E3,LDX,#$4AE3,,,,immediate
+temperature_startup_admission,E2D7,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E2DA,D6 06,LDAB,$06,R,8,0006,direct
+temperature_startup_admission,E2DC,F0 02 2F,SUBB,$022F,R,8,022F,extended
+temperature_startup_admission,E2DF,24 01,BCC,$E2E2,,,,relative
+temperature_startup_admission,E2E1,5F,CLRB,,,,,inherent
+temperature_startup_admission,E2E2,3D,MUL,,,,,inherent
+temperature_startup_admission,E2E3,05,ASLD,,,,,inherent
+temperature_startup_admission,E2E4,25 05,BCS,$E2EB,,,,relative
+temperature_startup_admission,E2E6,BB 02 2F,ADDA,$022F,R,8,022F,extended
+temperature_startup_admission,E2E9,24 02,BCC,$E2ED,,,,relative
+temperature_startup_admission,E2EB,86 FF,LDAA,#$FF,,,,immediate
+temperature_startup_admission,E2ED,CE 4A F4,LDX,#$4AF4,,,,immediate
+temperature_startup_admission,E2F0,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E2F3,5F,CLRB,,,,,inherent
+temperature_startup_admission,E2F4,04,LSRD,,,,,inherent
+temperature_startup_admission,E2F5,C3 74 80,ADDD,#$7480,,,,immediate
+temperature_startup_admission,E2F8,FD 02 36,STD,$0236,W,16,0236,extended
+temperature_startup_admission,E2FB,96 A7,LDAA,$A7,R,8,00A7,direct
+temperature_startup_admission,E2FD,CE 4B 05,LDX,#$4B05,,,,immediate
+temperature_startup_admission,E300,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E303,B7 02 56,STAA,$0256,W,8,0256,extended
+temperature_startup_admission,E306,13 02 10 01,BRCLR,"$02,#$10,$E30B",R,8,0002,direct
+temperature_startup_admission,E30A,39,RTS,,,,,inherent
+temperature_startup_admission,E30B,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E30D,CE 4B 16,LDX,#$4B16,,,,immediate
+temperature_startup_admission,E310,BD F4 B6,JSR,$F4B6,,,,extended
+temperature_startup_admission,E313,B7 02 42,STAA,$0242,W,8,0242,extended
+temperature_startup_admission,E316,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E318,CE 4B 71,LDX,#$4B71,,,,immediate
+temperature_startup_admission,E31B,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E31E,16,TAB,,,,,inherent
+temperature_startup_admission,E31F,B6 02 2F,LDAA,$022F,R,8,022F,extended
+temperature_startup_admission,E322,CE 4B 82,LDX,#$4B82,,,,immediate
+temperature_startup_admission,E325,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E328,3D,MUL,,,,,inherent
+temperature_startup_admission,E329,05,ASLD,,,,,inherent
+temperature_startup_admission,E32A,24 02,BCC,$E32E,,,,relative
+temperature_startup_admission,E32C,86 FF,LDAA,#$FF,,,,immediate
+temperature_startup_admission,E32E,B7 02 3C,STAA,$023C,W,8,023C,extended
+temperature_startup_admission,E331,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E333,CE 4B 93,LDX,#$4B93,,,,immediate
+temperature_startup_admission,E336,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E339,B7 02 3D,STAA,$023D,W,8,023D,extended
+temperature_startup_admission,E33C,12 4F 10 4F,BRSET,"$4F,#$10,$E38F",R,8,004F,direct
+temperature_startup_admission,E340,12 04 08 32,BRSET,"$04,#$08,$E376",R,8,0004,direct
+temperature_startup_admission,E344,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E346,CE 4C 33,LDX,#$4C33,,,,immediate
+temperature_startup_admission,E349,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E34C,B7 02 C8,STAA,$02C8,W,8,02C8,extended
+temperature_startup_admission,E34F,CE 45 2C,LDX,#$452C,,,,immediate
+temperature_startup_admission,E352,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E354,BD F4 B6,JSR,$F4B6,,,,extended
+temperature_startup_admission,E357,B7 02 CB,STAA,$02CB,W,8,02CB,extended
+temperature_startup_admission,E35A,CE 45 36,LDX,#$4536,,,,immediate
+temperature_startup_admission,E35D,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E35F,BD F4 B6,JSR,$F4B6,,,,extended
+temperature_startup_admission,E362,B7 02 CC,STAA,$02CC,W,8,02CC,extended
+temperature_startup_admission,E365,CE 4C 9D,LDX,#$4C9D,,,,immediate
+temperature_startup_admission,E368,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E36A,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E36D,B7 02 C9,STAA,$02C9,W,8,02C9,extended
+temperature_startup_admission,E370,F6 49 29,LDAB,$4929,R,8,4929,extended
+temperature_startup_admission,E373,F7 02 CA,STAB,$02CA,W,8,02CA,extended
+temperature_startup_admission,E376,CE 4C AE,LDX,#$4CAE,,,,immediate
+temperature_startup_admission,E379,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E37B,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E37E,B7 02 67,STAA,$0267,W,8,0267,extended
+temperature_startup_admission,E381,CE 45 40,LDX,#$4540,,,,immediate
+temperature_startup_admission,E384,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E386,BD F4 B6,JSR,$F4B6,,,,extended
+temperature_startup_admission,E389,B7 01 FF,STAA,$01FF,W,8,01FF,extended
+temperature_startup_admission,E38C,7E E4 77,JMP,$E477,,,,extended
+temperature_startup_admission,E38F,0F,SEI,,,,,inherent
+temperature_startup_admission,E390,D6 3F,LDAB,$3F,R,8,003F,direct
+temperature_startup_admission,E392,C4 F0,ANDB,#$F0,,,,immediate
+temperature_startup_admission,E394,96 66,LDAA,$66,R,8,0066,direct
+temperature_startup_admission,E396,90 63,SUBA,$63,R,8,0063,direct
+temperature_startup_admission,E398,24 03,BCC,$E39D,,,,relative
+temperature_startup_admission,E39A,CA 01,ORAB,#$01,,,,immediate
+temperature_startup_admission,E39C,40,NEGA,,,,,inherent
+temperature_startup_admission,E39D,B1 49 54,CMPA,$4954,R,8,4954,extended
+temperature_startup_admission,E3A0,25 02,BCS,$E3A4,,,,relative
+temperature_startup_admission,E3A2,CA 02,ORAB,#$02,,,,immediate
+temperature_startup_admission,E3A4,96 63,LDAA,$63,R,8,0063,direct
+temperature_startup_admission,E3A6,97 66,STAA,$66,W,8,0066,direct
+temperature_startup_admission,E3A8,B6 08 58,LDAA,$0858,R,8,0858,extended
+temperature_startup_admission,E3AB,B1 4F BE,CMPA,$4FBE,R,8,4FBE,extended
+temperature_startup_admission,E3AE,23 02,BLS,$E3B2,,,,relative
+temperature_startup_admission,E3B0,CA 08,ORAB,#$08,,,,immediate
+temperature_startup_admission,E3B2,13 36 80 02,BRCLR,"$36,#$80,$E3B8",R,8,0036,direct
+temperature_startup_admission,E3B6,CA 04,ORAB,#$04,,,,immediate
+temperature_startup_admission,E3B8,D7 3F,STAB,$3F,W,8,003F,direct
+temperature_startup_admission,E3BA,0E,CLI,,,,,inherent
+temperature_startup_admission,E3BB,B6 02 CA,LDAA,$02CA,R,8,02CA,extended
+temperature_startup_admission,E3BE,26 74,BNE,$E434,,,,relative
+temperature_startup_admission,E3C0,B6 02 C8,LDAA,$02C8,R,8,02C8,extended
+temperature_startup_admission,E3C3,26 03,BNE,$E3C8,,,,relative
+temperature_startup_admission,E3C5,7E E4 3C,JMP,$E43C,,,,extended
+temperature_startup_admission,E3C8,B6 02 7D,LDAA,$027D,R,8,027D,extended
+temperature_startup_admission,E3CB,27 19,BEQ,$E3E6,,,,relative
+temperature_startup_admission,E3CD,B1 49 59,CMPA,$4959,R,8,4959,extended
+temperature_startup_admission,E3D0,26 0B,BNE,$E3DD,,,,relative
+temperature_startup_admission,E3D2,D6 06,LDAB,$06,R,8,0006,direct
+temperature_startup_admission,E3D4,F1 49 57,CMPB,$4957,R,8,4957,extended
+temperature_startup_admission,E3D7,22 04,BHI,$E3DD,,,,relative
+temperature_startup_admission,E3D9,12 41 20 5F,BRSET,"$41,#$20,$E43C",R,8,0041,direct
+temperature_startup_admission,E3DD,4A,DECA,,,,,inherent
+temperature_startup_admission,E3DE,B7 02 7D,STAA,$027D,W,8,027D,extended
+temperature_startup_admission,E3E1,26 59,BNE,$E43C,,,,relative
+temperature_startup_admission,E3E3,14 3E 08,BSET,"$3E,#$08",RW,8,003E,direct
+temperature_startup_admission,E3E6,B6 02 70,LDAA,$0270,R,8,0270,extended
+temperature_startup_admission,E3E9,26 4E,BNE,$E439,,,,relative
+temperature_startup_admission,E3EB,CE 4C 44,LDX,#$4C44,,,,immediate
+temperature_startup_admission,E3EE,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E3F0,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E3F3,B7 02 70,STAA,$0270,W,8,0270,extended
+temperature_startup_admission,E3F6,CE 4C 55,LDX,#$4C55,,,,immediate
+temperature_startup_admission,E3F9,B6 02 32,LDAA,$0232,R,8,0232,extended
+temperature_startup_admission,E3FC,81 40,CMPA,#$40,,,,immediate
+temperature_startup_admission,E3FE,23 02,BLS,$E402,,,,relative
+temperature_startup_admission,E400,86 40,LDAA,#$40,,,,immediate
+temperature_startup_admission,E402,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E405,16,TAB,,,,,inherent
+temperature_startup_admission,E406,B6 02 70,LDAA,$0270,R,8,0270,extended
+temperature_startup_admission,E409,3D,MUL,,,,,inherent
+temperature_startup_admission,E40A,05,ASLD,,,,,inherent
+temperature_startup_admission,E40B,24 02,BCC,$E40F,,,,relative
+temperature_startup_admission,E40D,86 FF,LDAA,#$FF,,,,immediate
+temperature_startup_admission,E40F,B7 02 70,STAA,$0270,W,8,0270,extended
+temperature_startup_admission,E412,B6 02 C8,LDAA,$02C8,R,8,02C8,extended
+temperature_startup_admission,E415,F6 49 28,LDAB,$4928,R,8,4928,extended
+temperature_startup_admission,E418,3D,MUL,,,,,inherent
+temperature_startup_admission,E419,12 3E 08 12,BRSET,"$3E,#$08,$E42F",R,8,003E,direct
+temperature_startup_admission,E41D,B1 49 58,CMPA,$4958,R,8,4958,extended
+temperature_startup_admission,E420,22 0D,BHI,$E42F,,,,relative
+temperature_startup_admission,E422,D6 06,LDAB,$06,R,8,0006,direct
+temperature_startup_admission,E424,F1 49 57,CMPB,$4957,R,8,4957,extended
+temperature_startup_admission,E427,22 06,BHI,$E42F,,,,relative
+temperature_startup_admission,E429,F6 49 59,LDAB,$4959,R,8,4959,extended
+temperature_startup_admission,E42C,F7 02 7D,STAB,$027D,W,8,027D,extended
+temperature_startup_admission,E42F,B7 02 C8,STAA,$02C8,W,8,02C8,extended
+temperature_startup_admission,E432,20 08,BRA,$E43C,,,,relative
+temperature_startup_admission,E434,7A 02 CA,DEC,$02CA,RW,8,02CA,extended
+temperature_startup_admission,E437,20 03,BRA,$E43C,,,,relative
+temperature_startup_admission,E439,7A 02 70,DEC,$0270,RW,8,0270,extended
+temperature_startup_admission,E43C,B6 02 CC,LDAA,$02CC,R,8,02CC,extended
+temperature_startup_admission,E43F,27 0B,BEQ,$E44C,,,,relative
+temperature_startup_admission,E441,96 02,LDAA,$02,R,8,0002,direct
+temperature_startup_admission,E443,84 F0,ANDA,#$F0,,,,immediate
+temperature_startup_admission,E445,26 30,BNE,$E477,,,,relative
+temperature_startup_admission,E447,7A 02 CC,DEC,$02CC,RW,8,02CC,extended
+temperature_startup_admission,E44A,20 2B,BRA,$E477,,,,relative
+temperature_startup_admission,E44C,B6 02 CB,LDAA,$02CB,R,8,02CB,extended
+temperature_startup_admission,E44F,27 26,BEQ,$E477,,,,relative
+temperature_startup_admission,E451,B6 02 00,LDAA,$0200,R,8,0200,extended
+temperature_startup_admission,E454,27 05,BEQ,$E45B,,,,relative
+temperature_startup_admission,E456,7A 02 00,DEC,$0200,RW,8,0200,extended
+temperature_startup_admission,E459,20 1C,BRA,$E477,,,,relative
+temperature_startup_admission,E45B,B6 02 32,LDAA,$0232,R,8,0232,extended
+temperature_startup_admission,E45E,81 40,CMPA,#$40,,,,immediate
+temperature_startup_admission,E460,23 02,BLS,$E464,,,,relative
+temperature_startup_admission,E462,86 40,LDAA,#$40,,,,immediate
+temperature_startup_admission,E464,CE 44 D0,LDX,#$44D0,,,,immediate
+temperature_startup_admission,E467,BD F4 C1,JSR,$F4C1,,,,extended
+temperature_startup_admission,E46A,B7 02 00,STAA,$0200,W,8,0200,extended
+temperature_startup_admission,E46D,B6 02 CB,LDAA,$02CB,R,8,02CB,extended
+temperature_startup_admission,E470,F6 01 FF,LDAB,$01FF,R,8,01FF,extended
+temperature_startup_admission,E473,3D,MUL,,,,,inherent
+temperature_startup_admission,E474,B7 02 CB,STAA,$02CB,W,8,02CB,extended
+temperature_startup_admission,E477,13 4F 10 15,BRCLR,"$4F,#$10,$E490",R,8,004F,direct
+temperature_startup_admission,E47B,13 19 0C 02,BRCLR,"$19,#$0C,$E481",R,8,0019,direct
+temperature_startup_admission,E47F,20 0C,BRA,$E48D,,,,relative
+temperature_startup_admission,E481,12 72 40 08,BRSET,"$72,#$40,$E48D",R,8,0072,direct
+temperature_startup_admission,E485,13 18 30 0A,BRCLR,"$18,#$30,$E493",R,8,0018,direct
+temperature_startup_admission,E489,13 50 80 06,BRCLR,"$50,#$80,$E493",R,8,0050,direct
+temperature_startup_admission,E48D,7F 02 41,CLR,$0241,W,8,0241,extended
+temperature_startup_admission,E490,7E E5 16,JMP,$E516,,,,extended
+temperature_startup_admission,E493,13 3B 10 0D,BRCLR,"$3B,#$10,$E4A4",R,8,003B,direct
+temperature_startup_admission,E497,CE 03 91,LDX,#$0391,,,,immediate
+temperature_startup_admission,E49A,1F 00 01 06,BRCLR,"$00,X,#$01,$E4A4",R,8,,indexed_x
+temperature_startup_admission,E49E,1F 01 01 74,BRCLR,"$01,X,#$01,$E516",R,8,,indexed_x
+temperature_startup_admission,E4A2,20 58,BRA,$E4FC,,,,relative
+temperature_startup_admission,E4A4,B6 02 41,LDAA,$0241,R,8,0241,extended
+temperature_startup_admission,E4A7,B1 48 D2,CMPA,$48D2,R,8,48D2,extended
+temperature_startup_admission,E4AA,24 06,BCC,$E4B2,,,,relative
+temperature_startup_admission,E4AC,4C,INCA,,,,,inherent
+temperature_startup_admission,E4AD,B7 02 41,STAA,$0241,W,8,0241,extended
+temperature_startup_admission,E4B0,20 03,BRA,$E4B5,,,,relative
+temperature_startup_admission,E4B2,15 04 01,BCLR,"$04,#$01",RW,8,0004,direct
+temperature_startup_admission,E4B5,13 04 01 5D,BRCLR,"$04,#$01,$E516",R,8,0004,direct
+temperature_startup_admission,E4B9,12 50 10 2D,BRSET,"$50,#$10,$E4EA",R,8,0050,direct
+temperature_startup_admission,E4BD,12 04 02 29,BRSET,"$04,#$02,$E4EA",R,8,0004,direct
+temperature_startup_admission,E4C1,DC FD,LDD,$FD,R,16,00FD,direct
+temperature_startup_admission,E4C3,04,LSRD,,,,,inherent
+temperature_startup_admission,E4C4,B6 02 82,LDAA,$0282,R,8,0282,extended
+temperature_startup_admission,E4C7,B1 48 CC,CMPA,$48CC,R,8,48CC,extended
+temperature_startup_admission,E4CA,23 07,BLS,$E4D3,,,,relative
+temperature_startup_admission,E4CC,F1 48 CF,CMPB,$48CF,R,8,48CF,extended
+temperature_startup_admission,E4CF,25 3A,BCS,$E50B,,,,relative
+temperature_startup_admission,E4D1,20 11,BRA,$E4E4,,,,relative
+temperature_startup_admission,E4D3,B1 48 CB,CMPA,$48CB,R,8,48CB,extended
+temperature_startup_admission,E4D6,22 07,BHI,$E4DF,,,,relative
+temperature_startup_admission,E4D8,F1 48 CE,CMPB,$48CE,R,8,48CE,extended
+temperature_startup_admission,E4DB,24 07,BCC,$E4E4,,,,relative
+temperature_startup_admission,E4DD,20 2C,BRA,$E50B,,,,relative
+temperature_startup_admission,E4DF,F1 48 CD,CMPB,$48CD,R,8,48CD,extended
+temperature_startup_admission,E4E2,25 27,BCS,$E50B,,,,relative
+temperature_startup_admission,E4E4,14 04 02,BSET,"$04,#$02",RW,8,0004,direct
+temperature_startup_admission,E4E7,15 52 80,BCLR,"$52,#$80",RW,8,0052,direct
+temperature_startup_admission,E4EA,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E4EC,B1 48 D0,CMPA,$48D0,R,8,48D0,extended
+temperature_startup_admission,E4EF,23 28,BLS,$E519,,,,relative
+temperature_startup_admission,E4F1,13 86 40 07,BRCLR,"$86,#$40,$E4FC",R,8,0086,direct
+temperature_startup_admission,E4F5,B6 08 01,LDAA,$0801,R,8,0801,extended
+temperature_startup_admission,E4F8,84 03,ANDA,#$03,,,,immediate
+temperature_startup_admission,E4FA,26 1D,BNE,$E519,,,,relative
+temperature_startup_admission,E4FC,14 46 80,BSET,"$46,#$80",RW,8,0046,direct
+temperature_startup_admission,E4FF,14 3E A0,BSET,"$3E,#$A0",RW,8,003E,direct
+temperature_startup_admission,E502,13 50 02 18,BRCLR,"$50,#$02,$E51E",R,8,0050,direct
+temperature_startup_admission,E506,15 3E 82,BCLR,"$3E,#$82",RW,8,003E,direct
+temperature_startup_admission,E509,20 56,BRA,$E561,,,,relative
+temperature_startup_admission,E50B,14 52 80,BSET,"$52,#$80",RW,8,0052,direct
+temperature_startup_admission,E50E,B6 02 4A,LDAA,$024A,R,8,024A,extended
+temperature_startup_admission,E511,B1 48 E9,CMPA,$48E9,R,8,48E9,extended
+temperature_startup_admission,E514,24 03,BCC,$E519,,,,relative
+temperature_startup_admission,E516,15 52 80,BCLR,"$52,#$80",RW,8,0052,direct
+temperature_startup_admission,E519,15 3E A2,BCLR,"$3E,#$A2",RW,8,003E,direct
+temperature_startup_admission,E51C,20 43,BRA,$E561,,,,relative
+temperature_startup_admission,E51E,96 6F,LDAA,$6F,R,8,006F,direct
+temperature_startup_admission,E520,84 48,ANDA,#$48,,,,immediate
+temperature_startup_admission,E522,26 3A,BNE,$E55E,,,,relative
+temperature_startup_admission,E524,96 06,LDAA,$06,R,8,0006,direct
+temperature_startup_admission,E526,B1 48 D6,CMPA,$48D6,R,8,48D6,extended
+temperature_startup_admission,E529,23 33,BLS,$E55E,,,,relative
+temperature_startup_admission,E52B,B6 02 4A,LDAA,$024A,R,8,024A,extended
+temperature_startup_admission,E52E,B1 48 E7,CMPA,$48E7,R,8,48E7,extended
+temperature_startup_admission,E531,26 2B,BNE,$E55E,,,,relative
+temperature_startup_admission,E533,B6 01 C9,LDAA,$01C9,R,8,01C9,extended
+temperature_startup_admission,E536,B1 48 D3,CMPA,$48D3,R,8,48D3,extended
+temperature_startup_admission,E539,22 23,BHI,$E55E,,,,relative
+temperature_startup_admission,E53B,B6 01 CF,LDAA,$01CF,R,8,01CF,extended
+temperature_startup_admission,E53E,F6 40 0E,LDAB,$400E,R,8,400E,extended
+temperature_startup_admission,E541,C5 01,BITB,#$01,,,,immediate
+temperature_startup_admission,E543,26 03,BNE,$E548,,,,relative
+temperature_startup_admission,E545,B6 01 C6,LDAA,$01C6,R,8,01C6,extended
+temperature_startup_admission,E548,B1 48 D5,CMPA,$48D5,R,8,48D5,extended
+temperature_startup_admission,E54B,22 11,BHI,$E55E,,,,relative
+temperature_startup_admission,E54D,B1 48 D4,CMPA,$48D4,R,8,48D4,extended
+temperature_startup_admission,E550,25 0C,BCS,$E55E,,,,relative
+temperature_startup_admission,E552,96 62,LDAA,$62,R,8,0062,direct
+temperature_startup_admission,E554,B1 48 D7,CMPA,$48D7,R,8,48D7,extended
+temperature_startup_admission,E557,24 05,BCC,$E55E,,,,relative
+temperature_startup_admission,E559,14 3E 02,BSET,"$3E,#$02",RW,8,003E,direct
+temperature_startup_admission,E55C,20 03,BRA,$E561,,,,relative
+temperature_startup_admission,E55E,15 3E 02,BCLR,"$3E,#$02",RW,8,003E,direct
+temperature_startup_admission,E561,39,RTS,,,,,inherent
+shared_math,F436,3C,PSHX,,,,,inherent
+shared_math,F437,30,TSX,,,,,inherent
+shared_math,F438,A3 00,SUBD,"$00,X",R,16,,indexed_x
+shared_math,F43A,37,PSHB,,,,,inherent
+shared_math,F43B,18 E6 00,LDAB,"$00,Y",R,8,,indexed_y
+shared_math,F43E,25 03,BCS,$F443,,,,relative
+shared_math,F440,3D,MUL,,,,,inherent
+shared_math,F441,20 04,BRA,$F447,,,,relative
+shared_math,F443,3D,MUL,,,,,inherent
+shared_math,F444,18 A0 00,SUBA,"$00,Y",R,8,,indexed_y
+shared_math,F447,E3 00,ADDD,"$00,X",R,16,,indexed_x
+shared_math,F449,ED 00,STD,"$00,X",W,16,,indexed_x
+shared_math,F44B,32,PULA,,,,,inherent
+shared_math,F44C,18 E6 00,LDAB,"$00,Y",R,8,,indexed_y
+shared_math,F44F,3D,MUL,,,,,inherent
+shared_math,F450,A9 01,ADCA,"$01,X",R,8,,indexed_x
+shared_math,F452,16,TAB,,,,,inherent
+shared_math,F453,A6 00,LDAA,"$00,X",R,8,,indexed_x
+shared_math,F455,89 00,ADCA,#$00,,,,immediate
+shared_math,F457,38,PULX,,,,,inherent
+shared_math,F458,39,RTS,,,,,inherent
+shared_math,F459,37,PSHB,,,,,inherent
+shared_math,F45A,3C,PSHX,,,,,inherent
+shared_math,F45B,30,TSX,,,,,inherent
+shared_math,F45C,A0 00,SUBA,"$00,X",R,8,,indexed_x
+shared_math,F45E,25 03,BCS,$F463,,,,relative
+shared_math,F460,3D,MUL,,,,,inherent
+shared_math,F461,20 03,BRA,$F466,,,,relative
+shared_math,F463,3D,MUL,,,,,inherent
+shared_math,F464,A0 02,SUBA,"$02,X",R,8,,indexed_x
+shared_math,F466,36,PSHA,,,,,inherent
+shared_math,F467,37,PSHB,,,,,inherent
+shared_math,F468,EC 01,LDD,"$01,X",R,16,,indexed_x
+shared_math,F46A,50,NEGB,,,,,inherent
+shared_math,F46B,27 03,BEQ,$F470,,,,relative
+shared_math,F46D,3D,MUL,,,,,inherent
+shared_math,F46E,89 00,ADCA,#$00,,,,immediate
+shared_math,F470,33,PULB,,,,,inherent
+shared_math,F471,1B,ABA,,,,,inherent
+shared_math,F472,16,TAB,,,,,inherent
+shared_math,F473,32,PULA,,,,,inherent
+shared_math,F474,A9 00,ADCA,"$00,X",R,8,,indexed_x
+shared_math,F476,38,PULX,,,,,inherent
+shared_math,F477,31,INS,,,,,inherent
+shared_math,F478,39,RTS,,,,,inherent
+shared_math,F479,A3 00,SUBD,"$00,X",R,16,,indexed_x
+shared_math,F47B,37,PSHB,,,,,inherent
+shared_math,F47C,18 E6 00,LDAB,"$00,Y",R,8,,indexed_y
+shared_math,F47F,25 03,BCS,$F484,,,,relative
+shared_math,F481,3D,MUL,,,,,inherent
+shared_math,F482,20 04,BRA,$F488,,,,relative
+shared_math,F484,3D,MUL,,,,,inherent
+shared_math,F485,18 A0 00,SUBA,"$00,Y",R,8,,indexed_y
+shared_math,F488,E3 00,ADDD,"$00,X",R,16,,indexed_x
+shared_math,F48A,ED 00,STD,"$00,X",W,16,,indexed_x
+shared_math,F48C,32,PULA,,,,,inherent
+shared_math,F48D,18 E6 00,LDAB,"$00,Y",R,8,,indexed_y
+shared_math,F490,3D,MUL,,,,,inherent
+shared_math,F491,A9 01,ADCA,"$01,X",R,8,,indexed_x
+shared_math,F493,16,TAB,,,,,inherent
+shared_math,F494,A6 00,LDAA,"$00,X",R,8,,indexed_x
+shared_math,F496,89 00,ADCA,#$00,,,,immediate
+shared_math,F498,39,RTS,,,,,inherent
+shared_math,F499,5F,CLRB,,,,,inherent
+shared_math,F49A,A1 00,CMPA,"$00,X",R,8,,indexed_x
+shared_math,F49C,23 02,BLS,$F4A0,,,,relative
+shared_math,F49E,A6 00,LDAA,"$00,X",R,8,,indexed_x
+shared_math,F4A0,08,INX,,,,,inherent
+shared_math,F4A1,8D 1A,BSR,$F4BD,,,,relative
+shared_math,F4A3,39,RTS,,,,,inherent
+shared_math,F4A4,3C,PSHX,,,,,inherent
+shared_math,F4A5,37,PSHB,,,,,inherent
+shared_math,F4A6,A0 00,SUBA,"$00,X",R,8,,indexed_x
+shared_math,F4A8,24 01,BCC,$F4AB,,,,relative
+shared_math,F4AA,4F,CLRA,,,,,inherent
+shared_math,F4AB,A1 01,CMPA,"$01,X",R,8,,indexed_x
+shared_math,F4AD,23 02,BLS,$F4B1,,,,relative
+shared_math,F4AF,A6 01,LDAA,"$01,X",R,8,,indexed_x
+shared_math,F4B1,C6 02,LDAB,#$02,,,,immediate
+shared_math,F4B3,3A,ABX,,,,,inherent
+shared_math,F4B4,20 02,BRA,$F4B8,,,,relative
+shared_math,F4B6,3C,PSHX,,,,,inherent
+shared_math,F4B7,37,PSHB,,,,,inherent
+shared_math,F4B8,E6 00,LDAB,"$00,X",R,8,,indexed_x
+shared_math,F4BA,08,INX,,,,,inherent
+shared_math,F4BB,20 08,BRA,$F4C5,,,,relative
+shared_math,F4BD,10,SBA,,,,,inherent
+shared_math,F4BE,24 01,BCC,$F4C1,,,,relative
+shared_math,F4C0,4F,CLRA,,,,,inherent
+shared_math,F4C1,3C,PSHX,,,,,inherent
+shared_math,F4C2,37,PSHB,,,,,inherent
+shared_math,F4C3,C6 10,LDAB,#$10,,,,immediate
+shared_math,F4C5,3D,MUL,,,,,inherent
+shared_math,F4C6,37,PSHB,,,,,inherent
+shared_math,F4C7,16,TAB,,,,,inherent
+shared_math,F4C8,3A,ABX,,,,,inherent
+shared_math,F4C9,EC 00,LDD,"$00,X",R,16,,indexed_x
+shared_math,F4CB,10,SBA,,,,,inherent
+shared_math,F4CC,33,PULB,,,,,inherent
+shared_math,F4CD,24 06,BCC,$F4D5,,,,relative
+shared_math,F4CF,40,NEGA,,,,,inherent
+shared_math,F4D0,3D,MUL,,,,,inherent
+shared_math,F4D1,A9 00,ADCA,"$00,X",R,8,,indexed_x
+shared_math,F4D3,20 06,BRA,$F4DB,,,,relative
+shared_math,F4D5,3D,MUL,,,,,inherent
+shared_math,F4D6,89 00,ADCA,#$00,,,,immediate
+shared_math,F4D8,40,NEGA,,,,,inherent
+shared_math,F4D9,AB 00,ADDA,"$00,X",R,8,,indexed_x
+shared_math,F4DB,33,PULB,,,,,inherent
+shared_math,F4DC,38,PULX,,,,,inherent
+shared_math,F4DD,39,RTS,,,,,inherent
+shared_math,F4DE,18 3C,PSHY,,,,,inherent
+shared_math,F4E0,37,PSHB,,,,,inherent
+shared_math,F4E1,3C,PSHX,,,,,inherent
+shared_math,F4E2,A0 00,SUBA,"$00,X",R,8,,indexed_x
+shared_math,F4E4,24 01,BCC,$F4E7,,,,relative
+shared_math,F4E6,4F,CLRA,,,,,inherent
+shared_math,F4E7,E0 01,SUBB,"$01,X",R,8,,indexed_x
+shared_math,F4E9,24 01,BCC,$F4EC,,,,relative
+shared_math,F4EB,5F,CLRB,,,,,inherent
+shared_math,F4EC,3C,PSHX,,,,,inherent
+shared_math,F4ED,18 38,PULY,,,,,inherent
+shared_math,F4EF,36,PSHA,,,,,inherent
+shared_math,F4F0,86 10,LDAA,#$10,,,,immediate
+shared_math,F4F2,3D,MUL,,,,,inherent
+shared_math,F4F3,37,PSHB,,,,,inherent
+shared_math,F4F4,16,TAB,,,,,inherent
+shared_math,F4F5,3A,ABX,,,,,inherent
+shared_math,F4F6,32,PULA,,,,,inherent
+shared_math,F4F7,33,PULB,,,,,inherent
+shared_math,F4F8,36,PSHA,,,,,inherent
+shared_math,F4F9,86 10,LDAA,#$10,,,,immediate
+shared_math,F4FB,3D,MUL,,,,,inherent
+shared_math,F4FC,37,PSHB,,,,,inherent
+shared_math,F4FD,18 E6 02,LDAB,"$02,Y",R,8,,indexed_y
+shared_math,F500,3D,MUL,,,,,inherent
+shared_math,F501,3A,ABX,,,,,inherent
+shared_math,F502,3C,PSHX,,,,,inherent
+shared_math,F503,18 E6 02,LDAB,"$02,Y",R,8,,indexed_y
+shared_math,F506,3A,ABX,,,,,inherent
+shared_math,F507,18 30,TSY,,,,,inherent
+shared_math,F509,EC 03,LDD,"$03,X",R,16,,indexed_x
+shared_math,F50B,10,SBA,,,,,inherent
+shared_math,F50C,18 E6 03,LDAB,"$03,Y",R,8,,indexed_y
+shared_math,F50F,24 06,BCC,$F517,,,,relative
+shared_math,F511,40,NEGA,,,,,inherent
+shared_math,F512,3D,MUL,,,,,inherent
+shared_math,F513,A9 03,ADCA,"$03,X",R,8,,indexed_x
+shared_math,F515,20 06,BRA,$F51D,,,,relative
+shared_math,F517,3D,MUL,,,,,inherent
+shared_math,F518,89 00,ADCA,#$00,,,,immediate
+shared_math,F51A,40,NEGA,,,,,inherent
+shared_math,F51B,AB 03,ADDA,"$03,X",R,8,,indexed_x
+shared_math,F51D,38,PULX,,,,,inherent
+shared_math,F51E,36,PSHA,,,,,inherent
+shared_math,F51F,EC 03,LDD,"$03,X",R,16,,indexed_x
+shared_math,F521,10,SBA,,,,,inherent
+shared_math,F522,18 E6 03,LDAB,"$03,Y",R,8,,indexed_y
+shared_math,F525,24 06,BCC,$F52D,,,,relative
+shared_math,F527,40,NEGA,,,,,inherent
+shared_math,F528,3D,MUL,,,,,inherent
+shared_math,F529,A9 03,ADCA,"$03,X",R,8,,indexed_x
+shared_math,F52B,20 06,BRA,$F533,,,,relative
+shared_math,F52D,3D,MUL,,,,,inherent
+shared_math,F52E,89 00,ADCA,#$00,,,,immediate
+shared_math,F530,40,NEGA,,,,,inherent
+shared_math,F531,AB 03,ADDA,"$03,X",R,8,,indexed_x
+shared_math,F533,33,PULB,,,,,inherent
+shared_math,F534,36,PSHA,,,,,inherent
+shared_math,F535,10,SBA,,,,,inherent
+shared_math,F536,18 E6 02,LDAB,"$02,Y",R,8,,indexed_y
+shared_math,F539,24 07,BCC,$F542,,,,relative
+shared_math,F53B,40,NEGA,,,,,inherent
+shared_math,F53C,3D,MUL,,,,,inherent
+shared_math,F53D,18 A9 01,ADCA,"$01,Y",R,8,,indexed_y
+shared_math,F540,20 07,BRA,$F549,,,,relative
+shared_math,F542,3D,MUL,,,,,inherent
+shared_math,F543,89 00,ADCA,#$00,,,,immediate
+shared_math,F545,40,NEGA,,,,,inherent
+shared_math,F546,18 AB 01,ADDA,"$01,Y",R,8,,indexed_y
+shared_math,F549,31,INS,,,,,inherent
+shared_math,F54A,38,PULX,,,,,inherent
+shared_math,F54B,38,PULX,,,,,inherent
+shared_math,F54C,33,PULB,,,,,inherent
+shared_math,F54D,18 38,PULY,,,,,inherent
+shared_math,F54F,39,RTS,,,,,inherent
+shared_math,F550,36,PSHA,,,,,inherent
+shared_math,F551,E6 01,LDAB,"$01,X",R,8,,indexed_x
+shared_math,F553,3D,MUL,,,,,inherent
+shared_math,F554,89 00,ADCA,#$00,,,,immediate
+shared_math,F556,33,PULB,,,,,inherent
+shared_math,F557,36,PSHA,,,,,inherent
+shared_math,F558,A6 00,LDAA,"$00,X",R,8,,indexed_x
+shared_math,F55A,3D,MUL,,,,,inherent
+shared_math,F55B,3C,PSHX,,,,,inherent
+shared_math,F55C,30,TSX,,,,,inherent
+shared_math,F55D,EB 02,ADDB,"$02,X",R,8,,indexed_x
+shared_math,F55F,89 00,ADCA,#$00,,,,immediate
+shared_math,F561,38,PULX,,,,,inherent
+shared_math,F562,31,INS,,,,,inherent
+shared_math,F563,39,RTS,,,,,inherent
+BLM_reset,F280,CE 02 B3,LDX,#$02B3,,,,immediate
+BLM_reset,F283,86 80,LDAA,#$80,,,,immediate
+BLM_reset,F285,A7 00,STAA,"$00,X",W,8,,indexed_x
+BLM_reset,F287,08,INX,,,,,inherent
+BLM_reset,F288,8C 02 C7,CPX,#$02C7,,,,immediate
+BLM_reset,F28B,23 F8,BLS,$F285,,,,relative
+BLM_reset,F28D,39,RTS,,,,,inherent
+BLM_reset,F28E,B6 48 FD,LDAA,$48FD,R,8,48FD,extended
+BLM_reset,F291,F6 48 FE,LDAB,$48FE,R,8,48FE,extended
+BLM_reset,F294,CE 02 B3,LDX,#$02B3,,,,immediate
+BLM_reset,F297,A1 00,CMPA,"$00,X",R,8,,indexed_x
+BLM_reset,F299,24 02,BCC,$F29D,,,,relative
+BLM_reset,F29B,A7 00,STAA,"$00,X",W,8,,indexed_x
+BLM_reset,F29D,E1 00,CMPB,"$00,X",R,8,,indexed_x
+BLM_reset,F29F,23 02,BLS,$F2A3,,,,relative
+BLM_reset,F2A1,E7 00,STAB,"$00,X",W,8,,indexed_x
+BLM_reset,F2A3,08,INX,,,,,inherent
+BLM_reset,F2A4,8C 02 C7,CPX,#$02C7,,,,immediate
+BLM_reset,F2A7,23 EE,BLS,$F297,,,,relative
+BLM_reset,F2A9,39,RTS,,,,,inherent
+boot_engine_seeds,742B,B6 48 E7,LDAA,$48E7,R,8,48E7,extended
+boot_engine_seeds,742E,B7 02 4A,STAA,$024A,W,8,024A,extended
+boot_engine_seeds,7431,86 0E,LDAA,#$0E,,,,immediate
+boot_engine_seeds,7433,97 02,STAA,$02,W,8,0002,direct
+boot_engine_seeds,7435,86 80,LDAA,#$80,,,,immediate
+boot_engine_seeds,7437,B7 02 48,STAA,$0248,W,8,0248,extended
+boot_engine_seeds,743A,86 14,LDAA,#$14,,,,immediate
+boot_engine_seeds,743C,97 49,STAA,$49,W,8,0049,direct
+boot_engine_seeds,743E,BD F2 8E,JSR,$F28E,,,,extended
+source_RPM_writer_exclusion_reader,B58F,D6 9F,LDAB,$9F,R,8,009F,direct
+source_RPM_writer_exclusion_reader,B591,C4 06,ANDB,#$06,,,,immediate
+source_RPM_writer_exclusion_reader,B593,CE B9 61,LDX,#$B961,,,,immediate
+source_RPM_writer_exclusion_reader,B596,4F,CLRA,,,,,inherent
+source_RPM_writer_exclusion_reader,B597,12 A2 20 02,BRSET,"$A2,#$20,$B59D",R,8,00A2,direct
+source_RPM_writer_exclusion_reader,B59B,96 D7,LDAA,$D7,R,8,00D7,direct
+source_RPM_writer_exclusion_reader,B59D,48,ASLA,,,,,inherent
+source_RPM_writer_exclusion_reader,B59E,24 03,BCC,$B5A3,,,,relative
+source_RPM_writer_exclusion_reader,B5A0,CE B9 67,LDX,#$B967,,,,immediate
+source_RPM_writer_exclusion_reader,B5A3,3A,ABX,,,,,inherent
+source_RPM_writer_exclusion_reader,B5A4,EE 00,LDX,"$00,X",R,16,,indexed_x
+source_RPM_writer_exclusion_reader,B5A6,16,TAB,,,,,inherent
+source_RPM_writer_exclusion_reader,B5A7,96 B2,LDAA,$B2,R,8,00B2,direct
+source_RPM_writer_exclusion_reader,B5A9,BD F4 DE,JSR,$F4DE,,,,extended

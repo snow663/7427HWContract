@@ -2,7 +2,7 @@
 
 This documents the factory running-fuel calculation from the normalized inputs at `$7FD8` through `$024E`, every intervening correction/mode branch, synchronous shaping, and the output boundary at `$852C`. It includes the asynchronous helper `$8548-$858A`, the INT/proportional combination `$88E9-$891D`, and the injector-offset producer `$E2FB-$E303`.
 
-The raw integer behavior and ordered RAM/device writes are established for this scope. VE selection, commanded-AFR generation, sensor normalization, the separate crank equation, and the physical injector/ASIC response have their own boundaries below. This is a factory-code contract; replacement firmware and simulator features are outside its completion assessment.
+The raw integer behavior and ordered RAM/device writes are established for this scope. The completed [upstream fuel](FACTORY_UPSTREAM_FUEL_CALCULATIONS.md) and [O2/BLM](FACTORY_CLOSED_LOOP_AND_LEARNING.md) contracts now supply the resident VE, AFR, density/temperature, AE, learning and crank calculations. Physical injector/ASIC response retains its own boundary. This is a factory-code contract; replacement firmware and simulator features are outside its completion assessment.
 
 ## ROM authority and notation
 
@@ -312,4 +312,4 @@ The underlying CPU pull/IDIV flag behavior needed correction to preserve the quo
 - `factory_fuel_dependencies.csv`: state producers, initialization, and scope.
 - `factory_fuel_handoff_vectors.csv`: raw inputs and predicted state/hardware values.
 
-The documentation for this running-fuel integer slice is complete. Its explicit input boundaries remain the upstream sensor/charge-temperature/VE, commanded-AFR, learned-BLM, proportional/integrator-state, transient-AE, and mode-state producers. The separate `$85B2` cranking equation, later routines called after `$852C`, full flag lifetimes across other tasks, interrupt interleavings, physical unit normalization, and delivered-fuel behavior are outside this slice. None is silently counted as completed whole-factory documentation.
+The documentation for this running-fuel integer slice is complete. Its upstream inputs remain the local boundary of this derivation, but their resident coordinate/charge/VE, AFR/PE/startup, AE and O2/BLM producers are now documented in the companion contracts, together with `$85B2` cranking and its local delivery. [FACTORY_ENGINE_CALCULATION_CLOSURE.md](FACTORY_ENGINE_CALCULATION_CLOSURE.md) supplies the combined checklist, cadence, initialization, and explicit raw/cross-controller interfaces. Full flag ownership across other controllers, opaque extensions, interrupt interleavings, physical unit normalization and delivered-fuel behavior retain their boundaries; this is not a whole-factory completion claim.
