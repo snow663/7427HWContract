@@ -70,6 +70,20 @@ class CPUContractTests(unittest.TestCase):
         finally:
             path.unlink(missing_ok=True)
 
+    def test_mul_carry_is_product_bit7_and_other_flags_are_unchanged(self) -> None:
+        image = bytearray(synthetic_hac_image())
+        image[0x7200] = 0x3D
+        sim, path = self.make_sim(bytes(image))
+        try:
+            for a, b in [(1, 0x80), (0x80, 0x80), (0xFF, 0xFF), (0xFF, 0x80), (0, 0xFF)]:
+                sim.cpu.s.pc, sim.cpu.s.a, sim.cpu.s.b, sim.cpu.s.ccr = 0x7200, a, b, 0xA4
+                sim.step_instruction()
+                product = a * b
+                self.assertEqual(sim.cpu.s.d, product)
+                self.assertEqual(sim.cpu.s.ccr, 0xA4 | (1 if product & 0x80 else 0))
+        finally:
+            path.unlink(missing_ok=True)
+
 
 if __name__ == "__main__":
     unittest.main()

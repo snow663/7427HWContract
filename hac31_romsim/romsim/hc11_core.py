@@ -1153,7 +1153,8 @@ class HC11CPU:
         if prefix is None and opcode == 0x3D:  # MUL
             product = (self.s.a & 0xFF) * (self.s.b & 0xFF)
             self.s.d = product
-            self._set_flag(CCR_C, bool(product & 0x8000))
+            # HC11 MUL copies result bit 7 to C, enabling MUL; ADCA #0 rounding.
+            self._set_flag(CCR_C, bool(product & 0x0080))
             self.mem.tick(10)
             self._trace(start_pc, opcode, prefix, "MUL")
             return 10

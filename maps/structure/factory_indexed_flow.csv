@@ -1,0 +1,918 @@
+entry,pc,bytes_hex,mnemonic,operand,access,width_bits,effective_addresses,classification,target_bytes,in_previous_262_rows,proof_limit
+7100,7108,A7 3D,STAA,"$3D,X",W,8,$103D,exact_address,103D,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,710F,A7 39,STAA,"$39,X",W,8,$3039,exact_address,3039,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7113,A7 24,STAA,"$24,X",W,8,$3024,exact_address,3024,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7115,1D 38 20,BCLR,"$38,X,#$20",RW,8,$3038,exact_address,3038,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,711A,A7 35,STAA,"$35,X",W,8,$3035,exact_address,3035,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7120,A7 00,STAA,"$00,X",W,8,$3000,exact_address,3000,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7122,A7 08,STAA,"$08,X",W,8,$3008,exact_address,3008,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7132,18 1F 00 01 03,BRCLR,"$00,Y,#$01,$713A",R,8,$400B,exact_address,400B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7150,EC 2E,LDD,"$2E,X",R,16,$302E,exact_address,302E;302F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7154,E7 2D,STAB,"$2D,X",W,8,$302D,exact_address,302D,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,715B,ED 00,STD,"$00,X",W,16,$3FC0;$3FC2;$3FC4;$3FC6;$3FC8;$3FCA;$3FCC;$3FCE;$3FD0;$3FD2;$3FD4;$3FD6;$3FD8;$3FDA;$3FDC;$3FDE;$3FE0;$3FE2;$3FE4;$3FE6;$3FE8;$3FEA;$3FEC;$3FEE;$3FF0;$3FF2;$3FF4;$3FF6;$3FF8,bounded_address_set,3FC0;3FC1;3FC2;3FC3;3FC4;3FC5;3FC6;3FC7;3FC8;3FC9;3FCA;3FCB;3FCC;3FCD;3FCE;3FCF;3FD0;3FD1;3FD2;3FD3;3FD4;3FD5;3FD6;3FD7;3FD8;3FD9;3FDA;3FDB;3FDC;3FDD;3FDE;3FDF;3FE0;3FE1;3FE2;3FE3;3FE4;3FE5;3FE6;3FE7;3FE8;3FE9;3FEA;3FEB;3FEC;3FED;3FEE;3FEF;3FF0;3FF1;3FF2;3FF3;3FF4;3FF5;3FF6;3FF7;3FF8;3FF9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7182,6F 00,CLR,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,724A,AB 00,ADDA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7263,A7 00,STAA,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7371,1F 00 80 03,BRCLR,"$00,X,#$80,$7378",R,8,$400F,exact_address,400F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,737D,A1 C7,CMPA,"$C7,X",R,8,$5BC7,exact_address,5BC7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7385,A1 C8,CMPA,"$C8,X",R,8,$5BC8,exact_address,5BC8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,738D,A1 C9,CMPA,"$C9,X",R,8,$5BC9,exact_address,5BC9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7484,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7486,ED 00,STD,"$00,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7488,EC 02,LDD,"$02,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,748A,ED 02,STD,"$02,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,748C,EC 04,LDD,"$04,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,748E,ED 04,STD,"$04,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7490,EC 06,LDD,"$06,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7492,ED 06,STD,"$06,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7494,EC 08,LDD,"$08,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7496,ED 08,STD,"$08,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,7498,EC 0A,LDD,"$0A,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,749A,ED 0A,STD,"$0A,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,749C,EC 0C,LDD,"$0C,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,749E,ED 0C,STD,"$0C,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,74A0,EC 0E,LDD,"$0E,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,74A2,ED 0E,STD,"$0E,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7100,74B7,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,7484,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,7486,ED 00,STD,"$00,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,7488,EC 02,LDD,"$02,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,748A,ED 02,STD,"$02,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,748C,EC 04,LDD,"$04,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,748E,ED 04,STD,"$04,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,7490,EC 06,LDD,"$06,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,7492,ED 06,STD,"$06,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,7494,EC 08,LDD,"$08,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,7496,ED 08,STD,"$08,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,7498,EC 0A,LDD,"$0A,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,749A,ED 0A,STD,"$0A,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,749C,EC 0C,LDD,"$0C,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,749E,ED 0C,STD,"$0C,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,74A0,EC 0E,LDD,"$0E,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,74A2,ED 0E,STD,"$0E,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+746C,74B7,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7827,784C,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,7A4D,EE 00,LDX,"$00,X",R,16,$7A85;$7A87;$7A89;$7A8B;$7A8D;$7A8F;$7A91;$7A93;$7A95;$7A97;$7A99;$7A9B;$7A9D;$7A9F;$7AA1;$7AA3,bounded_address_set,7A85;7A86;7A87;7A88;7A89;7A8A;7A8B;7A8C;7A8D;7A8E;7A8F;7A90;7A91;7A92;7A93;7A94;7A95;7A96;7A97;7A98;7A99;7A9A;7A9B;7A9C;7A9D;7A9E;7A9F;7AA0;7AA1;7AA2;7AA3;7AA4,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,7A72,1A A3 00,CPD,"$00,X",R,16,$02D3;$02D5;$02D7;$02D9;$02DB;$02DD;$02DF;$02E1;$02E3;$02E5;$02E7;$02E9;$02EB;$02ED;$02EF;$02F1,bounded_address_set,02D3;02D4;02D5;02D6;02D7;02D8;02D9;02DA;02DB;02DC;02DD;02DE;02DF;02E0;02E1;02E2;02E3;02E4;02E5;02E6;02E7;02E8;02E9;02EA;02EB;02EC;02ED;02EE;02EF;02F0;02F1;02F2,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,7A77,ED 00,STD,"$00,X",W,16,$02D3;$02D5;$02D7;$02D9;$02DB;$02DD;$02DF;$02E1;$02E3;$02E5;$02E7;$02E9;$02EB;$02ED;$02EF;$02F1,bounded_address_set,02D3;02D4;02D5;02D6;02D7;02D8;02D9;02DA;02DB;02DC;02DD;02DE;02DF;02E0;02E1;02E2;02E3;02E4;02E5;02E6;02E7;02E8;02E9;02EA;02EB;02EC;02ED;02EE;02EF;02F0;02F1;02F2,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,FAB9,18 A6 00,LDAA,"$00,Y",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,FABC,A7 00,STAA,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,FAD4,18 1F 00 80 60,BRCLR,"$00,Y,#$80,$FB39",R,8,$3064,exact_address,3064,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,FB4F,AA 00,ORAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,FB59,AA 01,ORAA,"$01,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+793D,FB67,EA 02,ORAB,"$02,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7B03,7B0C,1E 00 40 03,BRSET,"$00,X,#$40,$7B13",R,8,$400F,exact_address,400F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7B6D,7B79,1F 30 80 FC,BRCLR,"$30,X,#$80,$7B79",R,8,$3030,exact_address,3030,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7C13,7C63,A3 00,SUBD,"$00,X",R,16,entry_SP-1,stack_relative,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,7E89,1E 00 04 0D,BRSET,"$00,X,#$04,$7E9A",R,8,$400C,exact_address,400C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,805F,1E 00 80 10,BRSET,"$00,X,#$80,$8073",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,809F,1F 00 01 04,BRCLR,"$00,X,#$01,$80A7",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,80C1,E1 00,CMPB,"$00,X",R,8,$4967;$4968;$4969;$496A,bounded_address_set,4967;4968;4969;496A,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,80C8,18 E1 00,CMPB,"$00,Y",R,8,$496B;$496C,bounded_address_set,496B;496C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,826C,1F 00 80 04,BRCLR,"$00,X,#$80,$8274",R,8,$400B,exact_address,400B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,83C0,1F 00 01 37,BRCLR,"$00,X,#$01,$83FB",R,8,$400B,exact_address,400B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,83FE,1F 00 04 04,BRCLR,"$00,X,#$04,$8406",R,8,$400B,exact_address,400B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,8412,EC 04,LDD,"$04,X",R,16,$492E;$4930,bounded_address_set,492E;492F;4930;4931,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,8414,EE 00,LDX,"$00,X",R,16,$492A;$492C,bounded_address_set,492A;492B;492C;492D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+7D4B,850E,1E 00 01 05,BRSET,"$00,X,#$01,$8517",R,8,$400B,exact_address,400B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+8548,854B,1F 00 10 1D,BRCLR,"$00,X,#$10,$856C",R,8,$400E,exact_address,400E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,8654,A1 00,CMPA,"$00,X",R,8,$48FF;$4901;$4903;$4905,bounded_address_set,48FF;4901;4903;4905,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,8658,A1 01,CMPA,"$01,X",R,8,$4900;$4902;$4904;$4906,bounded_address_set,4900;4902;4904;4906,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,86A1,A7 00,STAA,"$00,X",W,8,$026C;$026D;$026E,bounded_address_set,026C;026D;026E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,86F9,1F 00 01 09,BRCLR,"$00,X,#$01,$8706",R,8,$0391,exact_address,0391,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,86FD,1F 01 01 02,BRCLR,"$01,X,#$01,$8703",R,8,$0392,exact_address,0392,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,871D,1F 00 20 09,BRCLR,"$00,X,#$20,$872A",R,8,$400C,exact_address,400C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,872D,1E 00 10 04,BRSET,"$00,X,#$10,$8735",R,8,$400C,exact_address,400C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,8731,1F 00 40 04,BRCLR,"$00,X,#$40,$8739",R,8,$400C,exact_address,400C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,87EE,18 A6 01,LDAA,"$01,Y",R,8,$4953,exact_address,4953,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,87F8,18 A6 00,LDAA,"$00,Y",R,8,$4952,exact_address,4952,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,8803,A6 00,LDAA,"$00,X",R,8,$494F;$4950;$4951,bounded_address_set,494F;4950;4951,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,88B8,1F 00 08 04,BRCLR,"$00,X,#$08,$88C0",R,8,$400B,exact_address,400B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+863D,88F3,1F 00 08 0F,BRCLR,"$00,X,#$08,$8906",R,8,$400B,exact_address,400B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,892D,1F 00 01 3C,BRCLR,"$00,X,#$01,$896D",R,8,$400D,exact_address,400D,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,893E,A6 00,LDAA,"$00,X",R,8,$4BBA,exact_address,4BBA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,89C5,1E 00 02 04,BRSET,"$00,X,#$02,$89CD",R,8,$400B,exact_address,400B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8CDC,A6 00,LDAA,"$00,X",R,8,$48ED;$48EE;$48EF;$48F0,bounded_address_set,48ED;48EE;48EF;48F0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8CEB,A6 01,LDAA,"$01,X",R,8,$48EE;$48EF;$48F0;$48F1,bounded_address_set,48EE;48EF;48F0;48F1,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8D05,A6 00,LDAA,"$00,X",R,8,$48F0;$48F1;$48F2;$48F3,bounded_address_set,48F0;48F1;48F2;48F3,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8D13,18 1E 00 01 03,BRSET,"$00,Y,#$01,$8D1B",R,8,$400E,exact_address,400E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8D21,A6 01,LDAA,"$01,X",R,8,$48F1;$48F2;$48F3;$48F4,bounded_address_set,48F1;48F2;48F3;48F4,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8D2E,1E 00 01 03,BRSET,"$00,X,#$01,$8D35",R,8,$400E,exact_address,400E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8D57,1E 00 01 03,BRSET,"$00,X,#$01,$8D5E",R,8,$400E,exact_address,400E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8D7D,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8DA1,1E 00 10 4A,BRSET,"$00,X,#$10,$8DEF",R,8,$400C,exact_address,400C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8E5E,A1 00,CMPA,"$00,X",R,8,$48F7;$48F8,bounded_address_set,48F7;48F8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8E6C,A1 00,CMPA,"$00,X",R,8,$48F7;$48F8,bounded_address_set,48F7;48F8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8E78,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8E83,18 A1 00,CMPA,"$00,Y",R,8,$48F9;$48FA,bounded_address_set,48F9;48FA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8E88,18 A6 00,LDAA,"$00,Y",R,8,$48F9;$48FA,bounded_address_set,48F9;48FA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+891E,8E9A,A7 00,STAA,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+8EB4,8EB7,1F 00 01 08,BRCLR,"$00,X,#$01,$8EC3",R,8,$400F,exact_address,400F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+8EB4,8F87,A6 00,LDAA,"$00,X",R,8,$50DF;$50E0,bounded_address_set,50DF;50E0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9167,918B,1E 00 40 0A,BRSET,"$00,X,#$40,$9199",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9240,9243,1C 00 10,BSET,"$00,X,#$10",RW,8,$004C,exact_address,004C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+93D0,97C8,A3 00,SUBD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+93D0,9858,1F 00 04 24,BRCLR,"$00,X,#$04,$9880",R,8,$4E8F,exact_address,4E8F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+93D0,9878,E3 00,ADDD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+93D0,9891,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+93D0,9897,A9 00,ADCA,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+989C,995F,1F 00 10 45,BRCLR,"$00,X,#$10,$99A8",R,8,$4E8F,exact_address,4E8F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+989C,99BA,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+989C,99BE,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,99CF,EC 03,LDD,"$03,X",R,16,$02A0;$02AA,bounded_address_set,02A0;02A1;02AA;02AB,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,99D5,EC 00,LDD,"$00,X",R,16,$029D;$02A7,bounded_address_set,029D;029E;02A7;02A8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,99D9,EC 06,LDD,"$06,X",R,16,$02A3;$02AD,bounded_address_set,02A3;02A4;02AD;02AE,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9A80,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9A91,18 E3 04,ADDD,"$04,Y",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9A99,18 ED 04,STD,"$04,Y",W,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9AE1,18 ED 00,STD,"$00,Y",W,16,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9AF9,18 A1 04,CMPA,"$04,Y",R,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B1F,A6 02,LDAA,"$02,X",R,8,$029F;$02A9,bounded_address_set,029F;02A9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B25,A6 05,LDAA,"$05,X",R,8,$02A2;$02AC,bounded_address_set,02A2;02AC,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B27,18 A1 04,CMPA,"$04,Y",R,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B2C,EC 06,LDD,"$06,X",R,16,$02A3;$02AD,bounded_address_set,02A3;02A4;02AD;02AE,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B2E,1A A3 08,CPD,"$08,X",R,16,$02A5;$02AF,bounded_address_set,02A5;02A6;02AF;02B0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B33,18 E3 00,ADDD,"$00,Y",R,16,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B3B,18 ED 02,STD,"$02,Y",W,16,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B40,18 EC 04,LDD,"$04,Y",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B43,18 E3 00,ADDD,"$00,Y",R,16,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B53,18 A0 00,SUBA,"$00,Y",R,8,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B6B,18 A0 00,SUBA,"$00,Y",R,8,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B7F,18 EC 04,LDD,"$04,Y",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B82,18 A3 00,SUBD,"$00,Y",R,16,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B8F,CD EE 02,LDX,"$02,Y",R,16,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B96,E6 05,LDAB,"$05,X",R,8,$02A2;$02AC,bounded_address_set,02A2;02AC,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9B9C,E6 02,LDAB,"$02,X",R,8,$029F;$02A9,bounded_address_set,029F;02A9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9BA2,18 EC 02,LDD,"$02,Y",R,16,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9BA5,18 A3 00,SUBD,"$00,Y",R,16,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9BAC,18 ED 02,STD,"$02,Y",W,16,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9BF9,18 ED 04,STD,"$04,Y",W,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9C00,ED 03,STD,"$03,X",W,16,$02A0;$02AA,bounded_address_set,02A0;02A1;02AA;02AB,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9C04,ED 00,STD,"$00,X",W,16,$029D;$02A7,bounded_address_set,029D;029E;02A7;02A8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9C06,18 EC 02,LDD,"$02,Y",R,16,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9C09,ED 06,STD,"$06,X",W,16,$02A3;$02AD,bounded_address_set,02A3;02A4;02AD;02AE,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9C0E,EC 08,LDD,"$08,X",R,16,$02A5;$02AF,bounded_address_set,02A5;02A6;02AF;02B0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+99C5,9C13,18 EC 04,LDD,"$04,Y",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9C20,9C47,EE 00,LDX,"$00,X",R,16,$9C96;$9C98;$9C9A;$9C9C;$9C9E;$9CA0;$9CA2;$9CA4,bounded_address_set,9C96;9C97;9C98;9C99;9C9A;9C9B;9C9C;9C9D;9C9E;9C9F;9CA0;9CA1;9CA2;9CA3;9CA4;9CA5,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9CFD,9DC6,1A A3 00,CPD,"$00,X",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9CFD,9DCB,ED 00,STD,"$00,X",W,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A17A,A6 00,LDAA,"$00,X",R,8,$029D;$02A0,bounded_address_set,029D;02A0,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A17C,A0 0A,SUBA,"$0A,X",R,8,$02A7;$02AA,bounded_address_set,02A7;02AA,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A189,A6 00,LDAA,"$00,X",R,8,$029D;$02A0,bounded_address_set,029D;02A0,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A18E,18 ED 06,STD,"$06,Y",W,16,$0895;$0897,bounded_address_set,0895;0896;0897;0898,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A193,A6 0A,LDAA,"$0A,X",R,8,$02A7;$02AA,bounded_address_set,02A7;02AA,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A198,18 ED 00,STD,"$00,Y",W,16,$088F;$0891,bounded_address_set,088F;0890;0891;0892,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A1A7,A6 00,LDAA,"$00,X",R,8,$029D;$02A0,bounded_address_set,029D;02A0,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A1AC,18 ED 06,STD,"$06,Y",W,16,$0895;$0897,bounded_address_set,0895;0896;0897;0898,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A1B1,A6 0A,LDAA,"$0A,X",R,8,$02A7;$02AA,bounded_address_set,02A7;02AA,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A1B6,18 ED 00,STD,"$00,Y",W,16,$088F;$0891,bounded_address_set,088F;0890;0891;0892,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A215,18 E6 00,LDAB,"$00,Y",R,8,$4FC1;$4FC3,bounded_address_set,4FC1;4FC3,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A219,EC 03,LDD,"$03,X",R,16,$02A0;$02AA,bounded_address_set,02A0;02A1;02AA;02AB,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A21B,A3 00,SUBD,"$00,X",R,16,$029D;$02A7,bounded_address_set,029D;029E;02A7;02A8,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A223,18 E6 01,LDAB,"$01,Y",R,8,$4FC2;$4FC4,bounded_address_set,4FC2;4FC4,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A22D,A6 00,LDAA,"$00,X",R,8,$029D;$02A7,bounded_address_set,029D;02A7,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A239,ED 02,STD,"$02,X",W,16,$0891;$0897,bounded_address_set,0891;0892;0897;0898,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A23D,A6 03,LDAA,"$03,X",R,8,$02A0;$02AA,bounded_address_set,02A0;02AA,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A245,ED 00,STD,"$00,X",W,16,$088F;$0895,bounded_address_set,088F;0890;0895;0896,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A2A4,A6 02,LDAA,"$02,X",R,8,$029F;$02A9,bounded_address_set,029F;02A9,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+9E99,A2AA,A6 05,LDAA,"$05,X",R,8,$02A2;$02AC,bounded_address_set,02A2;02AC,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,A5D4,1D 00 10,BCLR,"$00,X,#$10",RW,8,$3060,exact_address,3060,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,A733,A6 00,LDAA,"$00,X",R,8,$43AE,exact_address,43AE,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,A7A4,A6 00,LDAA,"$00,X",R,8,$485F,exact_address,485F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,A952,E6 00,LDAB,"$00,X",R,8,$46EC;$46EF,bounded_address_set,46EC;46EF,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,A955,AB 01,ADDA,"$01,X",R,8,$46ED;$46F0,bounded_address_set,46ED;46F0,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,A957,A1 02,CMPA,"$02,X",R,8,$46EE;$46F1,bounded_address_set,46EE;46F1,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,A95B,A6 02,LDAA,"$02,X",R,8,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
+A466,AAD4,E0 00,SUBB,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AB24,1F 00 08 16,BRCLR,"$00,X,#$08,$AB3E",R,8,$0395,exact_address,0395,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AB28,1E 00 10 02,BRSET,"$00,X,#$10,$AB2E",R,8,$0395,exact_address,0395,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AB2E,1E 00 20 07,BRSET,"$00,X,#$20,$AB39",R,8,$0395,exact_address,0395,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AB5B,1F 00 80 01,BRCLR,"$00,X,#$80,$AB60",R,8,$01F3,exact_address,01F3,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AB9A,A3 00,SUBD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AB9E,E3 00,ADDD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,ABA0,ED 00,STD,"$00,X",W,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,ABA2,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,ABDD,18 1F 00 20 3A,BRCLR,"$00,Y,#$20,$AC1C",R,8,$5B03,exact_address,5B03,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,ACAA,1E 00 04 03,BRSET,"$00,X,#$04,$ACB1",R,8,$400E,exact_address,400E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,ACC2,1F 00 01 0D,BRCLR,"$00,X,#$01,$ACD3",R,8,$038F,exact_address,038F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,ACC9,1E 00 01 03,BRSET,"$00,X,#$01,$ACD0",R,8,$0390,exact_address,0390,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,ACE8,A1 0C,CMPA,"$0C,X",R,8,$511F,exact_address,511F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,ACEC,A6 0D,LDAA,"$0D,X",R,8,$5120,exact_address,5120,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,ACF5,A6 0E,LDAA,"$0E,X",R,8,$5121,exact_address,5121,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,AD05,A1 0F,CMPA,"$0F,X",R,8,$5122,exact_address,5122,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,AD29,E1 00,CMPB,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,AD54,A1 04,CMPA,"$04,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ACA7,AD58,A6 08,LDAA,"$08,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ADAA,ADE1,A1 00,CMPA,"$00,X",R,8,$5160;$5161,bounded_address_set,5160;5161,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ADAA,AE14,A1 00,CMPA,"$00,X",R,8,$5164;$5165;$5166;$5167,bounded_address_set,5164;5165;5166;5167,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ADAA,AE3A,18 A1 00,CMPA,"$00,Y",R,8,$5162;$5163,bounded_address_set,5162;5163,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AEF1,18 1E 01 04 0A,BRSET,"$01,Y,#$04,$AF00",R,8,$5D03,exact_address,5D03,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AF0C,18 1E 01 10 0A,BRSET,"$01,Y,#$10,$AF1B",R,8,$5D03,exact_address,5D03,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AF27,18 1E 01 02 1D,BRSET,"$01,Y,#$02,$AF49",R,8,$5D03,exact_address,5D03,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AF34,E6 00,LDAB,"$00,X",R,8,$B010;$B011;$B012;$B013;$B014;$B015;$B016;$B017,bounded_address_set,B010;B011;B012;B013;B014;B015;B016;B017,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AF54,18 1E 01 08 0A,BRSET,"$01,Y,#$08,$AF63",R,8,$5D03,exact_address,5D03,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AF7B,1A EE 10,LDY,"$10,X",R,16,$3010,exact_address,3010;3011,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AF83,1A EE 10,LDY,"$10,X",R,16,$3010,exact_address,3010;3011,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AF8A,E7 08,STAB,"$08,X",W,8,$00C1,exact_address,00C1,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AF8C,1A EF 06,STY,"$06,X",W,16,$00BF,exact_address,00BF;00C0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AFC5,EC 00,LDD,"$00,X",R,16,$3FC6;$3FE0,bounded_address_set,3FC6;3FC7;3FE0;3FE1,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AFCC,18 EE 00,LDY,"$00,Y",R,16,$3FC2;$3FF8,bounded_address_set,3FC2;3FC3;3FF8;3FF9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AFD2,1A A3 00,CPD,"$00,X",R,16,$3FC6;$3FE0,bounded_address_set,3FC6;3FC7;3FE0;3FE1,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AFDC,18 EE 00,LDY,"$00,Y",R,16,$3FC2;$3FF8,bounded_address_set,3FC2;3FC3;3FF8;3FF9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AFE7,E7 08,STAB,"$08,X",W,8,$00D0,exact_address,00D0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+AEA4,AFE9,1A EF 06,STY,"$06,X",W,16,$00CE,exact_address,00CE;00CF,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B018,B01F,1F 00 20 10,BRCLR,"$00,X,#$20,$B033",R,8,$5D02,exact_address,5D02,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B018,B046,A1 01,CMPA,"$01,X",R,8,$5D2C,exact_address,5D2C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B018,B04A,A1 02,CMPA,"$02,X",R,8,$5D2D,exact_address,5D2D,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B018,B04E,A1 03,CMPA,"$03,X",R,8,$5D2E,exact_address,5D2E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B018,B054,A1 00,CMPA,"$00,X",R,8,$5D2B,exact_address,5D2B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B018,B062,A6 00,LDAA,"$00,X",R,8,$B084;$B085;$B086;$B087;$B088,bounded_address_set,B084;B085;B086;B087;B088,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B089,B09F,1F 32 20 0A,BRCLR,"$32,X,#$20,$B0AD",R,8,$5B32,exact_address,5B32,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B089,B0CD,1E 00 80 03,BRSET,"$00,X,#$80,$B0D4",R,8,$400F,exact_address,400F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B0E4,B0EB,1F 2B 01 09,BRCLR,"$2B,X,#$01,$B0F8",R,8,$5B2B,exact_address,5B2B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B0E4,B0EF,1E 34 01 05,BRSET,"$34,X,#$01,$B0F8",R,8,$5B34,exact_address,5B34,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B0E4,B0F8,1F 2C 80 1A,BRCLR,"$2C,X,#$80,$B116",R,8,$5B2C,exact_address,5B2C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B0E4,B0FC,1E 35 80 16,BRSET,"$35,X,#$80,$B116",R,8,$5B35,exact_address,5B35,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B0E4,B108,1F 00 01 05,BRCLR,"$00,X,#$01,$B111",R,8,$5D02,exact_address,5D02,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B2B2,B2C6,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B2ED,B30E,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B2ED,B313,A6 08,LDAA,"$08,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B367,B417,1A A3 00,CPD,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B367,B42F,A7 00,STAA,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B367,B433,A3 06,SUBD,"$06,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B367,B47F,A7 00,STAA,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B367,B48A,E1 00,CMPB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B367,B4A4,A1 00,CMPA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B4C5,18 1F 00 01 09,BRCLR,"$00,Y,#$01,$B4D3",R,8,$68A8,exact_address,68A8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B4CC,E1 EF,CMPB,"$EF,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B4D5,E1 16,CMPB,"$16,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B4DD,E1 03,CMPB,"$03,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B4E1,E1 06,CMPB,"$06,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B4F0,E1 09,CMPB,"$09,X",R,8,$68C1,exact_address,68C1,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B4FE,18 1F 00 04 06,BRCLR,"$00,Y,#$04,$B509",R,8,$68A8,exact_address,68A8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B50B,E1 01,CMPB,"$01,X",R,8,$68B9,exact_address,68B9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B50F,E1 02,CMPB,"$02,X",R,8,$68BA,exact_address,68BA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B51B,E6 00,LDAB,"$00,X",R,8,$68B8,exact_address,68B8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B53D,E1 0A,CMPB,"$0A,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B545,E1 0D,CMPB,"$0D,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B4B2,B553,E1 10,CMPB,"$10,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B56B,B56E,1F 00 C0 02,BRCLR,"$00,X,#$C0,$B574",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B5A4,EE 00,LDX,"$00,X",R,16,$B961;$B963;$B965;$B967;$B969;$B96B;$B96D,bounded_address_set,B961;B962;B963;B964;B965;B966;B967;B968;B969;B96A;B96B;B96C;B96D;B96E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B5BB,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B5D0,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B5F9,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B620,E1 00,CMPB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B62B,18 E7 05,STAB,"$05,Y",W,8,entry_SP-4,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B62E,18 A7 04,STAA,"$04,Y",W,8,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B631,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B634,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B637,18 A7 03,STAA,"$03,Y",W,8,entry_SP-6,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B63A,18 E6 04,LDAB,"$04,Y",R,8,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B63E,18 ED 01,STD,"$01,Y",W,16,entry_SP-8,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B641,18 E6 05,LDAB,"$05,Y",R,8,entry_SP-4,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B647,18 ED 04,STD,"$04,Y",W,16,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B64A,A6 01,LDAA,"$01,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B654,18 E3 01,ADDD,"$01,Y",R,16,entry_SP-8,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B657,18 E3 04,ADDD,"$04,Y",R,16,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B65A,18 A7 04,STAA,"$04,Y",W,8,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B65E,18 A7 02,STAA,"$02,Y",W,8,entry_SP-7,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B661,CD EE 02,LDX,"$02,Y",R,16,entry_SP-7,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B664,18 A6 04,LDAA,"$04,Y",R,8,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B668,CD EF 00,STX,"$00,Y",W,16,entry_SP-9,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B66B,18 A6 01,LDAA,"$01,Y",R,8,entry_SP-8,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B6A6,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B6CD,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B587,B845,A0 00,SUBA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B88D,B8B6,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B91D,B93F,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B99F,B9C1,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B99F,B9C3,18 EE 00,LDY,"$00,Y",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B99F,B9D3,AB 00,ADDA,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B99F,B9D5,18 E6 00,LDAB,"$00,Y",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B99F,B9D9,E7 00,STAB,"$00,X",W,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B9EE,BA0A,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B9EE,BA1B,EB 00,ADDB,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+B9EE,BA20,A7 00,STAA,"$00,X",W,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA38,BA48,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA38,BA50,6C 00,INC,"$00,X",RW,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BAA0,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BAB4,E7 00,STAB,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BAC1,A7 03,STAA,"$03,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BAC7,18 1F 00 02 2D,BRCLR,"$00,Y,#$02,$BAF9",R,8,$68A8,exact_address,68A8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BAD4,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BAE2,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BAF5,A6 0E,LDAA,"$0E,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BB09,A1 08,CMPA,"$08,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BB1E,A6 0B,LDAA,"$0B,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BB24,A1 00,CMPA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BB2B,A6 03,LDAA,"$03,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BB3A,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BB4B,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BB6F,CD EE 00,LDX,"$00,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BB93,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BBA5,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BBEB,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BBF8,CD EE 0C,LDX,"$0C,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BC07,CD EE 06,LDX,"$06,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BC21,EB 00,ADDB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BC2B,A7 00,STAA,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BA65,BC34,CD EE 00,LDX,"$00,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BD05,A1 00,CMPA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BD12,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BD2B,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BD43,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BD58,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BD65,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BDAE,EE 00,LDX,"$00,X",R,16,$BE59,exact_address,BE59;BE5A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BDC4,EE 00,LDX,"$00,X",R,16,$BE41,exact_address,BE41;BE42,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BDE8,EE 00,LDX,"$00,X",R,16,$BE4D,exact_address,BE4D;BE4E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BCC6,BDFB,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BECF,A1 1A,CMPA,"$1A,X",R,8,$6ACE,exact_address,6ACE,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BED3,A6 1D,LDAA,"$1D,X",R,8,$6AD1,exact_address,6AD1,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BED7,A1 1B,CMPA,"$1B,X",R,8,$6ACF,exact_address,6ACF,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BEDB,E6 1C,LDAB,"$1C,X",R,8,$6AD0,exact_address,6AD0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BEEB,1A A3 10,CPD,"$10,X",R,16,$6AC4,exact_address,6AC4;6AC5,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BEF5,A3 12,SUBD,"$12,X",R,16,$6AC6,exact_address,6AC6;6AC7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BEFC,E6 16,LDAB,"$16,X",R,8,$6ACA,exact_address,6ACA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BF06,E6 17,LDAB,"$17,X",R,8,$6ACB,exact_address,6ACB,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BF08,A6 14,LDAA,"$14,X",R,8,$6AC8,exact_address,6AC8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BF0E,A6 15,LDAA,"$15,X",R,8,$6AC9,exact_address,6AC9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BF17,E6 18,LDAB,"$18,X",R,8,$6ACC,exact_address,6ACC,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BF21,E6 19,LDAB,"$19,X",R,8,$6ACD,exact_address,6ACD,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BEBC,BF26,1F 00 04 37,BRCLR,"$00,X,#$04,$BF61",R,8,$6AB4,exact_address,6AB4,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BF62,BFED,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+BF62,C005,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C00B,C0F8,A6 11,LDAA,"$11,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C00B,C0FC,A6 16,LDAA,"$16,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C00B,C128,E6 11,LDAB,"$11,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C00B,C12E,AB 12,ADDA,"$12,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C00B,C144,1A AC 13,CPY,"$13,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C00B,C14B,AB 15,ADDA,"$15,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C00B,C155,E6 16,LDAB,"$16,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C00B,C15C,1A AC 17,CPY,"$17,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C271,C271,18 A6 00,LDAA,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C271,C28A,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C271,C2A4,AB 00,ADDA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C271,C2C5,18 AB 01,ADDA,"$01,Y",R,8,entry_Y+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C514,C51A,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C514,C528,1F 01 40 06,BRCLR,"$01,X,#$40,$C532",R,8,$039A,exact_address,039A,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C514,C52C,1E 02 40 16,BRSET,"$02,X,#$40,$C546",R,8,$039B,exact_address,039B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C514,C551,1E 00 40 19,BRSET,"$00,X,#$40,$C56E",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C56F,C57D,E6 34,LDAB,"$34,X",R,8,$3034,exact_address,3034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C583,C586,1F 00 04 1C,BRCLR,"$00,X,#$04,$C5A6",R,8,$5D02,exact_address,5D02,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C583,C599,A6 34,LDAA,"$34,X",R,8,$3034,exact_address,3034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C668,C66F,1F 30 04 06,BRCLR,"$30,X,#$04,$C679",R,8,$5B30,exact_address,5B30,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C668,C679,1F 2D 20 0D,BRCLR,"$2D,X,#$20,$C68A",R,8,$5B2D,exact_address,5B2D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C668,C681,18 1E 00 04 04,BRSET,"$00,Y,#$04,$C68A",R,8,$5D02,exact_address,5D02,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C668,C686,EC 6F,LDD,"$6F,X",R,16,$5B6F,exact_address,5B6F;5B70,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C668,C68A,1F 30 02 06,BRCLR,"$30,X,#$02,$C694",R,8,$5B30,exact_address,5B30,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C668,C694,1F 2D 10 0D,BRCLR,"$2D,X,#$10,$C6A5",R,8,$5B2D,exact_address,5B2D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C668,C69C,18 1E 00 04 04,BRSET,"$00,Y,#$04,$C6A5",R,8,$5D02,exact_address,5D02,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C668,C6A1,EC 73,LDD,"$73,X",R,16,$5B73,exact_address,5B73;5B74,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C6C3,1F 00 08 0B,BRCLR,"$00,X,#$08,$C6D2",R,8,$6AB4,exact_address,6AB4,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C6D2,1F 01 20 07,BRCLR,"$01,X,#$20,$C6DD",R,8,$6AB5,exact_address,6AB5,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C6DD,1F 01 40 07,BRCLR,"$01,X,#$40,$C6E8",R,8,$6AB5,exact_address,6AB5,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C6E8,1F 00 20 0F,BRCLR,"$00,X,#$20,$C6FB",R,8,$6AB4,exact_address,6AB4,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C6EC,A6 04,LDAA,"$04,X",R,8,$6AB8,exact_address,6AB8,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C6F2,A6 05,LDAA,"$05,X",R,8,$6AB9,exact_address,6AB9,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C6FB,1F 00 40 0F,BRCLR,"$00,X,#$40,$C70E",R,8,$6AB4,exact_address,6AB4,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C6FF,A6 02,LDAA,"$02,X",R,8,$6AB6,exact_address,6AB6,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C705,A6 03,LDAA,"$03,X",R,8,$6AB7,exact_address,6AB7,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C715,1F 00 02 0F,BRCLR,"$00,X,#$02,$C728",R,8,$6AB4,exact_address,6AB4,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C728,1F 00 01 08,BRCLR,"$00,X,#$01,$C734",R,8,$6AB4,exact_address,6AB4,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C734,1F 01 10 08,BRCLR,"$01,X,#$10,$C740",R,8,$6AB5,exact_address,6AB5,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C740,1F 01 02 1C,BRCLR,"$01,X,#$02,$C760",R,8,$6AB5,exact_address,6AB5,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C751,A6 07,LDAA,"$07,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C757,A6 0A,LDAA,"$0A,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C763,1F 01 01 07,BRCLR,"$01,X,#$01,$C76E",R,8,$6AB5,exact_address,6AB5,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C76E,1F 01 04 0A,BRCLR,"$01,X,#$04,$C77C",R,8,$6AB5,exact_address,6AB5,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C77C,1F 01 04 2D,BRCLR,"$01,X,#$04,$C7AD",R,8,$6AB5,exact_address,6AB5,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C791,A1 00,CMPA,"$00,X",R,8,$6AC2;$6AC3,bounded_address_set,6AC2;6AC3,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C836,1E 02 30 0F,BRSET,"$02,X,#$30,$C849",R,8,$5B2D,exact_address,5B2D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C866,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C6BB,C877,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C8D6,C8E8,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C8FD,C902,1F 30 40 04,BRCLR,"$30,X,#$40,$C90A",R,8,$5B30,exact_address,5B30,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C8FD,C90A,1F 30 20 06,BRCLR,"$30,X,#$20,$C914",R,8,$5B30,exact_address,5B30,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C8FD,C912,A6 6A,LDAA,"$6A,X",R,8,$5B6A,exact_address,5B6A,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C96A,C97D,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C9C0,C9C5,1F 2B 40 04,BRCLR,"$2B,X,#$40,$C9CD",R,8,$5B2B,exact_address,5B2B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C9C0,C9CD,1F 2B 20 06,BRCLR,"$2B,X,#$20,$C9D7",R,8,$5B2B,exact_address,5B2B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+C9C0,C9D5,A6 17,LDAA,"$17,X",R,8,$5B17,exact_address,5B17,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CA6B,CA6F,1F 00 40 3E,BRCLR,"$00,X,#$40,$CAB1",R,8,$400B,exact_address,400B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CA6B,CA88,E6 00,LDAB,"$00,X",R,8,$4439,exact_address,4439,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CB15,CB34,1E 00 04 03,BRSET,"$00,X,#$04,$CB3B",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC56,1C 22 A0,BSET,"$22,X,#$A0",RW,8,$3022,exact_address,3022,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC63,18 1E 00 01 06,BRSET,"$00,Y,#$01,$CC6E",R,8,$400B,exact_address,400B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC7D,A7 0C,STAA,"$0C,X",W,8,$300C,exact_address,300C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC7F,A7 0D,STAA,"$0D,X",W,8,$300D,exact_address,300D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC81,A7 2C,STAA,"$2C,X",W,8,$302C,exact_address,302C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC83,A7 0B,STAA,"$0B,X",W,8,$300B,exact_address,300B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC85,A7 28,STAA,"$28,X",W,8,$3028,exact_address,3028,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC87,A7 3E,STAA,"$3E,X",W,8,$303E,exact_address,303E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC89,A7 5C,STAA,"$5C,X",W,8,$305C,exact_address,305C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC8B,A7 03,STAA,"$03,X",W,8,$3003,exact_address,3003,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC8F,A7 21,STAA,"$21,X",W,8,$3021,exact_address,3021,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC93,A7 26,STAA,"$26,X",W,8,$3026,exact_address,3026,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC97,A7 01,STAA,"$01,X",W,8,$3001,exact_address,3001,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC9B,A7 09,STAA,"$09,X",W,8,$3009,exact_address,3009,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CC9F,A7 2B,STAA,"$2B,X",W,8,$302B,exact_address,302B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CCA3,A7 3C,STAA,"$3C,X",W,8,$303C,exact_address,303C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CCA7,A7 5D,STAA,"$5D,X",W,8,$305D,exact_address,305D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CCAB,A7 5F,STAA,"$5F,X",W,8,$305F,exact_address,305F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC35,CCAF,A7 5E,STAA,"$5E,X",W,8,$305E,exact_address,305E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC7D,A7 0C,STAA,"$0C,X",W,8,entry_X+12,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC7F,A7 0D,STAA,"$0D,X",W,8,entry_X+13,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC81,A7 2C,STAA,"$2C,X",W,8,entry_X+44,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC83,A7 0B,STAA,"$0B,X",W,8,entry_X+11,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC85,A7 28,STAA,"$28,X",W,8,entry_X+40,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC87,A7 3E,STAA,"$3E,X",W,8,entry_X+62,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC89,A7 5C,STAA,"$5C,X",W,8,entry_X+92,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC8B,A7 03,STAA,"$03,X",W,8,entry_X+3,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC8F,A7 21,STAA,"$21,X",W,8,entry_X+33,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC93,A7 26,STAA,"$26,X",W,8,entry_X+38,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC97,A7 01,STAA,"$01,X",W,8,entry_X+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC9B,A7 09,STAA,"$09,X",W,8,entry_X+9,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CC9F,A7 2B,STAA,"$2B,X",W,8,entry_X+43,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CCA3,A7 3C,STAA,"$3C,X",W,8,entry_X+60,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CCA7,A7 5D,STAA,"$5D,X",W,8,entry_X+93,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CCAB,A7 5F,STAA,"$5F,X",W,8,entry_X+95,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CC7C,CCAF,A7 5E,STAA,"$5E,X",W,8,entry_X+94,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CCC1,CCD3,1E 00 02 03,BRSET,"$00,X,#$02,$CCDA",R,8,$400B,exact_address,400B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CCC1,CCE2,1F 00 02 0A,BRCLR,"$00,X,#$02,$CCF0",R,8,$038F,exact_address,038F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CCC1,CCE9,1E 00 02 34,BRSET,"$00,X,#$02,$CD21",R,8,$0390,exact_address,0390,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CCC1,CD7B,1F 00 04 05,BRCLR,"$00,X,#$04,$CD84",R,8,$0393,exact_address,0393,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CCC1,CD93,1F 00 38 0D,BRCLR,"$00,X,#$38,$CDA4",R,8,$0393,exact_address,0393,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CCC1,CDAB,18 1F 00 01 09,BRCLR,"$00,Y,#$01,$CDB9",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CCC1,CDD1,1F 00 04 0D,BRCLR,"$00,X,#$04,$CDE2",R,8,$400E,exact_address,400E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CCC1,CDE5,1F 00 40 0D,BRCLR,"$00,X,#$40,$CDF6",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CEBB,CEF1,A6 34,LDAA,"$34,X",R,8,$3034,exact_address,3034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF23,E6 04,LDAB,"$04,X",R,8,$46FD,exact_address,46FD,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF29,E6 03,LDAB,"$03,X",R,8,$46FC,exact_address,46FC,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF31,A1 00,CMPA,"$00,X",R,8,$46F9,exact_address,46F9,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF35,A6 02,LDAA,"$02,X",R,8,$46FB,exact_address,46FB,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF3D,A6 01,LDAA,"$01,X",R,8,$46FA,exact_address,46FA,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF49,A6 0A,LDAA,"$0A,X",R,8,$4703,exact_address,4703,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF4F,A6 0B,LDAA,"$0B,X",R,8,$4704,exact_address,4704,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF64,A6 08,LDAA,"$08,X",R,8,$4701,exact_address,4701,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF6A,A6 09,LDAA,"$09,X",R,8,$4702,exact_address,4702,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF7B,A6 06,LDAA,"$06,X",R,8,$46FF,exact_address,46FF,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF81,A6 07,LDAA,"$07,X",R,8,$4700,exact_address,4700,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CF9C,A6 0C,LDAA,"$0C,X",R,8,$4705,exact_address,4705,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CFA2,A6 0D,LDAA,"$0D,X",R,8,$4706,exact_address,4706,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CFB1,A6 0E,LDAA,"$0E,X",R,8,$4707,exact_address,4707,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CFB8,A6 0F,LDAA,"$0F,X",R,8,$4708,exact_address,4708,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CFD4,A6 00,LDAA,"$00,X",R,8,$470A,exact_address,470A,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+CF16,CFDD,A6 00,LDAA,"$00,X",R,8,$470A,exact_address,470A,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D03E,D041,1E 00 20 04,BRSET,"$00,X,#$20,$D049",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D03E,D045,1F 00 04 3F,BRCLR,"$00,X,#$04,$D088",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D03E,D09A,1F 00 02 19,BRCLR,"$00,X,#$02,$D0B7",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D03E,D09E,1F 00 10 04,BRCLR,"$00,X,#$10,$D0A6",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D03E,D0C8,1E 00 02 03,BRSET,"$00,X,#$02,$D0CF",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D14E,D162,1D 08 38,BCLR,"$08,X,#$38",RW,8,$3008,exact_address,3008,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D14E,D168,AA 08,ORAA,"$08,X",R,8,$3008,exact_address,3008,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D14E,D16A,A7 08,STAA,"$08,X",W,8,$3008,exact_address,3008,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D14E,D176,1E 30 80 09,BRSET,"$30,X,#$80,$D183",R,8,$3030,exact_address,3030,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D14E,D184,A6 34,LDAA,"$34,X",R,8,$3034,exact_address,3034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D1F6,D1FD,1E 00 02 06,BRSET,"$00,X,#$02,$D207",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D2B2,D2EF,E1 00,CMPB,"$00,X",R,8,$4030;$4033,bounded_address_set,4030;4033,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D2B2,D30A,E1 02,CMPB,"$02,X",R,8,$4032;$4035,bounded_address_set,4032;4035,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D2B2,D311,E1 01,CMPB,"$01,X",R,8,$4031;$4034,bounded_address_set,4031;4034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D2B2,D31C,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D3B0,D3B3,1E 00 10 03,BRSET,"$00,X,#$10,$D3BA",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D472,D475,1E 00 08 02,BRSET,"$00,X,#$08,$D47B",R,8,$400E,exact_address,400E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D472,D484,A1 06,CMPA,"$06,X",R,8,$4131,exact_address,4131,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D472,D48B,A1 00,CMPA,"$00,X",R,8,$412B;$412C,bounded_address_set,412B;412C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D472,D48F,A1 02,CMPA,"$02,X",R,8,$412D;$412E,bounded_address_set,412D;412E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D472,D496,A1 04,CMPA,"$04,X",R,8,$412F;$4130,bounded_address_set,412F;4130,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D7EA,CD EE 08,LDX,"$08,Y",R,16,entry_Y+8,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D7EF,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D7FA,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D7FF,E7 02,STAB,"$02,X",W,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D801,A7 00,STAA,"$00,X",W,8,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D803,E6 03,LDAB,"$03,X",R,8,entry_SP,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D805,CD EE 06,LDX,"$06,Y",R,16,entry_Y+6,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D81B,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D81E,E7 01,STAB,"$01,X",W,8,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D7E5,D827,CD EE 0A,LDX,"$0A,Y",R,16,entry_Y+10,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D845,CD EE 02,LDX,"$02,Y",R,16,entry_Y+2,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D84A,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D84E,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D853,A7 00,STAA,"$00,X",W,8,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D855,CD EE 08,LDX,"$08,Y",R,16,entry_Y+8,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D85A,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D85E,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D863,A7 02,STAA,"$02,X",W,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D865,CD EE 06,LDX,"$06,Y",R,16,entry_Y+6,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D86F,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D872,A7 01,STAA,"$01,X",W,8,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D874,CD EE 00,LDX,"$00,Y",R,16,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D885,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D840,D88E,CD EE 04,LDX,"$04,Y",R,16,entry_Y+4,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8A7,D8A8,CD EE 02,LDX,"$02,Y",R,16,entry_Y+2,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8A7,D8AD,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8A7,D8B1,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8A7,D8B4,CD EE 00,LDX,"$00,Y",R,16,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8A7,D8BE,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8A7,D8C5,CD EE 04,LDX,"$04,Y",R,16,entry_Y+4,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8CE,D8E3,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8CE,D8E7,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8F0,D8FA,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8FE,D900,A6 00,LDAA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8FE,D903,A6 01,LDAA,"$01,X",R,8,entry_X+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8FE,D90F,A5 03,BITA,"$03,X",R,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8FE,D913,A5 02,BITA,"$02,X",R,8,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D8FE,D91F,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D94B,D94C,E6 00,LDAB,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D94B,D95B,6D 00,TST,"$00,X",R,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D94B,D963,A0 01,SUBA,"$01,X",R,8,entry_SP,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D969,D96D,E6 00,LDAB,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D969,D975,A0 00,SUBA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D980,D993,6D 00,TST,"$00,X",R,8,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D980,D99D,E3 01,ADDD,"$01,X",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D980,D9A2,A4 00,ANDA,"$00,X",R,8,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D980,D9AC,AA 00,ORAA,"$00,X",R,8,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+D9B7,D9D7,1F 00 01 11,BRCLR,"$00,X,#$01,$D9EC",R,8,$70D4,exact_address,70D4,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB13,EE 00,LDX,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB43,CD EE 04,LDX,"$04,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB48,A1 00,CMPA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB4F,CD EE 00,LDX,"$00,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB52,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB55,CD EE 04,LDX,"$04,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB58,E0 00,SUBB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB69,CD EE 0C,LDX,"$0C,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB6C,A1 00,CMPA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB70,CD EE 08,LDX,"$08,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB73,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB75,CD EE 0C,LDX,"$0C,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB78,E0 00,SUBB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DAE2,DB7F,A0 00,SUBA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DBFB,DC0A,A6 34,LDAA,"$34,X",R,8,$3034,exact_address,3034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DBFB,DC20,1F 00 40 1A,BRCLR,"$00,X,#$40,$DC3E",R,8,$5B01,exact_address,5B01,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DBFB,DC49,1F 00 10 1D,BRCLR,"$00,X,#$10,$DC6A",R,8,$5B01,exact_address,5B01,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,DD32,A7 0A,STAA,"$0A,X",W,8,$000B;$000C;$000D;$000E;$000F;$0010;$0011;$0012;$0013,bounded_address_set,000B;000C;000D;000E;000F;0010;0011;0012;0013,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,DE40,1F 00 01 12,BRCLR,"$00,X,#$01,$DE56",R,8,$400F,exact_address,400F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,DE59,1F 00 40 07,BRCLR,"$00,X,#$40,$DE64",R,8,$5B02,exact_address,5B02,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,DE6A,1F 00 02 07,BRCLR,"$00,X,#$02,$DE75",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,DF36,1F 00 80 03,BRCLR,"$00,X,#$80,$DF3D",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,DF57,1F 00 02 6F,BRCLR,"$00,X,#$02,$DFCA",R,8,$400D,exact_address,400D,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,DF5E,1F 00 40 68,BRCLR,"$00,X,#$40,$DFCA",R,8,$5B02,exact_address,5B02,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E087,1E 00 20 03,BRSET,"$00,X,#$20,$E08E",R,8,$400E,exact_address,400E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E13A,AA 55,ORAA,"$55,X",R,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E145,18 A6 00,LDAA,"$00,Y",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E148,A4 15,ANDA,"$15,X",R,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E14A,A7 55,STAA,"$55,X",W,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E164,E6 15,LDAB,"$15,X",R,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E166,E4 55,ANDB,"$55,X",R,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E168,18 E4 00,ANDB,"$00,Y",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E16B,E7 55,STAB,"$55,X",W,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E16D,AA 55,ORAA,"$55,X",R,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E184,E6 00,LDAB,"$00,X",R,8,$4E2E;$4E2F;$4E30;$4E31,bounded_address_set,4E2E;4E2F;4E30;4E31,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E19B,A6 0A,LDAA,"$0A,X",R,8,$000B;$000C;$000D;$000E;$000F;$0010;$0011;$0012;$0013,bounded_address_set,000B;000C;000D;000E;000F;0010;0011;0012;0013,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E19D,AA 55,ORAA,"$55,X",R,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E19F,A7 0A,STAA,"$0A,X",W,8,$000B;$000C;$000D;$000E;$000F;$0010;$0011;$0012;$0013,bounded_address_set,000B;000C;000D;000E;000F;0010;0011;0012;0013,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E1A1,E7 55,STAB,"$55,X",W,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E1B6,E6 15,LDAB,"$15,X",R,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+DC89,E1B8,18 E5 15,BITB,"$15,Y",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E1EC,E203,6A 00,DEC,"$00,X",RW,8,$0214;$0215,bounded_address_set,0214;0215,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E1EC,E248,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E1EC,E24A,18 E4 00,ANDB,"$00,Y",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E1EC,E262,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E286,E289,1F 00 04 3B,BRCLR,"$00,X,#$04,$E2C8",R,8,$5B04,exact_address,5B04,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E286,E2CD,1F 00 40 1C,BRCLR,"$00,X,#$40,$E2ED",R,8,$400B,exact_address,400B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E286,E49A,1F 00 01 06,BRCLR,"$00,X,#$01,$E4A4",R,8,$0391,exact_address,0391,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E286,E49E,1F 01 01 74,BRCLR,"$01,X,#$01,$E516",R,8,$0392,exact_address,0392,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E562,E575,A6 00,LDAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E58C,18 A6 08,LDAA,"$08,Y",R,8,entry_Y+8,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E58F,18 A0 00,SUBA,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E594,18 E6 03,LDAB,"$03,Y",R,8,entry_Y+3,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E59A,18 E7 03,STAB,"$03,Y",W,8,entry_Y+3,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E59F,18 ED 04,STD,"$04,Y",W,16,entry_Y+4,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5A5,18 E6 03,LDAB,"$03,Y",R,8,entry_Y+3,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5B0,18 EC 06,LDD,"$06,Y",R,16,entry_Y+6,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5B3,18 A3 01,SUBD,"$01,Y",R,16,entry_Y+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5B8,CD EF 04,STX,"$04,Y",W,16,entry_Y+4,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5BB,CD EE 06,LDX,"$06,Y",R,16,entry_Y+6,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5BE,CD EF 01,STX,"$01,Y",W,16,entry_Y+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5C1,18 A6 08,LDAA,"$08,Y",R,8,entry_Y+8,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5C4,18 A7 00,STAA,"$00,Y",W,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5C8,18 A7 03,STAA,"$03,Y",W,8,entry_Y+3,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E58C,E5CB,18 EC 04,LDD,"$04,Y",R,16,entry_Y+4,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E62D,E633,18 A6 3C,LDAA,"$3C,Y",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E62D,E636,18 A4 33,ANDA,"$33,Y",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E62D,E63D,A4 00,ANDA,"$00,X",R,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E62D,E643,A4 00,ANDA,"$00,X",R,8,$E717;$E718;$E719;$E71A;$E71B;$E71C;$E71D;$E71E;$E71F,bounded_address_set,E717;E718;E719;E71A;E71B;E71C;E71D;E71E;E71F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E6BC,E6C6,18 A6 3C,LDAA,"$3C,Y",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E6BC,E6CA,18 A4 33,ANDA,"$33,Y",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E6BC,E6D2,A4 00,ANDA,"$00,X",R,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E6BC,E6D5,A4 00,ANDA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E75F,E766,1F 00 40 24,BRCLR,"$00,X,#$40,$E78E",R,8,$5B00,exact_address,5B00,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E75F,E770,E1 13,CMPB,"$13,X",R,8,$5B13,exact_address,5B13,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E75F,E779,A1 14,CMPA,"$14,X",R,8,$5B14,exact_address,5B14,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E75F,E787,A1 14,CMPA,"$14,X",R,8,$5B14,exact_address,5B14,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E793,E79A,1F 00 20 24,BRCLR,"$00,X,#$20,$E7C2",R,8,$5B00,exact_address,5B00,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E793,E7A4,E1 15,CMPB,"$15,X",R,8,$5B15,exact_address,5B15,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E793,E7AD,A1 16,CMPA,"$16,X",R,8,$5B16,exact_address,5B16,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E793,E7BB,A1 16,CMPA,"$16,X",R,8,$5B16,exact_address,5B16,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E7C7,E7CE,1F 00 01 31,BRCLR,"$00,X,#$01,$E803",R,8,$5B00,exact_address,5B00,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E7C7,E7D7,E1 1C,CMPB,"$1C,X",R,8,$5B1C,exact_address,5B1C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E808,E80F,1F 01 80 2F,BRCLR,"$01,X,#$80,$E842",R,8,$5B01,exact_address,5B01,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E808,E818,E1 1F,CMPB,"$1F,X",R,8,$5B1F,exact_address,5B1F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E808,E829,E1 21,CMPB,"$21,X",R,8,$5B21,exact_address,5B21,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E808,E83B,A1 20,CMPA,"$20,X",R,8,$5B20,exact_address,5B20,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E847,E84E,1F 01 20 71,BRCLR,"$01,X,#$20,$E8C3",R,8,$5B01,exact_address,5B01,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E847,E862,E1 42,CMPB,"$42,X",R,8,$5B42,exact_address,5B42,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E847,E89F,1A AC 3D,CPY,"$3D,X",R,16,$5B3D,exact_address,5B3D;5B3E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E847,E8B0,1A AC 3F,CPY,"$3F,X",R,16,$5B3F,exact_address,5B3F;5B40,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E847,E8BC,A1 41,CMPA,"$41,X",R,8,$5B41,exact_address,5B41,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E8C8,E8CF,1F 01 02 2D,BRCLR,"$01,X,#$02,$E900",R,8,$5B01,exact_address,5B01,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E8C8,E8E7,E1 52,CMPB,"$52,X",R,8,$5B52,exact_address,5B52,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E8C8,E8F9,A1 51,CMPA,"$51,X",R,8,$5B51,exact_address,5B51,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E905,E90C,1F 02 02 20,BRCLR,"$02,X,#$02,$E930",R,8,$5B02,exact_address,5B02,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E905,E91F,A1 57,CMPA,"$57,X",R,8,$5B57,exact_address,5B57,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E905,E925,E1 58,CMPB,"$58,X",R,8,$5B58,exact_address,5B58,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E905,E93F,E1 53,CMPB,"$53,X",R,8,$5B53,exact_address,5B53,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E905,E953,E1 54,CMPB,"$54,X",R,8,$5B54,exact_address,5B54,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E905,E97B,A1 55,CMPA,"$55,X",R,8,$5B55,exact_address,5B55,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E905,E987,A1 56,CMPA,"$56,X",R,8,$5B56,exact_address,5B56,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E905,E992,A1 57,CMPA,"$57,X",R,8,$5B57,exact_address,5B57,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E99E,E9A5,1F 02 01 23,BRCLR,"$02,X,#$01,$E9CC",R,8,$5B02,exact_address,5B02,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E99E,E9BB,A1 5D,CMPA,"$5D,X",R,8,$5B5D,exact_address,5B5D,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E99E,E9C1,E1 5E,CMPB,"$5E,X",R,8,$5B5E,exact_address,5B5E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E99E,E9DB,E1 59,CMPB,"$59,X",R,8,$5B59,exact_address,5B59,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E99E,EA01,E1 5A,CMPB,"$5A,X",R,8,$5B5A,exact_address,5B5A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E99E,EA17,A1 5B,CMPA,"$5B,X",R,8,$5B5B,exact_address,5B5B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E99E,EA1E,A1 5C,CMPA,"$5C,X",R,8,$5B5C,exact_address,5B5C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+E99E,EA34,A1 5D,CMPA,"$5D,X",R,8,$5B5D,exact_address,5B5D,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EA40,EA47,1F 04 10 28,BRCLR,"$04,X,#$10,$EA73",R,8,$5B04,exact_address,5B04,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EA40,EA51,E1 63,CMPB,"$63,X",R,8,$5B63,exact_address,5B63,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EA40,EA6B,1A AC 64,CPY,"$64,X",R,16,$5B64,exact_address,5B64;5B65,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EA7C,EA83,1F 04 08 25,BRCLR,"$04,X,#$08,$EAAC",R,8,$5B04,exact_address,5B04,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EA7C,EA8C,E1 66,CMPB,"$66,X",R,8,$5B66,exact_address,5B66,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EA7C,EAA5,A1 67,CMPA,"$67,X",R,8,$5B67,exact_address,5B67,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EAB1,EAB8,1F 05 40 23,BRCLR,"$05,X,#$40,$EADF",R,8,$5B05,exact_address,5B05,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EAB1,EAC1,E1 68,CMPB,"$68,X",R,8,$5B68,exact_address,5B68,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EAB1,EACA,A1 69,CMPA,"$69,X",R,8,$5B69,exact_address,5B69,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EAB1,EAD8,A1 69,CMPA,"$69,X",R,8,$5B69,exact_address,5B69,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EAE4,EAEB,1F 05 20 23,BRCLR,"$05,X,#$20,$EB12",R,8,$5B05,exact_address,5B05,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EAE4,EAF4,E1 6B,CMPB,"$6B,X",R,8,$5B6B,exact_address,5B6B,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EAE4,EAFD,A1 6C,CMPA,"$6C,X",R,8,$5B6C,exact_address,5B6C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EAE4,EB0B,A1 6C,CMPA,"$6C,X",R,8,$5B6C,exact_address,5B6C,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB19,EB20,1F 05 04 24,BRCLR,"$05,X,#$04,$EB48",R,8,$5B05,exact_address,5B05,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB19,EB2A,E1 6D,CMPB,"$6D,X",R,8,$5B6D,exact_address,5B6D,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB19,EB33,A1 6E,CMPA,"$6E,X",R,8,$5B6E,exact_address,5B6E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB19,EB41,A1 6E,CMPA,"$6E,X",R,8,$5B6E,exact_address,5B6E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB4D,EB54,1F 05 02 24,BRCLR,"$05,X,#$02,$EB7C",R,8,$5B05,exact_address,5B05,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB4D,EB5E,E1 71,CMPB,"$71,X",R,8,$5B71,exact_address,5B71,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB4D,EB67,A1 72,CMPA,"$72,X",R,8,$5B72,exact_address,5B72,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB4D,EB75,A1 72,CMPA,"$72,X",R,8,$5B72,exact_address,5B72,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB81,EB88,1F 06 08 2F,BRCLR,"$06,X,#$08,$EBBB",R,8,$5B06,exact_address,5B06,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB81,EB92,1A AC 81,CPY,"$81,X",R,16,$5B81,exact_address,5B81;5B82,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB81,EB9C,A1 83,CMPA,"$83,X",R,8,$5B83,exact_address,5B83,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EB81,EBB4,A1 83,CMPA,"$83,X",R,8,$5B83,exact_address,5B83,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EBC0,EBC7,1F 06 04 5D,BRCLR,"$06,X,#$04,$EC28",R,8,$5B06,exact_address,5B06,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC2D,EC34,1F 06 02 3C,BRCLR,"$06,X,#$02,$EC74",R,8,$5B06,exact_address,5B06,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC2D,EC45,E1 8E,CMPB,"$8E,X",R,8,$5B8E,exact_address,5B8E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC2D,EC56,E1 90,CMPB,"$90,X",R,8,$5B90,exact_address,5B90,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC2D,EC6D,A1 8F,CMPA,"$8F,X",R,8,$5B8F,exact_address,5B8F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,EC80,1F 07 80 43,BRCLR,"$07,X,#$80,$ECC7",R,8,$5B07,exact_address,5B07,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,EC91,E6 97,LDAB,"$97,X",R,8,$5B97,exact_address,5B97,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,EC93,E0 96,SUBB,"$96,X",R,8,$5B96,exact_address,5B96,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,EC98,A9 96,ADCA,"$96,X",R,8,$5B96,exact_address,5B96,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,EC9C,E6 99,LDAB,"$99,X",R,8,$5B99,exact_address,5B99,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,EC9E,E0 98,SUBB,"$98,X",R,8,$5B98,exact_address,5B98,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,ECA3,A9 98,ADCA,"$98,X",R,8,$5B98,exact_address,5B98,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,ECB2,A1 9A,CMPA,"$9A,X",R,8,$5B9A,exact_address,5B9A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EC79,ECC0,A1 9A,CMPA,"$9A,X",R,8,$5B9A,exact_address,5B9A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ECCC,ECD3,1F 07 20 23,BRCLR,"$07,X,#$20,$ECFA",R,8,$5B07,exact_address,5B07,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ECCC,ECF3,A1 9D,CMPA,"$9D,X",R,8,$5B9D,exact_address,5B9D,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ECFF,ED06,1F 07 08 2C,BRCLR,"$07,X,#$08,$ED36",R,8,$5B07,exact_address,5B07,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ECFF,ED14,A1 9E,CMPA,"$9E,X",R,8,$5B9E,exact_address,5B9E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ECFF,ED1A,1A AC A0,CPY,"$A0,X",R,16,$5BA0,exact_address,5BA0;5BA1,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ECFF,ED24,A1 9F,CMPA,"$9F,X",R,8,$5B9F,exact_address,5B9F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ECFF,ED2E,1A AC A0,CPY,"$A0,X",R,16,$5BA0,exact_address,5BA0;5BA1,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ED3F,ED46,1F 07 04 31,BRCLR,"$07,X,#$04,$ED7B",R,8,$5B07,exact_address,5B07,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ED3F,ED62,E1 A3,CMPB,"$A3,X",R,8,$5BA3,exact_address,5BA3,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ED3F,ED74,A1 A2,CMPA,"$A2,X",R,8,$5BA2,exact_address,5BA2,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ED80,ED87,1F 07 02 31,BRCLR,"$07,X,#$02,$EDBC",R,8,$5B07,exact_address,5B07,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ED80,EDA3,E1 A5,CMPB,"$A5,X",R,8,$5BA5,exact_address,5BA5,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+ED80,EDB5,A1 A4,CMPA,"$A4,X",R,8,$5BA4,exact_address,5BA4,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EDC1,EDC8,1F 07 01 31,BRCLR,"$07,X,#$01,$EDFD",R,8,$5B07,exact_address,5B07,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EDC1,EDE4,E1 A7,CMPB,"$A7,X",R,8,$5BA7,exact_address,5BA7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EDC1,EDF6,A1 A6,CMPA,"$A6,X",R,8,$5BA6,exact_address,5BA6,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EE02,EE09,1F 03 80 4D,BRCLR,"$03,X,#$80,$EE5A",R,8,$5B03,exact_address,5B03,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EE02,EE1D,E1 62,CMPB,"$62,X",R,8,$5B62,exact_address,5B62,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EE02,EE31,1A AC 5F,CPY,"$5F,X",R,16,$5B5F,exact_address,5B5F;5B60,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EE02,EE53,A1 61,CMPA,"$61,X",R,8,$5B61,exact_address,5B61,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EE61,EE68,1F 06 20 4B,BRCLR,"$06,X,#$20,$EEB7",R,8,$5B06,exact_address,5B06,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EE61,EE72,1A AC 77,CPY,"$77,X",R,16,$5B77,exact_address,5B77;5B78,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EE61,EE84,E1 7A,CMPB,"$7A,X",R,8,$5B7A,exact_address,5B7A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EE61,EEB0,A1 79,CMPA,"$79,X",R,8,$5B79,exact_address,5B79,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EEBC,EEC3,1F 06 10 5F,BRCLR,"$06,X,#$10,$EF26",R,8,$5B06,exact_address,5B06,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EEBC,EEE1,1A AC 7D,CPY,"$7D,X",R,16,$5B7D,exact_address,5B7D;5B7E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EEBC,EEE6,1A AC 7B,CPY,"$7B,X",R,16,$5B7B,exact_address,5B7B;5B7C,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EEBC,EEED,E1 80,CMPB,"$80,X",R,8,$5B80,exact_address,5B80,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EEBC,EF0D,1A AC 84,CPY,"$84,X",R,16,$5B84,exact_address,5B84;5B85,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EEBC,EF1F,A1 7F,CMPA,"$7F,X",R,8,$5B7F,exact_address,5B7F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF2B,EF32,1F 06 01 4D,BRCLR,"$06,X,#$01,$EF83",R,8,$5B06,exact_address,5B06,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF2B,EF3D,1A AC 91,CPY,"$91,X",R,16,$5B91,exact_address,5B91;5B92,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF2B,EF47,A1 95,CMPA,"$95,X",R,8,$5B95,exact_address,5B95,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF2B,EF65,1A AC 93,CPY,"$93,X",R,16,$5B93,exact_address,5B93;5B94,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF2B,EF72,1A AC 84,CPY,"$84,X",R,16,$5B84,exact_address,5B84;5B85,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF2B,EF7C,A1 95,CMPA,"$95,X",R,8,$5B95,exact_address,5B95,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EF8F,1F 08 40 1B,BRCLR,"$08,X,#$40,$EFAE",R,8,$5B08,exact_address,5B08,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFA3,E1 A9,CMPB,"$A9,X",R,8,$5BA9,exact_address,5BA9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFB7,1A AC AF,CPY,"$AF,X",R,16,$5BAF,exact_address,5BAF;5BB0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFBC,1A AC B1,CPY,"$B1,X",R,16,$5BB1,exact_address,5BB1;5BB2,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFC1,1A AC B3,CPY,"$B3,X",R,16,$5BB3,exact_address,5BB3;5BB4,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFC6,1A AC B5,CPY,"$B5,X",R,16,$5BB5,exact_address,5BB5;5BB6,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFCB,1A AC B7,CPY,"$B7,X",R,16,$5BB7,exact_address,5BB7;5BB8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFD0,1A AC B9,CPY,"$B9,X",R,16,$5BB9,exact_address,5BB9;5BBA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFDB,1A AC BB,CPY,"$BB,X",R,16,$5BBB,exact_address,5BBB;5BBC,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFE0,1A AC BD,CPY,"$BD,X",R,16,$5BBD,exact_address,5BBD;5BBE,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,EFFB,E1 AC,CMPB,"$AC,X",R,8,$5BAC,exact_address,5BAC,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,F007,1A AC 84,CPY,"$84,X",R,16,$5B84,exact_address,5B84;5B85,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,F01A,E1 AD,CMPB,"$AD,X",R,8,$5BAD,exact_address,5BAD,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+EF88,F023,A1 A8,CMPA,"$A8,X",R,8,$5BA8,exact_address,5BA8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F02F,F036,1F 08 20 1B,BRCLR,"$08,X,#$20,$F055",R,8,$5B08,exact_address,5B08,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F02F,F04A,E1 AB,CMPB,"$AB,X",R,8,$5BAB,exact_address,5BAB,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F02F,F066,1A AC B9,CPY,"$B9,X",R,16,$5BB9,exact_address,5BB9;5BBA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F02F,F075,E1 AC,CMPB,"$AC,X",R,8,$5BAC,exact_address,5BAC,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F02F,F081,1A AC 84,CPY,"$84,X",R,16,$5B84,exact_address,5B84;5B85,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F02F,F094,E1 AD,CMPB,"$AD,X",R,8,$5BAD,exact_address,5BAD,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F02F,F0A1,A1 AA,CMPA,"$AA,X",R,8,$5BAA,exact_address,5BAA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F0AD,F0B4,1F 08 10 1B,BRCLR,"$08,X,#$10,$F0D3",R,8,$5B08,exact_address,5B08,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F0AD,F0C8,E1 C0,CMPB,"$C0,X",R,8,$5BC0,exact_address,5BC0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F0AD,F0E4,1A AC B3,CPY,"$B3,X",R,16,$5BB3,exact_address,5BB3;5BB4,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F0AD,F0F3,E1 AC,CMPB,"$AC,X",R,8,$5BAC,exact_address,5BAC,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F0AD,F0F9,E1 AE,CMPB,"$AE,X",R,8,$5BAE,exact_address,5BAE,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F0AD,F105,1A AC 84,CPY,"$84,X",R,16,$5B84,exact_address,5B84;5B85,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F0AD,F118,E1 AD,CMPB,"$AD,X",R,8,$5BAD,exact_address,5BAD,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F0AD,F125,A1 BF,CMPA,"$BF,X",R,8,$5BBF,exact_address,5BBF,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F138,1F 08 04 65,BRCLR,"$08,X,#$04,$F1A1",R,8,$5B08,exact_address,5B08,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F149,E1 CA,CMPB,"$CA,X",R,8,$5BCA,exact_address,5BCA,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F175,CD EE 00,LDX,"$00,Y",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F18F,E1 C4,CMPB,"$C4,X",R,8,$5BC4,exact_address,5BC4,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F19B,A1 C7,CMPA,"$C7,X",R,8,$5BC7,exact_address,5BC7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F1AA,E1 C5,CMPB,"$C5,X",R,8,$5BC5,exact_address,5BC5,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F1B6,A1 C8,CMPA,"$C8,X",R,8,$5BC8,exact_address,5BC8,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F1C5,E1 C6,CMPB,"$C6,X",R,8,$5BC6,exact_address,5BC6,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F131,F1D1,A1 C9,CMPA,"$C9,X",R,8,$5BC9,exact_address,5BC9,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F1DD,F1E8,E1 C1,CMPB,"$C1,X",R,8,entry_X+193,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F1DD,F1F7,E1 C2,CMPB,"$C2,X",R,8,entry_X+194,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F1DD,F20A,E1 C3,CMPB,"$C3,X",R,8,entry_X+195,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F20D,F21A,A6 34,LDAA,"$34,X",R,8,$3034,exact_address,3034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F20D,F229,A6 34,LDAA,"$34,X",R,8,$3034,exact_address,3034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F20D,F236,A6 32,LDAA,"$32,X",R,8,$3032,exact_address,3032,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F20D,F23B,A6 33,LDAA,"$33,X",R,8,$3033,exact_address,3033,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F20D,F23F,A6 34,LDAA,"$34,X",R,8,$3034,exact_address,3034,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F245,F24C,A6 31,LDAA,"$31,X",R,8,$3031,exact_address,3031,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F245,F254,A6 32,LDAA,"$32,X",R,8,$3032,exact_address,3032,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F245,F259,A6 33,LDAA,"$33,X",R,8,$3033,exact_address,3033,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F25F,F267,1E 30 80 09,BRSET,"$30,X,#$80,$F274",R,8,entry_X+48,caller_parameter,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F275,F275,1D 08 38,BCLR,"$08,X,#$38",RW,8,entry_X+8,caller_parameter,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F275,F27B,AA 08,ORAA,"$08,X",R,8,entry_X+8,caller_parameter,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F275,F27D,A7 08,STAA,"$08,X",W,8,entry_X+8,caller_parameter,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F280,F285,A7 00,STAA,"$00,X",W,8,$02B3;$02B4;$02B5;$02B6;$02B7;$02B8;$02B9;$02BA;$02BB;$02BC;$02BD;$02BE;$02BF;$02C0;$02C1;$02C2;$02C3;$02C4;$02C5;$02C6;$02C7,bounded_address_set,02B3;02B4;02B5;02B6;02B7;02B8;02B9;02BA;02BB;02BC;02BD;02BE;02BF;02C0;02C1;02C2;02C3;02C4;02C5;02C6;02C7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F28E,F297,A1 00,CMPA,"$00,X",R,8,$02B3;$02B4;$02B5;$02B6;$02B7;$02B8;$02B9;$02BA;$02BB;$02BC;$02BD;$02BE;$02BF;$02C0;$02C1;$02C2;$02C3;$02C4;$02C5;$02C6;$02C7,bounded_address_set,02B3;02B4;02B5;02B6;02B7;02B8;02B9;02BA;02BB;02BC;02BD;02BE;02BF;02C0;02C1;02C2;02C3;02C4;02C5;02C6;02C7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F28E,F29B,A7 00,STAA,"$00,X",W,8,$02B3;$02B4;$02B5;$02B6;$02B7;$02B8;$02B9;$02BA;$02BB;$02BC;$02BD;$02BE;$02BF;$02C0;$02C1;$02C2;$02C3;$02C4;$02C5;$02C6;$02C7,bounded_address_set,02B3;02B4;02B5;02B6;02B7;02B8;02B9;02BA;02BB;02BC;02BD;02BE;02BF;02C0;02C1;02C2;02C3;02C4;02C5;02C6;02C7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F28E,F29D,E1 00,CMPB,"$00,X",R,8,$02B3;$02B4;$02B5;$02B6;$02B7;$02B8;$02B9;$02BA;$02BB;$02BC;$02BD;$02BE;$02BF;$02C0;$02C1;$02C2;$02C3;$02C4;$02C5;$02C6;$02C7,bounded_address_set,02B3;02B4;02B5;02B6;02B7;02B8;02B9;02BA;02BB;02BC;02BD;02BE;02BF;02C0;02C1;02C2;02C3;02C4;02C5;02C6;02C7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F28E,F2A1,E7 00,STAB,"$00,X",W,8,$02B3;$02B4;$02B5;$02B6;$02B7;$02B8;$02B9;$02BA;$02BB;$02BC;$02BD;$02BE;$02BF;$02C0;$02C1;$02C2;$02C3;$02C4;$02C5;$02C6;$02C7,bounded_address_set,02B3;02B4;02B5;02B6;02B7;02B8;02B9;02BA;02BB;02BC;02BD;02BE;02BF;02C0;02C1;02C2;02C3;02C4;02C5;02C6;02C7,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2B9,E6 00,LDAB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2C7,EB 00,ADDB,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2CB,EB 01,ADDB,"$01,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2CF,EB 02,ADDB,"$02,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2D3,EB 03,ADDB,"$03,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2D7,EB 04,ADDB,"$04,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2DB,EB 05,ADDB,"$05,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2DF,EB 06,ADDB,"$06,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2AA,F2E3,EB 07,ADDB,"$07,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2FD,F301,6F 00,CLR,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2FD,F315,1A EF 00,STY,"$00,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2FD,F318,1A EF 02,STY,"$02,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2FD,F31B,1A EF 04,STY,"$04,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F2FD,F31E,1A EF 06,STY,"$06,X",W,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F326,F32C,A0 00,SUBA,"$00,X",R,8,$000B;$000C;$000D;$000E;$000F;$0010;$0011;$0012;$0013;$0014,bounded_address_set,000B;000C;000D;000E;000F;0010;0011;0012;0013;0014,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F33A,A6 0A,LDAA,"$0A,X",R,8,$000B;$000C;$000D;$000E;$000F;$0010;$0011;$0012;$0013,bounded_address_set,000B;000C;000D;000E;000F;0010;0011;0012;0013,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F33C,18 A4 00,ANDA,"$00,Y",R,8,$F377;$F378;$F379;$F37A;$F37B;$F37C;$F37D;$F37E;$F37F,bounded_address_set,F377;F378;F379;F37A;F37B;F37C;F37D;F37E;F37F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F33F,A7 0A,STAA,"$0A,X",W,8,$000B;$000C;$000D;$000E;$000F;$0010;$0011;$0012;$0013,bounded_address_set,000B;000C;000D;000E;000F;0010;0011;0012;0013,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F341,A6 15,LDAA,"$15,X",R,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F343,18 A4 00,ANDA,"$00,Y",R,8,$F377;$F378;$F379;$F37A;$F37B;$F37C;$F37D;$F37E;$F37F,bounded_address_set,F377;F378;F379;F37A;F37B;F37C;F37D;F37E;F37F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F346,A7 15,STAA,"$15,X",W,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F348,A6 55,LDAA,"$55,X",R,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F34A,18 A4 00,ANDA,"$00,Y",R,8,$F377;$F378;$F379;$F37A;$F37B;$F37C;$F37D;$F37E;$F37F,bounded_address_set,F377;F378;F379;F37A;F37B;F37C;F37D;F37E;F37F,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F333,F34D,A7 55,STAA,"$55,X",W,8,$0056;$0057;$0058;$0059;$005A;$005B;$005C;$005D;$005E,bounded_address_set,0056;0057;0058;0059;005A;005B;005C;005D;005E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F380,F387,A6 0A,LDAA,"$0A,X",R,8,$000B;$000C;$000D;$000E;$000F;$0010;$0011;$0012;$0013,bounded_address_set,000B;000C;000D;000E;000F;0010;0011;0012;0013,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F380,F389,18 A4 00,ANDA,"$00,Y",R,8,$F3DB;$F3DC;$F3DD;$F3DE;$F3DF;$F3E0;$F3E1;$F3E2;$F3E3,bounded_address_set,F3DB;F3DC;F3DD;F3DE;F3DF;F3E0;F3E1;F3E2;F3E3,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F380,F38C,A7 0A,STAA,"$0A,X",W,8,$000B;$000C;$000D;$000E;$000F;$0010;$0011;$0012;$0013,bounded_address_set,000B;000C;000D;000E;000F;0010;0011;0012;0013,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F380,F38E,A6 15,LDAA,"$15,X",R,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F380,F390,18 A4 00,ANDA,"$00,Y",R,8,$F3DB;$F3DC;$F3DD;$F3DE;$F3DF;$F3E0;$F3E1;$F3E2;$F3E3,bounded_address_set,F3DB;F3DC;F3DD;F3DE;F3DF;F3E0;F3E1;F3E2;F3E3,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F380,F393,A7 15,STAA,"$15,X",W,8,$0016;$0017;$0018;$0019;$001A;$001B;$001C;$001D;$001E,bounded_address_set,0016;0017;0018;0019;001A;001B;001C;001D;001E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F422,A3 00,SUBD,"$00,X",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F427,18 E6 00,LDAB,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F42D,18 E6 00,LDAB,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F431,18 A0 00,SUBA,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F447,E3 00,ADDD,"$00,X",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F449,ED 00,STD,"$00,X",W,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F44C,18 E6 00,LDAB,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F450,A9 01,ADCA,"$01,X",R,8,entry_SP,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F420,F453,A6 00,LDAA,"$00,X",R,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F436,F438,A3 00,SUBD,"$00,X",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F436,F43B,18 E6 00,LDAB,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F436,F444,18 A0 00,SUBA,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F436,F447,E3 00,ADDD,"$00,X",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F436,F449,ED 00,STD,"$00,X",W,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F436,F44C,18 E6 00,LDAB,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F436,F450,A9 01,ADCA,"$01,X",R,8,entry_SP,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F436,F453,A6 00,LDAA,"$00,X",R,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F459,F45C,A0 00,SUBA,"$00,X",R,8,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F459,F464,A0 02,SUBA,"$02,X",R,8,entry_SP,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F459,F468,EC 01,LDD,"$01,X",R,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F459,F474,A9 00,ADCA,"$00,X",R,8,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F479,F479,A3 00,SUBD,"$00,X",R,16,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F479,F47C,18 E6 00,LDAB,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F479,F485,18 A0 00,SUBA,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F479,F488,E3 00,ADDD,"$00,X",R,16,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F479,F48A,ED 00,STD,"$00,X",W,16,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F479,F48D,18 E6 00,LDAB,"$00,Y",R,8,entry_Y,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F479,F491,A9 01,ADCA,"$01,X",R,8,entry_X+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F479,F494,A6 00,LDAA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F499,F49A,A1 00,CMPA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F499,F49E,A6 00,LDAA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F49A,F49A,A1 00,CMPA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F49A,F49E,A6 00,LDAA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4A4,F4A6,A0 00,SUBA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4A4,F4AB,A1 01,CMPA,"$01,X",R,8,entry_X+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4A4,F4AF,A6 01,LDAA,"$01,X",R,8,entry_X+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4A4,F4B8,E6 00,LDAB,"$00,X",R,8,entry_X+2,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4A4,F4C9,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4A4,F4D1,A9 00,ADCA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4A4,F4D9,AB 00,ADDA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4B6,F4B8,E6 00,LDAB,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4B6,F4C9,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4B6,F4D1,A9 00,ADCA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4B6,F4D9,AB 00,ADDA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4BD,F4C9,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4BD,F4D1,A9 00,ADCA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4BD,F4D9,AB 00,ADDA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4C1,F4C9,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4C1,F4D1,A9 00,ADCA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4C1,F4D9,AB 00,ADDA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F4E2,A0 00,SUBA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F4E7,E0 01,SUBB,"$01,X",R,8,entry_X+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F4FD,18 E6 02,LDAB,"$02,Y",R,8,entry_X+2,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F503,18 E6 02,LDAB,"$02,Y",R,8,entry_X+2,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F509,EC 03,LDD,"$03,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F50C,18 E6 03,LDAB,"$03,Y",R,8,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F513,A9 03,ADCA,"$03,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F51B,AB 03,ADDA,"$03,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F51F,EC 03,LDD,"$03,X",R,16,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F522,18 E6 03,LDAB,"$03,Y",R,8,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F529,A9 03,ADCA,"$03,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F531,AB 03,ADDA,"$03,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F536,18 E6 02,LDAB,"$02,Y",R,8,entry_SP-6,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F53D,18 A9 01,ADCA,"$01,Y",R,8,entry_SP-7,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F4DE,F546,18 AB 01,ADDA,"$01,Y",R,8,entry_SP-7,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F550,F551,E6 01,LDAB,"$01,X",R,8,entry_X+1,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F550,F558,A6 00,LDAA,"$00,X",R,8,entry_X,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F550,F55D,EB 02,ADDB,"$02,X",R,8,entry_SP,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5A8,A6 03,LDAA,"$03,X",R,8,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5AB,ED 05,STD,"$05,X",W,16,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5AD,EC 01,LDD,"$01,X",R,16,entry_SP-5,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5B0,EB 05,ADDB,"$05,X",R,8,entry_SP-1,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5B4,ED 04,STD,"$04,X",W,16,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5B6,A6 00,LDAA,"$00,X",R,8,entry_SP-6,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5B8,E6 03,LDAB,"$03,X",R,8,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5BA,6F 03,CLR,"$03,X",W,8,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5BD,E3 04,ADDD,"$04,X",R,16,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5BF,69 03,ROL,"$03,X",RW,8,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5C1,ED 04,STD,"$04,X",W,16,entry_SP-2,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5C3,A6 00,LDAA,"$00,X",R,8,entry_SP-6,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5C5,E6 02,LDAB,"$02,X",R,8,entry_SP-4,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5A2,F5C8,E3 03,ADDD,"$03,X",R,16,entry_SP-3,stack_relative,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5E8,F5F6,EE 00,LDX,"$00,X",R,16,$518F;$5190;$5191;$5192;$5193;$5194;$5195;$5196;$5197;$5198;$5199;$519A;$519B;$519C;$519D;$519E;$519F;$51A0;$51A1;$51A2;$51A3;$51A4;$51A5;$51A6;$51A7;$51A8;$51A9;$51AA;$51AB;$51AC;$51AD;$51AE,bounded_address_set,518F;5190;5191;5192;5193;5194;5195;5196;5197;5198;5199;519A;519B;519C;519D;519E;519F;51A0;51A1;51A2;51A3;51A4;51A5;51A6;51A7;51A8;51A9;51AA;51AB;51AC;51AD;51AE;51AF,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F5E8,F5FA,A6 02,LDAA,"$02,X",R,8,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
+F5E8,F611,E6 04,LDAB,"$04,X",R,8,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
+F5E8,F619,A6 03,LDAA,"$03,X",R,8,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
+F5E8,F61F,1A EE 05,LDY,"$05,X",R,16,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
+F5E8,F623,EE 09,LDX,"$09,X",R,16,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
+F5E8,F625,A6 00,LDAA,"$00,X",R,8,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
+F5E8,F627,18 A7 00,STAA,"$00,Y",W,8,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
+F64E,F68D,1F 01 18 30,BRCLR,"$01,X,#$18,$F6C1",R,8,$039A,exact_address,039A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F692,1F 01 08 06,BRCLR,"$01,X,#$08,$F69C",R,8,$039A,exact_address,039A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F696,1F 02 08 02,BRCLR,"$02,X,#$08,$F69C",R,8,$039B,exact_address,039B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F69C,1F 01 10 06,BRCLR,"$01,X,#$10,$F6A6",R,8,$039A,exact_address,039A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F6A0,1F 02 10 02,BRCLR,"$02,X,#$10,$F6A6",R,8,$039B,exact_address,039B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F6AB,18 A1 00,CMPA,"$00,Y",R,8,$B319,exact_address,B319,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F6B1,18 A1 01,CMPA,"$01,Y",R,8,$B31A,exact_address,B31A,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F6B7,18 A1 02,CMPA,"$02,Y",R,8,$B31B,exact_address,B31B,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F6C1,1F 05 80 0A,BRCLR,"$05,X,#$80,$F6CF",R,8,$039E,exact_address,039E,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F6D8,1F 07 40 02,BRCLR,"$07,X,#$40,$F6DE",R,8,$03A0,exact_address,03A0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+F64E,F6E6,1F 07 80 02,BRCLR,"$07,X,#$80,$F6EC",R,8,$03A0,exact_address,03A0,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+FA28,FA2E,A6 02,LDAA,"$02,X",R,8,entry_X+2,caller_parameter,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+FA5B,FAB9,18 A6 00,LDAA,"$00,Y",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+FA5B,FABC,A7 00,STAA,"$00,X",W,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+FA5B,FAD4,18 1F 00 80 60,BRCLR,"$00,Y,#$80,$FB39",R,8,$3064,exact_address,3064,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+FA5B,FB4F,AA 00,ORAA,"$00,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+FA5B,FB59,AA 01,ORAA,"$01,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+FA5B,FB67,EA 02,ORAB,"$02,X",R,8,unknown,unresolved,,0,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage

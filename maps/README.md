@@ -15,6 +15,14 @@ candidates, and one-level callee state inventories. See
 The scheduler's listing-discrepancy map records code hidden by malformed or
 misaligned HAC rows. It does not silently alter the older source-only indexes.
 
+`factory_nested_*.csv`, `factory_indexed_flow.csv`,
+`factory_indexed_clear_calls.csv`, and `factory_masked_state_updates.csv` extend
+the scheduler through nested calls. They distinguish exact/bounded addresses,
+frame-relative and caller-parameter accesses, known effects, and opaque hooks.
+The full-image/excerpt evidence is `bmhm_nested_state_rom_evidence.json`.
+See `docs/analysis/FACTORY_NESTED_STATE_FLOW.md` for the 262-row baseline
+accounting, verified helper footprints, validation, and remaining boundaries.
+
 ## Current hardware-access outputs
 
 ```text

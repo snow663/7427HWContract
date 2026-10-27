@@ -338,3 +338,9 @@ profiling-enable and mode-flag lifetimes, integrate the byte-backed listing
 corrections into the broader source indexes, enumerate service callback targets,
 and measure workload/interrupt timing. These are explicit dependencies for fuel,
 spark, idle, transmission, and diagnostic execution-context contracts.
+
+The next pass is now recorded in `FACTORY_NESTED_STATE_FLOW.md`: it extends calls
+to 234 ROM entries and resolves 216 of the preceding 262 indexed rows to
+physical address sets, retaining frame/parameter roles and unknowns separately.
+Use its nested-effect maps for the newer evidence; the original 63-root maps
+remain the reproducible first-pass baseline.

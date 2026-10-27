@@ -10,6 +10,8 @@ on:
       - "tools/build_factory_scheduler.py"
       - "tools/factory_rom_decode.py"
       - "tools/factory_scheduler_replay.py"
+      - "tools/factory_state_flow.py"
+      - "tools/build_factory_state_flow.py"
       - "hac31_romsim/romsim/hc11_core.py"
       - "hac31_romsim/romsim/profiles/gm_16197427_31.json"
       - "tools/build_full_rom_write_target_sweep.py"
@@ -21,6 +23,7 @@ on:
       - "maps/structure/**"
       - "tests/test_factory_structure.py"
       - "tests/test_factory_scheduler.py"
+      - "tests/test_factory_state_flow.py"
       - ".github/workflows/factory-structure-verification.yml"
   push:
     branches: [main]
@@ -31,6 +34,8 @@ on:
       - "tools/build_factory_scheduler.py"
       - "tools/factory_rom_decode.py"
       - "tools/factory_scheduler_replay.py"
+      - "tools/factory_state_flow.py"
+      - "tools/build_factory_state_flow.py"
       - "hac31_romsim/romsim/hc11_core.py"
       - "hac31_romsim/romsim/profiles/gm_16197427_31.json"
       - "tools/build_full_rom_write_target_sweep.py"
@@ -42,6 +47,7 @@ on:
       - "maps/structure/**"
       - "tests/test_factory_structure.py"
       - "tests/test_factory_scheduler.py"
+      - "tests/test_factory_state_flow.py"
       - ".github/workflows/factory-structure-verification.yml"
 
 jobs:
@@ -60,6 +66,8 @@ jobs:
         run: python tools/verify_factory_rom_structure.py --check-recorded
       - name: Check scheduler outputs against recorded ROM excerpts
         run: python tools/build_factory_scheduler.py --check-recorded
+      - name: Check nested calls and indexed state flow against ROM excerpts
+        run: python tools/build_factory_state_flow.py --check-recorded
       - name: Regenerate consumers of reviewed data boundaries
         run: |
           python tools/build_full_rom_write_target_sweep.py

@@ -90,6 +90,19 @@ discrepancies are recorded, including executable entries hidden by HAC data or
 misaligned decoding. These byte maps take precedence for covered instructions;
 the original HAC and older source-only inventories are retained unchanged.
 
+Nested-call/indexed-state propagation now extends those roots to 234 ROM
+procedure entries. `docs/analysis/FACTORY_NESTED_STATE_FLOW.md` and
+`maps/structure/factory_nested_*.csv` record register-return expressions,
+call-specific memory effects, and opaque boundaries. Of the earlier 262 indexed
+rows, 162 now have one address and 54 a bounded address set; one is frame-relative,
+four retain caller parameters, eight are pruned by stock constants, and 33 stay
+unresolved. These are scoped address proofs, not whole-ROM semantic completion.
+Indexed clear footprints and 45 ROM-mask/RAM pairings establish additional state
+producers, including the `$F333` mask write to `$001A`. The raw branch at `$A40B`
+is verified to target `$A465`; the older source index still preserves the typo.
+The actual-ROM multiply replay also required correcting MUL carry from bit15 to
+bit7 in the CPU model, with a dedicated regression.
+
 Primary current contracts include:
 
 ```text

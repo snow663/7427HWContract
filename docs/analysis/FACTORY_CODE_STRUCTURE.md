@@ -63,7 +63,7 @@ Of the access sites, 5,706 are direct and 1,038 retain unresolved indexing. An i
 
 These indexes intentionally do not establish register-to-register value propagation, transitive consumer edges, implicit stack accesses, cross-call pointer effects, interrupt ownership, all code reachability, or semantic completion. The legacy write-target index still uses coarse linear index tracking; use the new direct-access index for precise direct R/W counts.
 
-The parser also preserves an inherited defect: `$A40B` names `LA4656` as a branch destination. This is an unresolved direct operand, not a third indirect dispatcher. It needs target-BIN evidence before any correction is made. Two branch lines with colon-delimited comments are parsed without absorbing those comments into the target operand.
+The source-only parser preserves an inherited defect: `$A40B` names `LA4656` as a branch destination. This is an unresolved direct operand in that index, not a third indirect dispatcher. The newer nested ROM trace verifies `$A465` as the actual target and checks both branch outcomes on the CPU; integrating that correction into the source-only index remains separate work. Two branch lines with colon-delimited comments are parsed without absorbing those comments into the target operand.
 
 ## How to extend understanding
 
@@ -97,6 +97,14 @@ The new ROM comparison also records 32 listing discrepancies, including code at
 The older source indexes above have not been rewritten from these byte overlays.
 For covered instructions the ROM-backed maps are the stronger evidence. Full
 integration of the corrections is a separate worklist item.
+
+`FACTORY_NESTED_STATE_FLOW.md` now extends the scheduler across nested calls and
+register-return templates to 234 entries. Its indexed-flow map resolves 216 of
+the previous 262 per-root rows to addresses/sets and keeps the remaining frame,
+parameter, pruned, and unresolved categories explicit. It also byte-verifies
+the `$A40B -> $A465` branch and captures indexed clear/mask state producers.
+The older whole-listing source counts above remain unchanged; these new results
+do not silently change their denominator or establish whole-ROM semantics.
 
 ## Reproduce and verify
 
