@@ -1,0 +1,24 @@
+gate,address,gate_mask,writer_pc,bytes_hex,rom_instruction,status,scope_limit
+phase,0002,FF,7433,97 02,STAA $02,direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+phase,0002,FF,7952,7C 00 02,INC $0002,direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+phase,0002,FF,79C5,97 02,STAA $02,direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+phase,0002,FF,FB0D,D7 02,STAB $02,direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+factory_callback_latch,0001,01,71B7,7F 00 01,CLR $0001,direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+factory_callback_latch,0001,01,FA9F,14 01 01,"BSET $01,#$01",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+factory_callback_latch,0001,01,FAAD,15 01 01,"BCLR $01,#$01",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+special_fast_group,001A,20,71FA,14 1A 20,"BSET $1A,#$20",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+service_mode,003B,10,79D6,97 3B,STAA $3B,direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+service_mode,003B,10,F720,14 3B 10,"BSET $3B,#$10",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+service_mode,003B,10,F777,15 3B 10,"BCLR $3B,#$10",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+factory_mode,0044,01,71B4,14 44 01,"BSET $44,#$01",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+busy,004F,04,7974,15 4F 04,"BCLR $4F,#$04",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+busy,004F,04,7989,14 4F 04,"BSET $4F,#$04",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+busy,004F,04,7A52,15 4F 04,"BCLR $4F,#$04",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+pending,003A,20,7985,14 3A 20,"BSET $3A,#$20",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+pending,003A,20,7A7D,15 3A 20,"BCLR $3A,#$20",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+profiling_enable,0086,40,,,,no_direct_listing_writer_candidate;indexed_producers_pending,listing_seeded_candidates;not_proof_of_no_writes
+refresh_request,0051,04,74B0,15 51 04,"BCLR $51,#$04",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+refresh_request,0051,04,7B69,14 51 04,"BSET $51,#$04",direct_writer_byte_checked,listing_seeded_candidates;indexed_writers_and_value_effect_on_bit_not_closed
+service_copy_enable,038F,04,,,,no_direct_listing_writer_candidate;indexed_producers_pending,listing_seeded_candidates;not_proof_of_no_writes
+service_copy_value,0390,04,,,,no_direct_listing_writer_candidate;indexed_producers_pending,listing_seeded_candidates;not_proof_of_no_writes
+board_toggle_hold,0391,80,,,,no_direct_listing_writer_candidate;indexed_producers_pending,listing_seeded_candidates;not_proof_of_no_writes

@@ -53,6 +53,23 @@ class CPUContractTests(unittest.TestCase):
         finally:
             path.unlink(missing_ok=True)
 
+    def test_page3_y_register_operations_use_x_index(self) -> None:
+        image = bytearray(synthetic_hac_image())
+        image[0x7200:0x7209] = bytes.fromhex("1A EE 02 1A AC 04 1A EF 06")
+        sim, path = self.make_sim(bytes(image))
+        try:
+            sim.cpu.s.pc, sim.cpu.s.x, sim.cpu.s.y = 0x7200, 0x0100, 0x0300
+            sim.memory.write16(0x0102, 0x4567)
+            sim.memory.write16(0x0104, 0x4567)
+            sim.step_instruction()  # LDY 2,X
+            self.assertEqual((sim.cpu.s.x, sim.cpu.s.y), (0x0100, 0x4567))
+            sim.step_instruction()  # CPY 4,X
+            self.assertTrue(sim.cpu.s.ccr & 4)
+            sim.step_instruction()  # STY 6,X
+            self.assertEqual(sim.memory.read16(0x0106), 0x4567)
+        finally:
+            path.unlink(missing_ok=True)
+
 
 if __name__ == "__main__":
     unittest.main()

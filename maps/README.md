@@ -8,6 +8,13 @@ Machine-readable maps, generated access inventories, current runtime-analysis ta
 
 The first reviewed data block is `$C2D6-$C409`. The dispatcher/write-target builders consume that overlay. Older broad hardware-access maps are coarse inventories and may still contain data-as-code rows; they do not override this reviewed classification or measure semantic completion.
 
+`factory_scheduler_*.csv` and `bmhm_scheduler_rom_evidence.json` add actual-ROM
+slot words, conditional call order, local control/state edges, direct writer
+candidates, and one-level callee state inventories. See
+`docs/analysis/FACTORY_SCHEDULER_MAP.md` for execution tests and scope limits.
+The scheduler's listing-discrepancy map records code hidden by malformed or
+misaligned HAC rows. It does not silently alter the older source-only indexes.
+
 ## Current hardware-access outputs
 
 ```text

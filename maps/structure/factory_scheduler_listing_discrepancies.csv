@@ -1,0 +1,33 @@
+pc,bytes_hex,rom_instruction,listing_instruction,reason,source_line
+74A4,C6 10,LDAB #$10,LDAB #010,operand_differs,733
+7D8D,CF,STOP,*****,mnemonic_differs,2424
+7F57,CC FF FF,LDD #$FFFF,LDD #65525,operand_differs,2813
+7F64,CC FF FF,LDD #$FFFF,LDD #65525,operand_differs,2821
+81F4,CC 7F FF,LDD #$7FFF,LDD #$#32767,unparsed_listing_operand,3351
+82AB,86 FF,LDAA #$FF,LDAA #255F,unparsed_listing_operand,3473
+A0FA,15 18 08,"BCLR $18,#$08",,missing_addressed_listing_row,
+A0FD,12 36 02 14,"BRSET $36,#$02,$A115",,missing_addressed_listing_row,
+A101,12 36 01 08,"BRSET $36,#$01,$A10D",,missing_addressed_listing_row,
+A105,B6 02 9D,LDAA $029D,,missing_addressed_listing_row,
+A108,B7 02 9F,STAA $029F,,missing_addressed_listing_row,
+A10B,20 20,BRA $A12D,,missing_addressed_listing_row,
+A10D,B6 02 A0,LDAA $02A0,,missing_addressed_listing_row,
+A110,B7 02 A2,STAA $02A2,,missing_addressed_listing_row,
+A113,20 18,BRA $A12D,,missing_addressed_listing_row,
+A361,27 35,BEQ $A398,,missing_addressed_listing_row,
+A363,B6 5B 02,LDAA $5B02,BEQ LA398,mnemonic_differs,9519
+A381,12 09 40 05,"BRSET $09,#$40,$A38A","BRSET L0009,#$40,LA38",operand_differs,9544
+A3EA,12 09 04 18,"BRSET $09,#$04,$A406","BRSET L0009,#$04,LA40",operand_differs,9613
+A60E,C3 40 80,ADDD #$4080,ADDD #65512,operand_differs,9966
+A7B6,CB 80,ADDB #$80,ADDB #127,operand_differs,10295
+A7BC,C6 C0,LDAB #$C0,LDAB #160,operand_differs,10299
+B32D,BD B3 34,JSR $B334,,missing_addressed_listing_row,
+B99F,F6 01 1A,LDAB $011A,,missing_addressed_listing_row,
+CFCA,13 3E 80 BB,"BRCLR $3E,#$80,$CF89","BRCLR L003E,#$80,LCF8",operand_differs,16788
+E75F,12 3B 04 2F,"BRSET $3B,#$04,$E792",FDB $123B,mnemonic_differs,21067
+E763,CE 5B 00,LDX #$5B00,FDB $CE5B,mnemonic_differs,21069
+F3E4,B6 30 66,LDAA $3066,,missing_addressed_listing_row,
+F3E7,88 80,EORA #$80,,missing_addressed_listing_row,
+F3E9,B7 30 66,STAA $3066,,missing_addressed_listing_row,
+F3EC,39,RTS,,missing_addressed_listing_row,
+FA72,81 28,CMPA #$28,CMPA #$40,operand_differs,24679

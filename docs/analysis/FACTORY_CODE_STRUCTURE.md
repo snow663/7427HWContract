@@ -76,6 +76,28 @@ The parser also preserves an inherited defect: `$A40B` names `LA4656` as a branc
 
 The next engine-focused path is the spark rolling-state bridge. Its `$01EC` producer is now traced in `../contracts/SPARK_L01EC_INTEGER_STATE.md`: two direct writes and four direct reads establish a concrete path into `$3FE6/$3FDC`. Next close `$083F/$01EA`, the stack-based postprocessing at `$AB89-$ABC8`, and first-event/reset behavior. Fuel `$024E` and its indirect multiply/helper updates follow; the index alone is not enough to close them.
 
+## ROM-backed scheduler extension
+
+`FACTORY_SCHEDULER_MAP.md` now closes the bounded dispatch/call-selection model:
+all 16 slots, fast phase-bit groups, startup's first slot F, busy reentry and
+coalesced pending work, profiling arithmetic, and the RAM callback at `$FAA5`.
+The 18 scheduler tests execute the actual captured instructions using the
+existing CPU, with external callee effects stubbed and fixture-controlled
+hardware. They are independent of the new map decoder and its guard formulas.
+
+The companion maps add explicit local fallthrough/control edges, gate-producer
+candidates checked against bytes, and intraprocedural state inventories for 63
+direct callee roots. Their 262 unresolved indexed-access rows use a different
+scope from the 1,038 whole-listing rows above; they are not an updated global
+unresolved count. Nested calls, indexed writes, and physical scheduling latency
+remain dependencies.
+
+The new ROM comparison also records 32 listing discrepancies, including code at
+`$E75F` declared as data and misaligned entries at `$B32D`, `$B99F`, and `$F3E4`.
+The older source indexes above have not been rewritten from these byte overlays.
+For covered instructions the ROM-backed maps are the stronger evidence. Full
+integration of the corrections is a separate worklist item.
+
 ## Reproduce and verify
 
 From the repository root:

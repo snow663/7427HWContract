@@ -78,6 +78,18 @@ The first additional state trace is `docs/contracts/SPARK_L01EC_INTEGER_STATE.md
 
 The `$C2D6-$C409` descriptor bytes and principal caller/reader instructions are now verified against actual `BMHM.BIN` bytes with the stock SHA-256 above. The byte evidence, 144 pointer words, and precise limits of this classification are recorded in `docs/analysis/FACTORY_ROM_STRUCTURE_PROOF.md`. Full-ROM reachability and the rest of the listing remain separate work.
 
+The main TOC3 scheduler now has a ROM-backed slot/call/guard/state map in
+`docs/analysis/FACTORY_SCHEDULER_MAP.md` and `maps/structure/factory_scheduler_*.csv`.
+It covers all 16 landing words, phase-bit fast groups, first-slot initialization,
+stack checks, the coalescing pending-pass bit, profiling words, and the separate
+RAM-word factory/service callback. Eighteen bounded CPU-execution tests cover
+the full 160-phase sequence and exceptional paths with external callee effects
+stubbed. Sixty-three direct callee roots have ROM-decoded intraprocedural state
+inventories; nested calls and indexed effects remain open. Thirty-two listing
+discrepancies are recorded, including executable entries hidden by HAC data or
+misaligned decoding. These byte maps take precedence for covered instructions;
+the original HAC and older source-only inventories are retained unchanged.
+
 Primary current contracts include:
 
 ```text

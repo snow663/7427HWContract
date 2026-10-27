@@ -1,0 +1,151 @@
+scope,pc,bytes_hex,mnemonic,operand,access,width_bits,address,byte_addresses,region,index_register,index_offset,mask,scope_limit
+boot_clock,7108,A7 3D,STAA,"$3D,X",W,8,,,unresolved_indexed,X,3D,,explicit_access_only;calls_and_implicit_stack_excluded
+boot_clock,710F,A7 39,STAA,"$39,X",W,8,,,unresolved_indexed,X,39,,explicit_access_only;calls_and_implicit_stack_excluded
+boot_clock,7113,A7 24,STAA,"$24,X",W,8,,,unresolved_indexed,X,24,,explicit_access_only;calls_and_implicit_stack_excluded
+boot_clear_calls,7182,6F 00,CLR,"$00,X",W,8,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+phase_seed,7433,97 02,STAA,$02,W,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_arm,745B,B7 30 23,STAA,$3023,W,8,3023,3023,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_arm,745E,FC 30 0E,LDD,$300E,R,16,300E,300E;300F,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_arm,7464,FD 30 1A,STD,$301A,W,16,301A,301A;301B,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_arm,7469,B7 30 22,STAA,$3022,W,8,3022,3022,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,746C,13 51 04 43,BRCLR,"$51,#$04,$74B3",R,8,0051,0051,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7470,FE 02 9B,LDX,$029B,R,16,029B,029B;029C,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,747B,FF 02 9B,STX,$029B,W,16,029B,029B;029C,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7484,EC 00,LDD,"$00,X",R,16,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7486,ED 00,STD,"$00,X",W,16,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7488,EC 02,LDD,"$02,X",R,16,,,unresolved_indexed,X,02,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,748A,ED 02,STD,"$02,X",W,16,,,unresolved_indexed,X,02,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,748C,EC 04,LDD,"$04,X",R,16,,,unresolved_indexed,X,04,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,748E,ED 04,STD,"$04,X",W,16,,,unresolved_indexed,X,04,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7490,EC 06,LDD,"$06,X",R,16,,,unresolved_indexed,X,06,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7492,ED 06,STD,"$06,X",W,16,,,unresolved_indexed,X,06,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7494,EC 08,LDD,"$08,X",R,16,,,unresolved_indexed,X,08,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7496,ED 08,STD,"$08,X",W,16,,,unresolved_indexed,X,08,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,7498,EC 0A,LDD,"$0A,X",R,16,,,unresolved_indexed,X,0A,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,749A,ED 0A,STD,"$0A,X",W,16,,,unresolved_indexed,X,0A,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,749C,EC 0C,LDD,"$0C,X",R,16,,,unresolved_indexed,X,0C,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,749E,ED 0C,STD,"$0C,X",W,16,,,unresolved_indexed,X,0C,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74A0,EC 0E,LDD,"$0E,X",R,16,,,unresolved_indexed,X,0E,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74A2,ED 0E,STD,"$0E,X",W,16,,,unresolved_indexed,X,0E,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74A7,FF 02 9B,STX,$029B,W,16,029B,029B;029C,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74AD,7F 02 9B,CLR,$029B,W,8,029B,029B,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74B0,15 51 04,BCLR,"$51,#$04",RW,8,0051,0051,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74B7,A6 00,LDAA,"$00,X",R,8,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74C3,FC 02 D1,LDD,$02D1,R,16,02D1,02D1;02D2,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74C8,BC 02 D1,CPX,$02D1,R,16,02D1,02D1;02D2,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+foreground_refresh,74CD,FF 02 D1,STX,$02D1,W,16,02D1,02D1;02D2,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,793D,FC 30 1A,LDD,$301A,R,16,301A,301A;301B,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7943,FD 30 1A,STD,$301A,W,16,301A,301A;301B,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7948,B7 30 23,STAA,$3023,W,8,3023,3023,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,794B,14 00 01,BSET,"$00,#$01",RW,8,0000,0000,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,794E,13 44 01 06,BRCLR,"$44,#$01,$7958",R,8,0044,0044,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7952,7C 00 02,INC,$0002,RW,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,795C,12 4F 04 07,BRSET,"$4F,#$04,$7967",R,8,004F,004F,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7971,14 3A 08,BSET,"$3A,#$08",RW,8,003A,003A,ram,,,08,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7974,15 4F 04,BCLR,"$4F,#$04",RW,8,004F,004F,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,797D,13 4F 04 08,BRCLR,"$4F,#$04,$7989",R,8,004F,004F,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7981,96 02,LDAA,$02,R,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7983,97 03,STAA,$03,W,8,0003,0003,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7985,14 3A 20,BSET,"$3A,#$20",RW,8,003A,003A,ram,,,20,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7989,14 4F 04,BSET,"$4F,#$04",RW,8,004F,004F,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,798C,13 3B 10 14,BRCLR,"$3B,#$10,$79A4",R,8,003B,003B,ram,,,10,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7990,F6 03 8F,LDAB,$038F,R,8,038F,038F,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7997,15 72 80,BCLR,"$72,#$80",RW,8,0072,0072,ram,,,80,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,799A,F6 03 90,LDAB,$0390,R,8,0390,0390,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79A1,14 72 80,BSET,"$72,#$80",RW,8,0072,0072,ram,,,80,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79A4,96 02,LDAA,$02,R,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79AB,D6 43,LDAB,$43,R,8,0043,0043,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79AF,D7 43,STAB,$43,W,8,0043,0043,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79B1,13 4F 80 0F,BRCLR,"$4F,#$80,$79C4",R,8,004F,004F,ram,,,80,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79B5,DE FD,LDX,$FD,R,16,00FD,00FD;00FE,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79BA,DF FD,STX,$FD,W,16,00FD,00FD;00FE,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79BC,BC 49 5D,CPX,$495D,R,16,495D,495D;495E,rom,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79C1,15 04 10,BCLR,"$04,#$10",RW,8,0004,0004,ram,,,10,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79C5,97 02,STAA,$02,W,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79C8,96 3B,LDAA,$3B,R,8,003B,003B,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79CC,12 51 08 04,BRSET,"$51,#$08,$79D4",R,8,0051,0051,ram,,,08,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79D6,97 3B,STAA,$3B,W,8,003B,003B,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79D9,13 1A 20 15,BRCLR,"$1A,#$20,$79F2",R,8,001A,001A,ram,,,20,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79DD,13 02 01 63,BRCLR,"$02,#$01,$7A44",R,8,0002,0002,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79E1,14 43 80,BSET,"$43,#$80",RW,8,0043,0043,ram,,,80,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79EA,B7 30 3A,STAA,$303A,W,8,303A,303A,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79ED,F7 30 3A,STAB,$303A,W,8,303A,303A,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,79F5,12 02 01 20,BRSET,"$02,#$01,$7A19",R,8,0002,0002,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A08,13 02 02 05,BRCLR,"$02,#$02,$7A11",R,8,0002,0002,ram,,,02,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A1F,13 3B 10 0F,BRCLR,"$3B,#$10,$7A32",R,8,003B,003B,ram,,,10,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A23,B6 03 91,LDAA,$0391,R,8,0391,0391,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A2A,14 44 04,BSET,"$44,#$04",RW,8,0044,0044,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A2D,14 43 80,BSET,"$43,#$80",RW,8,0043,0043,ram,,,80,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A35,13 02 02 08,BRCLR,"$02,#$02,$7A41",R,8,0002,0002,ram,,,02,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A44,D6 02,LDAB,$02,R,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A4D,EE 00,LDX,"$00,X",R,16,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A52,15 4F 04,BCLR,"$4F,#$04",RW,8,004F,004F,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A55,13 86 40 20,BRCLR,"$86,#$40,$7A79",R,8,0086,0086,ram,,,40,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A59,D6 02,LDAB,$02,R,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A62,FC 30 0E,LDD,$300E,R,16,300E,300E;300F,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A65,B3 30 1A,SUBD,$301A,R,16,301A,301A;301B,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A6B,13 3A 20 03,BRCLR,"$3A,#$20,$7A72",R,8,003A,003A,ram,,,20,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A72,1A A3 00,CPD,"$00,X",R,16,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A77,ED 00,STD,"$00,X",W,16,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A79,13 3A 20 07,BRCLR,"$3A,#$20,$7A84",R,8,003A,003A,ram,,,20,explicit_access_only;calls_and_implicit_stack_excluded
+timer_isr,7A7D,15 3A 20,BCLR,"$3A,#$20",RW,8,003A,003A,ram,,,20,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7B73,B7 30 30,STAA,$3030,W,8,3030,3030,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7B79,1F 30 80 FC,BRCLR,"$30,X,#$80,$7B79",R,8,,,unresolved_indexed,X,30,80,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7B7E,F6 30 31,LDAB,$3031,R,8,3031,3031,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7B81,FB 30 32,ADDB,$3032,R,8,3032,3032,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7B86,FB 30 33,ADDB,$3033,R,8,3033,3033,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7B8B,FB 30 34,ADDB,$3034,R,8,3034,3034,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7B94,F7 01 4E,STAB,$014E,W,8,014E,014E,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7B9E,F6 01 4C,LDAB,$014C,R,8,014C,014C,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+tick_service,7BA3,FD 30 68,STD,$3068,W,16,3068,3068;3069,board_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+ram_clear_helper,F301,6F 00,CLR,"$00,X",W,8,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+ram_clear_helper,F315,1A EF 00,STY,"$00,X",W,16,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+ram_clear_helper,F318,1A EF 02,STY,"$02,X",W,16,,,unresolved_indexed,X,02,,explicit_access_only;calls_and_implicit_stack_excluded
+ram_clear_helper,F31B,1A EF 04,STY,"$04,X",W,16,,,unresolved_indexed,X,04,,explicit_access_only;calls_and_implicit_stack_excluded
+ram_clear_helper,F31E,1A EF 06,STY,"$06,X",W,16,,,unresolved_indexed,X,06,,explicit_access_only;calls_and_implicit_stack_excluded
+heartbeat,F3E4,B6 30 66,LDAA,$3066,R,8,3066,3066,board_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+heartbeat,F3E9,B7 30 66,STAA,$3066,W,8,3066,3066,board_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9B9,F6 03 61,LDAB,$0361,R,8,0361,0361,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9BE,E6 02,LDAB,"$02,X",R,8,,,unresolved_indexed,X,02,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9C0,F7 03 64,STAB,$0364,W,8,0364,0364,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9C7,B6 03 65,LDAA,$0365,R,8,0365,0365,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9CA,12 50 08 42,BRSET,"$50,#$08,$FA10",R,8,0050,0050,ram,,,08,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9D6,15 3B 03,BCLR,"$3B,#$03",RW,8,003B,003B,ram,,,03,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9D9,F6 03 6C,LDAB,$036C,R,8,036C,036C,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9DC,18 E7 00,STAB,"$00,Y",W,8,,,unresolved_indexed,Y,00,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9EB,D4 42,ANDB,$42,R,8,0042,0042,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9ED,D7 42,STAB,$42,W,8,0042,0042,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9F5,F6 03 64,LDAB,$0364,R,8,0364,0364,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,F9FC,14 3B 02,BSET,"$3B,#$02",RW,8,003B,003B,ram,,,02,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,FA01,14 3B 01,BSET,"$3B,#$01",RW,8,003B,003B,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,FA16,E6 00,LDAB,"$00,X",R,8,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+service_receive,FA18,18 E7 00,STAB,"$00,Y",W,8,,,unresolved_indexed,Y,00,,explicit_access_only;calls_and_implicit_stack_excluded
+service_payload_copy,FA16,E6 00,LDAB,"$00,X",R,8,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+service_payload_copy,FA18,18 E7 00,STAB,"$00,Y",W,8,,,unresolved_indexed,Y,00,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FA6B,B6 30 31,LDAA,$3031,R,8,3031,3031,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FA7B,B6 30 31,LDAA,$3031,R,8,3031,3031,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FA87,B7 30 3A,STAA,$303A,W,8,303A,303A,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FA8A,F7 30 3A,STAB,$303A,W,8,303A,303A,cpu_io,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FA8D,F6 03 64,LDAB,$0364,R,8,0364,0364,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FA9B,13 01 01 0A,BRCLR,"$01,#$01,$FAA9",R,8,0001,0001,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FA9F,14 01 01,BSET,"$01,#$01",RW,8,0001,0001,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FAA2,FE 03 8E,LDX,$038E,R,16,038E,038E;038F,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FAAD,15 01 01,BCLR,"$01,#$01",RW,8,0001,0001,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FAB0,FE 03 8E,LDX,$038E,R,16,038E,038E;038F,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FAB9,18 A6 00,LDAA,"$00,Y",R,8,,,unresolved_indexed,Y,00,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FABC,A7 00,STAA,"$00,X",W,8,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_entry,FAC4,73 03 64,COM,$0364,RW,8,0364,0364,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_cycle_phase,FB03,FD 3F F6,STD,$3FF6,W,16,3FF6,3FF6;3FF7,asic,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_cycle_phase,FB06,D6 02,LDAB,$02,R,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+factory_cycle_phase,FB0D,D7 02,STAB,$02,W,8,0002,0002,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
+reset,FC29,14 00 80,BSET,"$00,#$80",RW,8,0000,0000,ram,,,80,explicit_access_only;calls_and_implicit_stack_excluded
+slot_4,7ACA,13 02 10 14,BRCLR,"$02,#$10,$7AE2",R,8,0002,0002,ram,,,10,explicit_access_only;calls_and_implicit_stack_excluded
+slot_4,7AF1,15 6F 24,BCLR,"$6F,#$24",RW,8,006F,006F,ram,,,24,explicit_access_only;calls_and_implicit_stack_excluded
+slot_4,7AF4,13 16 01 03,BRCLR,"$16,#$01,$7AFB",R,8,0016,0016,ram,,,01,explicit_access_only;calls_and_implicit_stack_excluded
+slot_4,7AF8,14 6F 04,BSET,"$6F,#$04",RW,8,006F,006F,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+slot_4,7AFB,13 17 80 03,BRCLR,"$17,#$80,$7B02",R,8,0017,0017,ram,,,80,explicit_access_only;calls_and_implicit_stack_excluded
+slot_4,7AFF,14 6F 20,BSET,"$6F,#$20",RW,8,006F,006F,ram,,,20,explicit_access_only;calls_and_implicit_stack_excluded
+slot_5,7B0C,1E 00 40 03,BRSET,"$00,X,#$40,$7B13",R,8,400F,400F,rom,X,00,40,explicit_access_only;calls_and_implicit_stack_excluded
+slot_E,7B52,13 51 04 03,BRCLR,"$51,#$04,$7B59",R,8,0051,0051,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+slot_E,7B56,14 04 04,BSET,"$04,#$04",RW,8,0004,0004,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
+slot_F,7B69,14 51 04,BSET,"$51,#$04",RW,8,0051,0051,ram,,,04,explicit_access_only;calls_and_implicit_stack_excluded
