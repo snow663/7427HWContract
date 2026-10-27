@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
-"""Build the provisional spark conversion equation contract.
+"""Build the ROM-verified integer conversion contract and legacy angle vectors.
 
-This tool assembles the static equation boundary from prior contract outputs and
-checks the static vector math for the known portions:
-  A_count = round(abs(deg) * 256 / 90)
-  LF550   = round((A_count * period_basis) / 256)
-
-It intentionally does not emulate stock spark code or produce a spark writer.
+Actual instruction execution is independently checked by test_factory_spark.py.
+The angle vectors retain an engineering-scale hypothesis, separate from the
+raw machine-word contract and its exact handoff vectors.
 """
 
 from __future__ import annotations
@@ -63,19 +60,15 @@ def ensure_vectors(path: Path) -> list[dict[str, str]]:
         for name, deg, sign, period, latency, anchor, notes in DEFAULT_VECTORS:
             a = spark_deg_to_a_count(deg)
             out = lf550(a, period)
-            raw = out - latency - anchor
             rows.append({
                 "name": name,
                 "spark_deg": f"{deg:g}",
                 "sign": sign,
                 "period_basis_hex": f"0x{period:04X}",
                 "period_basis_dec": str(period),
-                "latency_hex": f"0x{latency:04X}",
-                "anchor_hex": f"0x{anchor:04X}",
                 "a_expected": str(a),
                 "lf550_expected_hex": f"0x{out:04X}",
                 "lf550_expected_dec": str(out),
-                "raw_time_expected": str(raw),
                 "notes": notes,
             })
         with path.open("w", newline="", encoding="utf-8") as f:
@@ -106,210 +99,90 @@ def verify_vectors(rows: list[dict[str, str]]) -> list[str]:
 
 def write_equation_csv(out: Path) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
-    rows = [
-        {
-            "stage": "spark_offset_to_magnitude",
-            "input": "spark_offset_deg",
-            "operation": "A_count = round(abs(spark_offset_deg) * 256 / 90)",
-            "output": "spark_mag_u8 / A_count",
-            "unit": "90deg/256 scale = 0.3515625 deg/count",
-            "confidence": "high_static_pending_bench",
-            "source_contract": "SPARK_MAGNITUDE_SCALE_CONTRACT.md",
-            "notes": "L01FD/L01EE/A path; L004F bit0 carries sign",
-        },
-        {
-            "stage": "magnitude_times_period",
-            "input": "A_count, L005F/L0060",
-            "operation": "spark_time_delta = round((A_count * L005F) / 256)",
-            "output": "spark_time_delta",
-            "unit": "timing-domain candidate; depends on L005F period unit",
-            "confidence": "high_static_for_math_medium_for_physics",
-            "source_contract": "MATH_HELPER_LF550.md; SPARK_TIMEBASE_PERIOD_CONTRACT.md",
-            "notes": "LF550 locked as rounded 8x16 fixed-point multiply",
-        },
-        {
-            "stage": "latency_correction",
-            "input": "spark_time_delta, L0201",
-            "operation": "subtract latency correction",
-            "output": "latency_adjusted_delta",
-            "unit": "same/pre-shift timing-domain candidate",
-            "confidence": "medium_static_pending_bench",
-            "source_contract": "SPARK_TIMING_UNIT_CONVERSION.md",
-            "notes": "0xAB72 STAA L0201; 0xAB84 SUBB L0201",
-        },
-        {
-            "stage": "period_anchor_subtract",
-            "input": "latency_adjusted_delta, L3FC0",
-            "operation": "subtract/combine hardware period anchor",
-            "output": "raw_time_pre_pack",
-            "unit": "timing-domain candidate",
-            "confidence": "medium_static_pending_bench",
-            "source_contract": "SPARK_TIMEBASE_PERIOD_CONTRACT.md",
-            "notes": "0xAB8E SUBD L3FC0 before four right shifts",
-        },
-        {
-            "stage": "pack_or_shift_for_la906",
-            "input": "raw_time_pre_pack, L004F bit0",
-            "operation": "stock_postprocess(raw_time, sign); includes four shifts and high-nibble/sign tagging candidate",
-            "output": "D_AB97",
-            "unit": "LA906 timing-domain input",
-            "confidence": "low_medium_static_pending_bench",
-            "source_contract": "SPARK_TIMING_UNIT_CONVERSION.md; SPARK_LA906_TIMING_BRIDGE.md",
-            "notes": "postprocess not fully locked; keep as stock_postprocess until bench/emulation",
-        },
-        {
-            "stage": "la906_handoff_boundary",
-            "input": "D_AB97, L3FF6/L3FDC/L01EC/L3FEC",
-            "operation": "LA906 rolling-state bridge",
-            "output": "$3FE8/$3FE6/$3FDC/$3FF6/$3FEC->$3FE4",
-            "unit": "ASIC timing handoff",
-            "confidence": "medium_static_pending_bench",
-            "source_contract": "SPARK_LA906_TIMING_BRIDGE.md; SPARK_ASIC_HANDOFF_CONTRACT.md",
-            "notes": "owned by output-sequence contract, not by this equation contract",
-        },
+    stages=[
+        ("raw_command", "D_at_AB3E", "negative = command bit15; magnitude = u8(-low(command)) if negative else low(command)", "magnitude; 004F bit0", "AB3E-AB50"),
+        ("startup_gain", "magnitude; 01F2; 0051 bit6", "if bit6 clear: m=u8(high(01F2)+bit7(low(01F2))); magnitude=u8(floor(magnitude*m/256)+1)", "effective magnitude", "AB51-AB61"),
+        ("latency", "0062; ROM454A-4558", "F499 clamped unsigned linear interpolation with rounded absolute difference", "byte0201", "AB6A-AB72;F499-F4DD"),
+        ("saved_timing", "effective magnitude; 005F; negative; 0201", "t=floor((magnitude*word005F+128)/256); saved=u16((t if negative else -t)-byte0201)", "stack word at SP_at_AB89-1", "AB75-AB8A;F550-F563"),
+        ("period_anchor", "read16(3FC0) at AB8E", "anchor=(u16(-period)>>4)|F000; D was cleared independently of saved timing", "D_before_AB97", "AB8B-AB95"),
+        ("stack_selection", "anchor; read16(3FF6) at AB97; saved", "candidate=u16(anchor+rolling1); chosen=saved if u16(candidate-saved) bit15 set else candidate", "chosen stack word", "AB97-ABA2"),
+        ("first_write", "chosen; read16(3FF6) at ABA4", "first=u16(chosen-rolling2)", "3FE8", "ABA4-ABAA"),
+        ("second_write", "first; read16(3FDC) at ABB0; word01EC at ABB3", "second=u16(first+work_read-correction1)", "3FE6", "ABB0-ABBA"),
+        ("state_handoff", "word01EC at ABB7; chosen", "write correction2 to 3FDC; restore chosen stack word and write to 3FF6", "3FDC;3FF6", "ABB7-ABC8"),
     ]
-    with out.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-        w.writeheader()
-        w.writerows(rows)
+    rows=[{"stage":stage,"input":inputs,"operation":operation,"output":output,
+           "unit":"raw machine counts; physical timebase unassigned",
+           "confidence":"ROM_bytes_and_independent_CPU_replay",
+           "source_contract":"FACTORY_SPARK_INTEGER_HANDOFF.md",
+           "notes":"PCs="+pcs+"; normal factory path requires 0086 bit6 clear; separate read PCs remain independent inputs"}
+          for stage,inputs,operation,output,pcs in stages]
+    with out.open("w",newline="",encoding="utf-8") as f:
+        w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
 
 
-def write_md(out: Path, vector_rows: list[dict[str, str]], vector_errors: list[str]) -> None:
-    out.parent.mkdir(parents=True, exist_ok=True)
-    md = [
-        "# Spark Conversion Equation",
-        "",
-        "## Purpose",
-        "",
-        "Combine the static spark contracts into a provisional equation from desired spark degrees to the timing-domain value consumed by `LA906`.",
-        "",
-        "This is the math boundary only. It does **not** define the ASIC output sequence and does **not** create a spark writer.",
-        "",
-        "## Inputs",
-        "",
-        "| Input | Meaning | Unit | Confidence |",
-        "|---|---|---|---|",
-        "| `spark_offset_deg` | desired advance/retard offset relative to the stock reference/bias path | crank degrees | medium, API candidate |",
-        "| `L005F/L0060` | period basis used by `LF550` | time for DRP/ref period, likely 90° basis | pending bench |",
-        "| `L0201` | RPM-indexed latency correction | timing-domain/pre-shift counts candidate | pending bench |",
-        "| `L3FC0` | ASIC period/event anchor | timing-domain counts candidate | pending bench |",
-        "| `L004F bit0` | sign flag | `1=retard`, `0=advance` | medium-high static |",
-        "| `D_AB97` | LA906 entry value before `ADDD L3FF6` | timing-domain packed/postprocessed value | pending bench |",
-        "",
-        "## Source Contracts Merged",
-        "",
-        "```text",
-        "SPARK_MAGNITUDE_SCALE_CONTRACT.md",
-        "MATH_HELPER_LF550.md",
-        "SPARK_TIMEBASE_PERIOD_CONTRACT.md",
-        "SPARK_TIMING_UNIT_CONVERSION.md",
-        "SPARK_LA906_TIMING_BRIDGE.md",
-        "```",
-        "",
-        "## Known Static Math",
-        "",
-        "```text",
-        "A_count = round(abs(spark_offset_deg) * 256 / 90)",
-        "",
-        "LF550(A, M16) = round((A * M16) / 256)",
-        "",
-        "spark_time_delta = round((A_count * L005F) / 256)",
-        "```",
-        "",
-        "The 90°/256 angle scale is the leading static candidate from repeated `SPK ADV 256/90` comments. `LF550` is already classified as the rounded 8×16 fixed-point multiply helper.",
-        "",
-        "## Provisional LA906 Input",
-        "",
-        "Conservative form:",
-        "",
-        "```text",
-        "spark_mag_u8 = round(abs(spark_offset_deg) * 256 / 90)",
-        "",
-        "spark_time_delta = LF550(spark_mag_u8, L005F)",
-        "",
-        "D_AB97 = stock_postprocess(",
-        "    spark_time_delta,",
-        "    L0201 latency,",
-        "    L3FC0 anchor,",
-        "    L004F bit0 sign",
-        ")",
-        "```",
-        "",
-        "Current static candidate:",
-        "",
-        "```text",
-        "raw_time = spark_time_delta - L0201 - L3FC0",
-        "D_AB97 ≈ pack_or_shift(raw_time, sign=L004F bit0)",
-        "```",
-        "",
-        "The exact `pack_or_shift` step is not fully locked. Static rows show four right shifts and high-nibble/sign tagging before `0xAB97`, but that needs bench or emulator confirmation before code generation.",
-        "",
-        "## Static Vector Scope",
-        "",
-        "The first vector set intentionally verifies only the known math:",
-        "",
-        "```text",
-        "A_count = round(deg * 256 / 90)",
-        "LF550 = round((A_count * period_basis) / 256)",
-        "```",
-        "",
-        "It does not lock `L0201`, `L3FC0`, or final `D_AB97` packing yet.",
-        "",
-        "| Name | Spark deg | Period basis | A expected | LF550 expected | Notes |",
-        "|---|---:|---:|---:|---:|---|",
-    ]
+def write_md(out: Path, vector_rows: list[dict[str,str]], vector_errors: list[str]) -> None:
+    out.parent.mkdir(parents=True,exist_ok=True)
+    md="""# Spark conversion equation
+
+Status: **ROM-verified integer behavior with independent CPU replay** for `$AB3E-$ABCA`, with `$0086 bit6` clear. That bit selects the external `$180F` extension, whose implementation remains open. The command entering `$AB3E` is an explicit input; this does not establish the entire upstream spark calculation.
+
+Authority: the 65,536-byte BMHM image, SHA-256 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`. Full derivation, state producers, admission, initialization, and test scope are in [FACTORY_SPARK_INTEGER_HANDOFF.md](../analysis/FACTORY_SPARK_INTEGER_HANDOFF.md). Executable integer model: `tools/factory_spark.py`; independent ROM replay: `tools/factory_spark_replay.py`.
+
+## Raw conversion
+
+All words wrap modulo 65536; bytes wrap modulo 256. `negative` is command bit15. The magnitude uses only the low byte, negated as an 8-bit byte when `negative` is set. It is not a general absolute-value operation on the whole command word.
+
+If `$0051 bit6` is clear, startup scaling first computes `m = u8(high($01F2) + bit7(low($01F2)))`, then `magnitude = u8(floor(magnitude*m/256) + 1)`. That product is truncated; the following increment is unconditional and can wrap.
+
+`$F499` looks up a byte from the header/table at `$454A-$4558`, using `$0062`. It clamps the input to header `$C0`, interpolates between 16-count cells, rounds the absolute knot difference, and adds or subtracts that adjustment according to slope. `$0201` receives the resulting **byte**.
+
+```text
+t = floor((effective_magnitude * word005F + 128) / 256)
+saved = u16((t if negative else -t) - byte0201)
+```
+
+At `$AB89-$AB8A`, `saved` is pushed as a word. X then addresses that word at `SP_at_AB89-1`.
+
+## Separate anchor and stack selection
+
+D is cleared at `$AB8C-$AB8D`. The following shifts operate on the negated period, independently of `saved`:
+
+```text
+anchor = (u16(-read16(3FC0, AB8E)) >> 4) | 0xF000
+candidate = u16(anchor + read16(3FF6, AB97))
+difference = u16(candidate - saved)
+chosen = saved if (difference & 0x8000) else candidate
+```
+
+`$AB9C` is BMI: selection tests N alone after the wrapped subtraction. It is not a signed minimum. At period zero, `anchor=$F000`; at period one, `anchor=$FFFF`, so a zero period needs its own case.
+
+The previous provisional equation subtracted `$3FC0` from the timing product and shifted the combined result. **That equation is superseded:** the timing result is saved on the stack while the separate anchor is calculated. `D_AB97` means the anchor before the instruction at `$AB97`, rather than a packed version of the timing product.
+
+## Ordered handoff
+
+```text
+first  = u16(chosen - read16(3FF6, ABA4))
+write16(3FE8, first)                              # ABAA
+second = u16(first + read16(3FDC, ABB0) - word01EC_at_ABB3)
+write16(3FE6, second)                             # ABBA
+write16(3FDC, word01EC_at_ABB7)                    # ABC0
+write16(3FF6, chosen)                             # ABC8
+```
+
+Different read PCs are separate model inputs. Equality of repeated hardware readbacks, atomic word sampling, hardware counter motion, and physical output timing are not inferred from a flat memory fixture. The monitor code beginning `$ABCB`, including the later `$3FEC/$3FE4` interaction, is outside this bounded contract.
+
+## Engineering scale and older vectors
+
+The historical degree vectors below check the `256/90` angle-scale hypothesis and the multiply primitive only. They do not validate an arbitrary degrees API, startup gain, latency, the anchor, or the four writes. The complete raw-input handoff vectors are `maps/structure/factory_spark_handoff_vectors.csv`, independently checked by `tests/test_factory_spark.py`.
+
+| Name | Assumed degrees | Period basis | A count | Multiply result |
+|---|---:|---:|---:|---:|
+"""
     for row in vector_rows:
-        md.append(f"| `{row['name']}` | {row['spark_deg']} | `{row['period_basis_hex']}` / {row['period_basis_dec']} | {row['a_expected']} | `{row['lf550_expected_hex']}` / {row['lf550_expected_dec']} | {row['notes']} |")
-    md += [
-        "",
-        "## Vector Verification Status",
-        "",
-    ]
-    if vector_errors:
-        md += ["```text", "status: FAIL", *vector_errors, "```", ""]
-    else:
-        md += ["```text", "status: PASS", "static vector math matches the provisional equation", "```", ""]
-    md += [
-        "## Output Boundary",
-        "",
-        "This contract stops at the value consumed by `LA906`. It does not define which ASIC writes are required at runtime. That remains owned by:",
-        "",
-        "```text",
-        "SPARK_LA906_TIMING_BRIDGE.md",
-        "SPARK_ASIC_HANDOFF_CONTRACT.md",
-        "```",
-        "",
-        "## Bench Required",
-        "",
-        "This equation is static-provisional until bench traces prove:",
-        "",
-        "1. `L005F` physical period unit",
-        "2. `L0201` latency unit",
-        "3. `L3FC0` anchor meaning",
-        "4. sign/high-nibble packing",
-        "5. LA906 ASIC write effects",
-        "",
-        "## Current Classification",
-        "",
-        "```text",
-        "EQ-A:",
-        "  not proven. Static equation predicts the known A_count and LF550 terms.",
-        "",
-        "EQ-B:",
-        "  current best status. Equation predicts LF550 output, but postprocess through L0201/L3FC0/sign packing remains unresolved.",
-        "",
-        "EQ-C:",
-        "  possible if L005F period unit differs from the 90°/256 assumption.",
-        "",
-        "EQ-D:",
-        "  not supported statically, but bench/emulator proof remains required.",
-        "```",
-        "",
-        "## Stop Condition",
-        "",
-        "Do not create `SPARK_WRITE` until both this conversion equation and the LA906 output sequence are bench-classified.",
-    ]
-    out.write_text("\n".join(md), encoding="utf-8")
+        md+=f"| {row['name']} | {row['spark_deg']} | {row['period_basis_dec']} | {row['a_expected']} | {row['lf550_expected_dec']} |\n"
+    md+="\nHistorical vector arithmetic: "+("FAIL: "+"; ".join(vector_errors) if vector_errors else "PASS")+".\n"
+    md+="\nExact software arithmetic is established for the stated inputs and path. Physical units, the external extension, upstream intent calculation, and ASIC output effects remain separate dependencies.\n"
+    out.write_text(md,encoding="utf-8")
 
 
 def main() -> int:

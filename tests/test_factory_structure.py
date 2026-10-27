@@ -17,6 +17,8 @@ import build_factory_structure as structure
 import build_full_rom_write_target_sweep as sweep
 import build_write_target_network_index as network
 import verify_factory_rom_structure as rom_proof
+import factory_rom_overlay as overlay
+from unittest.mock import patch
 from factory_structure import (
     SOURCE, REGIONS, Statement, control_edge, data_region, load_regions, memory_access,
     parse_listing,
@@ -108,6 +110,36 @@ class FactoryStructureTests(unittest.TestCase):
         self.assertEqual(summary["direct_control_into_reviewed_data"], [])
         self.assertEqual(set(summary["unresolved_indirect_control_sites"]), {"7A4F", "FAA5"})
         self.assertIn("not_semantic_completion", summary["scope"])
+
+    def test_ROM_overlay_repairs_code_and_data_in_all_consumers(self):
+        effective,audit=overlay.effective_listing()
+        rows={r.pc:r for r in effective}
+        self.assertEqual(control_edge(rows[0xA40B])["target_address"],"A465")
+        self.assertEqual(rows[0xA40B].rom_bytes,"12 09 01 56")
+        self.assertNotIn(0xB32B,rows);self.assertNotIn(0xB99E,rows)
+        self.assertIn(0xE75F,{r.pc for r in overlay.instruction_rows()})
+        for pc in range(0xF3DB,0xF3E4):self.assertEqual(rows[pc].origin,"rom_verified_data")
+        accesses={r["pc"]:r for r in self.rows("factory_memory_accesses.csv")}
+        self.assertEqual(accesses["F3E9"]["target_address"],"3066")
+        self.assertFalse({f"{p:04X}" for p in range(0xF3DB,0xF3E4)} & set(accesses))
+        self.assertEqual(json.loads(self.outputs[structure.OUT/"factory_structure_summary.json"])["unresolved_direct_control_operands"],[])
+        self.assertTrue(any(r["pc"]=="A40B" for r in audit))
+
+    def test_overlay_rejects_wrong_image_identity(self):
+        evidence=json.loads(overlay.EVIDENCE_FILES[0].read_text());evidence["rom_sha256"]="0"*64
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/"wrong.json";path.write_text(json.dumps(evidence))
+            with patch.object(overlay,"EVIDENCE_FILES",[path]):
+                with self.assertRaisesRegex(ValueError,"image identity"):overlay.effective_listing()
+
+    def test_legacy_writes_use_ROM_flow_and_keep_the_spark_frame_separate(self):
+        rows={r["pc"]:r for r in sweep.build(SOURCE)}
+        self.assertEqual(rows["ABA0"]["index_resolution_status"],"stack_relative")
+        self.assertEqual(rows["ABA0"]["target_resolved"],"")
+        self.assertEqual(rows["ABA0"]["target_symbol"],"STACK:SP_at_AB89-1")
+        network_rows={r["pc"]:r for r in network.build_rows(network.parse_source(SOURCE))}
+        self.assertEqual(network_rows["ABA0"]["target_address"],"")
+        self.assertEqual(network_rows["ABA0"]["target_symbol"],"STACK:SP_at_AB89-1")
 
     def test_recorded_rom_bytes_form_the_documented_pointer_table(self):
         evidence = json.loads(rom_proof.EVIDENCE.read_text())

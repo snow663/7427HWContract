@@ -3,7 +3,9 @@ from __future__ import annotations
 import argparse,csv,re
 from collections import deque
 from pathlib import Path
-from factory_structure import data_region, load_regions
+from factory_structure import data_region, load_regions, classification
+from factory_rom_overlay import effective_listing
+from factory_indexed_targets import indexed_target
 SOURCE=Path('source/31/BMHM_HAC_ORG_7100_to_end.asm')
 OUT=Path('maps/generated/full_rom_write_target_sweep.csv')
 WRITE_OPS={"STAA","STAB","STD","STS","STX","STY","BSET","BCLR","CLR","INC","DEC","COM","NEG","ASL","LSL","LSR","ROL","ROR"}
@@ -64,6 +66,7 @@ def value_source(op):
     return {'STAA':'A','STAB':'B','STD':'D','STS':'SP','STX':'X','STY':'Y','CLR':'zero','BSET':'bit_set_mask','BCLR':'bit_clear_mask','INC':'target_plus_1','DEC':'target_minus_1','COM':'ones_complement_target','NEG':'twos_complement_target','ASL':'target_shift_left','LSL':'target_shift_left','LSR':'target_shift_right','ROL':'target_rotate_left','ROR':'target_rotate_right'}.get(op,'unknown')
 
 def candidate(sym,address_class,op):
+    if address_class=='stack_frame': return 'local_stack_save','high','reviewed local stack frame; no global variable address'
     if sym=='L3FCE': return 'fuel_pw_hardware_sink','high','EFI pulsewidth command sink; active compact route bench-gated'
     if sym in {'L3FE8','L3FE6','L3FDC','L3FF6','L3FEC','L3FE4'}: return 'spark_stock_handoff_sink_or_state','medium','preserved stock spark handoff owns this target'
     if sym in {'L3062','L3060','L3FFC'}: return 'iac_output_sink_or_state','medium','IAC phase/output/enable candidate; direct writer bench-gated'
@@ -82,30 +85,29 @@ def dispatcher_context(pc,branches):
     return ''
 
 def build(src):
-    rows=[]; routine=''; xb=None; yb=None; branches=deque(maxlen=6)
+    rows=[]; routine=''; branches=deque(maxlen=6)
     reviewed_regions = load_regions(src)
-    for line in src.read_text(encoding='utf-8',errors='ignore').splitlines():
-        m=LINE_RE.match(line)
-        if not m: continue
-        pc,label,op,operands,comment=m.groups(); pc=pc.upper(); op=op.upper()
-        if data_region(int(pc, 16), reviewed_regions):
-            xb = yb = None
+    for statement in effective_listing(src)[0]:
+        pc,label,op,operands,comment=f'{statement.pc:04X}',statement.label,statement.op,statement.operand,statement.comment
+        if classification(statement, reviewed_regions) != 'instruction_candidate':
             branches.clear()
             continue
         if label: routine=label.upper()
         operands=(operands or '').split(';',1)[0].strip(); ops=split_operands(operands)
-        if op in {'LDX','LDY'} and ops:
-            mm=IMM_RE.match(ops[0].upper())
-            if mm:
-                if op=='LDX': xb=int(mm.group(1),16)
-                else: yb=int(mm.group(1),16)
         if op in BRANCH_OPS: branches.append(f'{pc}:{op} {operands}'.strip())
         if op not in WRITE_OPS or not ops: continue
         tgt=ops[0]
         if not tgt or tgt.upper() in {'A','B','D','X','Y','SP'} or tgt.startswith('#'): continue
         bitmask=ops[1] if op in {'BSET','BCLR'} and len(ops)>1 else ''
-        addr,sym,addr_class,status,xbase,ybase=resolve_target(tgt,xb,yb)
+        addr,sym,addr_class,status,xbase,ybase=resolve_target(tgt,None,None)
+        proof_note=''
+        if ',' in tgt:
+            physical,sym,status,proof_note=indexed_target(statement.pc,tgt)
+            addr=f'${physical:04X}' if physical is not None else ''
+            if physical is not None:addr_class=resolve_target(addr,None,None)[2]
+            elif status=='stack_relative':addr_class='stack_frame'
         role,conf,note=candidate(sym,addr_class,op)
+        if proof_note:note+='; '+proof_note
         rows.append({'pc':pc,'routine_label':routine,'opcode':'','mnemonic':op,'operand_text':operands,'write_class':write_class(op),'target_raw':tgt,'target_resolved':addr,'target_symbol':sym,'address_class':addr_class,'width':width(op),'bitmask':bitmask,'x_base':xbase,'y_base':ybase,'index_resolution_status':status,'value_source':value_source(op),'nearby_branch_context':' | '.join(branches),'dispatcher_context':dispatcher_context(pc,branches),'candidate_role':role,'confidence':conf,'notes':note})
     return rows
 

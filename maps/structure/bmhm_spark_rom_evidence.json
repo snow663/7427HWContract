@@ -1,0 +1,138 @@
+{
+  "byte_ranges": [
+    {
+      "bytes_hex": "CE 3F C0 4F 5F ED 00 08 08 8C 3F FA 26 F7",
+      "end_exclusive": "7164",
+      "purpose": "ASIC_init_clear",
+      "start": "7156"
+    },
+    {
+      "bytes_hex": "CE 00 36 CC 00 CA BD F2 FD CE 01 00 CC 01 9D BD F2 FD CE 08 00 CC 01 00 BD F2 FD",
+      "end_exclusive": "717F",
+      "purpose": "RAM_init_clear_calls",
+      "start": "7164"
+    },
+    {
+      "bytes_hex": "12 44 10 03 14 50 20",
+      "end_exclusive": "7516",
+      "purpose": "reference_event_flag",
+      "start": "750F"
+    },
+    {
+      "bytes_hex": "13 50 20 4D 15 50 20 14 50 04 4F 5F FD 02 60 FC 01 EA 04 04 04 43 53 F3 01 EA 2A 02 4F 5F FD 01 EA 7F 02 02 13 4F 80 2C 12 4F 10 03 BD A5 81 13 4F 40 60 12 51 40 5C F6 41 4E FE 01 F2 8C FE F0 22 0A 86 FF BD F4 59 FD 01 F2 20 47 14 51 40 20 42 7E A5 9B 12 44 08 06 14 44 08 7E AC 51 12 4F 10 03 BD A5 81 FC 3F C0 1A B3 41 33 25 06 7F 02 10 7E AC 51 7C 02 10 B6 02 10 B1 41 42 24 03 7E AC 51 14 4F 80 7F 02 10 14 04 08 15 51 40 4F 5F FD 01 F2 20 64 FC 3F C0 1A B3 41 35 24 0C B6 02 11 4C B1 41 43 25 04 14 4F 10 4F B7 02 11 39 FE 02 60 BC 49 62 24 06 08 FF 02 60 20 04 4F B7 30 6F 8C 00 A0 25 0C 0F B6 4D 96 B1 02 CE 24 03 B7 02 CE 0E B6 02 02 81 17 25 14 15 4F 90 15 44 08 CC FF FF DD 5F CE 30 60 1D 00 10 3F 20 FD 12 4F 80 03 7E AC 51 4C B7 02 02",
+      "end_exclusive": "A5E5",
+      "purpose": "spark_update_admission",
+      "start": "A4EC"
+    },
+    {
+      "bytes_hex": "FC 3F C0 DD 5F FD 01 E8 CE 00 5F B6 41 41 C6 20 3D 17 27 05 BD F5 50 DD 5F",
+      "end_exclusive": "A5FE",
+      "purpose": "period_basis_scale",
+      "start": "A5E5"
+    },
+    {
+      "bytes_hex": "DC 5F 05 8F CC 01 33 03 8F FD 08 3D 81 60 25 09 C3 40 80 24 0B 86 FF 20 07 05 83 1F 80 24 01 4F 97 61 FC 08 3D C3 00 80 82 00 97 62 FE 02 8E F6 50 E4 BD F4 59 FD 02 8E C3 00 80 D6 02 C4 1F C1 04 26 0A 16 F0 02 8C F7 02 8D B7 02 8C FC 08 3D 05 25 08 05 25 05 C3 00 80 24 02 86 FF 97 67 5F DE 68 27 0A CE 00 68 18 CE 45 17 BD F4 79 DD 68 FC 08 3D 05 24 03 CC FF FF B7 08 37 DE 63 27 07 18 CE 41 53 BD F4 36 DD 63",
+      "end_exclusive": "A687",
+      "purpose": "period_basis_to_terms",
+      "start": "A5FE"
+    },
+    {
+      "bytes_hex": "86 FF F6 01 C0 F0 01 C2 25 04 C1 20 24 0F FC 01 E6 B3 01 E8 05 B3 01 EA 2B 06 F3 01 EA FD 01 EA FC 01 E8 04 04 04 B3 01 EA 24 06 F3 01 EA FD 01 EA FC 01 E8 FD 01 E6 04 83 00 E5 24 05 C3 01 34 20 10 04 83 01 27 25 05 C3 01 7E 20 05 C3 05 F7 04 04 FD 08 3F 86 78 90 A7 24 01 4F C6 04 3D F3 08 3F F3 01 EA FD 01 EC FC 3F C0 83 00 27 B3 01 EC 24 06 F3 01 EC FD 01 EC F6 01 C1 F7 01 C2",
+      "end_exclusive": "A706",
+      "purpose": "adaptive_and_reference_terms",
+      "start": "A687"
+    },
+    {
+      "bytes_hex": "B7 02 0C 44 36 30 FC 01 EE E0 00 82 00 FD 01 EE 31",
+      "end_exclusive": "AADC",
+      "purpose": "knock_saved_byte",
+      "start": "AACB"
+    },
+    {
+      "bytes_hex": "FD 01 EE FD 01 F0 15 4F 01 FC 01 EE 2A 04 14 4F 01 50 17 12 51 40 0D F6 01 F2 CE 01 F3 1F 00 80 01 5C 3D 4C 13 86 40 03 BD 18 0F 36 96 62 CE 45 4A BD F4 99 B7 02 01 32 CE 00 5F BD F5 50 12 4F 01 04 40 50 82 00 F0 02 01 82 00 37 36 30 4F 5F B3 3F C0 04 04 04 04 8A F0 F3 3F F6 A3 00 2B 04 E3 00 ED 00 EC 00 B3 3F F6 BD F3 ED FD 3F E8 BD F3 ED F3 3F DC B3 01 EC 01 FE 01 EC FD 3F E6 BD F3 ED FF 3F DC BD F3 ED 32 33 FD 3F F6",
+      "end_exclusive": "ABCB",
+      "purpose": "spark_conversion_and_handoff",
+      "start": "AB3E"
+    },
+    {
+      "bytes_hex": "5F A1 00 23 02 A6 00 08 8D 1A 39 3C 37 A0 00 24 01 4F A1 01 23 02 A6 01 C6 02 3A 20 02 3C 37 E6 00 08 20 08 10 24 01 4F 3C 37 C6 10 3D 37 16 3A EC 00 10 33 24 06 40 3D A9 00 20 06 3D 89 00 40 AB 00 33 38 39",
+      "end_exclusive": "F4DE",
+      "purpose": "latency_interpolator",
+      "start": "F499"
+    },
+    {
+      "bytes_hex": "36 E6 01 3D 89 00 33 36 A6 00 3D 3C 30 EB 02 89 00 38 31 39",
+      "end_exclusive": "F564",
+      "purpose": "multiply_helper",
+      "start": "F550"
+    },
+    {
+      "bytes_hex": "39",
+      "end_exclusive": "F3EE",
+      "purpose": "delay_RTS",
+      "start": "F3ED"
+    },
+    {
+      "bytes_hex": "C5 07 27 0A 6F 00 08 83 00 01 26 F4 20 1A 04 04 04 17 C6 08 18 CE 00 00 1A EF 00 1A EF 02 1A EF 04 1A EF 06 3A 4A 26 F0 39",
+      "end_exclusive": "F326",
+      "purpose": "RAM_clear_helper",
+      "start": "F2FD"
+    },
+    {
+      "bytes_hex": "37 3C 30 A0 00 25 03 3D 20 03 3D A0 02 36 37 EC 01 50 27 03 3D 89 00 33 1B 16 32 A9 00 38 31 39",
+      "end_exclusive": "F479",
+      "purpose": "startup_lag_helper",
+      "start": "F459"
+    },
+    {
+      "bytes_hex": "08",
+      "end_exclusive": "4142",
+      "purpose": "period_scale_calibration",
+      "start": "4141"
+    },
+    {
+      "bytes_hex": "C0 00 00 01 05 0A 0A 0A 0A 0A 0C 0C 0A 0A 20",
+      "end_exclusive": "4559",
+      "purpose": "latency_header_knots_and_neighbor",
+      "start": "454A"
+    },
+    {
+      "bytes_hex": "08 88",
+      "end_exclusive": "4135",
+      "purpose": "start_reference_period_threshold",
+      "start": "4133"
+    },
+    {
+      "bytes_hex": "02",
+      "end_exclusive": "4143",
+      "purpose": "start_reference_count_threshold",
+      "start": "4142"
+    },
+    {
+      "bytes_hex": "A0",
+      "end_exclusive": "414F",
+      "purpose": "startup_filter_calibration",
+      "start": "414E"
+    },
+    {
+      "bytes_hex": "00 F0",
+      "end_exclusive": "4964",
+      "purpose": "pump_timer_threshold",
+      "start": "4962"
+    },
+    {
+      "bytes_hex": "05",
+      "end_exclusive": "4D97",
+      "purpose": "reference_count_seed",
+      "start": "4D96"
+    }
+  ],
+  "code_scope": "A4FB decay; A687-A706 terms; AB3E-ABCB conversion; normal factory path with 0086 bit6 clear",
+  "instruction_rows": 425,
+  "listing_sha256_lf": "7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c",
+  "physical_units": "unassigned_by_this_integer_proof",
+  "readback_scope": "separate samples at each ASIC/RAM read PC; coherent word values supplied; no physical timing claim",
+  "rom_name": "BMHM.BIN",
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "rom_size_bytes": 65536
+}

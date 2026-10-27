@@ -37,7 +37,7 @@ The reviewed descriptor block and its principal callers/reader are now checked a
 
 `$D8FE-$D92D` reads the descriptor header, selects an indexed pointer, reads that pointer, and returns with carry indicating failure/success. This is data access. The reader does not execute the apparent instructions in these tables. Extents follow the independently loaded/computed next bases and the next source routine at `$C40A`; the descriptor bytes and header-derived extents have now been verified against the actual BMHM ROM.
 
-Consequences of excluding the reviewed data:
+Historical results of the first descriptor-only correction (before the subsequent ROM overlay and indexed-flow integration):
 
 - Eight apparent dispatchers inside `$C3A2` disappear. Two real indexed call sites remain: `$7A4F` and `$FAA5`.
 - The major-loop table still supplies 16 landing addresses. The dispatcher CSV contains 17 rows because one site expands to 16 entries and the other remains unresolved.
@@ -46,24 +46,27 @@ Consequences of excluding the reviewed data:
 
 The original HAC listing is preserved unchanged. The overlay is pinned to its SHA-256, normalizing line endings for Windows checkouts, and rejects reuse against a different listing until the evidence is reviewed.
 
-## New source indexes
+## Current effective indexes
 
 | File under `maps/structure/` | Purpose and limit |
 |---|---|
 | `reviewed_source_regions.csv` | Manually reviewed data ranges, source hash, evidence PCs, and reasons |
 | `factory_listing_review.csv` | Declared data, reviewed embedded data, undecoded entries, and TEST-opcode review candidates |
-| `factory_entry_points.csv` | 257 candidate entry addresses from direct calls, source vectors, and the traced scheduler table; function extents/reachability are not proven |
-| `factory_control_edges.csv` | 4,521 explicit control references; includes unresolved operands rather than dropping them; no implicit fallthrough graph |
-| `factory_memory_accesses.csv` | 6,744 explicit memory-access sites, distinguishing reads, writes, and read/modify/write |
+| `factory_entry_points.csv` | 258 candidate entry addresses from direct calls, source vectors, and the traced scheduler table; function extents/reachability are not proven |
+| `factory_control_edges.csv` | 4,526 explicit control references; includes unresolved operands rather than dropping them; no implicit fallthrough graph |
+| `factory_memory_accesses.csv` | 6,749 explicit memory-access sites, distinguishing reads, writes, and read/modify/write |
 | `factory_state_index.csv` | Byte-overlap index of direct accesses, including both bytes of word operations; includes RAM, ROM, and hardware regions |
 | `factory_structure_summary.json` | Reproducible inventory counts and evidence hashes; no understanding percentage |
+| `factory_rom_overlay_audit.csv` | 53 replaced/suppressed/added source rows with actual-byte provenance |
 | `factory_re_worklist.csv` | Reviewed findings and open investigation scopes |
 
-Of the access sites, 5,706 are direct and 1,038 retain unresolved indexing. An immediate constant, a call destination, and a branch destination are not counted as variable reads. Bit branches produce a state read and a separate control reference. Indexed access is never assigned an address from an unrelated earlier immediate X/Y load.
+Of the access sites, 5,713 are direct and 1,036 retain unresolved indexing. An immediate constant, a call destination, and a branch destination are not counted as variable reads. Bit branches produce a state read and a separate control reference. Indexed access is never assigned an address from an unrelated earlier immediate X/Y load.
 
-These indexes intentionally do not establish register-to-register value propagation, transitive consumer edges, implicit stack accesses, cross-call pointer effects, interrupt ownership, all code reachability, or semantic completion. The legacy write-target index still uses coarse linear index tracking; use the new direct-access index for precise direct R/W counts.
+These indexes intentionally do not establish register-to-register value propagation, transitive consumer edges, implicit stack accesses, cross-call pointer effects, interrupt ownership, all code reachability, or semantic completion. Legacy write consumers now use the reviewed nested-flow map for indexed writes: one common address across captured contexts can become an absolute target; bounded sets, frames, and unknowns stay explicit. They no longer assign physical addresses using an unrelated earlier X/Y load. The regenerated write sweep has 2,188 rows and 786 grouped target dossiers; these remain inventories, not semantic closure.
 
-The source-only parser preserves an inherited defect: `$A40B` names `LA4656` as a branch destination. This is an unresolved direct operand in that index, not a third indirect dispatcher. The newer nested ROM trace verifies `$A465` as the actual target and checks both branch outcomes on the CPU; integrating that correction into the source-only index remains separate work. Two branch lines with colon-delimited comments are parsed without absorbing those comments into the target operand.
+The raw parser still exposes the inherited `$A40B` operand `LA4656` for source comparison. The effective index now uses the ROM-verified `$A465` destination (`12 09 01 56`), and the unresolved-direct-operand list is empty. Two colon-delimited source comments are also parsed without absorbing their text into operands.
+
+All 32 scheduler discrepancies and that additional branch correction flow through `tools/factory_rom_overlay.py`. It also marks the nine `$F3DB-$F3E3` mask bytes as data and restores the actual `$F3E4` helper, including its write to `$3066`. Superseded HAC starts inside verified instructions, plus overlapping `$B32B/$B99E` source rows, are retained in the audit. This overlay does not prove those bytes could never have an alternate executable entry; it records the verified interpretation used by these indexes. Unreviewed rows remain source-derived.
 
 ## How to extend understanding
 
@@ -74,7 +77,7 @@ The source-only parser preserves an inherited defect: `$A40B` names `LA4656` as 
 5. **Check predictions independently.** Compare against target ROM bytes, isolated execution, or sufficiently complete replay data. An undocumented state/input is a remaining dependency. A generator reproducing its own equation is not independent validation.
 6. **Extend across the whole factory scope.** Include transmission, emissions, service, and complete diagnostic behavior before claiming whole-program understanding. Review disconnected code and data explicitly instead of dropping it because the truck does not use it.
 
-The next engine-focused path is the spark rolling-state bridge. Its `$01EC` producer is now traced in `../contracts/SPARK_L01EC_INTEGER_STATE.md`: two direct writes and four direct reads establish a concrete path into `$3FE6/$3FDC`. Next close `$083F/$01EA`, the stack-based postprocessing at `$AB89-$ABC8`, and first-event/reset behavior. Fuel `$024E` and its indirect multiply/helper updates follow; the index alone is not enough to close them.
+The normal spark rolling-state bridge is now closed as an integer transformation in `FACTORY_SPARK_INTEGER_HANDOFF.md`, with `$01EA/$083F/$01EC` producers, software initialization, and update admission. The equations predict the four ordered writes using separate live samples; physical units, upstream intent, extensions, and monitor code remain separate. The next engine path is fuel `$024E` and the `$3FCE` handoff, including every helper update and normalization/mode branch.
 
 ## ROM-backed scheduler extension
 
@@ -88,23 +91,24 @@ hardware. They are independent of the new map decoder and its guard formulas.
 The companion maps add explicit local fallthrough/control edges, gate-producer
 candidates checked against bytes, and intraprocedural state inventories for 63
 direct callee roots. Their 262 unresolved indexed-access rows use a different
-scope from the 1,038 whole-listing rows above; they are not an updated global
-unresolved count. Nested calls, indexed writes, and physical scheduling latency
-remain dependencies.
+scope from the 1,036 whole-listing rows above; they are not an updated global
+unresolved count. The nested extension below supplies reviewed indexed effects; physical
+scheduling latency and opaque/runtime paths remain dependencies.
 
 The new ROM comparison also records 32 listing discrepancies, including code at
 `$E75F` declared as data and misaligned entries at `$B32D`, `$B99F`, and `$F3E4`.
-The older source indexes above have not been rewritten from these byte overlays.
-For covered instructions the ROM-backed maps are the stronger evidence. Full
-integration of the corrections is a separate worklist item.
+These corrections now feed the effective indexes and legacy consumers through
+the audited ROM overlay. For covered instructions the actual-byte interpretation
+takes precedence over the inherited listing; the raw source remains unchanged.
 
 `FACTORY_NESTED_STATE_FLOW.md` now extends the scheduler across nested calls and
 register-return templates to 234 entries. Its indexed-flow map resolves 216 of
 the previous 262 per-root rows to addresses/sets and keeps the remaining frame,
 parameter, pruned, and unresolved categories explicit. It also byte-verifies
 the `$A40B -> $A465` branch and captures indexed clear/mask state producers.
-The older whole-listing source counts above remain unchanged; these new results
-do not silently change their denominator or establish whole-ROM semantics.
+Its baseline now has six frame-relative, four caller-parameter, eight pruned,
+and 28 unresolved rows alongside the 216 address sets. These results use their
+own denominator and do not establish whole-ROM semantics.
 
 ## Reproduce and verify
 

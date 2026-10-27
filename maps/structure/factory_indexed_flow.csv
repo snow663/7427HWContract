@@ -183,15 +183,15 @@ A466,A952,E6 00,LDAB,"$00,X",R,8,$46EC;$46EF,bounded_address_set,46EC;46EF,1,may
 A466,A955,AB 01,ADDA,"$01,X",R,8,$46ED;$46F0,bounded_address_set,46ED;46F0,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 A466,A957,A1 02,CMPA,"$02,X",R,8,$46EE;$46F1,bounded_address_set,46EE;46F1,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 A466,A95B,A6 02,LDAA,"$02,X",R,8,,pruned_by_constant_flow,,1,abstract_entry_paths_pruned;not_whole_program_dead_code
-A466,AAD4,E0 00,SUBB,"$00,X",R,8,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AAD4,E0 00,SUBB,"$00,X",R,8,SP_at_AACF,stack_relative,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 A466,AB24,1F 00 08 16,BRCLR,"$00,X,#$08,$AB3E",R,8,$0395,exact_address,0395,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 A466,AB28,1E 00 10 02,BRSET,"$00,X,#$10,$AB2E",R,8,$0395,exact_address,0395,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 A466,AB2E,1E 00 20 07,BRSET,"$00,X,#$20,$AB39",R,8,$0395,exact_address,0395,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 A466,AB5B,1F 00 80 01,BRCLR,"$00,X,#$80,$AB60",R,8,$01F3,exact_address,01F3,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
-A466,AB9A,A3 00,SUBD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
-A466,AB9E,E3 00,ADDD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
-A466,ABA0,ED 00,STD,"$00,X",W,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
-A466,ABA2,EC 00,LDD,"$00,X",R,16,unknown,unresolved,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AB9A,A3 00,SUBD,"$00,X",R,16,SP_at_AB89-1,stack_relative,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,AB9E,E3 00,ADDD,"$00,X",R,16,SP_at_AB89-1,stack_relative,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,ABA0,ED 00,STD,"$00,X",W,16,SP_at_AB89-1,stack_relative,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
+A466,ABA2,EC 00,LDD,"$00,X",R,16,SP_at_AB89-1,stack_relative,,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 A466,ABDD,18 1F 00 20 3A,BRCLR,"$00,Y,#$20,$AC1C",R,8,$5B03,exact_address,5B03,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 ACA7,ACAA,1E 00 04 03,BRSET,"$00,X,#$04,$ACB1",R,8,$400E,exact_address,400E,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage
 ACA7,ACC2,1F 00 01 0D,BRCLR,"$00,X,#$01,$ACD3",R,8,$038F,exact_address,038F,1,may_addresses;ROM_and_frame_values_only;normal_return_paths;not_branch_coverage

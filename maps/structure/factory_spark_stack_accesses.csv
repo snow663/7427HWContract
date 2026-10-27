@@ -1,0 +1,6 @@
+pc,access,width_bits,address_expression,saved_value,proof
+AAD4,R,8,SP_at_AACF,A_at_AACB >> 1,ROM_bytes_and_CPU_replay;valid_working_RAM_stack;no_incoming_SP_assumption
+AB9A,R,16,SP_at_AB89-1,saved signed product minus latency,ROM_bytes_and_CPU_replay;valid_working_RAM_stack;no_incoming_SP_assumption
+AB9E,R,16,SP_at_AB89-1,saved signed product minus latency,ROM_bytes_and_CPU_replay;valid_working_RAM_stack;no_incoming_SP_assumption
+ABA0,W,16,SP_at_AB89-1,replacement candidate,ROM_bytes_and_CPU_replay;valid_working_RAM_stack;no_incoming_SP_assumption
+ABA2,R,16,SP_at_AB89-1,chosen saved/replacement word,ROM_bytes_and_CPU_replay;valid_working_RAM_stack;no_incoming_SP_assumption

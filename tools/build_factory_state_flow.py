@@ -142,6 +142,22 @@ def mask_rows(rom):
     return rows
 
 
+def reviewed_stack_footprints(rom, summary):
+    """Local saves proven independently of unknown incoming/extension-hook SP."""
+    if summary.entry != 0xA466:return
+    anchors={0xAACB:"B7 02 0C 44 36 30 FC 01 EE E0 00 82 00 FD 01 EE 31",
+             0xAB89:"37 36 30 4F 5F B3 3F C0 04 04 04 04 8A F0 F3 3F F6 A3 00 2B 04 E3 00 ED 00 EC 00 B3 3F F6"}
+    for start,expected in anchors.items():
+        data=bytes.fromhex(expected)
+        if rom.read(start,len(data))!=data:raise ValueError("Reviewed spark stack bytes differ")
+    frames={0xAAD4:Ref("FRAME_AACF"),**{pc:Ref("FRAME_AB89",0xFFFF) for pc in [0xAB9A,0xAB9E,0xABA0,0xABA2]}}
+    for key,effect in list(summary.local.items()):
+        if effect.pc in frames:
+            replacement=Effect(effect.pc,effect.access,effect.width,Value.of(16,[frames[effect.pc]]),effect.via)
+            summary.local[key]=replacement
+            summary.effects[key]=replacement
+
+
 def witness_path(graph,root,target):
     pending=deque([(root,())]);seen=set()
     while pending:
@@ -158,6 +174,7 @@ def build(rom):
     for entry in order:
         result=analyze(rom,entry,functions[entry],summaries,table,clear_override)
         fixed_loop_footprints(rom,result)
+        reviewed_stack_footprints(rom,result)
         summaries[entry]=result
     baseline={(int(r["scope"],16),int(r["pc"],16)) for r in csv.DictReader(io.StringIO((OUT/"factory_scheduler_callee_accesses.csv").read_text())) if not r["address"]}
     indexed,calls,effects,function_rows,clear_rows=[],[],[],[],[]
@@ -231,7 +248,7 @@ def build(rom):
     control_corrections=[{"pc":"A40B","bytes_hex":malformed.data.hex(" ").upper(),
                           "rom_instruction":malformed.op+" "+malformed.operand,
                           "rom_target":f"{malformed.target:04X}","inherited_operand":"LA4656",
-                          "status":"ROM_target_verified;original_listing_and_source_only_index_retained"}]
+                          "status":"ROM_target_verified;effective_index_corrected;original_listing_retained"}]
     outputs={
         "factory_nested_calls.csv":scheduler.csv_text(calls),
         "factory_indexed_flow.csv":scheduler.csv_text(sorted(indexed,key=lambda r:(r["entry"],r["pc"]))),

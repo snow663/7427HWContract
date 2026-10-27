@@ -1,5 +1,7 @@
 # Spark Rolling State Model
 
+The exact normal `$AB3E-$ABC8` integer path is now ROM-verified and independently replayed in [FACTORY_SPARK_INTEGER_HANDOFF.md](../analysis/FACTORY_SPARK_INTEGER_HANDOFF.md). Its saved timing word, separate period anchor, N-bit selection, and four ordered writes take precedence over older provisional arithmetic below. Physical role/unit hypotheses and the later monitor remain separate.
+
 ## Purpose
 
 Model the rolling timing state used by `LA906` between spark/EST events.

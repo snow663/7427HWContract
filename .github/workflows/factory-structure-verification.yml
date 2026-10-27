@@ -5,6 +5,14 @@ on:
   pull_request:
     paths:
       - "tools/factory_structure.py"
+      - "tools/factory_rom_overlay.py"
+      - "tools/factory_indexed_targets.py"
+      - "tools/factory_spark.py"
+      - "tools/factory_spark_replay.py"
+      - "tools/verify_factory_spark.py"
+      - "tools/build_spark_conversion_equation.py"
+      - "tests/test_factory_spark.py"
+      - "tests/static/spark_conversion_vectors.csv"
       - "tools/build_factory_structure.py"
       - "tools/verify_factory_rom_structure.py"
       - "tools/build_factory_scheduler.py"
@@ -29,6 +37,14 @@ on:
     branches: [main]
     paths:
       - "tools/factory_structure.py"
+      - "tools/factory_rom_overlay.py"
+      - "tools/factory_indexed_targets.py"
+      - "tools/factory_spark.py"
+      - "tools/factory_spark_replay.py"
+      - "tools/verify_factory_spark.py"
+      - "tools/build_spark_conversion_equation.py"
+      - "tests/test_factory_spark.py"
+      - "tests/static/spark_conversion_vectors.csv"
       - "tools/build_factory_structure.py"
       - "tools/verify_factory_rom_structure.py"
       - "tools/build_factory_scheduler.py"
@@ -68,6 +84,10 @@ jobs:
         run: python tools/build_factory_scheduler.py --check-recorded
       - name: Check nested calls and indexed state flow against ROM excerpts
         run: python tools/build_factory_state_flow.py --check-recorded
+      - name: Check exact spark evidence against recorded ROM excerpts
+        run: python tools/verify_factory_spark.py --check-recorded
+      - name: Regenerate ROM-backed spark conversion contract
+        run: python tools/build_spark_conversion_equation.py --out-md docs/contracts/SPARK_CONVERSION_EQUATION.md --out-csv maps/contracts/spark_conversion_equation.csv --vectors tests/static/spark_conversion_vectors.csv
       - name: Regenerate consumers of reviewed data boundaries
         run: |
           python tools/build_full_rom_write_target_sweep.py

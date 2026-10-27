@@ -1,0 +1,426 @@
+scope,pc,bytes_hex,mnemonic,operand
+ASIC_init_clear,7156,CE 3F C0,LDX,#$3FC0
+ASIC_init_clear,7159,4F,CLRA,
+ASIC_init_clear,715A,5F,CLRB,
+ASIC_init_clear,715B,ED 00,STD,"$00,X"
+ASIC_init_clear,715D,08,INX,
+ASIC_init_clear,715E,08,INX,
+ASIC_init_clear,715F,8C 3F FA,CPX,#$3FFA
+ASIC_init_clear,7162,26 F7,BNE,$715B
+RAM_init_clear_calls,7164,CE 00 36,LDX,#$0036
+RAM_init_clear_calls,7167,CC 00 CA,LDD,#$00CA
+RAM_init_clear_calls,716A,BD F2 FD,JSR,$F2FD
+RAM_init_clear_calls,716D,CE 01 00,LDX,#$0100
+RAM_init_clear_calls,7170,CC 01 9D,LDD,#$019D
+RAM_init_clear_calls,7173,BD F2 FD,JSR,$F2FD
+RAM_init_clear_calls,7176,CE 08 00,LDX,#$0800
+RAM_init_clear_calls,7179,CC 01 00,LDD,#$0100
+RAM_init_clear_calls,717C,BD F2 FD,JSR,$F2FD
+reference_event_flag,750F,12 44 10 03,BRSET,"$44,#$10,$7516"
+reference_event_flag,7513,14 50 20,BSET,"$50,#$20"
+spark_update_admission,A4EC,13 50 20 4D,BRCLR,"$50,#$20,$A53D"
+spark_update_admission,A4F0,15 50 20,BCLR,"$50,#$20"
+spark_update_admission,A4F3,14 50 04,BSET,"$50,#$04"
+spark_update_admission,A4F6,4F,CLRA,
+spark_update_admission,A4F7,5F,CLRB,
+spark_update_admission,A4F8,FD 02 60,STD,$0260
+spark_update_admission,A4FB,FC 01 EA,LDD,$01EA
+spark_update_admission,A4FE,04,LSRD,
+spark_update_admission,A4FF,04,LSRD,
+spark_update_admission,A500,04,LSRD,
+spark_update_admission,A501,43,COMA,
+spark_update_admission,A502,53,COMB,
+spark_update_admission,A503,F3 01 EA,ADDD,$01EA
+spark_update_admission,A506,2A 02,BPL,$A50A
+spark_update_admission,A508,4F,CLRA,
+spark_update_admission,A509,5F,CLRB,
+spark_update_admission,A50A,FD 01 EA,STD,$01EA
+spark_update_admission,A50D,7F 02 02,CLR,$0202
+spark_update_admission,A510,13 4F 80 2C,BRCLR,"$4F,#$80,$A540"
+spark_update_admission,A514,12 4F 10 03,BRSET,"$4F,#$10,$A51B"
+spark_update_admission,A518,BD A5 81,JSR,$A581
+spark_update_admission,A51B,13 4F 40 60,BRCLR,"$4F,#$40,$A57F"
+spark_update_admission,A51F,12 51 40 5C,BRSET,"$51,#$40,$A57F"
+spark_update_admission,A523,F6 41 4E,LDAB,$414E
+spark_update_admission,A526,FE 01 F2,LDX,$01F2
+spark_update_admission,A529,8C FE F0,CPX,#$FEF0
+spark_update_admission,A52C,22 0A,BHI,$A538
+spark_update_admission,A52E,86 FF,LDAA,#$FF
+spark_update_admission,A530,BD F4 59,JSR,$F459
+spark_update_admission,A533,FD 01 F2,STD,$01F2
+spark_update_admission,A536,20 47,BRA,$A57F
+spark_update_admission,A538,14 51 40,BSET,"$51,#$40"
+spark_update_admission,A53B,20 42,BRA,$A57F
+spark_update_admission,A53D,7E A5 9B,JMP,$A59B
+spark_update_admission,A540,12 44 08 06,BRSET,"$44,#$08,$A54A"
+spark_update_admission,A544,14 44 08,BSET,"$44,#$08"
+spark_update_admission,A547,7E AC 51,JMP,$AC51
+spark_update_admission,A54A,12 4F 10 03,BRSET,"$4F,#$10,$A551"
+spark_update_admission,A54E,BD A5 81,JSR,$A581
+spark_update_admission,A551,FC 3F C0,LDD,$3FC0
+spark_update_admission,A554,1A B3 41 33,CPD,$4133
+spark_update_admission,A558,25 06,BCS,$A560
+spark_update_admission,A55A,7F 02 10,CLR,$0210
+spark_update_admission,A55D,7E AC 51,JMP,$AC51
+spark_update_admission,A560,7C 02 10,INC,$0210
+spark_update_admission,A563,B6 02 10,LDAA,$0210
+spark_update_admission,A566,B1 41 42,CMPA,$4142
+spark_update_admission,A569,24 03,BCC,$A56E
+spark_update_admission,A56B,7E AC 51,JMP,$AC51
+spark_update_admission,A56E,14 4F 80,BSET,"$4F,#$80"
+spark_update_admission,A571,7F 02 10,CLR,$0210
+spark_update_admission,A574,14 04 08,BSET,"$04,#$08"
+spark_update_admission,A577,15 51 40,BCLR,"$51,#$40"
+spark_update_admission,A57A,4F,CLRA,
+spark_update_admission,A57B,5F,CLRB,
+spark_update_admission,A57C,FD 01 F2,STD,$01F2
+spark_update_admission,A57F,20 64,BRA,$A5E5
+spark_update_admission,A581,FC 3F C0,LDD,$3FC0
+spark_update_admission,A584,1A B3 41 35,CPD,$4135
+spark_update_admission,A588,24 0C,BCC,$A596
+spark_update_admission,A58A,B6 02 11,LDAA,$0211
+spark_update_admission,A58D,4C,INCA,
+spark_update_admission,A58E,B1 41 43,CMPA,$4143
+spark_update_admission,A591,25 04,BCS,$A597
+spark_update_admission,A593,14 4F 10,BSET,"$4F,#$10"
+spark_update_admission,A596,4F,CLRA,
+spark_update_admission,A597,B7 02 11,STAA,$0211
+spark_update_admission,A59A,39,RTS,
+spark_update_admission,A59B,FE 02 60,LDX,$0260
+spark_update_admission,A59E,BC 49 62,CPX,$4962
+spark_update_admission,A5A1,24 06,BCC,$A5A9
+spark_update_admission,A5A3,08,INX,
+spark_update_admission,A5A4,FF 02 60,STX,$0260
+spark_update_admission,A5A7,20 04,BRA,$A5AD
+spark_update_admission,A5A9,4F,CLRA,
+spark_update_admission,A5AA,B7 30 6F,STAA,$306F
+spark_update_admission,A5AD,8C 00 A0,CPX,#$00A0
+spark_update_admission,A5B0,25 0C,BCS,$A5BE
+spark_update_admission,A5B2,0F,SEI,
+spark_update_admission,A5B3,B6 4D 96,LDAA,$4D96
+spark_update_admission,A5B6,B1 02 CE,CMPA,$02CE
+spark_update_admission,A5B9,24 03,BCC,$A5BE
+spark_update_admission,A5BB,B7 02 CE,STAA,$02CE
+spark_update_admission,A5BE,0E,CLI,
+spark_update_admission,A5BF,B6 02 02,LDAA,$0202
+spark_update_admission,A5C2,81 17,CMPA,#$17
+spark_update_admission,A5C4,25 14,BCS,$A5DA
+spark_update_admission,A5C6,15 4F 90,BCLR,"$4F,#$90"
+spark_update_admission,A5C9,15 44 08,BCLR,"$44,#$08"
+spark_update_admission,A5CC,CC FF FF,LDD,#$FFFF
+spark_update_admission,A5CF,DD 5F,STD,$5F
+spark_update_admission,A5D1,CE 30 60,LDX,#$3060
+spark_update_admission,A5D4,1D 00 10,BCLR,"$00,X,#$10"
+spark_update_admission,A5D7,3F,SWI,
+spark_update_admission,A5D8,20 FD,BRA,$A5D7
+spark_update_admission,A5DA,12 4F 80 03,BRSET,"$4F,#$80,$A5E1"
+spark_update_admission,A5DE,7E AC 51,JMP,$AC51
+spark_update_admission,A5E1,4C,INCA,
+spark_update_admission,A5E2,B7 02 02,STAA,$0202
+period_basis_scale,A5E5,FC 3F C0,LDD,$3FC0
+period_basis_scale,A5E8,DD 5F,STD,$5F
+period_basis_scale,A5EA,FD 01 E8,STD,$01E8
+period_basis_scale,A5ED,CE 00 5F,LDX,#$005F
+period_basis_scale,A5F0,B6 41 41,LDAA,$4141
+period_basis_scale,A5F3,C6 20,LDAB,#$20
+period_basis_scale,A5F5,3D,MUL,
+period_basis_scale,A5F6,17,TBA,
+period_basis_scale,A5F7,27 05,BEQ,$A5FE
+period_basis_scale,A5F9,BD F5 50,JSR,$F550
+period_basis_scale,A5FC,DD 5F,STD,$5F
+period_basis_to_terms,A5FE,DC 5F,LDD,$5F
+period_basis_to_terms,A600,05,ASLD,
+period_basis_to_terms,A601,8F,XGDX,
+period_basis_to_terms,A602,CC 01 33,LDD,#$0133
+period_basis_to_terms,A605,03,FDIV,
+period_basis_to_terms,A606,8F,XGDX,
+period_basis_to_terms,A607,FD 08 3D,STD,$083D
+period_basis_to_terms,A60A,81 60,CMPA,#$60
+period_basis_to_terms,A60C,25 09,BCS,$A617
+period_basis_to_terms,A60E,C3 40 80,ADDD,#$4080
+period_basis_to_terms,A611,24 0B,BCC,$A61E
+period_basis_to_terms,A613,86 FF,LDAA,#$FF
+period_basis_to_terms,A615,20 07,BRA,$A61E
+period_basis_to_terms,A617,05,ASLD,
+period_basis_to_terms,A618,83 1F 80,SUBD,#$1F80
+period_basis_to_terms,A61B,24 01,BCC,$A61E
+period_basis_to_terms,A61D,4F,CLRA,
+period_basis_to_terms,A61E,97 61,STAA,$61
+period_basis_to_terms,A620,FC 08 3D,LDD,$083D
+period_basis_to_terms,A623,C3 00 80,ADDD,#$0080
+period_basis_to_terms,A626,82 00,SBCA,#$00
+period_basis_to_terms,A628,97 62,STAA,$62
+period_basis_to_terms,A62A,FE 02 8E,LDX,$028E
+period_basis_to_terms,A62D,F6 50 E4,LDAB,$50E4
+period_basis_to_terms,A630,BD F4 59,JSR,$F459
+period_basis_to_terms,A633,FD 02 8E,STD,$028E
+period_basis_to_terms,A636,C3 00 80,ADDD,#$0080
+period_basis_to_terms,A639,D6 02,LDAB,$02
+period_basis_to_terms,A63B,C4 1F,ANDB,#$1F
+period_basis_to_terms,A63D,C1 04,CMPB,#$04
+period_basis_to_terms,A63F,26 0A,BNE,$A64B
+period_basis_to_terms,A641,16,TAB,
+period_basis_to_terms,A642,F0 02 8C,SUBB,$028C
+period_basis_to_terms,A645,F7 02 8D,STAB,$028D
+period_basis_to_terms,A648,B7 02 8C,STAA,$028C
+period_basis_to_terms,A64B,FC 08 3D,LDD,$083D
+period_basis_to_terms,A64E,05,ASLD,
+period_basis_to_terms,A64F,25 08,BCS,$A659
+period_basis_to_terms,A651,05,ASLD,
+period_basis_to_terms,A652,25 05,BCS,$A659
+period_basis_to_terms,A654,C3 00 80,ADDD,#$0080
+period_basis_to_terms,A657,24 02,BCC,$A65B
+period_basis_to_terms,A659,86 FF,LDAA,#$FF
+period_basis_to_terms,A65B,97 67,STAA,$67
+period_basis_to_terms,A65D,5F,CLRB,
+period_basis_to_terms,A65E,DE 68,LDX,$68
+period_basis_to_terms,A660,27 0A,BEQ,$A66C
+period_basis_to_terms,A662,CE 00 68,LDX,#$0068
+period_basis_to_terms,A665,18 CE 45 17,LDY,#$4517
+period_basis_to_terms,A669,BD F4 79,JSR,$F479
+period_basis_to_terms,A66C,DD 68,STD,$68
+period_basis_to_terms,A66E,FC 08 3D,LDD,$083D
+period_basis_to_terms,A671,05,ASLD,
+period_basis_to_terms,A672,24 03,BCC,$A677
+period_basis_to_terms,A674,CC FF FF,LDD,#$FFFF
+period_basis_to_terms,A677,B7 08 37,STAA,$0837
+period_basis_to_terms,A67A,DE 63,LDX,$63
+period_basis_to_terms,A67C,27 07,BEQ,$A685
+period_basis_to_terms,A67E,18 CE 41 53,LDY,#$4153
+period_basis_to_terms,A682,BD F4 36,JSR,$F436
+period_basis_to_terms,A685,DD 63,STD,$63
+adaptive_and_reference_terms,A687,86 FF,LDAA,#$FF
+adaptive_and_reference_terms,A689,F6 01 C0,LDAB,$01C0
+adaptive_and_reference_terms,A68C,F0 01 C2,SUBB,$01C2
+adaptive_and_reference_terms,A68F,25 04,BCS,$A695
+adaptive_and_reference_terms,A691,C1 20,CMPB,#$20
+adaptive_and_reference_terms,A693,24 0F,BCC,$A6A4
+adaptive_and_reference_terms,A695,FC 01 E6,LDD,$01E6
+adaptive_and_reference_terms,A698,B3 01 E8,SUBD,$01E8
+adaptive_and_reference_terms,A69B,05,ASLD,
+adaptive_and_reference_terms,A69C,B3 01 EA,SUBD,$01EA
+adaptive_and_reference_terms,A69F,2B 06,BMI,$A6A7
+adaptive_and_reference_terms,A6A1,F3 01 EA,ADDD,$01EA
+adaptive_and_reference_terms,A6A4,FD 01 EA,STD,$01EA
+adaptive_and_reference_terms,A6A7,FC 01 E8,LDD,$01E8
+adaptive_and_reference_terms,A6AA,04,LSRD,
+adaptive_and_reference_terms,A6AB,04,LSRD,
+adaptive_and_reference_terms,A6AC,04,LSRD,
+adaptive_and_reference_terms,A6AD,B3 01 EA,SUBD,$01EA
+adaptive_and_reference_terms,A6B0,24 06,BCC,$A6B8
+adaptive_and_reference_terms,A6B2,F3 01 EA,ADDD,$01EA
+adaptive_and_reference_terms,A6B5,FD 01 EA,STD,$01EA
+adaptive_and_reference_terms,A6B8,FC 01 E8,LDD,$01E8
+adaptive_and_reference_terms,A6BB,FD 01 E6,STD,$01E6
+adaptive_and_reference_terms,A6BE,04,LSRD,
+adaptive_and_reference_terms,A6BF,83 00 E5,SUBD,#$00E5
+adaptive_and_reference_terms,A6C2,24 05,BCC,$A6C9
+adaptive_and_reference_terms,A6C4,C3 01 34,ADDD,#$0134
+adaptive_and_reference_terms,A6C7,20 10,BRA,$A6D9
+adaptive_and_reference_terms,A6C9,04,LSRD,
+adaptive_and_reference_terms,A6CA,83 01 27,SUBD,#$0127
+adaptive_and_reference_terms,A6CD,25 05,BCS,$A6D4
+adaptive_and_reference_terms,A6CF,C3 01 7E,ADDD,#$017E
+adaptive_and_reference_terms,A6D2,20 05,BRA,$A6D9
+adaptive_and_reference_terms,A6D4,C3 05 F7,ADDD,#$05F7
+adaptive_and_reference_terms,A6D7,04,LSRD,
+adaptive_and_reference_terms,A6D8,04,LSRD,
+adaptive_and_reference_terms,A6D9,FD 08 3F,STD,$083F
+adaptive_and_reference_terms,A6DC,86 78,LDAA,#$78
+adaptive_and_reference_terms,A6DE,90 A7,SUBA,$A7
+adaptive_and_reference_terms,A6E0,24 01,BCC,$A6E3
+adaptive_and_reference_terms,A6E2,4F,CLRA,
+adaptive_and_reference_terms,A6E3,C6 04,LDAB,#$04
+adaptive_and_reference_terms,A6E5,3D,MUL,
+adaptive_and_reference_terms,A6E6,F3 08 3F,ADDD,$083F
+adaptive_and_reference_terms,A6E9,F3 01 EA,ADDD,$01EA
+adaptive_and_reference_terms,A6EC,FD 01 EC,STD,$01EC
+adaptive_and_reference_terms,A6EF,FC 3F C0,LDD,$3FC0
+adaptive_and_reference_terms,A6F2,83 00 27,SUBD,#$0027
+adaptive_and_reference_terms,A6F5,B3 01 EC,SUBD,$01EC
+adaptive_and_reference_terms,A6F8,24 06,BCC,$A700
+adaptive_and_reference_terms,A6FA,F3 01 EC,ADDD,$01EC
+adaptive_and_reference_terms,A6FD,FD 01 EC,STD,$01EC
+adaptive_and_reference_terms,A700,F6 01 C1,LDAB,$01C1
+adaptive_and_reference_terms,A703,F7 01 C2,STAB,$01C2
+knock_saved_byte,AACB,B7 02 0C,STAA,$020C
+knock_saved_byte,AACE,44,LSRA,
+knock_saved_byte,AACF,36,PSHA,
+knock_saved_byte,AAD0,30,TSX,
+knock_saved_byte,AAD1,FC 01 EE,LDD,$01EE
+knock_saved_byte,AAD4,E0 00,SUBB,"$00,X"
+knock_saved_byte,AAD6,82 00,SBCA,#$00
+knock_saved_byte,AAD8,FD 01 EE,STD,$01EE
+knock_saved_byte,AADB,31,INS,
+spark_conversion_and_handoff,AB3E,FD 01 EE,STD,$01EE
+spark_conversion_and_handoff,AB41,FD 01 F0,STD,$01F0
+spark_conversion_and_handoff,AB44,15 4F 01,BCLR,"$4F,#$01"
+spark_conversion_and_handoff,AB47,FC 01 EE,LDD,$01EE
+spark_conversion_and_handoff,AB4A,2A 04,BPL,$AB50
+spark_conversion_and_handoff,AB4C,14 4F 01,BSET,"$4F,#$01"
+spark_conversion_and_handoff,AB4F,50,NEGB,
+spark_conversion_and_handoff,AB50,17,TBA,
+spark_conversion_and_handoff,AB51,12 51 40 0D,BRSET,"$51,#$40,$AB62"
+spark_conversion_and_handoff,AB55,F6 01 F2,LDAB,$01F2
+spark_conversion_and_handoff,AB58,CE 01 F3,LDX,#$01F3
+spark_conversion_and_handoff,AB5B,1F 00 80 01,BRCLR,"$00,X,#$80,$AB60"
+spark_conversion_and_handoff,AB5F,5C,INCB,
+spark_conversion_and_handoff,AB60,3D,MUL,
+spark_conversion_and_handoff,AB61,4C,INCA,
+spark_conversion_and_handoff,AB62,13 86 40 03,BRCLR,"$86,#$40,$AB69"
+spark_conversion_and_handoff,AB66,BD 18 0F,JSR,$180F
+spark_conversion_and_handoff,AB69,36,PSHA,
+spark_conversion_and_handoff,AB6A,96 62,LDAA,$62
+spark_conversion_and_handoff,AB6C,CE 45 4A,LDX,#$454A
+spark_conversion_and_handoff,AB6F,BD F4 99,JSR,$F499
+spark_conversion_and_handoff,AB72,B7 02 01,STAA,$0201
+spark_conversion_and_handoff,AB75,32,PULA,
+spark_conversion_and_handoff,AB76,CE 00 5F,LDX,#$005F
+spark_conversion_and_handoff,AB79,BD F5 50,JSR,$F550
+spark_conversion_and_handoff,AB7C,12 4F 01 04,BRSET,"$4F,#$01,$AB84"
+spark_conversion_and_handoff,AB80,40,NEGA,
+spark_conversion_and_handoff,AB81,50,NEGB,
+spark_conversion_and_handoff,AB82,82 00,SBCA,#$00
+spark_conversion_and_handoff,AB84,F0 02 01,SUBB,$0201
+spark_conversion_and_handoff,AB87,82 00,SBCA,#$00
+spark_conversion_and_handoff,AB89,37,PSHB,
+spark_conversion_and_handoff,AB8A,36,PSHA,
+spark_conversion_and_handoff,AB8B,30,TSX,
+spark_conversion_and_handoff,AB8C,4F,CLRA,
+spark_conversion_and_handoff,AB8D,5F,CLRB,
+spark_conversion_and_handoff,AB8E,B3 3F C0,SUBD,$3FC0
+spark_conversion_and_handoff,AB91,04,LSRD,
+spark_conversion_and_handoff,AB92,04,LSRD,
+spark_conversion_and_handoff,AB93,04,LSRD,
+spark_conversion_and_handoff,AB94,04,LSRD,
+spark_conversion_and_handoff,AB95,8A F0,ORAA,#$F0
+spark_conversion_and_handoff,AB97,F3 3F F6,ADDD,$3FF6
+spark_conversion_and_handoff,AB9A,A3 00,SUBD,"$00,X"
+spark_conversion_and_handoff,AB9C,2B 04,BMI,$ABA2
+spark_conversion_and_handoff,AB9E,E3 00,ADDD,"$00,X"
+spark_conversion_and_handoff,ABA0,ED 00,STD,"$00,X"
+spark_conversion_and_handoff,ABA2,EC 00,LDD,"$00,X"
+spark_conversion_and_handoff,ABA4,B3 3F F6,SUBD,$3FF6
+spark_conversion_and_handoff,ABA7,BD F3 ED,JSR,$F3ED
+spark_conversion_and_handoff,ABAA,FD 3F E8,STD,$3FE8
+spark_conversion_and_handoff,ABAD,BD F3 ED,JSR,$F3ED
+spark_conversion_and_handoff,ABB0,F3 3F DC,ADDD,$3FDC
+spark_conversion_and_handoff,ABB3,B3 01 EC,SUBD,$01EC
+spark_conversion_and_handoff,ABB6,01,NOP,
+spark_conversion_and_handoff,ABB7,FE 01 EC,LDX,$01EC
+spark_conversion_and_handoff,ABBA,FD 3F E6,STD,$3FE6
+spark_conversion_and_handoff,ABBD,BD F3 ED,JSR,$F3ED
+spark_conversion_and_handoff,ABC0,FF 3F DC,STX,$3FDC
+spark_conversion_and_handoff,ABC3,BD F3 ED,JSR,$F3ED
+spark_conversion_and_handoff,ABC6,32,PULA,
+spark_conversion_and_handoff,ABC7,33,PULB,
+spark_conversion_and_handoff,ABC8,FD 3F F6,STD,$3FF6
+latency_interpolator,F499,5F,CLRB,
+latency_interpolator,F49A,A1 00,CMPA,"$00,X"
+latency_interpolator,F49C,23 02,BLS,$F4A0
+latency_interpolator,F49E,A6 00,LDAA,"$00,X"
+latency_interpolator,F4A0,08,INX,
+latency_interpolator,F4A1,8D 1A,BSR,$F4BD
+latency_interpolator,F4A3,39,RTS,
+latency_interpolator,F4A4,3C,PSHX,
+latency_interpolator,F4A5,37,PSHB,
+latency_interpolator,F4A6,A0 00,SUBA,"$00,X"
+latency_interpolator,F4A8,24 01,BCC,$F4AB
+latency_interpolator,F4AA,4F,CLRA,
+latency_interpolator,F4AB,A1 01,CMPA,"$01,X"
+latency_interpolator,F4AD,23 02,BLS,$F4B1
+latency_interpolator,F4AF,A6 01,LDAA,"$01,X"
+latency_interpolator,F4B1,C6 02,LDAB,#$02
+latency_interpolator,F4B3,3A,ABX,
+latency_interpolator,F4B4,20 02,BRA,$F4B8
+latency_interpolator,F4B6,3C,PSHX,
+latency_interpolator,F4B7,37,PSHB,
+latency_interpolator,F4B8,E6 00,LDAB,"$00,X"
+latency_interpolator,F4BA,08,INX,
+latency_interpolator,F4BB,20 08,BRA,$F4C5
+latency_interpolator,F4BD,10,SBA,
+latency_interpolator,F4BE,24 01,BCC,$F4C1
+latency_interpolator,F4C0,4F,CLRA,
+latency_interpolator,F4C1,3C,PSHX,
+latency_interpolator,F4C2,37,PSHB,
+latency_interpolator,F4C3,C6 10,LDAB,#$10
+latency_interpolator,F4C5,3D,MUL,
+latency_interpolator,F4C6,37,PSHB,
+latency_interpolator,F4C7,16,TAB,
+latency_interpolator,F4C8,3A,ABX,
+latency_interpolator,F4C9,EC 00,LDD,"$00,X"
+latency_interpolator,F4CB,10,SBA,
+latency_interpolator,F4CC,33,PULB,
+latency_interpolator,F4CD,24 06,BCC,$F4D5
+latency_interpolator,F4CF,40,NEGA,
+latency_interpolator,F4D0,3D,MUL,
+latency_interpolator,F4D1,A9 00,ADCA,"$00,X"
+latency_interpolator,F4D3,20 06,BRA,$F4DB
+latency_interpolator,F4D5,3D,MUL,
+latency_interpolator,F4D6,89 00,ADCA,#$00
+latency_interpolator,F4D8,40,NEGA,
+latency_interpolator,F4D9,AB 00,ADDA,"$00,X"
+latency_interpolator,F4DB,33,PULB,
+latency_interpolator,F4DC,38,PULX,
+latency_interpolator,F4DD,39,RTS,
+multiply_helper,F550,36,PSHA,
+multiply_helper,F551,E6 01,LDAB,"$01,X"
+multiply_helper,F553,3D,MUL,
+multiply_helper,F554,89 00,ADCA,#$00
+multiply_helper,F556,33,PULB,
+multiply_helper,F557,36,PSHA,
+multiply_helper,F558,A6 00,LDAA,"$00,X"
+multiply_helper,F55A,3D,MUL,
+multiply_helper,F55B,3C,PSHX,
+multiply_helper,F55C,30,TSX,
+multiply_helper,F55D,EB 02,ADDB,"$02,X"
+multiply_helper,F55F,89 00,ADCA,#$00
+multiply_helper,F561,38,PULX,
+multiply_helper,F562,31,INS,
+multiply_helper,F563,39,RTS,
+delay_RTS,F3ED,39,RTS,
+RAM_clear_helper,F2FD,C5 07,BITB,#$07
+RAM_clear_helper,F2FF,27 0A,BEQ,$F30B
+RAM_clear_helper,F301,6F 00,CLR,"$00,X"
+RAM_clear_helper,F303,08,INX,
+RAM_clear_helper,F304,83 00 01,SUBD,#$0001
+RAM_clear_helper,F307,26 F4,BNE,$F2FD
+RAM_clear_helper,F309,20 1A,BRA,$F325
+RAM_clear_helper,F30B,04,LSRD,
+RAM_clear_helper,F30C,04,LSRD,
+RAM_clear_helper,F30D,04,LSRD,
+RAM_clear_helper,F30E,17,TBA,
+RAM_clear_helper,F30F,C6 08,LDAB,#$08
+RAM_clear_helper,F311,18 CE 00 00,LDY,#$0000
+RAM_clear_helper,F315,1A EF 00,STY,"$00,X"
+RAM_clear_helper,F318,1A EF 02,STY,"$02,X"
+RAM_clear_helper,F31B,1A EF 04,STY,"$04,X"
+RAM_clear_helper,F31E,1A EF 06,STY,"$06,X"
+RAM_clear_helper,F321,3A,ABX,
+RAM_clear_helper,F322,4A,DECA,
+RAM_clear_helper,F323,26 F0,BNE,$F315
+RAM_clear_helper,F325,39,RTS,
+startup_lag_helper,F459,37,PSHB,
+startup_lag_helper,F45A,3C,PSHX,
+startup_lag_helper,F45B,30,TSX,
+startup_lag_helper,F45C,A0 00,SUBA,"$00,X"
+startup_lag_helper,F45E,25 03,BCS,$F463
+startup_lag_helper,F460,3D,MUL,
+startup_lag_helper,F461,20 03,BRA,$F466
+startup_lag_helper,F463,3D,MUL,
+startup_lag_helper,F464,A0 02,SUBA,"$02,X"
+startup_lag_helper,F466,36,PSHA,
+startup_lag_helper,F467,37,PSHB,
+startup_lag_helper,F468,EC 01,LDD,"$01,X"
+startup_lag_helper,F46A,50,NEGB,
+startup_lag_helper,F46B,27 03,BEQ,$F470
+startup_lag_helper,F46D,3D,MUL,
+startup_lag_helper,F46E,89 00,ADCA,#$00
+startup_lag_helper,F470,33,PULB,
+startup_lag_helper,F471,1B,ABA,
+startup_lag_helper,F472,16,TAB,
+startup_lag_helper,F473,32,PULA,
+startup_lag_helper,F474,A9 00,ADCA,"$00,X"
+startup_lag_helper,F476,38,PULX,
+startup_lag_helper,F477,31,INS,
+startup_lag_helper,F478,39,RTS,

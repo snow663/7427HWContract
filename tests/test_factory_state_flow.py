@@ -104,6 +104,22 @@ class FactoryStateFlowTests(unittest.TestCase):
         self.assertEqual(substitute(byte_part(value,"hi"),{"B":Value.const(8,10)}).ints(),{0x7A})
         self.assertIsNone(add_constant(Value.param(8,"B"),1).items)  # Wrapped-byte expressions are widened.
 
+    def test_reviewed_local_spark_frames_survive_call_substitution_without_becoming_absolute(self):
+        from factory_state_flow import stack_address,write_value
+        frame=Value.of(16,[Ref("FRAME_AB89",0xFFFF)])
+        self.assertEqual(frame.text(),"SP_at_AB89-1")
+        self.assertTrue(stack_address(frame))
+        self.assertEqual(substitute(frame,{"SP":Value.const(16,0x03FF)}),frame)
+        state=State.entry();state.stack[Ref("SP")]=Value.const(8,42)
+        write_value(state,frame,Value.const(16,0))
+        self.assertEqual(state.stack,{})  # Unknown relation to caller frame may alias.
+        rows={r["pc"]:r for r in self.flow if r["entry"]=="A466"}
+        for pc in ["AB9A","AB9E","ABA0","ABA2"]:
+            self.assertEqual(rows[pc]["classification"],"stack_relative")
+            self.assertEqual(rows[pc]["effective_addresses"],"SP_at_AB89-1")
+            self.assertEqual(rows[pc]["target_bytes"],"")
+        self.assertEqual(rows["AAD4"]["effective_addresses"],"SP_at_AACF")
+
     def test_possible_RAM_alias_invalidates_a_saved_stack_pointer_value(self):
         rom=ByteROM();ins=rom.program(0x7200,"3C CE 02 4E CC 00 00 ED 00 38 A6 00 39")
         result=analyze(rom,0x7200,ins,{})

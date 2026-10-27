@@ -1,8 +1,8 @@
 # Spark $01EC integer-state trace
 
-Status: **source-derived integer dataflow**. Physical meaning/units, target-ROM correspondence, isolated execution, and first-event seed validity are not established by this trace.
+Status: **ROM-verified integer dataflow with independent CPU replay**. The producers of `$083F/$01EA`, software initialization, and update admission are now traced in [FACTORY_SPARK_INTEGER_HANDOFF.md](../analysis/FACTORY_SPARK_INTEGER_HANDOFF.md). Physical units and future hardware readback values remain unassigned.
 
-Source: `source/31/BMHM_HAC_ORG_7100_to_end.asm`, SHA-256 `7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c`.
+ROM: `BMHM.BIN`, SHA-256 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`. Source: `source/31/BMHM_HAC_ORG_7100_to_end.asm`, SHA-256 `7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c`.
 
 ## State and direct cross-references
 
@@ -16,7 +16,7 @@ Source: `source/31/BMHM_HAC_ORG_7100_to_end.asm`, SHA-256 `7d1f46cab692621f7713c
 | Read | `$ABB3` | Subtract the current word from the second spark handoff value |
 | Read | `$ABB7` | Load the current word for storage into `$3FDC` |
 
-This establishes a dependency on the spark handoff. It does not establish that the word is physically dwell, latency, or another named time quantity. Global/indirect initialization remains outside these direct-reference counts.
+This establishes a dependency on the spark handoff. It does not establish that the word is physically dwell, latency, or another named time quantity. The indexed `$7173 -> $F2FD` clear initializes this word to zero. The direct-reference counts do not include that block-clear effect.
 
 ## Exact producer ordering
 
@@ -52,14 +52,16 @@ write second_command to $3FE6             ; ABBA
 write current_L01EC to $3FDC              ; ABC0
 ```
 
-The current `$01EC` value therefore participates as a difference against the `$3FDC` readback. The software explicitly stores the current word back into `$3FDC`; whether the ASIC can change that value between calls is still unproven. The software relationship can be understood without inventing the physical interpretation of either register.
+The current `$01EC` value therefore participates as a difference against the `$3FDC` readback. The software explicitly stores the word sampled at `$ABB7` into `$3FDC`. Its earlier `$01EC` sample at `$ABB3` is a separate model input, as is the live `$3FDC` readback. Hardware stability and word atomicity are not inferred. The software relationship can be understood without inventing the physical interpretation of either register.
 
-## Remaining dependencies
+## Dependencies now closed in the bounded integer model
 
-- Producers, meaning, units, and update contexts of `$083F/$01EA`.
-- Physical timebase and validity of `$3FC0`, especially around startup and missing reference.
-- Full stack-based computation that produces the first command and updates `$3FF6` at `$AB89-$ABC8`.
-- Initialization and reset of `$01EC/$3FDC`, including indexed block-clear paths and first-event behavior.
-- Target-ROM byte verification and independent execution/replay of this integer relationship.
+- `$083F` is the exact three-segment function of `$01E8` stored at `$A6D9`.
+- `$01EA` has the new-reference decay, load/period candidate selection, and unsigned `period >> 3` cap.
+- Software block clears initialize `$01EA/$01EC/$083F`; boot also attempts zero writes to the relevant ASIC words.
+- First-reference bypass, count/period qualification, no-reference running updates, and timeout explain producer admission.
+- `$AB89-$ABC8` has an exact stack/rolling-state model that predicts the four ordered writes with independently supplied readback samples.
 
-This closes the direct producer/consumer relationship and its listed arithmetic. It does not close the entire spark conversion or assign an ASIC physical meaning.
+`tools/factory_spark.py` defines the integer models; `tests/test_factory_spark.py` checks them against actual ROM execution, including every 16-bit reference-term/decay input and boundary/random producer and handoff cases. `maps/structure/bmhm_spark_rom_evidence.json` pins the bytes and image identity.
+
+Physical timebase, ASIC register behavior, interrupt interleavings, upstream spark command construction, the external `$180F` extension, and monitoring after `$ABCB` remain separate dependencies. This closure does not assign `$01EC` a physical dwell/latency interpretation.

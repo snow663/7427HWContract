@@ -1,0 +1,54 @@
+pc,action,source_line,source_instruction,effective_instruction,bytes_hex,reason
+74A4,replace,733,LDAB #010,LDAB #$10,C6 10,verified_ROM_instruction
+7D8D,replace,2424,*****,STOP,CF,verified_ROM_instruction
+7F57,replace,2813,LDD #65525,LDD #$FFFF,CC FF FF,verified_ROM_instruction
+7F64,replace,2821,LDD #65525,LDD #$FFFF,CC FF FF,verified_ROM_instruction
+81F4,replace,3351,LDD #$#32767,LDD #$7FFF,CC 7F FF,verified_ROM_instruction
+82AB,replace,3473,LDAA #255F,LDAA #$FF,86 FF,verified_ROM_instruction
+A0FA,add_ROM_row,0,,"BCLR $18,#$08",15 18 08,ROM entry or mask byte absent from addressed HAC rows
+A0FD,add_ROM_row,0,,"BRSET $36,#$02,$A115",12 36 02 14,ROM entry or mask byte absent from addressed HAC rows
+A101,add_ROM_row,0,,"BRSET $36,#$01,$A10D",12 36 01 08,ROM entry or mask byte absent from addressed HAC rows
+A105,add_ROM_row,0,,LDAA $029D,B6 02 9D,ROM entry or mask byte absent from addressed HAC rows
+A108,add_ROM_row,0,,STAA $029F,B7 02 9F,ROM entry or mask byte absent from addressed HAC rows
+A10B,add_ROM_row,0,,BRA $A12D,20 20,ROM entry or mask byte absent from addressed HAC rows
+A10D,add_ROM_row,0,,LDAA $02A0,B6 02 A0,ROM entry or mask byte absent from addressed HAC rows
+A110,add_ROM_row,0,,STAA $02A2,B7 02 A2,ROM entry or mask byte absent from addressed HAC rows
+A113,add_ROM_row,0,,BRA $A12D,20 18,ROM entry or mask byte absent from addressed HAC rows
+A361,add_ROM_row,0,,BEQ $A398,27 35,ROM entry or mask byte absent from addressed HAC rows
+A363,replace,9519,BEQ LA398,LDAA $5B02,B6 5B 02,verified_ROM_instruction
+A381,replace,9544,"BRSET L0009,#$40,LA38","BRSET $09,#$40,$A38A",12 09 40 05,verified_ROM_instruction
+A3EA,replace,9613,"BRSET L0009,#$04,LA40","BRSET $09,#$04,$A406",12 09 04 18,verified_ROM_instruction
+A40B,replace,9635,"BRSET L0009,#$01,LA4656","BRSET $09,#$01,$A465",12 09 01 56,verified_ROM_instruction
+A60E,replace,9966,ADDD #65512,ADDD #$4080,C3 40 80,verified_ROM_instruction
+A7B6,replace,10295,ADDB #127,ADDB #$80,CB 80,verified_ROM_instruction
+A7BC,replace,10299,LDAB #160,LDAB #$C0,C6 C0,verified_ROM_instruction
+B32B,suppress_overlapping_source_row,12391,"BRCLR L0011,#$BD,LB2E2",,,HAC row crosses the verified B32D entry
+B32D,add_ROM_row,0,,JSR $B334,BD B3 34,ROM entry or mask byte absent from addressed HAC rows
+B32F,suppress_overlapping_source_row,12393,DES,,,source row starts inside verified ROM instruction/data bytes
+B99E,suppress_overlapping_source_row,13313,LSR LF601,,,HAC row crosses the verified B99F entry
+B99F,add_ROM_row,0,,LDAB $011A,F6 01 1A,ROM entry or mask byte absent from addressed HAC rows
+B9A1,suppress_overlapping_source_row,13315,*****,,,source row starts inside verified ROM instruction/data bytes
+CFCA,replace,16788,"BRCLR L003E,#$80,LCF8","BRCLR $3E,#$80,$CF89",13 3E 80 BB,verified_ROM_instruction
+E75F,replace,21067,FDB $123B,"BRSET $3B,#$04,$E792",12 3B 04 2F,verified_ROM_instruction
+E761,suppress_overlapping_source_row,21068,FDB $042F,,,source row starts inside verified ROM instruction/data bytes
+E763,replace,21069,FDB $CE5B,LDX #$5B00,CE 5B 00,verified_ROM_instruction
+E765,suppress_overlapping_source_row,21071,TEST,,,source row starts inside verified ROM instruction/data bytes
+F3DB,replace,23251,LDS L005D,FCB $9E,9E,verified_ROM_data
+F3DC,add_ROM_row,0,,FCB $5D,5D,ROM entry or mask byte absent from addressed HAC rows
+F3DD,replace,23252,LDD L7FE7,FCB $FC,FC,verified_ROM_data
+F3DE,add_ROM_row,0,,FCB $7F,7F,ROM entry or mask byte absent from addressed HAC rows
+F3DF,add_ROM_row,0,,FCB $E7,E7,ROM entry or mask byte absent from addressed HAC rows
+F3E0,replace,23253,ADCA L0000,FCB $99,99,verified_ROM_data
+F3E1,add_ROM_row,0,,FCB $00,00,ROM entry or mask byte absent from addressed HAC rows
+F3E2,replace,23254,NEGB,FCB $50,50,verified_ROM_data
+F3E3,replace,23255,ADDA #$B6,FCB $8B,8B,verified_ROM_data
+F3E4,add_ROM_row,0,,LDAA $3066,B6 30 66,ROM entry or mask byte absent from addressed HAC rows
+F3E5,suppress_overlapping_source_row,23257,TSX,,,source row starts inside verified ROM instruction/data bytes
+F3E6,suppress_overlapping_source_row,23258,"ROR $08,X",,,source row starts inside verified ROM instruction/data bytes
+F3E7,add_ROM_row,0,,EORA #$80,88 80,ROM entry or mask byte absent from addressed HAC rows
+F3E8,suppress_overlapping_source_row,23259,SUBA #$B7,,,source row starts inside verified ROM instruction/data bytes
+F3E9,add_ROM_row,0,,STAA $3066,B7 30 66,ROM entry or mask byte absent from addressed HAC rows
+F3EA,suppress_overlapping_source_row,23260,TSX,,,source row starts inside verified ROM instruction/data bytes
+F3EB,suppress_overlapping_source_row,23261,"ROR $39,X",,,source row starts inside verified ROM instruction/data bytes
+F3EC,add_ROM_row,0,,RTS,39,ROM entry or mask byte absent from addressed HAC rows
+FA72,replace,24679,CMPA #$40,CMPA #$28,81 28,verified_ROM_instruction

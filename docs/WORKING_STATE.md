@@ -85,23 +85,40 @@ stack checks, the coalescing pending-pass bit, profiling words, and the separate
 RAM-word factory/service callback. Eighteen bounded CPU-execution tests cover
 the full 160-phase sequence and exceptional paths with external callee effects
 stubbed. Sixty-three direct callee roots have ROM-decoded intraprocedural state
-inventories; nested calls and indexed effects remain open. Thirty-two listing
+inventories; their later nested extension is described below. Thirty-two listing
 discrepancies are recorded, including executable entries hidden by HAC data or
 misaligned decoding. These byte maps take precedence for covered instructions;
-the original HAC and older source-only inventories are retained unchanged.
+the original HAC is retained unchanged. The main indexes now apply the reviewed byte overlay described below.
 
 Nested-call/indexed-state propagation now extends those roots to 234 ROM
 procedure entries. `docs/analysis/FACTORY_NESTED_STATE_FLOW.md` and
 `maps/structure/factory_nested_*.csv` record register-return expressions,
 call-specific memory effects, and opaque boundaries. Of the earlier 262 indexed
-rows, 162 now have one address and 54 a bounded address set; one is frame-relative,
-four retain caller parameters, eight are pruned by stock constants, and 33 stay
+rows, 162 now have one address and 54 a bounded address set; six are frame-relative,
+four retain caller parameters, eight are pruned by stock constants, and 28 stay
 unresolved. These are scoped address proofs, not whole-ROM semantic completion.
 Indexed clear footprints and 45 ROM-mask/RAM pairings establish additional state
 producers, including the `$F333` mask write to `$001A`. The raw branch at `$A40B`
-is verified to target `$A465`; the older source index still preserves the typo.
+is verified to target `$A465`; the effective indexes now use that target while preserving the original HAC.
 The actual-ROM multiply replay also required correcting MUL carry from bit15 to
 bit7 in the CPU model, with a dedicated regression.
+
+The reviewed overlay now integrates all 32 scheduler listing discrepancies, the
+`$A40B` correction, and the nine `$F3DB-$F3E3` mask bytes into the main indexes
+and legacy dispatcher/write consumers. `factory_rom_overlay_audit.csv` retains
+the replaced/suppressed rows. Legacy indexed-write addresses now come from the
+ROM state-flow proofs; bounded sets, local frames, and unknowns stay explicit.
+
+`docs/analysis/FACTORY_SPARK_INTEGER_HANDOFF.md` closes the bounded normal
+`$AB3E-$ABC8` integer handoff and the `$01EA/$083F/$01EC` producers,
+initialization, and update admission. Independent CPU replay checks the exact
+four writes from raw inputs and separate live readback samples. The old equation
+that shifted the combined timing product and period is superseded: the timing
+product remains on the stack while a separate negated-period anchor is formed.
+The current suite has 71 factory tests and 14 CPU/simulator tests, including the
+actual-ROM 100,000-instruction regression. Physical units, ASIC effects,
+interrupt interleavings, upstream intent, external extension, and monitor code
+remain separate work. The next engine integer closure is `$024E -> $3FCE` fuel.
 
 Primary current contracts include:
 

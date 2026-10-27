@@ -50,6 +50,8 @@ class Statement:
     op: str
     operand: str
     comment: str
+    origin: str = "source_listing"
+    rom_bytes: str = ""
 
 
 def parse_listing(source: Path) -> list[Statement]:
@@ -108,6 +110,8 @@ def data_region(pc: int, regions: list[Region]) -> Region | None:
 def classification(row: Statement, regions: list[Region]) -> str:
     if data_region(row.pc, regions):
         return "reviewed_embedded_data"
+    if row.origin == "rom_verified_data":
+        return "reviewed_ROM_mask_data"
     if row.op in DECLARATIONS:
         return "declared_data"
     if row.op.startswith("*"):
@@ -162,6 +166,7 @@ def memory_access(row: Statement) -> dict | None:
         "target_address": f"{target:04X}" if target is not None else "",
         "resolution": "direct" if target is not None else "unresolved_indexed" if indexed else "unresolved_operand",
         "bitmask": args[1] if row.op in {"BSET", "BCLR", "BRSET", "BRCLR"} and len(args) > 1 else "",
+        "evidence_origin": row.origin, "bytes_hex": row.rom_bytes,
     }
 
 
@@ -177,4 +182,5 @@ def control_edge(row: Statement) -> dict | None:
         "target_address": f"{target:04X}" if target is not None else "",
         "edge_kind": "call" if row.op in CALLS else "jump" if row.op == "JMP" else "branch",
         "resolution": "direct" if target is not None else "unresolved_indirect" if "," in raw else "unresolved_direct_operand",
+        "evidence_origin": row.origin, "bytes_hex": row.rom_bytes,
     }

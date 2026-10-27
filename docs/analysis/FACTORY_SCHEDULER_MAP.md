@@ -262,7 +262,10 @@ intraprocedural control flow for 63 directly called routine roots. Direct
 branches/jumps are followed; nested calls are recorded as boundaries. They
 contain 2,939 per-root memory-access rows, including 262 unresolved indexed
 rows. These are not a replacement denominator for the older whole-listing
-1,038 unresolved indexed-access sites. Shared code can occur under several roots.
+1,038 unresolved indexed-access sites (the current effective overlay has 1,036).
+Shared code can occur under several roots. The later nested/spark passes now
+classify 216 of the 262 baseline rows as address sets, six as frames, four as
+parameters, eight as pruned, and 28 as unresolved; see `FACTORY_NESTED_STATE_FLOW.md`.
 
 The comparison records 32 listing discrepancies. This includes missing lines,
 malformed operands, wrong numeric literals, and misaligned code/data decoding;
@@ -279,16 +282,17 @@ it does not mean 32 distinct algorithms were wrong. Examples:
 | `$F3E4-$F3EC` | Board-bit toggle shown above | Misaligned instructions / missing addressed entry |
 | `$FA72` | `81 28`: compare A with decimal 40 | Operand printed as hex `$40` |
 
-For these covered instructions, use the ROM map. The old source-derived
-whole-listing CSVs remain source inventories and still retain those defects;
-this pass does not silently rewrite their entries or the original HAC text.
+For these covered instructions, use the ROM map. The effective whole-listing
+and legacy indexes now apply the reviewed corrections through the audited ROM
+overlay. The original HAC text remains unchanged; unreviewed rows remain
+source-derived. See `factory_rom_overlay_audit.csv` and `FACTORY_CODE_STRUCTURE.md`.
 
 `factory_scheduler_gate_producers.csv` byte-checks direct listing writer
 candidates for the scheduler gates. It preserves whole-byte stores as candidates
 requiring value flow and explicitly marks gates with no direct writer candidate.
 For example, the indexed receive-copy path supplies service bytes even though
 there is no direct `STAA $038F` in the listing. Indexed clears also initialize
-state: the actual `$7164` clear call zeros `$0036-$00FF`, including busy and
+state: the actual `$716A` clear call zeros `$0036-$00FF`, including busy and
 pending, through the page-3 `STY 0,X` instructions at `$F315` onward.
 
 ## Artifacts and validation

@@ -6,8 +6,8 @@
     "caller_parameter": 4,
     "exact_address": 162,
     "pruned_by_constant_flow": 8,
-    "stack_relative": 1,
-    "unresolved": 33
+    "stack_relative": 6,
+    "unresolved": 28
   },
   "byte_ranges": [
     {

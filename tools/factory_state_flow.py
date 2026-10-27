@@ -59,7 +59,8 @@ class Value:
             if isinstance(x, int):
                 return f"${x:0{4 if self.bits==16 else 2}X}"
             offset = x.offset if x.offset < 0x8000 else x.offset - 0x10000
-            name = "entry_" + x.name + (f"{offset:+d}" if offset else "")
+            base = "SP_at_" + x.name[6:] if x.name.startswith("FRAME_") else "entry_" + x.name
+            name = base + (f"{offset:+d}" if offset else "")
             return name if x.part == "full" else f"{x.part}({name})"
         return ";".join(sorted(show(x) for x in self.items))
 
@@ -138,6 +139,10 @@ def substitute(value, bindings):
     for item in value.items:
         if isinstance(item, int):
             part = Value.const(value.bits, item)
+        elif item.name.startswith("FRAME_"):
+            # A reviewed local frame is relative to SP at its own save site,
+            # even when an earlier opaque call made entry-SP unknowable.
+            part = Value.of(value.bits, [item])
         else:
             # Zero-extension must precede 16-bit address arithmetic. Byte
             # wraparound expressions are widened at their producer instead.
@@ -209,7 +214,7 @@ class Summary:
 
 
 def stack_address(value):
-    return value.items is not None and bool(value.items) and all(isinstance(x, Ref) and x.name == "SP" and x.part == "full" for x in value.items)
+    return value.items is not None and bool(value.items) and all(isinstance(x, Ref) and (x.name == "SP" or x.name.startswith("FRAME_")) and x.part == "full" for x in value.items)
 
 
 def read_value(rom, state, address, bits):

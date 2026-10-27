@@ -14,6 +14,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 from factory_structure import data_region, load_regions
+from factory_rom_overlay import instruction_rows, render_statement
+from factory_indexed_targets import indexed_target
 
 SOURCE_CANDIDATES = [
     Path("source/31/BMHM_HAC_ORG_7100_to_end.asm"),
@@ -85,15 +87,8 @@ def split_operands(operands: str) -> list[str]:
 
 def parse_source(path: Path) -> list[ParsedLine]:
     rows: list[ParsedLine] = []
-    reviewed_regions = load_regions(path)
-    for raw in path.read_text(encoding="utf-8", errors="ignore").splitlines():
-        m = LINE_RE.match(raw)
-        if not m:
-            continue
-        pc, label, op, operands, comment = m.groups()
-        if data_region(int(pc, 16), reviewed_regions):
-            continue
-        rows.append(ParsedLine(pc.upper(), label or "", op.upper(), strip_comment_operands(operands or ""), comment or "", raw.rstrip()))
+    for row in instruction_rows(path):
+        rows.append(ParsedLine(f"{row.pc:04X}",row.label,row.op,row.operand,row.comment,render_statement(row)))
     return rows
 
 
@@ -190,6 +185,8 @@ def is_memory_target(target: str | None) -> bool:
 
 def classify_role(addr: int | None, symbol: str, op: str) -> tuple[str, str, str]:
     s = symbol.upper()
+    if s.startswith("STACK:"):
+        return "local stack save", "high", "reviewed local frame; no global variable address"
     if addr is None:
         return "unknown", "low", "unresolved target; indexed/base tracking may be required"
     if s == "L3FCE":
@@ -232,8 +229,6 @@ def derive_read_counts(rows: list[ParsedLine]) -> Counter[str]:
 
 def build_rows(parsed: list[ParsedLine]) -> list[dict[str, str]]:
     out: list[dict[str, str]] = []
-    x_base: int | None = None
-    y_base: int | None = None
     routine = ""
     branches: deque[str] = deque(maxlen=4)
     read_counts = derive_read_counts(parsed)
@@ -243,18 +238,6 @@ def build_rows(parsed: list[ParsedLine]) -> list[dict[str, str]]:
             routine = row.label.upper()
         operands = split_operands(row.operands)
 
-        if row.op in {"LDX", "LDY"} and operands:
-            m = IMM_HEX_RE.match(operands[0].upper()) or IMM_DEC_RE.match(operands[0].upper())
-            if m:
-                try:
-                    base = int(m.group(1), 16 if operands[0].startswith("#$") else 10)
-                    if row.op == "LDX":
-                        x_base = base
-                    else:
-                        y_base = base
-                except ValueError:
-                    pass
-
         if row.op in BRANCH_OPS:
             branches.append(f"{row.pc}:{row.op} {row.operands}".strip())
 
@@ -263,8 +246,12 @@ def build_rows(parsed: list[ParsedLine]) -> list[dict[str, str]]:
         target = target_operand(row.op, operands)
         if not is_memory_target(target):
             continue
-        addr, symbol, x_text, y_text = resolve_target(target or "", x_base, y_base)
+        addr, symbol, x_text, y_text = resolve_target(target or "", None, None)
+        proof_note=""
+        if "," in (target or ""):
+            addr,symbol,_,proof_note=indexed_target(int(row.pc,16),target)
         role, conf, note = classify_role(addr, symbol, row.op)
+        if proof_note:note+="; "+proof_note
         value_source, bitmask = value_source_for(row.op, operands)
         out.append({
             "pc": row.pc,

@@ -8,6 +8,7 @@ import re
 from collections import defaultdict
 from pathlib import Path
 from factory_structure import data_region, load_regions
+from factory_rom_overlay import instruction_rows, render_statement
 
 SOURCE_CANDIDATES = [Path("source/31/BMHM_HAC_ORG_7100_to_end.asm"), Path("31_HAC_from_ORG_7100_to_end_NOWRAP.asm")]
 OUT_CSV = Path("maps/contracts/dispatcher_reverse_map.csv")
@@ -33,16 +34,10 @@ def parse_lines(source: Path):
     parsed = []
     raw_lines = source.read_text(encoding="utf-8", errors="ignore").splitlines()
     current_label = ""
-    reviewed_regions = load_regions(source)
-    for idx, raw in enumerate(raw_lines):
-        m = LINE_RE.match(raw)
-        if m:
-            pc, label, op, operands, comment = m.groups()
-            if data_region(int(pc, 16), reviewed_regions):
-                continue
-            if label:
-                current_label = label.upper()
-            parsed.append({"lineno": idx + 1, "pc": pc.upper(), "label": (label or "").upper(), "routine": current_label, "op": op.upper(), "operands": (operands or "").split(";", 1)[0].strip(), "comment": comment or "", "raw": raw.rstrip()})
+    for row in instruction_rows(source):
+        if row.label:current_label=row.label
+        parsed.append({"lineno":row.line,"pc":f"{row.pc:04X}","label":row.label,"routine":current_label,
+                       "op":row.op,"operands":row.operand,"comment":row.comment,"raw":render_statement(row)})
     return raw_lines, parsed
 
 

@@ -13,7 +13,9 @@ slot words, conditional call order, local control/state edges, direct writer
 candidates, and one-level callee state inventories. See
 `docs/analysis/FACTORY_SCHEDULER_MAP.md` for execution tests and scope limits.
 The scheduler's listing-discrepancy map records code hidden by malformed or
-misaligned HAC rows. It does not silently alter the older source-only indexes.
+misaligned HAC rows. The reviewed corrections now flow into the effective main and legacy indexes;
+`factory_rom_overlay_audit.csv` records each replacement/suppression. The original
+HAC remains unchanged.
 
 `factory_nested_*.csv`, `factory_indexed_flow.csv`,
 `factory_indexed_clear_calls.csv`, and `factory_masked_state_updates.csv` extend
@@ -22,6 +24,14 @@ frame-relative and caller-parameter accesses, known effects, and opaque hooks.
 The full-image/excerpt evidence is `bmhm_nested_state_rom_evidence.json`.
 See `docs/analysis/FACTORY_NESTED_STATE_FLOW.md` for the 262-row baseline
 accounting, verified helper footprints, validation, and remaining boundaries.
+
+`factory_spark_*.csv` and `bmhm_spark_rom_evidence.json` add the exact normal
+spark handoff, producer dependencies, five local-stack proofs, and raw-input
+review vectors. `FACTORY_SPARK_INTEGER_HANDOFF.md` documents byte authority,
+independent execution, initialization, update admission, and remaining limits.
+Legacy write consumers use the nested flow for indexed addresses; they retain
+bounded sets, stack frames, and unresolved cases instead of a linear last-load
+estimate.
 
 ## Current hardware-access outputs
 

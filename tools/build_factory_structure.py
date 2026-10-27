@@ -14,8 +14,9 @@ from pathlib import Path
 
 from factory_structure import (
     ROOT, SOURCE, REGIONS, CALLS, classification, control_edge, data_region,
-    load_regions, memory_access, number, parse_listing, text_sha256,
+    load_regions, memory_access, number, text_sha256,
 )
+from factory_rom_overlay import effective_listing
 
 OUT = Path("maps/structure")
 
@@ -44,11 +45,11 @@ def address_region(address: int) -> str:
 
 def build() -> dict[Path, str]:
     regions = load_regions()
-    statements = parse_listing(SOURCE)
-    classes = {row.line: classification(row, regions) for row in statements}
+    statements, overlay_audit = effective_listing(SOURCE)
+    classes = {row.pc: classification(row, regions) for row in statements}
     classes_at: dict[int, set[str]] = defaultdict(set)
     for row in statements:
-        classes_at[row.pc].add(classes[row.line])
+        classes_at[row.pc].add(classes[row.pc])
 
     def target_class(address: int) -> str:
         if data_region(address, regions):
@@ -59,7 +60,7 @@ def build() -> dict[Path, str]:
     review, accesses, edges = [], [], []
     entry_evidence: dict[int, list[tuple[str, str]]] = defaultdict(list)
     for row in statements:
-        kind = classes[row.line]
+        kind = classes[row.pc]
         if kind != "instruction_candidate":
             region = data_region(row.pc, regions)
             review.append({
@@ -109,7 +110,7 @@ def build() -> dict[Path, str]:
             "direct_write_sites": len(state["W"]),
             "read_pcs": ";".join(sorted(state["R"])),
             "write_pcs": ";".join(sorted(state["W"])),
-            "proof_limit": "direct_listing_accesses_only;indexed_users_pending;value_flow_not_proven",
+            "proof_limit": "direct_effective_listing_accesses;partial_ROM_overlay;indexed_users_pending;value_flow_not_proven",
         })
     entries = [{
         "entry_address": f"{address:04X}",
@@ -125,6 +126,9 @@ def build() -> dict[Path, str]:
         "listing_statements": len(statements),
         "statement_classification_counts": dict(sorted(Counter(classes.values()).items())),
         "reviewed_embedded_data_bytes": sum(region.end - region.start + 1 for region in regions),
+        "ROM_overlay_instruction_rows": sum(r.origin=="rom_verified_instruction" for r in statements),
+        "ROM_overlay_mask_bytes": sum(r.origin=="rom_verified_data" for r in statements),
+        "ROM_overlay_audit_rows": len(overlay_audit),
         "control_edge_rows": len(edges),
         "unresolved_indirect_control_sites": [edge["pc"] for edge in edges if edge["resolution"] == "unresolved_indirect"],
         "unresolved_direct_control_operands": [edge["pc"] for edge in edges if edge["resolution"] == "unresolved_direct_operand"],
@@ -133,15 +137,16 @@ def build() -> dict[Path, str]:
         "memory_resolution_counts": dict(sorted(Counter(row["resolution"] for row in accesses).items())),
         "candidate_entry_points": len(entries),
         "directly_referenced_memory_bytes": len(state_rows),
-        "scope": "source_listing_structure_only;not_binary_verified;not_semantic_completion;not_reachability_proof",
+        "scope": "source_listing_plus_reviewed_ROM_overlay;unreviewed_rows_not_binary_verified;not_semantic_completion;not_reachability_proof",
     }
     return {
         OUT / "factory_listing_review.csv": csv_text(review, ["pc", "source_line", "mnemonic", "operand", "classification", "region_id"]),
-        OUT / "factory_memory_accesses.csv": csv_text(accesses, ["pc", "source_line", "mnemonic", "operand", "access", "width_bits", "target_address", "resolution", "bitmask"]),
+        OUT / "factory_memory_accesses.csv": csv_text(accesses, ["pc", "source_line", "mnemonic", "operand", "access", "width_bits", "target_address", "resolution", "bitmask","evidence_origin","bytes_hex"]),
         OUT / "factory_state_index.csv": csv_text(state_rows, ["byte_address", "address_region", "direct_read_sites", "direct_write_sites", "read_pcs", "write_pcs", "proof_limit"]),
-        OUT / "factory_control_edges.csv": csv_text(edges, ["pc", "source_line", "mnemonic", "target_operand", "target_address", "edge_kind", "resolution", "target_classification"]),
+        OUT / "factory_control_edges.csv": csv_text(edges, ["pc", "source_line", "mnemonic", "target_operand", "target_address", "edge_kind", "resolution", "target_classification","evidence_origin","bytes_hex"]),
         OUT / "factory_entry_points.csv": csv_text(entries, ["entry_address", "entry_evidence", "source_pcs", "target_classification", "proof_limit"]),
         OUT / "factory_structure_summary.json": json.dumps(summary, indent=2, sort_keys=True) + "\n",
+        OUT / "factory_rom_overlay_audit.csv": csv_text(overlay_audit,["pc","action","source_line","source_instruction","effective_instruction","bytes_hex","reason"]),
     }
 
 

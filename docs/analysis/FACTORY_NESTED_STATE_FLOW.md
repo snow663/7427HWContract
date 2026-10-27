@@ -34,16 +34,16 @@ execution coverage are not proven by these counts.
 |---|---:|---|
 | One physical address | 162 | Every represented path reaches the same address |
 | Bounded address set | 54 | A conservative finite set, not one chosen table element |
-| Stack-relative | 1 | Frame offset established; no invented RAM variable address |
+| Stack-relative | 6 | Frame offset established; no invented RAM variable address |
 | Caller parameter | 4 | Address expressed using an incoming register |
 | Pruned by constant flow | 8 | Not reached from the analyzed entry under the captured stock constants |
-| Unresolved | 33 | Insufficient pointer/register information remains |
+| Unresolved | 28 | Insufficient pointer/register information remains |
 | Total | 262 | Same per-root denominator as the preceding scheduler pass |
 
 The 917 rows in `factory_indexed_flow.csv` cover the expanded procedure contexts,
 including the eight historical rows retained as pruned. They use a different
-denominator from both the previous 262 rows and the whole-listing 1,038 indexed
-accesses. No claim that the entire ROM has only 33 unresolved accesses is made.
+denominator from both the previous 262 rows and the current whole-listing 1,036 indexed
+accesses. No claim that the entire ROM has only 28 unresolved accesses is made.
 
 Seven pruned rows belong to the optional broadcast-payload path under `$F5E8`:
 the captured `$518F` schedule words are all zero, so `$F5F8` exits. The remaining
@@ -182,11 +182,19 @@ The newly traversed `$A407` path also resolves the inherited malformed operand
 at `$A40B`. Actual bytes `12 09 01 56` mean `BRSET $09,#$01,$A465`.
 CPU execution checks both the taken `$A465` target and `$A40F` fallthrough.
 `factory_nested_control_corrections.csv` records this alongside `LA4656` from
-the original text. The older source-only control index remains unchanged until
-its correction-overlay integration is reviewed.
+the original text. The effective control index now applies this correction through the reviewed
+ROM overlay; the original HAC retains its text unchanged.
+
+Five formerly unresolved spark indexed sites now have separately reviewed local
+frame proofs: `$AAD4` uses `SP_at_AACF`, and `$AB9A/$AB9E/$ABA0/$ABA2` use
+`SP_at_AB89-1`. These do not assume an incoming SP survived an opaque hook.
+Call substitution preserves their local-frame identity, and frame writes
+conservatively invalidate caller stack knowledge when physical aliasing is
+unknown. Actual CPU replay checks the saved values and stack balance. See
+`FACTORY_SPARK_INTEGER_HANDOFF.md` and `factory_spark_stack_accesses.csv`.
 
 The unresolved cases include descriptor-selected pointers, service buffers,
-table geometry, and stack/register paths crossing optional extension hooks.
+table geometry, and register paths crossing optional extension hooks.
 The four caller-parameter rows include ADC/port helpers that bind to `$3000`
 in known call contexts, but their generic entry templates deliberately retain
 the parameter. Exact engine integer models and physical register effects remain
@@ -224,7 +232,7 @@ The 18 new flow tests include branch joins, stale-pointer rejection, unknown-cal
 clobbers, byte-to-word extension, carry-predicate invalidation, possible stack
 aliases, nested helper substitution, word-byte aliases, actual mask loops, clear
 contracts, checksum bounds, wrapped word aliases, and the malformed branch.
-Together with the earlier suites, 51
+Together with the new spark and overlay suites, 71
 factory tests and 14 CPU/simulator tests pass locally, including the full-ROM
 100,000-instruction regression. Recorded checks verify excerpt/output
 consistency; `--rom` verifies the complete image before constructing the maps.

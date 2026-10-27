@@ -1,0 +1,7 @@
+state,producer_pcs,consumer_pcs,initialization,role
+005F,A5E8;A5FC;A5CF,AB79:F550,716A clears 0036-00FF,period multiply basis; 4141 low-product-byte scaling; FFFF at timeout
+01EA,A50A;A6A4;A6B5,A4FB;A503;A69C;A6A1;A6AD;A6B2;A6E9,7173 clears 0100-029C,event decay then reference/load-dependent adaptive addend
+083F,A6D9,A6E6,717C clears 0800-08FF,piecewise function of 01E8 reference word
+01EC,A6EC;A6FD,ABB3;ABB7,7173 clears 0100-029C,wrapped sum of battery/reference/adaptive terms; unsigned limit
+3FF6,ABC8;FB03;715B indexed clear,AB97;ABA4,715B attempts zero on 3FC0-3FF8 even words,rolling handoff word; two live reads are separate inputs
+3FDC,ABC0;FAF7;715B indexed clear,ABB0,715B attempts zero on 3FC0-3FF8 even words,live readback then current 01EC handoff; hardware mutation not assumed absent

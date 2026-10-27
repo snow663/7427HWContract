@@ -885,7 +885,7 @@ entry,access_pc,access,width_bits,addresses,classification,target_bytes,call_wit
 793D,AAC4,R,8,$0844,exact_address,0844,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,AACB,W,8,$020C,exact_address,020C,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,AAD1,R,16,$01EE,exact_address,01EE;01EF,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
-793D,AAD4,R,8,unknown,unresolved,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
+793D,AAD4,R,8,SP_at_AACF,stack_relative,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,AAD8,W,16,$01EE,exact_address,01EE;01EF,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,AADC,R,8,$015A,exact_address,015A,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,AAE1,R,16,$414A,exact_address,414A;414B,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
@@ -923,10 +923,10 @@ entry,access_pc,access,width_bits,addresses,classification,target_bytes,call_wit
 793D,AB84,R,8,$0201,exact_address,0201,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,AB8E,R,16,$3FC0,exact_address,3FC0;3FC1,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,AB97,R,16,$3FF6,exact_address,3FF6;3FF7,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
-793D,AB9A,R,16,unknown,unresolved,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
-793D,AB9E,R,16,unknown,unresolved,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
-793D,ABA0,W,16,unknown,unresolved,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
-793D,ABA2,R,16,unknown,unresolved,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
+793D,AB9A,R,16,SP_at_AB89-1,stack_relative,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
+793D,AB9E,R,16,SP_at_AB89-1,stack_relative,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
+793D,ABA0,W,16,SP_at_AB89-1,stack_relative,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
+793D,ABA2,R,16,SP_at_AB89-1,stack_relative,,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,ABA4,R,16,$3FF6,exact_address,3FF6;3FF7,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,ABAA,W,16,$3FE8,exact_address,3FE8;3FE9,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
 793D,ABB0,R,16,$3FDC,exact_address,3FDC;3FDD,79FC,may_effect_union_per_first_call;witness_is_one_path;opaque_effects_separate
