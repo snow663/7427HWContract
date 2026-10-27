@@ -833,6 +833,7 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "NOP")
             return 2
         if prefix is None and opcode == 0x02:  # IDIV
+            self._set_flag(CCR_V, False)
             divisor = self.s.x & 0xFFFF
             if divisor == 0:
                 self.s.x = 0xFFFF
@@ -849,6 +850,7 @@ class HC11CPU:
         if prefix is None and opcode == 0x03:  # FDIV
             divisor = self.s.x & 0xFFFF
             numerator = self.s.d
+            self._set_flag(CCR_V, numerator >= divisor)
             if divisor == 0:
                 self.s.x = 0xFFFF
                 self._set_flag(CCR_C, True)
@@ -1071,12 +1073,12 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "INS")
             return 3
         if prefix is None and opcode == 0x32:  # PULA
-            self.s.a = self._logic8(self._pull8())
+            self.s.a = self._pull8()
             self.mem.tick(4)
             self._trace(start_pc, opcode, prefix, "PULA")
             return 4
         if prefix is None and opcode == 0x33:  # PULB
-            self.s.b = self._logic8(self._pull8())
+            self.s.b = self._pull8()
             self.mem.tick(4)
             self._trace(start_pc, opcode, prefix, "PULB")
             return 4
@@ -1106,12 +1108,12 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "PSHB")
             return 3
         if prefix is None and opcode == 0x38:  # PULX
-            self.s.x = self._logic16(self._pull16())
+            self.s.x = self._pull16()
             self.mem.tick(5)
             self._trace(start_pc, opcode, prefix, "PULX")
             return 5
         if prefix == 0x18 and opcode == 0x38:  # PULY
-            self.s.y = self._logic16(self._pull16())
+            self.s.y = self._pull16()
             self.mem.tick(6)
             self._trace(start_pc, opcode, prefix, "PULY")
             return 6

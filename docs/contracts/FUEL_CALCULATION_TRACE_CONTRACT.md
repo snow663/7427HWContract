@@ -4,7 +4,7 @@
 
 Reconstruct the stock `$31` fueling algorithm backward from the proven TBI injector command boundary so road-log behavior can be interpreted as an actual control pipeline rather than as loosely related channels.
 
-This document is intentionally written as a runtime-analysis contract for the calibration currently used in the truck. Where the executable establishes ordering or dataflow directly, the finding is marked static proof. Where a scale or physical meaning is still being normalized, that is kept distinct.
+This document connects the factory algorithm to truck runtime interpretation. Exact raw integer behavior uses stock BMHM ROM authority; the separately recorded truck-tune values are labeled `2.bin`. Executable ordering, calibration values, and physical interpretation retain separate evidence levels.
 
 Primary executable source:
 
@@ -18,6 +18,14 @@ Current tune reference used for byte-specific statements:
 454_bin_versions_1-4.zip / 2.bin
 SHA-256: 2387d708c8d4cc82b78fabda579e48b7daef79f331543a54b669b70b6262877e
 ```
+
+## Exact factory integer contract
+
+The completed raw running-fuel derivation is [FACTORY_FUEL_INTEGER_HANDOFF.md](../analysis/FACTORY_FUEL_INTEGER_HANDOFF.md). It covers `$7FD8-$852B`, the asynchronous output helper, the INT/proportional combination, and the additive-offset lookup against actual stock BMHM bytes. It documents each quotient/rounding step, cut/decel qualification, persistent-state update, delivery branch, and ordered hardware write.
+
+This exact contract takes precedence over the approximate equations below. In particular, BLM has an intermediate saturated double; INT/P is a signed additive correction; short-PW subtraction applies only below `$0100`; offset addition wraps before the `$7FFF` limit; and the async bypass leaves `$0250` unchanged after clearing `$3FCE`.
+
+The full stock-image SHA-256 is `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`. Byte-specific `2.bin` values retained below are the separately recorded tune reference, not newly verified stock bytes or a re-read of the running tune.
 
 ## Classification
 
@@ -34,7 +42,8 @@ TPS-AE/ASYNC-PATH:                   CONFIRMED STATIC
 SYNC/ASYNC-TBI-ARBITRATION:          CONFIRMED STATIC
 INJECTOR-DEADTIME/OFFSET-PATH:       CONFIRMED STATIC
 CRANK-FUEL-SEPARATE-PATH:            CONFIRMED STATIC
-FIXED-POINT-ENGINEERING-NORMALIZATION: PARTIALLY RESOLVED / REPLAY VALIDATION PENDING
+RAW-INTEGER-NORMALIZATION:          ROM-VERIFIED FOR DOCUMENTED RUNNING SLICE
+PHYSICAL-UNIT-NORMALIZATION:        SEPARATE FROM RAW INTEGER CLOSURE
 ```
 
 ---
@@ -149,7 +158,7 @@ Interpretation:
 L0231 = interpolated VE selected by the current throttle/idle state
 ```
 
-Future replay work should record the exact four source cells and interpolation fractions, not merely the nearest XDF cell.
+The factory lookup uses two rounded column interpolations followed by one rounded row interpolation; the exact helper geometry is documented in the integer contract. For a specific selected VE result, retain the four source cells and both fractions.
 
 ---
 
@@ -365,7 +374,7 @@ BLM enters through `L0248` and is applied to the synchronous PW accumulator:
 8055: JSR   L80EE
 ```
 
-The helper around `L80EE` multiplies `L024E` using the BLM value with the normal 128-centered convention.
+The `$80EE` helper first stores `min(2*PW,65535)`, then applies `floor((BLM*storedPW+128)/256)`. Thus BLM uses the normal 128-centered multiplicative convention, with an explicit intermediate word limit. The `$80FC` entry used by decel skips that initial double.
 
 Practical interpretation:
 
@@ -420,7 +429,7 @@ The stock code applies an additional load/barometric correction after the main s
 836C: STD   L024E
 ```
 
-The executable order is confirmed. Exact external-unit normalization of the `$49AA` table should be validated in the replay model before assigning a final engineering-percent label.
+The exact raw operation is `min(65535,4*M(table_result,PW))`, using the separately rounded two-dimensional lookup and the rounded `$F550` multiply. The external engineering-percent label remains a separate physical-scale question.
 
 ---
 
@@ -553,7 +562,7 @@ Off-idle logic evaluates current pulse width, load/RPM state, previous async sta
 8426: STD   L3FCE
 ```
 
-while routing fuel through the asynchronous path.
+while routing fuel through the asynchronous path. That route stores the unshaped value in `$024C` and bypasses `$8508`, so `$0250` retains its earlier value; it does not necessarily describe the current `$3FCE` command.
 
 Final async hardware sequence uses:
 
@@ -616,15 +625,13 @@ Immediately before the final output:
 8508: STD   L0250
 ```
 
-So the final synchronous-output behavior is approximately:
+The exact final synchronous-output behavior, after short/minimum shaping, is:
 
 ```text
 if shaped commanded fuel == 0:
     L0250 = 0
 else:
-    L0250 = clamp(shaped PW + injector voltage/deadtime offset,
-                  0,
-                  32767)
+    L0250 = min(u16(shaped PW + byte L0256), 32767)
 ```
 
 Then:
@@ -633,7 +640,7 @@ Then:
 L0250 -> $3FCE
 ```
 
-This is the last confirmed algorithmic correction before the TBI ASIC command.
+The 16-bit wrap occurs before the upper limit. This is the last algorithmic correction before the TBI ASIC command. The async helper instead adds the offset even to a zero packet and has no `$7FFF` clamp.
 
 ---
 
@@ -712,37 +719,13 @@ For road analysis, think of `$31` fueling as the following named layers:
 
 ---
 
-## 21. Replay-model target
+## 21. Completed running-fuel documentation and remaining boundaries
 
-The next useful validation artifact is a code-exact `$31` fuel replay for literal `2.bin`.
+The raw running calculation, normalization, state gates, correction order, short/minimum shaping, synchronous output, and asynchronous packet/trigger sequence are now documented exactly in `FACTORY_FUEL_INTEGER_HANDOFF.md`. The accompanying ROM instruction, access, dependency, and example maps are under `maps/structure/factory_fuel_*.csv`.
 
-For each road-log sample it should be able to report, where the required inputs exist:
+The derivation accepts the already produced `$0231` VE, `$0236` charge-temperature denominator, `$0257` density, `$024A` commanded AFR, `$0248` BLM, and transient/mode inputs. The isolated `$026F` INT/P combination and `$0256` offset lookup are included. The separate crank equation at `$85B2`, upstream sensor/VE/AFR/AE state machines, later work after `$852C`, cross-task flag lifetimes, physical-unit normalization, and injector delivery remain separately scoped. The original source-only descriptions of those upstream paths above retain their stated evidence level.
 
-```text
-RPM / MAP / TPS / ECT / BARO / battery
-selected VE table
-source cells + interpolation fractions
-interpolated VE
-charge-temperature term
-cylinder-air-charge quantity
-commanded AFR and active AFR mode
-injector-flow constant
-raw speed-density PW
-BLM contribution
-short-term O2 contribution
-baro correction
-battery correction
-MAP AE
-TPS async AE state
-sync/async selection
-short-PW shaping
-deadtime offset
-predicted L0250 / $3FCE
-logged BPW
-prediction error
-```
-
-A mismatch between predicted and logged BPW becomes a diagnostic tool: it identifies an unresolved branch, scale, or state rather than being hand-waved as generic fueling behavior.
+For log interpretation, distinguish `$024E` corrected calculation, `$0254` pre-route snapshot, route-dependent `$024C`, possibly retained `$0250`, the actual `$3FCE` synchronous write, and any `$3FF2/$3FFC` asynchronous emission. Those are distinct quantities with explicit update conditions, rather than interchangeable BPW channels.
 
 ---
 

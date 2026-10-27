@@ -33,6 +33,12 @@ Legacy write consumers use the nested flow for indexed addresses; they retain
 bounded sets, stack frames, and unresolved cases instead of a linear last-load
 estimate.
 
+`factory_fuel_*.csv` and `bmhm_fuel_rom_evidence.json` support the completed
+running-fuel documentation in `FACTORY_FUEL_INTEGER_HANDOFF.md`: exact bytes,
+explicit memory references, state dependencies, and raw-state examples. The
+document distinguishes calculations, retained telemetry words, sync/async
+selection, and ordered device writes, with upstream boundaries stated directly.
+
 ## Current hardware-access outputs
 
 ```text

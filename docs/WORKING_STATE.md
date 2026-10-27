@@ -115,10 +115,22 @@ initialization, and update admission. Independent CPU replay checks the exact
 four writes from raw inputs and separate live readback samples. The old equation
 that shifted the combined timing product and period is superseded: the timing
 product remains on the stack while a separate negated-period anchor is formed.
-The current suite has 71 factory tests and 14 CPU/simulator tests, including the
+The current suite has 90 factory tests and 16 CPU/simulator tests, including the
 actual-ROM 100,000-instruction regression. Physical units, ASIC effects,
 interrupt interleavings, upstream intent, external extension, and monitor code
-remain separate work. The next engine integer closure is `$024E -> $3FCE` fuel.
+remain separate work. The running-fuel documentation is now completed below.
+
+`docs/analysis/FACTORY_FUEL_INTEGER_HANDOFF.md` now documents the raw running-fuel
+calculation at `$7FD8-$852B`, all `$024E` correction/mode branches, synchronous
+shaping and `$3FCE`, async packet accounting and `$3FF2/$3FFC`, the INT/P
+combination, and the offset lookup. `FUEL_CALCULATION_TRACE_CONTRACT.md` links
+that exact derivation and distinguishes the separately recorded `2.bin` values.
+The docs preserve division truncation, the BLM double limit, additive INT,
+wrapped final offset, persistent packet fractions, and the async bypass that
+leaves `$0250` unchanged. ROM bytes and access/dependency/example maps are under
+`maps/structure/factory_fuel_*` and `bmhm_fuel_rom_evidence.json`.
+The separate crank equation, upstream sensor/VE/AFR/AE producers, cross-task
+flag lifetimes, and physical output behavior are outside that running slice.
 
 Primary current contracts include:
 

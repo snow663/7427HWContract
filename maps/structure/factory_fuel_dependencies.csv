@@ -1,0 +1,10 @@
+state,width,producers,input_boundary,initialization,scope
+024E,16,802F;8049;80E8;80F8;8102;833F;836C;837D;839C;83AB;83B7;83F6,0231 VE;0236 temperature;0257 density;024A AFR;1E8 period;4D92 flow;state gates and corrections,7173:F2FD clears 0100-029C,running arithmetic; upstream sensor/VE/AFR/AE producers separate
+0254,16,83AE,PW after INT and MAP AE,7173:F2FD,snapshot before delivery arbitration
+024C,16,84C3;84F5,unshaped async-route PW or shaped synchronous PW,7173:F2FD,meaning depends on current route
+0250,16,8508,wrapped byte offset addition then 7FFF cap; no offset for zero,7173:F2FD,not updated on 84C3 async bypass
+0256,8,E303,00A7 byte and4B05 lookup,7173:F2FD,isolated ROM/CPU-verified producer; caller cadence and physical scale separate
+026F,8,891A,020F integrator;027A proportional;3E40 direction;400B08/4402 cap gates,7173:F2FD,bounded INT/P combination and saturating signed addition; not a second BLM multiplier
+0259-025B,24,845B;8464;846F;848E;84A3,live 3FC0 sample; scaled PW; packet reservoir,7173:F2FD,24-bit accumulation; word clears preserve byte025B fraction
+3FCE,16,8426;8512,async-route zero or final synchronous word,715B indexed ASIC zero attempts,software write values; physical delivered fuel not modeled
+3FF2;3FFC,16,8571;857F;8587,packet;0256;live3FFC sample,715B covers3FF2;3FFC outside this clear,async packet word and clear/set0400 word trigger; device dynamics separate

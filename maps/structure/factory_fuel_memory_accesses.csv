@@ -1,0 +1,307 @@
+scope,pc,bytes_hex,mnemonic,operand,access,width_bits,address,address_mode
+ASIC_and_RAM_initialization,715B,ED 00,STD,"$00,X",W,16,,indexed_x
+running_fuel_and_delivery,7FD8,FC 02 57,LDD,$0257,R,16,0257,extended
+running_fuel_and_delivery,7FDB,FE 02 36,LDX,$0236,R,16,0236,extended
+running_fuel_and_delivery,7FE1,B6 4D 94,LDAA,$4D94,R,8,4D94,extended
+running_fuel_and_delivery,7FE8,FD 02 38,STD,$0238,W,16,0238,extended
+running_fuel_and_delivery,7FEB,B6 02 31,LDAA,$0231,R,8,0231,extended
+running_fuel_and_delivery,7FF4,FD 02 34,STD,$0234,W,16,0234,extended
+running_fuel_and_delivery,7FF7,FE 01 E8,LDX,$01E8,R,16,01E8,extended
+running_fuel_and_delivery,7FFC,FE 01 E8,LDX,$01E8,R,16,01E8,extended
+running_fuel_and_delivery,800D,FD 02 32,STD,$0232,W,16,0232,extended
+running_fuel_and_delivery,8010,FE 02 34,LDX,$0234,R,16,0234,extended
+running_fuel_and_delivery,8013,B6 02 4A,LDAA,$024A,R,8,024A,extended
+running_fuel_and_delivery,801C,FE 4D 92,LDX,$4D92,R,16,4D92,extended
+running_fuel_and_delivery,8021,FE 4D 92,LDX,$4D92,R,16,4D92,extended
+running_fuel_and_delivery,802F,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,8032,FC 01 B2,LDD,$01B2,R,16,01B2,extended
+running_fuel_and_delivery,8040,FD 02 52,STD,$0252,W,16,0252,extended
+running_fuel_and_delivery,8043,FC 02 4E,LDD,$024E,R,16,024E,extended
+running_fuel_and_delivery,8046,B3 02 52,SUBD,$0252,R,16,0252,extended
+running_fuel_and_delivery,8049,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,804C,B6 02 48,LDAA,$0248,R,8,0248,extended
+running_fuel_and_delivery,8051,12 3D 20 03,BRSET,"$3D,#$20,$8058",R,8,003D,direct
+running_fuel_and_delivery,8058,12 16 10 40,BRSET,"$16,#$10,$809C",R,8,0016,direct
+running_fuel_and_delivery,805F,1E 00 80 10,BRSET,"$00,X,#$80,$8073",R,8,,indexed_x
+running_fuel_and_delivery,8063,B6 51 55,LDAA,$5155,R,8,5155,extended
+running_fuel_and_delivery,8066,12 41 20 06,BRSET,"$41,#$20,$8070",R,8,0041,direct
+running_fuel_and_delivery,806A,B6 08 4D,LDAA,$084D,R,8,084D,extended
+running_fuel_and_delivery,8070,B7 08 4D,STAA,$084D,W,8,084D,extended
+running_fuel_and_delivery,8073,B6 08 12,LDAA,$0812,R,8,0812,extended
+running_fuel_and_delivery,8076,B1 51 56,CMPA,$5156,R,8,5156,extended
+running_fuel_and_delivery,807B,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+running_fuel_and_delivery,807E,B1 51 59,CMPA,$5159,R,8,5159,extended
+running_fuel_and_delivery,8083,B6 51 57,LDAA,$5157,R,8,5157,extended
+running_fuel_and_delivery,8086,13 53 08 03,BRCLR,"$53,#$08,$808D",R,8,0053,direct
+running_fuel_and_delivery,808A,B6 51 58,LDAA,$5158,R,8,5158,extended
+running_fuel_and_delivery,808D,91 61,CMPA,$61,R,8,0061,direct
+running_fuel_and_delivery,8091,15 53 08,BCLR,"$53,#$08",RW,8,0053,direct
+running_fuel_and_delivery,8096,14 53 08,BSET,"$53,#$08",RW,8,0053,direct
+running_fuel_and_delivery,809F,1F 00 01 04,BRCLR,"$00,X,#$01,$80A7",R,8,,indexed_x
+running_fuel_and_delivery,80A3,13 6F 34 5F,BRCLR,"$6F,#$34,$8106",R,8,006F,direct
+running_fuel_and_delivery,80AE,13 46 10 03,BRCLR,"$46,#$10,$80B5",R,8,0046,direct
+running_fuel_and_delivery,80B5,12 16 10 04,BRSET,"$16,#$10,$80BD",R,8,0016,direct
+running_fuel_and_delivery,80B9,13 99 03 02,BRCLR,"$99,#$03,$80BF",R,8,0099,direct
+running_fuel_and_delivery,80BF,D6 62,LDAB,$62,R,8,0062,direct
+running_fuel_and_delivery,80C1,E1 00,CMPB,"$00,X",R,8,,indexed_x
+running_fuel_and_delivery,80C5,F6 02 84,LDAB,$0284,R,8,0284,extended
+running_fuel_and_delivery,80C8,18 E1 00,CMPB,"$00,Y",R,8,,indexed_y
+running_fuel_and_delivery,80CD,D6 62,LDAB,$62,R,8,0062,direct
+running_fuel_and_delivery,80CF,F1 49 66,CMPB,$4966,R,8,4966,extended
+running_fuel_and_delivery,80D4,F6 02 6A,LDAB,$026A,R,8,026A,extended
+running_fuel_and_delivery,80D7,F1 49 65,CMPB,$4965,R,8,4965,extended
+running_fuel_and_delivery,80DD,F7 02 6A,STAB,$026A,W,8,026A,extended
+running_fuel_and_delivery,80E2,14 46 10,BSET,"$46,#$10",RW,8,0046,direct
+running_fuel_and_delivery,80E8,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,80EF,FC 02 4E,LDD,$024E,R,16,024E,extended
+running_fuel_and_delivery,80F8,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,8102,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,8106,7F 02 6A,CLR,$026A,W,8,026A,extended
+running_fuel_and_delivery,8109,15 46 10,BCLR,"$46,#$10",RW,8,0046,direct
+running_fuel_and_delivery,810C,B6 08 7F,LDAA,$087F,R,8,087F,extended
+running_fuel_and_delivery,810F,13 3E 01 08,BRCLR,"$3E,#$01,$811B",R,8,003E,direct
+running_fuel_and_delivery,8113,15 3E 01,BCLR,"$3E,#$01",RW,8,003E,direct
+running_fuel_and_delivery,8116,BB 48 C6,ADDA,$48C6,R,8,48C6,extended
+running_fuel_and_delivery,811B,12 41 10 05,BRSET,"$41,#$10,$8124",R,8,0041,direct
+running_fuel_and_delivery,811F,15 41 08,BCLR,"$41,#$08",RW,8,0041,direct
+running_fuel_and_delivery,8124,12 41 08 08,BRSET,"$41,#$08,$8130",R,8,0041,direct
+running_fuel_and_delivery,8128,14 41 08,BSET,"$41,#$08",RW,8,0041,direct
+running_fuel_and_delivery,812B,BB 48 C7,ADDA,$48C7,R,8,48C7,extended
+running_fuel_and_delivery,8130,BB 02 3F,ADDA,$023F,R,8,023F,extended
+running_fuel_and_delivery,8139,12 05 80 0F,BRSET,"$05,#$80,$814C",R,8,0005,direct
+running_fuel_and_delivery,813F,F6 02 3C,LDAB,$023C,R,8,023C,extended
+running_fuel_and_delivery,8146,F3 02 3A,ADDD,$023A,R,16,023A,extended
+running_fuel_and_delivery,8149,FD 02 3A,STD,$023A,W,16,023A,extended
+running_fuel_and_delivery,814C,12 3D 40 03,BRSET,"$3D,#$40,$8153",R,8,003D,direct
+running_fuel_and_delivery,8150,14 6E 08,BSET,"$6E,#$08",RW,8,006E,direct
+running_fuel_and_delivery,8153,14 3D C0,BSET,"$3D,#$C0",RW,8,003D,direct
+running_fuel_and_delivery,8156,14 6E 01,BSET,"$6E,#$01",RW,8,006E,direct
+running_fuel_and_delivery,8159,14 44 02,BSET,"$44,#$02",RW,8,0044,direct
+running_fuel_and_delivery,815C,B6 48 CA,LDAA,$48CA,R,8,48CA,extended
+running_fuel_and_delivery,815F,B7 08 1D,STAA,$081D,W,8,081D,extended
+running_fuel_and_delivery,8164,15 3D 40,BCLR,"$3D,#$40",RW,8,003D,direct
+running_fuel_and_delivery,8167,B6 08 1D,LDAA,$081D,R,8,081D,extended
+running_fuel_and_delivery,816D,B7 08 1D,STAA,$081D,W,8,081D,extended
+running_fuel_and_delivery,8172,15 44 02,BCLR,"$44,#$02",RW,8,0044,direct
+running_fuel_and_delivery,8175,96 06,LDAA,$06,R,8,0006,direct
+running_fuel_and_delivery,8177,B1 49 44,CMPA,$4944,R,8,4944,extended
+running_fuel_and_delivery,817F,12 41 20 64,BRSET,"$41,#$20,$81E7",R,8,0041,direct
+running_fuel_and_delivery,8183,D6 6F,LDAB,$6F,R,8,006F,direct
+running_fuel_and_delivery,818B,96 62,LDAA,$62,R,8,0062,direct
+running_fuel_and_delivery,8193,B1 01 D9,CMPA,$01D9,R,8,01D9,extended
+running_fuel_and_delivery,8198,13 46 08 61,BRCLR,"$46,#$08,$81FD",R,8,0046,direct
+running_fuel_and_delivery,819C,14 3E 01,BSET,"$3E,#$01",RW,8,003E,direct
+running_fuel_and_delivery,81A1,96 65,LDAA,$65,R,8,0065,direct
+running_fuel_and_delivery,81A3,90 63,SUBA,$63,R,8,0063,direct
+running_fuel_and_delivery,81A7,B1 49 45,CMPA,$4945,R,8,4945,extended
+running_fuel_and_delivery,81AC,D6 6F,LDAB,$6F,R,8,006F,direct
+running_fuel_and_delivery,81B2,B6 01 CA,LDAA,$01CA,R,8,01CA,extended
+running_fuel_and_delivery,81B5,B1 49 46,CMPA,$4946,R,8,4946,extended
+running_fuel_and_delivery,81BA,B6 01 CF,LDAA,$01CF,R,8,01CF,extended
+running_fuel_and_delivery,81BD,F6 40 0E,LDAB,$400E,R,8,400E,extended
+running_fuel_and_delivery,81C4,B6 01 C0,LDAA,$01C0,R,8,01C0,extended
+running_fuel_and_delivery,81C7,B1 49 3D,CMPA,$493D,R,8,493D,extended
+running_fuel_and_delivery,81CC,13 46 08 30,BRCLR,"$46,#$08,$8200",R,8,0046,direct
+running_fuel_and_delivery,81D0,B1 49 3E,CMPA,$493E,R,8,493E,extended
+running_fuel_and_delivery,81D5,B6 02 43,LDAA,$0243,R,8,0243,extended
+running_fuel_and_delivery,81D8,12 46 08 07,BRSET,"$46,#$08,$81E3",R,8,0046,direct
+running_fuel_and_delivery,81DC,BB 49 3A,ADDA,$493A,R,8,493A,extended
+running_fuel_and_delivery,81E3,91 62,CMPA,$62,R,8,0062,direct
+running_fuel_and_delivery,81E7,B6 02 45,LDAA,$0245,R,8,0245,extended
+running_fuel_and_delivery,81EC,FC 02 3A,LDD,$023A,R,16,023A,extended
+running_fuel_and_delivery,81EF,F3 49 3F,ADDD,$493F,R,16,493F,extended
+running_fuel_and_delivery,81F7,FD 02 3A,STD,$023A,W,16,023A,extended
+running_fuel_and_delivery,81FA,14 3D 80,BSET,"$3D,#$80",RW,8,003D,direct
+running_fuel_and_delivery,81FD,7F 02 45,CLR,$0245,W,8,0245,extended
+running_fuel_and_delivery,8200,B6 49 41,LDAA,$4941,R,8,4941,extended
+running_fuel_and_delivery,8205,12 16 10 0F,BRSET,"$16,#$10,$8218",R,8,0016,direct
+running_fuel_and_delivery,8209,B6 49 3B,LDAA,$493B,R,8,493B,extended
+running_fuel_and_delivery,820C,13 46 08 03,BRCLR,"$46,#$08,$8213",R,8,0046,direct
+running_fuel_and_delivery,8210,B6 49 3C,LDAA,$493C,R,8,493C,extended
+running_fuel_and_delivery,8213,B1 02 84,CMPA,$0284,R,8,0284,extended
+running_fuel_and_delivery,8218,B6 02 46,LDAA,$0246,R,8,0246,extended
+running_fuel_and_delivery,821D,14 46 08,BSET,"$46,#$08",RW,8,0046,direct
+running_fuel_and_delivery,8220,B6 49 42,LDAA,$4942,R,8,4942,extended
+running_fuel_and_delivery,8223,B7 02 45,STAA,$0245,W,8,0245,extended
+running_fuel_and_delivery,8226,14 3D 10,BSET,"$3D,#$10",RW,8,003D,direct
+running_fuel_and_delivery,8229,B6 02 44,LDAA,$0244,R,8,0244,extended
+running_fuel_and_delivery,822C,B0 49 43,SUBA,$4943,R,8,4943,extended
+running_fuel_and_delivery,8232,B7 02 44,STAA,$0244,W,8,0244,extended
+running_fuel_and_delivery,823B,D6 02,LDAB,$02,R,8,0002,direct
+running_fuel_and_delivery,8242,B7 02 46,STAA,$0246,W,8,0246,extended
+running_fuel_and_delivery,8245,B6 02 45,LDAA,$0245,R,8,0245,extended
+running_fuel_and_delivery,824A,7A 02 45,DEC,$0245,RW,8,0245,extended
+running_fuel_and_delivery,824D,15 46 08,BCLR,"$46,#$08",RW,8,0046,direct
+running_fuel_and_delivery,8252,B7 02 44,STAA,$0244,W,8,0244,extended
+running_fuel_and_delivery,8255,FC 01 DE,LDD,$01DE,R,16,01DE,extended
+running_fuel_and_delivery,825E,B0 01 D9,SUBA,$01D9,R,8,01D9,extended
+running_fuel_and_delivery,8266,B7 08 2B,STAA,$082B,W,8,082B,extended
+running_fuel_and_delivery,826C,1F 00 80 04,BRCLR,"$00,X,#$80,$8274",R,8,,indexed_x
+running_fuel_and_delivery,8270,12 53 02 0B,BRSET,"$53,#$02,$827F",R,8,0053,direct
+running_fuel_and_delivery,8274,B6 08 2B,LDAA,$082B,R,8,082B,extended
+running_fuel_and_delivery,8277,B1 49 36,CMPA,$4936,R,8,4936,extended
+running_fuel_and_delivery,827C,14 53 02,BSET,"$53,#$02",RW,8,0053,direct
+running_fuel_and_delivery,827F,FC 01 C7,LDD,$01C7,R,16,01C7,extended
+running_fuel_and_delivery,8288,B0 01 C0,SUBA,$01C0,R,8,01C0,extended
+running_fuel_and_delivery,828D,B1 49 37,CMPA,$4937,R,8,4937,extended
+running_fuel_and_delivery,82A2,B6 08 2B,LDAA,$082B,R,8,082B,extended
+running_fuel_and_delivery,82AD,F6 02 42,LDAB,$0242,R,8,0242,extended
+running_fuel_and_delivery,82BC,F6 02 84,LDAB,$0284,R,8,0284,extended
+running_fuel_and_delivery,82BF,F1 49 39,CMPB,$4939,R,8,4939,extended
+running_fuel_and_delivery,82C4,F6 49 38,LDAB,$4938,R,8,4938,extended
+running_fuel_and_delivery,82D4,14 3D 10,BSET,"$3D,#$10",RW,8,003D,direct
+running_fuel_and_delivery,82DE,FD 02 3A,STD,$023A,W,16,023A,extended
+running_fuel_and_delivery,82E7,15 3D 10,BCLR,"$3D,#$10",RW,8,003D,direct
+running_fuel_and_delivery,82EA,15 53 02,BCLR,"$53,#$02",RW,8,0053,direct
+running_fuel_and_delivery,82ED,96 67,LDAA,$67,R,8,0067,direct
+running_fuel_and_delivery,82EF,B1 45 16,CMPA,$4516,R,8,4516,extended
+running_fuel_and_delivery,82F4,B6 01 D9,LDAA,$01D9,R,8,01D9,extended
+running_fuel_and_delivery,82F7,B1 48 DB,CMPA,$48DB,R,8,48DB,extended
+running_fuel_and_delivery,82FC,B6 02 84,LDAA,$0284,R,8,0284,extended
+running_fuel_and_delivery,82FF,B1 48 DC,CMPA,$48DC,R,8,48DC,extended
+running_fuel_and_delivery,8304,96 06,LDAA,$06,R,8,0006,direct
+running_fuel_and_delivery,8306,B1 48 DD,CMPA,$48DD,R,8,48DD,extended
+running_fuel_and_delivery,830D,97 6C,STAA,$6C,W,8,006C,direct
+running_fuel_and_delivery,8311,DC 6A,LDD,$6A,R,16,006A,direct
+running_fuel_and_delivery,8314,DE 68,LDX,$68,R,16,0068,direct
+running_fuel_and_delivery,831F,97 6C,STAA,$6C,W,8,006C,direct
+running_fuel_and_delivery,8321,B1 45 1A,CMPA,$451A,R,8,451A,extended
+running_fuel_and_delivery,8326,B6 45 1A,LDAA,$451A,R,8,451A,extended
+running_fuel_and_delivery,832B,B1 45 19,CMPA,$4519,R,8,4519,extended
+running_fuel_and_delivery,8330,B6 45 19,LDAA,$4519,R,8,4519,extended
+running_fuel_and_delivery,833F,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,8342,B6 01 C6,LDAA,$01C6,R,8,01C6,extended
+running_fuel_and_delivery,8351,F6 01 CC,LDAB,$01CC,R,8,01CC,extended
+running_fuel_and_delivery,836C,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,836F,96 55,LDAA,$55,R,8,0055,direct
+running_fuel_and_delivery,837D,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,8381,F6 02 6F,LDAB,$026F,R,8,026F,extended
+running_fuel_and_delivery,8386,F3 02 4E,ADDD,$024E,R,16,024E,extended
+running_fuel_and_delivery,8391,B3 02 4E,SUBD,$024E,R,16,024E,extended
+running_fuel_and_delivery,839C,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,83A0,F6 02 3E,LDAB,$023E,R,8,023E,extended
+running_fuel_and_delivery,83A3,F3 02 4E,ADDD,$024E,R,16,024E,extended
+running_fuel_and_delivery,83AB,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,83AE,FD 02 54,STD,$0254,W,16,0254,extended
+running_fuel_and_delivery,83B1,13 44 10 08,BRCLR,"$44,#$10,$83BD",R,8,0044,direct
+running_fuel_and_delivery,83B7,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,83C0,1F 00 01 37,BRCLR,"$00,X,#$01,$83FB",R,8,,indexed_x
+running_fuel_and_delivery,83C4,13 51 01 02,BRCLR,"$51,#$01,$83CA",R,8,0051,direct
+running_fuel_and_delivery,83CB,B6 08 2A,LDAA,$082A,R,8,082A,extended
+running_fuel_and_delivery,83D1,B7 08 2A,STAA,$082A,W,8,082A,extended
+running_fuel_and_delivery,83D5,18 FE 02 54,LDY,$0254,R,16,0254,extended
+running_fuel_and_delivery,83D9,18 BC 49 2C,CPY,$492C,R,16,492C,extended
+running_fuel_and_delivery,83DF,B6 08 2A,LDAA,$082A,R,8,082A,extended
+running_fuel_and_delivery,83E2,B1 49 74,CMPA,$4974,R,8,4974,extended
+running_fuel_and_delivery,83E7,14 51 01,BSET,"$51,#$01",RW,8,0051,direct
+running_fuel_and_delivery,83EA,14 3F 10,BSET,"$3F,#$10",RW,8,003F,direct
+running_fuel_and_delivery,83ED,FC 02 4E,LDD,$024E,R,16,024E,extended
+running_fuel_and_delivery,83F6,FD 02 4E,STD,$024E,W,16,024E,extended
+running_fuel_and_delivery,83FE,1F 00 04 04,BRCLR,"$00,X,#$04,$8406",R,8,,indexed_x
+running_fuel_and_delivery,8402,12 50 80 63,BRSET,"$50,#$80,$8469",R,8,0050,direct
+running_fuel_and_delivery,8409,12 3E 10 02,BRSET,"$3E,#$10,$840F",R,8,003E,direct
+running_fuel_and_delivery,840F,14 3E 10,BSET,"$3E,#$10",RW,8,003E,direct
+running_fuel_and_delivery,8412,EC 04,LDD,"$04,X",R,16,,indexed_x
+running_fuel_and_delivery,8414,EE 00,LDX,"$00,X",R,16,,indexed_x
+running_fuel_and_delivery,8416,BC 02 4E,CPX,$024E,R,16,024E,extended
+running_fuel_and_delivery,841B,B1 01 C0,CMPA,$01C0,R,8,01C0,extended
+running_fuel_and_delivery,8420,D1 62,CMPB,$62,R,8,0062,direct
+running_fuel_and_delivery,8426,FD 3F CE,STD,$3FCE,W,16,3FCE,extended
+running_fuel_and_delivery,842C,FC 3F C0,LDD,$3FC0,R,16,3FC0,extended
+running_fuel_and_delivery,8436,FC 02 4E,LDD,$024E,R,16,024E,extended
+running_fuel_and_delivery,8449,B7 02 5E,STAA,$025E,W,8,025E,extended
+running_fuel_and_delivery,8452,FD 02 5C,STD,$025C,W,16,025C,extended
+running_fuel_and_delivery,8455,FC 02 5A,LDD,$025A,R,16,025A,extended
+running_fuel_and_delivery,8458,F3 02 5D,ADDD,$025D,R,16,025D,extended
+running_fuel_and_delivery,845B,FD 02 5A,STD,$025A,W,16,025A,extended
+running_fuel_and_delivery,845E,B6 02 59,LDAA,$0259,R,8,0259,extended
+running_fuel_and_delivery,8461,B9 02 5C,ADCA,$025C,R,8,025C,extended
+running_fuel_and_delivery,8464,B7 02 59,STAA,$0259,W,8,0259,extended
+running_fuel_and_delivery,8469,15 3E 10,BCLR,"$3E,#$10",RW,8,003E,direct
+running_fuel_and_delivery,846F,FF 02 59,STX,$0259,W,16,0259,extended
+running_fuel_and_delivery,8472,13 3D 80 46,BRCLR,"$3D,#$80,$84BC",R,8,003D,direct
+running_fuel_and_delivery,8476,FC 02 59,LDD,$0259,R,16,0259,extended
+running_fuel_and_delivery,8479,F3 02 3A,ADDD,$023A,R,16,023A,extended
+running_fuel_and_delivery,847C,1A B3 49 32,CPD,$4932,R,16,4932,extended
+running_fuel_and_delivery,8482,1A B3 49 34,CPD,$4934,R,16,4934,extended
+running_fuel_and_delivery,848B,FF 02 3A,STX,$023A,W,16,023A,extended
+running_fuel_and_delivery,848E,FF 02 59,STX,$0259,W,16,0259,extended
+running_fuel_and_delivery,8493,FC 02 59,LDD,$0259,R,16,0259,extended
+running_fuel_and_delivery,8496,B3 49 32,SUBD,$4932,R,16,4932,extended
+running_fuel_and_delivery,849B,F3 02 3A,ADDD,$023A,R,16,023A,extended
+running_fuel_and_delivery,849E,FD 02 3A,STD,$023A,W,16,023A,extended
+running_fuel_and_delivery,84A3,FD 02 59,STD,$0259,W,16,0259,extended
+running_fuel_and_delivery,84A6,FC 49 32,LDD,$4932,R,16,4932,extended
+running_fuel_and_delivery,84AE,14 3D 80,BSET,"$3D,#$80",RW,8,003D,direct
+running_fuel_and_delivery,84B1,15 46 01,BCLR,"$46,#$01",RW,8,0046,direct
+running_fuel_and_delivery,84B6,14 46 01,BSET,"$46,#$01",RW,8,0046,direct
+running_fuel_and_delivery,84B9,15 3D 80,BCLR,"$3D,#$80",RW,8,003D,direct
+running_fuel_and_delivery,84BC,FC 02 4E,LDD,$024E,R,16,024E,extended
+running_fuel_and_delivery,84BF,13 3E 10 08,BRCLR,"$3E,#$10,$84CB",R,8,003E,direct
+running_fuel_and_delivery,84C3,FD 02 4C,STD,$024C,W,16,024C,extended
+running_fuel_and_delivery,84C6,15 3F 80,BCLR,"$3F,#$80",RW,8,003F,direct
+running_fuel_and_delivery,84DE,F3 02 4E,ADDD,$024E,R,16,024E,extended
+running_fuel_and_delivery,84E1,B3 49 71,SUBD,$4971,R,16,4971,extended
+running_fuel_and_delivery,84E6,15 3F 80,BCLR,"$3F,#$80",RW,8,003F,direct
+running_fuel_and_delivery,84E9,1A B3 49 6D,CPD,$496D,R,16,496D,extended
+running_fuel_and_delivery,84EF,14 3F 80,BSET,"$3F,#$80",RW,8,003F,direct
+running_fuel_and_delivery,84F2,FC 49 6F,LDD,$496F,R,16,496F,extended
+running_fuel_and_delivery,84F5,FD 02 4C,STD,$024C,W,16,024C,extended
+running_fuel_and_delivery,84FA,FB 02 56,ADDB,$0256,R,8,0256,extended
+running_fuel_and_delivery,8508,FD 02 50,STD,$0250,W,16,0250,extended
+running_fuel_and_delivery,850E,1E 00 01 05,BRSET,"$00,X,#$01,$8517",R,8,,indexed_x
+running_fuel_and_delivery,8512,FD 3F CE,STD,$3FCE,W,16,3FCE,extended
+running_fuel_and_delivery,8517,B6 49 73,LDAA,$4973,R,8,4973,extended
+running_fuel_and_delivery,8529,FD 08 1F,STD,$081F,W,16,081F,extended
+asynchronous_output_helper,854B,1F 00 10 1D,BRCLR,"$00,X,#$10,$856C",R,8,,indexed_x
+asynchronous_output_helper,8564,B3 49 71,SUBD,$4971,R,16,4971,extended
+asynchronous_output_helper,856C,FB 02 56,ADDB,$0256,R,8,0256,extended
+asynchronous_output_helper,8571,FD 3F F2,STD,$3FF2,W,16,3FF2,extended
+asynchronous_output_helper,8577,FC 3F FC,LDD,$3FFC,R,16,3FFC,extended
+asynchronous_output_helper,857F,FD 3F FC,STD,$3FFC,W,16,3FFC,extended
+asynchronous_output_helper,8587,FD 3F FC,STD,$3FFC,W,16,3FFC,extended
+INT_proportional_combination,88E9,B6 02 7A,LDAA,$027A,R,8,027A,extended
+INT_proportional_combination,88EC,13 3E 40 21,BRCLR,"$3E,#$40,$8911",R,8,003E,direct
+INT_proportional_combination,88F3,1F 00 08 0F,BRCLR,"$00,X,#$08,$8906",R,8,,indexed_x
+INT_proportional_combination,88F7,13 44 02 0B,BRCLR,"$44,#$02,$8906",R,8,0044,direct
+INT_proportional_combination,88FB,B6 49 12,LDAA,$4912,R,8,4912,extended
+INT_proportional_combination,88FE,B1 02 7A,CMPA,$027A,R,8,027A,extended
+INT_proportional_combination,8903,B7 02 7A,STAA,$027A,W,8,027A,extended
+INT_proportional_combination,8906,B6 02 0F,LDAA,$020F,R,8,020F,extended
+INT_proportional_combination,8909,B0 02 7A,SUBA,$027A,R,8,027A,extended
+INT_proportional_combination,8911,BB 02 0F,ADDA,$020F,R,8,020F,extended
+INT_proportional_combination,891A,B7 02 6F,STAA,$026F,W,8,026F,extended
+injector_offset_lookup,E2FB,96 A7,LDAA,$A7,R,8,00A7,direct
+injector_offset_lookup,E303,B7 02 56,STAA,$0256,W,8,0256,extended
+interpolation_helpers,F49A,A1 00,CMPA,"$00,X",R,8,,indexed_x
+interpolation_helpers,F49E,A6 00,LDAA,"$00,X",R,8,,indexed_x
+interpolation_helpers,F4A6,A0 00,SUBA,"$00,X",R,8,,indexed_x
+interpolation_helpers,F4AB,A1 01,CMPA,"$01,X",R,8,,indexed_x
+interpolation_helpers,F4AF,A6 01,LDAA,"$01,X",R,8,,indexed_x
+interpolation_helpers,F4B8,E6 00,LDAB,"$00,X",R,8,,indexed_x
+interpolation_helpers,F4C9,EC 00,LDD,"$00,X",R,16,,indexed_x
+interpolation_helpers,F4D1,A9 00,ADCA,"$00,X",R,8,,indexed_x
+interpolation_helpers,F4D9,AB 00,ADDA,"$00,X",R,8,,indexed_x
+interpolation_helpers,F4E2,A0 00,SUBA,"$00,X",R,8,,indexed_x
+interpolation_helpers,F4E7,E0 01,SUBB,"$01,X",R,8,,indexed_x
+interpolation_helpers,F4FD,18 E6 02,LDAB,"$02,Y",R,8,,indexed_y
+interpolation_helpers,F503,18 E6 02,LDAB,"$02,Y",R,8,,indexed_y
+interpolation_helpers,F509,EC 03,LDD,"$03,X",R,16,,indexed_x
+interpolation_helpers,F50C,18 E6 03,LDAB,"$03,Y",R,8,,indexed_y
+interpolation_helpers,F513,A9 03,ADCA,"$03,X",R,8,,indexed_x
+interpolation_helpers,F51B,AB 03,ADDA,"$03,X",R,8,,indexed_x
+interpolation_helpers,F51F,EC 03,LDD,"$03,X",R,16,,indexed_x
+interpolation_helpers,F522,18 E6 03,LDAB,"$03,Y",R,8,,indexed_y
+interpolation_helpers,F529,A9 03,ADCA,"$03,X",R,8,,indexed_x
+interpolation_helpers,F531,AB 03,ADDA,"$03,X",R,8,,indexed_x
+interpolation_helpers,F536,18 E6 02,LDAB,"$02,Y",R,8,,indexed_y
+interpolation_helpers,F53D,18 A9 01,ADCA,"$01,Y",R,8,,indexed_y
+interpolation_helpers,F546,18 AB 01,ADDA,"$01,Y",R,8,,indexed_y
+rounded_multiply,F551,E6 01,LDAB,"$01,X",R,8,,indexed_x
+rounded_multiply,F558,A6 00,LDAA,"$00,X",R,8,,indexed_x
+rounded_multiply,F55D,EB 02,ADDB,"$02,X",R,8,,indexed_x
+RAM_clear_helper,F301,6F 00,CLR,"$00,X",W,8,,indexed_x
+RAM_clear_helper,F315,1A EF 00,STY,"$00,X",W,16,,indexed_x
+RAM_clear_helper,F318,1A EF 02,STY,"$02,X",W,16,,indexed_x
+RAM_clear_helper,F31B,1A EF 04,STY,"$04,X",W,16,,indexed_x
+RAM_clear_helper,F31E,1A EF 06,STY,"$06,X",W,16,,indexed_x
