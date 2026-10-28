@@ -1,0 +1,817 @@
+block,pc,bytes_hex,mnemonic,operand,condition,target,fallthrough
+governor_target,8EB7,1F 00 01 08,BRCLR,"$00,X,#$01,$8EC3",(byte[operand] & $01) == 0 (all selected bits clear),8EC3,8EBB
+governor_target,8EBB,13 4F 80 04,BRCLR,"$4F,#$80,$8EC3",(byte[operand] & $80) == 0 (all selected bits clear),8EC3,8EBF
+governor_target,8EBF,13 6F 34 06,BRCLR,"$6F,#$34,$8EC9",(byte[operand] & $34) == 0 (all selected bits clear),8EC9,8EC3
+governor_target,8ED2,24 04,BCC,$8ED8,C=0,8ED8,8ED4
+governor_target,8EDB,13 86 40 05,BRCLR,"$86,#$40,$8EE4",(byte[operand] & $40) == 0 (all selected bits clear),8EE4,8EDF
+governor_target,8EE2,25 E1,BCS,$8EC5,C=1,8EC5,8EE4
+governor_target,8EE7,27 4F,BEQ,$8F38,Z=1,8F38,8EE9
+governor_target,8EEF,25 26,BCS,$8F17,C=1,8F17,8EF1
+governor_target,8EF2,25 03,BCS,$8EF7,C=1,8EF7,8EF4
+governor_target,8EF5,24 03,BCC,$8EFA,C=0,8EFA,8EF7
+governor_target,8F00,12 75 80 2F,BRSET,"$75,#$80,$8F33",(byte[operand] & $80) == mask (all selected bits),8F33,8F04
+governor_target,8F0A,25 03,BCS,$8F0F,C=1,8F0F,8F0C
+governor_target,8F15,20 1C,BRA,$8F33,always,8F33,8F17
+governor_target,8F1C,25 03,BCS,$8F21,C=1,8F21,8F1E
+governor_target,8F1F,24 03,BCC,$8F24,C=0,8F24,8F21
+governor_target,8F2A,13 75 80 0A,BRCLR,"$75,#$80,$8F38",(byte[operand] & $80) == 0 (all selected bits clear),8F38,8F2E
+governor_target,8F31,24 05,BCC,$8F38,C=0,8F38,8F33
+governor_target,8F36,20 03,BRA,$8F3B,always,8F3B,8F38
+governor_target,8F3B,13 75 04 17,BRCLR,"$75,#$04,$8F56",(byte[operand] & $04) == 0 (all selected bits clear),8F56,8F3F
+governor_target,8F43,26 0B,BNE,$8F50,Z=0,8F50,8F45
+governor_target,8F4B,22 03,BHI,$8F50,C=0 and Z=0,8F50,8F4D
+governor_target,8F5A,26 03,BNE,$8F5F,Z=0,8F5F,8F5C
+governor_target,8F6F,13 75 01 04,BRCLR,"$75,#$01,$8F77",(byte[operand] & $01) == 0 (all selected bits clear),8F77,8F73
+governor_target,8F79,25 06,BCS,$8F81,C=1,8F81,8F7B
+governor_target,8F7C,25 03,BCS,$8F81,C=1,8F81,8F7E
+governor_target,8F7F,24 03,BCC,$8F84,C=0,8F84,8F81
+governor_target,8F9A,25 03,BCS,$8F9F,C=1,8F9F,8F9C
+governor_target,8F9D,24 03,BCC,$8FA2,C=0,8FA2,8F9F
+governor_target,8FA8,13 75 80 20,BRCLR,"$75,#$80,$8FCC",(byte[operand] & $80) == 0 (all selected bits clear),8FCC,8FAC
+governor_target,8FB4,25 09,BCS,$8FBF,C=1,8FBF,8FB6
+governor_target,8FB7,25 06,BCS,$8FBF,C=1,8FBF,8FB9
+governor_target,8FBA,25 03,BCS,$8FBF,C=1,8FBF,8FBC
+governor_target,8FBD,24 03,BCC,$8FC2,C=0,8FC2,8FBF
+governor_target,8FC5,12 75 04 03,BRSET,"$75,#$04,$8FCC",(byte[operand] & $04) == mask (all selected bits),8FCC,8FC9
+governor_target,8FD0,27 26,BEQ,$8FF8,Z=1,8FF8,8FD2
+governor_target,8FD8,25 05,BCS,$8FDF,C=1,8FDF,8FDA
+governor_target,8FDD,24 06,BCC,$8FE5,C=0,8FE5,8FDF
+governor_target,8FEB,25 05,BCS,$8FF2,C=1,8FF2,8FED
+governor_target,8FF0,24 03,BCC,$8FF5,C=0,8FF5,8FF2
+governor_target,8FFE,24 03,BCC,$9003,C=0,9003,9000
+governor_target,9009,24 02,BCC,$900D,C=0,900D,900B
+governor_target,9013,12 75 02 26,BRSET,"$75,#$02,$903D",(byte[operand] & $02) == mask (all selected bits),903D,9017
+governor_target,901A,2B 45,BMI,$9061,N=1,9061,901C
+governor_target,901E,23 02,BLS,$9022,C=1 or Z=1,9022,9020
+governor_target,902B,24 34,BCC,$9061,C=0,9061,902D
+governor_target,9036,23 53,BLS,$908B,C=1 or Z=1,908B,9038
+governor_target,903B,20 4E,BRA,$908B,always,908B,903D
+governor_target,903D,12 75 10 06,BRSET,"$75,#$10,$9047",(byte[operand] & $10) == mask (all selected bits),9047,9041
+governor_target,9045,2D 1E,BLT,$9065,N xor V=1,9065,9047
+governor_target,9053,24 03,BCC,$9058,C=0,9058,9055
+governor_target,905F,24 33,BCC,$9094,C=0,9094,9061
+governor_target,9063,20 2E,BRA,$9093,always,9093,9065
+governor_target,906C,23 02,BLS,$9070,C=1 or Z=1,9070,906E
+governor_target,9079,25 03,BCS,$907E,C=1,907E,907B
+governor_target,907C,24 03,BCC,$9081,C=0,9081,907E
+governor_target,9089,25 05,BCS,$9090,C=1,9090,908B
+governor_target,908E,24 03,BCC,$9093,C=0,9093,9090
+governor_target,909B,27 1A,BEQ,$90B7,Z=1,90B7,909D
+governor_target,909D,12 75 40 09,BRSET,"$75,#$40,$90AA",(byte[operand] & $40) == mask (all selected bits),90AA,90A1
+governor_target,90A4,24 11,BCC,$90B7,C=0,90B7,90A6
+governor_target,90A8,20 0D,BRA,$90B7,always,90B7,90AA
+governor_target,90AD,25 05,BCS,$90B4,C=1,90B4,90AF
+governor_target,90B2,24 03,BCC,$90B7,C=0,90B7,90B4
+governor_target,90BC,27 14,BEQ,$90D2,Z=1,90D2,90BE
+governor_target,90C1,26 0F,BNE,$90D2,Z=0,90D2,90C3
+governor_target,90C3,13 75 01 08,BRCLR,"$75,#$01,$90CF",(byte[operand] & $01) == 0 (all selected bits clear),90CF,90C7
+governor_target,90CD,24 03,BCC,$90D2,C=0,90D2,90CF
+governor_actuator,90D9,24 01,BCC,$90DC,C=0,90DC,90DB
+governor_actuator,90ED,25 03,BCS,$90F2,C=1,90F2,90EF
+governor_actuator,90F0,24 03,BCC,$90F5,C=0,90F5,90F2
+governor_actuator,9110,24 19,BCC,$912B,C=0,912B,9112
+governor_actuator,9115,24 03,BCC,$911A,C=0,911A,9117
+governor_actuator,9120,25 05,BCS,$9127,C=1,9127,9122
+governor_actuator,9125,24 17,BCC,$913E,C=0,913E,9127
+governor_actuator,9129,20 13,BRA,$913E,always,913E,912B
+governor_actuator,9131,24 02,BCC,$9135,C=0,9135,9133
+governor_actuator,913B,24 E5,BCC,$9122,C=0,9122,913D
+governor_actuator,9143,26 06,BNE,$914B,Z=0,914B,9145
+governor_actuator,914C,13 51 10 03,BRCLR,"$51,#$10,$9153",(byte[operand] & $10) == 0 (all selected bits clear),9153,9150
+governor_actuator,9151,20 0E,BRA,$9161,always,9161,9153
+governor_actuator,9153,13 3B 10 0A,BRCLR,"$3B,#$10,$9161",(byte[operand] & $10) == 0 (all selected bits clear),9161,9157
+governor_actuator,915C,27 03,BEQ,$9161,Z=1,9161,915E
+range_switch_inputs,9171,26 12,BNE,$9185,Z=0,9185,9173
+range_switch_inputs,9173,12 4D 01 08,BRSET,"$4D,#$01,$917F",(byte[operand] & $01) == mask (all selected bits),917F,9177
+range_switch_inputs,917D,20 06,BRA,$9185,always,9185,917F
+range_switch_inputs,918B,1E 00 40 0A,BRSET,"$00,X,#$40,$9199",(byte[operand] & $40) == mask (all selected bits),9199,918F
+range_switch_inputs,9195,26 0B,BNE,$91A2,Z=0,91A2,9197
+range_switch_inputs,9197,20 06,BRA,$919F,always,919F,9199
+range_switch_inputs,919D,26 03,BNE,$91A2,Z=0,91A2,919F
+IAC_step_service,91A9,23 04,BLS,$91AF,C=1 or Z=1,91AF,91AB
+IAC_step_service,91AD,20 09,BRA,$91B8,always,91B8,91AF
+IAC_step_service,91AF,12 44 10 0A,BRSET,"$44,#$10,$91BD",(byte[operand] & $10) == mask (all selected bits),91BD,91B3
+IAC_step_service,91B6,22 05,BHI,$91BD,C=0 and Z=0,91BD,91B8
+IAC_step_service,91BB,20 43,BRA,$9200,always,9200,91BD
+IAC_step_service,91C6,26 04,BNE,$91CC,Z=0,91CC,91C8
+IAC_step_service,91CA,20 34,BRA,$9200,always,9200,91CC
+IAC_step_service,91CC,13 09 01 04,BRCLR,"$09,#$01,$91D4",(byte[operand] & $01) == 0 (all selected bits clear),91D4,91D0
+IAC_step_service,91D0,12 02 03 2C,BRSET,"$02,#$03,$9200",(byte[operand] & $03) == mask (all selected bits),9200,91D4
+IAC_step_service,91D4,24 09,BCC,$91DF,C=0,91DF,91D6
+IAC_step_service,91D8,12 0A 01 24,BRSET,"$0A,#$01,$9200",(byte[operand] & $01) == mask (all selected bits),9200,91DC
+IAC_step_service,91DD,20 07,BRA,$91E6,always,91E6,91DF
+IAC_step_service,91E1,13 0A 01 1B,BRCLR,"$0A,#$01,$9200",(byte[operand] & $01) == 0 (all selected bits clear),9200,91E5
+IAC_step_service,91E8,12 0A 0C 0A,BRSET,"$0A,#$0C,$91F6",(byte[operand] & $0C) == mask (all selected bits),91F6,91EC
+IAC_step_service,91EC,13 0A 0C 06,BRCLR,"$0A,#$0C,$91F6",(byte[operand] & $0C) == 0 (all selected bits clear),91F6,91F0
+IAC_step_service,91F2,26 06,BNE,$91FA,Z=0,91FA,91F4
+IAC_step_service,91F4,20 08,BRA,$91FE,always,91FE,91F6
+IAC_step_service,91F8,26 04,BNE,$91FE,Z=0,91FE,91FA
+IAC_step_service,91FC,20 02,BRA,$9200,always,9200,91FE
+IAC_kicker_and_input_helpers,9211,13 37 04 06,BRCLR,"$37,#$04,$921B",(byte[operand] & $04) == 0 (all selected bits clear),921B,9215
+IAC_kicker_and_input_helpers,921B,12 36 40 03,BRSET,"$36,#$40,$9222",(byte[operand] & $40) == mask (all selected bits),9222,921F
+IAC_kicker_and_input_helpers,9226,12 37 04 12,BRSET,"$37,#$04,$923C",(byte[operand] & $04) == mask (all selected bits),923C,922A
+IAC_kicker_and_input_helpers,9247,12 4D 80 03,BRSET,"$4D,#$80,$924E",(byte[operand] & $80) == mask (all selected bits),924E,924B
+IAC_kicker_and_input_helpers,924C,20 01,BRA,$924F,always,924F,924E
+IAC_kicker_and_input_helpers,9257,27 03,BEQ,$925C,Z=1,925C,9259
+IAC_kicker_and_input_helpers,925A,20 01,BRA,$925D,always,925D,925C
+IAC_boot_setup,9266,13 46 40 08,BRCLR,"$46,#$40,$9272",(byte[operand] & $40) == 0 (all selected bits clear),9272,926A
+IAC_boot_setup,9272,12 04 08 05,BRSET,"$04,#$08,$927B",(byte[operand] & $08) == mask (all selected bits),927B,9276
+IAC_boot_setup,9279,20 03,BRA,$927E,always,927E,927B
+IAC_boot_setup,9283,27 17,BEQ,$929C,Z=1,929C,9285
+IAC_boot_setup,928B,23 07,BLS,$9294,C=1 or Z=1,9294,928D
+IAC_boot_setup,9292,24 05,BCC,$9299,C=0,9299,9294
+IAC_boot_setup,9297,20 03,BRA,$929C,always,929C,9299
+IAC_boot_setup,92B4,25 07,BCS,$92BD,C=1,92BD,92B6
+IAC_boot_setup,92B9,25 07,BCS,$92C2,C=1,92C2,92BB
+IAC_boot_setup,92BB,20 07,BRA,$92C4,always,92C4,92BD
+IAC_boot_setup,92C0,24 02,BCC,$92C4,C=0,92C4,92C2
+IAC_boot_setup,92D4,25 07,BCS,$92DD,C=1,92DD,92D6
+IAC_boot_setup,92D9,25 07,BCS,$92E2,C=1,92E2,92DB
+IAC_boot_setup,92DB,20 07,BRA,$92E4,always,92E4,92DD
+IAC_boot_setup,92E0,24 02,BCC,$92E4,C=0,92E4,92E2
+IAC_retained_cell_setup,92F1,13 09 10 1A,BRCLR,"$09,#$10,$930F",(byte[operand] & $10) == 0 (all selected bits clear),930F,92F5
+IAC_retained_cell_setup,92FC,24 03,BCC,$9301,C=0,9301,92FE
+IAC_retained_cell_setup,9307,23 03,BLS,$930C,C=1 or Z=1,930C,9309
+IAC_retained_cell_setup,930F,13 09 20 1A,BRCLR,"$09,#$20,$932D",(byte[operand] & $20) == 0 (all selected bits clear),932D,9313
+IAC_retained_cell_setup,931A,24 03,BCC,$931F,C=0,931F,931C
+IAC_retained_cell_setup,9325,23 03,BLS,$932A,C=1 or Z=1,932A,9327
+IAC_retained_cell_setup,9332,27 0C,BEQ,$9340,Z=1,9340,9334
+IAC_retained_cell_setup,9345,27 6A,BEQ,$93B1,Z=1,93B1,9347
+IAC_retained_cell_setup,9351,25 07,BCS,$935A,C=1,935A,9353
+IAC_retained_cell_setup,9356,25 07,BCS,$935F,C=1,935F,9358
+IAC_retained_cell_setup,9358,20 0A,BRA,$9364,always,9364,935A
+IAC_retained_cell_setup,935D,24 05,BCC,$9364,C=0,9364,935F
+IAC_retained_cell_setup,936B,25 07,BCS,$9374,C=1,9374,936D
+IAC_retained_cell_setup,9370,25 07,BCS,$9379,C=1,9379,9372
+IAC_retained_cell_setup,9372,20 07,BRA,$937B,always,937B,9374
+IAC_retained_cell_setup,9377,24 02,BCC,$937B,C=0,937B,9379
+IAC_retained_cell_setup,9382,25 07,BCS,$938B,C=1,938B,9384
+IAC_retained_cell_setup,9387,25 07,BCS,$9390,C=1,9390,9389
+IAC_retained_cell_setup,9389,20 0A,BRA,$9395,always,9395,938B
+IAC_retained_cell_setup,938E,24 05,BCC,$9395,C=0,9395,9390
+IAC_retained_cell_setup,939C,25 07,BCS,$93A5,C=1,93A5,939E
+IAC_retained_cell_setup,93A1,25 07,BCS,$93AA,C=1,93AA,93A3
+IAC_retained_cell_setup,93A3,20 07,BRA,$93AC,always,93AC,93A5
+IAC_retained_cell_setup,93A8,24 02,BCC,$93AC,C=0,93AC,93AA
+IAC_retained_cell_setup,93AF,20 13,BRA,$93C4,always,93C4,93B1
+IAC_retained_cell_setup,93B6,27 0C,BEQ,$93C4,Z=1,93C4,93B8
+IAC_retained_cell_setup,93C5,12 09 01 06,BRSET,"$09,#$01,$93CF",(byte[operand] & $01) == mask (all selected bits),93CF,93C9
+IAC_reset_startup,93D0,13 86 40 03,BRCLR,"$86,#$40,$93D7",(byte[operand] & $40) == 0 (all selected bits clear),93D7,93D4
+IAC_reset_startup,93DA,13 3B 10 03,BRCLR,"$3B,#$10,$93E1",(byte[operand] & $10) == 0 (all selected bits clear),93E1,93DE
+IAC_reset_startup,93E1,13 09 01 14,BRCLR,"$09,#$01,$93F9",(byte[operand] & $01) == 0 (all selected bits clear),93F9,93E5
+IAC_reset_startup,93EB,27 03,BEQ,$93F0,Z=1,93F0,93ED
+IAC_reset_startup,93F9,13 44 10 0D,BRCLR,"$44,#$10,$940A",(byte[operand] & $10) == 0 (all selected bits clear),940A,93FD
+IAC_reset_startup,93FD,13 09 04 06,BRCLR,"$09,#$04,$9407",(byte[operand] & $04) == 0 (all selected bits clear),9407,9401
+IAC_reset_startup,940A,13 4F 80 03,BRCLR,"$4F,#$80,$9411",(byte[operand] & $80) == 0 (all selected bits clear),9411,940E
+IAC_reset_startup,943A,23 05,BLS,$9441,C=1 or Z=1,9441,943C
+IAC_reset_startup,944A,27 03,BEQ,$944F,Z=1,944F,944C
+IAC_reset_startup,9463,26 09,BNE,$946E,Z=0,946E,9465
+IAC_reset_startup,946A,24 02,BCC,$946E,C=0,946E,946C
+IAC_reset_startup,94E6,27 0F,BEQ,$94F7,Z=1,94F7,94E8
+IAC_reset_startup,94EB,26 05,BNE,$94F2,Z=0,94F2,94ED
+IAC_reset_startup,94F0,20 16,BRA,$9508,always,9508,94F2
+IAC_reset_startup,94F5,20 0C,BRA,$9503,always,9503,94F7
+IAC_reset_startup,94F9,26 05,BNE,$9500,Z=0,9500,94FB
+IAC_reset_startup,94FE,20 08,BRA,$9508,always,9508,9500
+IAC_reset_startup,9506,20 03,BRA,$950B,always,950B,9508
+IAC_reset_startup,951C,25 13,BCS,$9531,C=1,9531,951E
+IAC_reset_startup,9524,25 05,BCS,$952B,C=1,952B,9526
+IAC_reset_startup,9529,24 03,BCC,$952E,C=0,952E,952B
+IAC_transition_and_error,953F,27 06,BEQ,$9547,Z=1,9547,9541
+IAC_transition_and_error,9541,12 41 20 2C,BRSET,"$41,#$20,$9571",(byte[operand] & $20) == mask (all selected bits),9571,9545
+IAC_transition_and_error,9545,20 08,BRA,$954F,always,954F,9547
+IAC_transition_and_error,9547,12 A2 40 26,BRSET,"$A2,#$40,$9571",(byte[operand] & $40) == mask (all selected bits),9571,954B
+IAC_transition_and_error,954B,12 A2 10 22,BRSET,"$A2,#$10,$9571",(byte[operand] & $10) == mask (all selected bits),9571,954F
+IAC_transition_and_error,9554,26 4B,BNE,$95A1,Z=0,95A1,9556
+IAC_transition_and_error,9567,24 28,BCC,$9591,C=0,9591,9569
+IAC_transition_and_error,956F,20 20,BRA,$9591,always,9591,9571
+IAC_transition_and_error,9576,27 29,BEQ,$95A1,Z=1,95A1,9578
+IAC_transition_and_error,9589,24 06,BCC,$9591,C=0,9591,958B
+IAC_transition_and_error,959C,23 03,BLS,$95A1,C=1 or Z=1,95A1,959E
+IAC_transition_and_error,95A1,12 36 02 08,BRSET,"$36,#$02,$95AD",(byte[operand] & $02) == mask (all selected bits),95AD,95A5
+IAC_transition_and_error,95AB,20 06,BRA,$95B3,always,95B3,95AD
+IAC_transition_and_error,95B5,12 52 20 29,BRSET,"$52,#$20,$95E2",(byte[operand] & $20) == mask (all selected bits),95E2,95B9
+IAC_transition_and_error,95BE,27 6C,BEQ,$962C,Z=1,962C,95C0
+IAC_transition_and_error,95C3,26 67,BNE,$962C,Z=0,962C,95C5
+IAC_transition_and_error,95CC,24 03,BCC,$95D1,C=0,95D1,95CE
+IAC_transition_and_error,95D4,23 03,BLS,$95D9,C=1 or Z=1,95D9,95D6
+IAC_transition_and_error,95E0,20 3A,BRA,$961C,always,961C,95E2
+IAC_transition_and_error,95E7,26 43,BNE,$962C,Z=0,962C,95E9
+IAC_transition_and_error,95F4,27 0B,BEQ,$9601,Z=1,9601,95F6
+IAC_transition_and_error,95FF,20 14,BRA,$9615,always,9615,9601
+IAC_transition_and_error,9608,24 03,BCC,$960D,C=0,960D,960A
+IAC_transition_and_error,9610,23 03,BLS,$9615,C=1 or Z=1,9615,9612
+IAC_transition_and_error,9627,23 03,BLS,$962C,C=1 or Z=1,962C,9629
+IAC_transition_and_error,9632,26 03,BNE,$9637,Z=0,9637,9634
+IAC_transition_and_error,9635,20 67,BRA,$969E,always,969E,9637
+IAC_transition_and_error,963B,26 1C,BNE,$9659,Z=0,9659,963D
+IAC_transition_and_error,963F,26 0C,BNE,$964D,Z=0,964D,9641
+IAC_transition_and_error,9641,13 38 01 2E,BRCLR,"$38,#$01,$9673",(byte[operand] & $01) == 0 (all selected bits clear),9673,9645
+IAC_transition_and_error,964B,20 26,BRA,$9673,always,9673,964D
+IAC_transition_and_error,964D,13 38 02 22,BRCLR,"$38,#$02,$9673",(byte[operand] & $02) == 0 (all selected bits clear),9673,9651
+IAC_transition_and_error,9657,20 1A,BRA,$9673,always,9673,9659
+IAC_transition_and_error,965B,26 0C,BNE,$9669,Z=0,9669,965D
+IAC_transition_and_error,965D,13 38 04 12,BRCLR,"$38,#$04,$9673",(byte[operand] & $04) == 0 (all selected bits clear),9673,9661
+IAC_transition_and_error,9667,20 0A,BRA,$9673,always,9673,9669
+IAC_transition_and_error,9669,13 38 08 06,BRCLR,"$38,#$08,$9673",(byte[operand] & $08) == 0 (all selected bits clear),9673,966D
+IAC_transition_and_error,9674,13 38 10 23,BRCLR,"$38,#$10,$969B",(byte[operand] & $10) == 0 (all selected bits clear),969B,9678
+IAC_transition_and_error,967E,27 18,BEQ,$9698,Z=1,9698,9680
+IAC_transition_and_error,9684,27 15,BEQ,$969B,Z=1,969B,9686
+IAC_transition_and_error,9686,12 36 02 08,BRSET,"$36,#$02,$9692",(byte[operand] & $02) == mask (all selected bits),9692,968A
+IAC_transition_and_error,9690,20 06,BRA,$9698,always,9698,9692
+IAC_transition_and_error,96A3,27 1D,BEQ,$96C2,Z=1,96C2,96A5
+IAC_transition_and_error,96A8,24 15,BCC,$96BF,C=0,96BF,96AA
+IAC_transition_and_error,96C5,26 05,BNE,$96CC,Z=0,96CC,96C7
+IAC_transition_and_error,96CA,20 04,BRA,$96D0,always,96D0,96CC
+IAC_transition_and_error,96D3,27 04,BEQ,$96D9,Z=1,96D9,96D5
+IAC_transition_and_error,96DC,26 05,BNE,$96E3,Z=0,96E3,96DE
+IAC_transition_and_error,96E1,20 04,BRA,$96E7,always,96E7,96E3
+IAC_transition_and_error,96EA,27 04,BEQ,$96F0,Z=1,96F0,96EC
+IAC_transition_and_error,96F8,24 04,BCC,$96FE,C=0,96FE,96FA
+IAC_transition_and_error,9705,27 03,BEQ,$970A,Z=1,970A,9707
+IAC_transition_and_error,970D,27 08,BEQ,$9717,Z=1,9717,970F
+IAC_transition_and_error,9712,24 03,BCC,$9717,C=0,9717,9714
+IAC_transition_and_error,971A,27 08,BEQ,$9724,Z=1,9724,971C
+IAC_transition_and_error,971F,24 03,BCC,$9724,C=0,9724,9721
+IAC_transition_and_error,972C,23 08,BLS,$9736,C=1 or Z=1,9736,972E
+IAC_transition_and_error,9731,24 03,BCC,$9736,C=0,9736,9733
+IAC_transition_and_error,9737,27 04,BEQ,$973D,Z=1,973D,9739
+IAC_transition_and_error,973B,20 09,BRA,$9746,always,9746,973D
+IAC_flow_sum_and_step_target,9758,24 03,BCC,$975D,C=0,975D,975A
+IAC_flow_sum_and_step_target,975D,12 36 80 0A,BRSET,"$36,#$80,$976B",(byte[operand] & $80) == mask (all selected bits),976B,9761
+IAC_flow_sum_and_step_target,9764,24 0C,BCC,$9772,C=0,9772,9766
+IAC_flow_sum_and_step_target,9769,20 07,BRA,$9772,always,9772,976B
+IAC_flow_sum_and_step_target,976E,24 02,BCC,$9772,C=0,9772,9770
+IAC_flow_sum_and_step_target,9772,13 37 80 0A,BRCLR,"$37,#$80,$9780",(byte[operand] & $80) == 0 (all selected bits clear),9780,9776
+IAC_flow_sum_and_step_target,9779,24 0C,BCC,$9787,C=0,9787,977B
+IAC_flow_sum_and_step_target,977E,20 07,BRA,$9787,always,9787,9780
+IAC_flow_sum_and_step_target,9783,24 02,BCC,$9787,C=0,9787,9785
+IAC_flow_sum_and_step_target,978A,25 05,BCS,$9791,C=1,9791,978C
+IAC_flow_sum_and_step_target,978F,24 03,BCC,$9794,C=0,9794,9791
+IAC_flow_sum_and_step_target,9797,27 15,BEQ,$97AE,Z=1,97AE,9799
+IAC_flow_sum_and_step_target,9799,13 36 01 0A,BRCLR,"$36,#$01,$97A7",(byte[operand] & $01) == 0 (all selected bits clear),97A7,979D
+IAC_flow_sum_and_step_target,97A0,24 0C,BCC,$97AE,C=0,97AE,97A2
+IAC_flow_sum_and_step_target,97A5,20 07,BRA,$97AE,always,97AE,97A7
+IAC_flow_sum_and_step_target,97AA,24 02,BCC,$97AE,C=0,97AE,97AC
+IAC_flow_sum_and_step_target,97B1,24 03,BCC,$97B6,C=0,97B6,97B3
+IAC_flow_sum_and_step_target,97C4,24 0C,BCC,$97D2,C=0,97D2,97C6
+IAC_flow_sum_and_step_target,97CB,25 05,BCS,$97D2,C=1,97D2,97CD
+IAC_flow_sum_and_step_target,97D0,24 03,BCC,$97D5,C=0,97D5,97D2
+IAC_flow_sum_and_step_target,97D3,20 0E,BRA,$97E3,always,97E3,97D5
+IAC_flow_sum_and_step_target,97D6,25 03,BCS,$97DB,C=1,97DB,97D8
+IAC_flow_sum_and_step_target,97D9,24 02,BCC,$97DD,C=0,97DD,97DB
+IAC_flow_sum_and_step_target,97EC,24 05,BCC,$97F3,C=0,97F3,97EE
+IAC_flow_sum_and_step_target,97F1,20 3D,BRA,$9830,always,9830,97F3
+IAC_flow_sum_and_step_target,97F3,13 46 08 23,BRCLR,"$46,#$08,$981A",(byte[operand] & $08) == 0 (all selected bits clear),981A,97F7
+IAC_flow_sum_and_step_target,9804,25 05,BCS,$980B,C=1,980B,9806
+IAC_flow_sum_and_step_target,9809,20 04,BRA,$980F,always,980F,980B
+IAC_flow_sum_and_step_target,981A,12 38 20 0A,BRSET,"$38,#$20,$9828",(byte[operand] & $20) == mask (all selected bits),9828,981E
+IAC_flow_sum_and_step_target,9821,24 0D,BCC,$9830,C=0,9830,9823
+IAC_flow_sum_and_step_target,9826,20 08,BRA,$9830,always,9830,9828
+IAC_flow_sum_and_step_target,982B,24 03,BCC,$9830,C=0,9830,982D
+IAC_flow_sum_and_step_target,9830,13 3D 20 09,BRCLR,"$3D,#$20,$983D",(byte[operand] & $20) == 0 (all selected bits clear),983D,9834
+IAC_flow_sum_and_step_target,9838,23 03,BLS,$983D,C=1 or Z=1,983D,983A
+IAC_flow_sum_and_step_target,9850,24 03,BCC,$9855,C=0,9855,9852
+IAC_flow_sum_and_step_target,9858,1F 00 04 24,BRCLR,"$00,X,#$04,$9880",(byte[operand] & $04) == 0 (all selected bits clear),9880,985C
+IAC_flow_sum_and_step_target,985C,13 37 04 0C,BRCLR,"$37,#$04,$986C",(byte[operand] & $04) == 0 (all selected bits clear),986C,9860
+IAC_flow_sum_and_step_target,9863,24 07,BCC,$986C,C=0,986C,9865
+IAC_flow_sum_and_step_target,986A,20 14,BRA,$9880,always,9880,986C
+IAC_flow_sum_and_step_target,987B,24 03,BCC,$9880,C=0,9880,987D
+IAC_desired_RPM,989C,13 38 40 03,BRCLR,"$38,#$40,$98A3",(byte[operand] & $40) == 0 (all selected bits clear),98A3,98A0
+IAC_desired_RPM,98A8,23 05,BLS,$98AF,C=1 or Z=1,98AF,98AA
+IAC_desired_RPM,98AF,13 36 01 0C,BRCLR,"$36,#$01,$98BF",(byte[operand] & $01) == 0 (all selected bits clear),98BF,98B3
+IAC_desired_RPM,98B6,13 36 02 0F,BRCLR,"$36,#$02,$98C9",(byte[operand] & $02) == 0 (all selected bits clear),98C9,98BA
+IAC_desired_RPM,98BD,20 0A,BRA,$98C9,always,98C9,98BF
+IAC_desired_RPM,98C2,13 36 02 03,BRCLR,"$36,#$02,$98C9",(byte[operand] & $02) == 0 (all selected bits clear),98C9,98C6
+IAC_desired_RPM,98D2,23 0F,BLS,$98E3,C=1 or Z=1,98E3,98D4
+IAC_desired_RPM,98DB,25 03,BCS,$98E0,C=1,98E0,98DD
+IAC_desired_RPM,98ED,25 03,BCS,$98F2,C=1,98F2,98EF
+IAC_desired_RPM,98F9,25 0F,BCS,$990A,C=1,990A,98FB
+IAC_desired_RPM,9901,24 07,BCC,$990A,C=0,990A,9903
+IAC_desired_RPM,9908,22 05,BHI,$990F,C=0 and Z=0,990F,990A
+IAC_desired_RPM,990D,20 2E,BRA,$993D,always,993D,990F
+IAC_desired_RPM,9915,24 0B,BCC,$9922,C=0,9922,9917
+IAC_desired_RPM,9917,13 02 F0 02,BRCLR,"$02,#$F0,$991D",(byte[operand] & $F0) == 0 (all selected bits clear),991D,991B
+IAC_desired_RPM,991B,20 20,BRA,$993D,always,993D,991D
+IAC_desired_RPM,9920,20 1B,BRA,$993D,always,993D,9922
+IAC_desired_RPM,9922,12 36 02 0C,BRSET,"$36,#$02,$9932",(byte[operand] & $02) == mask (all selected bits),9932,9926
+IAC_desired_RPM,9929,13 36 01 0F,BRCLR,"$36,#$01,$993C",(byte[operand] & $01) == 0 (all selected bits clear),993C,992D
+IAC_desired_RPM,9930,20 0A,BRA,$993C,always,993C,9932
+IAC_desired_RPM,9935,13 36 01 03,BRCLR,"$36,#$01,$993C",(byte[operand] & $01) == 0 (all selected bits clear),993C,9939
+IAC_desired_RPM,9941,27 0B,BEQ,$994E,Z=1,994E,9943
+IAC_desired_RPM,9943,12 36 02 07,BRSET,"$36,#$02,$994E",(byte[operand] & $02) == mask (all selected bits),994E,9947
+IAC_desired_RPM,9953,24 04,BCC,$9959,C=0,9959,9955
+IAC_desired_RPM,995F,1F 00 10 45,BRCLR,"$00,X,#$10,$99A8",(byte[operand] & $10) == 0 (all selected bits clear),99A8,9963
+IAC_desired_RPM,9966,13 36 02 03,BRCLR,"$36,#$02,$996D",(byte[operand] & $02) == 0 (all selected bits clear),996D,996A
+IAC_desired_RPM,996E,25 03,BCS,$9973,C=1,9973,9970
+IAC_desired_RPM,9971,20 29,BRA,$999C,always,999C,9973
+IAC_desired_RPM,9976,25 10,BCS,$9988,C=1,9988,9978
+IAC_desired_RPM,997B,27 06,BEQ,$9983,Z=1,9983,997D
+IAC_desired_RPM,9980,26 16,BNE,$9998,Z=0,9998,9982
+IAC_desired_RPM,9986,20 17,BRA,$999F,always,999F,9988
+IAC_desired_RPM,998B,22 03,BHI,$9990,C=0 and Z=0,9990,998D
+IAC_desired_RPM,998E,20 18,BRA,$99A8,always,99A8,9990
+IAC_desired_RPM,9996,27 03,BEQ,$999B,Z=1,999B,9998
+IAC_desired_RPM,9999,20 04,BRA,$999F,always,999F,999B
+IAC_desired_RPM,99B8,27 04,BEQ,$99BE,Z=1,99BE,99BA
+IAC_desired_RPM,99BC,20 03,BRA,$99C1,always,99C1,99BE
+IAC_integral_and_cold_flow,99C8,12 36 02 03,BRSET,"$36,#$02,$99CF",(byte[operand] & $02) == mask (all selected bits),99CF,99CC
+IAC_integral_and_cold_flow,99D1,12 36 01 02,BRSET,"$36,#$01,$99D7",(byte[operand] & $01) == mask (all selected bits),99D7,99D5
+IAC_integral_and_cold_flow,99E8,25 05,BCS,$99EF,C=1,99EF,99EA
+IAC_integral_and_cold_flow,99ED,20 0B,BRA,$99FA,always,99FA,99EF
+IAC_integral_and_cold_flow,99F8,25 0B,BCS,$9A05,C=1,9A05,99FA
+IAC_integral_and_cold_flow,9A03,20 28,BRA,$9A2D,always,9A2D,9A05
+IAC_integral_and_cold_flow,9A0E,22 1D,BHI,$9A2D,C=0 and Z=0,9A2D,9A10
+IAC_integral_and_cold_flow,9A13,27 06,BEQ,$9A1B,Z=1,9A1B,9A15
+IAC_integral_and_cold_flow,9A19,20 12,BRA,$9A2D,always,9A2D,9A1B
+IAC_integral_and_cold_flow,9A1B,12 36 80 07,BRSET,"$36,#$80,$9A26",(byte[operand] & $80) == mask (all selected bits),9A26,9A1F
+IAC_integral_and_cold_flow,9A22,27 23,BEQ,$9A47,Z=1,9A47,9A24
+IAC_integral_and_cold_flow,9A24,20 32,BRA,$9A58,always,9A58,9A26
+IAC_integral_and_cold_flow,9A29,27 1C,BEQ,$9A47,Z=1,9A47,9A2B
+IAC_integral_and_cold_flow,9A2B,20 2B,BRA,$9A58,always,9A58,9A2D
+IAC_integral_and_cold_flow,9A2D,12 36 80 27,BRSET,"$36,#$80,$9A58",(byte[operand] & $80) == mask (all selected bits),9A58,9A31
+IAC_integral_and_cold_flow,9A3A,26 1C,BNE,$9A58,Z=0,9A58,9A3C
+IAC_integral_and_cold_flow,9A3C,12 36 04 07,BRSET,"$36,#$04,$9A47",(byte[operand] & $04) == mask (all selected bits),9A47,9A40
+IAC_integral_and_cold_flow,9A45,26 11,BNE,$9A58,Z=0,9A58,9A47
+IAC_integral_and_cold_flow,9A47,12 3E 04 0D,BRSET,"$3E,#$04,$9A58",(byte[operand] & $04) == mask (all selected bits),9A58,9A4B
+IAC_integral_and_cold_flow,9A4B,13 37 04 0F,BRCLR,"$37,#$04,$9A5E",(byte[operand] & $04) == 0 (all selected bits clear),9A5E,9A4F
+IAC_integral_and_cold_flow,9A52,26 0A,BNE,$9A5E,Z=0,9A5E,9A54
+IAC_integral_and_cold_flow,9A54,13 36 80 06,BRCLR,"$36,#$80,$9A5E",(byte[operand] & $80) == 0 (all selected bits clear),9A5E,9A58
+IAC_integral_and_cold_flow,9A61,13 36 10 08,BRCLR,"$36,#$10,$9A6D",(byte[operand] & $10) == 0 (all selected bits clear),9A6D,9A65
+IAC_integral_and_cold_flow,9A65,13 36 80 36,BRCLR,"$36,#$80,$9A9F",(byte[operand] & $80) == 0 (all selected bits clear),9A9F,9A69
+IAC_integral_and_cold_flow,9A6B,20 20,BRA,$9A8D,always,9A8D,9A6D
+IAC_integral_and_cold_flow,9A72,23 2B,BLS,$9A9F,C=1 or Z=1,9A9F,9A74
+IAC_integral_and_cold_flow,9A86,13 36 02 03,BRCLR,"$36,#$02,$9A8D",(byte[operand] & $02) == 0 (all selected bits clear),9A8D,9A8A
+IAC_integral_and_cold_flow,9A94,24 03,BCC,$9A99,C=0,9A99,9A96
+IAC_integral_and_cold_flow,9AA4,23 04,BLS,$9AAA,C=1 or Z=1,9AAA,9AA6
+IAC_integral_and_cold_flow,9AA8,20 14,BRA,$9ABE,always,9ABE,9AAA
+IAC_integral_and_cold_flow,9AAD,23 04,BLS,$9AB3,C=1 or Z=1,9AB3,9AAF
+IAC_integral_and_cold_flow,9AB1,20 0B,BRA,$9ABE,always,9ABE,9AB3
+IAC_integral_and_cold_flow,9AB6,23 04,BLS,$9ABC,C=1 or Z=1,9ABC,9AB8
+IAC_integral_and_cold_flow,9ABA,20 02,BRA,$9ABE,always,9ABE,9ABC
+IAC_integral_and_cold_flow,9ABF,12 36 80 0C,BRSET,"$36,#$80,$9ACF",(byte[operand] & $80) == mask (all selected bits),9ACF,9AC3
+IAC_integral_and_cold_flow,9AC6,12 36 02 0F,BRSET,"$36,#$02,$9AD9",(byte[operand] & $02) == mask (all selected bits),9AD9,9ACA
+IAC_integral_and_cold_flow,9ACD,20 0A,BRA,$9AD9,always,9AD9,9ACF
+IAC_integral_and_cold_flow,9AD2,12 36 02 03,BRSET,"$36,#$02,$9AD9",(byte[operand] & $02) == mask (all selected bits),9AD9,9AD6
+IAC_integral_and_cold_flow,9AE4,12 36 80 66,BRSET,"$36,#$80,$9B4E",(byte[operand] & $80) == mask (all selected bits),9B4E,9AE8
+IAC_integral_and_cold_flow,9AED,23 27,BLS,$9B16,C=1 or Z=1,9B16,9AEF
+IAC_integral_and_cold_flow,9AF2,13 36 01 03,BRCLR,"$36,#$01,$9AF9",(byte[operand] & $01) == 0 (all selected bits clear),9AF9,9AF6
+IAC_integral_and_cold_flow,9AFC,24 18,BCC,$9B16,C=0,9B16,9AFE
+IAC_integral_and_cold_flow,9AFE,12 3B 10 14,BRSET,"$3B,#$10,$9B16",(byte[operand] & $10) == mask (all selected bits),9B16,9B02
+IAC_integral_and_cold_flow,9B02,12 50 10 10,BRSET,"$50,#$10,$9B16",(byte[operand] & $10) == mask (all selected bits),9B16,9B06
+IAC_integral_and_cold_flow,9B0E,24 03,BCC,$9B13,C=0,9B13,9B10
+IAC_integral_and_cold_flow,9B1D,27 5D,BEQ,$9B7C,Z=1,9B7C,9B1F
+IAC_integral_and_cold_flow,9B21,13 36 01 02,BRCLR,"$36,#$01,$9B27",(byte[operand] & $01) == 0 (all selected bits clear),9B27,9B25
+IAC_integral_and_cold_flow,9B2A,22 14,BHI,$9B40,C=0 and Z=0,9B40,9B2C
+IAC_integral_and_cold_flow,9B31,24 0D,BCC,$9B40,C=0,9B40,9B33
+IAC_integral_and_cold_flow,9B36,24 03,BCC,$9B3B,C=0,9B3B,9B38
+IAC_integral_and_cold_flow,9B3E,20 3C,BRA,$9B7C,always,9B7C,9B40
+IAC_integral_and_cold_flow,9B46,24 03,BCC,$9B4B,C=0,9B4B,9B48
+IAC_integral_and_cold_flow,9B51,27 13,BEQ,$9B66,Z=1,9B66,9B53
+IAC_integral_and_cold_flow,9B56,24 03,BCC,$9B5B,C=0,9B5B,9B58
+IAC_integral_and_cold_flow,9B59,20 06,BRA,$9B61,always,9B61,9B5B
+IAC_integral_and_cold_flow,9B5E,26 01,BNE,$9B61,Z=0,9B61,9B60
+IAC_integral_and_cold_flow,9B64,20 16,BRA,$9B7C,always,9B7C,9B66
+IAC_integral_and_cold_flow,9B69,27 14,BEQ,$9B7F,Z=1,9B7F,9B6B
+IAC_integral_and_cold_flow,9B6E,24 03,BCC,$9B73,C=0,9B73,9B70
+IAC_integral_and_cold_flow,9B71,20 06,BRA,$9B79,always,9B79,9B73
+IAC_integral_and_cold_flow,9B76,26 01,BNE,$9B79,Z=0,9B79,9B78
+IAC_integral_and_cold_flow,9B85,24 03,BCC,$9B8A,C=0,9B8A,9B87
+IAC_integral_and_cold_flow,9B8A,12 16 10 23,BRSET,"$16,#$10,$9BB1",(byte[operand] & $10) == mask (all selected bits),9BB1,9B8E
+IAC_integral_and_cold_flow,9B93,27 1C,BEQ,$9BB1,Z=1,9BB1,9B95
+IAC_integral_and_cold_flow,9B98,12 36 01 02,BRSET,"$36,#$01,$9B9E",(byte[operand] & $01) == mask (all selected bits),9B9E,9B9C
+IAC_integral_and_cold_flow,9BA0,24 38,BCC,$9BDA,C=0,9BDA,9BA2
+IAC_integral_and_cold_flow,9BA8,24 02,BCC,$9BAC,C=0,9BAC,9BAA
+IAC_integral_and_cold_flow,9BAF,20 55,BRA,$9C06,always,9C06,9BB1
+IAC_integral_and_cold_flow,9BB5,26 23,BNE,$9BDA,Z=0,9BDA,9BB7
+IAC_integral_and_cold_flow,9BB7,12 09 40 1F,BRSET,"$09,#$40,$9BDA",(byte[operand] & $40) == mask (all selected bits),9BDA,9BBB
+IAC_integral_and_cold_flow,9BC2,23 15,BLS,$9BD9,C=1 or Z=1,9BD9,9BC4
+IAC_integral_and_cold_flow,9BC4,12 3B 10 11,BRSET,"$3B,#$10,$9BD9",(byte[operand] & $10) == mask (all selected bits),9BD9,9BC8
+IAC_integral_and_cold_flow,9BC8,12 50 10 0D,BRSET,"$50,#$10,$9BD9",(byte[operand] & $10) == mask (all selected bits),9BD9,9BCC
+IAC_integral_and_cold_flow,9BD4,24 03,BCC,$9BD9,C=0,9BD9,9BD6
+IAC_integral_and_cold_flow,9BDA,13 16 10 1B,BRCLR,"$16,#$10,$9BF9",(byte[operand] & $10) == 0 (all selected bits clear),9BF9,9BDE
+IAC_integral_and_cold_flow,9BE2,12 36 02 03,BRSET,"$36,#$02,$9BE9",(byte[operand] & $02) == mask (all selected bits),9BE9,9BE6
+IAC_integral_and_cold_flow,9BE9,13 36 01 03,BRCLR,"$36,#$01,$9BF0",(byte[operand] & $01) == 0 (all selected bits clear),9BF0,9BED
+IAC_integral_and_cold_flow,9BF1,25 03,BCS,$9BF6,C=1,9BF6,9BF3
+IAC_integral_and_cold_flow,9BF4,20 03,BRA,$9BF9,always,9BF9,9BF6
+IAC_integral_and_cold_flow,9BFC,13 36 01 04,BRCLR,"$36,#$01,$9C04",(byte[operand] & $01) == 0 (all selected bits clear),9C04,9C00
+IAC_integral_and_cold_flow,9C02,20 02,BRA,$9C06,always,9C06,9C04
+IAC_proportional,9C20,12 36 02 0C,BRSET,"$36,#$02,$9C30",(byte[operand] & $02) == mask (all selected bits),9C30,9C24
+IAC_proportional,9C27,13 36 80 45,BRCLR,"$36,#$80,$9C70",(byte[operand] & $80) == 0 (all selected bits clear),9C70,9C2B
+IAC_proportional,9C2E,20 40,BRA,$9C70,always,9C70,9C30
+IAC_proportional,9C31,13 36 01 02,BRCLR,"$36,#$01,$9C37",(byte[operand] & $01) == 0 (all selected bits clear),9C37,9C35
+IAC_proportional,9C37,13 36 08 02,BRCLR,"$36,#$08,$9C3D",(byte[operand] & $08) == 0 (all selected bits clear),9C3D,9C3B
+IAC_proportional,9C3D,13 36 80 02,BRCLR,"$36,#$80,$9C43",(byte[operand] & $80) == 0 (all selected bits clear),9C43,9C41
+IAC_proportional,9C49,13 36 80 23,BRCLR,"$36,#$80,$9C70",(byte[operand] & $80) == 0 (all selected bits clear),9C70,9C4D
+IAC_proportional,9C53,25 05,BCS,$9C5A,C=1,9C5A,9C55
+IAC_proportional,9C58,20 0E,BRA,$9C68,always,9C68,9C5A
+IAC_proportional,9C5D,24 05,BCC,$9C64,C=0,9C64,9C5F
+IAC_proportional,9C62,20 0C,BRA,$9C70,always,9C70,9C64
+IAC_proportional,9C64,13 37 40 08,BRCLR,"$37,#$40,$9C70",(byte[operand] & $40) == 0 (all selected bits clear),9C70,9C68
+IAC_proportional,9C6E,23 03,BLS,$9C73,C=1 or Z=1,9C73,9C70
+IAC_proportional,9C75,23 04,BLS,$9C7B,C=1 or Z=1,9C7B,9C77
+IAC_proportional,9C79,20 14,BRA,$9C8F,always,9C8F,9C7B
+IAC_proportional,9C7E,23 04,BLS,$9C84,C=1 or Z=1,9C84,9C80
+IAC_proportional,9C82,20 0B,BRA,$9C8F,always,9C8F,9C84
+IAC_proportional,9C87,23 04,BLS,$9C8D,C=1 or Z=1,9C8D,9C89
+IAC_proportional,9C8B,20 02,BRA,$9C8F,always,9C8F,9C8D
+IAC_derivative,9CAD,24 03,BCC,$9CB2,C=0,9CB2,9CAF
+IAC_derivative,9CB0,20 0A,BRA,$9CBC,always,9CBC,9CB2
+IAC_derivative,9CB4,25 04,BCS,$9CBA,C=1,9CBA,9CB6
+IAC_derivative,9CB8,20 02,BRA,$9CBC,always,9CBC,9CBA
+IAC_derivative,9CC6,27 34,BEQ,$9CFC,Z=1,9CFC,9CC8
+IAC_derivative,9CC8,12 37 80 08,BRSET,"$37,#$80,$9CD4",(byte[operand] & $80) == mask (all selected bits),9CD4,9CCC
+IAC_derivative,9CCC,22 11,BHI,$9CDF,C=0 and Z=0,9CDF,9CCE
+IAC_derivative,9CCE,13 36 80 0D,BRCLR,"$36,#$80,$9CDF",(byte[operand] & $80) == 0 (all selected bits clear),9CDF,9CD2
+IAC_derivative,9CD2,20 11,BRA,$9CE5,always,9CE5,9CD4
+IAC_derivative,9CD4,25 04,BCS,$9CDA,C=1,9CDA,9CD6
+IAC_derivative,9CD6,13 36 80 0B,BRCLR,"$36,#$80,$9CE5",(byte[operand] & $80) == 0 (all selected bits clear),9CE5,9CDA
+IAC_derivative,9CDD,20 03,BRA,$9CE2,always,9CE2,9CDF
+IAC_derivative,9CEA,24 06,BCC,$9CF2,C=0,9CF2,9CEC
+IAC_derivative,9CF0,20 03,BRA,$9CF5,always,9CF5,9CF2
+IAC_follower,9D01,25 03,BCS,$9D06,C=1,9D06,9D03
+IAC_follower,9D04,24 02,BCC,$9D08,C=0,9D08,9D06
+IAC_follower,9D0B,23 26,BLS,$9D33,C=1 or Z=1,9D33,9D0D
+IAC_follower,9D10,13 36 02 18,BRCLR,"$36,#$02,$9D2C",(byte[operand] & $02) == 0 (all selected bits clear),9D2C,9D14
+IAC_follower,9D1A,23 02,BLS,$9D1E,C=1 or Z=1,9D1E,9D1C
+IAC_follower,9D2D,23 01,BLS,$9D30,C=1 or Z=1,9D30,9D2F
+IAC_follower,9D31,20 3B,BRA,$9D6E,always,9D6E,9D33
+IAC_follower,9D36,27 05,BEQ,$9D3D,Z=1,9D3D,9D38
+IAC_follower,9D3B,20 31,BRA,$9D6E,always,9D6E,9D3D
+IAC_follower,9D3E,12 36 02 05,BRSET,"$36,#$02,$9D47",(byte[operand] & $02) == mask (all selected bits),9D47,9D42
+IAC_follower,9D45,20 10,BRA,$9D57,always,9D57,9D47
+IAC_follower,9D4C,23 02,BLS,$9D50,C=1 or Z=1,9D50,9D4E
+IAC_follower,9D5D,24 04,BCC,$9D63,C=0,9D63,9D5F
+IAC_follower,9D64,26 01,BNE,$9D67,Z=0,9D67,9D66
+IAC_follower,9D70,12 37 01 19,BRSET,"$37,#$01,$9D8D",(byte[operand] & $01) == mask (all selected bits),9D8D,9D74
+IAC_follower,9D7A,25 0E,BCS,$9D8A,C=1,9D8A,9D7C
+IAC_follower,9D7F,24 09,BCC,$9D8A,C=0,9D8A,9D81
+IAC_follower,9D86,22 02,BHI,$9D8A,C=0 and Z=0,9D8A,9D88
+IAC_follower,9D88,20 03,BRA,$9D8D,always,9D8D,9D8A
+IAC_follower,9D8D,12 39 80 3E,BRSET,"$39,#$80,$9DCF",(byte[operand] & $80) == mask (all selected bits),9DCF,9D91
+IAC_follower,9D94,26 39,BNE,$9DCF,Z=0,9DCF,9D96
+IAC_follower,9D96,12 36 04 35,BRSET,"$36,#$04,$9DCF",(byte[operand] & $04) == mask (all selected bits),9DCF,9D9A
+IAC_follower,9D9A,13 46 08 0C,BRCLR,"$46,#$08,$9DAA",(byte[operand] & $08) == 0 (all selected bits clear),9DAA,9D9E
+IAC_follower,9DA3,26 05,BNE,$9DAA,Z=0,9DAA,9DA5
+IAC_follower,9DA8,20 42,BRA,$9DEC,always,9DEC,9DAA
+IAC_follower,9DB4,12 37 01 0D,BRSET,"$37,#$01,$9DC5",(byte[operand] & $01) == mask (all selected bits),9DC5,9DB8
+IAC_follower,9DBD,25 03,BCS,$9DC2,C=1,9DC2,9DBF
+IAC_follower,9DC0,24 03,BCC,$9DC5,C=0,9DC5,9DC2
+IAC_follower,9DC9,23 10,BLS,$9DDB,C=1 or Z=1,9DDB,9DCB
+IAC_follower,9DCD,20 0C,BRA,$9DDB,always,9DDB,9DCF
+IAC_follower,9DD1,12 36 04 14,BRSET,"$36,#$04,$9DE9",(byte[operand] & $04) == mask (all selected bits),9DE9,9DD5
+IAC_follower,9DD9,20 0E,BRA,$9DE9,always,9DE9,9DDB
+IAC_follower,9DE1,25 05,BCS,$9DE8,C=1,9DE8,9DE3
+IAC_follower,9DE6,20 04,BRA,$9DEC,always,9DEC,9DE8
+IAC_follower,9DF1,26 05,BNE,$9DF8,Z=0,9DF8,9DF3
+IAC_follower,9DF5,24 01,BCC,$9DF8,C=0,9DF8,9DF7
+IAC_follower,9DFE,24 06,BCC,$9E06,C=0,9E06,9E00
+IAC_follower,9E06,13 37 02 11,BRCLR,"$37,#$02,$9E1B",(byte[operand] & $02) == 0 (all selected bits clear),9E1B,9E0A
+IAC_follower,9E10,13 37 01 03,BRCLR,"$37,#$01,$9E17",(byte[operand] & $01) == 0 (all selected bits clear),9E17,9E14
+IAC_follower,9E2B,25 03,BCS,$9E30,C=1,9E30,9E2D
+IAC_follower,9E2E,24 05,BCC,$9E35,C=0,9E35,9E30
+IAC_follower,9E33,20 19,BRA,$9E4E,always,9E4E,9E35
+IAC_follower,9E46,25 03,BCS,$9E4B,C=1,9E4B,9E48
+IAC_follower,9E49,24 03,BCC,$9E4E,C=0,9E4E,9E4B
+IAC_follower,9E4E,12 37 01 13,BRSET,"$37,#$01,$9E65",(byte[operand] & $01) == mask (all selected bits),9E65,9E52
+IAC_follower,9E5D,25 03,BCS,$9E62,C=1,9E62,9E5F
+IAC_follower,9E60,24 03,BCC,$9E65,C=0,9E65,9E62
+IAC_follower,9E65,13 39 80 14,BRCLR,"$39,#$80,$9E7D",(byte[operand] & $80) == 0 (all selected bits clear),9E7D,9E69
+IAC_follower,9E6F,24 04,BCC,$9E75,C=0,9E75,9E71
+IAC_follower,9E78,25 1E,BCS,$9E98,C=1,9E98,9E7A
+IAC_follower,9E7B,20 18,BRA,$9E95,always,9E95,9E7D
+IAC_follower,9E7D,12 46 08 09,BRSET,"$46,#$08,$9E8A",(byte[operand] & $08) == mask (all selected bits),9E8A,9E81
+IAC_follower,9E81,13 39 40 05,BRCLR,"$39,#$40,$9E8A",(byte[operand] & $40) == 0 (all selected bits clear),9E8A,9E85
+IAC_follower,9E88,20 0B,BRA,$9E95,always,9E95,9E8A
+IAC_follower,9E8D,27 06,BEQ,$9E95,Z=1,9E95,9E8F
+IAC_follower,9E93,24 03,BCC,$9E98,C=0,9E98,9E95
+IAC_background_kicker,9E99,12 4F 80 03,BRSET,"$4F,#$80,$9EA0",(byte[operand] & $80) == mask (all selected bits),9EA0,9E9D
+IAC_background_kicker,9EA3,12 09 02 23,BRSET,"$09,#$02,$9ECA",(byte[operand] & $02) == mask (all selected bits),9ECA,9EA7
+IAC_background_kicker,9EAD,23 1B,BLS,$9ECA,C=1 or Z=1,9ECA,9EAF
+IAC_background_kicker,9ECD,27 1B,BEQ,$9EEA,Z=1,9EEA,9ECF
+IAC_background_kicker,9ECF,12 46 08 17,BRSET,"$46,#$08,$9EEA",(byte[operand] & $08) == mask (all selected bits),9EEA,9ED3
+IAC_background_kicker,9ED6,26 12,BNE,$9EEA,Z=0,9EEA,9ED8
+IAC_background_kicker,9EE1,24 04,BCC,$9EE7,C=0,9EE7,9EE3
+IAC_background_kicker,9EEF,26 02,BNE,$9EF3,Z=0,9EF3,9EF1
+IAC_background_kicker,9EF1,20 53,BRA,$9F46,always,9F46,9EF3
+IAC_background_kicker,9EF3,13 3B 10 09,BRCLR,"$3B,#$10,$9F00",(byte[operand] & $10) == 0 (all selected bits clear),9F00,9EF7
+IAC_background_kicker,9EFC,27 02,BEQ,$9F00,Z=1,9F00,9EFE
+IAC_background_kicker,9EFE,20 46,BRA,$9F46,always,9F46,9F00
+IAC_background_kicker,9F00,12 37 04 03,BRSET,"$37,#$04,$9F07",(byte[operand] & $04) == mask (all selected bits),9F07,9F04
+IAC_background_kicker,9F07,12 36 0C 02,BRSET,"$36,#$0C,$9F0D",(byte[operand] & $0C) == mask (all selected bits),9F0D,9F0B
+IAC_background_kicker,9F0B,20 09,BRA,$9F16,always,9F16,9F0D
+IAC_background_kicker,9F16,12 37 08 41,BRSET,"$37,#$08,$9F5B",(byte[operand] & $08) == mask (all selected bits),9F5B,9F1A
+IAC_background_kicker,9F1F,24 09,BCC,$9F2A,C=0,9F2A,9F21
+IAC_background_kicker,9F2A,12 37 10 2D,BRSET,"$37,#$10,$9F5B",(byte[operand] & $10) == mask (all selected bits),9F5B,9F2E
+IAC_background_kicker,9F34,24 25,BCC,$9F5B,C=0,9F5B,9F36
+IAC_background_kicker,9F36,13 36 80 0C,BRCLR,"$36,#$80,$9F46",(byte[operand] & $80) == 0 (all selected bits clear),9F46,9F3A
+IAC_background_kicker,9F40,24 04,BCC,$9F46,C=0,9F46,9F42
+IAC_background_kicker,9F42,12 36 08 03,BRSET,"$36,#$08,$9F49",(byte[operand] & $08) == mask (all selected bits),9F49,9F46
+IAC_background_kicker,9F4C,12 36 02 03,BRSET,"$36,#$02,$9F53",(byte[operand] & $02) == mask (all selected bits),9F53,9F50
+IAC_background_kicker,9F56,23 03,BLS,$9F5B,C=1 or Z=1,9F5B,9F58
+IAC_background_kicker,9F5B,13 36 40 05,BRCLR,"$36,#$40,$9F64",(byte[operand] & $40) == 0 (all selected bits clear),9F64,9F5F
+IAC_background_kicker,9F62,26 19,BNE,$9F7D,Z=0,9F7D,9F64
+IAC_background_kicker,9F6A,22 47,BHI,$9FB3,C=0 and Z=0,9FB3,9F6C
+IAC_background_kicker,9F72,22 3F,BHI,$9FB3,C=0 and Z=0,9FB3,9F74
+IAC_background_kicker,9F74,12 36 40 63,BRSET,"$36,#$40,$9FDB",(byte[operand] & $40) == mask (all selected bits),9FDB,9F78
+IAC_background_kicker,9F7B,27 36,BEQ,$9FB3,Z=1,9FB3,9F7D
+IAC_background_kicker,9F81,26 58,BNE,$9FDB,Z=0,9FDB,9F83
+IAC_background_kicker,9F87,20 52,BRA,$9FDB,always,9FDB,9F89
+IAC_background_kicker,9F8E,23 17,BLS,$9FA7,C=1 or Z=1,9FA7,9F90
+IAC_background_kicker,9F90,12 36 0C 02,BRSET,"$36,#$0C,$9F96",(byte[operand] & $0C) == mask (all selected bits),9F96,9F94
+IAC_background_kicker,9F94,20 09,BRA,$9F9F,always,9F9F,9F96
+IAC_background_kicker,9FA5,27 0C,BEQ,$9FB3,Z=1,9FB3,9FA7
+IAC_background_kicker,9FAB,26 19,BNE,$9FC6,Z=0,9FC6,9FAD
+IAC_background_kicker,9FB1,20 13,BRA,$9FC6,always,9FC6,9FB3
+IAC_background_kicker,9FB9,23 10,BLS,$9FCB,C=1 or Z=1,9FCB,9FBB
+IAC_background_kicker,9FC4,22 05,BHI,$9FCB,C=0 and Z=0,9FCB,9FC6
+IAC_background_kicker,9FC9,20 13,BRA,$9FDE,always,9FDE,9FCB
+IAC_background_kicker,9FD1,22 08,BHI,$9FDB,C=0 and Z=0,9FDB,9FD3
+IAC_background_kicker,9FD9,23 03,BLS,$9FDE,C=1 or Z=1,9FDE,9FDB
+IAC_background_decay_and_learning,9FE4,26 03,BNE,$9FE9,Z=0,9FE9,9FE6
+IAC_background_decay_and_learning,9FEC,27 03,BEQ,$9FF1,Z=1,9FF1,9FEE
+IAC_background_decay_and_learning,9FEF,20 78,BRA,$A069,always,A069,9FF1
+IAC_background_decay_and_learning,9FFB,26 02,BNE,$9FFF,Z=0,9FFF,9FFD
+IAC_background_decay_and_learning,A002,27 12,BEQ,$A016,Z=1,A016,A004
+IAC_background_decay_and_learning,A011,23 03,BLS,$A016,C=1 or Z=1,A016,A013
+IAC_background_decay_and_learning,A023,26 02,BNE,$A027,Z=0,A027,A025
+IAC_background_decay_and_learning,A02A,27 12,BEQ,$A03E,Z=1,A03E,A02C
+IAC_background_decay_and_learning,A039,23 03,BLS,$A03E,C=1 or Z=1,A03E,A03B
+IAC_background_decay_and_learning,A047,27 20,BEQ,$A069,Z=1,A069,A049
+IAC_background_decay_and_learning,A05B,23 02,BLS,$A05F,C=1 or Z=1,A05F,A05D
+IAC_background_decay_and_learning,A065,24 02,BCC,$A069,C=0,A069,A067
+IAC_background_decay_and_learning,A06C,12 36 02 30,BRSET,"$36,#$02,$A0A0",(byte[operand] & $02) == mask (all selected bits),A0A0,A070
+IAC_background_decay_and_learning,A073,27 61,BEQ,$A0D6,Z=1,A0D6,A075
+IAC_background_decay_and_learning,A078,27 0B,BEQ,$A085,Z=1,A085,A07A
+IAC_background_decay_and_learning,A07E,25 05,BCS,$A085,C=1,A085,A080
+IAC_background_decay_and_learning,A083,25 15,BCS,$A09A,C=1,A09A,A085
+IAC_background_decay_and_learning,A08B,27 49,BEQ,$A0D6,Z=1,A0D6,A08D
+IAC_background_decay_and_learning,A098,25 39,BCS,$A0D3,C=1,A0D3,A09A
+IAC_background_decay_and_learning,A09E,20 2E,BRA,$A0CE,always,A0CE,A0A0
+IAC_background_decay_and_learning,A0A3,27 31,BEQ,$A0D6,Z=1,A0D6,A0A5
+IAC_background_decay_and_learning,A0A8,27 0B,BEQ,$A0B5,Z=1,A0B5,A0AA
+IAC_background_decay_and_learning,A0AE,25 05,BCS,$A0B5,C=1,A0B5,A0B0
+IAC_background_decay_and_learning,A0B3,25 15,BCS,$A0CA,C=1,A0CA,A0B5
+IAC_background_decay_and_learning,A0BB,27 19,BEQ,$A0D6,Z=1,A0D6,A0BD
+IAC_background_decay_and_learning,A0C8,25 09,BCS,$A0D3,C=1,A0D3,A0CA
+IAC_background_decay_and_learning,A0D1,20 5A,BRA,$A12D,always,A12D,A0D3
+IAC_background_decay_and_learning,A0D6,20 55,BRA,$A12D,always,A12D,A0D8
+IAC_background_decay_and_learning,A0D8,12 36 0C 02,BRSET,"$36,#$0C,$A0DE",(byte[operand] & $0C) == mask (all selected bits),A0DE,A0DC
+IAC_background_decay_and_learning,A0DC,20 4F,BRA,$A12D,always,A12D,A0DE
+IAC_background_decay_and_learning,A0E3,25 48,BCS,$A12D,C=1,A12D,A0E5
+IAC_background_decay_and_learning,A0E8,22 43,BHI,$A12D,C=0 and Z=0,A12D,A0EA
+IAC_background_decay_and_learning,A0F0,22 3B,BHI,$A12D,C=0 and Z=0,A12D,A0F2
+IAC_background_decay_and_learning,A0F8,22 33,BHI,$A12D,C=0 and Z=0,A12D,A0FA
+IAC_background_decay_and_learning,A0FD,12 36 02 14,BRSET,"$36,#$02,$A115",(byte[operand] & $02) == mask (all selected bits),A115,A101
+IAC_background_decay_and_learning,A101,12 36 01 08,BRSET,"$36,#$01,$A10D",(byte[operand] & $01) == mask (all selected bits),A10D,A105
+IAC_background_decay_and_learning,A10B,20 20,BRA,$A12D,always,A12D,A10D
+IAC_background_decay_and_learning,A113,20 18,BRA,$A12D,always,A12D,A115
+IAC_background_decay_and_learning,A115,12 36 01 0B,BRSET,"$36,#$01,$A124",(byte[operand] & $01) == mask (all selected bits),A124,A119
+IAC_background_decay_and_learning,A122,20 09,BRA,$A12D,always,A12D,A124
+IAC_background_decay_and_learning,A130,27 22,BEQ,$A154,Z=1,A154,A132
+IAC_background_decay_and_learning,A135,26 1D,BNE,$A154,Z=0,A154,A137
+IAC_background_decay_and_learning,A137,13 36 01 15,BRCLR,"$36,#$01,$A150",(byte[operand] & $01) == 0 (all selected bits clear),A150,A13B
+IAC_background_decay_and_learning,A13E,27 05,BEQ,$A145,Z=1,A145,A140
+IAC_background_decay_and_learning,A143,26 0F,BNE,$A154,Z=0,A154,A145
+IAC_background_decay_and_learning,A14E,24 01,BCC,$A151,C=0,A151,A150
+IAC_background_decay_and_learning,A158,27 08,BEQ,$A162,Z=1,A162,A15A
+IAC_background_decay_and_learning,A15C,26 04,BNE,$A162,Z=0,A162,A15E
+IAC_background_decay_and_learning,A15E,13 3E 04 03,BRCLR,"$3E,#$04,$A165",(byte[operand] & $04) == 0 (all selected bits clear),A165,A162
+IAC_background_decay_and_learning,A166,12 36 01 09,BRSET,"$36,#$01,$A173",(byte[operand] & $01) == mask (all selected bits),A173,A16A
+IAC_background_decay_and_learning,A171,20 07,BRA,$A17A,always,A17A,A173
+IAC_background_decay_and_learning,A17E,25 1D,BCS,$A19D,C=1,A19D,A180
+IAC_background_decay_and_learning,A183,23 36,BLS,$A1BB,C=1 or Z=1,A1BB,A185
+IAC_background_decay_and_learning,A185,12 36 02 0A,BRSET,"$36,#$02,$A193",(byte[operand] & $02) == mask (all selected bits),A193,A189
+IAC_background_decay_and_learning,A191,20 48,BRA,$A1DB,always,A1DB,A193
+IAC_background_decay_and_learning,A19B,20 3E,BRA,$A1DB,always,A1DB,A19D
+IAC_background_decay_and_learning,A1A1,23 18,BLS,$A1BB,C=1 or Z=1,A1BB,A1A3
+IAC_background_decay_and_learning,A1A3,12 36 02 0A,BRSET,"$36,#$02,$A1B1",(byte[operand] & $02) == mask (all selected bits),A1B1,A1A7
+IAC_background_decay_and_learning,A1AF,20 2A,BRA,$A1DB,always,A1DB,A1B1
+IAC_background_decay_and_learning,A1B9,20 20,BRA,$A1DB,always,A1DB,A1BB
+IAC_background_decay_and_learning,A1BB,12 36 02 0E,BRSET,"$36,#$02,$A1CD",(byte[operand] & $02) == mask (all selected bits),A1CD,A1BF
+IAC_background_decay_and_learning,A1BF,12 36 01 05,BRSET,"$36,#$01,$A1C8",(byte[operand] & $01) == mask (all selected bits),A1C8,A1C3
+IAC_background_decay_and_learning,A1C6,20 31,BRA,$A1F9,always,A1F9,A1C8
+IAC_background_decay_and_learning,A1CB,20 2C,BRA,$A1F9,always,A1F9,A1CD
+IAC_background_decay_and_learning,A1CD,12 36 01 05,BRSET,"$36,#$01,$A1D6",(byte[operand] & $01) == mask (all selected bits),A1D6,A1D1
+IAC_background_decay_and_learning,A1D4,20 23,BRA,$A1F9,always,A1F9,A1D6
+IAC_background_decay_and_learning,A1D9,20 1E,BRA,$A1F9,always,A1F9,A1DB
+IAC_background_decay_and_learning,A1DB,12 36 02 0E,BRSET,"$36,#$02,$A1ED",(byte[operand] & $02) == mask (all selected bits),A1ED,A1DF
+IAC_background_decay_and_learning,A1DF,12 36 01 05,BRSET,"$36,#$01,$A1E8",(byte[operand] & $01) == mask (all selected bits),A1E8,A1E3
+IAC_background_decay_and_learning,A1E6,20 11,BRA,$A1F9,always,A1F9,A1E8
+IAC_background_decay_and_learning,A1EB,20 0C,BRA,$A1F9,always,A1F9,A1ED
+IAC_background_decay_and_learning,A1ED,12 36 01 05,BRSET,"$36,#$01,$A1F6",(byte[operand] & $01) == mask (all selected bits),A1F6,A1F1
+IAC_background_decay_and_learning,A1F4,20 03,BRA,$A1F9,always,A1F9,A1F6
+IAC_background_decay_and_learning,A1F9,12 36 02 0D,BRSET,"$36,#$02,$A20A",(byte[operand] & $02) == mask (all selected bits),A20A,A1FD
+IAC_background_decay_and_learning,A208,20 0B,BRA,$A215,always,A215,A20A
+IAC_background_decay_and_learning,A21E,23 09,BLS,$A229,C=1 or Z=1,A229,A220
+IAC_background_decay_and_learning,A221,25 06,BCS,$A229,C=1,A229,A223
+IAC_background_decay_and_learning,A227,23 20,BLS,$A249,C=1 or Z=1,A249,A229
+IAC_background_decay_and_learning,A229,12 36 01 10,BRSET,"$36,#$01,$A23D",(byte[operand] & $01) == mask (all selected bits),A23D,A22D
+IAC_background_decay_and_learning,A230,24 05,BCC,$A237,C=0,A237,A232
+IAC_background_decay_and_learning,A235,20 01,BRA,$A238,always,A238,A237
+IAC_background_decay_and_learning,A23B,20 2D,BRA,$A26A,always,A26A,A23D
+IAC_background_decay_and_learning,A240,24 01,BCC,$A243,C=0,A243,A242
+IAC_background_decay_and_learning,A247,20 21,BRA,$A26A,always,A26A,A249
+IAC_background_decay_and_learning,A24A,12 36 02 0E,BRSET,"$36,#$02,$A25C",(byte[operand] & $02) == mask (all selected bits),A25C,A24E
+IAC_background_decay_and_learning,A24E,12 36 01 05,BRSET,"$36,#$01,$A257",(byte[operand] & $01) == mask (all selected bits),A257,A252
+IAC_background_decay_and_learning,A255,20 31,BRA,$A288,always,A288,A257
+IAC_background_decay_and_learning,A25A,20 2C,BRA,$A288,always,A288,A25C
+IAC_background_decay_and_learning,A25C,12 36 01 05,BRSET,"$36,#$01,$A265",(byte[operand] & $01) == mask (all selected bits),A265,A260
+IAC_background_decay_and_learning,A263,20 23,BRA,$A288,always,A288,A265
+IAC_background_decay_and_learning,A268,20 1E,BRA,$A288,always,A288,A26A
+IAC_background_decay_and_learning,A26A,12 36 02 0E,BRSET,"$36,#$02,$A27C",(byte[operand] & $02) == mask (all selected bits),A27C,A26E
+IAC_background_decay_and_learning,A26E,12 36 01 05,BRSET,"$36,#$01,$A277",(byte[operand] & $01) == mask (all selected bits),A277,A272
+IAC_background_decay_and_learning,A275,20 11,BRA,$A288,always,A288,A277
+IAC_background_decay_and_learning,A27A,20 0C,BRA,$A288,always,A288,A27C
+IAC_background_decay_and_learning,A27C,12 36 01 05,BRSET,"$36,#$01,$A285",(byte[operand] & $01) == mask (all selected bits),A285,A280
+IAC_background_decay_and_learning,A283,20 03,BRA,$A288,always,A288,A285
+IAC_background_decay_and_learning,A28B,27 04,BEQ,$A291,Z=1,A291,A28D
+IAC_background_decay_and_learning,A294,27 04,BEQ,$A29A,Z=1,A29A,A296
+IAC_background_decay_and_learning,A29D,12 36 02 03,BRSET,"$36,#$02,$A2A4",(byte[operand] & $02) == mask (all selected bits),A2A4,A2A1
+IAC_background_decay_and_learning,A2A6,13 36 01 02,BRCLR,"$36,#$01,$A2AC",(byte[operand] & $01) == 0 (all selected bits clear),A2AC,A2AA
+IAC_slow_decay_and_diagnostics,A2B0,12 4F 80 03,BRSET,"$4F,#$80,$A2B7",(byte[operand] & $80) == mask (all selected bits),A2B7,A2B4
+IAC_slow_decay_and_diagnostics,A2BD,27 1B,BEQ,$A2DA,Z=1,A2DA,A2BF
+IAC_slow_decay_and_diagnostics,A2C2,27 05,BEQ,$A2C9,Z=1,A2C9,A2C4
+IAC_slow_decay_and_diagnostics,A2C7,26 11,BNE,$A2DA,Z=0,A2DA,A2C9
+IAC_slow_decay_and_diagnostics,A2CC,24 01,BCC,$A2CF,C=0,A2CF,A2CE
+IAC_slow_decay_and_diagnostics,A2D2,27 03,BEQ,$A2D7,Z=1,A2D7,A2D4
+IAC_slow_decay_and_diagnostics,A2DD,27 1B,BEQ,$A2FA,Z=1,A2FA,A2DF
+IAC_slow_decay_and_diagnostics,A2DF,13 3F 40 03,BRCLR,"$3F,#$40,$A2E6",(byte[operand] & $40) == 0 (all selected bits clear),A2E6,A2E3
+IAC_slow_decay_and_diagnostics,A2E4,20 11,BRA,$A2F7,always,A2F7,A2E6
+IAC_slow_decay_and_diagnostics,A2E9,27 05,BEQ,$A2F0,Z=1,A2F0,A2EB
+IAC_slow_decay_and_diagnostics,A2EE,26 0A,BNE,$A2FA,Z=0,A2FA,A2F0
+IAC_slow_decay_and_diagnostics,A2FD,27 2B,BEQ,$A32A,Z=1,A32A,A2FF
+IAC_slow_decay_and_diagnostics,A2FF,13 3F 40 03,BRCLR,"$3F,#$40,$A306",(byte[operand] & $40) == 0 (all selected bits clear),A306,A303
+IAC_slow_decay_and_diagnostics,A304,20 21,BRA,$A327,always,A327,A306
+IAC_slow_decay_and_diagnostics,A309,27 0B,BEQ,$A316,Z=1,A316,A30B
+IAC_slow_decay_and_diagnostics,A30F,26 19,BNE,$A32A,Z=0,A32A,A311
+IAC_slow_decay_and_diagnostics,A314,20 14,BRA,$A32A,always,A32A,A316
+IAC_slow_decay_and_diagnostics,A319,27 05,BEQ,$A320,Z=1,A320,A31B
+IAC_slow_decay_and_diagnostics,A31E,26 0A,BNE,$A32A,Z=0,A32A,A320
+IAC_slow_decay_and_diagnostics,A32E,27 2C,BEQ,$A35C,Z=1,A35C,A330
+IAC_slow_decay_and_diagnostics,A332,26 28,BNE,$A35C,Z=0,A35C,A334
+IAC_slow_decay_and_diagnostics,A336,26 13,BNE,$A34B,Z=0,A34B,A338
+IAC_slow_decay_and_diagnostics,A33E,25 1C,BCS,$A35C,C=1,A35C,A340
+IAC_slow_decay_and_diagnostics,A343,24 17,BCC,$A35C,C=0,A35C,A345
+IAC_slow_decay_and_diagnostics,A349,20 11,BRA,$A35C,always,A35C,A34B
+IAC_slow_decay_and_diagnostics,A351,25 09,BCS,$A35C,C=1,A35C,A353
+IAC_slow_decay_and_diagnostics,A356,24 04,BCC,$A35C,C=0,A35C,A358
+IAC_slow_decay_and_diagnostics,A361,27 35,BEQ,$A398,Z=1,A398,A363
+IAC_slow_decay_and_diagnostics,A368,27 2E,BEQ,$A398,Z=1,A398,A36A
+IAC_slow_decay_and_diagnostics,A36A,12 39 04 2A,BRSET,"$39,#$04,$A398",(byte[operand] & $04) == mask (all selected bits),A398,A36E
+IAC_slow_decay_and_diagnostics,A36E,12 39 03 02,BRSET,"$39,#$03,$A374",(byte[operand] & $03) == mask (all selected bits),A374,A372
+IAC_slow_decay_and_diagnostics,A372,20 24,BRA,$A398,always,A398,A374
+IAC_slow_decay_and_diagnostics,A37A,25 05,BCS,$A381,C=1,A381,A37C
+IAC_slow_decay_and_diagnostics,A37F,24 0E,BCC,$A38F,C=0,A38F,A381
+IAC_slow_decay_and_diagnostics,A381,12 09 40 05,BRSET,"$09,#$40,$A38A",(byte[operand] & $40) == mask (all selected bits),A38A,A385
+IAC_slow_decay_and_diagnostics,A388,20 0B,BRA,$A395,always,A395,A38A
+IAC_slow_decay_and_diagnostics,A38D,20 06,BRA,$A395,always,A395,A38F
+IAC_slow_decay_and_diagnostics,A398,12 02 20 6A,BRSET,"$02,#$20,$A406",(byte[operand] & $20) == mask (all selected bits),A406,A39C
+IAC_slow_decay_and_diagnostics,A3A1,27 43,BEQ,$A3E6,Z=1,A3E6,A3A3
+IAC_slow_decay_and_diagnostics,A3A3,12 16 10 39,BRSET,"$16,#$10,$A3E0",(byte[operand] & $10) == mask (all selected bits),A3E0,A3A7
+IAC_slow_decay_and_diagnostics,A3A7,12 16 01 35,BRSET,"$16,#$01,$A3E0",(byte[operand] & $01) == mask (all selected bits),A3E0,A3AB
+IAC_slow_decay_and_diagnostics,A3AB,12 17 80 31,BRSET,"$17,#$80,$A3E0",(byte[operand] & $80) == mask (all selected bits),A3E0,A3AF
+IAC_slow_decay_and_diagnostics,A3AF,12 3E 04 2D,BRSET,"$3E,#$04,$A3E0",(byte[operand] & $04) == mask (all selected bits),A3E0,A3B3
+IAC_slow_decay_and_diagnostics,A3B3,13 36 08 29,BRCLR,"$36,#$08,$A3E0",(byte[operand] & $08) == 0 (all selected bits clear),A3E0,A3B7
+IAC_slow_decay_and_diagnostics,A3B7,12 09 40 25,BRSET,"$09,#$40,$A3E0",(byte[operand] & $40) == mask (all selected bits),A3E0,A3BB
+IAC_slow_decay_and_diagnostics,A3BE,26 20,BNE,$A3E0,Z=0,A3E0,A3C0
+IAC_slow_decay_and_diagnostics,A3C3,26 1B,BNE,$A3E0,Z=0,A3E0,A3C5
+IAC_slow_decay_and_diagnostics,A3CB,23 13,BLS,$A3E0,C=1 or Z=1,A3E0,A3CD
+IAC_slow_decay_and_diagnostics,A3D3,22 06,BHI,$A3DB,C=0 and Z=0,A3DB,A3D5
+IAC_slow_decay_and_diagnostics,A3D9,20 0B,BRA,$A3E6,always,A3E6,A3DB
+IAC_slow_decay_and_diagnostics,A3DE,20 06,BRA,$A3E6,always,A3E6,A3E0
+IAC_reset_request,A3E6,12 09 01 1C,BRSET,"$09,#$01,$A406",(byte[operand] & $01) == mask (all selected bits),A406,A3EA
+IAC_reset_request,A3EA,12 09 04 18,BRSET,"$09,#$04,$A406",(byte[operand] & $04) == mask (all selected bits),A406,A3EE
+IAC_reset_request,A3EE,12 44 10 08,BRSET,"$44,#$10,$A3FA",(byte[operand] & $10) == mask (all selected bits),A3FA,A3F2
+IAC_reset_request,A3F8,25 0C,BCS,$A406,C=1,A406,A3FA
+IAC_service_override,A407,12 44 10 5A,BRSET,"$44,#$10,$A465",(byte[operand] & $10) == mask (all selected bits),A465,A40B
+IAC_service_override,A40B,12 09 01 56,BRSET,"$09,#$01,$A465",(byte[operand] & $01) == mask (all selected bits),A465,A40F
+IAC_service_override,A414,27 04,BEQ,$A41A,Z=1,A41A,A416
+IAC_service_override,A425,27 3E,BEQ,$A465,Z=1,A465,A427
+IAC_service_override,A429,27 3A,BEQ,$A465,Z=1,A465,A42B
+IAC_service_override,A42D,27 1C,BEQ,$A44B,Z=1,A44B,A42F
+IAC_service_override,A434,26 0A,BNE,$A440,Z=0,A440,A436
+IAC_service_override,A449,20 1A,BRA,$A465,always,A465,A44B
+IAC_service_override,A451,27 09,BEQ,$A45C,Z=1,A45C,A453
+VSS_sample,7BFE,27 0F,BEQ,$7C0F,Z=1,7C0F,7C00
+VSS_sample,7C07,27 06,BEQ,$7C0F,Z=1,7C0F,7C09
+VSS_calculation_and_filter,D4A6,26 0E,BNE,$D4B6,Z=0,D4B6,D4A8
+VSS_calculation_and_filter,D4AC,27 03,BEQ,$D4B1,Z=1,D4B1,D4AE
+VSS_calculation_and_filter,D4AF,26 25,BNE,$D4D6,Z=0,D4D6,D4B1
+VSS_calculation_and_filter,D4B4,20 20,BRA,$D4D6,always,D4D6,D4B6
+VSS_calculation_and_filter,D4B9,27 10,BEQ,$D4CB,Z=1,D4CB,D4BB
+RPM_ratio,82F2,25 17,BCS,$830B,C=1,830B,82F4
+RPM_ratio,82FA,22 0F,BHI,$830B,C=0 and Z=0,830B,82FC
+RPM_ratio,8302,22 07,BHI,$830B,C=0 and Z=0,830B,8304
+RPM_ratio,8309,24 06,BCC,$8311,C=0,8311,830B
+RPM_ratio,830F,20 31,BRA,$8342,always,8342,8311
+RPM_ratio,831B,24 02,BCC,$831F,C=0,831F,831D
+RPM_ratio,8324,25 05,BCS,$832B,C=1,832B,8326
+RPM_ratio,8329,20 08,BRA,$8333,always,8333,832B
+RPM_ratio,832E,24 03,BCC,$8333,C=0,8333,8330
+RPM_ratio,833A,24 03,BCC,$833F,C=0,833F,833C
+REF_RPM_history,776F,27 55,BEQ,$77C6,Z=1,77C6,7771
+REF_RPM_history,7776,25 16,BCS,$778E,C=1,778E,7778
+REF_RPM_history,777E,22 0E,BHI,$778E,C=0 and Z=0,778E,7780
+REF_RPM_history,778C,20 02,BRA,$7790,always,7790,778E
+fuel_RPM_VSS_limits,8058,12 16 10 40,BRSET,"$16,#$10,$809C",(byte[operand] & $10) == mask (all selected bits),809C,805C
+fuel_RPM_VSS_limits,805F,1E 00 80 10,BRSET,"$00,X,#$80,$8073",(byte[operand] & $80) == mask (all selected bits),8073,8063
+fuel_RPM_VSS_limits,8066,12 41 20 06,BRSET,"$41,#$20,$8070",(byte[operand] & $20) == mask (all selected bits),8070,806A
+fuel_RPM_VSS_limits,806D,27 2D,BEQ,$809C,Z=1,809C,806F
+fuel_RPM_VSS_limits,8079,22 21,BHI,$809C,C=0 and Z=0,809C,807B
+fuel_RPM_VSS_limits,8081,23 19,BLS,$809C,C=1 or Z=1,809C,8083
+fuel_RPM_VSS_limits,8086,13 53 08 03,BRCLR,"$53,#$08,$808D",(byte[operand] & $08) == 0 (all selected bits clear),808D,808A
+fuel_RPM_VSS_limits,808F,25 05,BCS,$8096,C=1,8096,8091
+fuel_RPM_VSS_limits,8094,20 06,BRA,$809C,always,809C,8096
+fuel_RPM_VSS_limits,809F,1F 00 01 04,BRCLR,"$00,X,#$01,$80A7",(byte[operand] & $01) == 0 (all selected bits clear),80A7,80A3
+fuel_RPM_VSS_limits,80A3,13 6F 34 5F,BRCLR,"$6F,#$34,$8106",(byte[operand] & $34) == 0 (all selected bits clear),8106,80A7
+fuel_RPM_VSS_limits,80AE,13 46 10 03,BRCLR,"$46,#$10,$80B5",(byte[operand] & $10) == 0 (all selected bits clear),80B5,80B2
+fuel_RPM_VSS_limits,80B5,12 16 10 04,BRSET,"$16,#$10,$80BD",(byte[operand] & $10) == mask (all selected bits),80BD,80B9
+fuel_RPM_VSS_limits,80B9,13 99 03 02,BRCLR,"$99,#$03,$80BF",(byte[operand] & $03) == 0 (all selected bits clear),80BF,80BD
+fuel_RPM_VSS_limits,80C3,22 1D,BHI,$80E2,C=0 and Z=0,80E2,80C5
+fuel_RPM_VSS_limits,80CB,23 39,BLS,$8106,C=1 or Z=1,8106,80CD
+fuel_RPM_VSS_limits,80D2,23 32,BLS,$8106,C=1 or Z=1,8106,80D4
+fuel_RPM_VSS_limits,80DA,24 06,BCC,$80E2,C=0,80E2,80DC
+fuel_RPM_VSS_limits,80E0,20 27,BRA,$8109,always,8109,80E2
+VSS_fault_local,DDC1,26 2B,BNE,$DDEE,Z=0,DDEE,DDC3
+VSS_fault_local,DDC9,22 23,BHI,$DDEE,C=0 and Z=0,DDEE,DDCB
+VSS_fault_local,DDD1,22 31,BHI,$DE04,C=0 and Z=0,DE04,DDD3
+VSS_fault_local,DDD9,24 13,BCC,$DDEE,C=0,DDEE,DDDB
+VSS_fault_local,DDE0,23 0C,BLS,$DDEE,C=1 or Z=1,DDEE,DDE2
+VSS_fault_local,DDE7,23 05,BLS,$DDEE,C=1 or Z=1,DDEE,DDE9
+VSS_fault_local,DDEC,23 05,BLS,$DDF3,C=1 or Z=1,DDF3,DDEE
+VSS_fault_local,DDF1,20 14,BRA,$DE07,always,DE07,DDF3
+VSS_fault_local,DDF9,24 F3,BCC,$DDEE,C=0,DDEE,DDFB
+VSS_fault_local,DDFD,2A 08,BPL,$DE07,N=0,DE07,DDFF
+VSS_fault_local,DE02,20 03,BRA,$DE07,always,DE07,DE04
+output_speed_fault_local,DE0C,27 2C,BEQ,$DE3A,Z=1,DE3A,DE0E
+output_speed_fault_local,DE13,27 25,BEQ,$DE3A,Z=1,DE3A,DE15
+output_speed_fault_local,DE18,27 08,BEQ,$DE22,Z=1,DE22,DE1A
+output_speed_fault_local,DE20,20 18,BRA,$DE3A,always,DE3A,DE22
+output_speed_fault_local,DE28,23 05,BLS,$DE2F,C=1 or Z=1,DE2F,DE2A
+output_speed_fault_local,DE2D,20 0B,BRA,$DE3A,always,DE3A,DE2F
+output_speed_fault_local,DE35,23 03,BLS,$DE3A,C=1 or Z=1,DE3A,DE37
+governor_fault_local,DE40,1F 00 01 12,BRCLR,"$00,X,#$01,$DE56",(byte[operand] & $01) == 0 (all selected bits clear),DE56,DE44
+governor_fault_local,DE44,12 6F 10 08,BRSET,"$6F,#$10,$DE50",(byte[operand] & $10) == mask (all selected bits),DE50,DE48
+governor_fault_local,DE4E,25 06,BCS,$DE56,C=1,DE56,DE50
+board_output_service,F3F7,13 72 80 02,BRCLR,"$72,#$80,$F3FD",(byte[operand] & $80) == 0 (all selected bits clear),F3FD,F3FB
+retained_area_validation,7211,27 29,BEQ,$723C,Z=1,723C,7213
+retained_checksum,F330,26 FA,BNE,$F32C,Z=0,F32C,F332
+TCC_shared_governor_output,CDD1,1F 00 04 0D,BRCLR,"$00,X,#$04,$CDE2",(byte[operand] & $04) == 0 (all selected bits clear),CDE2,CDD5
+TCC_shared_governor_output,CDD8,12 53 04 03,BRSET,"$53,#$04,$CDDF",(byte[operand] & $04) == mask (all selected bits),CDDF,CDDC
+diagnostic_flag_mirrors,7AF4,13 16 01 03,BRCLR,"$16,#$01,$7AFB",(byte[operand] & $01) == 0 (all selected bits clear),7AFB,7AF8
+diagnostic_flag_mirrors,7AFB,13 17 80 03,BRCLR,"$17,#$80,$7B02",(byte[operand] & $80) == 0 (all selected bits clear),7B02,7AFF
+tick_step_order,797D,13 4F 04 08,BRCLR,"$4F,#$04,$7989",(byte[operand] & $04) == 0 (all selected bits clear),7989,7981
+tick_step_order,798C,13 3B 10 14,BRCLR,"$3B,#$10,$79A4",(byte[operand] & $10) == 0 (all selected bits clear),79A4,7990
+tick_step_order,7995,27 0D,BEQ,$79A4,Z=1,79A4,7997
+tick_step_order,799F,27 03,BEQ,$79A4,Z=1,79A4,79A1
+tick_step_order,79A9,26 1A,BNE,$79C5,Z=0,79C5,79AB
+tick_step_order,79B1,13 4F 80 0F,BRCLR,"$4F,#$80,$79C4",(byte[operand] & $80) == 0 (all selected bits clear),79C4,79B5
+tick_step_order,79B8,27 02,BEQ,$79BC,Z=1,79BC,79BA
+tick_step_order,79BF,25 03,BCS,$79C4,C=1,79C4,79C1
+tick_step_order,79CC,12 51 08 04,BRSET,"$51,#$08,$79D4",(byte[operand] & $08) == mask (all selected bits),79D4,79D0
+tick_step_order,79D2,27 02,BEQ,$79D6,Z=1,79D6,79D4
+tick_step_order,79D9,13 1A 20 15,BRCLR,"$1A,#$20,$79F2",(byte[operand] & $20) == 0 (all selected bits clear),79F2,79DD
+tick_step_order,79DD,13 02 01 63,BRCLR,"$02,#$01,$7A44",(byte[operand] & $01) == 0 (all selected bits clear),7A44,79E1
+tick_step_order,79F0,20 52,BRA,$7A44,always,7A44,79F2
+fuel_tail_admission,852C,12 02 02 08,BRSET,"$02,#$02,$8538",(byte[operand] & $02) == mask (all selected bits),8538,8530
+fuel_tail_admission,8536,20 0F,BRA,$8547,always,8547,8538
+fuel_tail_admission,853B,13 02 04 05,BRCLR,"$02,#$04,$8544",(byte[operand] & $04) == 0 (all selected bits clear),8544,853F
+fuel_tail_admission,8542,20 03,BRA,$8547,always,8547,8544
+governor_fast_call,7E3B,27 03,BEQ,$7E40,Z=1,7E40,7E3D
+gear_output_shadow_coowner,C528,1F 01 40 06,BRCLR,"$01,X,#$40,$C532",(byte[operand] & $40) == 0 (all selected bits clear),C532,C52C
+gear_output_shadow_coowner,C52C,1E 02 40 16,BRSET,"$02,X,#$40,$C546",(byte[operand] & $40) == mask (all selected bits),C546,C530
+gear_output_shadow_coowner,C530,20 19,BRA,$C54B,always,C54B,C532
+gear_output_shadow_coowner,C532,12 99 08 15,BRSET,"$99,#$08,$C54B",(byte[operand] & $08) == mask (all selected bits),C54B,C536
+gear_output_shadow_coowner,C536,12 1C 02 11,BRSET,"$1C,#$02,$C54B",(byte[operand] & $02) == mask (all selected bits),C54B,C53A
+gear_output_shadow_coowner,C53A,12 1D 80 0D,BRSET,"$1D,#$80,$C54B",(byte[operand] & $80) == mask (all selected bits),C54B,C53E
+gear_output_shadow_coowner,C53E,12 86 01 09,BRSET,"$86,#$01,$C54B",(byte[operand] & $01) == mask (all selected bits),C54B,C542
+gear_output_shadow_coowner,C542,12 8E 80 05,BRSET,"$8E,#$80,$C54B",(byte[operand] & $80) == mask (all selected bits),C54B,C546
+gear_output_shadow_coowner,C549,20 03,BRA,$C54E,always,C54E,C54B
+factory_IAC_latch_coowner,FB1A,27 08,BEQ,$FB24,Z=1,FB24,FB1C
+factory_IAC_latch_coowner,FB1E,27 04,BEQ,$FB24,Z=1,FB24,FB20
+factory_IAC_latch_coowner,FB22,20 02,BRA,$FB26,always,FB26,FB24
+factory_IAC_latch_coowner,FB37,20 11,BRA,$FB4A,always,FB4A,FB39
+shared_integer_helpers,F43E,25 03,BCS,$F443,C=1,F443,F440
+shared_integer_helpers,F441,20 04,BRA,$F447,always,F447,F443
+shared_integer_helpers,F45E,25 03,BCS,$F463,C=1,F463,F460
+shared_integer_helpers,F461,20 03,BRA,$F466,always,F466,F463
+shared_integer_helpers,F46B,27 03,BEQ,$F470,Z=1,F470,F46D
+shared_integer_helpers,F47F,25 03,BCS,$F484,C=1,F484,F481
+shared_integer_helpers,F482,20 04,BRA,$F488,always,F488,F484
+shared_integer_helpers,F49C,23 02,BLS,$F4A0,C=1 or Z=1,F4A0,F49E
+shared_integer_helpers,F4A8,24 01,BCC,$F4AB,C=0,F4AB,F4AA
+shared_integer_helpers,F4AD,23 02,BLS,$F4B1,C=1 or Z=1,F4B1,F4AF
+shared_integer_helpers,F4B4,20 02,BRA,$F4B8,always,F4B8,F4B6
+shared_integer_helpers,F4BB,20 08,BRA,$F4C5,always,F4C5,F4BD
+shared_integer_helpers,F4BE,24 01,BCC,$F4C1,C=0,F4C1,F4C0
+shared_integer_helpers,F4CD,24 06,BCC,$F4D5,C=0,F4D5,F4CF
+shared_integer_helpers,F4D3,20 06,BRA,$F4DB,always,F4DB,F4D5
+shared_integer_helpers,F4E4,24 01,BCC,$F4E7,C=0,F4E7,F4E6
+shared_integer_helpers,F4E9,24 01,BCC,$F4EC,C=0,F4EC,F4EB
+shared_integer_helpers,F50F,24 06,BCC,$F517,C=0,F517,F511
+shared_integer_helpers,F515,20 06,BRA,$F51D,always,F51D,F517
+shared_integer_helpers,F525,24 06,BCC,$F52D,C=0,F52D,F527
+shared_integer_helpers,F52B,20 06,BRA,$F533,always,F533,F52D
+shared_integer_helpers,F539,24 07,BCC,$F542,C=0,F542,F53B
+shared_integer_helpers,F540,20 07,BRA,$F549,always,F549,F542

@@ -13,6 +13,16 @@ on:
       - "tools/factory_integer_replay.py"
       - "tools/verify_factory_fuel.py"
       - "tools/verify_factory_upstream.py"
+      - "tools/verify_factory_idle_governor.py"
+      - "tools/build_iac_output_contract.py"
+      - "tools/build_iac_init_park_contract.py"
+      - "tools/build_iac_phase_sequence_contract.py"
+      - "tools/build_iac_enable_fault_gate_contract.py"
+      - "docs/contracts/IAC_*.md"
+      - "maps/contracts/iac_*.csv"
+      - "docs/analysis/FACTORY_IAC_*.md"
+      - "docs/analysis/FACTORY_RPM_VSS_GOVERNOR.md"
+      - "docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md"
       - "docs/analysis/FACTORY_*CALCULATIONS.md"
       - "docs/analysis/FACTORY_CLOSED_LOOP_AND_LEARNING.md"
       - "docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md"
@@ -54,6 +64,16 @@ on:
       - "tools/factory_integer_replay.py"
       - "tools/verify_factory_fuel.py"
       - "tools/verify_factory_upstream.py"
+      - "tools/verify_factory_idle_governor.py"
+      - "tools/build_iac_output_contract.py"
+      - "tools/build_iac_init_park_contract.py"
+      - "tools/build_iac_phase_sequence_contract.py"
+      - "tools/build_iac_enable_fault_gate_contract.py"
+      - "docs/contracts/IAC_*.md"
+      - "maps/contracts/iac_*.csv"
+      - "docs/analysis/FACTORY_IAC_*.md"
+      - "docs/analysis/FACTORY_RPM_VSS_GOVERNOR.md"
+      - "docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md"
       - "docs/analysis/FACTORY_*CALCULATIONS.md"
       - "docs/analysis/FACTORY_CLOSED_LOOP_AND_LEARNING.md"
       - "docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md"
@@ -108,6 +128,14 @@ jobs:
         run: python tools/verify_factory_fuel.py --check-recorded
       - name: Check upstream engine documentation against recorded ROM excerpts
         run: python tools/verify_factory_upstream.py --check-recorded
+      - name: Check IAC RPM VSS and governor documentation against ROM excerpts
+        run: python tools/verify_factory_idle_governor.py --check-recorded
+      - name: Regenerate earlier IAC contracts with current ROM authority links
+        run: |
+          python tools/build_iac_output_contract.py --out-md docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md --out-csv maps/contracts/iac_idle_air_output_contract.csv
+          python tools/build_iac_init_park_contract.py --out-md docs/contracts/IAC_INIT_PARK_CONTRACT.md --out-csv maps/contracts/iac_init_park_contract.csv
+          python tools/build_iac_phase_sequence_contract.py --out-md docs/contracts/IAC_PHASE_SEQUENCE_CONTRACT.md --out-csv maps/contracts/iac_phase_sequence_contract.csv
+          python tools/build_iac_enable_fault_gate_contract.py --out-md docs/contracts/IAC_ENABLE_FAULT_GATE_CONTRACT.md --out-csv maps/contracts/iac_enable_fault_gate_contract.csv
       - name: Regenerate ROM-backed spark conversion contract
         run: python tools/build_spark_conversion_equation.py --out-md docs/contracts/SPARK_CONVERSION_EQUATION.md --out-csv maps/contracts/spark_conversion_equation.csv --vectors tests/static/spark_conversion_vectors.csv
       - name: Regenerate consumers of reviewed data boundaries

@@ -1,5 +1,7 @@
 # IAC Idle Air Output Contract
 
+Current factory software authority: [FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md](../analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md), [IAC controller](../analysis/FACTORY_IAC_CONTROLLER.md), and [learning/output](../analysis/FACTORY_IAC_LEARNING_AND_OUTPUT.md). These ROM-byte contracts close the strategy, retained state, reset/service and software cadence gaps of this earlier source-only note. Physical pin mapping and motor response remain separate. In particular, reset seeds position255 and target0; software position is not sensor feedback.
+
 ## Purpose
 
 Map the IAC Enable/A/B output contract from source. This is a source-proof pass for desired/actual position, A/B ring stepping, driver enable gating, output latch path, and step cadence gates.
@@ -161,7 +163,7 @@ L0002 bits0/1 = major loop counter gate during reset-in-work path
 L0864 = closed-loop enable delay after IAC qualifications
 ```
 
-Cadence is not fully reduced to a timer equation in this pass. The step output routine is source-mapped; a follow-on `IAC_PHASE_SEQUENCE_CONTRACT` should classify step cadence and caller rate.
+Software cadence and latch order are now closed in the ROM learning/output contract linked above, including the old-phase reset gate and busy/catch-up differences. This earlier source-only pass retains its narrower scope.
 
 ## Contract Rows
 

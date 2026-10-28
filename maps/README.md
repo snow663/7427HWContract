@@ -50,6 +50,17 @@ global listing index is entirely byte-reviewed. External `$1800/$1812/$1815`
 calls retain explicit boundaries. Reproduce with
 `python tools/verify_factory_upstream.py --check-recorded` or a full `--rom`.
 
+`factory_idle_governor_*.csv`, `factory_rpm_vss_consumers.csv` and
+`bmhm_idle_governor_rom_evidence.json` complete the resident IAC/RPM/VSS/governor
+documentation. The 45 spans contain 2,876 instruction starts and 816 branch rows;
+25 local CFG roots, 100 selected states and the retained-cell layout make the
+state/output boundaries reviewable. The direct VSS-reader ledger contains 39
+ROM-checked sites, 30 linked to completed contracts and 9 explicitly left in
+separate transmission/emissions/AC/diagnostic scope. Seventeen covered listing
+differences remain local byte authority rather than a claim that the entire
+global source overlay is corrected. Use `FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`
+and `python tools/verify_factory_idle_governor.py --check-recorded` (or `--rom`).
+
 ## Current hardware-access outputs
 
 ```text

@@ -1,5 +1,7 @@
 # IAC Init / Park Contract
 
+Current factory software authority: [FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md](../analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md), [IAC controller](../analysis/FACTORY_IAC_CONTROLLER.md), and [learning/output](../analysis/FACTORY_IAC_LEARNING_AND_OUTPUT.md). These ROM-byte contracts close the strategy, retained state, reset/service and software cadence gaps of this earlier source-only note. Physical pin mapping and motor response remain separate. In particular, reset seeds position255 and target0; software position is not sensor feedback.
+
 ## Purpose
 
 Document how stock code establishes IAC actual position and startup/crank target state.
@@ -134,7 +136,7 @@ PARK-F: not resolved for physical direction
 |---|---|---|---|---|---|---|---|
 | startup_iac_setup_entry | `0x73DB;0x925E-0x9263` | `JSR/LDAA/ASLA/ASLA/STAA L925E / L4EF2 / L0885` | `L0885` | iac_startup_setup_threshold | none | none | high_static |
 | nonvolatile_memory_bombed_actual_seed | `0x9266-0x926F` | `BRCLR/LDAA/STAA/JSR L0046,#$40,L9272 / L4EB0 / L0007 / L92A4` | `L0007` | iac_actual_seed_after_nvm_fail | L0007 := L4EB0 (145) | none in this row | high_static |
-| nonvolatile_memory_bombed_idle_cell_seed | `0x926F;0x92A4-0x92F0` | `JSR/LDAA/CMPA/LDAB/STAB/... L92A4; L4EB1/L4EB2/L4EB3/L4EB4/L4EB5 -> L029D/L029F/L02A0/L02A2/L02A7/L02A9/L02AA/L02AC/L02B1` | `IAC learned/integral cells` | iac_default_idle_cell_seed | none direct | none direct | high_static |
+| nonvolatile_memory_bombed_idle_cell_seed | `0x926F;0x92A4-0x92F0` | `JSR/LDAA/CMPA/LDAB/STAB/... L92A4; L4EB1/L4EB2/L4EB3/L4EB4/L4EB5 -> L029D/L029F/L02A0/L02A2/L02A7/L02A9/L02AA/L02AC/L02B1` | `IAC learned/integral cells` | iac_default_idle_cell_seed | none direct | none direct to L0008 in this row | high_static |
 | bad_shutdown_branch_select | `0x9272-0x927B` | `BRSET/JSR/BRA/JSR L0004,#$08,L927B / L92F1 / L927E / L93C5` | `L0004 bit3` | iac_bad_shutdown_recovery_branch | none direct | none direct | high_static |
 | bad_shutdown_setup_clear | `0x93C5-0x93CD` | `BRSET/LDAA/ANDA/STAA L0009,#$01,L93CF / L000A / #$0C / L000A` | `L000A` | iac_setup_clear_preserve_phase | none | none | high_static |
 | reset_in_work_service_entry | `0x93E1-0x93ED` | `BRCLR/CLR/TST/BEQ/JMP L0009,#$01,L93F9 / L0008 / L0007 / L93F0 / L989B` | `L0009 bit0; L0008; L0007` | iac_reset_in_work_countdown_gate | tests L0007; if nonzero exits without clearing reset-in-work | L0008 := 0 while reset is in work | high_static |

@@ -98,14 +98,14 @@ The boot calls additionally populate some states before periodic execution. REF 
 
 ## Initialization and interfaces
 
-Boot clears `$0036-$00FF`, `$0100-$029C` and `$0800-$08FF` unconditionally through the reviewed indexed-clear helpers. `$029D-$034D` is conditionally cleared as retained/NV working storage. Thus BLM cells `$02B3-$02C7` and startup bytes `$02C8-$02CF` do not inherit the unconditional `$0100-$029C` clear. Their clamp, reset and nonrunning seeds are described explicitly in the producer contracts. Byte seeds at `$7396-$73FC` do not magically initialize both bytes of a word; prior clear/retained-memory rules still apply. Boot seeds AFR from `$48E7` and selected BLM to128, then clamps the cells.
+Boot clears `$0036-$00FF`, `$0100-$029C` and `$0800-$08FF` unconditionally through the reviewed indexed-clear helpers. `$0000-$0035` and `$029D-$034D` are conditionally cleared as retained/NV working storage. Thus IAC position/mode bytes and BLM cells `$02B3-$02C7`/startup bytes `$02C8-$02CF` do not inherit the unconditional clears. Their seeds/reset rules are described in the producer contracts. Byte seeds at `$7396-$73FC` do not magically initialize both bytes of a word; prior clear/retained-memory rules still apply. Boot seeds AFR from `$48E7` and selected BLM to128, then clamps the cells.
 
 | Interface | What is closed here | Separate owner or missing implementation |
 |---|---|---|
 | Raw ADC inputs, battery `$0055/$00A7`, MAT `$022F/$0230`, VSS `$0284`, runtime word `$00FD`, engine/gear/diagnostic flags | Exact read sites, coordinate conversions and consuming branch rules | ADC electrical scaling/acquisition timing, complete diagnostics, all upstream switch/gear state machines |
-| IAC target `$0857`, ratio `$006C`, IAC effort `$0858` | Idle spark/O2/startup consumers and arithmetic | Complete idle-speed controller and output-service closure |
+| IAC target `$0857`, ratio `$006C`, IAC effort `$0858` | Consumers plus the now-completed [IAC/RPM/VSS producer and output-service contracts](FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md) | Physical pins/motor response, complete external switch/gear and diagnostic owners |
 | Transmission retard `$015A` and `$00A4` | Spark subtraction and limit selection | Transmission calculation/state machines; source producer candidates `$C40A/$DA6F/$DAE2` are a separate investigation |
-| Governor inputs / optional `$90D3` call, fuel's governor/cut inputs | Resident engine equations accept the supplied state; optional call at `$7E3D` when `$400F bit0` set | Full RPM/VSS governor controller and its throttle-state path |
+| Governor inputs / optional `$90D3` call, fuel's governor/cut inputs | Now-completed [governor target/actuator, speed production and limit contract](FACTORY_RPM_VSS_GOVERNOR.md) | Physical actuator behavior, complete TCC/factory-test output owners, opaque1809 extension |
 | `$0086 bit6` extensions | AFR `$8C6A→$1800`, spark `$A9E4→$1812`, EGR `$D029→$1815`: guards, ordering and subsequent local overrides | Low-memory implementation absent from the mapped stock image; no effect is invented. Existing spark handoff's `$180F` is likewise separate |
 | Service command payloads | Actual local AFR/spark/EGR override bits and values | Full receive/command/authorship state machines |
 | Device-facing outputs | Documented software write order and values | ASIC interpretation, injector/ignition physical response and complete interrupt/timing behavior |
@@ -119,4 +119,4 @@ python tools/verify_factory_upstream.py --rom /path/to/BMHM.BIN
 python tools/verify_factory_upstream.py --check-recorded
 ```
 
-Full-image mode checks the image SHA before rebuilding the inventories. Recorded mode checks committed excerpts and generated-file consistency without claiming a fresh independent ROM read. The whole-factory queue continues with the controller/interface items above, IAC/output service, transmission, emissions beyond the reviewed EGR arithmetic, diagnostics, service paths and whole-program reachability. No whole-ROM completion percentage is derived from this bounded closure.
+Full-image mode checks the image SHA before rebuilding the inventories. Recorded mode checks committed excerpts and generated-file consistency without claiming a fresh independent ROM read. IAC/output service and RPM/VSS/governor software are now completed in the linked companion closure. The whole-factory queue continues with transmission, emissions beyond reviewed EGR arithmetic, central diagnostics/service, peripheral speed consumers, opaque extensions and whole-program reachability/ownership. Physical interfaces retain their separate evidence level. No whole-ROM completion percentage is derived from these bounded closures.

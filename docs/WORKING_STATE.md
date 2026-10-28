@@ -44,7 +44,7 @@ current running 2.bin  -> which calibration values the truck is using now
 
 The active workstream is **truck-first stock-$31 runtime/calibration decoding and tuning**.
 
-The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within the explicit resident-calculation scope in `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; simulator development and tuning changes are not required for that closure.
+The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; resident IAC/RPM/VSS/governor documentation is now also completed in `docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`. Simulator development and tuning changes are not required for those software-documentation closures.
 
 Goals:
 
@@ -158,17 +158,45 @@ writer as lookup-pointer data, and the `$A4F8` **word** clear of `$0260`.
 The slot-F bit4 early return and the slower CTS/environment admission are
 explicit, so nominal task rates are not mistaken for identical state ages.
 
-Remaining separate factory work includes the raw acquisition/diagnostic and
-switch/gear owners, complete IAC and governor controllers, transmission,
-service/serial state machines, emissions beyond the reviewed EGR arithmetic,
+The resident IAC and governor controller work is now completed in
+`docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`, with detailed contracts:
+
+```text
+docs/analysis/FACTORY_IAC_CONTROLLER.md
+docs/analysis/FACTORY_IAC_LEARNING_AND_OUTPUT.md
+docs/analysis/FACTORY_RPM_VSS_GOVERNOR.md
+```
+
+This closes desired RPM, integral/P/D/cold-flow control, follower/cracker/kicker,
+retained-cell setup and transfers, reset/service exits, phase/enable/output
+cadence, both REF RPM-history writers, raw/filtered VSS and timeout, RPM/VSS
+fuel limits, governor target/anticipation/actuator I/P, and local diagnostic
+and shared-output interactions. Software position0007 is explicitly a count,
+not measured pintle position. Reset seeds position255 and target0; low voltage
+can hold movement while retaining enable; busy reentry can advance the shadow
+without immediately latching it. The earlier source-only IAC notes link to the
+new authority and the incorrect reset-zero summary is corrected at its builder.
+
+`bmhm_idle_governor_rom_evidence.json` and `factory_idle_governor_*.csv` cover
+45 reviewed spans, 2,876 instruction starts, 816 branch rows, 25 local CFG roots
+and 100 selected states. `factory_rpm_vss_consumers.csv` checks 39 direct VSS
+readers: 30 link to completed calculation paths; 9 retain separate peripheral
+or diagnostic scope. Seventeen covered listing differences are recorded locally,
+including missing park snapshot code and shortened branch operands. The global
+partial overlay and whole-ROM counts are not silently reclassified by this pass.
+
+Remaining separate factory work includes raw electrical acquisition/diagnostic
+and switch/gear owners, transmission, service/serial state machines, emissions
+beyond reviewed EGR arithmetic, the nine peripheral/diagnostic VSS readers,
 post-handoff monitoring, opaque low-memory extensions, full reachability and
-physical device/interrupt behavior. Their consumer interfaces are documented;
-those controller implementations are not crossed off by this calculation pass.
+physical device/interrupt behavior. Those boundaries do not reopen the completed
+resident IAC/RPM/VSS/governor software derivations.
 
 Primary current contracts include:
 
 ```text
 docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md
+docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md
 docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md
 docs/contracts/SPARK_UPSTREAM_MODIFIER_CONTRACT.md
 docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md

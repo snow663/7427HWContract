@@ -1,0 +1,15 @@
+address,width_bits,role,indexed_store_pcs,scope
+029D,16,park/no-AC integral,9C04,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+029F,8,park/no-AC snapshot,,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02A0,16,park/AC integral,9C00,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02A2,8,park/AC snapshot,,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02A3,16,park cold flow,9C09,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02A5,16,park cold-flow bound,,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02A7,16,drive/no-AC integral,9C04,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02A9,8,drive/no-AC snapshot,,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02AA,16,drive/AC integral,9C00,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02AC,8,drive/AC snapshot,,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02AD,16,drive cold flow,9C09,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02AF,16,drive cold-flow bound,,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02B1,8,kicker-on TPS baseline,,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map
+02B2,8,kicker-off TPS baseline,,9C00/9C04 conditional X alias; 9C09 X+6; direct seed/background writers in state map

@@ -81,7 +81,9 @@ The normal spark rolling-state bridge is closed as an integer transformation in 
 
 [FACTORY_ENGINE_CALCULATION_CLOSURE.md](FACTORY_ENGINE_CALCULATION_CLOSURE.md) now closes their named resident upstream dependencies: load/RPM coordinates, density/charge temperature, VE, AFR/PE/startup, AE, crank/event delivery, EGR inputs, O2/BLM and all resident spark modifiers/knock producers through `$AB3E`. The detailed fuel, spark and adaptive-controller documents preserve table headers, integer operations, retained state and execution context. The evidence adds 50 reviewed blocks and 3,403 instruction starts; those counts are not a whole-ROM denominator. It also classifies the source `$B968` apparent RPM store as lookup-pointer data in this local state audit, without silently changing the global source index or claiming complete overlap/reachability review.
 
-The upstream-calculation worklist can be crossed off within that scope. Complete raw acquisition/diagnostic owners, IAC and governor controllers, transmission, service paths, broader emissions, low-memory extensions, post-handoff monitoring, physical units/device behavior and interrupt interleavings remain distinct work. Their arithmetic consumer interfaces are explicit in the closure index.
+The upstream-calculation worklist can be crossed off within that scope. [FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md](FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md) now also closes the resident IAC/RPM/VSS/governor work: target/airflow calculations, retained learning/reset/service, phase/latch cadence, speed production/timeout, RPM history/ratio, governor and separate fuel-limit interaction. It adds 45 reviewed spans, 2,876 instruction starts, 816 branch rows and 100 selected states. Its local listing-difference inventory records17 covered discrepancies, including missing park-snapshot code and shortened targets, without claiming the global partial overlay or all reachability is complete.
+
+Complete raw acquisition/diagnostic owners, transmission, service paths, broader emissions and peripheral VSS consumers, low-memory extensions, post-handoff monitoring, physical units/device behavior and interrupt interleavings remain distinct work. The IAC/governor software derivations and identified shared output writers are completed; their electrical/mechanical interfaces retain their separate evidence level.
 
 ## ROM-backed scheduler extension
 
@@ -128,6 +130,7 @@ python tools/build_subsystem_isolation_index.py
 python -m unittest discover -s tests -p test_factory_structure.py -v
 python tools/build_factory_structure.py --check
 python tools/verify_factory_upstream.py --check-recorded
+python tools/verify_factory_idle_governor.py --check-recorded
 ```
 
 The tests cover data/code confusion, retention of real dispatchers and injector writes, evidence-hash mismatch, word-byte overlap, bit-branch classification, malformed source labels, and unresolved indexed accesses. They validate the structural extraction, not factory physical behavior.

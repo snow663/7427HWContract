@@ -1,0 +1,18 @@
+pc,bytes_hex,ROM,listing,classification
+9CA6,CE 50 3C,LDX #$503C,,local byte authority; original HAC and global partial overlay retained
+A0FA,15 18 08,"BCLR $18,#$08",,local byte authority; original HAC and global partial overlay retained
+A0FD,12 36 02 14,"BRSET $36,#$02,$A115",,local byte authority; original HAC and global partial overlay retained
+A101,12 36 01 08,"BRSET $36,#$01,$A10D",,local byte authority; original HAC and global partial overlay retained
+A105,B6 02 9D,LDAA $029D,,local byte authority; original HAC and global partial overlay retained
+A108,B7 02 9F,STAA $029F,,local byte authority; original HAC and global partial overlay retained
+A10B,20 20,BRA $A12D,,local byte authority; original HAC and global partial overlay retained
+A10D,B6 02 A0,LDAA $02A0,,local byte authority; original HAC and global partial overlay retained
+A110,B7 02 A2,STAA $02A2,,local byte authority; original HAC and global partial overlay retained
+A113,20 18,BRA $A12D,,local byte authority; original HAC and global partial overlay retained
+A361,27 35,BEQ $A398,,local byte authority; original HAC and global partial overlay retained
+A363,B6 5B 02,LDAA $5B02,BEQ LA398,local byte authority; original HAC and global partial overlay retained
+A381,12 09 40 05,"BRSET $09,#$40,$A38A","BRSET L0009,#$40,LA38",local byte authority; original HAC and global partial overlay retained
+A3EA,12 09 04 18,"BRSET $09,#$04,$A406","BRSET L0009,#$04,LA40",local byte authority; original HAC and global partial overlay retained
+A40B,12 09 01 56,"BRSET $09,#$01,$A465","BRSET L0009,#$01,LA4656",local byte authority; original HAC and global partial overlay retained
+F459,37,PSHB ,,local byte authority; original HAC and global partial overlay retained
+F479,A3 00,"SUBD $00,X",,local byte authority; original HAC and global partial overlay retained
