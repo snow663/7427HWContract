@@ -19,6 +19,10 @@ Primary source:
 source/31/BMHM_HAC_ORG_7100_to_end.asm
 ```
 
+Actual-ROM framing, command/page selection, alias handling and factory modes
+are now specified in the [factory serial protocol](../analysis/FACTORY_SERIAL_ALDL_PROTOCOL.md).
+That byte-backed contract takes precedence over inherited listing operands.
+
 ## 1. Transmitter reads live RAM while sending
 
 The SCI transmit ISR enters `LF822` and advances through the selected ALDL message definition.
@@ -52,7 +56,10 @@ F8D7: LDAA  L0366       ; transmit companion byte on next byte slot
 F8DC: LDAA  0,X         ; direct live byte read for other address ranges
 ```
 
-There is no preceding operation that copies all 64 data fields into a coherent snapshot buffer before transmission.
+There is no preceding operation that copies the engine page's 63 data fields
+into a coherent snapshot buffer before transmission. Its 64-byte payload also
+includes the echoed command byte. Word aliases use one LDD plus a saved low
+byte on the following slot; this does not make unrelated fields simultaneous.
 
 Therefore:
 
@@ -68,7 +75,9 @@ ALDL row = sequence of live RAM observations spread across serial transmission t
 
 ## 2. Relevant engine-message field order
 
-The mode-1/0 engine message definition begins at `$51EF` and specifies 64 output data bytes.
+The first command-1 engine page begins at `$51EF` and specifies a 64-byte
+payload: the command echo plus 63 data bytes. Field numbers below count the
+data bytes after the echo. The complete wire frame occupies 67 bytes.
 
 Relevant entries are:
 

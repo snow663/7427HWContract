@@ -1,0 +1,7 @@
+phase_index,row,port3060_or,port3062_or,low3FFD_or,role
+0,FBF2,10,20,00,cycled row
+1,FBF5,10,21,08,cycled row
+2,FBF8,10,22,08,cycled row
+3,FBFB,00,20,08,cycled row
+4,FBFE,90,20,08,cycled row
+5,FC01,10,00,08,disabled/default row

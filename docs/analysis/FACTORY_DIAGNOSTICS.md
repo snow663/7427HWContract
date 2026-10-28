@@ -373,12 +373,13 @@ Engine-output selector 038E=04 with 0042.0 sets 003B.4.0391.4 rising resets
 BLM via F280; general 003B.1 or engine 0391.6 rising invokes F333;003B.0
 rising invokes F380.0045 bits 10/80/40 suppress repeated clears. When the
 engine service loses receive ownership or 036A expires, clear 003B.4,038E
-and 0044.2. These are local payload consumers; full SCI framing/command
-authorization and the factory callback remain separate service documentation.
+and 0044.2. The full [serial protocol](FACTORY_SERIAL_ALDL_PROTOCOL.md) and
+[service/factory lifecycle](FACTORY_SERVICE_AND_TEST.md) now document how those
+payloads and callback words arrive and expire.
 
 F781 supplies timeout: when 0042&03 nonzero, count 0367 without storing 0;
 at>=200 or wrapped 0 clear selectors 038E/0399,0042&03,0045&D0,003B&43,
-3FFC.2,SCI302D=26 and words 0360/0362. Separately, active 003B&18 counts
+low byte3FFD.2,SCI302D=26 and words 0360/0362. Separately, active 003B&18 counts
 word 0368 toward 51BB then sets word 036A=1. In inactive mode,036A counts
 toward 51BD then clears 036A and 0368. The literal masks and later F64E cleanup
 explain why payload bytes can remain populated after active controls expire.
@@ -389,7 +390,9 @@ The resident monitors, log/age/checksum, reaction masks, flash lamp, masked
 clears and local service overrides above are documented. Raw acquisition
 sampling is covered where it owns these decisions; the engine and IAC
 contracts retain their linked local monitors. No code is assigned to the RTS
-stubs or reserved flash positions. Full SCI/factory command framing, disconnected
-code/reachability, opaque low-memory extensions, hardware electrical behavior
-and interrupt interleavings remain separate work; they are not represented as
-completed by the diagnostic-bit inventory.
+stubs or reserved flash positions. Full SCI/factory command framing is now
+documented in the [serial/service closure](FACTORY_SERIAL_SERVICE_CLOSURE.md).
+The [global structure audit](FACTORY_GLOBAL_STRUCTURE_AUDIT.md) inventories
+rooted control flow and direct owners while retaining global indexed aliases,
+opaque extensions, electrical behavior and interrupt interleavings as separate
+proof obligations.

@@ -82,12 +82,13 @@ python -m unittest discover -s tests -p 'test_factory*.py'
 
 ## What remains separate
 
-The next factory scopes are the full SCI/ALDL framing and command/factory-test
-machines; disconnected/alternate entry and whole-program reachability review;
-the remaining runtime/indexed pointers and global state ownership/overlay
-integration; opaque low-memory extensions; and hardware/electrical/interrupt
-behavior requiring evidence beyond this image. Local service consumers and
-their expiry are covered here, but they do not complete the full serial path.
+The full SCI/ALDL framing and command/factory-test machines are now documented
+in the [serial/service closure](FACTORY_SERIAL_SERVICE_CLOSURE.md). The
+[global structure audit](FACTORY_GLOBAL_STRUCTURE_AUDIT.md) additionally reviews
+rooted reachability, alternate entry candidates and direct state owners.
+Remaining scope is global contextual/indexed aliases and flag lifetimes,
+intended external-entry callers, opaque low-memory extensions, and physical
+hardware/electrical/interrupt behavior requiring additional evidence.
 
 These are explicit remaining items, not reasons to reopen the documented
 resident diagnostics/transmission/emissions control calculations. No claim

@@ -44,7 +44,7 @@ current running 2.bin  -> which calibration values the truck is using now
 
 The active workstream is **truck-first stock-$31 runtime/calibration decoding and tuning**.
 
-The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; resident IAC/RPM/VSS/governor documentation is now also completed in `docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`. Diagnostics, transmission and emissions are now also documented in `docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md`. Simulator development and tuning changes are not required for these software-documentation closures.
+The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; resident IAC/RPM/VSS/governor documentation is now also completed in `docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`. Diagnostics, transmission and emissions are documented in `docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md`. Full SCI/ALDL, normal service and manufacturing test are now documented in `docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md`. `docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md` supplies the vector-rooted ROM map and direct owner inventory, with contextual aliases, flag lifetimes and external/physical interfaces explicitly open. Simulator development and tuning changes are not required for these software-documentation closures.
 
 Goals:
 
@@ -78,7 +78,7 @@ maps/structure/factory_re_worklist.csv
 
 The first additional state trace is `docs/contracts/SPARK_L01EC_INTEGER_STATE.md`. Structural enumeration is separate from semantic understanding, binary verification, or runtime proof; these outputs establish no whole-ROM completion percentage.
 
-The `$C2D6-$C409` descriptor bytes and principal caller/reader instructions are now verified against actual `BMHM.BIN` bytes with the stock SHA-256 above. The byte evidence, 144 pointer words, and precise limits of this classification are recorded in `docs/analysis/FACTORY_ROM_STRUCTURE_PROOF.md`. Full-ROM reachability and the rest of the listing remain separate work.
+The `$C2D6-$C409` descriptor bytes and principal caller/reader instructions are verified against actual `BMHM.BIN` bytes with the stock SHA-256 above. The byte evidence and144 pointer words are recorded in `docs/analysis/FACTORY_ROM_STRUCTURE_PROOF.md`. The newer global structure audit also confirms that no vector-rooted control path enters that block; arbitrary callbacks/extensions remain separate.
 
 The main TOC3 scheduler now has a ROM-backed slot/call/guard/state map in
 `docs/analysis/FACTORY_SCHEDULER_MAP.md` and `maps/structure/factory_scheduler_*.csv`.
@@ -217,12 +217,31 @@ speed remains held; a selected null descriptor stopping priority search; TCC
 signed overflow replacing the full word; and log candidates being intersected
 before retention rather than directly copied from every live fault.
 
-Remaining separate factory work is full SCI/ALDL framing and service/factory-test
-state machines; disconnected/alternate entries and whole-program reachability;
-remaining runtime/indexed pointers and global state ownership/overlay integration;
-opaque low-memory extensions; and electrical/mechanical/interrupt behavior. The
-resident engine, IAC/speed, diagnostics/transmission/emissions derivations retain
-their explicitly completed software scope.
+The full serial and manufacturing-test work is now documented in
+`docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md`, with companion protocol and
+service/test contracts. This closes SCI interrupt arbitration, framing/checksum,
+device/command/page descriptors, live/requested-memory reads, payload retention,
+clear edges, session/duration expiry, factory admission,32-byte upload,
+payload-supplied callback and output cycling. Engine reply N=64 includes the
+command echo plus63 data bytes. Short payloads can retain old fields; no local
+callback-target whitelist or upload destination restriction is invented.
+
+`docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md` follows all21 named vector
+words, direct control paths and16 scheduler words. It inventories14,523 rooted
+instruction starts,34,527 code bytes,951 indexed sites and1,637 directly
+referenced memory bytes. No conflicting rooted decodes or code/table collisions
+occur. Nine control frontiers remain: eight1800-family extensions and the
+arbitrary received callback. The7100..FFFF byte inventory also records2,007
+data/tail bytes and74 alternate-candidate bytes, including three JMP shapes
+atFF90/FF93/FF96 and the unusedF564 multiply helper. The tail's intended external
+ABI is unproven. WAI/STOP continuations are conditional wake/return edges.
+
+The new `factory_global_*` inventories take precedence for rooted instructions
+and direct owners; older source/partial-overlay indexes keep their explicitly
+historical scope. Remaining factory work is global contextual/indexed aliases
+and flag lifetimes, intended external-entry callers, opaque low-memory contents,
+and electrical/mechanical/interrupt behavior. These counts are structural
+evidence, not a whole-program semantic percentage.
 
 Primary current contracts include:
 
@@ -230,6 +249,8 @@ Primary current contracts include:
 docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md
 docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md
 docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md
+docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md
+docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md
 docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md
 docs/contracts/SPARK_UPSTREAM_MODIFIER_CONTRACT.md
 docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md

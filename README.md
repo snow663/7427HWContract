@@ -87,6 +87,14 @@ ALDL row != one atomic PCM snapshot
 
 The `$31` transmitter live-dereferences fields while serializing them, so fast-event causality must account for field-order timing skew.
 
+Factory-code documentation now includes [engine calculations](docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md),
+[IAC/speed/governor](docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md),
+[diagnostics/transmission/emissions](docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md),
+and [serial/service/factory test](docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md).
+The [global ROM structure audit](docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md)
+records vector-rooted execution structure and direct state owners, with the
+remaining contextual aliases and external/physical interfaces identified.
+
 ## Current VSS conclusion
 
 The running `2.bin` contains real fuel/mixture/idle/spark consumers of raw or filtered VSS.

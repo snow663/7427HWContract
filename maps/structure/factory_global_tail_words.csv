@@ -1,0 +1,17 @@
+address,value,status
+FFA0,F2AA,literal tail word; intended external consumer not established
+FFA2,F25F,literal tail word; intended external consumer not established
+FFA4,F275,literal tail word; intended external consumer not established
+FFA6,F3E4,literal tail word; intended external consumer not established
+FFA8,0035,literal tail word; intended external consumer not established
+FFAA,036C,literal tail word; intended external consumer not established
+FFAC,0000,literal tail word; intended external consumer not established
+FFAE,0000,literal tail word; intended external consumer not established
+FFB0,53E1,literal tail word; intended external consumer not established
+FFB2,0000,literal tail word; intended external consumer not established
+FFB4,0000,literal tail word; intended external consumer not established
+FFB6,0000,literal tail word; intended external consumer not established
+FFB8,0000,literal tail word; intended external consumer not established
+FFBA,0000,literal tail word; intended external consumer not established
+FFBC,0000,literal tail word; intended external consumer not established
+FFBE,0000,literal tail word; intended external consumer not established

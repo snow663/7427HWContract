@@ -1,0 +1,7 @@
+pc,bytes_hex,ROM,listing,scope
+74A4,C6 10,LDAB #$10,LDAB #010,ROM authority for local span; raw HAC retained
+F3E4,B6 30 66,LDAA $3066,,ROM authority for local span; raw HAC retained
+F3E7,88 80,EORA #$80,,ROM authority for local span; raw HAC retained
+F3E9,B7 30 66,STAA $3066,,ROM authority for local span; raw HAC retained
+F3EC,39,RTS,,ROM authority for local span; raw HAC retained
+FA72,81 28,CMPA #$28,CMPA #$40,ROM authority for local span; raw HAC retained

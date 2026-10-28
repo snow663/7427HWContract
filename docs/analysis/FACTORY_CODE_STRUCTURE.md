@@ -46,7 +46,22 @@ Historical results of the first descriptor-only correction (before the subsequen
 
 The original HAC listing is preserved unchanged. The overlay is pinned to its SHA-256, normalizing line endings for Windows checkouts, and rejects reuse against a different listing until the evidence is reviewed.
 
-## Current effective indexes
+## Current ROM-wide inventory
+
+The [serial/service closure](FACTORY_SERIAL_SERVICE_CLOSURE.md) now documents
+full SCI/ALDL framing, ordinary override/clear/expiry and factory-test
+upload/callback/output cycling. The [global structure audit](FACTORY_GLOBAL_STRUCTURE_AUDIT.md)
+adds a byte-backed graph from all21 named vectors, direct control flow and the
+16 scheduler words:14,523 instruction starts, no conflicting rooted decodes,
+and nine external/runtime frontiers. It also inventories direct owners,
+indexed sites, alternate entries and every byte of7100..FFFF.
+
+Use `factory_global_instructions.csv`, `factory_global_control_edges.csv` and
+`factory_global_state_ownership.csv` for that rooted ROM authority. The indexes
+below retain their earlier source-plus-partial-overlay scope and counts; their
+unreviewed source interpretations do not supersede the newer decoded ROM map.
+
+## Earlier effective indexes
 
 | File under `maps/structure/` | Purpose and limit |
 |---|---|
@@ -93,10 +108,11 @@ priority, persistence and retention rules. Twelve local listing differences
 remain distinct from the existing global partial overlay; none of these counts
 is a whole-ROM semantic denominator.
 
-Full SCI/ALDL framing and service/factory-test machines, opaque extensions,
-disconnected/alternate entries, remaining runtime/indexed aliases, global
-reachability/state ownership and physical hardware/interrupt behavior remain
-separate work. The completed resident contracts do not claim those interfaces.
+Full SCI/ALDL framing and service/factory-test machines are now documented in
+the serial/service closure above. The global audit reviews disconnected/alternate
+entry bytes and closes rooted structural enumeration, while global contextual
+aliases, bit lifetimes, intended external-entry callers, opaque extensions and
+physical hardware/interrupt behavior remain separate work.
 
 ## ROM-backed scheduler extension
 

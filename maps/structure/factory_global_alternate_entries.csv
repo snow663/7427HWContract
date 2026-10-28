@@ -1,0 +1,45 @@
+pc,bytes_hex,mnemonic,operand,role,status
+7AA5,39,RTS,,unreferenced RTS before first scheduler slot,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+A5D8,20 FD,BRA,$A5D7,post-SWI branch back to A5D7,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F564,36,PSHA,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F565,3C,PSHX,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F566,3C,PSHX,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F567,37,PSHB,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F568,36,PSHA,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F569,30,TSX,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F56A,A6 03,LDAA,"$03,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F56C,3D,MUL,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F56D,89 00,ADCA,#$00,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F56F,A7 05,STAA,"$05,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F571,EC 01,LDD,"$01,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F573,3D,MUL,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F574,EB 05,ADDB,"$05,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F576,89 00,ADCA,#$00,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F578,ED 04,STD,"$04,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F57A,A6 00,LDAA,"$00,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F57C,E6 03,LDAB,"$03,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F57E,6F 06,CLR,"$06,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F580,3D,MUL,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F581,E3 04,ADDD,"$04,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F583,69 06,ROL,"$06,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F585,ED 04,STD,"$04,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F587,A6 00,LDAA,"$00,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F589,E6 02,LDAB,"$02,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F58B,3D,MUL,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F58C,EB 04,ADDB,"$04,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F58E,A9 06,ADCA,"$06,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F590,E7 04,STAB,"$04,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F592,ED 02,STD,"$02,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F594,4D,TSTA,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F595,27 05,BEQ,$F59C,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F597,CC FF FF,LDD,#$FFFF,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F59A,ED 04,STD,"$04,X",uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F59C,38,PULX,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F59D,38,PULX,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F59E,32,PULA,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F59F,33,PULB,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F5A0,31,INS,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+F5A1,39,RTS,,uncalled rounded saturating16x16 helper,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+FF90,7E 98 99,JMP,$9899,three JMP-form external-entry candidates,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+FF93,7E A3 FA,JMP,$A3FA,three JMP-form external-entry candidates,ROM-decoded alternate candidate; no rooted incoming edge in this graph
+FF96,7E F3 26,JMP,$F326,three JMP-form external-entry candidates,ROM-decoded alternate candidate; no rooted incoming edge in this graph

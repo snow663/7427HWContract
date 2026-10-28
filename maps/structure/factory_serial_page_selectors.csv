@@ -1,0 +1,7 @@
+area,selector,pointer_address,descriptor,rule
+engine,0,51E9,51EF,selector>=3 coerced to0
+engine,1,51EB,5276,selector>=3 coerced to0
+engine,2,51ED,52FD,selector>=3 coerced to0
+transmission,0,53D2,53D8,selector>=3 coerced to0
+transmission,1,53D4,5463,selector>=3 coerced to0
+transmission,2,53D6,54DC,selector>=3 coerced to0
