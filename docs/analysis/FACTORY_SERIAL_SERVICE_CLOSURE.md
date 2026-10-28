@@ -63,8 +63,10 @@ This pass finishes documentation and evidence; it adds no simulator feature.
 ## Remaining scope
 
 Resident serial and manufacturing-test **software** are closed to the same
-bounded standard as the preceding engine, IAC/speed and DTE contracts. Global
-indexed aliases/flag lifetimes, alternate-entry review and the external/physical
-interfaces remain explicitly graded in the structure audit. Arbitrary received
-code and low-memory extension contents are not present in the stock ROM and
-cannot be assigned effects from file padding or a guessed whitelist.
+bounded standard as the preceding engine, IAC/speed and DTE contracts. The
+[ownership closure](FACTORY_OWNERSHIP_CLOSURE.md) now supplies all951 indexed
+address contracts, writing-helper bindings, gate lifetimes and the graded
+external/physical interfaces. Alternate-entry intent remains unproven.
+Arbitrary received code and low-memory extension contents are not present in
+the stock ROM and cannot be assigned effects from file padding or a guessed
+whitelist.

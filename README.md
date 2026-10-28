@@ -92,8 +92,10 @@ Factory-code documentation now includes [engine calculations](docs/analysis/FACT
 [diagnostics/transmission/emissions](docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md),
 and [serial/service/factory test](docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md).
 The [global ROM structure audit](docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md)
-records vector-rooted execution structure and direct state owners, with the
-remaining contextual aliases and external/physical interfaces identified.
+records vector-rooted execution structure and direct state owners. The
+[ownership closure](docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md) adds all951
+indexed-address contracts, writing-helper caller bindings, flag co-writers and
+gate lifetimes, with supplied-code and physical interfaces explicitly graded.
 
 ## Current VSS conclusion
 

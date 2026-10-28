@@ -44,7 +44,7 @@ current running 2.bin  -> which calibration values the truck is using now
 
 The active workstream is **truck-first stock-$31 runtime/calibration decoding and tuning**.
 
-The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; resident IAC/RPM/VSS/governor documentation is now also completed in `docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`. Diagnostics, transmission and emissions are documented in `docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md`. Full SCI/ALDL, normal service and manufacturing test are now documented in `docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md`. `docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md` supplies the vector-rooted ROM map and direct owner inventory, with contextual aliases, flag lifetimes and external/physical interfaces explicitly open. Simulator development and tuning changes are not required for these software-documentation closures.
+The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; resident IAC/RPM/VSS/governor documentation is now also completed in `docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`. Diagnostics, transmission and emissions are documented in `docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md`. Full SCI/ALDL, normal service and manufacturing test are documented in `docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md`. `docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md` supplies the vector-rooted ROM map. `docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md` now connects all951 rooted indexed-address contracts, writing-helper caller bindings, global byte/bit co-writers and scheduler/service flag lifetimes. Actual external-code implementations/callers, full flag/concurrency proofs and physical observations retain explicit evidence boundaries. Simulator development and tuning changes are not required for these documentation closures.
 
 Goals:
 
@@ -98,7 +98,10 @@ procedure entries. `docs/analysis/FACTORY_NESTED_STATE_FLOW.md` and
 call-specific memory effects, and opaque boundaries. Of the earlier 262 indexed
 rows, 162 now have one address and 54 a bounded address set; six are frame-relative,
 four retain caller parameters, eight are pruned by stock constants, and 28 stay
-unresolved. These are scoped address proofs, not whole-ROM semantic completion.
+unresolved in that historical finite-analysis baseline. The new global alias
+contracts supply their qualified formulas without changing the old denominator
+or equating a runtime expression with one physical address. These are scoped
+address proofs, not whole-ROM semantic completion.
 Indexed clear footprints and 45 ROM-mask/RAM pairings establish additional state
 producers, including the `$F333` mask write to `$001A`. The raw branch at `$A40B`
 is verified to target `$A465`; the effective indexes now use that target while preserving the original HAC.
@@ -238,10 +241,18 @@ ABI is unproven. WAI/STOP continuations are conditional wake/return edges.
 
 The new `factory_global_*` inventories take precedence for rooted instructions
 and direct owners; older source/partial-overlay indexes keep their explicitly
-historical scope. Remaining factory work is global contextual/indexed aliases
-and flag lifetimes, intended external-entry callers, opaque low-memory contents,
-and electrical/mechanical/interrupt behavior. These counts are structural
-evidence, not a whole-program semantic percentage.
+historical scope. `FACTORY_OWNERSHIP_CLOSURE.md` now adds qualified address
+contracts for all951 indexed PCs,253 procedure contexts,657 call bindings,
+1,415 runtime byte-owner rows,3,846 bit-writer rows and12 named gate lifetimes.
+All rooted callers of the remaining writing helpers are bound; FABC is the
+sole non-frame explicit indexed write with an unrestricted received destination.
+0392's indexed O2/service consumers86FD/E49E are now connected to the service
+contract.0086.6 has no ordinary resident setter; the independent180C signature
+hook remains an external enable/mutation possibility. F1-style CPU register
+identities correct older provisional PORTD/OC1/305C..305F labels in the linked
+hardware boundary contract. Intended external-entry callers, actual low-memory
+code, general flag/interleaving proofs and physical observations remain open.
+These counts are structural evidence, not a whole-program semantic percentage.
 
 Primary current contracts include:
 
@@ -251,6 +262,10 @@ docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md
 docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md
 docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md
 docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md
+docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md
+docs/analysis/FACTORY_GLOBAL_ALIAS_CONTRACT.md
+docs/analysis/FACTORY_FLAG_LIFETIMES.md
+docs/analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md
 docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md
 docs/contracts/SPARK_UPSTREAM_MODIFIER_CONTRACT.md
 docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md

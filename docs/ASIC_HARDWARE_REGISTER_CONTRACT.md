@@ -2,6 +2,13 @@
 
 Generated from static source walk. This is not a dynamic proof; unknown or inferred meanings are marked as test items.
 
+**Register-name correction:** the current ROM-backed
+[external/hardware contract](analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md)
+matches the F1-style CPU register layout, including PORTD3008, OC1M300C,
+OC1D300D and CPU chip-select registers305C..305F. It supersedes conflicting
+provisional names in this historical generated table. Current direct/indexed
+hardware access authority is `maps/structure/factory_global_hardware_accesses.csv`.
+
 ## HC11 relocated registers
 
 | Address | Name / hypothesis | Accesses | First PCs | Constant writes / source hints | Contract status |

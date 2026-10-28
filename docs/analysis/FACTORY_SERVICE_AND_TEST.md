@@ -40,6 +40,7 @@ admissions. Individual controllers then consume the flags/bytes as follows:
 |0391.5|IAC reset escape throughA407→A3FA|
 |0391.6|Engine diagnostic-clear request, shared with3B.1 and latched by0045.7|
 |0391.7|Can suppress the normal scheduler heartbeatF3E4|
+|0392.0|Indexed service input at86FD/E49E: I/P control/reset versus closed-loop admission use opposite local selections; see the fuel-learning contract|
 |0393.0,0394|Purge duty override at9153..9161|
 |0393.1,0394|EGR desired/controller override atD030..D03A andD20B|
 |0393 bits38,0394|Shared auxiliary output3FD4 selection, including an ungated raw-field consumer|
@@ -53,8 +54,9 @@ The exact masks, priority and early returns remain in the controller contracts:
 [spark](FACTORY_UPSTREAM_SPARK_CALCULATIONS.md),
 [diagnostics](FACTORY_DIAGNOSTICS.md), and
 [emissions/output selectors](FACTORY_EMISSIONS_CONTROL.md).
-0392 has no named direct consumer in the reviewed union; this is not a claim
-that arbitrary pointers or external code cannot read it.
+0392's resident consumers use indexed addressing. The new
+[global alias join](FACTORY_GLOBAL_ALIAS_CONTRACT.md) identifies86FD/E49E;
+absence from the earlier direct-owner union did not establish an unused field.
 
 Service ownership does not imply that every consumer checks3B.4. In particular,
 CD98's shared3FD4 selector inspects0393 bits38 without a local active-service
@@ -170,6 +172,11 @@ Likewise, upload has no local destination-range check and still copies32 bytes
 after a short payload, using retained source bytes. An accepted03 can replace
 an earlier armed callback address. ID01/02/03 are not ordinary ALDL command
 values01/02/03; their descriptor list and admission mode are different.
+
+The upload destination is sampled once into X atFAB0. Source bytes are read
+one at a time atFAB9, so a forward overlap can change later source reads.
+The32-byte footprint assumes the loop completes; a fresh factory timer entry
+can abandon it throughFA5B's SP reset. It is not an atomic32-byte transaction.
 
 F3E4 toggles port3066.7 using A, preserving B's factory ID. ID02 branches to
 the callback before that heartbeat call. All callback continuations are

@@ -126,7 +126,7 @@ remain intentionally open. These nine sites exhaust the control frontiers
 encountered by this rooted graph, not all possible behavior after external code
 starts executing.
 
-## Ownership: what is now global and what remains contextual
+## Direct inventory and the completed contextual supplement
 
 `factory_global_state_ownership.csv` enumerates every explicit **direct** read
 and write in the rooted decode, including both bytes of word operations and
@@ -145,7 +145,11 @@ and root contexts without treating one context's resolved address as universal.
 The earlier28 unresolved baseline rows are still28 in that preserved study;
 none is silently closed merely because a human contract now describes it.
 
-The outstanding ownership proof is narrower and more concrete:
+The following worklist described the outstanding ownership proof at the time of
+this structural inventory. It is now addressed by the
+[global alias contract](FACTORY_GLOBAL_ALIAS_CONTRACT.md),
+[flag lifetimes](FACTORY_FLAG_LIFETIMES.md), and
+[ownership closure ledger](FACTORY_OWNERSHIP_CLOSURE.md):
 
 1. Bind every indexed site's addresses by caller/mode. SerialF9AE is descriptor
    RX-base+j;FA18 is the bounded service/factory copy;FABC is an unrestricted
@@ -158,6 +162,13 @@ The outstanding ownership proof is narrower and more concrete:
    the extension/profiling enable and shared hardware output shadows.
 4. Grade alternate entries and physical/interrupt interfaces against their own
    evidence. Byte accounting and named controller equations do not replace this.
+
+The supplement gives a qualified address contract to all951 indexed PCs,
+adds all-rooted-caller bindings for the remaining writing helpers, and joins
+indexed clears/masks/self-copy with direct byte/bit owners. Its finite footprints
+remain conditional; runtime reads, arbitrary uploadFABC, opaque code and physical
+or concurrency proofs retain explicit limits. The historical direct inventory
+above is not silently relabeled as the new merged owner denominator.
 
 This pass supplies the actual global instruction/direct-owner authority for that
 work. Older `factory_memory_accesses.csv` and its derived dossiers still use
@@ -177,6 +188,8 @@ words are under `maps/structure/factory_global_*`. The inherited HAC is unchange
 
 The named resident engine, IAC/speed, DTE and serial/service/test calculations
 now have documentation. Reset/vector-rooted structure and direct state owners
-have a global byte-backed inventory. Global contextual alias propagation, full
-flag lifetimes, intended external-entry use and physical interfaces remain open.
+have a global byte-backed inventory. The ownership supplement now supplies
+indexed-address provenance, writing-helper binding and gate lifetimes. General
+flag/interleaving proofs, intended external-entry use, supplied code and physical
+interfaces retain their explicitly stated limits.
 This is a defensible completion ledger without an invented whole-ROM percentage.

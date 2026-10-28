@@ -110,9 +110,12 @@ is a whole-ROM semantic denominator.
 
 Full SCI/ALDL framing and service/factory-test machines are now documented in
 the serial/service closure above. The global audit reviews disconnected/alternate
-entry bytes and closes rooted structural enumeration, while global contextual
-aliases, bit lifetimes, intended external-entry callers, opaque extensions and
-physical hardware/interrupt behavior remain separate work.
+entry bytes and closes rooted structural enumeration.
+[FACTORY_OWNERSHIP_CLOSURE.md](FACTORY_OWNERSHIP_CLOSURE.md) now connects all951
+rooted indexed-address contracts, complete rooted caller bindings for the
+remaining writing helpers, gate lifetimes and hardware/extension interfaces.
+Full semantic flag/concurrency proofs, intended external-entry callers,
+supplied code and physical hardware behavior retain their stated boundaries.
 
 ## ROM-backed scheduler extension
 

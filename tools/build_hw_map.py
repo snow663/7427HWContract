@@ -485,6 +485,15 @@ md.append('# 7427 ASIC / Hardware Register Contract v0.1')
 md.append('')
 md.append('Generated from static source walk. This is not a dynamic proof; unknown or inferred meanings are marked as test items.')
 md.append('')
+md.extend([
+    '**Register-name correction:** the current ROM-backed',
+    '[external/hardware contract](analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md)',
+    'matches the F1-style CPU register layout, including PORTD3008, OC1M300C,',
+    'OC1D300D and CPU chip-select registers305C..305F. It supersedes conflicting',
+    'provisional names in this historical generated table. Current direct/indexed',
+    'hardware access authority is `maps/structure/factory_global_hardware_accesses.csv`.',
+    '',
+])
 for cls,title in [('HC11_REG','HC11 relocated registers'),('ALDL','SCI/ALDL registers'),('ASIC_3FXX','External ASIC / board registers'),('UNKNOWN_HW','Unknown external hardware / board register space')]:
     md.append(f'## {title}')
     md.append('')
