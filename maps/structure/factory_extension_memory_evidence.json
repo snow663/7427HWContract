@@ -1,0 +1,252 @@
+{
+  "IO1_chip_select": {
+    "enabled": true,
+    "end_inclusive": "37FF",
+    "start": "3060"
+  },
+  "IO2_chip_select": {
+    "enabled": true,
+    "end_inclusive": "3FFF",
+    "start": "3800"
+  },
+  "byte_source": "bmhm_ownership_rom_evidence.json in recorded mode; full hash-checked ROM in image mode",
+  "byte_spans": [
+    {
+      "bytes_hex": "8E 03 FF CE 10 00 86 03 A7 3D CE 30 00",
+      "end_exclusive": "710D",
+      "name": "boot_relocation",
+      "start": "7100"
+    },
+    {
+      "bytes_hex": "4F A7 0C A7 0D A7 2C A7 0B A7 28 A7 3E A7 5C A7 03 86 26 A7 21 86 40 A7 26 86 38 A7 01 86 38 A7 09 86 04 A7 2B 86 15 A7 3C 86 AC A7 5D 86 CB A7 5F 86 00 A7 5E 86 90 B7 30 61 86 FF B7 30 63 86 00 B7 30 65 39",
+      "end_exclusive": "CCC1",
+      "name": "CPU_initializer",
+      "start": "CC7C"
+    },
+    {
+      "bytes_hex": "13 3B 10 0F B6 03 95 85 04 27 08 B6 03 97 B7 02 4A 20 07 13 86 40 03 BD 18 00 B6 02 4A B7 02 4B",
+      "end_exclusive": "8C73",
+      "name": "AFR_hook_result",
+      "start": "8C53"
+    },
+    {
+      "bytes_hex": "15 75 04 B6 50 D8 B0 02 8E 24 04 40 14 75 04 B7 02 93 13 86 40 05 BD 18 09 25 E1 B6 50 DA",
+      "end_exclusive": "8EE7",
+      "name": "governor_hook_result",
+      "start": "8EC9"
+    },
+    {
+      "bytes_hex": "13 86 40 03 BD 18 03 15 38 40 13 3B 10 03 BD A4 07",
+      "end_exclusive": "93E1",
+      "name": "IAC_hook_continuation",
+      "start": "93D0"
+    },
+    {
+      "bytes_hex": "FD 01 FD 13 86 40 03 BD 18 12 B6 4E 90 85 02 27 2C 13 36 20 25",
+      "end_exclusive": "A9F2",
+      "name": "spark_command_hook",
+      "start": "A9DD"
+    },
+    {
+      "bytes_hex": "13 86 40 03 BD 18 0F 36 96 62 CE 45 4A BD F4 99 B7 02 01 32 CE 00 5F BD F5 50",
+      "end_exclusive": "AB7C",
+      "name": "spark_factor_hook",
+      "start": "AB62"
+    },
+    {
+      "bytes_hex": "B7 01 AE 13 86 40 03 BD 18 15 13 3B 10 0D B6 03 93 85 02 27 06 B6 03 94 B7 01 AE 39",
+      "end_exclusive": "D03E",
+      "name": "EGR_hook_result",
+      "start": "D022"
+    },
+    {
+      "bytes_hex": "13 86 40 03 BD 18 06 86 F7 B7 0F 00 39",
+      "end_exclusive": "F5DC",
+      "name": "background_hook",
+      "start": "F5CF"
+    },
+    {
+      "bytes_hex": "FE 18 00 8C 7E 18 26 03 BD 18 0C 39",
+      "end_exclusive": "F5E8",
+      "name": "recurring_presence_check",
+      "start": "F5DC"
+    },
+    {
+      "bytes_hex": "13 86 40 07 B6 08 01 84 03 26 1D 14 46 80",
+      "end_exclusive": "E4FF",
+      "name": "module_status_admission",
+      "start": "E4F1"
+    },
+    {
+      "bytes_hex": "13 86 40 20 D6 02 C4 0F 58 CE 02 D3 3A FC 30 0E B3 30 1A C3 03 33 13 3A 20 03 C3 03 33 1A A3 00 23 02 ED 00",
+      "end_exclusive": "7A79",
+      "name": "profiling_enable",
+      "start": "7A55"
+    },
+    {
+      "bytes_hex": "8C 10 00 25 1F 8C 3F FF 22 1A 8F 12 50 08 02 84 CF 8F EC 00 F7 03 66 14 3B 80 20 12 15 3B 80 B6 03 66 20 0A A6 00",
+      "end_exclusive": "F8DE",
+      "name": "serial_encoded_address_transform",
+      "start": "F8B8"
+    },
+    {
+      "bytes_hex": "FE 03 8E 18 CE 03 90 C6 20 18 A6 00 A7 00 18 08 08 5A 26 F5 73 03 64 7E FB D4",
+      "end_exclusive": "FACA",
+      "name": "factory_upload",
+      "start": "FAB0"
+    }
+  ],
+  "callee_observable_channels": [
+    {
+      "call": "8C6A",
+      "channel": "RAM024A -> RAM024B; scalar returned A is overwritten",
+      "entry": "1800",
+      "gate": "8C66"
+    },
+    {
+      "call": "93D4",
+      "channel": "pre-IAC state hook; normal controller follows; no explicit scalar result",
+      "entry": "1803",
+      "gate": "93D0"
+    },
+    {
+      "call": "F5D3",
+      "channel": "background state hook; A immediately overwritten with F7",
+      "entry": "1806",
+      "gate": "F5CF"
+    },
+    {
+      "call": "8EDF",
+      "channel": "entry A=RPM error magnitude; returned C=1 selects returned A ->0299",
+      "entry": "1809",
+      "gate": "8EDB"
+    },
+    {
+      "call": "F5E4",
+      "channel": "recurring signature-qualified connection hook; no0086.6 requirement",
+      "entry": "180C",
+      "gate": "F5DC"
+    },
+    {
+      "call": "AB66",
+      "channel": "returned A saved atAB69 and used as F550 multiplier on word005F",
+      "entry": "180F",
+      "gate": "AB62"
+    },
+    {
+      "call": "A9E4",
+      "channel": "RAM01FD command hook; returned D not directly consumed",
+      "entry": "1812",
+      "gate": "A9E0"
+    },
+    {
+      "call": "D029",
+      "channel": "RAM01AE desired-EGR hook; local service may overwrite afterward",
+      "entry": "1815",
+      "gate": "D025"
+    }
+  ],
+  "chip_select_register_values": {
+    "305C": "00",
+    "305D": "AC",
+    "305E": "00",
+    "305F": "CB"
+  },
+  "enable_bit_86_6_branch_PCs": [
+    "7A55",
+    "8C66",
+    "8EDB",
+    "93D0",
+    "A9E0",
+    "AB62",
+    "D025",
+    "E4F1",
+    "F5CF"
+  ],
+  "general_chip_select": {
+    "active_low": true,
+    "address_valid": true,
+    "end_inclusive": "1FFF",
+    "priority_over_program": true,
+    "size_bytes": 8192,
+    "start": "0000"
+  },
+  "hardware_decode_model": "MC68HC11F1 expanded-mode register layout; actual package/wiring/aliases not inferred",
+  "init_value_hex": "03",
+  "internal_RAM_page_base": "0000",
+  "limit": "resident calling/dataflow and conditional CPU decode only; external contents and wiring remain unproven",
+  "low_memory_literal_references": [
+    {
+      "bytes_hex": "BD 18 00",
+      "kind": "control_transfer",
+      "mnemonic": "JSR",
+      "operand": "$1800",
+      "pc": "8C6A"
+    },
+    {
+      "bytes_hex": "BD 18 09",
+      "kind": "control_transfer",
+      "mnemonic": "JSR",
+      "operand": "$1809",
+      "pc": "8EDF"
+    },
+    {
+      "bytes_hex": "BD 18 03",
+      "kind": "control_transfer",
+      "mnemonic": "JSR",
+      "operand": "$1803",
+      "pc": "93D4"
+    },
+    {
+      "bytes_hex": "BD 18 12",
+      "kind": "control_transfer",
+      "mnemonic": "JSR",
+      "operand": "$1812",
+      "pc": "A9E4"
+    },
+    {
+      "bytes_hex": "BD 18 0F",
+      "kind": "control_transfer",
+      "mnemonic": "JSR",
+      "operand": "$180F",
+      "pc": "AB66"
+    },
+    {
+      "bytes_hex": "BD 18 15",
+      "kind": "control_transfer",
+      "mnemonic": "JSR",
+      "operand": "$1815",
+      "pc": "D029"
+    },
+    {
+      "bytes_hex": "BD 18 06",
+      "kind": "control_transfer",
+      "mnemonic": "JSR",
+      "operand": "$1806",
+      "pc": "F5D3"
+    },
+    {
+      "bytes_hex": "FE 18 00",
+      "kind": "signature_data_read",
+      "mnemonic": "LDX",
+      "operand": "$1800",
+      "pc": "F5DC"
+    },
+    {
+      "bytes_hex": "BD 18 0C",
+      "kind": "control_transfer",
+      "mnemonic": "JSR",
+      "operand": "$180C",
+      "pc": "F5E4"
+    }
+  ],
+  "program_chip_select": {
+    "enabled_bit_written": true,
+    "size_bytes": 65536
+  },
+  "register_base": "3000",
+  "register_end_inclusive": "305F",
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "rooted_instruction_bytes": 34527,
+  "rooted_instruction_starts": 14523
+}

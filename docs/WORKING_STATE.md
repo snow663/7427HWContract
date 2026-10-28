@@ -254,6 +254,16 @@ hardware boundary contract. Intended external-entry callers, actual low-memory
 code, general flag/interleaving proofs and physical observations remain open.
 These counts are structural evidence, not a whole-program semantic percentage.
 
+`FACTORY_EXTENSION_MEMORY_INTERFACE.md` follows INIT03 and the actual
+305C..305F writes. Under the F1-style decode,1800 is within CSGEN0000..1FFF;
+CPU registers remain3000..305F and relocated CSIO windows3060..3FFF.
+The code makes eight JSRs and one signature read, with3-byte entry spacing
+and a7E18 prefix check. Caller channels include RAM024A/01FD/01AE, returned
+A/carry for governor, and returned A for spark conversion. This supports an
+executable extension-vector interface; its actual device/code remain unproven.
+The normal ALDL encoded1800->CPU0800 read transform must not be mistaken for
+CPU relocation or a verified physical alias.
+
 Primary current contracts include:
 
 ```text

@@ -6,6 +6,11 @@ addresses it reads/writes, and what evidence is still needed to establish the
 external response. It records no new bench result and assigns no effects to
 missing code. ROM identity and scope are in the [ownership closure](FACTORY_OWNERSHIP_CLOSURE.md).
 
+The follow-up [INIT/chip-select and caller trace](FACTORY_EXTENSION_MEMORY_INTERFACE.md)
+now places1800 in the programmed general-purpose external window under the
+F1-style layout and documents each hook's observable return/state channel.
+Normal ALDL encoding1800->CPU0800 is a separate transmitter transformation.
+
 ## Eight extension entries and the independent connection check
 
 | Call PC → address | Resident admission and position | Resident continuation / unprovided effect |
@@ -14,7 +19,7 @@ missing code. ROM identity and scope are in the [ownership closure](FACTORY_OWNE
 |93D4→1803 |0086.6; first operation of main IAC controller | Normal IAC/service work follows only if the hook returns; no save-all ABI is assumed |
 |F5D3→1806 |0086.6 in slot3 background wrapper | F5D6 storesF7 to0F00 afterward; the hardware meaning of that address is not established by a store |
 |8EDF→1809 | Governor's local option/running/fault gates, then0086.6 | Returned carry set goes directly to the0299 store with returnedA, bypassing local target math |
-|F5E4→180C | Runtimeword[1800]==7E18; checked in slot7 | **No0086.6 guard**; could establish the enable/state, but body absent |
+|F5E4→180C | Runtimeword[1800]==7E18; checked repeatedly in slot7 | **No0086.6 guard**; could establish the enable/state, but body absent |
 |AB66→180F |0086.6, between local spark factor formation and final conversion | Later resident math uses returned registers/state; stock no-hook equation does not constrain the extension |
 |A9E4→1812 |0086.6, after composite spark modifiers and before later resident override/limits | Documented downstream override still follows a normal return |
 |D029→1815 |0086.6, after desired EGR01AE store | Local EGR service override can replace01AE afterward |

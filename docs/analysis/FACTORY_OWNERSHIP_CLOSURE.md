@@ -16,7 +16,7 @@ reconstruct code that is not in the supplied ROM.
 | Scheduler/service gates |12 named gates /51 writer rows plus [flag lifetimes](FACTORY_FLAG_LIFETIMES.md) | Instruction-time tests do not create a single coherent mode snapshot |
 | Extension/profiling enable | No ordinary resident0086.6 setter; boot clear/self-copy accounted for | Independent signature-qualified180C can change it; body absent |
 | Shared output ownership | Normal, boot and factory co-writers plus output shadows linked | Issued command, latch effect and physical movement are different observations |
-| Eight extension entries | Every call guard and resident continuation documented | Actual1800..1817 code/module ABI remains absent |
+| Eight extension entries | [INIT/chip-select and caller trace](FACTORY_EXTENSION_MEMORY_INTERFACE.md) locates the configured window and observable result channels | Actual1800..1817 instructions and supplying hardware remain unidentified |
 | Received callbackFAA5 | Full supplied word and repeat/arming rules documented | Arbitrary supplied code/register/memory/control effects remain unbounded |
 | Alternate entriesFF90/FF93/FF96 | Jump bytes/destinations documented; no direct rooted resident references | Intended external callers still need actual caller/runtime evidence |
 | CPU versus board-register labels | F1-style register-map match resolves provisional3008/300C/300D/305C..5F names | Package/wiring and proprietary device behavior are separate evidence |
@@ -43,6 +43,7 @@ All generated evidence lives in `maps/structure/`:
 | factory_global_gate_lifetimes.csv | Writer join for the12 documented scheduler/service gates |
 | factory_global_hardware_accesses.csv |131 concrete hardware-byte access rows, with wildcard interfaces separate |
 | factory_external_hook_contracts.csv | Eight external calls with ROM-checked enable/signature guards and resident continuation roles |
+| factory_extension_memory_evidence.json | Boot/CSGEN/CSIO settings, all nine literal low-memory references and hook result-channel byte spans |
 
 Fresh verification uses the **actual full image**, with its SHA checked first:
 
