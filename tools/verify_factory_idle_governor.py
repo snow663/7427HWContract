@@ -207,6 +207,9 @@ def build(rom):
         0x8765:'docs/analysis/FACTORY_CLOSED_LOOP_AND_LEARNING.md',
         0xA85A:'docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md',
         0xAA9D:'docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md',
+        **{p:'docs/analysis/FACTORY_TRANSMISSION_CONTROL.md' for p in [0xACFC,0xADB4,0xADDE,0xAE11]},
+        **{p:'docs/analysis/FACTORY_EMISSIONS_CONTROL.md' for p in [0xCBD6,0xD2EC,0xD2F9]},
+        **{p:'docs/analysis/FACTORY_DIAGNOSTICS.md' for p in [0xDC17,0xDEBF]},
     }
     consumers=[]
     for address in ['0284','0812']:
@@ -220,7 +223,7 @@ def build(rom):
             consumers.append({'pc':pc_text,'state':address,'width_bits':access['width_bits'],
                               'bytes_hex':ins.data.hex(' ').upper(),'instruction':ins.op+' '+ins.operand,
                               'documentation':consumer_docs.get(pc,''),
-                              'status':'documented_engine_or_speed_path' if pc in consumer_docs else 'separate_transmission_emissions_AC_or_diagnostic_scope',
+                              'status':'documented_factory_path' if pc in consumer_docs else 'separate_transmission_emissions_AC_or_diagnostic_scope',
                               'proof_limit':'direct listing-seeded ROM-checked reader; not proof of all indexed consumers'})
     evidence={'rom_name':'BMHM.BIN','rom_size_bytes':65536,'rom_sha256':EXPECTED_SHA256,'listing_sha256_lf':text_sha256(SOURCE),
               'block_count':len(blocks),'instruction_starts':len(unique),'branch_count':len(branches),'selected_states':len(states),

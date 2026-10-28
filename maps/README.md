@@ -55,8 +55,8 @@ calls retain explicit boundaries. Reproduce with
 documentation. The 45 spans contain 2,876 instruction starts and 816 branch rows;
 25 local CFG roots, 100 selected states and the retained-cell layout make the
 state/output boundaries reviewable. The direct VSS-reader ledger contains 39
-ROM-checked sites, 30 linked to completed contracts and 9 explicitly left in
-separate transmission/emissions/AC/diagnostic scope. Seventeen covered listing
+ROM-checked sites. All39 now link to completed contracts following the DTE
+extension; the initial IAC/speed pass left9 of these peripheral owners open. Seventeen covered listing
 differences remain local byte authority rather than a claim that the entire
 global source overlay is corrected. Use `FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`
 and `python tools/verify_factory_idle_governor.py --check-recorded` (or `--rom`).
@@ -107,3 +107,16 @@ These remain frozen semantic-design requirements for the replacement-OS workstre
 ## Regeneration rule
 
 Use split/current views for normal review. Regenerate broad static maps when analyzer logic or the underlying source input changes. Git history is the version record.
+
+
+`factory_dte_*.csv` and `bmhm_dte_rom_evidence.json` document resident diagnostic,
+transmission and emissions software. Start at
+[the closure ledger](../docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md).
+The62 spans contain7,628 instruction starts and2,027 branches;142 local CFG
+roots and153 selected state roles retain their scoped evidence level. The
+transmission maps distinguish20 header-based priority descriptors from35 direct
+pointer arrays. `factory_diagnostic_bits.csv` derives all72 flash-code identities
+and mask/bank mappings from bytes. These are not counts of disjoint understood
+functions or a whole-ROM completion percentage. Twelve local listing differences
+remain separate from the global partial overlay. The direct VSS-reader ledger
+now links all39 previously enumerated sites to contracts.

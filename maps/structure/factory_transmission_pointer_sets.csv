@@ -1,0 +1,143 @@
+base,index,word_address,target,role,kind,rule
+D69F,0,D69F,D6F7,upshift helper argument record; kickdown/cold/floor/normal/cold/gain,resident data or calibration,direct word array; not a D8FE header
+D69F,1,D6A1,D717,upshift helper argument record; kickdown/cold/floor/normal/cold/gain,resident data or calibration,direct word array; not a D8FE header
+D69F,2,D6A3,D7C1,upshift helper argument record; kickdown/cold/floor/normal/cold/gain,resident data or calibration,direct word array; not a D8FE header
+D69F,3,D6A5,D6BD,upshift helper argument record; kickdown/cold/floor/normal/cold/gain,resident data or calibration,direct word array; not a D8FE header
+D69F,4,D6A7,D6D1,upshift helper argument record; kickdown/cold/floor/normal/cold/gain,resident data or calibration,direct word array; not a D8FE header
+D69F,5,D6A9,D7AF,upshift helper argument record; kickdown/cold/floor/normal/cold/gain,resident data or calibration,direct word array; not a D8FE header
+D6AB,0,D6AB,D71D,downshift helper argument record; same field order,resident data or calibration,direct word array; not a D8FE header
+D6AB,1,D6AD,D73D,downshift helper argument record; same field order,resident data or calibration,direct word array; not a D8FE header
+D6AB,2,D6AF,D7C1,downshift helper argument record; same field order,resident data or calibration,direct word array; not a D8FE header
+D6AB,3,D6B1,D6D7,downshift helper argument record; same field order,resident data or calibration,direct word array; not a D8FE header
+D6AB,4,D6B3,D6EB,downshift helper argument record; same field order,resident data or calibration,direct word array; not a D8FE header
+D6AB,5,D6B5,D7AF,downshift helper argument record; same field order,resident data or calibration,direct word array; not a D8FE header
+D6B7,0,D6B7,D743,kickdown upshift RPM/cold-offset/gain,resident data or calibration,direct word array; not a D8FE header
+D6B7,1,D6B9,D6F1,kickdown upshift RPM/cold-offset/gain,resident data or calibration,direct word array; not a D8FE header
+D6B7,2,D6BB,D7D3,kickdown upshift RPM/cold-offset/gain,resident data or calibration,direct word array; not a D8FE header
+D6D1,0,D6D1,5EA0,upshift normal cold-offset curves by gear,resident data or calibration,direct word array; not a D8FE header
+D6D1,1,D6D3,5EB1,upshift normal cold-offset curves by gear,resident data or calibration,direct word array; not a D8FE header
+D6D1,2,D6D5,5EC2,upshift normal cold-offset curves by gear,resident data or calibration,direct word array; not a D8FE header
+D6EB,0,D6EB,5ED3,downshift normal cold-offset curves by gear,resident data or calibration,direct word array; not a D8FE header
+D6EB,1,D6ED,5EE4,downshift normal cold-offset curves by gear,resident data or calibration,direct word array; not a D8FE header
+D6EB,2,D6EF,5EF5,downshift normal cold-offset curves by gear,resident data or calibration,direct word array; not a D8FE header
+D6F1,0,D6F1,5D5C,upshift RPM cold-offset words by gear,resident data or calibration,direct word array; not a D8FE header
+D6F1,1,D6F3,5D5E,upshift RPM cold-offset words by gear,resident data or calibration,direct word array; not a D8FE header
+D6F1,2,D6F5,5D60,upshift RPM cold-offset words by gear,resident data or calibration,direct word array; not a D8FE header
+D717,0,D717,5D50,upshift kickdown cold-offset scalars by gear,resident data or calibration,direct word array; not a D8FE header
+D717,1,D719,5D51,upshift kickdown cold-offset scalars by gear,resident data or calibration,direct word array; not a D8FE header
+D717,2,D71B,5D52,upshift kickdown cold-offset scalars by gear,resident data or calibration,direct word array; not a D8FE header
+D73D,0,D73D,5D53,downshift kickdown cold-offset scalars by gear,resident data or calibration,direct word array; not a D8FE header
+D73D,1,D73F,5D54,downshift kickdown cold-offset scalars by gear,resident data or calibration,direct word array; not a D8FE header
+D73D,2,D741,5D55,downshift kickdown cold-offset scalars by gear,resident data or calibration,direct word array; not a D8FE header
+D763,0,D763,5D3C,upshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D763,1,D765,5D3B,upshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D763,2,D767,5D3B,upshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D763,3,D769,0000,upshift direct range overrides; three columns per row,absent,direct word array; not a D8FE header
+D763,4,D76B,5D3B,upshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D763,5,D76D,5D3B,upshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D763,6,D76F,0000,upshift direct range overrides; three columns per row,absent,direct word array; not a D8FE header
+D763,7,D771,0000,upshift direct range overrides; three columns per row,absent,direct word array; not a D8FE header
+D763,8,D773,0000,upshift direct range overrides; three columns per row,absent,direct word array; not a D8FE header
+D775,0,D775,5D3D,downshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D775,1,D777,5D3A,downshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D775,2,D779,5D3A,downshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D775,3,D77B,0000,downshift direct range overrides; three columns per row,absent,direct word array; not a D8FE header
+D775,4,D77D,5D3A,downshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D775,5,D77F,5D3A,downshift direct range overrides; three columns per row,resident data or calibration,direct word array; not a D8FE header
+D775,6,D781,0000,downshift direct range overrides; three columns per row,absent,direct word array; not a D8FE header
+D775,7,D783,0000,downshift direct range overrides; three columns per row,absent,direct word array; not a D8FE header
+D775,8,D785,0000,downshift direct range overrides; three columns per row,absent,direct word array; not a D8FE header
+B961,0,B961,61B3,pressure normal TPS/speed surfaces,resident data or calibration,direct word array; not a D8FE header
+B961,1,B963,61B3,pressure normal TPS/speed surfaces,resident data or calibration,direct word array; not a D8FE header
+B961,2,B965,63FB,pressure normal TPS/speed surfaces,resident data or calibration,direct word array; not a D8FE header
+B967,0,B967,62D7,pressure wrapped high-speed surfaces,resident data or calibration,direct word array; not a D8FE header
+B967,1,B969,62D7,pressure wrapped high-speed surfaces,resident data or calibration,direct word array; not a D8FE header
+B967,2,B96B,651F,pressure wrapped high-speed surfaces,resident data or calibration,direct word array; not a D8FE header
+B96D,0,B96D,6643,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B96D,1,B96F,6654,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B96D,2,B971,6665,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B96D,3,B973,6676,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B96D,4,B975,6687,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B96D,5,B977,6698,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B96D,6,B979,66A9,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B96D,7,B97B,66BA,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B96D,8,B97D,66CB,pressure upshift signed correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,0,B97F,66DC,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,1,B981,66F0,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,2,B983,6704,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,3,B985,6718,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,4,B987,672C,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,5,B989,6740,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,6,B98B,66DC,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,7,B98D,66F0,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B97F,8,B98F,6704,pressure downshift correction; normal/performance/manual,resident data or calibration,direct word array; not a D8FE header
+B991,0,B991,0000,pressure temperature/TPS surfaces by gear,absent,direct word array; not a D8FE header
+B991,1,B993,6126,pressure temperature/TPS surfaces by gear,resident data or calibration,direct word array; not a D8FE header
+B991,2,B995,6155,pressure temperature/TPS surfaces by gear,resident data or calibration,direct word array; not a D8FE header
+B991,3,B997,6184,pressure temperature/TPS surfaces by gear,resident data or calibration,direct word array; not a D8FE header
+B999,0,B999,5F52,pressure BARO scalar curves,resident data or calibration,direct word array; not a D8FE header
+B999,1,B99B,5F63,pressure BARO scalar curves,resident data or calibration,direct word array; not a D8FE header
+B999,2,B99D,5F74,pressure BARO scalar curves,resident data or calibration,direct word array; not a D8FE header
+BA32,0,BA32,6A81,adaptive bank restore seeds,resident data or calibration,direct word array; not a D8FE header
+BA32,1,BA34,6A92,adaptive bank restore seeds,resident data or calibration,direct word array; not a D8FE header
+BA32,2,BA36,6AA3,adaptive bank restore seeds,resident data or calibration,direct word array; not a D8FE header
+BA5F,0,BA5F,032C,adaptive observation count banks,RAM,direct word array; not a D8FE header
+BA5F,1,BA61,033D,adaptive observation count banks,RAM,direct word array; not a D8FE header
+BA5F,2,BA63,0000,adaptive observation count banks,absent,direct word array; not a D8FE header
+BC3B,0,BC3B,69E3,shift-time to adaptive-step lookup,resident data or calibration,direct word array; not a D8FE header
+BC3B,1,BC3D,69F4,shift-time to adaptive-step lookup,resident data or calibration,direct word array; not a D8FE header
+BC3B,2,BC3F,6A05,shift-time to adaptive-step lookup,resident data or calibration,direct word array; not a D8FE header
+BC41,0,BC41,68D3,normal desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC41,1,BC43,68E4,normal desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC41,2,BC45,68F5,normal desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC47,0,BC47,6906,cold-BARO desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC47,1,BC49,6917,cold-BARO desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC47,2,BC4B,6928,cold-BARO desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC4D,0,BC4D,6939,performance desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC4D,1,BC4F,694A,performance desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC4D,2,BC51,695B,performance desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC53,0,BC53,696C,performance cold-BARO desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC53,1,BC55,697D,performance cold-BARO desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC53,2,BC57,698E,performance cold-BARO desired shift-time curves,resident data or calibration,direct word array; not a D8FE header
+BC59,0,BC59,69B0,short mean-ratio decision curves,resident data or calibration,direct word array; not a D8FE header
+BC59,1,BC5B,69C1,short mean-ratio decision curves,resident data or calibration,direct word array; not a D8FE header
+BC59,2,BC5D,69D2,short mean-ratio decision curves,resident data or calibration,direct word array; not a D8FE header
+BC65,0,BC65,02F8,retained adaptive cell banks,RAM,direct word array; not a D8FE header
+BC65,1,BC67,0309,retained adaptive cell banks,RAM,direct word array; not a D8FE header
+BC65,2,BC69,031A,retained adaptive cell banks,RAM,direct word array; not a D8FE header
+BC6B,0,BC6B,6A4E,adaptive upper bound curves,resident data or calibration,direct word array; not a D8FE header
+BC6B,1,BC6D,6A5F,adaptive upper bound curves,resident data or calibration,direct word array; not a D8FE header
+BC6B,2,BC6F,6A70,adaptive upper bound curves,resident data or calibration,direct word array; not a D8FE header
+BC71,0,BC71,6A1B,adaptive lower bound curves,resident data or calibration,direct word array; not a D8FE header
+BC71,1,BC73,6A2C,adaptive lower bound curves,resident data or calibration,direct word array; not a D8FE header
+BC71,2,BC75,6A3D,adaptive lower bound curves,resident data or calibration,direct word array; not a D8FE header
+BE37,0,BE37,6798,pressure shape ratio decision curves,resident data or calibration,direct word array; not a D8FE header
+BE37,1,BE39,67A9,pressure shape ratio decision curves,resident data or calibration,direct word array; not a D8FE header
+BE37,2,BE3B,67BA,pressure shape ratio decision curves,resident data or calibration,direct word array; not a D8FE header
+BE3D,0,BE3D,67CB,pressure shape initial-rate curves,resident data or calibration,direct word array; not a D8FE header
+BE3D,1,BE3F,67DC,pressure shape initial-rate curves,resident data or calibration,direct word array; not a D8FE header
+BE3D,2,BE41,67ED,pressure shape initial-rate curves,resident data or calibration,direct word array; not a D8FE header
+BE43,0,BE43,67FE,pressure shape later-rate curves,resident data or calibration,direct word array; not a D8FE header
+BE43,1,BE45,680F,pressure shape later-rate curves,resident data or calibration,direct word array; not a D8FE header
+BE43,2,BE47,6820,pressure shape later-rate curves,resident data or calibration,direct word array; not a D8FE header
+BE49,0,BE49,6831,pressure shape duration curves,resident data or calibration,direct word array; not a D8FE header
+BE49,1,BE4B,6842,pressure shape duration curves,resident data or calibration,direct word array; not a D8FE header
+BE49,2,BE4D,6853,pressure shape duration curves,resident data or calibration,direct word array; not a D8FE header
+BE4F,0,BE4F,6754,pressure shape steady curves,resident data or calibration,direct word array; not a D8FE header
+BE4F,1,BE51,6765,pressure shape steady curves,resident data or calibration,direct word array; not a D8FE header
+BE4F,2,BE53,6776,pressure shape steady curves,resident data or calibration,direct word array; not a D8FE header
+BE55,0,BE55,6875,pressure shape initial values,resident data or calibration,direct word array; not a D8FE header
+BE55,1,BE57,6886,pressure shape initial values,resident data or calibration,direct word array; not a D8FE header
+BE55,2,BE59,6897,pressure shape initial values,resident data or calibration,direct word array; not a D8FE header
+DBE3,0,DBE3,0000,shift spark surfaces by gear,absent,direct word array; not a D8FE header
+DBE3,1,DBE5,5719,shift spark surfaces by gear,resident data or calibration,direct word array; not a D8FE header
+DBE3,2,DBE7,583D,shift spark surfaces by gear,resident data or calibration,direct word array; not a D8FE header
+DBE3,3,DBE9,5961,shift spark surfaces by gear,resident data or calibration,direct word array; not a D8FE header
+DBEB,0,DBEB,70C6,shift spark ratio boundary byte pointers,resident data or calibration,direct word array; not a D8FE header
+DBEB,1,DBED,70CA,shift spark ratio boundary byte pointers,resident data or calibration,direct word array; not a D8FE header
+DBEB,2,DBEF,70C7,shift spark ratio boundary byte pointers,resident data or calibration,direct word array; not a D8FE header
+DBEB,3,DBF1,70CB,shift spark ratio boundary byte pointers,resident data or calibration,direct word array; not a D8FE header
+DBEB,4,DBF3,70C8,shift spark ratio boundary byte pointers,resident data or calibration,direct word array; not a D8FE header
+DBEB,5,DBF5,70CC,shift spark ratio boundary byte pointers,resident data or calibration,direct word array; not a D8FE header
+DBEB,6,DBF7,70C9,shift spark ratio boundary byte pointers,resident data or calibration,direct word array; not a D8FE header
+DBEB,7,DBF9,70CD,shift spark ratio boundary byte pointers,resident data or calibration,direct word array; not a D8FE header

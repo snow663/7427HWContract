@@ -34,7 +34,7 @@ Both supplied 65,536-byte BMHM images have SHA-256 `6188975246cf0042979f3a1694e3
 | `factory_idle_governor_states.csv` | 100 selected states, widths, direct writer overlap, other listing candidates and initialization classes |
 | `factory_idle_governor_iac_cells.csv` | The retained cell layout and conditional indexed-store aliases |
 | `factory_idle_governor_listing_discrepancies.csv` | 17 differences in the covered source/ROM spans, including previously reviewed helper/A40B cases |
-| `factory_rpm_vss_consumers.csv` | 39 direct listing-seeded raw/filtered VSS readers checked against ROM; 30 linked to documented calculation paths, 9 retained as separate peripheral/diagnostic scope |
+| `factory_rpm_vss_consumers.csv` | 39 direct listing-seeded raw/filtered VSS readers checked against ROM; all39 now link to contracts after the DTE extension |
 
 The eight words at9C96 are explicitly pointer data. ROM also restores missing park-snapshot instructionsA0FA..A113, missing entry9CA6, a shifted A361/A363 decode and shortened/malformed branch operands. These corrections are authoritative in the new byte inventories. The global listing/partial-overlay inventories remain their existing scope; this pass does not silently claim that every inherited row has been corrected or all alternate entries excluded.
 
@@ -76,12 +76,12 @@ Nominal TOC3 tick is 6.248474 ms with phase00..9F. Rates below are admission opp
 | Interface | What is documented | Separate scope |
 |---|---|---|
 | Period/ADC/ports/capture counters | Exact software samples/transforms, GPIO mirror inputs, VSS quotient and timeout | Electrical scaling, hardware atomicity/count meaning, all acquisition and interrupt behavior |
-| Gear00A2, AC request when400F.2, other input fault flags | Local IAC/governor qualification and resulting branches | Full transmission/range, AC and central diagnostic state machines |
-| TPS zero02F6 | IAC-kicker writes and their effect on the normalized TPS input | Other TPS zero-learning/acquisition writers; no blanket ownership claim |
+| Gear00A2, AC request when400F.2, other input fault flags | Local IAC/governor qualification and resulting branches | Resident owners now documented in [DTE closure](FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md); full serial/factory and physical interfaces remain separate |
+| TPS zero02F6 | IAC-kicker writes and their effect on the normalized TPS input | Other resident TPS-zero/acquisition writers now documented in the transmission contract; global alias/ownership audit remains separate |
 | Air quantity0232, AFR/PE/BLM and normal RPM | Connected to the completed engine calculation contracts | Physical units and full interrupt/intertask operating validation |
-| Shared004B/004C/3062/306C | Actual local masks, arithmetic, command ordering and identified co-writers | Complete transmission/factory-test behavior, physical pin assignment, direction, actuator response |
+| Shared004B/004C/3062/306C | Actual local masks, arithmetic, command ordering and identified co-writers | Resident transmission co-writers now documented; factory-test machines and physical pin/direction/response evidence remain separate |
 | Opaque1803/1809 | Exact call guards, ordering and carry/early-store boundary | Low-memory implementation absent from the mapped stock image |
 | Service payloads | Local selectors, target/retard/input edits and stack escapes | Full serial framing, received-payload ownership and factory command lifecycle |
-| Other speed consumers | Individual direct instruction evidence and scope classification | Transmission/TCC/shift estimator, AC, purge and remaining diagnostics in the consumer ledger |
+| Other speed consumers | Individual direct instruction evidence and scope classification | All9 previously open transmission/AC/purge/diagnostic owners now documented in DTE; full indexed-reader audit remains separate |
 
-The remaining factory work is now primarily the separate transmission, broader emissions, central diagnostics/service and whole-program structure/ownership scopes, plus the named hardware/extension interfaces. This bounded completion supplies no audited whole-ROM understanding percentage. The stock source/algorithm authority remains distinct from the truck's previously recorded 2.bin calibration; this task changes documentation/evidence, not the running tune or actuator control.
+The named resident transmission, emissions and diagnostic owners are now documented in [DTE closure](FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md). Remaining factory work centers on full serial/service/factory-test machines, whole-program structure/ownership, and the named hardware/extension interfaces. This bounded completion supplies no audited whole-ROM understanding percentage. The stock source/algorithm authority remains distinct from the truck's previously recorded 2.bin calibration; this task changes documentation/evidence, not the running tune or actuator control.

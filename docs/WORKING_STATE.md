@@ -44,7 +44,7 @@ current running 2.bin  -> which calibration values the truck is using now
 
 The active workstream is **truck-first stock-$31 runtime/calibration decoding and tuning**.
 
-The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; resident IAC/RPM/VSS/governor documentation is now also completed in `docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`. Simulator development and tuning changes are not required for those software-documentation closures.
+The current requested task is factory-code reverse-engineering documentation. The upstream engine-calculation documentation is complete within `docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md`; resident IAC/RPM/VSS/governor documentation is now also completed in `docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`. Diagnostics, transmission and emissions are now also documented in `docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md`. Simulator development and tuning changes are not required for these software-documentation closures.
 
 Goals:
 
@@ -117,7 +117,7 @@ initialization, and update admission. Independent CPU replay checks the exact
 four writes from raw inputs and separate live readback samples. The old equation
 that shifted the combined timing product and period is superseded: the timing
 product remains on the stack while a separate negated-period anchor is formed.
-The current suite has 90 factory tests and 16 CPU/simulator tests, including the
+The current suite has 103 factory tests and 16 CPU/simulator tests, including the
 actual-ROM 100,000-instruction regression. Physical units, ASIC effects,
 interrupt interleavings, external extension and monitor code retain separate
 boundaries. Running-fuel and resident upstream calculations are completed below.
@@ -180,23 +180,56 @@ new authority and the incorrect reset-zero summary is corrected at its builder.
 `bmhm_idle_governor_rom_evidence.json` and `factory_idle_governor_*.csv` cover
 45 reviewed spans, 2,876 instruction starts, 816 branch rows, 25 local CFG roots
 and 100 selected states. `factory_rpm_vss_consumers.csv` checks 39 direct VSS
-readers: 30 link to completed calculation paths; 9 retain separate peripheral
-or diagnostic scope. Seventeen covered listing differences are recorded locally,
+readers. The initial pass linked30 calculation paths and left9 peripheral
+or diagnostic owners; all39 now link to completed contracts in the DTE pass below. Seventeen covered listing differences are recorded locally,
 including missing park snapshot code and shortened branch operands. The global
 partial overlay and whole-ROM counts are not silently reclassified by this pass.
 
-Remaining separate factory work includes raw electrical acquisition/diagnostic
-and switch/gear owners, transmission, service/serial state machines, emissions
-beyond reviewed EGR arithmetic, the nine peripheral/diagnostic VSS readers,
-post-handoff monitoring, opaque low-memory extensions, full reachability and
-physical device/interrupt behavior. Those boundaries do not reopen the completed
-resident IAC/RPM/VSS/governor software derivations.
+The resident diagnostics/transmission/emissions pass is completed in
+`docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md`:
+
+```
+docs/analysis/FACTORY_DIAGNOSTICS.md
+docs/analysis/FACTORY_TRANSMISSION_CONTROL.md
+docs/analysis/FACTORY_EMISSIONS_CONTROL.md
+```
+
+It closes local DTC detection/recovery, reaction masks, boot/retained checksums,
+log persistence and flash/lamp reporting, masked clears and local service expiry;
+range/pattern/speed/TPS/temperature inputs, gear priorities, shift observation,
+adaptive cells, pressure/current feedback, both TCC families and transmission
+spark requests; and EGR feedback/control, purge adaptation, AIR, catalyst,
+manifold and shared AC/output selectors. The post-handoff EST monitor ABCB is
+also documented. Reserved flash slots and RTS stubs remain explicitly identified.
+
+The actual-ROM inventory covers62 instruction spans,7,628 instruction starts,
+2,027 branch rows,142 local CFG roots,153 selected states,20 priority descriptors
+and35 direct pointer arrays. Twelve covered listing differences are recorded
+locally. Thirteen new bounded execution tests check descriptor priority, capture
+returns, force-current arithmetic, diagnostic persistence/clear/mask behavior,
+TCC arithmetic and output/retention branches. This brings factory tests to103;
+it is not a whole-program simulation or semantic coverage percentage.
+
+The9 previously open VSS readers now link to named owners, completing the39-site
+direct-reader crosswalk. Global indexed-reader completeness remains separate.
+Notable literal results include E58C returning a timeout byte while its saved
+speed remains held; a selected null descriptor stopping priority search; TCC
+signed overflow replacing the full word; and log candidates being intersected
+before retention rather than directly copied from every live fault.
+
+Remaining separate factory work is full SCI/ALDL framing and service/factory-test
+state machines; disconnected/alternate entries and whole-program reachability;
+remaining runtime/indexed pointers and global state ownership/overlay integration;
+opaque low-memory extensions; and electrical/mechanical/interrupt behavior. The
+resident engine, IAC/speed, diagnostics/transmission/emissions derivations retain
+their explicitly completed software scope.
 
 Primary current contracts include:
 
 ```text
 docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md
 docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md
+docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md
 docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md
 docs/contracts/SPARK_UPSTREAM_MODIFIER_CONTRACT.md
 docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md

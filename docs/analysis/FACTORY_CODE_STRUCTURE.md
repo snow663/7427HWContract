@@ -83,7 +83,20 @@ The normal spark rolling-state bridge is closed as an integer transformation in 
 
 The upstream-calculation worklist can be crossed off within that scope. [FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md](FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md) now also closes the resident IAC/RPM/VSS/governor work: target/airflow calculations, retained learning/reset/service, phase/latch cadence, speed production/timeout, RPM history/ratio, governor and separate fuel-limit interaction. It adds 45 reviewed spans, 2,876 instruction starts, 816 branch rows and 100 selected states. Its local listing-difference inventory records17 covered discrepancies, including missing park-snapshot code and shortened targets, without claiming the global partial overlay or all reachability is complete.
 
-Complete raw acquisition/diagnostic owners, transmission, service paths, broader emissions and peripheral VSS consumers, low-memory extensions, post-handoff monitoring, physical units/device behavior and interrupt interleavings remain distinct work. The IAC/governor software derivations and identified shared output writers are completed; their electrical/mechanical interfaces retain their separate evidence level.
+[FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md](FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md)
+now closes the named resident transmission, emissions and diagnostic software
+owners, including the post-handoff EST monitor and the nine previously open VSS
+readers. It adds62 reviewed spans,7,628 instruction starts,2,027 branches,
+142 local CFG roots,153 selected states,20 priority descriptors and35 direct
+pointer arrays. Thirteen bounded execution tests check selected arithmetic,
+priority, persistence and retention rules. Twelve local listing differences
+remain distinct from the existing global partial overlay; none of these counts
+is a whole-ROM semantic denominator.
+
+Full SCI/ALDL framing and service/factory-test machines, opaque extensions,
+disconnected/alternate entries, remaining runtime/indexed aliases, global
+reachability/state ownership and physical hardware/interrupt behavior remain
+separate work. The completed resident contracts do not claim those interfaces.
 
 ## ROM-backed scheduler extension
 
