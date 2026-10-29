@@ -143,6 +143,15 @@ Reset's phase test uses the **old** main phase byte. During uninterrupted160-pha
 
 Busy reentry still executes91A3 and can change the count/phase shadow, then returns without the ordinary7BA7 latch service. Catch-up main passes repeat the latch/controller paths without repeating7B6D. Special fast-group mode001A.5 also bypasses the ordinary7BA7 call. Multiple software transitions can therefore precede one observed latch write. A one-for-one physical step cannot be inferred from software count deltas alone.
 
-F400 additionally merges port state at3060/004B, samples3064→004D and writes004E→3067; it is a shared board service. Other shadow owners include boot744D, transmissionC522's `(old004C&FC)+C[B319+gear]`, C546/C54B controlling bit5 and CC79 clearing bit7. At gear-table indices0..3 the bytes are01,00,02,03 and preserve the IAC field; outside that index domain the code has no local table clamp. Proving the complete gear-index lifetime belongs to transmission work. Factory-test code writes3062 directly, including phase patterns and clears. These co-owners are captured without declaring the entire factory-test/transmission subsystem complete.
+F400 additionally merges port state at3060/004B, samples3064→004D and writes004E→3067; it is a shared board service. Other shadow owners include boot744D, transmissionC522's `(old004C&FC)+C[B319+gear]`, C546/C54B controlling bit5 and CC79 clearing bit7. At gear-table indices0..3 the bytes are01,00,02,03 and an uninterrupted merge preserves the IAC field; outside that index domain the code has no local table clamp. Proving the complete gear-index lifetime belongs to transmission work. Factory-test code writes3062 directly, including phase patterns and clears. These co-owners are captured without declaring the entire factory-test/transmission subsystem complete.
+
+A [complete-handler interrupt witness](FACTORY_STACK_AND_SHARED_OUTPUT_CONTRACT.md)
+now establishes the preemption limit of that merge: C514 reads004C before its
+unmasked whole-byte update. A busy TOC3 reentry afterC51C can advance the IAC
+field, then C522 restores the older field from B. Pending catch-up reachesF411
+without another step service, issuing31 where the sequential-arrival fixture
+issues39; both end at the same software position. Physical incidence and coil
+response are not inferred. Disjoint nominal bit fields alone do not make these
+two read/modify/write transactions commute under preemption.
 
 The software count is also directly seeded at926D, decremented at9B10, incremented at9BD6 and assigned255 atA404. Only91E6 accompanies a normal ring step. The resulting distinction between retained count, reconciliation, target and issued phase writes is part of the completed factory IAC documentation.

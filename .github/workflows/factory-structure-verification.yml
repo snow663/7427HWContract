@@ -31,6 +31,9 @@ on:
       - "tests/test_factory_dte.py"
       - "tests/test_factory_startup_est.py"
       - "tests/test_factory_interrupt_contracts.py"
+      - "tests/test_factory_stack_and_shared_state.py"
+      - "tools/verify_factory_stack_contracts.py"
+      - "docs/analysis/FACTORY_STACK_AND_SHARED_OUTPUT_CONTRACT.md"
       - "tools/verify_factory_interrupt_masks.py"
       - "docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md"
       - "docs/analysis/FACTORY_STARTUP_REF_EST_LIFECYCLE.md"
@@ -97,6 +100,9 @@ on:
       - "tests/test_factory_dte.py"
       - "tests/test_factory_startup_est.py"
       - "tests/test_factory_interrupt_contracts.py"
+      - "tests/test_factory_stack_and_shared_state.py"
+      - "tools/verify_factory_stack_contracts.py"
+      - "docs/analysis/FACTORY_STACK_AND_SHARED_OUTPUT_CONTRACT.md"
       - "tools/verify_factory_interrupt_masks.py"
       - "docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md"
       - "docs/analysis/FACTORY_STARTUP_REF_EST_LIFECYCLE.md"
@@ -180,6 +186,8 @@ jobs:
         run: python tools/verify_factory_extension_map.py --check-recorded
       - name: Check structural normal-return interrupt mask contracts
         run: python tools/verify_factory_interrupt_masks.py --check-recorded
+      - name: Check resident stack envelopes and frame contracts
+        run: python tools/verify_factory_stack_contracts.py --check-recorded
       - name: Regenerate earlier IAC contracts with current ROM authority links
         run: |
           python tools/build_iac_output_contract.py --out-md docs/contracts/IAC_IDLE_AIR_OUTPUT_CONTRACT.md --out-csv maps/contracts/iac_idle_air_output_contract.csv

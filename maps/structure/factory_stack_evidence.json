@@ -1,0 +1,39 @@
+{
+  "SP_assignment_sites": [
+    "7100",
+    "7977",
+    "FA5B"
+  ],
+  "entry_return_frame_bytes": 2,
+  "interrupt_frame_bytes": 9,
+  "limits": "not a simultaneous-interrupt or WCET bound; nonzero cycles flagged; resets and supplied code cut; explicit memory aliases retain separate contracts",
+  "nonlocal_call_sites": [
+    "93DE"
+  ],
+  "opaque_call_sites": [
+    "8C6A",
+    "8EDF",
+    "93D4",
+    "A9E4",
+    "AB66",
+    "D029",
+    "F5D3",
+    "F5E4",
+    "FAA5"
+  ],
+  "procedure_entries": 253,
+  "reviewed_local_frame_restore": {
+    "SP_after_RTS": "entry_SP+2",
+    "SP_after_TYS": "entry_SP",
+    "Y_before_TYS": "entry_SP+1",
+    "bytes": 6,
+    "entry": "99C5",
+    "restore_pc": "9C1D"
+  },
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "segments": 3,
+  "statuses": {
+    "finite_resident_no_async_envelope": 237,
+    "finite_resident_prefix_with_boundaries": 16
+  }
+}

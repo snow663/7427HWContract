@@ -157,6 +157,20 @@ runs on all four IRQ entries. These structural admission witnesses use the
 existing explicit callee stubs and do not establish full controller execution
 time. Interrupt return is verified against both the original PC and SP.
 
+### Resident stack and a complete shared-output witness
+
+The [stack/shared-output contract](FACTORY_STACK_AND_SHARED_OUTPUT_CONTRACT.md)
+adds a21-byte resident TOC3 prefix envelope below handler-entry SP, excluding
+the nine-byte interrupt frame and asynchronous nesting. Supplied code and SP
+assignments are boundaries. WAI has already stacked its frame before wake;
+the entry guard does not reserve every later callee's stack bytes.
+
+A further witness executes every selected resident callee through complete
+phases3/4. Timer reentry during C514's gear-shadow merge can replace a newly
+stepped IAC field with an older B-register value; pending catch-up then reaches
+the realF411 publication. This goes beyond the earlier scheduler-only callee
+stubs. Physical timer spacing and motor response remain separate observations.
+
 ## The 16 slots
 
 Actual bytes `$7A44-$7A50`:

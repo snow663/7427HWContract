@@ -36,11 +36,19 @@ This narrows specific state/interleaving questions without asserting general
 whole-program interleaving closure.
 
 The [independent-equivalence information ledger](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
-adds nine scoped contracts, two remaining ROM-analysis work packages and three
+adds eleven scoped contracts, two remaining ROM-analysis work packages and three
 external evidence packages. Twelve new bounded checks cover caller masking,
 TOC3 reentry, serial mailbox/payload lifetime and trap/vector behavior; the new
 253-entry structural normal-return I-mask summaries narrow the callee context
 question. These counts describe this prioritized pass, not a completeness score.
+
+The [stack/shared-output follow-up](FACTORY_STACK_AND_SHARED_OUTPUT_CONTRACT.md)
+adds all253 resident stack envelopes, proved local-frame cleanup and nonlocal
+IAC service returns. Nine additional checks include complete selected TOC3
+handlers with every resident callee: a gear-shadow read/modify/write can undo
+an intervening IAC phase update, and catch-up publishes the stale command.
+Finite stack use is kept separate from ADC completion and admitted nesting/time
+bounds. The full factory suite now has135 passing tests.
 
 ## Reproducible files
 
