@@ -36,7 +36,7 @@ This narrows specific state/interleaving questions without asserting general
 whole-program interleaving closure.
 
 The [independent-equivalence information ledger](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
-adds eleven scoped contracts, two remaining ROM-analysis work packages and three
+adds thirteen scoped contracts, two remaining ROM-analysis work packages and three
 external evidence packages. Twelve new bounded checks cover caller masking,
 TOC3 reentry, serial mailbox/payload lifetime and trap/vector behavior; the new
 253-entry structural normal-return I-mask summaries narrow the callee context
@@ -48,7 +48,16 @@ IAC service returns. Nine additional checks include complete selected TOC3
 handlers with every resident callee: a gear-shadow read/modify/write can undo
 an intervening IAC phase update, and catch-up publishes the stale command.
 Finite stack use is kept separate from ADC completion and admitted nesting/time
-bounds. The full factory suite now has135 passing tests.
+bounds.
+
+The [interrupt-admission/current-output contract](FACTORY_INTERRUPT_ADMISSION_AND_CURRENT_OUTPUT.md)
+joins all15 ordinary vector words with the mask/stack evidence. OnlyTOC3 opens
+ordinary nesting; all seven rootedTAPs preserve reset X=1 under valid frames
+and no supplied-code effects. Seven additional checks include a complete
+busy-timer current-control witness: reentry can overwrite an accumulator
+update or publish an older command even with the correct final accumulator.
+Physical timer feasibility remains a separate condition. The full factory
+suite now has142 passing tests.
 
 ## Reproducible files
 

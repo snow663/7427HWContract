@@ -9,7 +9,7 @@ not used as a measure of knowledge completeness.
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 The [machine-readable ledger](../../maps/structure/factory_equivalence_assumptions.csv)
-contains eleven scoped contracts and five remaining work packages. This is an
+contains thirteen scoped contracts and five remaining work packages. This is an
 initial prioritized ledger, not an exhaustive denominator or completion score.
 
 ## What this pass establishes from the ROM
@@ -178,6 +178,22 @@ bound: it waits with I set and no software timeout until ADC ready. The F1-style
 ADC has a documented nominal completion contract, which must be a timing-proof
 precondition; held-ready failure and actual board behavior remain distinct.
 
+## Interrupt admission and current-control follow-up
+
+The [admission/current-output contract](FACTORY_INTERRUPT_ADMISSION_AND_CURRENT_OUTPUT.md)
+covers all15 ordinary interrupt vectors. The14 other thanTOC3 keep I set
+throughRTI across their complete resident closures; onlyTOC3 opens ordinary
+nesting. All seven rootedTAPs preserve reset's X=1, under valid frames and no
+supplied-code CCR effects. XIRQ's vector is therefore not an additional live
+preemption source in that resident scope; STOP pin recovery is separate.
+
+Seven additional checks execute complete selected handlers. Timer reentry in
+the current-control calculation can lose an accumulator update, changing the
+two issued3068 words from0660,066A to0654,0660. Reentry after the accumulator
+store can instead preserve its final value while publishing066A,0660. This
+joins actual instructions and issued outputs; physical timing feasibility
+and occurrence remain open, not inferred from I=0 alone.
+
 ## What still requires information or further extraction
 
 The ledger deliberately separates two ROM-analysis jobs from three external
@@ -185,8 +201,8 @@ evidence packages:
 
 | ID | Remaining question | Information source / reconstruction consequence |
 |---|---|---|
-|EQ-10|Worst admitted interrupt nesting, stack footprint and masked/unmasked execution bounds across complete callees|ROM plus CPU timing semantics. All253 structural I-mask and resident stack summaries are now available; admitted asynchronous nesting and full time bounds remain. Actual clock/wait behavior is separatelyEQ-13.|
-|EQ-11|Complete cross-controller state transitions under service, clear, mode and retained-state changes|ROM value flow and selected event schedules. The IAC/gear lost-update ordering now has a complete-handler witness; other combinations still need a checked joined state specification.|
+|EQ-10|Worst admitted interrupt nesting, stack footprint and masked/unmasked execution bounds across complete callees|ROM plus CPU timing semantics. All253 mask/stack summaries and the ordinary nesting grammar are available; onlyTOC3 opens nesting and resident code preserves reset X=1. Physically admitted TOC3 depth and full time bounds remain. Actual clock/wait behavior is separatelyEQ-13.|
+|EQ-11|Complete cross-controller state transitions under service, clear, mode and retained-state changes|ROM value flow and selected event schedules. IAC/gear shadow and current-control accumulator/command ordering have complete selected-handler witnesses; other combinations and feasible timing still need a checked joined state specification.|
 |EQ-12|Proprietary device read coherency, latch/trigger semantics and permissible transaction timing|Targeted bus/register/output observations. Existing access order, byte operations and deliberate delays can be retained while this contract is refined.|
 |EQ-13|Actual board clock/wait behavior, reset retention and physical memory decode|CPU/board identification and targeted measurements. ROM gives programmed values and boot clears; it does not give every external power/reset effect.|
 |EQ-14|Full calling convention/effects of optional supplied code and intended external tail-entry callers|Actual module/caller bytes or runtime evidence. Preserve the known probe/guards and exposed interfaces; complete optional-module compatibility remains conditional.|
@@ -202,9 +218,10 @@ EQ-14 is not a missing resident fuel/spark algorithm. The eight external
 entries and arbitrary factory callback/upload interfaces are outside the
 supplied resident code. A particular module's internals must not be invented.
 
-The next ROM-only work is to join the253-entry mask/stack contracts with
-admitted interrupt arrivals and peripheral completion conditions, then extend
-the output-changing state combinations inEQ-11 beyond the proved IAC/gear case. A whole-machine
+The next ROM-only work is to join the253-entry mask/stack contracts and the
+ordinary nesting grammar with source arrival and peripheral completion bounds,
+then extend the output-changing state combinations inEQ-11 beyond the IAC/gear
+and current-control cases. A whole-machine
 equivalence claim needs those contracts and the appropriate external evidence;
 the number of classified instruction bytes supplies no substitute.
 
@@ -214,6 +231,7 @@ the number of classified instruction bytes supplies no substitute.
 python -m unittest discover -s tests -p 'test_factory_interrupt_contracts.py' -v
 python tools/verify_factory_interrupt_masks.py --check-recorded
 python tools/verify_factory_interrupt_masks.py --rom /path/to/BMHM.BIN
+python tools/verify_factory_interrupt_admission.py --check-recorded
 python -m unittest discover -s tests -p 'test_factory_*.py' -v
 ```
 

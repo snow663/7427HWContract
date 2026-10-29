@@ -171,6 +171,15 @@ stepped IAC field with an older B-register value; pending catch-up then reaches
 the realF411 publication. This goes beyond the earlier scheduler-only callee
 stubs. Physical timer spacing and motor response remain separate observations.
 
+The [interrupt-admission/current-output follow-up](FACTORY_INTERRUPT_ADMISSION_AND_CURRENT_OUTPUT.md)
+joins all15 ordinary vector words: onlyTOC3 opens nesting; the other14 keep
+I set throughRTI. ResidentTAPs also preserve reset X=1 under the valid-frame
+and no-supplied-code assumptions. A second complete-handler witness uses two
+busy timer entries: reentry in7C13 can overwrite the current accumulator, or
+retain that accumulator while publishing an older3068 command. Busy gates the
+main body, not this tick-service work. Physically admitted timer depth and
+which schedules survive source timing remain open.
+
 ## The 16 slots
 
 Actual bytes `$7A44-$7A50`:

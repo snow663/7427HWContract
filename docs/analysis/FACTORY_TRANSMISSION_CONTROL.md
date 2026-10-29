@@ -431,6 +431,14 @@ The two ASR/ROR pairs and carry addition implement the stated signed
 quarter rounding. These multipliers update one accumulator; they do not
 produce a separately stored integral and proportional output sum.
 
+This calculation is unmasked and runs before the scheduler's busy test.
+The [complete busy-handler ordering witness](FACTORY_INTERRUPT_ADMISSION_AND_CURRENT_OUTPUT.md)
+shows a nestedTOC3 entry between the0150 read and store can lose an accumulator
+update. Reentry after that store can preserve0150 while the interrupted
+calculation later publishes an older014C and3068 command. Treating the formula
+as atomic, or comparing only its final accumulator, omits these conditional
+instruction-order effects. Actual timer-arrival feasibility remains open.
+
 With accumulator 0150=0E00 and neither 008E.7 nor 0086.0 set, count FC until
 new FC>C6E54. Then compare battery A7 against
 `u8(C6E55+R8(B5,u8(C6E56-C6E55)))`: below it sets 0086.0; otherwise set

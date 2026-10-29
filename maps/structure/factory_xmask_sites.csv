@@ -1,0 +1,8 @@
+TAP_pc,bytes_hex,A6_origin_pc,A6_origin_instruction,requested_X_from_entry_X0,requested_X_from_entry_X1,effective_X,scope
+7D8C,06,7D86,LDD #$5008,1,1,preserves_entry_X; writing one cannot set a cleared X,both local branch arms; no intervening asynchronous or supplied-code CCR changes
+92B3,06,92A9,TPA ,0,1,preserves_entry_X; writing one cannot set a cleared X,both local branch arms; no intervening asynchronous or supplied-code CCR changes
+92D3,06,92A9,TPA ,0,1,preserves_entry_X; writing one cannot set a cleared X,both local branch arms; no intervening asynchronous or supplied-code CCR changes
+9350,06,934C,TPA ,0,1,preserves_entry_X; writing one cannot set a cleared X,both local branch arms; no intervening asynchronous or supplied-code CCR changes
+936A,06,934C,TPA ,0,1,preserves_entry_X; writing one cannot set a cleared X,both local branch arms; no intervening asynchronous or supplied-code CCR changes
+9381,06,934C,TPA ,0,1,preserves_entry_X; writing one cannot set a cleared X,both local branch arms; no intervening asynchronous or supplied-code CCR changes
+939B,06,934C,TPA ,0,1,preserves_entry_X; writing one cannot set a cleared X,both local branch arms; no intervening asynchronous or supplied-code CCR changes

@@ -1,0 +1,16 @@
+vector,source_F1_layout,entry,resident_instruction_starts,I_on_hardware_entry,resident_CLI_or_TAP_pcs,ordinary_preemption_inside_handler,extra_resident_stack_bytes,frame_plus_resident_bytes,transitive_opaque_calls,scope
+FFD6,SCI,F7EA,275,1,,blocked_through_RTI,4,13,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFD8,SPI,FC44,1,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFDA,pulse_accumulator_input,FC3A,5,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFDC,pulse_accumulator_overflow,FC3A,5,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFDE,timer_overflow,FC3A,5,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFE0,OC5_IC4,7875,40,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFE2,OC4,78D9,40,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFE4,OC3_scheduler,793D,13154,1,7958;79D8;7A80;7ABB;7B9A;7BFB;7D8C;83D4;84AD;87E5;920C;92B3;92D3;A5BE;AA88;AF8F;AFEC;B9DF;BA25;BC30;C57F;C598;CB30;CC78;CEF0;D183;DC09;E3BA;F41E;F642;F7BA;FA83;FB6F,conditional_at_I0_windows,21,30,8C6A;8EDF;93D4;A9E4;AB66;D029;F5D3;F5E4;FAA5,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFE6,OC2,FC2F,5,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFE8,OC1,CE7C,34,1,,blocked_through_RTI,2,11,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFEA,IC3,FC2F,5,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFEC,IC2,FC2F,5,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFEE,IC1,FC2F,5,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFF0,real_time_interrupt,FC2F,5,1,,blocked_through_RTI,0,9,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
+FFF2,IRQ_pin_REF,74EA,449,1,,blocked_through_RTI,10,19,,resident prefix; valid frames; source request/local enable supplied; excludes reset and supplied-code effects
