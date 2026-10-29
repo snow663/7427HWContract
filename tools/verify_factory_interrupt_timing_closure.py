@@ -251,9 +251,19 @@ def build(rom):
         graph={n:set() for n in range(len(groups))}
         for p in local:
             graph[belong[p]].update(belong[t] for t in local_edges[p] if belong[t]!=belong[p])
-        @lru_cache(None)
-        def path(n):return weights[n]+max((path(t) for t in graph[n]),default=0)
-        upper=path(belong[entry]);result=(upper,cuts,opaque);summaries[entry]=result;busy.remove(entry);return result
+        # Evaluate from sinks without recursive generator frames. Long ROM
+        # paths otherwise exhaust Python3.11's stack before Python3.12's.
+        parents={n:[] for n in graph};remaining={n:len(ts) for n,ts in graph.items()}
+        for n,ts in graph.items():
+            for t in ts:parents[t].append(n)
+        ready=[n for n,count in remaining.items() if count==0];longest={}
+        while ready:
+            n=ready.pop();longest[n]=weights[n]+max((longest[t] for t in graph[n]),default=0)
+            for parent in parents[n]:
+                remaining[parent]-=1
+                if remaining[parent]==0:ready.append(parent)
+        if len(longest)!=len(graph):raise ValueError('Condensation graph is not acyclic')
+        upper=longest[belong[entry]];result=(upper,cuts,opaque);summaries[entry]=result;busy.remove(entry);return result
     envelope_rows=[]
     for entry in sorted(entries):
         high,cuts,opaque=summarize(entry)
