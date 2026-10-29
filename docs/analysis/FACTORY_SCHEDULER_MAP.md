@@ -180,6 +180,15 @@ retain that accumulator while publishing an older3068 command. Busy gates the
 main body, not this tick-service work. Physically admitted timer depth and
 which schedules survive source timing remain open.
 
+The [fast-tick deadline contract](FACTORY_FAST_TICK_TIMING_CONTRACT.md) derives
+13104 E cycles per recurring compare and a1090-cycle conditional complete busy
+entry bound. Lateness plus additional delay below12014 excludes the next
+compare before that busy entry returns. Counter-driven fixtures also realize
+the current overwrite with late supplied entry times. This does not bound
+complete main/catch-up work or establish that preceding factory execution
+produces those entry times. A target already behind TCNT waits for wrap;
+the handler does not queue missed819-count periods.
+
 ## The 16 slots
 
 Actual bytes `$7A44-$7A50`:

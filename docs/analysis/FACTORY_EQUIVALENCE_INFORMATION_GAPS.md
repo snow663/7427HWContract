@@ -9,7 +9,7 @@ not used as a measure of knowledge completeness.
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 The [machine-readable ledger](../../maps/structure/factory_equivalence_assumptions.csv)
-contains thirteen scoped contracts and five remaining work packages. This is an
+contains fourteen scoped contracts and five remaining work packages. This is an
 initial prioritized ledger, not an exhaustive denominator or completion score.
 
 ## What this pass establishes from the ROM
@@ -194,6 +194,23 @@ store can instead preserve its final value while publishing066A,0660. This
 joins actual instructions and issued outputs; physical timing feasibility
 and occurrence remain open, not inferred from I=0 alone.
 
+## Conditional fast-tick deadline follow-up
+
+The [fast-tick timing contract](FACTORY_FAST_TICK_TIMING_CONTRACT.md) derives
+13104 nominal E cycles between recurring OC3 compares. Its independently
+assigned instruction costs and bounded polls give a1090-cycle upper envelope
+for a complete ordinary busy handler, includingRTI and excluding initial
+stacking. ADC7's129-cycle completion, accepted stack and nominal bus timing
+are explicit premises.
+
+If entry lateness L plus additional delay H is less than12014 E cycles, that
+busy entry returns before the next comparison. Counter-driven complete-handler
+fixtures reproduce the current overwrite with sufficiently late supplied
+entries and normal ADC completion. A passed rearm target instead waits for
+counter wrap; it does not queue elapsed819-count intervals. Five new checks
+verify this conditional timing layer. The source of required lateness, complete
+main/tail costs and competing interrupt envelopes remain open.
+
 ## What still requires information or further extraction
 
 The ledger deliberately separates two ROM-analysis jobs from three external
@@ -201,7 +218,7 @@ evidence packages:
 
 | ID | Remaining question | Information source / reconstruction consequence |
 |---|---|---|
-|EQ-10|Worst admitted interrupt nesting, stack footprint and masked/unmasked execution bounds across complete callees|ROM plus CPU timing semantics. All253 mask/stack summaries and the ordinary nesting grammar are available; onlyTOC3 opens nesting and resident code preserves reset X=1. Physically admitted TOC3 depth and full time bounds remain. Actual clock/wait behavior is separatelyEQ-13.|
+|EQ-10|Worst admitted interrupt nesting, stack footprint and masked/unmasked execution bounds across complete callees|ROM plus CPU timing semantics. All253 mask/stack summaries, ordinary nesting grammar and conditional1090-cycle busy-handler bound are available. Complete main/tail costs and source arrival envelopes must establish reachable L/H and TOC3 depth. Actual clock/wait behavior is separatelyEQ-13.|
 |EQ-11|Complete cross-controller state transitions under service, clear, mode and retained-state changes|ROM value flow and selected event schedules. IAC/gear shadow and current-control accumulator/command ordering have complete selected-handler witnesses; other combinations and feasible timing still need a checked joined state specification.|
 |EQ-12|Proprietary device read coherency, latch/trigger semantics and permissible transaction timing|Targeted bus/register/output observations. Existing access order, byte operations and deliberate delays can be retained while this contract is refined.|
 |EQ-13|Actual board clock/wait behavior, reset retention and physical memory decode|CPU/board identification and targeted measurements. ROM gives programmed values and boot clears; it does not give every external power/reset effect.|
@@ -219,7 +236,7 @@ entries and arbitrary factory callback/upload interfaces are outside the
 supplied resident code. A particular module's internals must not be invented.
 
 The next ROM-only work is to join the253-entry mask/stack contracts and the
-ordinary nesting grammar with source arrival and peripheral completion bounds,
+ordinary nesting grammar and conditional fast-tick deadline with source arrival bounds,
 then extend the output-changing state combinations inEQ-11 beyond the IAC/gear
 and current-control cases. A whole-machine
 equivalence claim needs those contracts and the appropriate external evidence;
@@ -232,6 +249,7 @@ python -m unittest discover -s tests -p 'test_factory_interrupt_contracts.py' -v
 python tools/verify_factory_interrupt_masks.py --check-recorded
 python tools/verify_factory_interrupt_masks.py --rom /path/to/BMHM.BIN
 python tools/verify_factory_interrupt_admission.py --check-recorded
+python tools/verify_factory_tick_timing.py --check-recorded
 python -m unittest discover -s tests -p 'test_factory_*.py' -v
 ```
 

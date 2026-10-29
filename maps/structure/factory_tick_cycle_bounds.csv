@@ -1,0 +1,9 @@
+contract,entry,stop_before,nominal_structural_min_E,nominal_upper_E,period_E,strict_no_next_compare_if_L_plus_H_less_than_E,premises
+iac_step,91A3,balanced_return_included,49,118,13104,,accepted stack; ordinary path; ADC7 ready <=129 E after write; no extra bus waits; preemption counted separately as H
+adc_timeout_helper,F25F,balanced_return_included,24,173,13104,,accepted stack; ordinary path; ADC7 ready <=129 E after write; no extra bus waits; preemption counted separately as H
+current_calculation,7C13,balanced_return_included,49,429,13104,,accepted stack; ordinary path; ADC7 ready <=129 E after write; no extra bus waits; preemption counted separately as H
+fast_tick,7B6D,balanced_return_included,249,988,13104,,accepted stack; ordinary path; ADC7 ready <=129 E after write; no extra bus waits; preemption counted separately as H
+entry_to_current_entry,793D,7C13,256,615,13104,12489,accepted stack; ordinary path; ADC7 ready <=129 E after write; no extra bus waits; preemption counted separately as H
+entry_through_3068_store,793D,7BA6,316,1055,13104,12049,accepted stack; ordinary path; ADC7 ready <=129 E after write; no extra bus waits; preemption counted separately as H
+entry_to_busy_test,793D,797D,321,1060,13104,12044,accepted stack; ordinary path; ADC7 ready <=129 E after write; no extra bus waits; preemption counted separately as H
+busy_entry_through_RTI,793D,balanced_return_included,351,1090,13104,12014,accepted stack; ordinary path; ADC7 ready <=129 E after write; no extra bus waits; preemption counted separately as H

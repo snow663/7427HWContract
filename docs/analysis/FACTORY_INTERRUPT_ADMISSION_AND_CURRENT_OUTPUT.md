@@ -169,6 +169,13 @@ supplies arrivals at eligible instruction boundaries and leaves that joined
 time proof open. In particular, the existence of an unmasked instruction is
 not itself proof that another compare can occur during it.
 
+The [fast-tick timing follow-up](FACTORY_FAST_TICK_TIMING_CONTRACT.md) now gives
+a conditional1090-E-cycle complete busy-handler bound against the13104-cycle
+compare interval. It excludes the overwrite below an explicit delay budget
+and reproduces it with counter-driven compares at late supplied entry times.
+The preceding factory paths and competing sources that could produce those
+times remain unproved; the earlier table is not a measured incidence claim.
+
 ## Consequence for an independent implementation
 
 The reconstruction now has a narrower ordinary interrupt graph, a conditional

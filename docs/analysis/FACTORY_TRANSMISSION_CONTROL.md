@@ -437,7 +437,10 @@ shows a nestedTOC3 entry between the0150 read and store can lose an accumulator
 update. Reentry after that store can preserve0150 while the interrupted
 calculation later publishes an older014C and3068 command. Treating the formula
 as atomic, or comparing only its final accumulator, omits these conditional
-instruction-order effects. Actual timer-arrival feasibility remains open.
+instruction-order effects. The [conditional timing contract](FACTORY_FAST_TICK_TIMING_CONTRACT.md)
+now excludes fast-service reentry below an explicit delay budget and reproduces
+the overwrite in counter-driven late-entry fixtures. Whether preceding factory
+execution can supply the required lateness remains open.
 
 With accumulator 0150=0E00 and neither 008E.7 nor 0086.0 set, count FC until
 new FC>C6E54. Then compare battery A7 against
