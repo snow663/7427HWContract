@@ -9,7 +9,7 @@ not used as a measure of knowledge completeness.
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 The [machine-readable ledger](../../maps/structure/factory_equivalence_assumptions.csv)
-contains fifteen scoped contracts and five remaining work packages. This is an
+contains seventeen scoped contracts and four remaining work packages. This is an
 initial prioritized ledger, not an exhaustive denominator or completion score.
 
 ## What this pass establishes from the ROM
@@ -231,23 +231,55 @@ Six new checks execute selected masked spans and complete REF/SCI handlers.
 These components support a conditional workload inequality against the13104
 cycle compare period. They do not determine the number of admitted arrivals,
 bursts or global TOC3 depth. Source enable/acknowledgment/rearm lifecycles and
-interarrival constraints are the next timing target.
+interarrival constraints are joined in the closure below.
+
+## Joined interrupt and timing closure
+
+The [interrupt/timing closure](FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md) completes
+the scoped ROM timing specification inEQ-10. Stock mode gates leave four live
+ordinary sources:REF, OC1, OC3 andSCI. OC4/5 enable paths are inactive in BMHM;
+all other local masks remain off. Stock REF is bounded at723 own E cycles.
+
+All46 local cyclic components and253 procedure entries have classifications,
+plus a one-main-pass envelope. The conservative35733-cycle own-work pass
+retains opaque/terminal boundaries; rows with wait/repeat boundaries have no
+full-time upper number. Actual complete selected passes cover all16 slots.
+
+The joined healthy-input condition allows eight REF and eight clean SCI
+entries per13104-E window, with up to ten OC1 entries. It budgets12860 nominal
+cycles and requires extra waits below244. This excludes pre-busy timer nesting
+and repeated busy-service nesting. The tail still admits a new owner after
+busy clear; conditional guard/stack accounting allows eight owners, followed
+by ninth-entry recovery, with a123-byte conservative transient address envelope.
+It does not declare those RAM addresses free of aliases.
+
+Eleven additional checks include source-priority/coalescing, clock-driven SCI,
+complete main passes, the tail gap, stack recovery, early boot unmasking and
+fault nonprogress. A frozen23-REF edge schedule produces L=12414 and the
+066A→0660 current publication without supplying timer-entry lateness. A
+spaced-edge/serial fixture instead keeps the busy timer services separate.
+The initial7467 I=1 label is corrected to a conditional premise: selected boot
+code clears I atC57F before the first timer arm.
+
+EQ-10 is specified with input/device/ABI premises rather than left as another
+ROM-extraction job. Confirming those input and board premises isEQ-12/13;
+arbitrary supplied code isEQ-14. There is no unconditional deadline under
+unrestricted IRQ edges, failed ADC or corrupted frames.
 
 ## What still requires information or further extraction
 
-The ledger deliberately separates two ROM-analysis jobs from three external
+The ledger now separates one ROM state-joining job from three external
 evidence packages:
 
 | ID | Remaining question | Information source / reconstruction consequence |
 |---|---|---|
-|EQ-10|Worst admitted interrupt nesting, stack footprint and masked/unmasked execution bounds across complete callees|ROM plus CPU timing semantics. All253 mask/stack summaries, ordinary nesting grammar,709-cycle local masking maximum and full competing-handler costs join the1090-cycle busy-handler bound. Source arrival envelopes and complete non-busy main/tail work must establish reachable L/H and TOC3 depth. Actual clock/wait behavior is separatelyEQ-13.|
 |EQ-11|Complete cross-controller state transitions under service, clear, mode and retained-state changes|ROM value flow and selected event schedules. IAC/gear shadow and current-control accumulator/command ordering have complete selected-handler witnesses; other combinations and feasible timing still need a checked joined state specification.|
 |EQ-12|Proprietary device read coherency, latch/trigger semantics and permissible transaction timing|Targeted bus/register/output observations. Existing access order, byte operations and deliberate delays can be retained while this contract is refined.|
 |EQ-13|Actual board clock/wait behavior, reset retention and physical memory decode|CPU/board identification and targeted measurements. ROM gives programmed values and boot clears; it does not give every external power/reset effect.|
 |EQ-14|Full calling convention/effects of optional supplied code and intended external tail-entry callers|Actual module/caller bytes or runtime evidence. Preserve the known probe/guards and exposed interfaces; complete optional-module compatibility remains conditional.|
 
-EQ-10 andEQ-11 do not require a missing GM source file or new truck data.
-They require extracting and joining information already encoded in the ROM.
+EQ-11 does not require a missing GM source file or new truck data.
+It requires joining information already encoded in the ROM.
 EQ-12/13 concern the observable CPU/device contract. Reverse-engineering the
 ASIC's internal implementation, assigning engineering names to every raw
 count or redesigning actuator drivers is not a prerequisite if the original
@@ -257,10 +289,9 @@ EQ-14 is not a missing resident fuel/spark algorithm. The eight external
 entries and arbitrary factory callback/upload interfaces are outside the
 supplied resident code. A particular module's internals must not be invented.
 
-The next ROM-only work is to join the253-entry mask/stack contracts, local
-masking/handler costs and conditional fast-tick deadline with source arrival bounds,
-then extend the output-changing state combinations inEQ-11 beyond the IAC/gear
-and current-control cases. A whole-machine
+The next ROM-only work is to extend output-changing state combinations inEQ-11
+beyond the IAC/gear and current-control cases, using the joined interrupt and
+timing contract. A whole-machine
 equivalence claim needs those contracts and the appropriate external evidence;
 the number of classified instruction bytes supplies no substitute.
 
@@ -273,6 +304,7 @@ python tools/verify_factory_interrupt_masks.py --rom /path/to/BMHM.BIN
 python tools/verify_factory_interrupt_admission.py --check-recorded
 python tools/verify_factory_tick_timing.py --check-recorded
 python tools/verify_factory_masked_timing.py --check-recorded
+python tools/verify_factory_interrupt_timing_closure.py --check-recorded
 python -m unittest discover -s tests -p 'test_factory_*.py' -v
 ```
 

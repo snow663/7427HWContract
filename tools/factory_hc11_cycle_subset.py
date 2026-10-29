@@ -6,11 +6,11 @@ This deliberately does not use the simulator core's cycle accounting.
 """
 from factory_rom_decode import BRANCHES
 
-INHERENT = dict.fromkeys('ABA ASLA ASLB ASRA CLI CLRA CLRB DECA DECB INCA INCB LSRB NEGA ROLA RORA RORB SBA SEI TAB TAP TBA TPA TSTA TSTB'.split(), 2)
-INHERENT.update(ABX=3, ASLD=3, INS=3, INX=3, INY=4, LSRD=3, TSX=3, XGDX=3,
+INHERENT = dict.fromkeys('ABA ASLA ASLB ASRA CBA CLC CLI CLRA CLRB COMA COMB DECA DECB INCA INCB LSRA LSRB NEGA NEGB NOP ROLA RORA RORB SBA SEC SEI TAB TAP TBA TPA TSTA TSTB'.split(), 2)
+INHERENT.update(ABX=3, ABY=4, ASLD=3, DEX=3, DEY=4, INS=3, INX=3, INY=4, LSRD=3, TSX=3, TSY=4, TYS=4, XGDX=3,
                  XGDY=4, PSHA=3, PSHB=3, PSHX=4, PSHY=5, PULA=4, PULB=4, PULX=5, PULY=6,
-                 RTS=5, RTI=12, FDIV=41, MUL=10)
-READ8 = set('ADCA ADCB ADDA ADDB ANDA ANDB BITA BITB CMPA CMPB EORA EORB LDAA LDAB ORAA ORAB SBCA SBCB SUBA'.split())
+                 RTS=5, RTI=12, IDIV=41, FDIV=41, MUL=10)
+READ8 = set('ADCA ADCB ADDA ADDB ANDA ANDB BITA BITB CMPA CMPB EORA EORB LDAA LDAB ORAA ORAB SBCA SBCB SUBA SUBB'.split())
 MODES = ('immediate', 'direct', 'extended', 'indexed_x', 'indexed_y')
 
 
@@ -39,7 +39,7 @@ def cycles(i):
         return {'direct':4,'extended':5,'indexed_x':5,'indexed_y':6}[i.mode]
     if i.op == 'STY':
         return {'direct':5,'extended':6,'indexed_x':6,'indexed_y':6}[i.mode]
-    if i.op in {'CLR','TST','INC'}:
+    if i.op in {'ASL','CLR','COM','DEC','INC','NEG','ROL','TST'}:
         return {'extended':6,'indexed_x':6,'indexed_y':7}[i.mode]
     if i.op == 'JMP':
         return {'extended':3,'indexed_x':3,'indexed_y':4}[i.mode]

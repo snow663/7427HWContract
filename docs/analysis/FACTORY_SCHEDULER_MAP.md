@@ -197,6 +197,17 @@ cycles per ordinary entry. These close the local masking/cost components of
 the deadline budget; source arrival counts, acknowledgment/rearm rules and
 complete non-busy main/catch-up work remain to be joined.
 
+The [joined interrupt/timing closure](FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md)
+supplies the subsequent source and main/tail join. OnlyREF, OC1, OC3 andSCI
+are locally live in stock BMHM. Under the stated input/wait envelope the
+budget is12860 of13104 E cycles. Tail busy-clear still permits a new owner
+before7989; eight owner frames can pass the lower guard, while a ninth
+recovers throughLDS03F6. Transient frames and one leaf give a conservative
+123-byte address envelope under those premises. Main passes have a separate
+conditional own-work envelope; continued catch-up and fault waits retain
+their event-dependent behavior. Selected boot code also clears I before the
+first arm, so reset I=1 is not silently inherited to7467.
+
 ## The 16 slots
 
 Actual bytes `$7A44-$7A50`:

@@ -180,11 +180,13 @@ The [masked-interval/IRQ follow-up](FACTORY_MASKED_INTERVAL_AND_IRQ_TIMING.md)
 now bounds all27 ordinary SEI spans at709 E cycles or less and supplies full
 competing-handler costs, including1221 own cycles forREF and481 fornormal
 SCI. Its component workload inequality retains arrival counts explicitly.
-The next ROM-only work is to establish enable/acknowledgment/rearm lifecycles
-and source arrival envelopes, then join complete non-busy main/tail paths.
-That will determine which L/H ranges factory execution can reach and the
-resulting maximum active nesting/stack footprint. Actual clock, bus and device
-fault behavior retain their external evidence boundaries.
+The [joined interrupt/timing closure](FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md)
+now supplies the source lifecycle, stock-mode pruning, local-loop/main-pass
+classification and conditional deadline/stack join. A frozen23-REF edge
+schedule produces12414-cycle first-entry lateness and a current overwrite;
+the stated healthy-input envelope excludes that burst and repeated busy
+nesting. Tail ownership/recovery remains distinct. Actual clock, bus, input
+and device fault behavior retain their external evidence boundaries.
 
 ## Reproduce
 

@@ -28,4 +28,4 @@ F3EE,SEI,ordinary_resident,81,F41F,following_CLI_instruction_complete,valid fram
 F616,SEI,stock_schedule_excludes,9781,F643,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
 F781,SEI,ordinary_resident,107,F7BB,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
 FB5E,SEI,factory_output_cycle,46,FB70,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
-7467,LDAA #A0 after first compare arm,initial_armed_I1_suffix,136,74AB;74B4,following_CLI_instruction_complete,reset I1 inherited; ordinary foreground; nominal bus; valid refresh cursor/frames; includes CLI following instruction
+7467,LDAA #A0 after first compare arm,conditional_initial_armed_I1_suffix,136,74AB;74B4,following_CLI_instruction_complete,if entered I1; earlier boot C57F/D183 can clear I; ordinary foreground; nominal bus; valid refresh cursor/frames; includes CLI following instruction

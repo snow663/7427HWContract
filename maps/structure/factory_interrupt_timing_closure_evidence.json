@@ -1,0 +1,144 @@
+{
+  "COP": {
+    "CR_bits": 0,
+    "OPTION_hex": "B8",
+    "divider_E": 32768,
+    "enable_from": "CONFIG.NOCOP plus operating-mode controls; not BIN padding",
+    "note": "prescaler phase gives nominal timeout uncertainty; watchdog reset is recovery not successful scheduling"
+  },
+  "OC1_events_in_short_window": "N_REF + 2; includes initial pending plus one preexisting compare; window<counter wrap",
+  "OC1_offset_counts_minmax": [
+    219,
+    426
+  ],
+  "SCI_8N1_E_per_character": 2560,
+  "SCI_E_per_bit": 256,
+  "SCI_clean_character_credits": {
+    "IRQ_bound": 8,
+    "initial_pending_and_pipeline": 2,
+    "window13104_character_completions_max": 6
+  },
+  "all_guard_busy_route_upper_E": 1105,
+  "all_guard_prefix_to797D_upper_E": 1075,
+  "all_guard_to_busy_set_upper_E": 1087,
+  "boot_unmask": {
+    "SCI_local_enable": "7154",
+    "first_OC3_arm": "7464",
+    "first_TMSK1_A0": "7469",
+    "note": "boot can unmask before first timer arm;7467 I1 suffix is conditional not inherited by every boot path",
+    "selected_cold_path_first_CLI": "C57F",
+    "selected_later_CLI": "D183"
+  },
+  "busy_pending_writers": {
+    "003A.5": {
+      "749A": "preserve_by_self_copy",
+      "7985": "set",
+      "7A7D": "clear",
+      "F318": "clear"
+    },
+    "004F.2": {
+      "74A2": "preserve_by_self_copy",
+      "7974": "clear",
+      "7989": "set",
+      "7A52": "clear",
+      "F31E": "clear"
+    }
+  },
+  "conditional_deadline": {
+    "N_OC1_max": 10,
+    "N_REF_max": 8,
+    "N_SCI_max": 8,
+    "REF_carry_allowance": 2,
+    "REF_min_edge_spacing_sufficient_E": 2184,
+    "strict_extra_wait_limit_E": 244,
+    "sum_E": 12860,
+    "window_E": 13104
+  },
+  "disabled_OC45_enable_sites": [
+    "77DF",
+    "780F"
+  ],
+  "fast_service_upper_E_from_tick_contract": 988,
+  "guard_stack": {
+    "LDS_recovery": "03F6",
+    "accepted_TSX_min": "03B0",
+    "accepted_owner_frames_max": 8,
+    "accepted_owner_plus_leaf_below_foreground_bytes": 112,
+    "conditional_peak_below_foreground_bytes": 123,
+    "current_resident_peak_bytes": 21,
+    "foreground_SP": "03FF",
+    "leaf_frame_plus_resident_max": 19,
+    "next_entry_recovers": 9,
+    "peak_low_SP": "0384",
+    "rejected_entry_prefix_extra_bytes": 11,
+    "scope": "deadline/input envelope excludes recursive pre-guard timer entry; valid frames and no aliases; includes rejected ninth prefix before LDS; not extra usable RAM",
+    "tail_ancestor_resident_bytes": 0
+  },
+  "limits": [
+    "stock mode pruning is stronger than the general handler bounds",
+    "clean SCI bound requires nominal matched character clocks or an explicit N_SCI<=8 arrival contract; acknowledged flags; no overrun-only stale request",
+    "REF edge spacing is an input contract; electrical legality alone permits starvation",
+    "per-pass own bounds are conservative SCC sums and keep terminal/supplied-code boundaries",
+    "tail/catch-up count depends on arrivals; no universal main completion time",
+    "peripheral read/write equality borders and board waits remain external timing contracts"
+  ],
+  "local_cyclic_components": 46,
+  "ordinary_vectors": 15,
+  "procedure_envelopes": 254,
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "stock_REF_gates": {
+    "7562": "7566",
+    "7572": "7576",
+    "769B": "76D9",
+    "7797": "77C6"
+  },
+  "stock_REF_instruction_sites": 244,
+  "stock_REF_upper_own_E": 723,
+  "stock_live_vectors": [
+    "FFD6",
+    "FFE4",
+    "FFE8",
+    "FFF2"
+  ],
+  "tracked_register_writers": {
+    "3022": [
+      "7469",
+      "77DF",
+      "780F",
+      "7880",
+      "78E4",
+      "CC56",
+      "FC31"
+    ],
+    "3024": [
+      "7113",
+      "FC3C"
+    ],
+    "3028": [
+      "CC85"
+    ],
+    "302B": [
+      "CC9F"
+    ],
+    "302C": [
+      "CC81"
+    ],
+    "302D": [
+      "7154",
+      "F645",
+      "F7AF",
+      "F811",
+      "F907",
+      "F950",
+      "FA48",
+      "FA57"
+    ],
+    "3039": [
+      "710F",
+      "7D89"
+    ],
+    "303C": [
+      "CCA3"
+    ]
+  }
+}

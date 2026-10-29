@@ -36,7 +36,7 @@ This narrows specific state/interleaving questions without asserting general
 whole-program interleaving closure.
 
 The [independent-equivalence information ledger](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
-adds fifteen scoped contracts, two remaining ROM-analysis work packages and three
+adds seventeen scoped contracts, one remaining ROM state-joining work package and three
 external evidence packages. Twelve new bounded checks cover caller masking,
 TOC3 reentry, serial mailbox/payload lifetime and trap/vector behavior; the new
 253-entry structural normal-return I-mask summaries narrow the callee context
@@ -57,7 +57,7 @@ and no supplied-code effects. Seven additional checks include a complete
 busy-timer current-control witness: reentry can overwrite an accumulator
 update or publish an older command even with the correct final accumulator.
 Physical timer feasibility remains a separate condition. The full factory
-suite now has153 passing tests.
+suite now has164 passing tests.
 
 The [fast-tick timing contract](FACTORY_FAST_TICK_TIMING_CONTRACT.md) adds a
 13104-E-cycle compare recurrence and a conditional1090-cycle complete busy
@@ -74,6 +74,16 @@ have independent nominal bounds, including1221 own cycles forREF and481 for
 normal-session SCI. Six new execution checks validate selected intervals and
 complete REF/SCI exchanges. The remaining timing join concerns source arrival
 counts and bursts, complete non-busy main/tail work and actual bus behavior.
+
+The [joined interrupt/timing closure](FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md)
+completesEQ-10 as a conditional resident specification: four stock live sources,
+all46 local loop components, all253 procedure entries, a separate main-pass
+envelope, source-count deadline and tail/guard stack accounting. Eleven new
+checks include clock-driven SCI, complete passes, source-driven late current
+overwrite, tail ownership/recovery and boot unmasking. Remaining input/board/
+module premises are explicitly assigned toEQ-12/13/14; joined state sequences
+remainEQ-11. Unrestricted edges and failed devices are not given fictional
+finite completion bounds.
 
 ## Reproducible files
 

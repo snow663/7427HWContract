@@ -39,7 +39,7 @@ Selected bounds are:
 |F3EE output flush|81|F41F RTS afterCLI|
 |F781 serial request setup|107|F7BB branch afterCLI|
 |FB5E factory output-cycle iteration|46|FB70 comparison afterCLI|
-|7467 initial armed I=1 suffix|136|74AB or74B4 branch afterCLI|
+|7467 suffix, conditional on entering I=1|136|74AB or74B4 branch afterCLI|
 
 The709-cycle maximum includes three fullF25F invocations throughF20D. Each
 loadsB=12 atF265, then polls/decrements until ready or timeout. A complete ROM
@@ -65,6 +65,10 @@ invalid stack/active-frame aliases are separate boundaries. In particular,
 TAP50 at7D8C leads toSTOP and a self-loop, not an ordinary finite critical
 section. WAI at74D0 is an interrupt-enabled wait; its already-stacked wake
 sequence differs from an ordinary instruction-to-IRQ entry.
+
+The [joined closure](FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md) corrects the
+earlier inherited-I label: selected boot code clears I atC57F before7467.
+The136-cycle I=1 row is a conditional local envelope, not every boot's mask.
 
 ## Complete competing handlers have conditional costs
 
@@ -155,10 +159,12 @@ timer overrun or frame/alias effect invalidates the components. Exceeding
 the budget does not prove a nested compare. Complete non-busy main/catch-up
 execution and global active TOC3 depth remain outside this bound.
 
-The immediate next ROM target is the enable/acknowledgment/rearm lifecycle of
-REF, SCI and the other timer sources, joined with their minimum interarrival
-constraints and priority. That will distinguish a feasible burst from an
-arbitrary IRQ schedule. Proprietary input arrival and board wait behavior
+The [joined interrupt/timing closure](FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md)
+supplies that lifecycle and event-envelope join. Stock mode pruning leaves
+four live sources and reduces the stock REF bound to723 own cycles. Complete
+source-driven checks distinguish spaced traffic from a23-edge REF burst
+that produces the current overwrite. Main loops, tail ownership and stack
+recovery are classified together; proprietary input arrival and board waits
 retain their external evidence boundaries.
 
 ## Reproduce and timing authority

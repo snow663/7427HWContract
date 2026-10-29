@@ -164,10 +164,10 @@ def build(rom):
                        'premises':'valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction'})
     high,ends=bound(0x7467)
     masked.append({'start':'7467','start_instruction':'LDAA #A0 after first compare arm',
-                   'scope':'initial_armed_I1_suffix','nominal_upper_E':high,
+                   'scope':'conditional_initial_armed_I1_suffix','nominal_upper_E':high,
                    'unmask_end_instructions':';'.join(f'{p:04X}' for p,k in sorted(ends)),
                    'end_rules':';'.join(sorted({k for p,k in ends})),
-                   'premises':'reset I1 inherited; ordinary foreground; nominal bus; valid refresh cursor/frames; includes CLI following instruction'})
+                   'premises':'if entered I1; earlier boot C57F/D183 can clear I; ordinary foreground; nominal bus; valid refresh cursor/frames; includes CLI following instruction'})
     irq_rows=[]
     for entry in sorted({rom.word(v) for v in range(0xFFD6,0xFFF4,2)}-{0x793D}):
         variants=[('stock_typed_descriptors_RX_N_le34',34,False)] if entry==0xF7EA else [('resident_handler',34,False)]
