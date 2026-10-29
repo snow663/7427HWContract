@@ -189,6 +189,14 @@ complete main/catch-up work or establish that preceding factory execution
 produces those entry times. A target already behind TCNT waits for wrap;
 the handler does not queue missed819-count periods.
 
+The [masked-interval/IRQ timing follow-up](FACTORY_MASKED_INTERVAL_AND_IRQ_TIMING.md)
+bounds all27 ordinary resident SEI spans at no more than709 E cycles and
+accounts separately for the two factory/optional spans. Complete competing
+handler costs include1221 own cycles forREF and481 fornormal SCI, plus12
+cycles per ordinary entry. These close the local masking/cost components of
+the deadline budget; source arrival counts, acknowledgment/rearm rules and
+complete non-busy main/catch-up work remain to be joined.
+
 ## The 16 slots
 
 Actual bytes `$7A44-$7A50`:

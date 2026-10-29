@@ -36,7 +36,7 @@ This narrows specific state/interleaving questions without asserting general
 whole-program interleaving closure.
 
 The [independent-equivalence information ledger](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
-adds fourteen scoped contracts, two remaining ROM-analysis work packages and three
+adds fifteen scoped contracts, two remaining ROM-analysis work packages and three
 external evidence packages. Twelve new bounded checks cover caller masking,
 TOC3 reentry, serial mailbox/payload lifetime and trap/vector behavior; the new
 253-entry structural normal-return I-mask summaries narrow the callee context
@@ -57,7 +57,7 @@ and no supplied-code effects. Seven additional checks include a complete
 busy-timer current-control witness: reentry can overwrite an accumulator
 update or publish an older command even with the correct final accumulator.
 Physical timer feasibility remains a separate condition. The full factory
-suite now has147 passing tests.
+suite now has153 passing tests.
 
 The [fast-tick timing contract](FACTORY_FAST_TICK_TIMING_CONTRACT.md) adds a
 13104-E-cycle compare recurrence and a conditional1090-cycle complete busy
@@ -66,6 +66,14 @@ the exclusion condition. Five further checks use counter-driven compares and
 normal ADC completion to distinguish on-time exclusion, late current overwrite
 and a passed target waiting for wrap. Complete main/tail and source-arrival
 bounds remain open; no full-machine WCET or nesting limit is inferred.
+
+The [masked-interval/IRQ timing contract](FACTORY_MASKED_INTERVAL_AND_IRQ_TIMING.md)
+accounts for all29 rooted SEIs and bounds the27 ordinary resident spans at
+709 E cycles, including the instruction afterCLI. Complete non-TOC3 handlers
+have independent nominal bounds, including1221 own cycles forREF and481 for
+normal-session SCI. Six new execution checks validate selected intervals and
+complete REF/SCI exchanges. The remaining timing join concerns source arrival
+counts and bursts, complete non-busy main/tail work and actual bus behavior.
 
 ## Reproducible files
 

@@ -176,11 +176,15 @@ budget and remains possible in the counter-driven late-entry fixture. Strict
 equivalence needs the same distinction; declaring it universally reachable
 or universally impossible would each add an unsupported assumption.
 
-The next ROM-only work is to bound masked regions and complete main/tail paths,
-then combine them with REF/SCI/other-source admission envelopes. That will
-determine which L/H ranges factory execution can reach and the resulting
-maximum active nesting/stack footprint. Actual clock, bus and device fault
-behavior retain their external evidence boundaries.
+The [masked-interval/IRQ follow-up](FACTORY_MASKED_INTERVAL_AND_IRQ_TIMING.md)
+now bounds all27 ordinary SEI spans at709 E cycles or less and supplies full
+competing-handler costs, including1221 own cycles forREF and481 fornormal
+SCI. Its component workload inequality retains arrival counts explicitly.
+The next ROM-only work is to establish enable/acknowledgment/rearm lifecycles
+and source arrival envelopes, then join complete non-busy main/tail paths.
+That will determine which L/H ranges factory execution can reach and the
+resulting maximum active nesting/stack footprint. Actual clock, bus and device
+fault behavior retain their external evidence boundaries.
 
 ## Reproduce
 

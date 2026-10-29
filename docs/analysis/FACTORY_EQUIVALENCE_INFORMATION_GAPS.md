@@ -9,7 +9,7 @@ not used as a measure of knowledge completeness.
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 The [machine-readable ledger](../../maps/structure/factory_equivalence_assumptions.csv)
-contains fourteen scoped contracts and five remaining work packages. This is an
+contains fifteen scoped contracts and five remaining work packages. This is an
 initial prioritized ledger, not an exhaustive denominator or completion score.
 
 ## What this pass establishes from the ROM
@@ -209,7 +209,29 @@ fixtures reproduce the current overwrite with sufficiently late supplied
 entries and normal ADC completion. A passed rearm target instead waits for
 counter wrap; it does not queue elapsed819-count intervals. Five new checks
 verify this conditional timing layer. The source of required lateness, complete
-main/tail costs and competing interrupt envelopes remain open.
+main/tail costs and interrupt-arrival envelopes remain open. The following pass
+supplies local masking and individual competing-handler costs.
+
+## Masked intervals and competing interrupt cost follow-up
+
+The [masked-interval/IRQ timing contract](FACTORY_MASKED_INTERVAL_AND_IRQ_TIMING.md)
+accounts for all29 rooted SEIs. Its27 ordinary resident spans are bounded at
+709 nominal E cycles, includingCLI's following instruction. Complete ROM
+execution reaches that maximum with three bounded ADC timeouts. The separate
+optional broadcast copy is not selected by stock's all-zero schedule; STOP,
+traps, supplied code and invalid frames remain explicit boundaries.
+
+All eight distinct non-TOC3 ordinary handlers have full resident bounds.
+REF is at most1221 own cycles; SCI is at most481 in the normal eleven-byte
+copy scope, or964 with the validated34-byte receive scope. Each ordinary
+entry additionally costs12 nominal cycles. REF's latch transitions and
+SCI's ROM lookup chains/copy counts make their apparent loops finite.
+Six new checks execute selected masked spans and complete REF/SCI handlers.
+
+These components support a conditional workload inequality against the13104
+cycle compare period. They do not determine the number of admitted arrivals,
+bursts or global TOC3 depth. Source enable/acknowledgment/rearm lifecycles and
+interarrival constraints are the next timing target.
 
 ## What still requires information or further extraction
 
@@ -218,7 +240,7 @@ evidence packages:
 
 | ID | Remaining question | Information source / reconstruction consequence |
 |---|---|---|
-|EQ-10|Worst admitted interrupt nesting, stack footprint and masked/unmasked execution bounds across complete callees|ROM plus CPU timing semantics. All253 mask/stack summaries, ordinary nesting grammar and conditional1090-cycle busy-handler bound are available. Complete main/tail costs and source arrival envelopes must establish reachable L/H and TOC3 depth. Actual clock/wait behavior is separatelyEQ-13.|
+|EQ-10|Worst admitted interrupt nesting, stack footprint and masked/unmasked execution bounds across complete callees|ROM plus CPU timing semantics. All253 mask/stack summaries, ordinary nesting grammar,709-cycle local masking maximum and full competing-handler costs join the1090-cycle busy-handler bound. Source arrival envelopes and complete non-busy main/tail work must establish reachable L/H and TOC3 depth. Actual clock/wait behavior is separatelyEQ-13.|
 |EQ-11|Complete cross-controller state transitions under service, clear, mode and retained-state changes|ROM value flow and selected event schedules. IAC/gear shadow and current-control accumulator/command ordering have complete selected-handler witnesses; other combinations and feasible timing still need a checked joined state specification.|
 |EQ-12|Proprietary device read coherency, latch/trigger semantics and permissible transaction timing|Targeted bus/register/output observations. Existing access order, byte operations and deliberate delays can be retained while this contract is refined.|
 |EQ-13|Actual board clock/wait behavior, reset retention and physical memory decode|CPU/board identification and targeted measurements. ROM gives programmed values and boot clears; it does not give every external power/reset effect.|
@@ -235,8 +257,8 @@ EQ-14 is not a missing resident fuel/spark algorithm. The eight external
 entries and arbitrary factory callback/upload interfaces are outside the
 supplied resident code. A particular module's internals must not be invented.
 
-The next ROM-only work is to join the253-entry mask/stack contracts and the
-ordinary nesting grammar and conditional fast-tick deadline with source arrival bounds,
+The next ROM-only work is to join the253-entry mask/stack contracts, local
+masking/handler costs and conditional fast-tick deadline with source arrival bounds,
 then extend the output-changing state combinations inEQ-11 beyond the IAC/gear
 and current-control cases. A whole-machine
 equivalence claim needs those contracts and the appropriate external evidence;
@@ -250,6 +272,7 @@ python tools/verify_factory_interrupt_masks.py --check-recorded
 python tools/verify_factory_interrupt_masks.py --rom /path/to/BMHM.BIN
 python tools/verify_factory_interrupt_admission.py --check-recorded
 python tools/verify_factory_tick_timing.py --check-recorded
+python tools/verify_factory_masked_timing.py --check-recorded
 python -m unittest discover -s tests -p 'test_factory_*.py' -v
 ```
 

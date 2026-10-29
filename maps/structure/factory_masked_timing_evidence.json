@@ -1,0 +1,60 @@
+{
+  "HPRIO_write": {
+    "F1_PSEL": "5 reserved selection defaults to IRQ",
+    "address": "303C",
+    "pc": "CCA3",
+    "requested_hex": "15"
+  },
+  "REF_latch_bit": "0051.7",
+  "REF_latch_set_only_writer_pcs": [
+    "7725",
+    "7742",
+    "775B"
+  ],
+  "REF_output_helpers_preserve_Y": [
+    "77C7",
+    "77F7",
+    "785A"
+  ],
+  "SCI_root_chains": {
+    "51BF": [
+      "51BF",
+      "53A8",
+      "53C9"
+    ],
+    "FBD7": [
+      "FBD7",
+      "FBE0",
+      "FBE9"
+    ]
+  },
+  "SEI_sites": 29,
+  "instruction_sites": 1253,
+  "interrupt_rows": 10,
+  "limits": [
+    "all29 rooted SEI sites; conditional local masking envelopes, not whole-program WCET",
+    "incoming hardware masks and source-priority arbitration need their own event envelope",
+    "CLI following instruction included; ordinary RTI restores supplied valid entry I0",
+    "ADC7 completion premise excludes held-not-ready failure",
+    "copy caps34/11 require protocol length and mode predicates;255 is a byte-loop overapproximation",
+    "no bound on REF/SCI/other arrival counts; no global L/H or TOC3 nesting claim"
+  ],
+  "loop_body_E": {
+    "F622": 38,
+    "FA16": 21
+  },
+  "masked_rows": 30,
+  "ordinary_SEI_rows": 27,
+  "ordinary_masked_max_E": 709,
+  "ordinary_max_start_pcs": [
+    "7AB7"
+  ],
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "stock_broadcast_schedule": "518F..51AF all zero; F616 not selected by ordinary stock polling",
+  "terminal_boundaries": [
+    "7D8C TAP50;7D8D STOP;7D8E self-loop",
+    "SWI/illegal/clock-monitor trap loops",
+    "factory callback/upload and external hooks",
+    "invalid stack/active-frame aliases"
+  ]
+}

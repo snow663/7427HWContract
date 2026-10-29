@@ -1,0 +1,31 @@
+start,start_instruction,scope,nominal_upper_E,unmask_end_instructions,end_rules,premises
+7483,SEI,ordinary_resident,97,74AB,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+79C7,SEI,ordinary_resident,31,79D9,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+7A51,SEI,ordinary_resident,85,7A81;7A84,RTI_restores_valid_ordinary_entry_I0;following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+7AB7,SEI,ordinary_resident,709,7ABC,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+7B70,SEI,ordinary_resident,419,7B9B,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+7BF5,SEI,ordinary_resident,15,7BFC,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+83CA,SEI,ordinary_resident,23,83D5,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+84A9,SEI,ordinary_resident,227,84AE,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+87DE,SEI,ordinary_resident,18,87E6,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+9202,SEI,ordinary_resident,21,920D,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+A5B2,SEI,ordinary_resident,23,A5BF,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+AA81,SEI,ordinary_resident,20,AA89,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+AF74,SEI,ordinary_resident,49,AF90,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+AFC4,SEI,ordinary_resident,97,AFED,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+B9D8,SEI,ordinary_resident,20,B9E0,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+BA1F,SEI,ordinary_resident,18,BA26,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+BC2A,SEI,ordinary_resident,18,BC31,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+C579,SEI,ordinary_resident,190,C580,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+C58D,SEI,ordinary_resident,223,C599,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+CB15,SEI,ordinary_resident,42,CB31,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+CC59,SEI,ordinary_resident,52,CC79,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+CEEA,SEI,ordinary_resident,189,CEF1,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+D15F,SEI,ordinary_resident,201,D184,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+DBFE,SEI,ordinary_resident,223,DC0A,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+E38F,SEI,ordinary_resident,65,E3BB,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+F3EE,SEI,ordinary_resident,81,F41F,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+F616,SEI,stock_schedule_excludes,9781,F643,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+F781,SEI,ordinary_resident,107,F7BB,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+FB5E,SEI,factory_output_cycle,46,FB70,following_CLI_instruction_complete,valid frames; nominal bus timing; ADC7 <=129 E; no supplied-code/alias effects; includes CLI following instruction
+7467,LDAA #A0 after first compare arm,initial_armed_I1_suffix,136,74AB;74B4,following_CLI_instruction_complete,reset I1 inherited; ordinary foreground; nominal bus; valid refresh cursor/frames; includes CLI following instruction
