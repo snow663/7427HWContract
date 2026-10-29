@@ -258,11 +258,17 @@ The async helper `$8548` receives a packet word in D. If ROM `$400E bit4` is set
 | PC | Software action |
 |---|---|
 | `$8571` | Write the resulting word to `$3FF2` |
-| `$8577` | Read a coherent live word from `$3FFC` |
+| `$8577` | Read a word from `$3FFC`; peripheral byte coherency remains unproven |
 | `$857F` | Write that word with `$0400` clear |
 | `$8587` | Write the same word with `$0400` set |
 
 `$0400` is bit2 of the byte at CPU `$3FFC`, the high byte of the word. The RTS helper `$F3ED` occurs between accesses. These software values/order are established; the physical trigger response is a hardware dependency.
+
+The [interrupt-contract follow-up](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
+verifies both resident caller contexts: main84A9 masks before84AA and unmasks
+after return; REF762D inherits the IRQ mask.8548 itself preserves I. A deliberately
+unmasked helper-call counterexample shows how SCI's low-byte update could be
+replayed stale if a reconstruction omitted those caller contracts.
 
 ## 8. Initialization, cadence, and state ownership
 

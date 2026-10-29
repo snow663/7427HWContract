@@ -131,3 +131,18 @@ is invented across intervening calls. Pending/busy flags explain the resident
 handoff but do not prove absence of all nested interrupts, XIRQ/reset effects,
 stack recovery failures or device read side effects. Those remain graded in
 the [hardware boundary contract](FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md).
+
+## Independent-reconstruction contracts
+
+The [equivalence information ledger](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
+connects selected flags to interrupt-mask context and output-changing event
+order. It verifies the per-block refresh mask, both resident async-fuel caller
+masks, pre-busy versus busy TOC3 reentry, acknowledged clear-request replacement,
+short service-payload retention and distinct trap/reset/XIRQ handlers.
+
+The [253-entry structural I-mask table](../../maps/structure/factory_interrupt_mask_contracts.csv)
+adds normal-RTS postconditions:193 preserve I,16 return I clear,26 depend on
+path/input and18 have no normalRTS return. Both branch arms and conditional
+opaque returns remain explicit. This is not a whole-CCR, stack-depth, timing
+or feasible-interleaving proof. The ledger separates further ROM extraction
+from actual device/board/module information.

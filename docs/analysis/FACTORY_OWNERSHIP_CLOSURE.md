@@ -35,6 +35,13 @@ history, missing-REF SWI trap and three pending-latch interrupt schedules.
 This narrows specific state/interleaving questions without asserting general
 whole-program interleaving closure.
 
+The [independent-equivalence information ledger](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
+adds nine scoped contracts, two remaining ROM-analysis work packages and three
+external evidence packages. Twelve new bounded checks cover caller masking,
+TOC3 reentry, serial mailbox/payload lifetime and trap/vector behavior; the new
+253-entry structural normal-return I-mask summaries narrow the callee context
+question. These counts describe this prioritized pass, not a completeness score.
+
 ## Reproducible files
 
 All generated evidence lives in `maps/structure/`:

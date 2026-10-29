@@ -1,0 +1,36 @@
+{
+  "TAP_pcs": [
+    "7D8C",
+    "92B3",
+    "92D3",
+    "9350",
+    "936A",
+    "9381",
+    "939B"
+  ],
+  "TPA_pcs": [
+    "92A9",
+    "934C"
+  ],
+  "classifications": {
+    "no_normal_RTS_return": 18,
+    "path_or_input_dependent": 26,
+    "preserves_I": 193,
+    "returns_I_clear": 16
+  },
+  "entries": 253,
+  "limits": "not an instruction-timing model; branches unqualified; no stack bound; opaque normal return conditional",
+  "opaque_calls": [
+    "8C6A",
+    "8EDF",
+    "93D4",
+    "A9E4",
+    "AB66",
+    "D029",
+    "F5D3",
+    "F5E4",
+    "FAA5"
+  ],
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "scope": "all global procedure entries; I-bit only; qualified structural normal-RTS summaries"
+}

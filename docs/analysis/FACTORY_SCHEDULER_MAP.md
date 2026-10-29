@@ -114,7 +114,8 @@ Otherwise this code leaves `$0072 bit7` unchanged. It then recomputes `$003B bit
 as `($0051 bit3 set) OR ($003B & $18 nonzero)`, under SEI/CLI.
 
 The next branch reads `$001A bit5` at `$79D9`. The mode names below describe
-this scheduling branch; the complete lifetime of that flag remains open.
+this scheduling branch; its co-writers and conditional lifetime are joined in
+[the flag contract](FACTORY_FLAG_LIFETIMES.md).
 
 | Branch | Conditions | Ordered calls before the table |
 |---|---|---|
@@ -145,6 +146,16 @@ state-access evidence for the helper.
 Conditions are evaluated when their instructions execute. Callees and
 interrupts can change state between tests. The stated call periods count
 admissions when their gates hold, not proven completions of all callee work.
+
+### Reentry before the busy flag
+
+The [equivalence interrupt pass](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
+executes three additional complete TOC3 entries at selected outer boundaries.
+Before the busy test at797D they produce main phases1,2,3,4; after busy is set
+at798C, or during the body at7A44, they coalesce into phases1,2. Tick service
+runs on all four IRQ entries. These structural admission witnesses use the
+existing explicit callee stubs and do not establish full controller execution
+time. Interrupt return is verified against both the original PC and SP.
 
 ## The 16 slots
 
@@ -216,8 +227,10 @@ if elapsed > existing unsigned word: store elapsed
 
 These are per-slot unsigned peak words in timer-count units. Coalesced pending
 ticks and 16-bit wrap limit their interpretation as elapsed wall time. The
-direct listing writer sweep finds no explicit bit6 producer at `$0086`; its
-complete enable path, including indexed/service writes, remains open.
+global writer join excludes an ordinary resident bit6 setter, including indexed
+boot/self-copy owners. Signature-qualified `$F5DC -> $180C` can still call
+supplied code while bit6 is clear; that module's effects remain unknown. See
+[the extension interface](FACTORY_EXTENSION_MEMORY_INTERFACE.md).
 
 ## Factory/service path and its RAM callback
 
