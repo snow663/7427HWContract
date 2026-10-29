@@ -27,6 +27,14 @@ its28 previously unknown rows. The new951-PC map gives their global formal
 contracts; this does not turn an arbitrary runtime pointer into a singleton
 or change the old finite-analysis output to manufacture a zero-unknown count.
 
+The [startup/REF/EST lifecycle](FACTORY_STARTUP_REF_EST_LIFECYCLE.md) adds a
+cross-routine state sequence and eleven bounded execution checks: actual REF
+IRQ/RTI, complete selected startup calculations, separate run qualifiers,
+equal-sample EST acceptance, later unchanged-sample fault, software ignition
+history, missing-REF SWI trap and three pending-latch interrupt schedules.
+This narrows specific state/interleaving questions without asserting general
+whole-program interleaving closure.
+
 ## Reproducible files
 
 All generated evidence lives in `maps/structure/`:

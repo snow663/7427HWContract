@@ -139,7 +139,7 @@ monitor immediately: set 004F.6,clear 022C,save 0205,clear 0044.3 andcopy
 3FEC to 3FE4. An already enabled 004F.6 takes the clear/copy tail too.
 
 Otherwise an existing 0044.7 lock sets live 0019.5(code 42). For a new test,
-compute wrapped 3FCA-old 0205. High byte 0 andlow<=4E71 is a good event:
+compute wrapped 3FCA-old 0205. High byte 0 andlow<=4E71 is an acceptable delta:
 first good sets 0044.6 and saves sample; a second consecutive good accepts
 the monitor as above. A bad event compares old 022C to 4E72; old>limitsets
 0044.7 andlivecode 42. Otherwise increment 022C,clearfirst-good 0044.6 and
@@ -149,6 +149,12 @@ The tail sets 004B.4. If 0004.7 setand 0044.2 clear, set livecode 42 andclear
 004B.4. Otherwise service 003B.4 with 0391.3 sets 0044.2 andclears 004B.4.
 Finally clear 0050.2. These are exact software monitor/output transitions;
 the ASIC meaning of 3FCA/3FEC/3FE4 remains a hardware interface.
+
+Stock4E71=0, so the initial acceptance requires equal sampled words; it is not
+proof of pulse activity. The later E00D monitor tests unchanged samples under
+different gates. Their shared0205/022C storage, reset versus software ignition
+cycle, REF interrupt ordering and SWI destination are connected in the
+[factory startup/REF/EST lifecycle](FACTORY_STARTUP_REF_EST_LIFECYCLE.md).
 
 O2 lean/rich state can invoke F28E BLM reset when 400C.1 and either 0019.2
 or 0072.6. Readiness/closed-loop admission at E477 onward remains in
