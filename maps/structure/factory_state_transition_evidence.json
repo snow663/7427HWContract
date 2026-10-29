@@ -1,0 +1,761 @@
+{
+  "counter_words": {
+    "adjacent_words": {
+      "51BA": "F4FF",
+      "51BC": "FF00"
+    },
+    "duration_address": "51BB",
+    "duration_compare_PC": "F7C6",
+    "duration_hex": "FFFF",
+    "inactive_address": "51BD",
+    "inactive_compare_PC": "F7DC",
+    "inactive_hex": "0000",
+    "units": "calls to F781; unsigned comparisons; consecutive ordinary F64E cleanup constrains admitted histories"
+  },
+  "enable_86_6_resident_writers": [
+    {
+      "condition": "see indexed alias contract",
+      "effect_on_bit": "preserve_by_self_copy",
+      "writer_pc": "7492"
+    },
+    {
+      "condition": "see indexed alias contract",
+      "effect_on_bit": "clear",
+      "writer_pc": "F31E"
+    }
+  ],
+  "execution_test_count": 26,
+  "instruction_anchors": [
+    {
+      "bytes_hex": "BD F2 FD",
+      "instruction": "JSR $F2FD",
+      "pc": "716A"
+    },
+    {
+      "bytes_hex": "BD F2 80",
+      "instruction": "JSR $F280",
+      "pc": "7236"
+    },
+    {
+      "bytes_hex": "13 44 01 06",
+      "instruction": "BRCLR $44,#$01,$7958",
+      "pc": "794E"
+    },
+    {
+      "bytes_hex": "13 1A 20 15",
+      "instruction": "BRCLR $1A,#$20,$79F2",
+      "pc": "79D9"
+    },
+    {
+      "bytes_hex": "BD AC 51",
+      "instruction": "JSR $AC51",
+      "pc": "79E4"
+    },
+    {
+      "bytes_hex": "BD AE 85",
+      "instruction": "JSR $AE85",
+      "pc": "7A14"
+    },
+    {
+      "bytes_hex": "D6 02",
+      "instruction": "LDAB $02",
+      "pc": "7A44"
+    },
+    {
+      "bytes_hex": "13 86 40 20",
+      "instruction": "BRCLR $86,#$40,$7A79",
+      "pc": "7A55"
+    },
+    {
+      "bytes_hex": "ED 00",
+      "instruction": "STD $00,X",
+      "pc": "7A77"
+    },
+    {
+      "bytes_hex": "BD F5 DC",
+      "instruction": "JSR $F5DC",
+      "pc": "7B1E"
+    },
+    {
+      "bytes_hex": "13 3B 10 0F",
+      "instruction": "BRCLR $3B,#$10,$8C66",
+      "pc": "8C53"
+    },
+    {
+      "bytes_hex": "85 04",
+      "instruction": "BITA #$04",
+      "pc": "8C5A"
+    },
+    {
+      "bytes_hex": "27 08",
+      "instruction": "BEQ $8C66",
+      "pc": "8C5C"
+    },
+    {
+      "bytes_hex": "B6 03 97",
+      "instruction": "LDAA $0397",
+      "pc": "8C5E"
+    },
+    {
+      "bytes_hex": "20 07",
+      "instruction": "BRA $8C6D",
+      "pc": "8C64"
+    },
+    {
+      "bytes_hex": "13 86 40 03",
+      "instruction": "BRCLR $86,#$40,$8C6D",
+      "pc": "8C66"
+    },
+    {
+      "bytes_hex": "BD 18 00",
+      "instruction": "JSR $1800",
+      "pc": "8C6A"
+    },
+    {
+      "bytes_hex": "B6 02 4A",
+      "instruction": "LDAA $024A",
+      "pc": "8C6D"
+    },
+    {
+      "bytes_hex": "B7 02 4B",
+      "instruction": "STAA $024B",
+      "pc": "8C70"
+    },
+    {
+      "bytes_hex": "BD F2 80",
+      "instruction": "JSR $F280",
+      "pc": "8D95"
+    },
+    {
+      "bytes_hex": "B7 02 99",
+      "instruction": "STAA $0299",
+      "pc": "8EC5"
+    },
+    {
+      "bytes_hex": "B7 02 93",
+      "instruction": "STAA $0293",
+      "pc": "8ED8"
+    },
+    {
+      "bytes_hex": "13 86 40 05",
+      "instruction": "BRCLR $86,#$40,$8EE4",
+      "pc": "8EDB"
+    },
+    {
+      "bytes_hex": "BD 18 09",
+      "instruction": "JSR $1809",
+      "pc": "8EDF"
+    },
+    {
+      "bytes_hex": "25 E1",
+      "instruction": "BCS $8EC5",
+      "pc": "8EE2"
+    },
+    {
+      "bytes_hex": "13 86 40 03",
+      "instruction": "BRCLR $86,#$40,$93D7",
+      "pc": "93D0"
+    },
+    {
+      "bytes_hex": "BD 18 03",
+      "instruction": "JSR $1803",
+      "pc": "93D4"
+    },
+    {
+      "bytes_hex": "15 38 40",
+      "instruction": "BCLR $38,#$40",
+      "pc": "93D7"
+    },
+    {
+      "bytes_hex": "BD A4 07",
+      "instruction": "JSR $A407",
+      "pc": "93DE"
+    },
+    {
+      "bytes_hex": "38",
+      "instruction": "PULX ",
+      "pc": "A439"
+    },
+    {
+      "bytes_hex": "7E 98 99",
+      "instruction": "JMP $9899",
+      "pc": "A43D"
+    },
+    {
+      "bytes_hex": "13 86 40 03",
+      "instruction": "BRCLR $86,#$40,$A9E7",
+      "pc": "A9E0"
+    },
+    {
+      "bytes_hex": "BD 18 12",
+      "instruction": "JSR $1812",
+      "pc": "A9E4"
+    },
+    {
+      "bytes_hex": "B6 4E 90",
+      "instruction": "LDAA $4E90",
+      "pc": "A9E7"
+    },
+    {
+      "bytes_hex": "FC 01 FD",
+      "instruction": "LDD $01FD",
+      "pc": "AA1A"
+    },
+    {
+      "bytes_hex": "13 3B 10 1D",
+      "instruction": "BRCLR $3B,#$10,$AB3E",
+      "pc": "AB1D"
+    },
+    {
+      "bytes_hex": "4F",
+      "instruction": "CLRA ",
+      "pc": "AB2C"
+    },
+    {
+      "bytes_hex": "F0 03 98",
+      "instruction": "SUBB $0398",
+      "pc": "AB39"
+    },
+    {
+      "bytes_hex": "FD 01 EE",
+      "instruction": "STD $01EE",
+      "pc": "AB3E"
+    },
+    {
+      "bytes_hex": "FD 01 F0",
+      "instruction": "STD $01F0",
+      "pc": "AB41"
+    },
+    {
+      "bytes_hex": "13 86 40 03",
+      "instruction": "BRCLR $86,#$40,$AB69",
+      "pc": "AB62"
+    },
+    {
+      "bytes_hex": "BD 18 0F",
+      "instruction": "JSR $180F",
+      "pc": "AB66"
+    },
+    {
+      "bytes_hex": "36",
+      "instruction": "PSHA ",
+      "pc": "AB69"
+    },
+    {
+      "bytes_hex": "BD F4 99",
+      "instruction": "JSR $F499",
+      "pc": "AB6F"
+    },
+    {
+      "bytes_hex": "32",
+      "instruction": "PULA ",
+      "pc": "AB75"
+    },
+    {
+      "bytes_hex": "BD F5 50",
+      "instruction": "JSR $F550",
+      "pc": "AB79"
+    },
+    {
+      "bytes_hex": "BD AE A4",
+      "instruction": "JSR $AEA4",
+      "pc": "AE85"
+    },
+    {
+      "bytes_hex": "BD B0 18",
+      "instruction": "JSR $B018",
+      "pc": "AE88"
+    },
+    {
+      "bytes_hex": "BD B0 89",
+      "instruction": "JSR $B089",
+      "pc": "AE8B"
+    },
+    {
+      "bytes_hex": "BD C4 83",
+      "instruction": "JSR $C483",
+      "pc": "AE8E"
+    },
+    {
+      "bytes_hex": "BD B1 F0",
+      "instruction": "JSR $B1F0",
+      "pc": "AE91"
+    },
+    {
+      "bytes_hex": "BD B2 3C",
+      "instruction": "JSR $B23C",
+      "pc": "AE94"
+    },
+    {
+      "bytes_hex": "BD B2 C9",
+      "instruction": "JSR $B2C9",
+      "pc": "AE97"
+    },
+    {
+      "bytes_hex": "BD B2 ED",
+      "instruction": "JSR $B2ED",
+      "pc": "AE9A"
+    },
+    {
+      "bytes_hex": "BD F7 81",
+      "instruction": "JSR $F781",
+      "pc": "AE9D"
+    },
+    {
+      "bytes_hex": "BD F6 4E",
+      "instruction": "JSR $F64E",
+      "pc": "AEA0"
+    },
+    {
+      "bytes_hex": "39",
+      "instruction": "RTS ",
+      "pc": "AEA3"
+    },
+    {
+      "bytes_hex": "CE 03 99",
+      "instruction": "LDX #$0399",
+      "pc": "C525"
+    },
+    {
+      "bytes_hex": "1F 01 40 06",
+      "instruction": "BRCLR $01,X,#$40,$C532",
+      "pc": "C528"
+    },
+    {
+      "bytes_hex": "1E 02 40 16",
+      "instruction": "BRSET $02,X,#$40,$C546",
+      "pc": "C52C"
+    },
+    {
+      "bytes_hex": "14 4C 20",
+      "instruction": "BSET $4C,#$20",
+      "pc": "C546"
+    },
+    {
+      "bytes_hex": "CE 03 93",
+      "instruction": "LDX #$0393",
+      "pc": "CD90"
+    },
+    {
+      "bytes_hex": "F6 03 94",
+      "instruction": "LDAB $0394",
+      "pc": "CD98"
+    },
+    {
+      "bytes_hex": "FF 3F D4",
+      "instruction": "STX $3FD4",
+      "pc": "CDCB"
+    },
+    {
+      "bytes_hex": "13 86 40 03",
+      "instruction": "BRCLR $86,#$40,$D02C",
+      "pc": "D025"
+    },
+    {
+      "bytes_hex": "BD 18 15",
+      "instruction": "JSR $1815",
+      "pc": "D029"
+    },
+    {
+      "bytes_hex": "13 3B 10 0D",
+      "instruction": "BRCLR $3B,#$10,$D03D",
+      "pc": "D02C"
+    },
+    {
+      "bytes_hex": "B6 03 94",
+      "instruction": "LDAA $0394",
+      "pc": "D037"
+    },
+    {
+      "bytes_hex": "B7 01 AE",
+      "instruction": "STAA $01AE",
+      "pc": "D03A"
+    },
+    {
+      "bytes_hex": "13 86 40 07",
+      "instruction": "BRCLR $86,#$40,$E4FC",
+      "pc": "E4F1"
+    },
+    {
+      "bytes_hex": "B6 08 01",
+      "instruction": "LDAA $0801",
+      "pc": "E4F5"
+    },
+    {
+      "bytes_hex": "26 1D",
+      "instruction": "BNE $E519",
+      "pc": "E4FA"
+    },
+    {
+      "bytes_hex": "14 46 80",
+      "instruction": "BSET $46,#$80",
+      "pc": "E4FC"
+    },
+    {
+      "bytes_hex": "15 3E A2",
+      "instruction": "BCLR $3E,#$A2",
+      "pc": "E519"
+    },
+    {
+      "bytes_hex": "B7 30 62",
+      "instruction": "STAA $3062",
+      "pc": "F411"
+    },
+    {
+      "bytes_hex": "13 86 40 03",
+      "instruction": "BRCLR $86,#$40,$F5D6",
+      "pc": "F5CF"
+    },
+    {
+      "bytes_hex": "BD 18 06",
+      "instruction": "JSR $1806",
+      "pc": "F5D3"
+    },
+    {
+      "bytes_hex": "86 F7",
+      "instruction": "LDAA #$F7",
+      "pc": "F5D6"
+    },
+    {
+      "bytes_hex": "B7 0F 00",
+      "instruction": "STAA $0F00",
+      "pc": "F5D8"
+    },
+    {
+      "bytes_hex": "FE 18 00",
+      "instruction": "LDX $1800",
+      "pc": "F5DC"
+    },
+    {
+      "bytes_hex": "8C 7E 18",
+      "instruction": "CPX #$7E18",
+      "pc": "F5DF"
+    },
+    {
+      "bytes_hex": "26 03",
+      "instruction": "BNE $F5E7",
+      "pc": "F5E2"
+    },
+    {
+      "bytes_hex": "BD 18 0C",
+      "instruction": "JSR $180C",
+      "pc": "F5E4"
+    },
+    {
+      "bytes_hex": "13 42 02 52",
+      "instruction": "BRCLR $42,#$02,$F6CD",
+      "pc": "F677"
+    },
+    {
+      "bytes_hex": "26 70",
+      "instruction": "BNE $F6F5",
+      "pc": "F683"
+    },
+    {
+      "bytes_hex": "26 6B",
+      "instruction": "BNE $F6F5",
+      "pc": "F688"
+    },
+    {
+      "bytes_hex": "14 3B 08",
+      "instruction": "BSET $3B,#$08",
+      "pc": "F68A"
+    },
+    {
+      "bytes_hex": "13 3B 08 1C",
+      "instruction": "BRCLR $3B,#$08,$F715",
+      "pc": "F6F5"
+    },
+    {
+      "bytes_hex": "4F",
+      "instruction": "CLRA ",
+      "pc": "F702"
+    },
+    {
+      "bytes_hex": "15 3B 08",
+      "instruction": "BCLR $3B,#$08",
+      "pc": "F712"
+    },
+    {
+      "bytes_hex": "13 42 01 20",
+      "instruction": "BRCLR $42,#$01,$F739",
+      "pc": "F715"
+    },
+    {
+      "bytes_hex": "81 04",
+      "instruction": "CMPA #$04",
+      "pc": "F71C"
+    },
+    {
+      "bytes_hex": "26 19",
+      "instruction": "BNE $F739",
+      "pc": "F71E"
+    },
+    {
+      "bytes_hex": "14 3B 10",
+      "instruction": "BSET $3B,#$10",
+      "pc": "F720"
+    },
+    {
+      "bytes_hex": "B6 03 91",
+      "instruction": "LDAA $0391",
+      "pc": "F723"
+    },
+    {
+      "bytes_hex": "12 45 10 0B",
+      "instruction": "BRSET $45,#$10,$F739",
+      "pc": "F72A"
+    },
+    {
+      "bytes_hex": "BD F2 80",
+      "instruction": "JSR $F280",
+      "pc": "F72E"
+    },
+    {
+      "bytes_hex": "15 45 10",
+      "instruction": "BCLR $45,#$10",
+      "pc": "F736"
+    },
+    {
+      "bytes_hex": "12 3B 02 0B",
+      "instruction": "BRSET $3B,#$02,$F748",
+      "pc": "F739"
+    },
+    {
+      "bytes_hex": "B6 03 91",
+      "instruction": "LDAA $0391",
+      "pc": "F741"
+    },
+    {
+      "bytes_hex": "BD F3 33",
+      "instruction": "JSR $F333",
+      "pc": "F74C"
+    },
+    {
+      "bytes_hex": "BD F3 80",
+      "instruction": "JSR $F380",
+      "pc": "F75F"
+    },
+    {
+      "bytes_hex": "13 42 01 05",
+      "instruction": "BRCLR $42,#$01,$F777",
+      "pc": "F76E"
+    },
+    {
+      "bytes_hex": "FC 03 6A",
+      "instruction": "LDD $036A",
+      "pc": "F772"
+    },
+    {
+      "bytes_hex": "27 09",
+      "instruction": "BEQ $F780",
+      "pc": "F775"
+    },
+    {
+      "bytes_hex": "15 3B 10",
+      "instruction": "BCLR $3B,#$10",
+      "pc": "F777"
+    },
+    {
+      "bytes_hex": "7F 03 8E",
+      "instruction": "CLR $038E",
+      "pc": "F77A"
+    },
+    {
+      "bytes_hex": "7F 03 99",
+      "instruction": "CLR $0399",
+      "pc": "F793"
+    },
+    {
+      "bytes_hex": "7F 03 8E",
+      "instruction": "CLR $038E",
+      "pc": "F796"
+    },
+    {
+      "bytes_hex": "15 42 03",
+      "instruction": "BCLR $42,#$03",
+      "pc": "F799"
+    },
+    {
+      "bytes_hex": "15 45 D0",
+      "instruction": "BCLR $45,#$D0",
+      "pc": "F79C"
+    },
+    {
+      "bytes_hex": "15 3B 43",
+      "instruction": "BCLR $3B,#$43",
+      "pc": "F79F"
+    },
+    {
+      "bytes_hex": "0E",
+      "instruction": "CLI ",
+      "pc": "F7BA"
+    },
+    {
+      "bytes_hex": "FE 03 68",
+      "instruction": "LDX $0368",
+      "pc": "F7BF"
+    },
+    {
+      "bytes_hex": "FF 03 68",
+      "instruction": "STX $0368",
+      "pc": "F7C3"
+    },
+    {
+      "bytes_hex": "BC 51 BB",
+      "instruction": "CPX $51BB",
+      "pc": "F7C6"
+    },
+    {
+      "bytes_hex": "FF 03 6A",
+      "instruction": "STX $036A",
+      "pc": "F7CE"
+    },
+    {
+      "bytes_hex": "FE 03 6A",
+      "instruction": "LDX $036A",
+      "pc": "F7D3"
+    },
+    {
+      "bytes_hex": "08",
+      "instruction": "INX ",
+      "pc": "F7D8"
+    },
+    {
+      "bytes_hex": "BC 51 BD",
+      "instruction": "CPX $51BD",
+      "pc": "F7DC"
+    },
+    {
+      "bytes_hex": "FD 03 6A",
+      "instruction": "STD $036A",
+      "pc": "F7E3"
+    },
+    {
+      "bytes_hex": "FD 03 68",
+      "instruction": "STD $0368",
+      "pc": "F7E6"
+    },
+    {
+      "bytes_hex": "F7 03 64",
+      "instruction": "STAB $0364",
+      "pc": "F9C0"
+    },
+    {
+      "bytes_hex": "12 50 08 42",
+      "instruction": "BRSET $50,#$08,$FA10",
+      "pc": "F9CA"
+    },
+    {
+      "bytes_hex": "15 3B 03",
+      "instruction": "BCLR $3B,#$03",
+      "pc": "F9D6"
+    },
+    {
+      "bytes_hex": "81 0B",
+      "instruction": "CMPA #$0B",
+      "pc": "FA0A"
+    },
+    {
+      "bytes_hex": "E6 00",
+      "instruction": "LDAB $00,X",
+      "pc": "FA16"
+    },
+    {
+      "bytes_hex": "8E 03 FF",
+      "instruction": "LDS #$03FF",
+      "pc": "FA5B"
+    },
+    {
+      "bytes_hex": "13 01 01 0A",
+      "instruction": "BRCLR $01,#$01,$FAA9",
+      "pc": "FA9B"
+    },
+    {
+      "bytes_hex": "14 01 01",
+      "instruction": "BSET $01,#$01",
+      "pc": "FA9F"
+    },
+    {
+      "bytes_hex": "FE 03 8E",
+      "instruction": "LDX $038E",
+      "pc": "FAA2"
+    },
+    {
+      "bytes_hex": "AD 00",
+      "instruction": "JSR $00,X",
+      "pc": "FAA5"
+    },
+    {
+      "bytes_hex": "20 1E",
+      "instruction": "BRA $FAC7",
+      "pc": "FAA7"
+    },
+    {
+      "bytes_hex": "15 01 01",
+      "instruction": "BCLR $01,#$01",
+      "pc": "FAAD"
+    },
+    {
+      "bytes_hex": "FE 03 8E",
+      "instruction": "LDX $038E",
+      "pc": "FAB0"
+    },
+    {
+      "bytes_hex": "18 CE 03 90",
+      "instruction": "LDY #$0390",
+      "pc": "FAB3"
+    },
+    {
+      "bytes_hex": "A7 00",
+      "instruction": "STAA $00,X",
+      "pc": "FABC"
+    },
+    {
+      "bytes_hex": "73 03 64",
+      "instruction": "COM $0364",
+      "pc": "FAC4"
+    }
+  ],
+  "optional_call_rows": 8,
+  "ordinary_poll_order": {
+    "caller": "7A14 -> AE85",
+    "cleanup_call": "AEA0 -> F64E",
+    "consequence": "No resident controller instruction between these calls; an accepting IRQ can occur at AEA0",
+    "expiry_call": "AE9D -> F781",
+    "return": "AEA3"
+  },
+  "required_fixture_contracts": [
+    "ASIC samples and ready bits are explicit; no physical output model",
+    "synthetic RAM handlers are supplied test programs; no GM module implementation asserted",
+    "writable executable1800 and RAM persistence across boot are explicit fixture properties",
+    "staged frame-prefix tests deliver only the accepting checksum IRQ inside a caller window",
+    "partial multi-bit BRSET cases unsupported by the generic core are rejected",
+    "selected transitions and caller channels do not exhaust every state/input/interleaving product"
+  ],
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "rooted_direct_callers": {
+    "AE85": [
+      "7A14"
+    ],
+    "F280": [
+      "7236",
+      "8D95",
+      "F72E"
+    ],
+    "F333": [
+      "F74C"
+    ],
+    "F380": [
+      "F75F"
+    ],
+    "F64E": [
+      "AEA0"
+    ],
+    "F781": [
+      "AE9D"
+    ]
+  },
+  "state_byte_rows": 39,
+  "transition_rows": 30
+}

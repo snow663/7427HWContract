@@ -28,9 +28,10 @@ not interchangeable with an atomic validated control transaction.
 ## Engine override block and controller connections
 
 Engine command04 occupies038E..0398. 038E=04 with0042.0 admits service3B.4
-atF715. The normal service consumer isF64E, reached from the normal scheduler
-and transmission input wrapperAE85; its effects are applied at those call
-admissions. Individual controllers then consume the flags/bytes as follows:
+atF715. The normal scheduler calls transmission input wrapperAE85 at7A14;
+its last calls areAE9D→F781 thenAEA0→F64E. These are the only rooted direct
+callers of the two helpers. Individual controllers consume the flags/bytes
+at their own admissions as follows:
 
 | Field | Resident use and contract |
 |---|---|
@@ -60,7 +61,8 @@ absence from the earlier direct-owner union did not establish an unused field.
 
 Service ownership does not imply that every consumer checks3B.4. In particular,
 CD98's shared3FD4 selector inspects0393 bits38 without a local active-service
-test, and C6BB inspects raw transmission override bytes. Retaining payloads
+test, andC514'sC528/C52C branch inspects raw transmission mask/value bytes
+039A.6/039B.6 before its normal fault gates. Retaining payloads
 after expiry can therefore matter even when the main service flag is gone.
 `factory_serial_states.csv` records direct byte-overlap owners; indexed uploads,
 clear loops, boot initialization and arbitrary callback effects remain distinct.
@@ -96,7 +98,9 @@ requests are edge latched, not continuously executed:
 |3B.1 or active engine0391.6|F333 masked engine/common diagnostic clear,0045.7|
 |3B.0|F380 masked transmission clear,0045.6|
 
-A low request rearms the corresponding latch. F333 andF380 have different
+A low request rearms the corresponding latch when its consumer branch runs.
+BLM rearm requires the qualified engine04 branch; selector01 skips it.
+Idle expiry also clears all three edge latches. F333 andF380 have different
 mask/counter/candidate footprints; see [diagnostic clears](FACTORY_DIAGNOSTICS.md).
 The new protocol trace identifies where their request bytes originate; it does
 not replace either clear's exact state effects with a generic erase-all action.
@@ -118,14 +122,28 @@ F781 supplies two different time mechanisms; their units are **calls toF781**:
 * When either service flag3B.3/.4 is active, increment word0368. Once it reaches
   unsigned word[51BB], set036A=1. With both flags clear, increment a nonzero036A
   until it reaches word[51BD], then clear both036A and0368. Stock thresholds
-  areF4FF andFF00. The words are not milliseconds and the cleanup is not
+  are**FFFF at51BB and0000 at51BD**. Thus the first inactive poll of a nonzero
+  cooldown clears both words. Earlier notes incorrectly read adjacent
+  words51BA=F4FF and51BC=FF00. The words are not milliseconds and cleanup is not
   synchronous with packet acceptance.
 
 F781 disables interrupts during session-expiry mutation and reenables them
-before override-duration handling. It is called at7A14 andAE9D under different
-admission paths. A single nominal main-loop period cannot be assigned to every
-increment without that scheduler context. Interrupt nesting, a callback changing
-state, and factory-mode operation retain their separate boundaries.
+before override-duration handling. In the ordinaryAE85 wrapper,F781 andF64E
+are consecutive calls. No resident controller calculation runs between them,
+although an accepting checksumIRQ can change payloads atAEA0 before cleanup.
+Previously published controller values persist until recalculation.
+
+Expiry clears0045.7 while active003B.4 and held0391.6 survive untilF64E. That
+following consumer can therefore callF333 again before engine cleanup, even
+when the same held request was already handled. BLM reset does not repeat on
+this path because expiry has cleared038E and skips its qualification. The
+[joined transition contract](FACTORY_JOINED_STATE_AND_OPTIONAL_BEHAVIOR.md)
+executes this sequence, the actual duration boundary, cooldown's engine/trans
+asymmetry, retained raw outputs and selected checksum interleavings.
+
+Counter units remain admitted helper calls rather than an unconditional time
+scale. Interrupt nesting, supplied-code state changes and factory-mode
+operation retain their separate boundaries.
 
 ## Manufacturing-test admission and recurring loop
 

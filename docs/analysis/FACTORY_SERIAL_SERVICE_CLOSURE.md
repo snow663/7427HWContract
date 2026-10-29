@@ -9,6 +9,7 @@ not as an unresolved fixed dispatch table waiting to be discovered.
 |---|---|
 |SCI initialization/interrupt priority; framing/checksum/error paths; ID/command/page tables; raw, live and requested-address replies; optional broadcast|[Serial protocol](FACTORY_SERIAL_ALDL_PROTOCOL.md)|
 |Payload commit/retention; controller override ownership; clear edges; session and duration expiry; factory admission/upload/callback/output cycling|[Service and manufacturing test](FACTORY_SERVICE_AND_TEST.md)|
+|Joined expiry/cleanup order; retained raw outputs; accepting-checksum windows; callback retarget/restart; optional caller precedence|[State transitions and optional behavior](FACTORY_JOINED_STATE_AND_OPTIONAL_BEHAVIOR.md)|
 |Rooted control graph, disconnected candidates, table/code boundaries, and remaining ownership interfaces|[Global structure audit](FACTORY_GLOBAL_STRUCTURE_AUDIT.md)|
 
 ## Authority and reproducibility
@@ -59,6 +60,10 @@ This pass finishes documentation and evidence; it adds no simulator feature.
   manufacturing-test input window.
 * Ordinary expiry preserves most payload bytes. Some downstream selectors
   read raw override fields without a local active-service test.
+* The joined pass corrects the service threshold words to51BB=FFFF and51BD=0000.
+  OrdinaryAE85 callsF781 thenF64E consecutively; idle expiry can rearm a held
+  engine-clear request and executeF333 again before cleanup. Thirty selected
+  state/optional transitions have actual-ROM execution witnesses.
 
 ## Remaining scope
 

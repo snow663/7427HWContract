@@ -320,7 +320,7 @@ class FactoryInterruptTimingClosureTests(unittest.TestCase):
         # traffic reaches that state or model a status/data bus race.
 
     def test_selected_cold_boot_unmasks_before_timer_arm_and_can_accept_ref_during_initialization(self):
-        f=Meter(self.rom);f.run(0x7100,0xC57F)
+        f=Meter(self.rom);f.cpu.s.ccr=0xD0;f.run(0x7100,0xC57F)
         self.assertEqual(f.cpu.s.ccr&0x10,0x10)
         self.assertEqual(f.memory.mem[0x302D],0x26)
         self.assertEqual(f.memory.mem[0x3022],0)

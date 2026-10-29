@@ -84,7 +84,7 @@ the bit, so transmission clear is not an alternative local proof of recovery.
 |003B.3, transmission service | F677..F68A: transmission session,0399=04,036A=0 | F712 cleans service plus0103/010A/0111/0118 when session/cooldown gates fail |
 |003B.2, shared monitor/service gate |79C8..79D6 recomputes it from0051.3 or003B&18 underSEI/CLI | Other003B bit writers and masked copies must preserve it; it is not another received-packet bit |
 |003B.0/.1, clear requests | Valid ordinary0A acceptance sets device-specific request | Next ordinary accepted packet clears both first; F64E consumes them through0045 edge latches. Session expiry clears these requests but not every service flag |
-|0045.4/.6/.7, request edge latches | F64E latches BLM reset/transmission clear/engine clear on admitted requests | Low request rearms; idle expiry clearsD0. Repeated held request is not repeated erase/reset |
+|0045.4/.6/.7, request edge latches | F64E latches BLM reset/transmission clear/engine clear on admitted requests | Qualified low request rearms; BLM requires engine04 admission. Idle expiry clearsD0 and can repeat a held engine clear before cleanup |
 |003B.7, pending TX companion |F8CF after live word read saves low byte0366 |F8D4 emits/clears on following payload slot; checksum/end selection has priority. Abort does not imply all serial flags were reset |
 |003B.6/.5, optional broadcast ownership/contention |F602 sets ownership;F5FE/F602 detects previous owner and marks contention | CompletionF81E releases ownership; stock zero schedule excludes broadcast selection, not ordinary service/TX behavior |
 
@@ -94,6 +94,14 @@ Their polarity differs between I/P control and closed-loop admission, as the
 [fuel-learning contract](FACTORY_CLOSED_LOOP_AND_LEARNING.md) specifies. Payload
 retention must not be replaced with a fictitious independent “force closed loop”
 flag or an atomic service transaction.
+
+The [joined state/optional contract](FACTORY_JOINED_STATE_AND_OPTIONAL_BEHAVIOR.md)
+checks thirty selected transitions. OrdinaryAE85 callsF781 thenF64E back to
+back: expiry can rearm a held engine-clear edge while preserving the old
+active flag, soF333 runs again before final cleanup. Stock counter words
+are51BB=FFFF and51BD=0000. Selector01, short updates, raw outputs and optional
+enable/presence each retain their own lifetimes; no single service enum
+represents all of these states.
 
 ## Live faults, candidates, retained faults and bit masks
 

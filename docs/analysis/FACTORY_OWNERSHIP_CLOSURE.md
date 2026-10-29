@@ -36,7 +36,7 @@ This narrows specific state/interleaving questions without asserting general
 whole-program interleaving closure.
 
 The [independent-equivalence information ledger](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
-adds seventeen scoped contracts, one remaining ROM state-joining work package and three
+adds nineteen scoped contracts, one remaining ROM state-joining work package and three
 external evidence packages. Twelve new bounded checks cover caller masking,
 TOC3 reentry, serial mailbox/payload lifetime and trap/vector behavior; the new
 253-entry structural normal-return I-mask summaries narrow the callee context
@@ -56,8 +56,7 @@ ordinary nesting; all seven rootedTAPs preserve reset X=1 under valid frames
 and no supplied-code effects. Seven additional checks include a complete
 busy-timer current-control witness: reentry can overwrite an accumulator
 update or publish an older command even with the correct final accumulator.
-Physical timer feasibility remains a separate condition. The full factory
-suite now has164 passing tests.
+Physical timer feasibility remains a separate condition.
 
 The [fast-tick timing contract](FACTORY_FAST_TICK_TIMING_CONTRACT.md) adds a
 13104-E-cycle compare recurrence and a conditional1090-cycle complete busy
@@ -85,6 +84,17 @@ module premises are explicitly assigned toEQ-12/13/14; joined state sequences
 remainEQ-11. Unrestricted edges and failed devices are not given fictional
 finite completion bounds.
 
+The [joined state/optional contract](FACTORY_JOINED_STATE_AND_OPTIONAL_BEHAVIOR.md)
+adds thirty selected transitions, eight optional caller contracts and twenty-six
+checks. It verifies the consecutive ordinaryF781/F64E calls, corrects the
+comparison words toFFFF/0000, and demonstrates expiry rearming a held engine
+clear before cleanup. Other witnesses cover cooldown asymmetry, retained raw
+outputs, checksum sampling, optional activation/precedence and factory
+callback/upload retarget/restart. Synthetic supplied programs establish the
+resident interfaces; actual module behavior and board retention remain
+EQ-14/13. EQ-11 stays open for additional state combinations. The full factory
+suite now has190 passing tests.
+
 ## Reproducible files
 
 All generated evidence lives in `maps/structure/`:
@@ -102,6 +112,10 @@ All generated evidence lives in `maps/structure/`:
 | factory_global_hardware_accesses.csv |131 concrete hardware-byte access rows, with wildcard interfaces separate |
 | factory_external_hook_contracts.csv | Eight external calls with ROM-checked enable/signature guards and resident continuation roles |
 | factory_extension_memory_evidence.json | Boot/CSGEN/CSIO settings, all nine literal low-memory references and hook result-channel byte spans |
+| factory_joined_state_transitions.csv | Thirty selected event/admission/effect/ordering contracts with execution witnesses |
+| factory_optional_behavior_contracts.csv | Eight optional caller result channels and resident precedence |
+| factory_state_transition_fields.csv |39 selected byte roles joined to qualified resident owners |
+| factory_state_transition_evidence.json | Stock operands/caller order, instruction anchors, test inventory and explicit fixture limits |
 
 Fresh verification uses the **actual full image**, with its SHA checked first:
 

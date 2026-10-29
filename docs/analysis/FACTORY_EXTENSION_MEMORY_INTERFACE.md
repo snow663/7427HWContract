@@ -96,6 +96,13 @@ The missing code could also alter other RAM, registers, condition codes, SP,
 hardware or control flow. Register preservation and normal return cannot be
 assumed just because a specific result channel is visible.
 
+The [joined state/optional contract](FACTORY_JOINED_STATE_AND_OPTIONAL_BEHAVIOR.md)
+now executes all eight caller channels using explicit synthetic RAM handlers.
+It checks resident service precedence, activation while disabled, signature
+loss without enable cleanup, same-pass profiling activation and status gating.
+The test programs establish caller behavior; they do not supply the absent
+GM module's implementation or complete ABI.
+
 ## Two additional signs of an instrumentation/extension context
 
 0086.6 also enables the scheduler's per-slot peak-timing words02D3..02F2.

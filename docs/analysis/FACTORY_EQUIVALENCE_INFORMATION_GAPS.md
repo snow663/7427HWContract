@@ -9,7 +9,7 @@ not used as a measure of knowledge completeness.
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 The [machine-readable ledger](../../maps/structure/factory_equivalence_assumptions.csv)
-contains seventeen scoped contracts and four remaining work packages. This is an
+contains nineteen scoped contracts and four remaining work packages. This is an
 initial prioritized ledger, not an exhaustive denominator or completion score.
 
 ## What this pass establishes from the ROM
@@ -266,6 +266,28 @@ ROM-extraction job. Confirming those input and board premises isEQ-12/13;
 arbitrary supplied code isEQ-14. There is no unconditional deadline under
 unrestricted IRQ edges, failed ADC or corrupted frames.
 
+## Joined state transitions and optional behavior
+
+The [joined state/optional contract](FACTORY_JOINED_STATE_AND_OPTIONAL_BEHAVIOR.md)
+adds thirty selected transitions, eight optional caller contracts and twenty-six
+checks, including evidence reproduction. It corrects the service comparison
+words to51BB=FFFF and51BD=0000 and verifies the ordinary7A14→AE85 caller path:
+AE9D callsF781, thenAEA0 immediately callsF64E.
+
+Idle expiry clears edge0045.7 before clearing active003B.4, so the following
+F64E can run a held engine clear again before cleanup. BLM does not repeat
+because expiry cleared its required selector. Other joined witnesses cover
+cooldown's engine/transmission asymmetry, retained raw outputs, special-mode
+nonadmission, selector/short-payload retention and accepting-checksum sampling.
+
+All eight optional caller channels execute with explicit synthetic test code.
+Presence, enable, status and profiling have independent lifetimes; RAM results,
+carry-selected results and scalar coefficients have different resident
+precedence. Factory callback retargeting, partial/overlapping upload and timer
+restart are exercised, including a conditional upload-to-probe activation path.
+This closes resident interface questions with scoped contracts EQ-22/23; actual
+GM module bytes and board memory properties remain EQ-14/13.
+
 ## What still requires information or further extraction
 
 The ledger now separates one ROM state-joining job from three external
@@ -273,10 +295,10 @@ evidence packages:
 
 | ID | Remaining question | Information source / reconstruction consequence |
 |---|---|---|
-|EQ-11|Complete cross-controller state transitions under service, clear, mode and retained-state changes|ROM value flow and selected event schedules. IAC/gear shadow and current-control accumulator/command ordering have complete selected-handler witnesses; other combinations and feasible timing still need a checked joined state specification.|
+|EQ-11|Complete cross-controller state specification beyond the selected joined contracts|ROM value flow and event schedules. IAC/gear, current control and thirty service/mode/optional/callback transitions are specified; threshold/fault/recovery/ignition/learning combinations and timing-feasible preemption of other shared state remain.|
 |EQ-12|Proprietary device read coherency, latch/trigger semantics and permissible transaction timing|Targeted bus/register/output observations. Existing access order, byte operations and deliberate delays can be retained while this contract is refined.|
 |EQ-13|Actual board clock/wait behavior, reset retention and physical memory decode|CPU/board identification and targeted measurements. ROM gives programmed values and boot clears; it does not give every external power/reset effect.|
-|EQ-14|Full calling convention/effects of optional supplied code and intended external tail-entry callers|Actual module/caller bytes or runtime evidence. Preserve the known probe/guards and exposed interfaces; complete optional-module compatibility remains conditional.|
+|EQ-14|Full effects/ABI of actual optional code and intended external tail-entry callers|Actual module/caller bytes or runtime evidence. All eight resident caller channels and selected activation/precedence transitions now have synthetic test witnesses; a particular module's register/CCR/stack/hardware/return effects remain external.|
 
 EQ-11 does not require a missing GM source file or new truck data.
 It requires joining information already encoded in the ROM.
@@ -289,9 +311,9 @@ EQ-14 is not a missing resident fuel/spark algorithm. The eight external
 entries and arbitrary factory callback/upload interfaces are outside the
 supplied resident code. A particular module's internals must not be invented.
 
-The next ROM-only work is to extend output-changing state combinations inEQ-11
-beyond the IAC/gear and current-control cases, using the joined interrupt and
-timing contract. A whole-machine
+The next ROM-only work is to extend EQ-11 through threshold/fault/recovery,
+ignition/learning and other shared-state combinations, retaining the actual
+caller order and input-timing premises. A whole-machine
 equivalence claim needs those contracts and the appropriate external evidence;
 the number of classified instruction bytes supplies no substitute.
 
@@ -305,6 +327,7 @@ python tools/verify_factory_interrupt_admission.py --check-recorded
 python tools/verify_factory_tick_timing.py --check-recorded
 python tools/verify_factory_masked_timing.py --check-recorded
 python tools/verify_factory_interrupt_timing_closure.py --check-recorded
+python tools/verify_factory_joined_state.py --check-recorded
 python -m unittest discover -s tests -p 'test_factory_*.py' -v
 ```
 
