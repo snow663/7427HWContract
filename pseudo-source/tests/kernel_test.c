@@ -60,8 +60,10 @@ static void init(Fixture *f, Pcm *pcm) {
 static void test_initialization_and_missing_contracts(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
     f.memory[PCM_TCNT]=0xff; f.memory[PCM_TCNT+1]=0xfc;
+    pcm.knock.sample_baseline=0xabcd; pcm.knock.observation_accumulator=0x55;
     CHECK(pcm_reset_sequence(&pcm,&f.platform,&pcm_reference_scheduler_calibration)==PCM_OK);
     CHECK(pcm.scheduler.phase==0x0e && f.masked);
+    CHECK(pcm.knock.sample_baseline==0 && pcm.knock.observation_accumulator==0);
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
     static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RAM,

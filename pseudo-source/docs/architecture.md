@@ -67,6 +67,12 @@ factory redirection,
 SP assignments and trap loops must be implemented before target execution.
 The stock stack guards cannot simply be copied onto a different C call graph.
 
+The OC1 observer owns its sample baseline and pending-observation accumulator.
+It reuses the REF RPM coordinate and retains both table gates and saturations.
+The future normal-spark consumer must preserve the factory atomic read/clear
+ownership when consuming those observations. See the
+[OC1 contract](../reference/oc1_knock_contract.md).
+
 ## Freedom to change algorithms
 
 Fuel calculation, injector scheduling, spark calculation, spark scheduling and
