@@ -20,7 +20,8 @@ controller bodies and physical hardware backend remain to be implemented.
 | `src/kernel/` | Phase advance, fast groups, slot dispatch, busy/pending catch-up and profiling |
 | `src/slots/` | One file per slow slot,00..0F |
 | `src/drivers/` | Explicit byte/word transactions, timer arm, watchdog and board-bit toggle |
-| `src/fuel/` | Fuel task boundary and implemented fixed-point base calculation |
+| `src/fuel/` | Base calculation, REF crank/running/decay logic and asynchronous delivery |
+| `src/math/` | Shared rounded lookup and word-gain arithmetic |
 | `src/spark/`, `src/idle/` | Spark and IAC task boundaries |
 | `src/sensors/` | Input acquisition/housekeeping boundaries |
 | `src/serial/` | Serial-service boundary |
@@ -37,16 +38,19 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 64 public routines: 22 implemented outlines, 41 dependency
-boundaries and one implemented fuel algorithm. Reset CPU/chip-select/board
+The tree contains 79 public routines: 34 implemented outlines, 41 dependency
+boundaries and four implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
 [reset/REF contract](reference/reset_ref_transactions.md).
 
-The timing-sensitive early reset entry and the REF continuation beginning at 751B
-remain mandatory explicit dependencies. The new C transactions do not supply
-target startup assembly or complete the reference-event handler.
+The REF continuation is now implemented as separate crank, running, enrichment,
+filter, async-output and timer routines. Another 2,502 complete-handler comparisons,
+143 I/O-failure checks and 38 direct timer-entry cases match the actual stock code.
+The [REF event contract](reference/ref_event_contract.md) records the configuration
+and coverage boundaries. Early reset/interrupt assembly and real device/backend
+timing remain unfinished.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -87,7 +91,9 @@ python pseudo-source/tests/run_checks.py
 
 The checks compile the separate source files, test five kernel contract groups,
 check provenance, compare 532 base-fuel cases, and compare 128 startup plus 4,112
-REF cases with actual stock instructions. The hardware harness also checks 64
+REF prefix cases with actual stock instructions. Full-handler tests add 2,502
+cases, 143 failure prefixes and 38 direct timer-entry cases. The hardware harness
+also checks 64
 injected failure positions and the startup/REF dependency boundaries. Host tests
 do not establish target instruction timing,
 physical output behavior or whole-program equivalence. The dedicated GitHub
@@ -95,10 +101,10 @@ workflow runs the CMake route.
 
 ## Next source work
 
-Port the remaining REF event/fuel body beginning at 751B, retaining explicit
-fault exits and call order. Implement the target early-reset/interrupt backend
-and remaining reset stages before target execution. Then port injector,
-spark and IAC drivers individually. Controller task boundaries can be replaced
+Implement the remaining reset stages and target early-reset/interrupt backend.
+Next separate the OC1 knock observation and main fuel/spark consumers of the
+new REF state. Retain verified driver ordering and fault exits. Then port the
+remaining injector, spark and IAC drivers individually. Controller task boundaries can be replaced
 with direct calls to implemented routines as those modules are completed.
 Feature removal will update both dispatch admissions and shared-state producers.
 

@@ -5,6 +5,10 @@ Authority is the stock BMHM ROM, SHA-256
 The C source uses named state and its own calibration structure. Original
 addresses below identify behavior and provenance, not final C RAM placement.
 
+The REF prefix now connects to the implemented resident event body. See the
+[full REF event contract](ref_event_contract.md) for its additional routines,
+configuration branches and differential checks.
+
 ## Implemented boundaries
 
 | C routine | Stock scope | Behavior |
@@ -12,8 +16,8 @@ addresses below identify behavior and provenance, not final C RAM placement.
 | `pcm_reset_entry` | 7100..711C | Requires the early target-assembly precondition; remains an explicit dependency |
 | `pcm_reset_cpu` | CC7C..CCC0, called at 711C; then 711F..712B | 22 ordered byte writes and one word write for CPU, chip-select and board setup |
 | `pcm_reset_outputs` | 712B..7164 | Control seed/readback, bit update, SCSR/SCDR word read, SCCR2 write and 29 zero-word transactions through 3FC0..3FF8 |
-| `pcm_reference_irq` | 74EA..751B | Factory gate, TCNT sample, OC1 compare, two separate 3062.6 read/modify/writes, pending latch and 306F write |
-| `PCM_REFERENCE_BODY` dependency | 751B..77C6 | Remaining REF acquisition/event/fuel paths; unimplemented by default |
+| `pcm_reference_prefix` | 74EA..751B | Factory gate, TCNT sample, OC1 compare, two separate 3062.6 read/modify/writes, pending latch and 306F write |
+| `pcm_reference_event` and callees | 751B..77C6 | Implemented resident acquisition/event/fuel paths; target backend remains separate |
 
 F3ED is an actual RTS in this stock ROM. Its two reset calls add no peripheral
 transaction. The control-word read at 7140 remains a real read; the bit update
@@ -41,8 +45,8 @@ stock continuation opens ordinary maskable nesting. Target entry/RTI must supply
 the real frame and masked-entry contract.
 
 Factory mode returns `PCM_FACTORY_BOUNDARY` before device transactions. A normal
-prefix reaches the named continuation; without its binding it returns
-`PCM_UNIMPLEMENTED`, with the prefix effects retained. A failed I/O callback stops
+prefix returns `PCM_OK` and the IRQ wrapper enters the implemented event body.
+A failed I/O callback stops
 at that prefix and returns its status. In particular, failure of the final 306F
 write occurs after the pending latch may already have been set. No rollback or
 physical safe-state action is invented by this host API.
@@ -56,8 +60,8 @@ precondition; it must never reset SP from inside an active C call frame.
 Missing precondition code stops the reset outline before the new C transactions.
 The host binding used in tests is a fixture, not target startup assembly.
 
-Retained RAM, sensors, controller initialization, later serial setup, full REF
-fuel/event logic, final ABI/linker placement and physical drivers remain separate
+Retained RAM, sensors, controller initialization, later serial setup, final
+ABI/linker placement and physical drivers remain separate
 work. Zero writes are stock transactions, not a declaration that every output is
 inactive. See [hardware boundaries](../../docs/analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md)
 and [startup/EST lifetimes](../../docs/analysis/FACTORY_STARTUP_REF_EST_LIFECYCLE.md).
@@ -75,7 +79,7 @@ transcripts, including width, and the REF pending state:
   exercise changes to unrelated bits between the two read/modify/writes.
 - 16 factory REF cases verify exit before any device transaction.
 - The C harness injects failure at every one of 64 transaction positions across
-  the three implemented slices. It also checks missing-entry and missing-tail
+  the three implemented slices. It also checks missing-entry
   boundaries, distinct pending/ignition fields and the state-sampling points.
 
 This work exposed a simulator operand-fetch bug: STX/STY/STS fetched their
@@ -87,4 +91,4 @@ Instruction-cycle accounting was not changed by this fix.
 
 Both the Python/`cc` and CMake/CTest routes include these checks. They establish
 selected software transactions and fixture-state results, not physical ASIC
-behavior, target instruction timing, complete interrupt execution or a bootable BIN.
+behavior, target instruction timing, a target interrupt ABI or a bootable BIN.

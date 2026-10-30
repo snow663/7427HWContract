@@ -21,3 +21,7 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
                     '-I',str(ROOT/'include'),*[str(p) for p in sources],str(ROOT/'tests/hardware_test.c'),'-o',str(hardware_binary)],check=True)
     subprocess.run([str(hardware_binary)],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/compare_hardware_rom.py'),str(hardware_binary)],check=True)
+    event_binary=Path(directory)/'pcm_reference_event_tests'
+    subprocess.run([*compiler,'-std=c11','-Wall','-Wextra','-Wpedantic','-Werror',
+                    '-I',str(ROOT/'include'),*[str(p) for p in sources],str(ROOT/'tests/reference_event_test.c'),'-o',str(event_binary)],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tests/compare_reference_event_rom.py'),str(event_binary)],check=True)

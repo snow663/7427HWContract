@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 64 public routines: 22 implemented outlines,
-41 explicit dependency boundaries and one implemented base-fuel calculation.
+The source currently has 79 public routines: 34 implemented outlines,
+41 explicit dependency boundaries and four implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -20,11 +20,13 @@ real driver backend and target BIN build remain unfinished.
 
 Reset CPU/chip-select/board writes, output initialization and the REF
 TCNT/OC1/strobe/pending prefix now have checked C implementations. The early
-reset assembly precondition and the remaining REF body beginning at 751B are
-still explicit dependencies. See the
-[reset/REF contract](../pseudo-source/reference/reset_ref_transactions.md).
-The next source work is that REF continuation and the remaining reset/backend
-stages, followed by individually verified injector/spark/IAC transactions. Known
+reset assembly precondition remains explicit. The resident REF event body and
+its crank/running, enrichment, filter, asynchronous-output and timer helpers are
+now C implementations. See the
+[REF event contract](../pseudo-source/reference/ref_event_contract.md).
+Next are the remaining reset/backend stages and the OC1/main-controller
+consumers of the named REF state, followed by remaining injector/spark/IAC work.
+Known
 access widths/order and timing premises remain binding until better evidence
 supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -99,12 +101,22 @@ The current factory suite has 190 tests. The C source checks cover five kernel
 contract groups, one-public-routine-per-file provenance, and 532 compiled-C
 base-fuel cases against actual stock instructions. Another 128 startup and 4,112
 REF cases compare ordered C/ROM transactions and pending state; 64 injected I/O
-failures check prefix exits. The simulator has 17 CPU/GUI/real-ROM tests and its
+failures check prefix exits. The complete REF adds 2,502 handler cases, 143 I/O
+failure comparisons, 38 direct timer-entry cases and 293 verified calibration bytes.
+All 423 scoped instruction starts are exercised; two guards need direct driver
+entry because the complete-handler producer limits their input. This is coverage,
+not all-state equivalence. The simulator has 17 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 
 EQ-11 retains additional joined state combinations. EQ-12/13 cover physical
 device/board evidence; EQ-14 covers actual optional-module/external-caller code.
 We can continue the C source while preserving those explicit interfaces.
+
+## Delivery workflow
+
+Complete each implementation step, run its required checks, publish its PR and
+merge after CI passes. The user authorized merging each completed step; another
+confirmation is not required. Work in progress stays on its implementation branch.
 
 ## Historical material
 
