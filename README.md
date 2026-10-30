@@ -10,7 +10,7 @@ Older investigations and prototype build records retain their original scope.
 
 | Workstream | Start here | Status |
 |---|---|---|
-| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 63 public routine files; host-checked kernel, explicit unfinished bodies and a verified base-fuel calculation |
+| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 64 public routine files; checked kernel/reset/REF transactions, a verified fuel calculation and explicit unfinished bodies |
 | Factory behavior and hardware | [Ownership closure](docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md) | ROM-backed access, arithmetic, state and interface contracts |
 | Timing and interrupts | [Timing closure](docs/analysis/FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md) | Conditional source/deadline/stack contracts; physical premises remain explicit |
 | Remaining information | [Equivalence ledger](docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md) | Scoped specifications plus identified ROM/device/board/module work |
@@ -55,7 +55,9 @@ From `hac31_romsim/`, run `python -m unittest discover -s tests -v`.
 
 The current C work is a host-compilable source outline, not a target image
 build. Its implemented kernel checks and 532 compiled-C base-fuel/ROM cases
-are separate from the 190 factory tests. The target hardware backend,
+are joined by 128 startup and 4,112 REF transaction comparisons plus 64 injected
+I/O-failure positions. These remain separate from the 190 factory tests.
+The target hardware backend,
 startup/vector assembly, final linker/calibration layout and HC11 cycle/stack
 checks remain next work. [CMake instructions](pseudo-source/README.md) are
 also available and checked in CI.

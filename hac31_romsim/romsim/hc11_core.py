@@ -1436,18 +1436,20 @@ class HC11CPU:
                       0x8E,0x9E,0xAE,0xBE,0xCE,0xDE,0xEE,0xFE,
                       0xDF,0xEF,0xFF,0x9F,0xAF,0xBF} or (prefix == 0x18 and opcode in {0x8C,0x9C,0xAC,0xBC,0xCE,0xDE,0xEE,0xFE,0xDF,0xEF,0xFF}):
             # 16-bit operand fetch
+            # STX/STY/STS form an address without reading its destination.
+            store16 = opcode in {0xDF,0xEF,0xFF,0x9F,0xAF,0xBF}
             def op16_fetch(opc: int) -> Tuple[Optional[int], Optional[int]]:
                 if opc in {0x83,0xC3,0x8C,0xCC,0x8E,0xCE}:
                     return (None, self._fetch16())
                 if opc in {0x93,0xD3,0x9C,0xDC,0x9E,0xDE,0xDF,0x9F}:
                     addr = self._direct()
-                    return (addr, self.mem.read16(addr))
+                    return (addr, None if store16 else self.mem.read16(addr))
                 if opc in {0xA3,0xE3,0xAC,0xEC,0xAE,0xEE,0xEF,0xAF}:
                     addr = self._indexed(self._idx_base(use_y_index))
-                    return (addr, self.mem.read16(addr))
+                    return (addr, None if store16 else self.mem.read16(addr))
                 if opc in {0xB3,0xF3,0xBC,0xFC,0xBE,0xFE,0xFF,0xBF}:
                     addr = self._extended()
-                    return (addr, self.mem.read16(addr))
+                    return (addr, None if store16 else self.mem.read16(addr))
                 raise UnknownOpcode(start_pc, opcode, prefix)
 
             addr, val16 = op16_fetch(opcode)

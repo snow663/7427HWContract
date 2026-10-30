@@ -64,7 +64,7 @@ static void test_initialization_and_missing_contracts(void) {
     CHECK(pcm.scheduler.phase==0x0e && f.masked);
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
-    static const PcmTask expected[]={PCM_RESET_CPU,PCM_RESET_OUTPUTS,PCM_RESET_RAM,
+    static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RAM,
         PCM_RESET_SENSORS,PCM_RESET_RETAINED,PCM_RESET_CONTROLLERS,PCM_RESET_SERIAL};
     CHECK(f.used==sizeof(expected)/sizeof(expected[0]));
     CHECK(memcmp(f.trace,expected,sizeof(expected))==0);

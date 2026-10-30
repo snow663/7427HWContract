@@ -54,8 +54,15 @@ is no requirement to retain a runtime callback table for completed routines.
 Returning an error ends the host call at its current prefix. Target trap,
 recovery and output dispositions remain to be specified at that failure point.
 
-Reset stages are coarse ownership boundaries rather than a complete boot
-translation. Early boot unmasking, retained-state branches, factory redirection,
+Reset CPU/board writes and output initialization now retain their stock
+transaction order in C. The early reset precondition is a separate required
+assembly boundary. The REF prefix likewise implements timer/strobe/latch work
+before an explicit continuation dependency. See the
+[reset/REF contract](../reference/reset_ref_transactions.md).
+
+The remaining reset stages are coarse ownership boundaries rather than a
+complete boot translation. Early boot unmasking, retained-state branches,
+factory redirection,
 SP assignments and trap loops must be implemented before target execution.
 The stock stack guards cannot simply be copied onto a different C call graph.
 

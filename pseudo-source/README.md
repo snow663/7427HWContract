@@ -6,7 +6,8 @@ hardware and scheduling reference; algorithms and calibration layout can evolve
 independently behind named interfaces.
 
 The current deliverable is a host-compilable outline with checked scheduler
-logic and a first verified fuel calculation. It does not emit a flashable BIN.
+logic, reset/REF transactions and a verified fuel calculation. It does not emit
+a flashable BIN.
 The HC11 startup/vector assembly, target compiler/linker layout, complete
 controller bodies and physical hardware backend remain to be implemented.
 
@@ -35,6 +36,17 @@ status and reference. Private helpers may remain with the routine they support.
 No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
+
+The tree contains 64 public routines: 22 implemented outlines, 41 dependency
+boundaries and one implemented fuel algorithm. Reset CPU/chip-select/board
+writes, output initialization and the REF timer/strobe/latch prefix now have
+transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
+64 injected I/O-failure checks are described in the
+[reset/REF contract](reference/reset_ref_transactions.md).
+
+The timing-sensitive early reset entry and the REF continuation beginning at 751B
+remain mandatory explicit dependencies. The new C transactions do not supply
+target startup assembly or complete the reference-event handler.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -74,15 +86,18 @@ python pseudo-source/tests/run_checks.py
 ```
 
 The checks compile the separate source files, test five kernel contract groups,
-check provenance, and compare532 compiled-C base-fuel cases with actual stock
-instruction execution. Host tests do not establish target instruction timing,
+check provenance, compare 532 base-fuel cases, and compare 128 startup plus 4,112
+REF cases with actual stock instructions. The hardware harness also checks 64
+injected failure positions and the startup/REF dependency boundaries. Host tests
+do not establish target instruction timing,
 physical output behavior or whole-program equivalence. The dedicated GitHub
 workflow runs the CMake route.
 
 ## Next source work
 
-Implement the real reset/CPU/backend and reference-event path, retaining the
-known hardware transaction order and explicit fault exits. Then port injector,
+Port the remaining REF event/fuel body beginning at 751B, retaining explicit
+fault exits and call order. Implement the target early-reset/interrupt backend
+and remaining reset stages before target execution. Then port injector,
 spark and IAC drivers individually. Controller task boundaries can be replaced
 with direct calls to implemented routines as those modules are completed.
 Feature removal will update both dispatch admissions and shared-state producers.

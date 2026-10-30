@@ -5,10 +5,52 @@ import tempfile
 import unittest
 
 from romsim.simulator import Simulator
+from romsim.hc11_core import HC11CPU, HC11Memory
 from test_simulator import PROFILE, synthetic_hac_image
 
 
 class CPUContractTests(unittest.TestCase):
+    def test_word_stores_do_not_read_their_destination(self) -> None:
+        # NXP M68HC11ERG instruction table: STX/STY/STS/STD store a register
+        # pair, not a read/modify/write result. Include all indexed prefixes.
+        cases = [
+            ("DF 80", "x", 0x0080), ("EF 06", "x", 0x3066),
+            ("CD EF 06", "x", 0x3166), ("FF 30 68", "x", 0x3068),
+            ("18 DF 80", "y", 0x0080), ("1A EF 06", "y", 0x3066),
+            ("18 EF 06", "y", 0x3166), ("18 FF 30 68", "y", 0x3068),
+            ("9F 80", "sp", 0x0080), ("AF 06", "sp", 0x3066),
+            ("18 AF 06", "sp", 0x3166), ("BF 30 68", "sp", 0x3068),
+            ("DD 80", "d", 0x0080), ("ED 06", "d", 0x3066),
+            ("18 ED 06", "d", 0x3166), ("FD 30 68", "d", 0x3068),
+        ]
+        for encoding, register, address in cases:
+            with self.subTest(encoding=encoding):
+                class StoreMemory(HC11Memory):
+                    def __init__(self):
+                        super().__init__()
+                        self.stores = []
+
+                    def read8(self, target):
+                        if target in {address, address + 1}:
+                            raise AssertionError("Store read its destination")
+                        return super().read8(target)
+
+                    def write8(self, target, value):
+                        self.stores.append((target, value & 255))
+                        super().write8(target, value)
+
+                memory = StoreMemory()
+                code = bytes.fromhex(encoding)
+                memory.mem[0x7200:0x7200 + len(code)] = code
+                cpu = HC11CPU(memory)
+                cpu.s.pc, cpu.s.x, cpu.s.y, cpu.s.sp, cpu.s.d = 0x7200, 0x3060, 0x3160, 0x1234, 0x89AB
+                cpu.s.ccr = 0xC1
+                value = getattr(cpu.s, register)
+                cpu.step()
+                self.assertEqual(memory.stores, [(address, value >> 8), (address + 1, value & 255)])
+                self.assertEqual(cpu.s.pc, 0x7200 + len(code))
+                self.assertEqual(cpu.s.ccr & 3, 1)  # Carry retained, overflow clear.
+
     def make_sim(self, image: bytes) -> tuple[Simulator, Path]:
         handle = tempfile.NamedTemporaryFile(suffix=".bin", delete=False)
         handle.write(image)

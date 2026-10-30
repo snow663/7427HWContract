@@ -11,15 +11,20 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 63 public routines: 19 implemented outlines,
-43 explicit dependency boundaries and one implemented base-fuel calculation.
+The source currently has 64 public routines: 22 implemented outlines,
+41 explicit dependency boundaries and one implemented base-fuel calculation.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
 real driver backend and target BIN build remain unfinished.
 
-The next implementation work is the reset/CPU and reference-event hardware
-path, followed by individually verified injector/spark/IAC transactions. Known
+Reset CPU/chip-select/board writes, output initialization and the REF
+TCNT/OC1/strobe/pending prefix now have checked C implementations. The early
+reset assembly precondition and the remaining REF body beginning at 751B are
+still explicit dependencies. See the
+[reset/REF contract](../pseudo-source/reference/reset_ref_transactions.md).
+The next source work is that REF continuation and the remaining reset/backend
+stages, followed by individually verified injector/spark/IAC transactions. Known
 access widths/order and timing premises remain binding until better evidence
 supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -81,7 +86,7 @@ are not a whole-firmware completion percentage.
 - Ordinary AE85 calls F781 then F64E consecutively. Actual service comparison
   words are 51BB=FFFF and 51BD=0000. Idle expiry can rearm a held engine-clear
   edge before final cleanup. Earlier adjacent-word values are superseded.
-- Only REF, OC1, OC3 andSCI are locally live in stock BMHM. Timing/stack bounds
+- Only REF, OC1, OC3 and SCI are locally live in stock BMHM. Timing/stack bounds
   retain stated input, frame, device and board premises.
 - The user supplied one valid all-zero CPU 1800..1817 readback from the temporary
   probe. See [record](../pseudo-source/reference/1800_readback.md). It establishes
@@ -92,8 +97,10 @@ are not a whole-firmware completion percentage.
 
 The current factory suite has 190 tests. The C source checks cover five kernel
 contract groups, one-public-routine-per-file provenance, and 532 compiled-C
-base-fuel cases against actual stock instructions. The simulator has its own
-CPU/GUI tests and CI matrix on Python3.10/3.11/3.12.
+base-fuel cases against actual stock instructions. Another 128 startup and 4,112
+REF cases compare ordered C/ROM transactions and pending state; 64 injected I/O
+failures check prefix exits. The simulator has 17 CPU/GUI/real-ROM tests and its
+CI matrix on Python3.10/3.11/3.12.
 
 EQ-11 retains additional joined state combinations. EQ-12/13 cover physical
 device/board evidence; EQ-14 covers actual optional-module/external-caller code.
