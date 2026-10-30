@@ -1,0 +1,80 @@
+{
+  "byte_ranges": [
+    {
+      "bytes_hex": "DD F1 39",
+      "end_exclusive": "C2D6",
+      "purpose": "preceding_return",
+      "start": "C2D3"
+    },
+    {
+      "bytes_hex": "08 08 00 00 6C 3D 6C 4E 6C 5F 00 00 00 00 6C 1B 6C 2C 00 00 00 00 6B F9 6C 0A 00 00 6B C6 6B D7 6B E8 08 08 00 00 6A F4 6A F5 6A F6 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6A EE 6A EF 6A F0 08 08 00 00 6B 71 6B 82 6B 93 00 00 00 00 6B A4 6B B5 00 00 00 00 6B 2D 6B 3E 00 00 6A FA 6B 0B 6B 1C 08 08 00 00 6A F7 6A F8 6A F9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 6A F1 6A F2 6A F3 08 08 00 00 00 00 6D B3 6D C4 00 00 00 00 6D B3 6D C4 00 00 00 00 6D B3 6D C4 00 00 00 00 6D B3 6D C4 08 08 00 00 00 00 6C C5 6C D6 00 00 00 00 6C C5 6C D6 00 00 00 00 6C C5 6C D6 00 00 00 00 6C C5 6C D6 08 08 00 00 00 00 6E 08 6E 19 00 00 00 00 6E 08 6E 19 00 00 00 00 6E 08 6E 19 00 00 00 00 6E 08 6E 19 08 08 00 00 00 00 6D 1A 6D 2B 00 00 00 00 6D 1A 6D 2B 00 00 00 00 6D 1A 6D 2B 00 00 00 00 6D 1A 6D 2B 02 08 00 00 00 00 00 00 00 00 5D 38 5D 38 5D 38 5D 38 02 08 00 00 00 00 00 00 00 00 5D 38 5D 38 5D 38 5D 38",
+      "end_exclusive": "C40A",
+      "purpose": "lookup_descriptors",
+      "start": "C2D6"
+    },
+    {
+      "bytes_hex": "B6 01 19 26 70",
+      "end_exclusive": "C40F",
+      "purpose": "following_code",
+      "start": "C40A"
+    },
+    {
+      "bytes_hex": "CE C3 5E 96 7F D6 D9 BD D8 FE",
+      "end_exclusive": "C077",
+      "purpose": "caller_C35E",
+      "start": "C06D"
+    },
+    {
+      "bytes_hex": "CE C3 80 D6 D9 96 7F BD D8 FE",
+      "end_exclusive": "C1A9",
+      "purpose": "caller_C380",
+      "start": "C19F"
+    },
+    {
+      "bytes_hex": "CE C3 A2 D6 D9 96 7F BD D8 FE 24 03 CE 6E 08 96 B2 BD F4 C1",
+      "end_exclusive": "C09C",
+      "purpose": "caller_C3A2_and_data_lookup",
+      "start": "C088"
+    },
+    {
+      "bytes_hex": "CE C3 C4 D6 D9 96 7F BD D8 FE",
+      "end_exclusive": "C1CE",
+      "purpose": "caller_C3C4",
+      "start": "C1C4"
+    },
+    {
+      "bytes_hex": "CE C2 D6 13 89 40 03 C6 44 3A 3C 13 9C 10 15 C6 22 3A D6 D9 96 7F BD D8 FE 25 09 18 38 A6 00 B7 01 28 20 14 38 96 7F D6 D9 BD D8 FE 25 26 A6 00 B7 01 28",
+      "end_exclusive": "C87C",
+      "purpose": "computed_first_four_bases",
+      "start": "C849"
+    },
+    {
+      "bytes_hex": "CE C3 E6 13 9C 10 03 C6 12 3A 5F BD D9 2E",
+      "end_exclusive": "C88F",
+      "purpose": "caller_last_two_bases",
+      "start": "C881"
+    },
+    {
+      "bytes_hex": "37 36 A6 00 36 A6 01 36 58 3A 86 01 08 08 33 3C 30 A5 03 26 0B A5 02 26 0E 48 25 0B 38 3A 20 EF 38 EE 00 27 03 20 04 38 0D 20 01 0C 31 32 33 39",
+      "end_exclusive": "D92E",
+      "purpose": "pointer_lookup_helper",
+      "start": "D8FE"
+    },
+    {
+      "bytes_hex": "3C 37 C6 10 3D 37 16 3A EC 00 10 33 24 06 40 3D A9 00 20 06 3D 89 00 40 AB 00 33 38 39",
+      "end_exclusive": "F4DE",
+      "purpose": "selected_calibration_data_reader",
+      "start": "F4C1"
+    }
+  ],
+  "file_offset_equals_cpu_address": true,
+  "listing_source_sha256_lf": "7d1f46cab692621f7713c0eed46396feb26dc6eebeced451dc700426f2d49e9c",
+  "nonzero_pointer_words": 72,
+  "pointer_words": 144,
+  "proof_scope": "actual_ROM_descriptor_bytes_and_caller_helper_encodings_verified;no_complete_reachability_or_dual_use_exclusion_claim",
+  "reviewed_descriptor_bytes": 308,
+  "reviewed_descriptor_count": 10,
+  "rom_name": "BMHM.BIN",
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "rom_size_bytes": 65536
+}

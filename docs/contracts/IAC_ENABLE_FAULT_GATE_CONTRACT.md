@@ -1,5 +1,7 @@
 # IAC Enable / Fault Gate Contract
 
+Current factory software authority: [FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md](../analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md), [IAC controller](../analysis/FACTORY_IAC_CONTROLLER.md), and [learning/output](../analysis/FACTORY_IAC_LEARNING_AND_OUTPUT.md). These ROM-byte contracts close the strategy, retained state, reset/service and software cadence gaps of this earlier source-only note. Physical pin mapping and motor response remain separate. In particular, reset seeds position255 and target0; software position is not sensor feedback.
+
 ## Purpose
 
 Document the enable/disable logic for the IAC driver command path.
@@ -81,7 +83,7 @@ else if L00A7 > L4EB6:
 
 else:
   set L003E bit2 low-battery/protection flag
-  skip ORAB #$10
+  skip ORAB #$10; retain the old bit4 value
 ```
 
 Current interpretation: `L00A7` is proven as the compared variable. `#169` is the high voltage threshold candidate. `L4EB6` is the low voltage threshold candidate. `L003E bit2` is the low-battery/protection flag associated with this gate.

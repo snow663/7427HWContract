@@ -48,6 +48,22 @@ DEFAULT_REPORT_PATH = Path("maps/tests/static_artifact_builder_verification.csv"
 # Key = repo-relative builder path.
 # Value = list of args after the script path.
 BUILDER_INVOCATION_MANIFEST: dict[str, list[str]] = {
+    "tools/build_factory_scheduler.py": ["--check-recorded"],
+    "tools/build_factory_state_flow.py": ["--check-recorded"],
+    "tools/build_math_helper_contract.py": [
+        "--start-pc", "0xF550", "--end-pc", "0xF563",
+        "--out-md", "build/verification/math-helper.md",
+        "--out-csv", "maps/contracts/math_helper_lf550.csv",
+    ],
+    "tools/build_minimal_os_boot_safe_state.py": [
+        "--out-md", "build/verification/boot-state.md",
+        "--out-csv", "maps/contracts/minimal_os_boot_safe_state.csv",
+    ],
+    "tools/build_routine_slice.py": [
+        "--routine", "LA906", "--start-pc", "0xAB1A", "--end-pc", "0xAC31",
+        "--out-md", "build/verification/spark-bridge.md",
+        "--out-csv", "maps/contracts/spark_la906_timing_bridge.csv",
+    ],
     # Example:
     # "tools/build_spark_stock_handoff_preservation_contract.py": [
     #     "--out-md", "docs/contracts/SPARK_STOCK_HANDOFF_PRESERVATION_CONTRACT.md",
@@ -335,8 +351,8 @@ def verify_builder(repo_root: Path, builder: Path, timeout: int) -> BuilderResul
             changed_files=";".join(changed),
             missing_files=";".join(missing),
             extra_files=";".join(extra),
-            stdout_tail=tail(proc.stdout),
-            stderr_tail=tail(proc.stderr),
+            stdout_tail=tail(proc.stdout).replace(str(repo_copy), "<repo>"),
+            stderr_tail=tail(proc.stderr).replace(str(repo_copy), "<repo>"),
             notes=notes if not args else f"{notes}; manifest_args_used",
         )
     finally:
@@ -357,7 +373,7 @@ def write_report(path: Path, results: Iterable[BuilderResult]) -> None:
         "notes",
     ]
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for result in results:
             writer.writerow({field: getattr(result, field) for field in fields})

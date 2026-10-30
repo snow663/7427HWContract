@@ -1,0 +1,11 @@
+entry,contract,nominal_handler_upper_E,including_IRQ_entry12_E,vectors,premises
+74EA,resident_handler,1221,1233,FFF2,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+7875,resident_handler,132,144,FFE0,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+78D9,resident_handler,132,144,FFE2,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+CE7C,resident_handler,109,121,FFE8,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+F7EA,stock_typed_descriptors_RX_N_le34,964,976,FFD6,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+F7EA,normal_session_copy_le11,481,493,FFD6,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+F7EA,byte_copy_envelope_le255,5605,5617,FFD6,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+FC2F,resident_handler,24,36,FFE6;FFEA;FFEC;FFEE;FFF0,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+FC3A,resident_handler,24,36,FFDA;FFDC;FFDE,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded
+FC44,resident_handler,12,24,FFD8,valid frames and typed stock descriptors; nominal bus; no supplied-code/alias effects; IRQ arrival count not bounded

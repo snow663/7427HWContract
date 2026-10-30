@@ -205,6 +205,8 @@ def write_md(rows: list[dict[str, str]], out: Path, name: str) -> None:
     md = [
         "# Spark Timebase / Period Contract",
         "",
+        'The exact normal `$AB3E-$ABC8` integer path is now ROM-verified and independently replayed in [FACTORY_SPARK_INTEGER_HANDOFF.md](../analysis/FACTORY_SPARK_INTEGER_HANDOFF.md). Its saved timing word, separate period anchor, N-bit selection, and four ordered writes take precedence over older provisional arithmetic below. Physical role/unit hypotheses and the later monitor remain separate.',
+        "",
         "## Purpose",
         "",
         "Classify the timebase variables used between final spark degrees and the `LA906` timing bridge.",
@@ -242,7 +244,7 @@ def write_md(rows: list[dict[str, str]], out: Path, name: str) -> None:
         "",
         "```text",
         "mult = round((spark_mag_u8 * period_basis) / 256)",
-        "D_AB97 ≈ ((mult - latency - period_anchor) >> 4) with sign/high-nibble tagging",
+        "saved = u16(signed_mult - latency); D_AB97 = (u16(-period_anchor) >> 4) | 0xF000",
         "```",
         "",
         "Expanded current candidate:",

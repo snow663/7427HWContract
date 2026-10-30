@@ -43,8 +43,9 @@ def objective(subsystem: str, address: str) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--map', default='maps/full/hardware_access_map_v0.2.csv')
+    ap.add_argument('--map', default='maps/full/hardware_access_map_v0.3.csv')
     ap.add_argument('--out', default='maps/current/hardware_test_matrix.csv')
+    ap.add_argument('--out-md', help='optional Markdown view; default full run updates the standard companion view')
     ap.add_argument('--only-high-priority', action='store_true')
     args = ap.parse_args()
 
@@ -87,8 +88,28 @@ def main() -> int:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fields = ['address','address_class','subsystem','accesses','count','risk','minimal_os_required','first_pcs','test_objective','bench_method','notes']
     with out_path.open('w', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, fieldnames=fields)
+        w = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         w.writeheader(); w.writerows(out_rows)
+    md_target = args.out_md
+    if md_target is None and args.out == 'maps/current/hardware_test_matrix.csv' and not args.only_high_priority:
+        md_target = 'maps/current/HARDWARE_TEST_MATRIX.md'
+    if md_target:
+        md_path = resolve_path(md_target)
+        md_path.parent.mkdir(parents=True, exist_ok=True)
+        lines = ['# Hardware test candidate matrix', '',
+                 f'This source-listing view contains {len(out_rows)} grouped candidate rows from `{args.map}`.',
+                 'It is an investigation index, not a list of measured hardware behaviors.', '',
+                 'Current ROM-backed access and physical-interface authority:',
+                 '[hardware boundaries](../../docs/analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md) and',
+                 '[qualified access map](../structure/factory_global_hardware_accesses.csv).', '',
+                 'Stock BMHM leaves OC4/5 locally disabled; their source paths remain relevant to other configurations.',
+                 'Do not interpret a source-group label as proof that a timer drives a particular physical output.', '',
+                 '| Address | Class | Subsystem | Source rows | Investigation objective |',
+                 '|---|---|---|---:|---|']
+        for row in out_rows:
+            cells = [row[k].replace('|', '/') for k in ['address','address_class','subsystem','count','test_objective']]
+            lines.append('| ' + ' | '.join(cells) + ' |')
+        md_path.write_text('\n'.join(lines)+'\n', encoding='utf-8')
     print(f'wrote {len(out_rows)} rows to {out_path}')
     return 0
 

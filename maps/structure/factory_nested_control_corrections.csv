@@ -1,0 +1,2 @@
+pc,bytes_hex,rom_instruction,rom_target,inherited_operand,status
+A40B,12 09 01 56,"BRSET $09,#$01,$A465",A465,LA4656,ROM_target_verified;effective_index_corrected;original_listing_retained

@@ -1,0 +1,2877 @@
+block,pc,bytes_hex,mnemonic,operand,address_mode,access,width_bits,address
+governor_target,8EB4,CE 40 0F,LDX,#$400F,immediate,,,
+governor_target,8EB7,1F 00 01 08,BRCLR,"$00,X,#$01,$8EC3",indexed_x,R,8,
+governor_target,8EBB,13 4F 80 04,BRCLR,"$4F,#$80,$8EC3",direct,R,8,004F
+governor_target,8EBF,13 6F 34 06,BRCLR,"$6F,#$34,$8EC9",direct,R,8,006F
+governor_target,8EC3,86 FF,LDAA,#$FF,immediate,,,
+governor_target,8EC5,B7 02 99,STAA,$0299,extended,W,8,0299
+governor_target,8EC8,39,RTS,,inherent,,,
+governor_target,8EC9,15 75 04,BCLR,"$75,#$04",direct,RW,8,0075
+governor_target,8ECC,B6 50 D8,LDAA,$50D8,extended,R,8,50D8
+governor_target,8ECF,B0 02 8E,SUBA,$028E,extended,R,8,028E
+governor_target,8ED2,24 04,BCC,$8ED8,relative,,,
+governor_target,8ED4,40,NEGA,,inherent,,,
+governor_target,8ED5,14 75 04,BSET,"$75,#$04",direct,RW,8,0075
+governor_target,8ED8,B7 02 93,STAA,$0293,extended,W,8,0293
+governor_target,8EDB,13 86 40 05,BRCLR,"$86,#$40,$8EE4",direct,R,8,0086
+governor_target,8EDF,BD 18 09,JSR,$1809,extended,,,
+governor_target,8EE2,25 E1,BCS,$8EC5,relative,,,
+governor_target,8EE4,B6 50 DA,LDAA,$50DA,extended,R,8,50DA
+governor_target,8EE7,27 4F,BEQ,$8F38,relative,,,
+governor_target,8EE9,FC 02 84,LDD,$0284,extended,R,16,0284
+governor_target,8EEC,B0 50 DA,SUBA,$50DA,extended,R,8,50DA
+governor_target,8EEF,25 26,BCS,$8F17,relative,,,
+governor_target,8EF1,05,ASLD,,inherent,,,
+governor_target,8EF2,25 03,BCS,$8EF7,relative,,,
+governor_target,8EF4,05,ASLD,,inherent,,,
+governor_target,8EF5,24 03,BCC,$8EFA,relative,,,
+governor_target,8EF7,CC FF FF,LDD,#$FFFF,immediate,,,
+governor_target,8EFA,B7 02 94,STAA,$0294,extended,W,8,0294
+governor_target,8EFD,14 75 40,BSET,"$75,#$40",direct,RW,8,0075
+governor_target,8F00,12 75 80 2F,BRSET,"$75,#$80,$8F33",direct,R,8,0075
+governor_target,8F04,B6 50 E1,LDAA,$50E1,extended,R,8,50E1
+governor_target,8F07,B1 01 D9,CMPA,$01D9,extended,R,8,01D9
+governor_target,8F0A,25 03,BCS,$8F0F,relative,,,
+governor_target,8F0C,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+governor_target,8F0F,B7 02 86,STAA,$0286,extended,W,8,0286
+governor_target,8F12,14 75 80,BSET,"$75,#$80",direct,RW,8,0075
+governor_target,8F15,20 1C,BRA,$8F33,relative,,,
+governor_target,8F17,40,NEGA,,inherent,,,
+governor_target,8F18,50,NEGB,,inherent,,,
+governor_target,8F19,82 00,SBCA,#$00,immediate,,,
+governor_target,8F1B,05,ASLD,,inherent,,,
+governor_target,8F1C,25 03,BCS,$8F21,relative,,,
+governor_target,8F1E,05,ASLD,,inherent,,,
+governor_target,8F1F,24 03,BCC,$8F24,relative,,,
+governor_target,8F21,CC FF FF,LDD,#$FFFF,immediate,,,
+governor_target,8F24,B7 02 94,STAA,$0294,extended,W,8,0294
+governor_target,8F27,15 75 40,BCLR,"$75,#$40",direct,RW,8,0075
+governor_target,8F2A,13 75 80 0A,BRCLR,"$75,#$80,$8F38",direct,R,8,0075
+governor_target,8F2E,B1 50 DB,CMPA,$50DB,extended,R,8,50DB
+governor_target,8F31,24 05,BCC,$8F38,relative,,,
+governor_target,8F33,15 75 13,BCLR,"$75,#$13",direct,RW,8,0075
+governor_target,8F36,20 03,BRA,$8F3B,relative,,,
+governor_target,8F38,15 75 80,BCLR,"$75,#$80",direct,RW,8,0075
+governor_target,8F3B,13 75 04 17,BRCLR,"$75,#$04,$8F56",direct,R,8,0075
+governor_target,8F3F,D6 75,LDAB,$75,direct,R,8,0075
+governor_target,8F41,C5 81,BITB,#$81,immediate,,,
+governor_target,8F43,26 0B,BNE,$8F50,relative,,,
+governor_target,8F45,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+governor_target,8F48,B1 02 86,CMPA,$0286,extended,R,8,0286
+governor_target,8F4B,22 03,BHI,$8F50,relative,,,
+governor_target,8F4D,B7 02 86,STAA,$0286,extended,W,8,0286
+governor_target,8F50,14 75 01,BSET,"$75,#$01",direct,RW,8,0075
+governor_target,8F53,15 75 12,BCLR,"$75,#$12",direct,RW,8,0075
+governor_target,8F56,D6 75,LDAB,$75,direct,R,8,0075
+governor_target,8F58,C5 81,BITB,#$81,immediate,,,
+governor_target,8F5A,26 03,BNE,$8F5F,relative,,,
+governor_target,8F5C,7E 90 10,JMP,$9010,extended,,,
+governor_target,8F5F,CE 50 E8,LDX,#$50E8,immediate,,,
+governor_target,8F62,B6 02 99,LDAA,$0299,extended,R,8,0299
+governor_target,8F65,44,LSRA,,inherent,,,
+governor_target,8F66,BD F4 99,JSR,$F499,extended,,,
+governor_target,8F69,F6 02 94,LDAB,$0294,extended,R,8,0294
+governor_target,8F6C,CE 50 DF,LDX,#$50DF,immediate,,,
+governor_target,8F6F,13 75 01 04,BRCLR,"$75,#$01,$8F77",direct,R,8,0075
+governor_target,8F73,08,INX,,inherent,,,
+governor_target,8F74,F6 02 93,LDAB,$0293,extended,R,8,0293
+governor_target,8F77,3D,MUL,,inherent,,,
+governor_target,8F78,05,ASLD,,inherent,,,
+governor_target,8F79,25 06,BCS,$8F81,relative,,,
+governor_target,8F7B,05,ASLD,,inherent,,,
+governor_target,8F7C,25 03,BCS,$8F81,relative,,,
+governor_target,8F7E,05,ASLD,,inherent,,,
+governor_target,8F7F,24 03,BCC,$8F84,relative,,,
+governor_target,8F81,CC FF FF,LDD,#$FFFF,immediate,,,
+governor_target,8F84,FD 02 8A,STD,$028A,extended,W,16,028A
+governor_target,8F87,A6 00,LDAA,"$00,X",indexed_x,R,8,
+governor_target,8F89,CE 02 8A,LDX,#$028A,immediate,,,
+governor_target,8F8C,BD F5 50,JSR,$F550,extended,,,
+governor_target,8F8F,FD 02 8A,STD,$028A,extended,W,16,028A
+governor_target,8F92,B6 50 DD,LDAA,$50DD,extended,R,8,50DD
+governor_target,8F95,F6 02 93,LDAB,$0293,extended,R,8,0293
+governor_target,8F98,3D,MUL,,inherent,,,
+governor_target,8F99,05,ASLD,,inherent,,,
+governor_target,8F9A,25 03,BCS,$8F9F,relative,,,
+governor_target,8F9C,05,ASLD,,inherent,,,
+governor_target,8F9D,24 03,BCC,$8FA2,relative,,,
+governor_target,8F9F,CC FF FF,LDD,#$FFFF,immediate,,,
+governor_target,8FA2,FD 02 90,STD,$0290,extended,W,16,0290
+governor_target,8FA5,7F 02 92,CLR,$0292,extended,W,8,0292
+governor_target,8FA8,13 75 80 20,BRCLR,"$75,#$80,$8FCC",direct,R,8,0075
+governor_target,8FAC,B6 02 94,LDAA,$0294,extended,R,8,0294
+governor_target,8FAF,F6 50 DE,LDAB,$50DE,extended,R,8,50DE
+governor_target,8FB2,3D,MUL,,inherent,,,
+governor_target,8FB3,05,ASLD,,inherent,,,
+governor_target,8FB4,25 09,BCS,$8FBF,relative,,,
+governor_target,8FB6,05,ASLD,,inherent,,,
+governor_target,8FB7,25 06,BCS,$8FBF,relative,,,
+governor_target,8FB9,05,ASLD,,inherent,,,
+governor_target,8FBA,25 03,BCS,$8FBF,relative,,,
+governor_target,8FBC,05,ASLD,,inherent,,,
+governor_target,8FBD,24 03,BCC,$8FC2,relative,,,
+governor_target,8FBF,CC FF FF,LDD,#$FFFF,immediate,,,
+governor_target,8FC2,B7 02 92,STAA,$0292,extended,W,8,0292
+governor_target,8FC5,12 75 04 03,BRSET,"$75,#$04,$8FCC",direct,R,8,0075
+governor_target,8FC9,FD 02 90,STD,$0290,extended,W,16,0290
+governor_target,8FCC,D6 75,LDAB,$75,direct,R,8,0075
+governor_target,8FCE,C5 44,BITB,#$44,immediate,,,
+governor_target,8FD0,27 26,BEQ,$8FF8,relative,,,
+governor_target,8FD2,FC 02 86,LDD,$0286,extended,R,16,0286
+governor_target,8FD5,B3 02 8A,SUBD,$028A,extended,R,16,028A
+governor_target,8FD8,25 05,BCS,$8FDF,relative,,,
+governor_target,8FDA,B1 50 E2,CMPA,$50E2,extended,R,8,50E2
+governor_target,8FDD,24 06,BCC,$8FE5,relative,,,
+governor_target,8FDF,B6 50 E2,LDAA,$50E2,extended,R,8,50E2
+governor_target,8FE2,7E 90 93,JMP,$9093,extended,,,
+governor_target,8FE5,FD 02 86,STD,$0286,extended,W,16,0286
+governor_target,8FE8,B3 02 90,SUBD,$0290,extended,R,16,0290
+governor_target,8FEB,25 05,BCS,$8FF2,relative,,,
+governor_target,8FED,B1 50 E2,CMPA,$50E2,extended,R,8,50E2
+governor_target,8FF0,24 03,BCC,$8FF5,relative,,,
+governor_target,8FF2,B6 50 E2,LDAA,$50E2,extended,R,8,50E2
+governor_target,8FF5,7E 90 97,JMP,$9097,extended,,,
+governor_target,8FF8,FC 02 86,LDD,$0286,extended,R,16,0286
+governor_target,8FFB,F3 02 8A,ADDD,$028A,extended,R,16,028A
+governor_target,8FFE,24 03,BCC,$9003,relative,,,
+governor_target,9000,CC FF FF,LDD,#$FFFF,immediate,,,
+governor_target,9003,FD 02 86,STD,$0286,extended,W,16,0286
+governor_target,9006,F3 02 90,ADDD,$0290,extended,R,16,0290
+governor_target,9009,24 02,BCC,$900D,relative,,,
+governor_target,900B,86 FF,LDAA,#$FF,immediate,,,
+governor_target,900D,7E 90 97,JMP,$9097,extended,,,
+governor_target,9010,7F 02 92,CLR,$0292,extended,W,8,0292
+governor_target,9013,12 75 02 26,BRSET,"$75,#$02,$903D",direct,R,8,0075
+governor_target,9017,B6 02 8D,LDAA,$028D,extended,R,8,028D
+governor_target,901A,2B 45,BMI,$9061,relative,,,
+governor_target,901C,81 20,CMPA,#$20,immediate,,,
+governor_target,901E,23 02,BLS,$9022,relative,,,
+governor_target,9020,86 20,LDAA,#$20,immediate,,,
+governor_target,9022,CE 50 EE,LDX,#$50EE,immediate,,,
+governor_target,9025,BD F4 B6,JSR,$F4B6,extended,,,
+governor_target,9028,B1 02 8E,CMPA,$028E,extended,R,8,028E
+governor_target,902B,24 34,BCC,$9061,relative,,,
+governor_target,902D,14 75 02,BSET,"$75,#$02",direct,RW,8,0075
+governor_target,9030,B6 50 E1,LDAA,$50E1,extended,R,8,50E1
+governor_target,9033,B1 01 D9,CMPA,$01D9,extended,R,8,01D9
+governor_target,9036,23 53,BLS,$908B,relative,,,
+governor_target,9038,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+governor_target,903B,20 4E,BRA,$908B,relative,,,
+governor_target,903D,12 75 10 06,BRSET,"$75,#$10,$9047",direct,R,8,0075
+governor_target,9041,4F,CLRA,,inherent,,,
+governor_target,9042,B0 02 8D,SUBA,$028D,extended,R,8,028D
+governor_target,9045,2D 1E,BLT,$9065,relative,,,
+governor_target,9047,14 75 10,BSET,"$75,#$10",direct,RW,8,0075
+governor_target,904A,B6 02 99,LDAA,$0299,extended,R,8,0299
+governor_target,904D,F6 50 E6,LDAB,$50E6,extended,R,8,50E6
+governor_target,9050,B1 50 E5,CMPA,$50E5,extended,R,8,50E5
+governor_target,9053,24 03,BCC,$9058,relative,,,
+governor_target,9055,F6 50 E7,LDAB,$50E7,extended,R,8,50E7
+governor_target,9058,B6 02 93,LDAA,$0293,extended,R,8,0293
+governor_target,905B,3D,MUL,,inherent,,,
+governor_target,905C,F3 02 86,ADDD,$0286,extended,R,16,0286
+governor_target,905F,24 33,BCC,$9094,relative,,,
+governor_target,9061,86 FF,LDAA,#$FF,immediate,,,
+governor_target,9063,20 2E,BRA,$9093,relative,,,
+governor_target,9065,CE 50 FA,LDX,#$50FA,immediate,,,
+governor_target,9068,96 06,LDAA,$06,direct,R,8,0006
+governor_target,906A,81 80,CMPA,#$80,immediate,,,
+governor_target,906C,23 02,BLS,$9070,relative,,,
+governor_target,906E,86 80,LDAA,#$80,immediate,,,
+governor_target,9070,44,LSRA,,inherent,,,
+governor_target,9071,BD F4 C1,JSR,$F4C1,extended,,,
+governor_target,9074,F6 02 8D,LDAB,$028D,extended,R,8,028D
+governor_target,9077,3D,MUL,,inherent,,,
+governor_target,9078,05,ASLD,,inherent,,,
+governor_target,9079,25 03,BCS,$907E,relative,,,
+governor_target,907B,05,ASLD,,inherent,,,
+governor_target,907C,24 03,BCC,$9081,relative,,,
+governor_target,907E,CC FF FF,LDD,#$FFFF,immediate,,,
+governor_target,9081,16,TAB,,inherent,,,
+governor_target,9082,B6 02 86,LDAA,$0286,extended,R,8,0286
+governor_target,9085,10,SBA,,inherent,,,
+governor_target,9086,F6 02 87,LDAB,$0287,extended,R,8,0287
+governor_target,9089,25 05,BCS,$9090,relative,,,
+governor_target,908B,B1 50 E3,CMPA,$50E3,extended,R,8,50E3
+governor_target,908E,24 03,BCC,$9093,relative,,,
+governor_target,9090,B6 50 E3,LDAA,$50E3,extended,R,8,50E3
+governor_target,9093,5F,CLRB,,inherent,,,
+governor_target,9094,FD 02 86,STD,$0286,extended,W,16,0286
+governor_target,9097,D6 75,LDAB,$75,direct,R,8,0075
+governor_target,9099,C5 84,BITB,#$84,immediate,,,
+governor_target,909B,27 1A,BEQ,$90B7,relative,,,
+governor_target,909D,12 75 40 09,BRSET,"$75,#$40,$90AA",direct,R,8,0075
+governor_target,90A1,BB 02 92,ADDA,$0292,extended,R,8,0292
+governor_target,90A4,24 11,BCC,$90B7,relative,,,
+governor_target,90A6,86 FF,LDAA,#$FF,immediate,,,
+governor_target,90A8,20 0D,BRA,$90B7,relative,,,
+governor_target,90AA,B0 02 92,SUBA,$0292,extended,R,8,0292
+governor_target,90AD,25 05,BCS,$90B4,relative,,,
+governor_target,90AF,B1 50 E2,CMPA,$50E2,extended,R,8,50E2
+governor_target,90B2,24 03,BCC,$90B7,relative,,,
+governor_target,90B4,B6 50 E2,LDAA,$50E2,extended,R,8,50E2
+governor_target,90B7,B7 02 99,STAA,$0299,extended,W,8,0299
+governor_target,90BA,C5 11,BITB,#$11,immediate,,,
+governor_target,90BC,27 14,BEQ,$90D2,relative,,,
+governor_target,90BE,F6 02 88,LDAB,$0288,extended,R,8,0288
+governor_target,90C1,26 0F,BNE,$90D2,relative,,,
+governor_target,90C3,13 75 01 08,BRCLR,"$75,#$01,$90CF",direct,R,8,0075
+governor_target,90C7,B6 02 8E,LDAA,$028E,extended,R,8,028E
+governor_target,90CA,B1 50 D9,CMPA,$50D9,extended,R,8,50D9
+governor_target,90CD,24 03,BCC,$90D2,relative,,,
+governor_target,90CF,15 75 13,BCLR,"$75,#$13",direct,RW,8,0075
+governor_target,90D2,39,RTS,,inherent,,,
+governor_actuator,90D3,F6 02 99,LDAB,$0299,extended,R,8,0299
+governor_actuator,90D6,F0 01 D9,SUBB,$01D9,extended,R,8,01D9
+governor_actuator,90D9,24 01,BCC,$90DC,relative,,,
+governor_actuator,90DB,50,NEGB,,inherent,,,
+governor_actuator,90DC,F7 02 9A,STAB,$029A,extended,W,8,029A
+governor_actuator,90DF,CE 50 FF,LDX,#$50FF,immediate,,,
+governor_actuator,90E2,B6 02 9A,LDAA,$029A,extended,R,8,029A
+governor_actuator,90E5,BD F4 B6,JSR,$F4B6,extended,,,
+governor_actuator,90E8,F6 02 9A,LDAB,$029A,extended,R,8,029A
+governor_actuator,90EB,3D,MUL,,inherent,,,
+governor_actuator,90EC,05,ASLD,,inherent,,,
+governor_actuator,90ED,25 03,BCS,$90F2,relative,,,
+governor_actuator,90EF,05,ASLD,,inherent,,,
+governor_actuator,90F0,24 03,BCC,$90F5,relative,,,
+governor_actuator,90F2,CC FF FF,LDD,#$FFFF,immediate,,,
+governor_actuator,90F5,FD 02 95,STD,$0295,extended,W,16,0295
+governor_actuator,90F8,CE 51 09,LDX,#$5109,immediate,,,
+governor_actuator,90FB,B6 02 9A,LDAA,$029A,extended,R,8,029A
+governor_actuator,90FE,BD F4 B6,JSR,$F4B6,extended,,,
+governor_actuator,9101,F6 02 9A,LDAB,$029A,extended,R,8,029A
+governor_actuator,9104,3D,MUL,,inherent,,,
+governor_actuator,9105,FD 02 97,STD,$0297,extended,W,16,0297
+governor_actuator,9108,8F,XGDX,,inherent,,,
+governor_actuator,9109,B6 02 99,LDAA,$0299,extended,R,8,0299
+governor_actuator,910C,B1 01 D9,CMPA,$01D9,extended,R,8,01D9
+governor_actuator,910F,8F,XGDX,,inherent,,,
+governor_actuator,9110,24 19,BCC,$912B,relative,,,
+governor_actuator,9112,F3 02 88,ADDD,$0288,extended,R,16,0288
+governor_actuator,9115,24 03,BCC,$911A,relative,,,
+governor_actuator,9117,CC FF 00,LDD,#$FF00,immediate,,,
+governor_actuator,911A,FD 02 88,STD,$0288,extended,W,16,0288
+governor_actuator,911D,F3 02 95,ADDD,$0295,extended,R,16,0295
+governor_actuator,9120,25 05,BCS,$9127,relative,,,
+governor_actuator,9122,C3 00 80,ADDD,#$0080,immediate,,,
+governor_actuator,9125,24 17,BCC,$913E,relative,,,
+governor_actuator,9127,86 FF,LDAA,#$FF,immediate,,,
+governor_actuator,9129,20 13,BRA,$913E,relative,,,
+governor_actuator,912B,FC 02 88,LDD,$0288,extended,R,16,0288
+governor_actuator,912E,B3 02 97,SUBD,$0297,extended,R,16,0297
+governor_actuator,9131,24 02,BCC,$9135,relative,,,
+governor_actuator,9133,4F,CLRA,,inherent,,,
+governor_actuator,9134,5F,CLRB,,inherent,,,
+governor_actuator,9135,FD 02 88,STD,$0288,extended,W,16,0288
+governor_actuator,9138,B3 02 95,SUBD,$0295,extended,R,16,0295
+governor_actuator,913B,24 E5,BCC,$9122,relative,,,
+governor_actuator,913D,4F,CLRA,,inherent,,,
+governor_actuator,913E,F6 02 99,LDAB,$0299,extended,R,8,0299
+governor_actuator,9141,C1 FF,CMPB,#$FF,immediate,,,
+governor_actuator,9143,26 06,BNE,$914B,relative,,,
+governor_actuator,9145,CE 00 00,LDX,#$0000,immediate,,,
+governor_actuator,9148,FF 02 88,STX,$0288,extended,W,16,0288
+governor_actuator,914B,16,TAB,,inherent,,,
+governor_actuator,914C,13 51 10 03,BRCLR,"$51,#$10,$9153",direct,R,8,0051
+governor_actuator,9150,5F,CLRB,,inherent,,,
+governor_actuator,9151,20 0E,BRA,$9161,relative,,,
+governor_actuator,9153,13 3B 10 0A,BRCLR,"$3B,#$10,$9161",direct,R,8,003B
+governor_actuator,9157,B6 03 93,LDAA,$0393,extended,R,8,0393
+governor_actuator,915A,85 01,BITA,#$01,immediate,,,
+governor_actuator,915C,27 03,BEQ,$9161,relative,,,
+governor_actuator,915E,F6 03 94,LDAB,$0394,extended,R,8,0394
+governor_actuator,9161,86 1F,LDAA,#$1F,immediate,,,
+governor_actuator,9163,FD 30 6C,STD,$306C,extended,W,16,306C
+governor_actuator,9166,39,RTS,,inherent,,,
+range_switch_inputs,9167,C6 AA,LDAB,#$AA,immediate,,,
+range_switch_inputs,9169,F7 30 3A,STAB,$303A,extended,W,8,303A
+range_switch_inputs,916C,B6 40 0F,LDAA,$400F,extended,R,8,400F
+range_switch_inputs,916F,85 04,BITA,#$04,immediate,,,
+range_switch_inputs,9171,26 12,BNE,$9185,relative,,,
+range_switch_inputs,9173,12 4D 01 08,BRSET,"$4D,#$01,$917F",direct,R,8,004D
+range_switch_inputs,9177,15 52 20,BCLR,"$52,#$20",direct,RW,8,0052
+range_switch_inputs,917A,15 41 10,BCLR,"$41,#$10",direct,RW,8,0041
+range_switch_inputs,917D,20 06,BRA,$9185,relative,,,
+range_switch_inputs,917F,14 52 20,BSET,"$52,#$20",direct,RW,8,0052
+range_switch_inputs,9182,14 41 10,BSET,"$41,#$10",direct,RW,8,0041
+range_switch_inputs,9185,15 41 20,BCLR,"$41,#$20",direct,RW,8,0041
+range_switch_inputs,9188,CE 40 0F,LDX,#$400F,immediate,,,
+range_switch_inputs,918B,1E 00 40 0A,BRSET,"$00,X,#$40,$9199",indexed_x,R,8,
+range_switch_inputs,918F,96 4D,LDAA,$4D,direct,R,8,004D
+range_switch_inputs,9191,84 1C,ANDA,#$1C,immediate,,,
+range_switch_inputs,9193,81 14,CMPA,#$14,immediate,,,
+range_switch_inputs,9195,26 0B,BNE,$91A2,relative,,,
+range_switch_inputs,9197,20 06,BRA,$919F,relative,,,
+range_switch_inputs,9199,96 4D,LDAA,$4D,direct,R,8,004D
+range_switch_inputs,919B,85 10,BITA,#$10,immediate,,,
+range_switch_inputs,919D,26 03,BNE,$91A2,relative,,,
+range_switch_inputs,919F,14 41 20,BSET,"$41,#$20",direct,RW,8,0041
+range_switch_inputs,91A2,39,RTS,,inherent,,,
+IAC_step_service,91A3,D6 0A,LDAB,$0A,direct,R,8,000A
+IAC_step_service,91A5,96 A7,LDAA,$A7,direct,R,8,00A7
+IAC_step_service,91A7,81 A9,CMPA,#$A9,immediate,,,
+IAC_step_service,91A9,23 04,BLS,$91AF,relative,,,
+IAC_step_service,91AB,C4 EF,ANDB,#$EF,immediate,,,
+IAC_step_service,91AD,20 09,BRA,$91B8,relative,,,
+IAC_step_service,91AF,12 44 10 0A,BRSET,"$44,#$10,$91BD",direct,R,8,0044
+IAC_step_service,91B3,B1 4E B6,CMPA,$4EB6,extended,R,8,4EB6
+IAC_step_service,91B6,22 05,BHI,$91BD,relative,,,
+IAC_step_service,91B8,14 3E 04,BSET,"$3E,#$04",direct,RW,8,003E
+IAC_step_service,91BB,20 43,BRA,$9200,relative,,,
+IAC_step_service,91BD,15 3E 04,BCLR,"$3E,#$04",direct,RW,8,003E
+IAC_step_service,91C0,CA 10,ORAB,#$10,immediate,,,
+IAC_step_service,91C2,96 07,LDAA,$07,direct,R,8,0007
+IAC_step_service,91C4,91 08,CMPA,$08,direct,R,8,0008
+IAC_step_service,91C6,26 04,BNE,$91CC,relative,,,
+IAC_step_service,91C8,C4 FE,ANDB,#$FE,immediate,,,
+IAC_step_service,91CA,20 34,BRA,$9200,relative,,,
+IAC_step_service,91CC,13 09 01 04,BRCLR,"$09,#$01,$91D4",direct,R,8,0009
+IAC_step_service,91D0,12 02 03 2C,BRSET,"$02,#$03,$9200",direct,R,8,0002
+IAC_step_service,91D4,24 09,BCC,$91DF,relative,,,
+IAC_step_service,91D6,C4 FE,ANDB,#$FE,immediate,,,
+IAC_step_service,91D8,12 0A 01 24,BRSET,"$0A,#$01,$9200",direct,R,8,000A
+IAC_step_service,91DC,4C,INCA,,inherent,,,
+IAC_step_service,91DD,20 07,BRA,$91E6,relative,,,
+IAC_step_service,91DF,CA 01,ORAB,#$01,immediate,,,
+IAC_step_service,91E1,13 0A 01 1B,BRCLR,"$0A,#$01,$9200",direct,R,8,000A
+IAC_step_service,91E5,4A,DECA,,inherent,,,
+IAC_step_service,91E6,97 07,STAA,$07,direct,W,8,0007
+IAC_step_service,91E8,12 0A 0C 0A,BRSET,"$0A,#$0C,$91F6",direct,R,8,000A
+IAC_step_service,91EC,13 0A 0C 06,BRCLR,"$0A,#$0C,$91F6",direct,R,8,000A
+IAC_step_service,91F0,C5 01,BITB,#$01,immediate,,,
+IAC_step_service,91F2,26 06,BNE,$91FA,relative,,,
+IAC_step_service,91F4,20 08,BRA,$91FE,relative,,,
+IAC_step_service,91F6,C5 01,BITB,#$01,immediate,,,
+IAC_step_service,91F8,26 04,BNE,$91FE,relative,,,
+IAC_step_service,91FA,C8 04,EORB,#$04,immediate,,,
+IAC_step_service,91FC,20 02,BRA,$9200,relative,,,
+IAC_step_service,91FE,C8 08,EORB,#$08,immediate,,,
+IAC_step_service,9200,D7 0A,STAB,$0A,direct,W,8,000A
+IAC_step_service,9202,0F,SEI,,inherent,,,
+IAC_step_service,9203,96 4C,LDAA,$4C,direct,R,8,004C
+IAC_step_service,9205,84 E3,ANDA,#$E3,immediate,,,
+IAC_step_service,9207,C4 1C,ANDB,#$1C,immediate,,,
+IAC_step_service,9209,1B,ABA,,inherent,,,
+IAC_step_service,920A,97 4C,STAA,$4C,direct,W,8,004C
+IAC_step_service,920C,0E,CLI,,inherent,,,
+IAC_step_service,920D,39,RTS,,inherent,,,
+IAC_kicker_and_input_helpers,920E,15 37 18,BCLR,"$37,#$18",direct,RW,8,0037
+IAC_kicker_and_input_helpers,9211,13 37 04 06,BRCLR,"$37,#$04,$921B",direct,R,8,0037
+IAC_kicker_and_input_helpers,9215,7F 08 8D,CLR,$088D,extended,W,8,088D
+IAC_kicker_and_input_helpers,9218,15 37 04,BCLR,"$37,#$04",direct,RW,8,0037
+IAC_kicker_and_input_helpers,921B,12 36 40 03,BRSET,"$36,#$40,$9222",direct,R,8,0036
+IAC_kicker_and_input_helpers,921F,14 36 40,BSET,"$36,#$40",direct,RW,8,0036
+IAC_kicker_and_input_helpers,9222,14 4B 80,BSET,"$4B,#$80",direct,RW,8,004B
+IAC_kicker_and_input_helpers,9225,39,RTS,,inherent,,,
+IAC_kicker_and_input_helpers,9226,12 37 04 12,BRSET,"$37,#$04,$923C",direct,R,8,0037
+IAC_kicker_and_input_helpers,922A,B6 02 B1,LDAA,$02B1,extended,R,8,02B1
+IAC_kicker_and_input_helpers,922D,BB 50 D5,ADDA,$50D5,extended,R,8,50D5
+IAC_kicker_and_input_helpers,9230,B7 02 F6,STAA,$02F6,extended,W,8,02F6
+IAC_kicker_and_input_helpers,9233,B6 50 D3,LDAA,$50D3,extended,R,8,50D3
+IAC_kicker_and_input_helpers,9236,B7 08 8D,STAA,$088D,extended,W,8,088D
+IAC_kicker_and_input_helpers,9239,14 37 04,BSET,"$37,#$04",direct,RW,8,0037
+IAC_kicker_and_input_helpers,923C,15 4B 80,BCLR,"$4B,#$80",direct,RW,8,004B
+IAC_kicker_and_input_helpers,923F,39,RTS,,inherent,,,
+IAC_kicker_and_input_helpers,9240,CE 00 4C,LDX,#$004C,immediate,,,
+IAC_kicker_and_input_helpers,9243,1C 00 10,BSET,"$00,X,#$10",indexed_x,RW,8,
+IAC_kicker_and_input_helpers,9246,39,RTS,,inherent,,,
+IAC_kicker_and_input_helpers,9247,12 4D 80 03,BRSET,"$4D,#$80,$924E",direct,R,8,004D
+IAC_kicker_and_input_helpers,924B,0D,SEC,,inherent,,,
+IAC_kicker_and_input_helpers,924C,20 01,BRA,$924F,relative,,,
+IAC_kicker_and_input_helpers,924E,0C,CLC,,inherent,,,
+IAC_kicker_and_input_helpers,924F,39,RTS,,inherent,,,
+IAC_kicker_and_input_helpers,9250,36,PSHA,,inherent,,,
+IAC_kicker_and_input_helpers,9251,B6 30 08,LDAA,$3008,extended,R,8,3008
+IAC_kicker_and_input_helpers,9254,85 04,BITA,#$04,immediate,,,
+IAC_kicker_and_input_helpers,9256,32,PULA,,inherent,,,
+IAC_kicker_and_input_helpers,9257,27 03,BEQ,$925C,relative,,,
+IAC_kicker_and_input_helpers,9259,0D,SEC,,inherent,,,
+IAC_kicker_and_input_helpers,925A,20 01,BRA,$925D,relative,,,
+IAC_kicker_and_input_helpers,925C,0C,CLC,,inherent,,,
+IAC_kicker_and_input_helpers,925D,39,RTS,,inherent,,,
+IAC_boot_setup,925E,B6 4E F2,LDAA,$4EF2,extended,R,8,4EF2
+IAC_boot_setup,9261,48,ASLA,,inherent,,,
+IAC_boot_setup,9262,48,ASLA,,inherent,,,
+IAC_boot_setup,9263,B7 08 85,STAA,$0885,extended,W,8,0885
+IAC_boot_setup,9266,13 46 40 08,BRCLR,"$46,#$40,$9272",direct,R,8,0046
+IAC_boot_setup,926A,B6 4E B0,LDAA,$4EB0,extended,R,8,4EB0
+IAC_boot_setup,926D,97 07,STAA,$07,direct,W,8,0007
+IAC_boot_setup,926F,BD 92 A4,JSR,$92A4,extended,,,
+IAC_boot_setup,9272,12 04 08 05,BRSET,"$04,#$08,$927B",direct,R,8,0004
+IAC_boot_setup,9276,BD 92 F1,JSR,$92F1,extended,,,
+IAC_boot_setup,9279,20 03,BRA,$927E,relative,,,
+IAC_boot_setup,927B,BD 93 C5,JSR,$93C5,extended,,,
+IAC_boot_setup,927E,B6 4E 8F,LDAA,$4E8F,extended,R,8,4E8F
+IAC_boot_setup,9281,85 04,BITA,#$04,immediate,,,
+IAC_boot_setup,9283,27 17,BEQ,$929C,relative,,,
+IAC_boot_setup,9285,B6 02 F4,LDAA,$02F4,extended,R,8,02F4
+IAC_boot_setup,9288,B1 50 CE,CMPA,$50CE,extended,R,8,50CE
+IAC_boot_setup,928B,23 07,BLS,$9294,relative,,,
+IAC_boot_setup,928D,96 06,LDAA,$06,direct,R,8,0006
+IAC_boot_setup,928F,B1 50 C7,CMPA,$50C7,extended,R,8,50C7
+IAC_boot_setup,9292,24 05,BCC,$9299,relative,,,
+IAC_boot_setup,9294,14 37 04,BSET,"$37,#$04",direct,RW,8,0037
+IAC_boot_setup,9297,20 03,BRA,$929C,relative,,,
+IAC_boot_setup,9299,BD 92 0E,JSR,$920E,extended,,,
+IAC_boot_setup,929C,96 07,LDAA,$07,direct,R,8,0007
+IAC_boot_setup,929E,97 08,STAA,$08,direct,W,8,0008
+IAC_boot_setup,92A0,BD 92 40,JSR,$9240,extended,,,
+IAC_boot_setup,92A3,39,RTS,,inherent,,,
+IAC_boot_setup,92A4,96 06,LDAA,$06,direct,R,8,0006
+IAC_boot_setup,92A6,B1 4E B5,CMPA,$4EB5,extended,R,8,4EB5
+IAC_boot_setup,92A9,07,TPA,,inherent,,,
+IAC_boot_setup,92AA,F6 4E B2,LDAB,$4EB2,extended,R,8,4EB2
+IAC_boot_setup,92AD,F7 02 A7,STAB,$02A7,extended,W,8,02A7
+IAC_boot_setup,92B0,F7 02 A9,STAB,$02A9,extended,W,8,02A9
+IAC_boot_setup,92B3,06,TAP,,inherent,,,
+IAC_boot_setup,92B4,25 07,BCS,$92BD,relative,,,
+IAC_boot_setup,92B6,FB 4E B3,ADDB,$4EB3,extended,R,8,4EB3
+IAC_boot_setup,92B9,25 07,BCS,$92C2,relative,,,
+IAC_boot_setup,92BB,20 07,BRA,$92C4,relative,,,
+IAC_boot_setup,92BD,FB 4E B4,ADDB,$4EB4,extended,R,8,4EB4
+IAC_boot_setup,92C0,24 02,BCC,$92C4,relative,,,
+IAC_boot_setup,92C2,C6 FF,LDAB,#$FF,immediate,,,
+IAC_boot_setup,92C4,F7 02 AA,STAB,$02AA,extended,W,8,02AA
+IAC_boot_setup,92C7,F7 02 AC,STAB,$02AC,extended,W,8,02AC
+IAC_boot_setup,92CA,F6 4E B1,LDAB,$4EB1,extended,R,8,4EB1
+IAC_boot_setup,92CD,F7 02 9D,STAB,$029D,extended,W,8,029D
+IAC_boot_setup,92D0,F7 02 9F,STAB,$029F,extended,W,8,029F
+IAC_boot_setup,92D3,06,TAP,,inherent,,,
+IAC_boot_setup,92D4,25 07,BCS,$92DD,relative,,,
+IAC_boot_setup,92D6,FB 4E B3,ADDB,$4EB3,extended,R,8,4EB3
+IAC_boot_setup,92D9,25 07,BCS,$92E2,relative,,,
+IAC_boot_setup,92DB,20 07,BRA,$92E4,relative,,,
+IAC_boot_setup,92DD,FB 4E B4,ADDB,$4EB4,extended,R,8,4EB4
+IAC_boot_setup,92E0,24 02,BCC,$92E4,relative,,,
+IAC_boot_setup,92E2,C6 FF,LDAB,#$FF,immediate,,,
+IAC_boot_setup,92E4,F7 02 A0,STAB,$02A0,extended,W,8,02A0
+IAC_boot_setup,92E7,F7 02 A2,STAB,$02A2,extended,W,8,02A2
+IAC_boot_setup,92EA,B6 50 D4,LDAA,$50D4,extended,R,8,50D4
+IAC_boot_setup,92ED,B7 02 B1,STAA,$02B1,extended,W,8,02B1
+IAC_boot_setup,92F0,39,RTS,,inherent,,,
+IAC_retained_cell_setup,92F1,13 09 10 1A,BRCLR,"$09,#$10,$930F",direct,R,8,0009
+IAC_retained_cell_setup,92F5,B6 02 A9,LDAA,$02A9,extended,R,8,02A9
+IAC_retained_cell_setup,92F8,5F,CLRB,,inherent,,,
+IAC_retained_cell_setup,92F9,BB 50 98,ADDA,$5098,extended,R,8,5098
+IAC_retained_cell_setup,92FC,24 03,BCC,$9301,relative,,,
+IAC_retained_cell_setup,92FE,B6 50 C3,LDAA,$50C3,extended,R,8,50C3
+IAC_retained_cell_setup,9301,B7 02 A9,STAA,$02A9,extended,W,8,02A9
+IAC_retained_cell_setup,9304,B1 02 A7,CMPA,$02A7,extended,R,8,02A7
+IAC_retained_cell_setup,9307,23 03,BLS,$930C,relative,,,
+IAC_retained_cell_setup,9309,FD 02 A7,STD,$02A7,extended,W,16,02A7
+IAC_retained_cell_setup,930C,15 09 10,BCLR,"$09,#$10",direct,RW,8,0009
+IAC_retained_cell_setup,930F,13 09 20 1A,BRCLR,"$09,#$20,$932D",direct,R,8,0009
+IAC_retained_cell_setup,9313,5F,CLRB,,inherent,,,
+IAC_retained_cell_setup,9314,B6 02 AC,LDAA,$02AC,extended,R,8,02AC
+IAC_retained_cell_setup,9317,BB 50 99,ADDA,$5099,extended,R,8,5099
+IAC_retained_cell_setup,931A,24 03,BCC,$931F,relative,,,
+IAC_retained_cell_setup,931C,B6 50 C4,LDAA,$50C4,extended,R,8,50C4
+IAC_retained_cell_setup,931F,B7 02 AC,STAA,$02AC,extended,W,8,02AC
+IAC_retained_cell_setup,9322,B1 02 AA,CMPA,$02AA,extended,R,8,02AA
+IAC_retained_cell_setup,9325,23 03,BLS,$932A,relative,,,
+IAC_retained_cell_setup,9327,FD 02 AA,STD,$02AA,extended,W,16,02AA
+IAC_retained_cell_setup,932A,15 09 20,BCLR,"$09,#$20",direct,RW,8,0009
+IAC_retained_cell_setup,932D,F6 4E 90,LDAB,$4E90,extended,R,8,4E90
+IAC_retained_cell_setup,9330,C5 01,BITB,#$01,immediate,,,
+IAC_retained_cell_setup,9332,27 0C,BEQ,$9340,relative,,,
+IAC_retained_cell_setup,9334,B6 02 9F,LDAA,$029F,extended,R,8,029F
+IAC_retained_cell_setup,9337,B7 02 9D,STAA,$029D,extended,W,8,029D
+IAC_retained_cell_setup,933A,B6 02 A9,LDAA,$02A9,extended,R,8,02A9
+IAC_retained_cell_setup,933D,B7 02 A7,STAA,$02A7,extended,W,8,02A7
+IAC_retained_cell_setup,9340,B6 4E 8F,LDAA,$4E8F,extended,R,8,4E8F
+IAC_retained_cell_setup,9343,95 08,BITA,$08,direct,R,8,0008
+IAC_retained_cell_setup,9345,27 6A,BEQ,$93B1,relative,,,
+IAC_retained_cell_setup,9347,96 06,LDAA,$06,direct,R,8,0006
+IAC_retained_cell_setup,9349,B1 4E B5,CMPA,$4EB5,extended,R,8,4EB5
+IAC_retained_cell_setup,934C,07,TPA,,inherent,,,
+IAC_retained_cell_setup,934D,F6 02 9D,LDAB,$029D,extended,R,8,029D
+IAC_retained_cell_setup,9350,06,TAP,,inherent,,,
+IAC_retained_cell_setup,9351,25 07,BCS,$935A,relative,,,
+IAC_retained_cell_setup,9353,FB 4E B3,ADDB,$4EB3,extended,R,8,4EB3
+IAC_retained_cell_setup,9356,25 07,BCS,$935F,relative,,,
+IAC_retained_cell_setup,9358,20 0A,BRA,$9364,relative,,,
+IAC_retained_cell_setup,935A,FB 4E B4,ADDB,$4EB4,extended,R,8,4EB4
+IAC_retained_cell_setup,935D,24 05,BCC,$9364,relative,,,
+IAC_retained_cell_setup,935F,C6 FF,LDAB,#$FF,immediate,,,
+IAC_retained_cell_setup,9361,F7 02 A1,STAB,$02A1,extended,W,8,02A1
+IAC_retained_cell_setup,9364,F7 02 A0,STAB,$02A0,extended,W,8,02A0
+IAC_retained_cell_setup,9367,F6 02 9F,LDAB,$029F,extended,R,8,029F
+IAC_retained_cell_setup,936A,06,TAP,,inherent,,,
+IAC_retained_cell_setup,936B,25 07,BCS,$9374,relative,,,
+IAC_retained_cell_setup,936D,FB 4E B3,ADDB,$4EB3,extended,R,8,4EB3
+IAC_retained_cell_setup,9370,25 07,BCS,$9379,relative,,,
+IAC_retained_cell_setup,9372,20 07,BRA,$937B,relative,,,
+IAC_retained_cell_setup,9374,FB 4E B4,ADDB,$4EB4,extended,R,8,4EB4
+IAC_retained_cell_setup,9377,24 02,BCC,$937B,relative,,,
+IAC_retained_cell_setup,9379,C6 FF,LDAB,#$FF,immediate,,,
+IAC_retained_cell_setup,937B,F7 02 A2,STAB,$02A2,extended,W,8,02A2
+IAC_retained_cell_setup,937E,F6 02 A7,LDAB,$02A7,extended,R,8,02A7
+IAC_retained_cell_setup,9381,06,TAP,,inherent,,,
+IAC_retained_cell_setup,9382,25 07,BCS,$938B,relative,,,
+IAC_retained_cell_setup,9384,FB 4E B3,ADDB,$4EB3,extended,R,8,4EB3
+IAC_retained_cell_setup,9387,25 07,BCS,$9390,relative,,,
+IAC_retained_cell_setup,9389,20 0A,BRA,$9395,relative,,,
+IAC_retained_cell_setup,938B,FB 4E B4,ADDB,$4EB4,extended,R,8,4EB4
+IAC_retained_cell_setup,938E,24 05,BCC,$9395,relative,,,
+IAC_retained_cell_setup,9390,C6 FF,LDAB,#$FF,immediate,,,
+IAC_retained_cell_setup,9392,F7 02 AB,STAB,$02AB,extended,W,8,02AB
+IAC_retained_cell_setup,9395,F7 02 AA,STAB,$02AA,extended,W,8,02AA
+IAC_retained_cell_setup,9398,F6 02 A9,LDAB,$02A9,extended,R,8,02A9
+IAC_retained_cell_setup,939B,06,TAP,,inherent,,,
+IAC_retained_cell_setup,939C,25 07,BCS,$93A5,relative,,,
+IAC_retained_cell_setup,939E,FB 4E B3,ADDB,$4EB3,extended,R,8,4EB3
+IAC_retained_cell_setup,93A1,25 07,BCS,$93AA,relative,,,
+IAC_retained_cell_setup,93A3,20 07,BRA,$93AC,relative,,,
+IAC_retained_cell_setup,93A5,FB 4E B4,ADDB,$4EB4,extended,R,8,4EB4
+IAC_retained_cell_setup,93A8,24 02,BCC,$93AC,relative,,,
+IAC_retained_cell_setup,93AA,C6 FF,LDAB,#$FF,immediate,,,
+IAC_retained_cell_setup,93AC,F7 02 AC,STAB,$02AC,extended,W,8,02AC
+IAC_retained_cell_setup,93AF,20 13,BRA,$93C4,relative,,,
+IAC_retained_cell_setup,93B1,F6 4E 90,LDAB,$4E90,extended,R,8,4E90
+IAC_retained_cell_setup,93B4,C5 01,BITB,#$01,immediate,,,
+IAC_retained_cell_setup,93B6,27 0C,BEQ,$93C4,relative,,,
+IAC_retained_cell_setup,93B8,B6 02 A2,LDAA,$02A2,extended,R,8,02A2
+IAC_retained_cell_setup,93BB,B7 02 A0,STAA,$02A0,extended,W,8,02A0
+IAC_retained_cell_setup,93BE,B6 02 AC,LDAA,$02AC,extended,R,8,02AC
+IAC_retained_cell_setup,93C1,B7 02 AA,STAA,$02AA,extended,W,8,02AA
+IAC_retained_cell_setup,93C4,39,RTS,,inherent,,,
+IAC_retained_cell_setup,93C5,12 09 01 06,BRSET,"$09,#$01,$93CF",direct,R,8,0009
+IAC_retained_cell_setup,93C9,96 0A,LDAA,$0A,direct,R,8,000A
+IAC_retained_cell_setup,93CB,84 0C,ANDA,#$0C,immediate,,,
+IAC_retained_cell_setup,93CD,97 0A,STAA,$0A,direct,W,8,000A
+IAC_retained_cell_setup,93CF,39,RTS,,inherent,,,
+IAC_reset_startup,93D0,13 86 40 03,BRCLR,"$86,#$40,$93D7",direct,R,8,0086
+IAC_reset_startup,93D4,BD 18 03,JSR,$1803,extended,,,
+IAC_reset_startup,93D7,15 38 40,BCLR,"$38,#$40",direct,RW,8,0038
+IAC_reset_startup,93DA,13 3B 10 03,BRCLR,"$3B,#$10,$93E1",direct,R,8,003B
+IAC_reset_startup,93DE,BD A4 07,JSR,$A407,extended,,,
+IAC_reset_startup,93E1,13 09 01 14,BRCLR,"$09,#$01,$93F9",direct,R,8,0009
+IAC_reset_startup,93E5,7F 00 08,CLR,$0008,extended,W,8,0008
+IAC_reset_startup,93E8,7D 00 07,TST,$0007,extended,R,8,0007
+IAC_reset_startup,93EB,27 03,BEQ,$93F0,relative,,,
+IAC_reset_startup,93ED,7E 98 9B,JMP,$989B,extended,,,
+IAC_reset_startup,93F0,15 09 01,BCLR,"$09,#$01",direct,RW,8,0009
+IAC_reset_startup,93F3,14 09 04,BSET,"$09,#$04",direct,RW,8,0009
+IAC_reset_startup,93F6,BD 92 A4,JSR,$92A4,extended,,,
+IAC_reset_startup,93F9,13 44 10 0D,BRCLR,"$44,#$10,$940A",direct,R,8,0044
+IAC_reset_startup,93FD,13 09 04 06,BRCLR,"$09,#$04,$9407",direct,R,8,0009
+IAC_reset_startup,9401,B6 4E B0,LDAA,$4EB0,extended,R,8,4EB0
+IAC_reset_startup,9404,7E 98 99,JMP,$9899,extended,,,
+IAC_reset_startup,9407,7E A3 FA,JMP,$A3FA,extended,,,
+IAC_reset_startup,940A,13 4F 80 03,BRCLR,"$4F,#$80,$9411",direct,R,8,004F
+IAC_reset_startup,940E,7E 95 37,JMP,$9537,extended,,,
+IAC_reset_startup,9411,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_reset_startup,9414,CE 4E F5,LDX,#$4EF5,immediate,,,
+IAC_reset_startup,9417,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_reset_startup,941A,B7 08 66,STAA,$0866,extended,W,8,0866
+IAC_reset_startup,941D,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_reset_startup,9420,CE 4F 02,LDX,#$4F02,immediate,,,
+IAC_reset_startup,9423,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_reset_startup,9426,B7 08 67,STAA,$0867,extended,W,8,0867
+IAC_reset_startup,9429,B6 4E B8,LDAA,$4EB8,extended,R,8,4EB8
+IAC_reset_startup,942C,B7 08 6B,STAA,$086B,extended,W,8,086B
+IAC_reset_startup,942F,B6 4E B9,LDAA,$4EB9,extended,R,8,4EB9
+IAC_reset_startup,9432,B7 08 6C,STAA,$086C,extended,W,8,086C
+IAC_reset_startup,9435,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_reset_startup,9438,81 A0,CMPA,#$A0,immediate,,,
+IAC_reset_startup,943A,23 05,BLS,$9441,relative,,,
+IAC_reset_startup,943C,80 A0,SUBA,#$A0,immediate,,,
+IAC_reset_startup,943E,48,ASLA,,inherent,,,
+IAC_reset_startup,943F,8B A0,ADDA,#$A0,immediate,,,
+IAC_reset_startup,9441,36,PSHA,,inherent,,,
+IAC_reset_startup,9442,CE 4F 32,LDX,#$4F32,immediate,,,
+IAC_reset_startup,9445,F6 4E 8F,LDAB,$4E8F,extended,R,8,4E8F
+IAC_reset_startup,9448,C5 01,BITB,#$01,immediate,,,
+IAC_reset_startup,944A,27 03,BEQ,$944F,relative,,,
+IAC_reset_startup,944C,CE 4F 50,LDX,#$4F50,immediate,,,
+IAC_reset_startup,944F,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_reset_startup,9452,33,PULB,,inherent,,,
+IAC_reset_startup,9453,36,PSHA,,inherent,,,
+IAC_reset_startup,9454,17,TBA,,inherent,,,
+IAC_reset_startup,9455,CE 4F 6E,LDX,#$4F6E,immediate,,,
+IAC_reset_startup,9458,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_reset_startup,945B,B7 08 5C,STAA,$085C,extended,W,8,085C
+IAC_reset_startup,945E,F6 4E 8F,LDAB,$4E8F,extended,R,8,4E8F
+IAC_reset_startup,9461,C5 01,BITB,#$01,immediate,,,
+IAC_reset_startup,9463,26 09,BNE,$946E,relative,,,
+IAC_reset_startup,9465,F6 4E BC,LDAB,$4EBC,extended,R,8,4EBC
+IAC_reset_startup,9468,3D,MUL,,inherent,,,
+IAC_reset_startup,9469,05,ASLD,,inherent,,,
+IAC_reset_startup,946A,24 02,BCC,$946E,relative,,,
+IAC_reset_startup,946C,86 FF,LDAA,#$FF,immediate,,,
+IAC_reset_startup,946E,33,PULB,,inherent,,,
+IAC_reset_startup,946F,1B,ABA,,inherent,,,
+IAC_reset_startup,9470,B7 08 57,STAA,$0857,extended,W,8,0857
+IAC_reset_startup,9473,B6 4E BB,LDAA,$4EBB,extended,R,8,4EBB
+IAC_reset_startup,9476,B7 08 5D,STAA,$085D,extended,W,8,085D
+IAC_reset_startup,9479,B6 4E BA,LDAA,$4EBA,extended,R,8,4EBA
+IAC_reset_startup,947C,B7 08 5E,STAA,$085E,extended,W,8,085E
+IAC_reset_startup,947F,4F,CLRA,,inherent,,,
+IAC_reset_startup,9480,B7 08 6D,STAA,$086D,extended,W,8,086D
+IAC_reset_startup,9483,B7 08 79,STAA,$0879,extended,W,8,0879
+IAC_reset_startup,9486,B7 08 7A,STAA,$087A,extended,W,8,087A
+IAC_reset_startup,9489,B7 08 76,STAA,$0876,extended,W,8,0876
+IAC_reset_startup,948C,B7 08 77,STAA,$0877,extended,W,8,0877
+IAC_reset_startup,948F,B7 08 87,STAA,$0887,extended,W,8,0887
+IAC_reset_startup,9492,B7 08 7B,STAA,$087B,extended,W,8,087B
+IAC_reset_startup,9495,B7 08 64,STAA,$0864,extended,W,8,0864
+IAC_reset_startup,9498,86 80,LDAA,#$80,immediate,,,
+IAC_reset_startup,949A,B7 08 6E,STAA,$086E,extended,W,8,086E
+IAC_reset_startup,949D,15 36 BD,BCLR,"$36,#$BD",direct,RW,8,0036
+IAC_reset_startup,94A0,15 37 9B,BCLR,"$37,#$9B",direct,RW,8,0037
+IAC_reset_startup,94A3,15 38 0F,BCLR,"$38,#$0F",direct,RW,8,0038
+IAC_reset_startup,94A6,15 38 70,BCLR,"$38,#$70",direct,RW,8,0038
+IAC_reset_startup,94A9,15 39 C7,BCLR,"$39,#$C7",direct,RW,8,0039
+IAC_reset_startup,94AC,B6 4F BE,LDAA,$4FBE,extended,R,8,4FBE
+IAC_reset_startup,94AF,B7 08 59,STAA,$0859,extended,W,8,0859
+IAC_reset_startup,94B2,15 09 02,BCLR,"$09,#$02",direct,RW,8,0009
+IAC_reset_startup,94B5,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_reset_startup,94B8,CE 4E CF,LDX,#$4ECF,immediate,,,
+IAC_reset_startup,94BB,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_reset_startup,94BE,5F,CLRB,,inherent,,,
+IAC_reset_startup,94BF,FD 02 AD,STD,$02AD,extended,W,16,02AD
+IAC_reset_startup,94C2,FD 02 AF,STD,$02AF,extended,W,16,02AF
+IAC_reset_startup,94C5,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_reset_startup,94C8,CE 4E C2,LDX,#$4EC2,immediate,,,
+IAC_reset_startup,94CB,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_reset_startup,94CE,5F,CLRB,,inherent,,,
+IAC_reset_startup,94CF,FD 02 A3,STD,$02A3,extended,W,16,02A3
+IAC_reset_startup,94D2,FD 02 A5,STD,$02A5,extended,W,16,02A5
+IAC_reset_startup,94D5,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_reset_startup,94D8,CE 4E DC,LDX,#$4EDC,immediate,,,
+IAC_reset_startup,94DB,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_reset_startup,94DE,B7 08 75,STAA,$0875,extended,W,8,0875
+IAC_reset_startup,94E1,B6 4E 8F,LDAA,$4E8F,extended,R,8,4E8F
+IAC_reset_startup,94E4,85 20,BITA,#$20,immediate,,,
+IAC_reset_startup,94E6,27 0F,BEQ,$94F7,relative,,,
+IAC_reset_startup,94E8,5F,CLRB,,inherent,,,
+IAC_reset_startup,94E9,85 01,BITA,#$01,immediate,,,
+IAC_reset_startup,94EB,26 05,BNE,$94F2,relative,,,
+IAC_reset_startup,94ED,B6 4E B1,LDAA,$4EB1,extended,R,8,4EB1
+IAC_reset_startup,94F0,20 16,BRA,$9508,relative,,,
+IAC_reset_startup,94F2,B6 4E B2,LDAA,$4EB2,extended,R,8,4EB2
+IAC_reset_startup,94F5,20 0C,BRA,$9503,relative,,,
+IAC_reset_startup,94F7,85 01,BITA,#$01,immediate,,,
+IAC_reset_startup,94F9,26 05,BNE,$9500,relative,,,
+IAC_reset_startup,94FB,FC 02 9D,LDD,$029D,extended,R,16,029D
+IAC_reset_startup,94FE,20 08,BRA,$9508,relative,,,
+IAC_reset_startup,9500,FC 02 A7,LDD,$02A7,extended,R,16,02A7
+IAC_reset_startup,9503,FE 02 AD,LDX,$02AD,extended,R,16,02AD
+IAC_reset_startup,9506,20 03,BRA,$950B,relative,,,
+IAC_reset_startup,9508,FE 02 A3,LDX,$02A3,extended,R,16,02A3
+IAC_reset_startup,950B,FD 08 62,STD,$0862,extended,W,16,0862
+IAC_reset_startup,950E,FF 08 71,STX,$0871,extended,W,16,0871
+IAC_reset_startup,9511,CE FF FF,LDX,#$FFFF,immediate,,,
+IAC_reset_startup,9514,FF 08 7D,STX,$087D,extended,W,16,087D
+IAC_reset_startup,9517,96 06,LDAA,$06,direct,R,8,0006
+IAC_reset_startup,9519,B1 4E 91,CMPA,$4E91,extended,R,8,4E91
+IAC_reset_startup,951C,25 13,BCS,$9531,relative,,,
+IAC_reset_startup,951E,FC 08 62,LDD,$0862,extended,R,16,0862
+IAC_reset_startup,9521,BB 08 6B,ADDA,$086B,extended,R,8,086B
+IAC_reset_startup,9524,25 05,BCS,$952B,relative,,,
+IAC_reset_startup,9526,F3 08 71,ADDD,$0871,extended,R,16,0871
+IAC_reset_startup,9529,24 03,BCC,$952E,relative,,,
+IAC_reset_startup,952B,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_reset_startup,952E,7E 98 3D,JMP,$983D,extended,,,
+IAC_reset_startup,9531,B6 4E B0,LDAA,$4EB0,extended,R,8,4EB0
+IAC_reset_startup,9534,7E 98 99,JMP,$9899,extended,,,
+IAC_transition_and_error,9537,D6 36,LDAB,$36,direct,R,8,0036
+IAC_transition_and_error,9539,37,PSHB,,inherent,,,
+IAC_transition_and_error,953A,B6 40 0F,LDAA,$400F,extended,R,8,400F
+IAC_transition_and_error,953D,85 40,BITA,#$40,immediate,,,
+IAC_transition_and_error,953F,27 06,BEQ,$9547,relative,,,
+IAC_transition_and_error,9541,12 41 20 2C,BRSET,"$41,#$20,$9571",direct,R,8,0041
+IAC_transition_and_error,9545,20 08,BRA,$954F,relative,,,
+IAC_transition_and_error,9547,12 A2 40 26,BRSET,"$A2,#$40,$9571",direct,R,8,00A2
+IAC_transition_and_error,954B,12 A2 10 22,BRSET,"$A2,#$10,$9571",direct,R,8,00A2
+IAC_transition_and_error,954F,14 36 02,BSET,"$36,#$02",direct,RW,8,0036
+IAC_transition_and_error,9552,C5 02,BITB,#$02,immediate,,,
+IAC_transition_and_error,9554,26 4B,BNE,$95A1,relative,,,
+IAC_transition_and_error,9556,B6 4F 23,LDAA,$4F23,extended,R,8,4F23
+IAC_transition_and_error,9559,36,PSHA,,inherent,,,
+IAC_transition_and_error,955A,B6 4F 25,LDAA,$4F25,extended,R,8,4F25
+IAC_transition_and_error,955D,F6 4F 24,LDAB,$4F24,extended,R,8,4F24
+IAC_transition_and_error,9560,8F,XGDX,,inherent,,,
+IAC_transition_and_error,9561,96 06,LDAA,$06,direct,R,8,0006
+IAC_transition_and_error,9563,B1 4F 29,CMPA,$4F29,extended,R,8,4F29
+IAC_transition_and_error,9566,8F,XGDX,,inherent,,,
+IAC_transition_and_error,9567,24 28,BCC,$9591,relative,,,
+IAC_transition_and_error,9569,BB 4F 2A,ADDA,$4F2A,extended,R,8,4F2A
+IAC_transition_and_error,956C,FB 4F 2B,ADDB,$4F2B,extended,R,8,4F2B
+IAC_transition_and_error,956F,20 20,BRA,$9591,relative,,,
+IAC_transition_and_error,9571,15 36 02,BCLR,"$36,#$02",direct,RW,8,0036
+IAC_transition_and_error,9574,C5 02,BITB,#$02,immediate,,,
+IAC_transition_and_error,9576,27 29,BEQ,$95A1,relative,,,
+IAC_transition_and_error,9578,B6 4F 26,LDAA,$4F26,extended,R,8,4F26
+IAC_transition_and_error,957B,36,PSHA,,inherent,,,
+IAC_transition_and_error,957C,B6 4F 28,LDAA,$4F28,extended,R,8,4F28
+IAC_transition_and_error,957F,F6 4F 27,LDAB,$4F27,extended,R,8,4F27
+IAC_transition_and_error,9582,8F,XGDX,,inherent,,,
+IAC_transition_and_error,9583,96 06,LDAA,$06,direct,R,8,0006
+IAC_transition_and_error,9585,B1 4F 29,CMPA,$4F29,extended,R,8,4F29
+IAC_transition_and_error,9588,8F,XGDX,,inherent,,,
+IAC_transition_and_error,9589,24 06,BCC,$9591,relative,,,
+IAC_transition_and_error,958B,BB 4F 2C,ADDA,$4F2C,extended,R,8,4F2C
+IAC_transition_and_error,958E,FB 4F 2D,ADDB,$4F2D,extended,R,8,4F2D
+IAC_transition_and_error,9591,F7 08 7A,STAB,$087A,extended,W,8,087A
+IAC_transition_and_error,9594,1B,ABA,,inherent,,,
+IAC_transition_and_error,9595,33,PULB,,inherent,,,
+IAC_transition_and_error,9596,F7 08 79,STAB,$0879,extended,W,8,0879
+IAC_transition_and_error,9599,B1 08 64,CMPA,$0864,extended,R,8,0864
+IAC_transition_and_error,959C,23 03,BLS,$95A1,relative,,,
+IAC_transition_and_error,959E,B7 08 64,STAA,$0864,extended,W,8,0864
+IAC_transition_and_error,95A1,12 36 02 08,BRSET,"$36,#$02,$95AD",direct,R,8,0036
+IAC_transition_and_error,95A5,B6 02 A0,LDAA,$02A0,extended,R,8,02A0
+IAC_transition_and_error,95A8,B0 02 9D,SUBA,$029D,extended,R,8,029D
+IAC_transition_and_error,95AB,20 06,BRA,$95B3,relative,,,
+IAC_transition_and_error,95AD,B6 02 AA,LDAA,$02AA,extended,R,8,02AA
+IAC_transition_and_error,95B0,B0 02 A7,SUBA,$02A7,extended,R,8,02A7
+IAC_transition_and_error,95B3,33,PULB,,inherent,,,
+IAC_transition_and_error,95B4,37,PSHB,,inherent,,,
+IAC_transition_and_error,95B5,12 52 20 29,BRSET,"$52,#$20,$95E2",direct,R,8,0052
+IAC_transition_and_error,95B9,15 36 01,BCLR,"$36,#$01",direct,RW,8,0036
+IAC_transition_and_error,95BC,C5 01,BITB,#$01,immediate,,,
+IAC_transition_and_error,95BE,27 6C,BEQ,$962C,relative,,,
+IAC_transition_and_error,95C0,7D 08 77,TST,$0877,extended,R,8,0877
+IAC_transition_and_error,95C3,26 67,BNE,$962C,relative,,,
+IAC_transition_and_error,95C5,F6 4F 0F,LDAB,$4F0F,extended,R,8,4F0F
+IAC_transition_and_error,95C8,3D,MUL,,inherent,,,
+IAC_transition_and_error,95C9,B1 4F 10,CMPA,$4F10,extended,R,8,4F10
+IAC_transition_and_error,95CC,24 03,BCC,$95D1,relative,,,
+IAC_transition_and_error,95CE,B6 4F 10,LDAA,$4F10,extended,R,8,4F10
+IAC_transition_and_error,95D1,B1 4F 11,CMPA,$4F11,extended,R,8,4F11
+IAC_transition_and_error,95D4,23 03,BLS,$95D9,relative,,,
+IAC_transition_and_error,95D6,B6 4F 11,LDAA,$4F11,extended,R,8,4F11
+IAC_transition_and_error,95D9,F6 4F 13,LDAB,$4F13,extended,R,8,4F13
+IAC_transition_and_error,95DC,37,PSHB,,inherent,,,
+IAC_transition_and_error,95DD,F6 4F 12,LDAB,$4F12,extended,R,8,4F12
+IAC_transition_and_error,95E0,20 3A,BRA,$961C,relative,,,
+IAC_transition_and_error,95E2,14 36 01,BSET,"$36,#$01",direct,RW,8,0036
+IAC_transition_and_error,95E5,C5 01,BITB,#$01,immediate,,,
+IAC_transition_and_error,95E7,26 43,BNE,$962C,relative,,,
+IAC_transition_and_error,95E9,F6 4F 22,LDAB,$4F22,extended,R,8,4F22
+IAC_transition_and_error,95EC,F7 08 78,STAB,$0878,extended,W,8,0878
+IAC_transition_and_error,95EF,F6 4E 8F,LDAB,$4E8F,extended,R,8,4E8F
+IAC_transition_and_error,95F2,C5 40,BITB,#$40,immediate,,,
+IAC_transition_and_error,95F4,27 0B,BEQ,$9601,relative,,,
+IAC_transition_and_error,95F6,CE 4F 14,LDX,#$4F14,immediate,,,
+IAC_transition_and_error,95F9,B6 02 2F,LDAA,$022F,extended,R,8,022F
+IAC_transition_and_error,95FC,BD F4 A4,JSR,$F4A4,extended,,,
+IAC_transition_and_error,95FF,20 14,BRA,$9615,relative,,,
+IAC_transition_and_error,9601,F6 4F 1C,LDAB,$4F1C,extended,R,8,4F1C
+IAC_transition_and_error,9604,3D,MUL,,inherent,,,
+IAC_transition_and_error,9605,B1 4F 1D,CMPA,$4F1D,extended,R,8,4F1D
+IAC_transition_and_error,9608,24 03,BCC,$960D,relative,,,
+IAC_transition_and_error,960A,B6 4F 1D,LDAA,$4F1D,extended,R,8,4F1D
+IAC_transition_and_error,960D,B1 4F 1E,CMPA,$4F1E,extended,R,8,4F1E
+IAC_transition_and_error,9610,23 03,BLS,$9615,relative,,,
+IAC_transition_and_error,9612,B6 4F 1E,LDAA,$4F1E,extended,R,8,4F1E
+IAC_transition_and_error,9615,F6 4F 20,LDAB,$4F20,extended,R,8,4F20
+IAC_transition_and_error,9618,37,PSHB,,inherent,,,
+IAC_transition_and_error,9619,F6 4F 1F,LDAB,$4F1F,extended,R,8,4F1F
+IAC_transition_and_error,961C,B7 08 76,STAA,$0876,extended,W,8,0876
+IAC_transition_and_error,961F,F7 08 77,STAB,$0877,extended,W,8,0877
+IAC_transition_and_error,9622,32,PULA,,inherent,,,
+IAC_transition_and_error,9623,1B,ABA,,inherent,,,
+IAC_transition_and_error,9624,B1 08 64,CMPA,$0864,extended,R,8,0864
+IAC_transition_and_error,9627,23 03,BLS,$962C,relative,,,
+IAC_transition_and_error,9629,B7 08 64,STAA,$0864,extended,W,8,0864
+IAC_transition_and_error,962C,32,PULA,,inherent,,,
+IAC_transition_and_error,962D,36,PSHA,,inherent,,,
+IAC_transition_and_error,962E,98 36,EORA,$36,direct,R,8,0036
+IAC_transition_and_error,9630,84 03,ANDA,#$03,immediate,,,
+IAC_transition_and_error,9632,26 03,BNE,$9637,relative,,,
+IAC_transition_and_error,9634,32,PULA,,inherent,,,
+IAC_transition_and_error,9635,20 67,BRA,$969E,relative,,,
+IAC_transition_and_error,9637,D6 36,LDAB,$36,direct,R,8,0036
+IAC_transition_and_error,9639,C5 02,BITB,#$02,immediate,,,
+IAC_transition_and_error,963B,26 1C,BNE,$9659,relative,,,
+IAC_transition_and_error,963D,C5 01,BITB,#$01,immediate,,,
+IAC_transition_and_error,963F,26 0C,BNE,$964D,relative,,,
+IAC_transition_and_error,9641,13 38 01 2E,BRCLR,"$38,#$01,$9673",direct,R,8,0038
+IAC_transition_and_error,9645,FE 08 8F,LDX,$088F,extended,R,16,088F
+IAC_transition_and_error,9648,FF 02 9D,STX,$029D,extended,W,16,029D
+IAC_transition_and_error,964B,20 26,BRA,$9673,relative,,,
+IAC_transition_and_error,964D,13 38 02 22,BRCLR,"$38,#$02,$9673",direct,R,8,0038
+IAC_transition_and_error,9651,FE 08 91,LDX,$0891,extended,R,16,0891
+IAC_transition_and_error,9654,FF 02 A0,STX,$02A0,extended,W,16,02A0
+IAC_transition_and_error,9657,20 1A,BRA,$9673,relative,,,
+IAC_transition_and_error,9659,C5 01,BITB,#$01,immediate,,,
+IAC_transition_and_error,965B,26 0C,BNE,$9669,relative,,,
+IAC_transition_and_error,965D,13 38 04 12,BRCLR,"$38,#$04,$9673",direct,R,8,0038
+IAC_transition_and_error,9661,FE 08 95,LDX,$0895,extended,R,16,0895
+IAC_transition_and_error,9664,FF 02 A7,STX,$02A7,extended,W,16,02A7
+IAC_transition_and_error,9667,20 0A,BRA,$9673,relative,,,
+IAC_transition_and_error,9669,13 38 08 06,BRCLR,"$38,#$08,$9673",direct,R,8,0038
+IAC_transition_and_error,966D,FE 08 97,LDX,$0897,extended,R,16,0897
+IAC_transition_and_error,9670,FF 02 AA,STX,$02AA,extended,W,16,02AA
+IAC_transition_and_error,9673,33,PULB,,inherent,,,
+IAC_transition_and_error,9674,13 38 10 23,BRCLR,"$38,#$10,$969B",direct,R,8,0038
+IAC_transition_and_error,9678,B6 02 A5,LDAA,$02A5,extended,R,8,02A5
+IAC_transition_and_error,967B,BA 02 AF,ORAA,$02AF,extended,R,8,02AF
+IAC_transition_and_error,967E,27 18,BEQ,$9698,relative,,,
+IAC_transition_and_error,9680,D8 36,EORB,$36,direct,R,8,0036
+IAC_transition_and_error,9682,C5 02,BITB,#$02,immediate,,,
+IAC_transition_and_error,9684,27 15,BEQ,$969B,relative,,,
+IAC_transition_and_error,9686,12 36 02 08,BRSET,"$36,#$02,$9692",direct,R,8,0036
+IAC_transition_and_error,968A,FC 08 93,LDD,$0893,extended,R,16,0893
+IAC_transition_and_error,968D,FD 02 A3,STD,$02A3,extended,W,16,02A3
+IAC_transition_and_error,9690,20 06,BRA,$9698,relative,,,
+IAC_transition_and_error,9692,FC 08 99,LDD,$0899,extended,R,16,0899
+IAC_transition_and_error,9695,FD 02 AD,STD,$02AD,extended,W,16,02AD
+IAC_transition_and_error,9698,15 38 10,BCLR,"$38,#$10",direct,RW,8,0038
+IAC_transition_and_error,969B,15 38 0F,BCLR,"$38,#$0F",direct,RW,8,0038
+IAC_transition_and_error,969E,B6 4E 90,LDAA,$4E90,extended,R,8,4E90
+IAC_transition_and_error,96A1,85 02,BITA,#$02,immediate,,,
+IAC_transition_and_error,96A3,27 1D,BEQ,$96C2,relative,,,
+IAC_transition_and_error,96A5,BD 92 47,JSR,$9247,extended,,,
+IAC_transition_and_error,96A8,24 15,BCC,$96BF,relative,,,
+IAC_transition_and_error,96AA,14 36 20,BSET,"$36,#$20",direct,RW,8,0036
+IAC_transition_and_error,96AD,B6 4F 2E,LDAA,$4F2E,extended,R,8,4F2E
+IAC_transition_and_error,96B0,B7 08 7B,STAA,$087B,extended,W,8,087B
+IAC_transition_and_error,96B3,B6 4F 30,LDAA,$4F30,extended,R,8,4F30
+IAC_transition_and_error,96B6,B7 08 7C,STAA,$087C,extended,W,8,087C
+IAC_transition_and_error,96B9,B6 4F 2F,LDAA,$4F2F,extended,R,8,4F2F
+IAC_transition_and_error,96BC,B7 08 64,STAA,$0864,extended,W,8,0864
+IAC_transition_and_error,96BF,15 36 20,BCLR,"$36,#$20",direct,RW,8,0036
+IAC_transition_and_error,96C2,B6 08 7A,LDAA,$087A,extended,R,8,087A
+IAC_transition_and_error,96C5,26 05,BNE,$96CC,relative,,,
+IAC_transition_and_error,96C7,B7 08 79,STAA,$0879,extended,W,8,0879
+IAC_transition_and_error,96CA,20 04,BRA,$96D0,relative,,,
+IAC_transition_and_error,96CC,4A,DECA,,inherent,,,
+IAC_transition_and_error,96CD,B7 08 7A,STAA,$087A,extended,W,8,087A
+IAC_transition_and_error,96D0,B6 08 77,LDAA,$0877,extended,R,8,0877
+IAC_transition_and_error,96D3,27 04,BEQ,$96D9,relative,,,
+IAC_transition_and_error,96D5,4A,DECA,,inherent,,,
+IAC_transition_and_error,96D6,B7 08 77,STAA,$0877,extended,W,8,0877
+IAC_transition_and_error,96D9,B6 08 69,LDAA,$0869,extended,R,8,0869
+IAC_transition_and_error,96DC,26 05,BNE,$96E3,relative,,,
+IAC_transition_and_error,96DE,15 36 10,BCLR,"$36,#$10",direct,RW,8,0036
+IAC_transition_and_error,96E1,20 04,BRA,$96E7,relative,,,
+IAC_transition_and_error,96E3,4A,DECA,,inherent,,,
+IAC_transition_and_error,96E4,B7 08 69,STAA,$0869,extended,W,8,0869
+IAC_transition_and_error,96E7,B6 08 84,LDAA,$0884,extended,R,8,0884
+IAC_transition_and_error,96EA,27 04,BEQ,$96F0,relative,,,
+IAC_transition_and_error,96EC,4A,DECA,,inherent,,,
+IAC_transition_and_error,96ED,B7 08 84,STAA,$0884,extended,W,8,0884
+IAC_transition_and_error,96F0,96 63,LDAA,$63,direct,R,8,0063
+IAC_transition_and_error,96F2,B0 08 57,SUBA,$0857,extended,R,8,0857
+IAC_transition_and_error,96F5,14 36 80,BSET,"$36,#$80",direct,RW,8,0036
+IAC_transition_and_error,96F8,24 04,BCC,$96FE,relative,,,
+IAC_transition_and_error,96FA,40,NEGA,,inherent,,,
+IAC_transition_and_error,96FB,15 36 80,BCLR,"$36,#$80",direct,RW,8,0036
+IAC_transition_and_error,96FE,B7 08 58,STAA,$0858,extended,W,8,0858
+IAC_transition_and_error,9701,5F,CLRB,,inherent,,,
+IAC_transition_and_error,9702,7D 08 7A,TST,$087A,extended,R,8,087A
+IAC_transition_and_error,9705,27 03,BEQ,$970A,relative,,,
+IAC_transition_and_error,9707,F6 4F 80,LDAB,$4F80,extended,R,8,4F80
+IAC_transition_and_error,970A,7D 08 77,TST,$0877,extended,R,8,0877
+IAC_transition_and_error,970D,27 08,BEQ,$9717,relative,,,
+IAC_transition_and_error,970F,F1 4F 81,CMPB,$4F81,extended,R,8,4F81
+IAC_transition_and_error,9712,24 03,BCC,$9717,relative,,,
+IAC_transition_and_error,9714,F6 4F 81,LDAB,$4F81,extended,R,8,4F81
+IAC_transition_and_error,9717,7D 08 7C,TST,$087C,extended,R,8,087C
+IAC_transition_and_error,971A,27 08,BEQ,$9724,relative,,,
+IAC_transition_and_error,971C,F1 4F 82,CMPB,$4F82,extended,R,8,4F82
+IAC_transition_and_error,971F,24 03,BCC,$9724,relative,,,
+IAC_transition_and_error,9721,F6 4F 82,LDAB,$4F82,extended,R,8,4F82
+IAC_transition_and_error,9724,37,PSHB,,inherent,,,
+IAC_transition_and_error,9725,F6 08 82,LDAB,$0882,extended,R,8,0882
+IAC_transition_and_error,9728,F1 08 85,CMPB,$0885,extended,R,8,0885
+IAC_transition_and_error,972B,33,PULB,,inherent,,,
+IAC_transition_and_error,972C,23 08,BLS,$9736,relative,,,
+IAC_transition_and_error,972E,F1 4F 7F,CMPB,$4F7F,extended,R,8,4F7F
+IAC_transition_and_error,9731,24 03,BCC,$9736,relative,,,
+IAC_transition_and_error,9733,F6 4F 7F,LDAB,$4F7F,extended,R,8,4F7F
+IAC_transition_and_error,9736,5D,TSTB,,inherent,,,
+IAC_transition_and_error,9737,27 04,BEQ,$973D,relative,,,
+IAC_transition_and_error,9739,17,TBA,,inherent,,,
+IAC_transition_and_error,973A,5F,CLRB,,inherent,,,
+IAC_transition_and_error,973B,20 09,BRA,$9746,relative,,,
+IAC_transition_and_error,973D,FE 08 59,LDX,$0859,extended,R,16,0859
+IAC_transition_and_error,9740,F6 4F 7E,LDAB,$4F7E,extended,R,8,4F7E
+IAC_transition_and_error,9743,BD F4 59,JSR,$F459,extended,,,
+IAC_transition_and_error,9746,FD 08 59,STD,$0859,extended,W,16,0859
+IAC_transition_and_error,9749,BD 99 C5,JSR,$99C5,extended,,,
+IAC_transition_and_error,974C,BD 9C 20,JSR,$9C20,extended,,,
+IAC_transition_and_error,974F,BD 9C A6,JSR,$9CA6,extended,,,
+IAC_flow_sum_and_step_target,9752,FC 08 62,LDD,$0862,extended,R,16,0862
+IAC_flow_sum_and_step_target,9755,F3 08 71,ADDD,$0871,extended,R,16,0871
+IAC_flow_sum_and_step_target,9758,24 03,BCC,$975D,relative,,,
+IAC_flow_sum_and_step_target,975A,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,975D,12 36 80 0A,BRSET,"$36,#$80,$976B",direct,R,8,0036
+IAC_flow_sum_and_step_target,9761,BB 08 6D,ADDA,$086D,extended,R,8,086D
+IAC_flow_sum_and_step_target,9764,24 0C,BCC,$9772,relative,,,
+IAC_flow_sum_and_step_target,9766,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,9769,20 07,BRA,$9772,relative,,,
+IAC_flow_sum_and_step_target,976B,B0 08 6D,SUBA,$086D,extended,R,8,086D
+IAC_flow_sum_and_step_target,976E,24 02,BCC,$9772,relative,,,
+IAC_flow_sum_and_step_target,9770,4F,CLRA,,inherent,,,
+IAC_flow_sum_and_step_target,9771,5F,CLRB,,inherent,,,
+IAC_flow_sum_and_step_target,9772,13 37 80 0A,BRCLR,"$37,#$80,$9780",direct,R,8,0037
+IAC_flow_sum_and_step_target,9776,BB 08 70,ADDA,$0870,extended,R,8,0870
+IAC_flow_sum_and_step_target,9779,24 0C,BCC,$9787,relative,,,
+IAC_flow_sum_and_step_target,977B,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,977E,20 07,BRA,$9787,relative,,,
+IAC_flow_sum_and_step_target,9780,B0 08 70,SUBA,$0870,extended,R,8,0870
+IAC_flow_sum_and_step_target,9783,24 02,BCC,$9787,relative,,,
+IAC_flow_sum_and_step_target,9785,4F,CLRA,,inherent,,,
+IAC_flow_sum_and_step_target,9786,5F,CLRB,,inherent,,,
+IAC_flow_sum_and_step_target,9787,BB 08 6B,ADDA,$086B,extended,R,8,086B
+IAC_flow_sum_and_step_target,978A,25 05,BCS,$9791,relative,,,
+IAC_flow_sum_and_step_target,978C,BB 08 7B,ADDA,$087B,extended,R,8,087B
+IAC_flow_sum_and_step_target,978F,24 03,BCC,$9794,relative,,,
+IAC_flow_sum_and_step_target,9791,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,9794,7D 08 76,TST,$0876,extended,R,8,0876
+IAC_flow_sum_and_step_target,9797,27 15,BEQ,$97AE,relative,,,
+IAC_flow_sum_and_step_target,9799,13 36 01 0A,BRCLR,"$36,#$01,$97A7",direct,R,8,0036
+IAC_flow_sum_and_step_target,979D,BB 08 76,ADDA,$0876,extended,R,8,0876
+IAC_flow_sum_and_step_target,97A0,24 0C,BCC,$97AE,relative,,,
+IAC_flow_sum_and_step_target,97A2,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,97A5,20 07,BRA,$97AE,relative,,,
+IAC_flow_sum_and_step_target,97A7,B0 08 76,SUBA,$0876,extended,R,8,0876
+IAC_flow_sum_and_step_target,97AA,24 02,BCC,$97AE,relative,,,
+IAC_flow_sum_and_step_target,97AC,4F,CLRA,,inherent,,,
+IAC_flow_sum_and_step_target,97AD,5F,CLRB,,inherent,,,
+IAC_flow_sum_and_step_target,97AE,BB 08 79,ADDA,$0879,extended,R,8,0879
+IAC_flow_sum_and_step_target,97B1,24 03,BCC,$97B6,relative,,,
+IAC_flow_sum_and_step_target,97B3,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,97B6,FE 08 7D,LDX,$087D,extended,R,16,087D
+IAC_flow_sum_and_step_target,97B9,FD 08 7D,STD,$087D,extended,W,16,087D
+IAC_flow_sum_and_step_target,97BC,36,PSHA,,inherent,,,
+IAC_flow_sum_and_step_target,97BD,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+IAC_flow_sum_and_step_target,97C0,B1 50 A9,CMPA,$50A9,extended,R,8,50A9
+IAC_flow_sum_and_step_target,97C3,32,PULA,,inherent,,,
+IAC_flow_sum_and_step_target,97C4,24 0C,BCC,$97D2,relative,,,
+IAC_flow_sum_and_step_target,97C6,3C,PSHX,,inherent,,,
+IAC_flow_sum_and_step_target,97C7,30,TSX,,inherent,,,
+IAC_flow_sum_and_step_target,97C8,A3 00,SUBD,"$00,X",indexed_x,R,16,
+IAC_flow_sum_and_step_target,97CA,38,PULX,,inherent,,,
+IAC_flow_sum_and_step_target,97CB,25 05,BCS,$97D2,relative,,,
+IAC_flow_sum_and_step_target,97CD,B1 50 A8,CMPA,$50A8,extended,R,8,50A8
+IAC_flow_sum_and_step_target,97D0,24 03,BCC,$97D5,relative,,,
+IAC_flow_sum_and_step_target,97D2,4F,CLRA,,inherent,,,
+IAC_flow_sum_and_step_target,97D3,20 0E,BRA,$97E3,relative,,,
+IAC_flow_sum_and_step_target,97D5,05,ASLD,,inherent,,,
+IAC_flow_sum_and_step_target,97D6,25 03,BCS,$97DB,relative,,,
+IAC_flow_sum_and_step_target,97D8,05,ASLD,,inherent,,,
+IAC_flow_sum_and_step_target,97D9,24 02,BCC,$97DD,relative,,,
+IAC_flow_sum_and_step_target,97DB,86 FF,LDAA,#$FF,immediate,,,
+IAC_flow_sum_and_step_target,97DD,CE 50 A2,LDX,#$50A2,immediate,,,
+IAC_flow_sum_and_step_target,97E0,BD F4 B6,JSR,$F4B6,extended,,,
+IAC_flow_sum_and_step_target,97E3,B7 08 7F,STAA,$087F,extended,W,8,087F
+IAC_flow_sum_and_step_target,97E6,FC 08 7D,LDD,$087D,extended,R,16,087D
+IAC_flow_sum_and_step_target,97E9,BB 08 80,ADDA,$0880,extended,R,8,0880
+IAC_flow_sum_and_step_target,97EC,24 05,BCC,$97F3,relative,,,
+IAC_flow_sum_and_step_target,97EE,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,97F1,20 3D,BRA,$9830,relative,,,
+IAC_flow_sum_and_step_target,97F3,13 46 08 23,BRCLR,"$46,#$08,$981A",direct,R,8,0046
+IAC_flow_sum_and_step_target,97F7,37,PSHB,,inherent,,,
+IAC_flow_sum_and_step_target,97F8,36,PSHA,,inherent,,,
+IAC_flow_sum_and_step_target,97F9,CE 50 AD,LDX,#$50AD,immediate,,,
+IAC_flow_sum_and_step_target,97FC,96 62,LDAA,$62,direct,R,8,0062
+IAC_flow_sum_and_step_target,97FE,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_flow_sum_and_step_target,9801,B0 50 AC,SUBA,$50AC,extended,R,8,50AC
+IAC_flow_sum_and_step_target,9804,25 05,BCS,$980B,relative,,,
+IAC_flow_sum_and_step_target,9806,15 38 20,BCLR,"$38,#$20",direct,RW,8,0038
+IAC_flow_sum_and_step_target,9809,20 04,BRA,$980F,relative,,,
+IAC_flow_sum_and_step_target,980B,14 38 20,BSET,"$38,#$20",direct,RW,8,0038
+IAC_flow_sum_and_step_target,980E,40,NEGA,,inherent,,,
+IAC_flow_sum_and_step_target,980F,B7 08 87,STAA,$0887,extended,W,8,0887
+IAC_flow_sum_and_step_target,9812,B6 50 BF,LDAA,$50BF,extended,R,8,50BF
+IAC_flow_sum_and_step_target,9815,B7 08 88,STAA,$0888,extended,W,8,0888
+IAC_flow_sum_and_step_target,9818,32,PULA,,inherent,,,
+IAC_flow_sum_and_step_target,9819,33,PULB,,inherent,,,
+IAC_flow_sum_and_step_target,981A,12 38 20 0A,BRSET,"$38,#$20,$9828",direct,R,8,0038
+IAC_flow_sum_and_step_target,981E,BB 08 87,ADDA,$0887,extended,R,8,0887
+IAC_flow_sum_and_step_target,9821,24 0D,BCC,$9830,relative,,,
+IAC_flow_sum_and_step_target,9823,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,9826,20 08,BRA,$9830,relative,,,
+IAC_flow_sum_and_step_target,9828,B0 08 87,SUBA,$0887,extended,R,8,0887
+IAC_flow_sum_and_step_target,982B,24 03,BCC,$9830,relative,,,
+IAC_flow_sum_and_step_target,982D,CC 00 00,LDD,#$0000,immediate,,,
+IAC_flow_sum_and_step_target,9830,13 3D 20 09,BRCLR,"$3D,#$20,$983D",direct,R,8,003D
+IAC_flow_sum_and_step_target,9834,1A B3 50 AA,CPD,$50AA,extended,R,16,50AA
+IAC_flow_sum_and_step_target,9838,23 03,BLS,$983D,relative,,,
+IAC_flow_sum_and_step_target,983A,FC 50 AA,LDD,$50AA,extended,R,16,50AA
+IAC_flow_sum_and_step_target,983D,FD 08 89,STD,$0889,extended,W,16,0889
+IAC_flow_sum_and_step_target,9840,CE 4E A3,LDX,#$4EA3,immediate,,,
+IAC_flow_sum_and_step_target,9843,B6 01 CC,LDAA,$01CC,extended,R,8,01CC
+IAC_flow_sum_and_step_target,9846,BD F4 A4,JSR,$F4A4,extended,,,
+IAC_flow_sum_and_step_target,9849,CE 08 89,LDX,#$0889,immediate,,,
+IAC_flow_sum_and_step_target,984C,BD F5 50,JSR,$F550,extended,,,
+IAC_flow_sum_and_step_target,984F,05,ASLD,,inherent,,,
+IAC_flow_sum_and_step_target,9850,24 03,BCC,$9855,relative,,,
+IAC_flow_sum_and_step_target,9852,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,9855,CE 4E 8F,LDX,#$4E8F,immediate,,,
+IAC_flow_sum_and_step_target,9858,1F 00 04 24,BRCLR,"$00,X,#$04,$9880",indexed_x,R,8,
+IAC_flow_sum_and_step_target,985C,13 37 04 0C,BRCLR,"$37,#$04,$986C",direct,R,8,0037
+IAC_flow_sum_and_step_target,9860,B0 50 C8,SUBA,$50C8,extended,R,8,50C8
+IAC_flow_sum_and_step_target,9863,24 07,BCC,$986C,relative,,,
+IAC_flow_sum_and_step_target,9865,14 37 08,BSET,"$37,#$08",direct,RW,8,0037
+IAC_flow_sum_and_step_target,9868,4F,CLRA,,inherent,,,
+IAC_flow_sum_and_step_target,9869,5F,CLRB,,inherent,,,
+IAC_flow_sum_and_step_target,986A,20 14,BRA,$9880,relative,,,
+IAC_flow_sum_and_step_target,986C,8F,XGDX,,inherent,,,
+IAC_flow_sum_and_step_target,986D,3C,PSHX,,inherent,,,
+IAC_flow_sum_and_step_target,986E,3C,PSHX,,inherent,,,
+IAC_flow_sum_and_step_target,986F,30,TSX,,inherent,,,
+IAC_flow_sum_and_step_target,9870,B6 50 C9,LDAA,$50C9,extended,R,8,50C9
+IAC_flow_sum_and_step_target,9873,BD F5 50,JSR,$F550,extended,,,
+IAC_flow_sum_and_step_target,9876,38,PULX,,inherent,,,
+IAC_flow_sum_and_step_target,9877,30,TSX,,inherent,,,
+IAC_flow_sum_and_step_target,9878,E3 00,ADDD,"$00,X",indexed_x,R,16,
+IAC_flow_sum_and_step_target,987A,38,PULX,,inherent,,,
+IAC_flow_sum_and_step_target,987B,24 03,BCC,$9880,relative,,,
+IAC_flow_sum_and_step_target,987D,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_flow_sum_and_step_target,9880,FD 08 8B,STD,$088B,extended,W,16,088B
+IAC_flow_sum_and_step_target,9883,CE 4E 92,LDX,#$4E92,immediate,,,
+IAC_flow_sum_and_step_target,9886,04,LSRD,,inherent,,,
+IAC_flow_sum_and_step_target,9887,04,LSRD,,inherent,,,
+IAC_flow_sum_and_step_target,9888,04,LSRD,,inherent,,,
+IAC_flow_sum_and_step_target,9889,04,LSRD,,inherent,,,
+IAC_flow_sum_and_step_target,988A,C9 00,ADCB,#$00,immediate,,,
+IAC_flow_sum_and_step_target,988C,89 00,ADCA,#$00,immediate,,,
+IAC_flow_sum_and_step_target,988E,37,PSHB,,inherent,,,
+IAC_flow_sum_and_step_target,988F,16,TAB,,inherent,,,
+IAC_flow_sum_and_step_target,9890,3A,ABX,,inherent,,,
+IAC_flow_sum_and_step_target,9891,EC 00,LDD,"$00,X",indexed_x,R,16,
+IAC_flow_sum_and_step_target,9893,10,SBA,,inherent,,,
+IAC_flow_sum_and_step_target,9894,33,PULB,,inherent,,,
+IAC_flow_sum_and_step_target,9895,40,NEGA,,inherent,,,
+IAC_flow_sum_and_step_target,9896,3D,MUL,,inherent,,,
+IAC_flow_sum_and_step_target,9897,A9 00,ADCA,"$00,X",indexed_x,R,8,
+IAC_flow_sum_and_step_target,9899,97 08,STAA,$08,direct,W,8,0008
+IAC_flow_sum_and_step_target,989B,39,RTS,,inherent,,,
+IAC_desired_RPM,989C,13 38 40 03,BRCLR,"$38,#$40,$98A3",direct,R,8,0038
+IAC_desired_RPM,98A0,7E 99 C4,JMP,$99C4,extended,,,
+IAC_desired_RPM,98A3,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_desired_RPM,98A6,81 A0,CMPA,#$A0,immediate,,,
+IAC_desired_RPM,98A8,23 05,BLS,$98AF,relative,,,
+IAC_desired_RPM,98AA,80 A0,SUBA,#$A0,immediate,,,
+IAC_desired_RPM,98AC,48,ASLA,,inherent,,,
+IAC_desired_RPM,98AD,8B A0,ADDA,#$A0,immediate,,,
+IAC_desired_RPM,98AF,13 36 01 0C,BRCLR,"$36,#$01,$98BF",direct,R,8,0036
+IAC_desired_RPM,98B3,CE 4F 41,LDX,#$4F41,immediate,,,
+IAC_desired_RPM,98B6,13 36 02 0F,BRCLR,"$36,#$02,$98C9",direct,R,8,0036
+IAC_desired_RPM,98BA,CE 4F 5F,LDX,#$4F5F,immediate,,,
+IAC_desired_RPM,98BD,20 0A,BRA,$98C9,relative,,,
+IAC_desired_RPM,98BF,CE 4F 32,LDX,#$4F32,immediate,,,
+IAC_desired_RPM,98C2,13 36 02 03,BRCLR,"$36,#$02,$98C9",direct,R,8,0036
+IAC_desired_RPM,98C6,CE 4F 50,LDX,#$4F50,immediate,,,
+IAC_desired_RPM,98C9,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_desired_RPM,98CC,36,PSHA,,inherent,,,
+IAC_desired_RPM,98CD,F6 4F 84,LDAB,$4F84,extended,R,8,4F84
+IAC_desired_RPM,98D0,D0 A7,SUBB,$A7,direct,R,8,00A7
+IAC_desired_RPM,98D2,23 0F,BLS,$98E3,relative,,,
+IAC_desired_RPM,98D4,B6 4F 85,LDAA,$4F85,extended,R,8,4F85
+IAC_desired_RPM,98D7,3D,MUL,,inherent,,,
+IAC_desired_RPM,98D8,B1 4F 86,CMPA,$4F86,extended,R,8,4F86
+IAC_desired_RPM,98DB,25 03,BCS,$98E0,relative,,,
+IAC_desired_RPM,98DD,B6 4F 86,LDAA,$4F86,extended,R,8,4F86
+IAC_desired_RPM,98E0,33,PULB,,inherent,,,
+IAC_desired_RPM,98E1,1B,ABA,,inherent,,,
+IAC_desired_RPM,98E2,36,PSHA,,inherent,,,
+IAC_desired_RPM,98E3,F6 08 59,LDAB,$0859,extended,R,8,0859
+IAC_desired_RPM,98E6,B6 4F 7D,LDAA,$4F7D,extended,R,8,4F7D
+IAC_desired_RPM,98E9,3D,MUL,,inherent,,,
+IAC_desired_RPM,98EA,B1 4F 83,CMPA,$4F83,extended,R,8,4F83
+IAC_desired_RPM,98ED,25 03,BCS,$98F2,relative,,,
+IAC_desired_RPM,98EF,B6 4F 83,LDAA,$4F83,extended,R,8,4F83
+IAC_desired_RPM,98F2,33,PULB,,inherent,,,
+IAC_desired_RPM,98F3,1B,ABA,,inherent,,,
+IAC_desired_RPM,98F4,F6 02 47,LDAB,$0247,extended,R,8,0247
+IAC_desired_RPM,98F7,C1 10,CMPB,#$10,immediate,,,
+IAC_desired_RPM,98F9,25 0F,BCS,$990A,relative,,,
+IAC_desired_RPM,98FB,F6 02 48,LDAB,$0248,extended,R,8,0248
+IAC_desired_RPM,98FE,F1 4F 87,CMPB,$4F87,extended,R,8,4F87
+IAC_desired_RPM,9901,24 07,BCC,$990A,relative,,,
+IAC_desired_RPM,9903,D6 06,LDAB,$06,direct,R,8,0006
+IAC_desired_RPM,9905,F1 4F 89,CMPB,$4F89,extended,R,8,4F89
+IAC_desired_RPM,9908,22 05,BHI,$990F,relative,,,
+IAC_desired_RPM,990A,7F 08 5B,CLR,$085B,extended,W,8,085B
+IAC_desired_RPM,990D,20 2E,BRA,$993D,relative,,,
+IAC_desired_RPM,990F,F6 08 5B,LDAB,$085B,extended,R,8,085B
+IAC_desired_RPM,9912,F1 4F 88,CMPB,$4F88,extended,R,8,4F88
+IAC_desired_RPM,9915,24 0B,BCC,$9922,relative,,,
+IAC_desired_RPM,9917,13 02 F0 02,BRCLR,"$02,#$F0,$991D",direct,R,8,0002
+IAC_desired_RPM,991B,20 20,BRA,$993D,relative,,,
+IAC_desired_RPM,991D,7C 08 5B,INC,$085B,extended,RW,8,085B
+IAC_desired_RPM,9920,20 1B,BRA,$993D,relative,,,
+IAC_desired_RPM,9922,12 36 02 0C,BRSET,"$36,#$02,$9932",direct,R,8,0036
+IAC_desired_RPM,9926,F6 4F 8A,LDAB,$4F8A,extended,R,8,4F8A
+IAC_desired_RPM,9929,13 36 01 0F,BRCLR,"$36,#$01,$993C",direct,R,8,0036
+IAC_desired_RPM,992D,F6 4F 8B,LDAB,$4F8B,extended,R,8,4F8B
+IAC_desired_RPM,9930,20 0A,BRA,$993C,relative,,,
+IAC_desired_RPM,9932,F6 4F 8C,LDAB,$4F8C,extended,R,8,4F8C
+IAC_desired_RPM,9935,13 36 01 03,BRCLR,"$36,#$01,$993C",direct,R,8,0036
+IAC_desired_RPM,9939,F6 4F 8D,LDAB,$4F8D,extended,R,8,4F8D
+IAC_desired_RPM,993C,1B,ABA,,inherent,,,
+IAC_desired_RPM,993D,36,PSHA,,inherent,,,
+IAC_desired_RPM,993E,B6 08 5C,LDAA,$085C,extended,R,8,085C
+IAC_desired_RPM,9941,27 0B,BEQ,$994E,relative,,,
+IAC_desired_RPM,9943,12 36 02 07,BRSET,"$36,#$02,$994E",direct,R,8,0036
+IAC_desired_RPM,9947,48,ASLA,,inherent,,,
+IAC_desired_RPM,9948,F6 4E BC,LDAB,$4EBC,extended,R,8,4EBC
+IAC_desired_RPM,994B,3D,MUL,,inherent,,,
+IAC_desired_RPM,994C,89 00,ADCA,#$00,immediate,,,
+IAC_desired_RPM,994E,33,PULB,,inherent,,,
+IAC_desired_RPM,994F,1B,ABA,,inherent,,,
+IAC_desired_RPM,9950,B1 08 5F,CMPA,$085F,extended,R,8,085F
+IAC_desired_RPM,9953,24 04,BCC,$9959,relative,,,
+IAC_desired_RPM,9955,B6 08 5F,LDAA,$085F,extended,R,8,085F
+IAC_desired_RPM,9958,4A,DECA,,inherent,,,
+IAC_desired_RPM,9959,B7 08 5F,STAA,$085F,extended,W,8,085F
+IAC_desired_RPM,995C,CE 4E 8F,LDX,#$4E8F,immediate,,,
+IAC_desired_RPM,995F,1F 00 10 45,BRCLR,"$00,X,#$10,$99A8",indexed_x,R,8,
+IAC_desired_RPM,9963,F6 4F 8E,LDAB,$4F8E,extended,R,8,4F8E
+IAC_desired_RPM,9966,13 36 02 03,BRCLR,"$36,#$02,$996D",direct,R,8,0036
+IAC_desired_RPM,996A,F6 4F 8F,LDAB,$4F8F,extended,R,8,4F8F
+IAC_desired_RPM,996D,11,CBA,,inherent,,,
+IAC_desired_RPM,996E,25 03,BCS,$9973,relative,,,
+IAC_desired_RPM,9970,4F,CLRA,,inherent,,,
+IAC_desired_RPM,9971,20 29,BRA,$999C,relative,,,
+IAC_desired_RPM,9973,BD 92 50,JSR,$9250,extended,,,
+IAC_desired_RPM,9976,25 10,BCS,$9988,relative,,,
+IAC_desired_RPM,9978,B6 08 60,LDAA,$0860,extended,R,8,0860
+IAC_desired_RPM,997B,27 06,BEQ,$9983,relative,,,
+IAC_desired_RPM,997D,F6 08 61,LDAB,$0861,extended,R,8,0861
+IAC_desired_RPM,9980,26 16,BNE,$9998,relative,,,
+IAC_desired_RPM,9982,4A,DECA,,inherent,,,
+IAC_desired_RPM,9983,F6 4F 91,LDAB,$4F91,extended,R,8,4F91
+IAC_desired_RPM,9986,20 17,BRA,$999F,relative,,,
+IAC_desired_RPM,9988,F1 08 57,CMPB,$0857,extended,R,8,0857
+IAC_desired_RPM,998B,22 03,BHI,$9990,relative,,,
+IAC_desired_RPM,998D,17,TBA,,inherent,,,
+IAC_desired_RPM,998E,20 18,BRA,$99A8,relative,,,
+IAC_desired_RPM,9990,B6 08 60,LDAA,$0860,extended,R,8,0860
+IAC_desired_RPM,9993,F6 08 61,LDAB,$0861,extended,R,8,0861
+IAC_desired_RPM,9996,27 03,BEQ,$999B,relative,,,
+IAC_desired_RPM,9998,5A,DECB,,inherent,,,
+IAC_desired_RPM,9999,20 04,BRA,$999F,relative,,,
+IAC_desired_RPM,999B,4C,INCA,,inherent,,,
+IAC_desired_RPM,999C,F6 4F 90,LDAB,$4F90,extended,R,8,4F90
+IAC_desired_RPM,999F,B7 08 60,STAA,$0860,extended,W,8,0860
+IAC_desired_RPM,99A2,BB 08 5F,ADDA,$085F,extended,R,8,085F
+IAC_desired_RPM,99A5,F7 08 61,STAB,$0861,extended,W,8,0861
+IAC_desired_RPM,99A8,B7 08 57,STAA,$0857,extended,W,8,0857
+IAC_desired_RPM,99AB,CE 50 4D,LDX,#$504D,immediate,,,
+IAC_desired_RPM,99AE,C6 03,LDAB,#$03,immediate,,,
+IAC_desired_RPM,99B0,D4 36,ANDB,$36,direct,R,8,0036
+IAC_desired_RPM,99B2,3A,ABX,,inherent,,,
+IAC_desired_RPM,99B3,F6 4E 8F,LDAB,$4E8F,extended,R,8,4E8F
+IAC_desired_RPM,99B6,C5 80,BITB,#$80,immediate,,,
+IAC_desired_RPM,99B8,27 04,BEQ,$99BE,relative,,,
+IAC_desired_RPM,99BA,A6 00,LDAA,"$00,X",indexed_x,R,8,
+IAC_desired_RPM,99BC,20 03,BRA,$99C1,relative,,,
+IAC_desired_RPM,99BE,E6 00,LDAB,"$00,X",indexed_x,R,8,
+IAC_desired_RPM,99C0,3D,MUL,,inherent,,,
+IAC_desired_RPM,99C1,B7 08 68,STAA,$0868,extended,W,8,0868
+IAC_desired_RPM,99C4,39,RTS,,inherent,,,
+IAC_integral_and_cold_flow,99C5,CE 02 A7,LDX,#$02A7,immediate,,,
+IAC_integral_and_cold_flow,99C8,12 36 02 03,BRSET,"$36,#$02,$99CF",direct,R,8,0036
+IAC_integral_and_cold_flow,99CC,CE 02 9D,LDX,#$029D,immediate,,,
+IAC_integral_and_cold_flow,99CF,EC 03,LDD,"$03,X",indexed_x,R,16,
+IAC_integral_and_cold_flow,99D1,12 36 01 02,BRSET,"$36,#$01,$99D7",direct,R,8,0036
+IAC_integral_and_cold_flow,99D5,EC 00,LDD,"$00,X",indexed_x,R,16,
+IAC_integral_and_cold_flow,99D7,37,PSHB,,inherent,,,
+IAC_integral_and_cold_flow,99D8,36,PSHA,,inherent,,,
+IAC_integral_and_cold_flow,99D9,EC 06,LDD,"$06,X",indexed_x,R,16,
+IAC_integral_and_cold_flow,99DB,37,PSHB,,inherent,,,
+IAC_integral_and_cold_flow,99DC,36,PSHA,,inherent,,,
+IAC_integral_and_cold_flow,99DD,5F,CLRB,,inherent,,,
+IAC_integral_and_cold_flow,99DE,37,PSHB,,inherent,,,
+IAC_integral_and_cold_flow,99DF,37,PSHB,,inherent,,,
+IAC_integral_and_cold_flow,99E0,18 30,TSY,,inherent,,,
+IAC_integral_and_cold_flow,99E2,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+IAC_integral_and_cold_flow,99E5,B1 4E F2,CMPA,$4EF2,extended,R,8,4EF2
+IAC_integral_and_cold_flow,99E8,25 05,BCS,$99EF,relative,,,
+IAC_integral_and_cold_flow,99EA,14 39 80,BSET,"$39,#$80",direct,RW,8,0039
+IAC_integral_and_cold_flow,99ED,20 0B,BRA,$99FA,relative,,,
+IAC_integral_and_cold_flow,99EF,15 39 80,BCLR,"$39,#$80",direct,RW,8,0039
+IAC_integral_and_cold_flow,99F2,B6 02 84,LDAA,$0284,extended,R,8,0284
+IAC_integral_and_cold_flow,99F5,B1 4E F3,CMPA,$4EF3,extended,R,8,4EF3
+IAC_integral_and_cold_flow,99F8,25 0B,BCS,$9A05,relative,,,
+IAC_integral_and_cold_flow,99FA,F6 4E F4,LDAB,$4EF4,extended,R,8,4EF4
+IAC_integral_and_cold_flow,99FD,F7 08 64,STAB,$0864,extended,W,8,0864
+IAC_integral_and_cold_flow,9A00,15 36 04,BCLR,"$36,#$04",direct,RW,8,0036
+IAC_integral_and_cold_flow,9A03,20 28,BRA,$9A2D,relative,,,
+IAC_integral_and_cold_flow,9A05,14 36 04,BSET,"$36,#$04",direct,RW,8,0036
+IAC_integral_and_cold_flow,9A08,B6 08 82,LDAA,$0882,extended,R,8,0882
+IAC_integral_and_cold_flow,9A0B,B1 08 85,CMPA,$0885,extended,R,8,0885
+IAC_integral_and_cold_flow,9A0E,22 1D,BHI,$9A2D,relative,,,
+IAC_integral_and_cold_flow,9A10,B6 08 64,LDAA,$0864,extended,R,8,0864
+IAC_integral_and_cold_flow,9A13,27 06,BEQ,$9A1B,relative,,,
+IAC_integral_and_cold_flow,9A15,4A,DECA,,inherent,,,
+IAC_integral_and_cold_flow,9A16,B7 08 64,STAA,$0864,extended,W,8,0864
+IAC_integral_and_cold_flow,9A19,20 12,BRA,$9A2D,relative,,,
+IAC_integral_and_cold_flow,9A1B,12 36 80 07,BRSET,"$36,#$80,$9A26",direct,R,8,0036
+IAC_integral_and_cold_flow,9A1F,B6 08 66,LDAA,$0866,extended,R,8,0866
+IAC_integral_and_cold_flow,9A22,27 23,BEQ,$9A47,relative,,,
+IAC_integral_and_cold_flow,9A24,20 32,BRA,$9A58,relative,,,
+IAC_integral_and_cold_flow,9A26,B6 08 67,LDAA,$0867,extended,R,8,0867
+IAC_integral_and_cold_flow,9A29,27 1C,BEQ,$9A47,relative,,,
+IAC_integral_and_cold_flow,9A2B,20 2B,BRA,$9A58,relative,,,
+IAC_integral_and_cold_flow,9A2D,12 36 80 27,BRSET,"$36,#$80,$9A58",direct,R,8,0036
+IAC_integral_and_cold_flow,9A31,B6 08 66,LDAA,$0866,extended,R,8,0866
+IAC_integral_and_cold_flow,9A34,BA 08 7A,ORAA,$087A,extended,R,8,087A
+IAC_integral_and_cold_flow,9A37,BA 08 77,ORAA,$0877,extended,R,8,0877
+IAC_integral_and_cold_flow,9A3A,26 1C,BNE,$9A58,relative,,,
+IAC_integral_and_cold_flow,9A3C,12 36 04 07,BRSET,"$36,#$04,$9A47",direct,R,8,0036
+IAC_integral_and_cold_flow,9A40,B6 4E 8F,LDAA,$4E8F,extended,R,8,4E8F
+IAC_integral_and_cold_flow,9A43,85 01,BITA,#$01,immediate,,,
+IAC_integral_and_cold_flow,9A45,26 11,BNE,$9A58,relative,,,
+IAC_integral_and_cold_flow,9A47,12 3E 04 0D,BRSET,"$3E,#$04,$9A58",direct,R,8,003E
+IAC_integral_and_cold_flow,9A4B,13 37 04 0F,BRCLR,"$37,#$04,$9A5E",direct,R,8,0037
+IAC_integral_and_cold_flow,9A4F,FC 08 8B,LDD,$088B,extended,R,16,088B
+IAC_integral_and_cold_flow,9A52,26 0A,BNE,$9A5E,relative,,,
+IAC_integral_and_cold_flow,9A54,13 36 80 06,BRCLR,"$36,#$80,$9A5E",direct,R,8,0036
+IAC_integral_and_cold_flow,9A58,15 36 08,BCLR,"$36,#$08",direct,RW,8,0036
+IAC_integral_and_cold_flow,9A5B,7E 9C 06,JMP,$9C06,extended,,,
+IAC_integral_and_cold_flow,9A5E,14 36 08,BSET,"$36,#$08",direct,RW,8,0036
+IAC_integral_and_cold_flow,9A61,13 36 10 08,BRCLR,"$36,#$10,$9A6D",direct,R,8,0036
+IAC_integral_and_cold_flow,9A65,13 36 80 36,BRCLR,"$36,#$80,$9A9F",direct,R,8,0036
+IAC_integral_and_cold_flow,9A69,4F,CLRA,,inherent,,,
+IAC_integral_and_cold_flow,9A6A,5F,CLRB,,inherent,,,
+IAC_integral_and_cold_flow,9A6B,20 20,BRA,$9A8D,relative,,,
+IAC_integral_and_cold_flow,9A6D,B6 08 68,LDAA,$0868,extended,R,8,0868
+IAC_integral_and_cold_flow,9A70,91 63,CMPA,$63,direct,R,8,0063
+IAC_integral_and_cold_flow,9A72,23 2B,BLS,$9A9F,relative,,,
+IAC_integral_and_cold_flow,9A74,14 36 10,BSET,"$36,#$10",direct,RW,8,0036
+IAC_integral_and_cold_flow,9A77,3C,PSHX,,inherent,,,
+IAC_integral_and_cold_flow,9A78,CE 50 51,LDX,#$5051,immediate,,,
+IAC_integral_and_cold_flow,9A7B,C6 03,LDAB,#$03,immediate,,,
+IAC_integral_and_cold_flow,9A7D,D4 36,ANDB,$36,direct,R,8,0036
+IAC_integral_and_cold_flow,9A7F,3A,ABX,,inherent,,,
+IAC_integral_and_cold_flow,9A80,A6 00,LDAA,"$00,X",indexed_x,R,8,
+IAC_integral_and_cold_flow,9A82,38,PULX,,inherent,,,
+IAC_integral_and_cold_flow,9A83,F6 50 55,LDAB,$5055,extended,R,8,5055
+IAC_integral_and_cold_flow,9A86,13 36 02 03,BRCLR,"$36,#$02,$9A8D",direct,R,8,0036
+IAC_integral_and_cold_flow,9A8A,F6 50 56,LDAB,$5056,extended,R,8,5056
+IAC_integral_and_cold_flow,9A8D,F7 08 69,STAB,$0869,extended,W,8,0869
+IAC_integral_and_cold_flow,9A90,5F,CLRB,,inherent,,,
+IAC_integral_and_cold_flow,9A91,18 E3 04,ADDD,"$04,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9A94,24 03,BCC,$9A99,relative,,,
+IAC_integral_and_cold_flow,9A96,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_integral_and_cold_flow,9A99,18 ED 04,STD,"$04,Y",indexed_y,W,16,
+IAC_integral_and_cold_flow,9A9C,7E 9B DA,JMP,$9BDA,extended,,,
+IAC_integral_and_cold_flow,9A9F,B6 08 58,LDAA,$0858,extended,R,8,0858
+IAC_integral_and_cold_flow,9AA2,81 28,CMPA,#$28,immediate,,,
+IAC_integral_and_cold_flow,9AA4,23 04,BLS,$9AAA,relative,,,
+IAC_integral_and_cold_flow,9AA6,86 A0,LDAA,#$A0,immediate,,,
+IAC_integral_and_cold_flow,9AA8,20 14,BRA,$9ABE,relative,,,
+IAC_integral_and_cold_flow,9AAA,48,ASLA,,inherent,,,
+IAC_integral_and_cold_flow,9AAB,81 20,CMPA,#$20,immediate,,,
+IAC_integral_and_cold_flow,9AAD,23 04,BLS,$9AB3,relative,,,
+IAC_integral_and_cold_flow,9AAF,8B 50,ADDA,#$50,immediate,,,
+IAC_integral_and_cold_flow,9AB1,20 0B,BRA,$9ABE,relative,,,
+IAC_integral_and_cold_flow,9AB3,48,ASLA,,inherent,,,
+IAC_integral_and_cold_flow,9AB4,81 10,CMPA,#$10,immediate,,,
+IAC_integral_and_cold_flow,9AB6,23 04,BLS,$9ABC,relative,,,
+IAC_integral_and_cold_flow,9AB8,8B 30,ADDA,#$30,immediate,,,
+IAC_integral_and_cold_flow,9ABA,20 02,BRA,$9ABE,relative,,,
+IAC_integral_and_cold_flow,9ABC,48,ASLA,,inherent,,,
+IAC_integral_and_cold_flow,9ABD,48,ASLA,,inherent,,,
+IAC_integral_and_cold_flow,9ABE,3C,PSHX,,inherent,,,
+IAC_integral_and_cold_flow,9ABF,12 36 80 0C,BRSET,"$36,#$80,$9ACF",direct,R,8,0036
+IAC_integral_and_cold_flow,9AC3,CE 4F A8,LDX,#$4FA8,immediate,,,
+IAC_integral_and_cold_flow,9AC6,12 36 02 0F,BRSET,"$36,#$02,$9AD9",direct,R,8,0036
+IAC_integral_and_cold_flow,9ACA,CE 4F 92,LDX,#$4F92,immediate,,,
+IAC_integral_and_cold_flow,9ACD,20 0A,BRA,$9AD9,relative,,,
+IAC_integral_and_cold_flow,9ACF,CE 4F B3,LDX,#$4FB3,immediate,,,
+IAC_integral_and_cold_flow,9AD2,12 36 02 03,BRSET,"$36,#$02,$9AD9",direct,R,8,0036
+IAC_integral_and_cold_flow,9AD6,CE 4F 9D,LDX,#$4F9D,immediate,,,
+IAC_integral_and_cold_flow,9AD9,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_integral_and_cold_flow,9ADC,38,PULX,,inherent,,,
+IAC_integral_and_cold_flow,9ADD,F6 08 58,LDAB,$0858,extended,R,8,0858
+IAC_integral_and_cold_flow,9AE0,3D,MUL,,inherent,,,
+IAC_integral_and_cold_flow,9AE1,18 ED 00,STD,"$00,Y",indexed_y,W,16,
+IAC_integral_and_cold_flow,9AE4,12 36 80 66,BRSET,"$36,#$80,$9B4E",direct,R,8,0036
+IAC_integral_and_cold_flow,9AE8,96 06,LDAA,$06,direct,R,8,0006
+IAC_integral_and_cold_flow,9AEA,B1 50 C2,CMPA,$50C2,extended,R,8,50C2
+IAC_integral_and_cold_flow,9AED,23 27,BLS,$9B16,relative,,,
+IAC_integral_and_cold_flow,9AEF,B6 50 C3,LDAA,$50C3,extended,R,8,50C3
+IAC_integral_and_cold_flow,9AF2,13 36 01 03,BRCLR,"$36,#$01,$9AF9",direct,R,8,0036
+IAC_integral_and_cold_flow,9AF6,B6 50 C4,LDAA,$50C4,extended,R,8,50C4
+IAC_integral_and_cold_flow,9AF9,18 A1 04,CMPA,"$04,Y",indexed_y,R,8,
+IAC_integral_and_cold_flow,9AFC,24 18,BCC,$9B16,relative,,,
+IAC_integral_and_cold_flow,9AFE,12 3B 10 14,BRSET,"$3B,#$10,$9B16",direct,R,8,003B
+IAC_integral_and_cold_flow,9B02,12 50 10 10,BRSET,"$50,#$10,$9B16",direct,R,8,0050
+IAC_integral_and_cold_flow,9B06,15 09 04,BCLR,"$09,#$04",direct,RW,8,0009
+IAC_integral_and_cold_flow,9B09,96 02,LDAA,$02,direct,R,8,0002
+IAC_integral_and_cold_flow,9B0B,B1 50 C6,CMPA,$50C6,extended,R,8,50C6
+IAC_integral_and_cold_flow,9B0E,24 03,BCC,$9B13,relative,,,
+IAC_integral_and_cold_flow,9B10,7A 00 07,DEC,$0007,extended,RW,8,0007
+IAC_integral_and_cold_flow,9B13,7E 9C 06,JMP,$9C06,extended,,,
+IAC_integral_and_cold_flow,9B16,FC 08 8B,LDD,$088B,extended,R,16,088B
+IAC_integral_and_cold_flow,9B19,1A 83 FF FF,CPD,#$FFFF,immediate,,,
+IAC_integral_and_cold_flow,9B1D,27 5D,BEQ,$9B7C,relative,,,
+IAC_integral_and_cold_flow,9B1F,A6 02,LDAA,"$02,X",indexed_x,R,8,
+IAC_integral_and_cold_flow,9B21,13 36 01 02,BRCLR,"$36,#$01,$9B27",direct,R,8,0036
+IAC_integral_and_cold_flow,9B25,A6 05,LDAA,"$05,X",indexed_x,R,8,
+IAC_integral_and_cold_flow,9B27,18 A1 04,CMPA,"$04,Y",indexed_y,R,8,
+IAC_integral_and_cold_flow,9B2A,22 14,BHI,$9B40,relative,,,
+IAC_integral_and_cold_flow,9B2C,EC 06,LDD,"$06,X",indexed_x,R,16,
+IAC_integral_and_cold_flow,9B2E,1A A3 08,CPD,"$08,X",indexed_x,R,16,
+IAC_integral_and_cold_flow,9B31,24 0D,BCC,$9B40,relative,,,
+IAC_integral_and_cold_flow,9B33,18 E3 00,ADDD,"$00,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9B36,24 03,BCC,$9B3B,relative,,,
+IAC_integral_and_cold_flow,9B38,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_integral_and_cold_flow,9B3B,18 ED 02,STD,"$02,Y",indexed_y,W,16,
+IAC_integral_and_cold_flow,9B3E,20 3C,BRA,$9B7C,relative,,,
+IAC_integral_and_cold_flow,9B40,18 EC 04,LDD,"$04,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9B43,18 E3 00,ADDD,"$00,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9B46,24 03,BCC,$9B4B,relative,,,
+IAC_integral_and_cold_flow,9B48,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_integral_and_cold_flow,9B4B,7E 9B DA,JMP,$9BDA,extended,,,
+IAC_integral_and_cold_flow,9B4E,B6 08 7B,LDAA,$087B,extended,R,8,087B
+IAC_integral_and_cold_flow,9B51,27 13,BEQ,$9B66,relative,,,
+IAC_integral_and_cold_flow,9B53,18 A0 00,SUBA,"$00,Y",indexed_y,R,8,
+IAC_integral_and_cold_flow,9B56,24 03,BCC,$9B5B,relative,,,
+IAC_integral_and_cold_flow,9B58,4F,CLRA,,inherent,,,
+IAC_integral_and_cold_flow,9B59,20 06,BRA,$9B61,relative,,,
+IAC_integral_and_cold_flow,9B5B,B1 08 7B,CMPA,$087B,extended,R,8,087B
+IAC_integral_and_cold_flow,9B5E,26 01,BNE,$9B61,relative,,,
+IAC_integral_and_cold_flow,9B60,4A,DECA,,inherent,,,
+IAC_integral_and_cold_flow,9B61,B7 08 7B,STAA,$087B,extended,W,8,087B
+IAC_integral_and_cold_flow,9B64,20 16,BRA,$9B7C,relative,,,
+IAC_integral_and_cold_flow,9B66,B6 08 6B,LDAA,$086B,extended,R,8,086B
+IAC_integral_and_cold_flow,9B69,27 14,BEQ,$9B7F,relative,,,
+IAC_integral_and_cold_flow,9B6B,18 A0 00,SUBA,"$00,Y",indexed_y,R,8,
+IAC_integral_and_cold_flow,9B6E,24 03,BCC,$9B73,relative,,,
+IAC_integral_and_cold_flow,9B70,4F,CLRA,,inherent,,,
+IAC_integral_and_cold_flow,9B71,20 06,BRA,$9B79,relative,,,
+IAC_integral_and_cold_flow,9B73,B1 08 6B,CMPA,$086B,extended,R,8,086B
+IAC_integral_and_cold_flow,9B76,26 01,BNE,$9B79,relative,,,
+IAC_integral_and_cold_flow,9B78,4A,DECA,,inherent,,,
+IAC_integral_and_cold_flow,9B79,B7 08 6B,STAA,$086B,extended,W,8,086B
+IAC_integral_and_cold_flow,9B7C,7E 9C 06,JMP,$9C06,extended,,,
+IAC_integral_and_cold_flow,9B7F,18 EC 04,LDD,"$04,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9B82,18 A3 00,SUBD,"$00,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9B85,24 03,BCC,$9B8A,relative,,,
+IAC_integral_and_cold_flow,9B87,CC 00 00,LDD,#$0000,immediate,,,
+IAC_integral_and_cold_flow,9B8A,12 16 10 23,BRSET,"$16,#$10,$9BB1",direct,R,8,0016
+IAC_integral_and_cold_flow,9B8E,3C,PSHX,,inherent,,,
+IAC_integral_and_cold_flow,9B8F,CD EE 02,LDX,"$02,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9B92,38,PULX,,inherent,,,
+IAC_integral_and_cold_flow,9B93,27 1C,BEQ,$9BB1,relative,,,
+IAC_integral_and_cold_flow,9B95,37,PSHB,,inherent,,,
+IAC_integral_and_cold_flow,9B96,E6 05,LDAB,"$05,X",indexed_x,R,8,
+IAC_integral_and_cold_flow,9B98,12 36 01 02,BRSET,"$36,#$01,$9B9E",direct,R,8,0036
+IAC_integral_and_cold_flow,9B9C,E6 02,LDAB,"$02,X",indexed_x,R,8,
+IAC_integral_and_cold_flow,9B9E,11,CBA,,inherent,,,
+IAC_integral_and_cold_flow,9B9F,33,PULB,,inherent,,,
+IAC_integral_and_cold_flow,9BA0,24 38,BCC,$9BDA,relative,,,
+IAC_integral_and_cold_flow,9BA2,18 EC 02,LDD,"$02,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9BA5,18 A3 00,SUBD,"$00,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9BA8,24 02,BCC,$9BAC,relative,,,
+IAC_integral_and_cold_flow,9BAA,4F,CLRA,,inherent,,,
+IAC_integral_and_cold_flow,9BAB,5F,CLRB,,inherent,,,
+IAC_integral_and_cold_flow,9BAC,18 ED 02,STD,"$02,Y",indexed_y,W,16,
+IAC_integral_and_cold_flow,9BAF,20 55,BRA,$9C06,relative,,,
+IAC_integral_and_cold_flow,9BB1,1A 83 00 00,CPD,#$0000,immediate,,,
+IAC_integral_and_cold_flow,9BB5,26 23,BNE,$9BDA,relative,,,
+IAC_integral_and_cold_flow,9BB7,12 09 40 1F,BRSET,"$09,#$40,$9BDA",direct,R,8,0009
+IAC_integral_and_cold_flow,9BBB,36,PSHA,,inherent,,,
+IAC_integral_and_cold_flow,9BBC,B6 08 58,LDAA,$0858,extended,R,8,0858
+IAC_integral_and_cold_flow,9BBF,B1 50 C5,CMPA,$50C5,extended,R,8,50C5
+IAC_integral_and_cold_flow,9BC2,23 15,BLS,$9BD9,relative,,,
+IAC_integral_and_cold_flow,9BC4,12 3B 10 11,BRSET,"$3B,#$10,$9BD9",direct,R,8,003B
+IAC_integral_and_cold_flow,9BC8,12 50 10 0D,BRSET,"$50,#$10,$9BD9",direct,R,8,0050
+IAC_integral_and_cold_flow,9BCC,15 09 04,BCLR,"$09,#$04",direct,RW,8,0009
+IAC_integral_and_cold_flow,9BCF,96 02,LDAA,$02,direct,R,8,0002
+IAC_integral_and_cold_flow,9BD1,B1 50 C6,CMPA,$50C6,extended,R,8,50C6
+IAC_integral_and_cold_flow,9BD4,24 03,BCC,$9BD9,relative,,,
+IAC_integral_and_cold_flow,9BD6,7C 00 07,INC,$0007,extended,RW,8,0007
+IAC_integral_and_cold_flow,9BD9,32,PULA,,inherent,,,
+IAC_integral_and_cold_flow,9BDA,13 16 10 1B,BRCLR,"$16,#$10,$9BF9",direct,R,8,0016
+IAC_integral_and_cold_flow,9BDE,37,PSHB,,inherent,,,
+IAC_integral_and_cold_flow,9BDF,F6 4E B2,LDAB,$4EB2,extended,R,8,4EB2
+IAC_integral_and_cold_flow,9BE2,12 36 02 03,BRSET,"$36,#$02,$9BE9",direct,R,8,0036
+IAC_integral_and_cold_flow,9BE6,F6 4E B1,LDAB,$4EB1,extended,R,8,4EB1
+IAC_integral_and_cold_flow,9BE9,13 36 01 03,BRCLR,"$36,#$01,$9BF0",direct,R,8,0036
+IAC_integral_and_cold_flow,9BED,FB 4E B3,ADDB,$4EB3,extended,R,8,4EB3
+IAC_integral_and_cold_flow,9BF0,11,CBA,,inherent,,,
+IAC_integral_and_cold_flow,9BF1,25 03,BCS,$9BF6,relative,,,
+IAC_integral_and_cold_flow,9BF3,33,PULB,,inherent,,,
+IAC_integral_and_cold_flow,9BF4,20 03,BRA,$9BF9,relative,,,
+IAC_integral_and_cold_flow,9BF6,17,TBA,,inherent,,,
+IAC_integral_and_cold_flow,9BF7,33,PULB,,inherent,,,
+IAC_integral_and_cold_flow,9BF8,5F,CLRB,,inherent,,,
+IAC_integral_and_cold_flow,9BF9,18 ED 04,STD,"$04,Y",indexed_y,W,16,
+IAC_integral_and_cold_flow,9BFC,13 36 01 04,BRCLR,"$36,#$01,$9C04",direct,R,8,0036
+IAC_integral_and_cold_flow,9C00,ED 03,STD,"$03,X",indexed_x,W,16,
+IAC_integral_and_cold_flow,9C02,20 02,BRA,$9C06,relative,,,
+IAC_integral_and_cold_flow,9C04,ED 00,STD,"$00,X",indexed_x,W,16,
+IAC_integral_and_cold_flow,9C06,18 EC 02,LDD,"$02,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9C09,ED 06,STD,"$06,X",indexed_x,W,16,
+IAC_integral_and_cold_flow,9C0B,FD 08 71,STD,$0871,extended,W,16,0871
+IAC_integral_and_cold_flow,9C0E,EC 08,LDD,"$08,X",indexed_x,R,16,
+IAC_integral_and_cold_flow,9C10,FD 08 73,STD,$0873,extended,W,16,0873
+IAC_integral_and_cold_flow,9C13,18 EC 04,LDD,"$04,Y",indexed_y,R,16,
+IAC_integral_and_cold_flow,9C16,FD 08 62,STD,$0862,extended,W,16,0862
+IAC_integral_and_cold_flow,9C19,C6 06,LDAB,#$06,immediate,,,
+IAC_integral_and_cold_flow,9C1B,18 3A,ABY,,inherent,,,
+IAC_integral_and_cold_flow,9C1D,18 35,TYS,,inherent,,,
+IAC_integral_and_cold_flow,9C1F,39,RTS,,inherent,,,
+IAC_proportional,9C20,12 36 02 0C,BRSET,"$36,#$02,$9C30",direct,R,8,0036
+IAC_proportional,9C24,CE 4F CC,LDX,#$4FCC,immediate,,,
+IAC_proportional,9C27,13 36 80 45,BRCLR,"$36,#$80,$9C70",direct,R,8,0036
+IAC_proportional,9C2B,CE 4F D7,LDX,#$4FD7,immediate,,,
+IAC_proportional,9C2E,20 40,BRA,$9C70,relative,,,
+IAC_proportional,9C30,5F,CLRB,,inherent,,,
+IAC_proportional,9C31,13 36 01 02,BRCLR,"$36,#$01,$9C37",direct,R,8,0036
+IAC_proportional,9C35,CB 08,ADDB,#$08,immediate,,,
+IAC_proportional,9C37,13 36 08 02,BRCLR,"$36,#$08,$9C3D",direct,R,8,0036
+IAC_proportional,9C3B,CB 04,ADDB,#$04,immediate,,,
+IAC_proportional,9C3D,13 36 80 02,BRCLR,"$36,#$80,$9C43",direct,R,8,0036
+IAC_proportional,9C41,CB 02,ADDB,#$02,immediate,,,
+IAC_proportional,9C43,CE 9C 96,LDX,#$9C96,immediate,,,
+IAC_proportional,9C46,3A,ABX,,inherent,,,
+IAC_proportional,9C47,EE 00,LDX,"$00,X",indexed_x,R,16,
+IAC_proportional,9C49,13 36 80 23,BRCLR,"$36,#$80,$9C70",direct,R,8,0036
+IAC_proportional,9C4D,B6 02 84,LDAA,$0284,extended,R,8,0284
+IAC_proportional,9C50,B1 4F C9,CMPA,$4FC9,extended,R,8,4FC9
+IAC_proportional,9C53,25 05,BCS,$9C5A,relative,,,
+IAC_proportional,9C55,14 37 40,BSET,"$37,#$40",direct,RW,8,0037
+IAC_proportional,9C58,20 0E,BRA,$9C68,relative,,,
+IAC_proportional,9C5A,B1 4F CA,CMPA,$4FCA,extended,R,8,4FCA
+IAC_proportional,9C5D,24 05,BCC,$9C64,relative,,,
+IAC_proportional,9C5F,15 37 40,BCLR,"$37,#$40",direct,RW,8,0037
+IAC_proportional,9C62,20 0C,BRA,$9C70,relative,,,
+IAC_proportional,9C64,13 37 40 08,BRCLR,"$37,#$40,$9C70",direct,R,8,0037
+IAC_proportional,9C68,B6 4F CB,LDAA,$4FCB,extended,R,8,4FCB
+IAC_proportional,9C6B,B1 08 58,CMPA,$0858,extended,R,8,0858
+IAC_proportional,9C6E,23 03,BLS,$9C73,relative,,,
+IAC_proportional,9C70,B6 08 58,LDAA,$0858,extended,R,8,0858
+IAC_proportional,9C73,81 28,CMPA,#$28,immediate,,,
+IAC_proportional,9C75,23 04,BLS,$9C7B,relative,,,
+IAC_proportional,9C77,86 A0,LDAA,#$A0,immediate,,,
+IAC_proportional,9C79,20 14,BRA,$9C8F,relative,,,
+IAC_proportional,9C7B,48,ASLA,,inherent,,,
+IAC_proportional,9C7C,81 20,CMPA,#$20,immediate,,,
+IAC_proportional,9C7E,23 04,BLS,$9C84,relative,,,
+IAC_proportional,9C80,8B 50,ADDA,#$50,immediate,,,
+IAC_proportional,9C82,20 0B,BRA,$9C8F,relative,,,
+IAC_proportional,9C84,48,ASLA,,inherent,,,
+IAC_proportional,9C85,81 10,CMPA,#$10,immediate,,,
+IAC_proportional,9C87,23 04,BLS,$9C8D,relative,,,
+IAC_proportional,9C89,8B 30,ADDA,#$30,immediate,,,
+IAC_proportional,9C8B,20 02,BRA,$9C8F,relative,,,
+IAC_proportional,9C8D,48,ASLA,,inherent,,,
+IAC_proportional,9C8E,48,ASLA,,inherent,,,
+IAC_proportional,9C8F,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_proportional,9C92,B7 08 6D,STAA,$086D,extended,W,8,086D
+IAC_proportional,9C95,39,RTS,,inherent,,,
+IAC_derivative,9CA6,CE 50 3C,LDX,#$503C,immediate,,,
+IAC_derivative,9CA9,96 6C,LDAA,$6C,direct,R,8,006C
+IAC_derivative,9CAB,80 60,SUBA,#$60,immediate,,,
+IAC_derivative,9CAD,24 03,BCC,$9CB2,relative,,,
+IAC_derivative,9CAF,4F,CLRA,,inherent,,,
+IAC_derivative,9CB0,20 0A,BRA,$9CBC,relative,,,
+IAC_derivative,9CB2,81 40,CMPA,#$40,immediate,,,
+IAC_derivative,9CB4,25 04,BCS,$9CBA,relative,,,
+IAC_derivative,9CB6,86 FF,LDAA,#$FF,immediate,,,
+IAC_derivative,9CB8,20 02,BRA,$9CBC,relative,,,
+IAC_derivative,9CBA,48,ASLA,,inherent,,,
+IAC_derivative,9CBB,48,ASLA,,inherent,,,
+IAC_derivative,9CBC,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_derivative,9CBF,FE 08 6E,LDX,$086E,extended,R,16,086E
+IAC_derivative,9CC2,5F,CLRB,,inherent,,,
+IAC_derivative,9CC3,B1 08 6E,CMPA,$086E,extended,R,8,086E
+IAC_derivative,9CC6,27 34,BEQ,$9CFC,relative,,,
+IAC_derivative,9CC8,12 37 80 08,BRSET,"$37,#$80,$9CD4",direct,R,8,0037
+IAC_derivative,9CCC,22 11,BHI,$9CDF,relative,,,
+IAC_derivative,9CCE,13 36 80 0D,BRCLR,"$36,#$80,$9CDF",direct,R,8,0036
+IAC_derivative,9CD2,20 11,BRA,$9CE5,relative,,,
+IAC_derivative,9CD4,25 04,BCS,$9CDA,relative,,,
+IAC_derivative,9CD6,13 36 80 0B,BRCLR,"$36,#$80,$9CE5",direct,R,8,0036
+IAC_derivative,9CDA,F6 50 3A,LDAB,$503A,extended,R,8,503A
+IAC_derivative,9CDD,20 03,BRA,$9CE2,relative,,,
+IAC_derivative,9CDF,F6 50 3B,LDAB,$503B,extended,R,8,503B
+IAC_derivative,9CE2,BD F4 59,JSR,$F459,extended,,,
+IAC_derivative,9CE5,FD 08 6E,STD,$086E,extended,W,16,086E
+IAC_derivative,9CE8,80 80,SUBA,#$80,immediate,,,
+IAC_derivative,9CEA,24 06,BCC,$9CF2,relative,,,
+IAC_derivative,9CEC,40,NEGA,,inherent,,,
+IAC_derivative,9CED,15 37 80,BCLR,"$37,#$80",direct,RW,8,0037
+IAC_derivative,9CF0,20 03,BRA,$9CF5,relative,,,
+IAC_derivative,9CF2,14 37 80,BSET,"$37,#$80",direct,RW,8,0037
+IAC_derivative,9CF5,44,LSRA,,inherent,,,
+IAC_derivative,9CF6,44,LSRA,,inherent,,,
+IAC_derivative,9CF7,89 00,ADCA,#$00,immediate,,,
+IAC_derivative,9CF9,B7 08 70,STAA,$0870,extended,W,8,0870
+IAC_derivative,9CFC,39,RTS,,inherent,,,
+IAC_follower,9CFD,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+IAC_follower,9D00,48,ASLA,,inherent,,,
+IAC_follower,9D01,25 03,BCS,$9D06,relative,,,
+IAC_follower,9D03,48,ASLA,,inherent,,,
+IAC_follower,9D04,24 02,BCC,$9D08,relative,,,
+IAC_follower,9D06,86 FF,LDAA,#$FF,immediate,,,
+IAC_follower,9D08,B1 08 82,CMPA,$0882,extended,R,8,0882
+IAC_follower,9D0B,23 26,BLS,$9D33,relative,,,
+IAC_follower,9D0D,F6 50 6E,LDAB,$506E,extended,R,8,506E
+IAC_follower,9D10,13 36 02 18,BRCLR,"$36,#$02,$9D2C",direct,R,8,0036
+IAC_follower,9D14,36,PSHA,,inherent,,,
+IAC_follower,9D15,B6 02 84,LDAA,$0284,extended,R,8,0284
+IAC_follower,9D18,81 50,CMPA,#$50,immediate,,,
+IAC_follower,9D1A,23 02,BLS,$9D1E,relative,,,
+IAC_follower,9D1C,86 50,LDAA,#$50,immediate,,,
+IAC_follower,9D1E,48,ASLA,,inherent,,,
+IAC_follower,9D1F,CE 50 71,LDX,#$5071,immediate,,,
+IAC_follower,9D22,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_follower,9D25,B7 08 84,STAA,$0884,extended,W,8,0884
+IAC_follower,9D28,32,PULA,,inherent,,,
+IAC_follower,9D29,F6 50 6F,LDAB,$506F,extended,R,8,506F
+IAC_follower,9D2C,11,CBA,,inherent,,,
+IAC_follower,9D2D,23 01,BLS,$9D30,relative,,,
+IAC_follower,9D2F,17,TBA,,inherent,,,
+IAC_follower,9D30,5F,CLRB,,inherent,,,
+IAC_follower,9D31,20 3B,BRA,$9D6E,relative,,,
+IAC_follower,9D33,F6 08 84,LDAB,$0884,extended,R,8,0884
+IAC_follower,9D36,27 05,BEQ,$9D3D,relative,,,
+IAC_follower,9D38,FC 08 82,LDD,$0882,extended,R,16,0882
+IAC_follower,9D3B,20 31,BRA,$9D6E,relative,,,
+IAC_follower,9D3D,36,PSHA,,inherent,,,
+IAC_follower,9D3E,12 36 02 05,BRSET,"$36,#$02,$9D47",direct,R,8,0036
+IAC_follower,9D42,B6 50 70,LDAA,$5070,extended,R,8,5070
+IAC_follower,9D45,20 10,BRA,$9D57,relative,,,
+IAC_follower,9D47,B6 02 84,LDAA,$0284,extended,R,8,0284
+IAC_follower,9D4A,81 50,CMPA,#$50,immediate,,,
+IAC_follower,9D4C,23 02,BLS,$9D50,relative,,,
+IAC_follower,9D4E,86 50,LDAA,#$50,immediate,,,
+IAC_follower,9D50,48,ASLA,,inherent,,,
+IAC_follower,9D51,CE 50 7C,LDX,#$507C,immediate,,,
+IAC_follower,9D54,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_follower,9D57,F6 01 C0,LDAB,$01C0,extended,R,8,01C0
+IAC_follower,9D5A,F1 50 88,CMPB,$5088,extended,R,8,5088
+IAC_follower,9D5D,24 04,BCC,$9D63,relative,,,
+IAC_follower,9D5F,F6 50 89,LDAB,$5089,extended,R,8,5089
+IAC_follower,9D62,3D,MUL,,inherent,,,
+IAC_follower,9D63,16,TAB,,inherent,,,
+IAC_follower,9D64,26 01,BNE,$9D67,relative,,,
+IAC_follower,9D66,5C,INCB,,inherent,,,
+IAC_follower,9D67,32,PULA,,inherent,,,
+IAC_follower,9D68,FE 08 82,LDX,$0882,extended,R,16,0882
+IAC_follower,9D6B,BD F4 59,JSR,$F459,extended,,,
+IAC_follower,9D6E,37,PSHB,,inherent,,,
+IAC_follower,9D6F,36,PSHA,,inherent,,,
+IAC_follower,9D70,12 37 01 19,BRSET,"$37,#$01,$9D8D",direct,R,8,0037
+IAC_follower,9D74,F6 02 82,LDAB,$0282,extended,R,8,0282
+IAC_follower,9D77,F1 50 9A,CMPB,$509A,extended,R,8,509A
+IAC_follower,9D7A,25 0E,BCS,$9D8A,relative,,,
+IAC_follower,9D7C,F1 50 9B,CMPB,$509B,extended,R,8,509B
+IAC_follower,9D7F,24 09,BCC,$9D8A,relative,,,
+IAC_follower,9D81,DE FD,LDX,$FD,direct,R,16,00FD
+IAC_follower,9D83,BC 50 9C,CPX,$509C,extended,R,16,509C
+IAC_follower,9D86,22 02,BHI,$9D8A,relative,,,
+IAC_follower,9D88,20 03,BRA,$9D8D,relative,,,
+IAC_follower,9D8A,14 37 01,BSET,"$37,#$01",direct,RW,8,0037
+IAC_follower,9D8D,12 39 80 3E,BRSET,"$39,#$80,$9DCF",direct,R,8,0039
+IAC_follower,9D91,7D 08 84,TST,$0884,extended,R,8,0884
+IAC_follower,9D94,26 39,BNE,$9DCF,relative,,,
+IAC_follower,9D96,12 36 04 35,BRSET,"$36,#$04,$9DCF",direct,R,8,0036
+IAC_follower,9D9A,13 46 08 0C,BRCLR,"$46,#$08,$9DAA",direct,R,8,0046
+IAC_follower,9D9E,F6 4E 8F,LDAB,$4E8F,extended,R,8,4E8F
+IAC_follower,9DA1,C5 02,BITB,#$02,immediate,,,
+IAC_follower,9DA3,26 05,BNE,$9DAA,relative,,,
+IAC_follower,9DA5,14 39 40,BSET,"$39,#$40",direct,RW,8,0039
+IAC_follower,9DA8,20 42,BRA,$9DEC,relative,,,
+IAC_follower,9DAA,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_follower,9DAD,CE 50 8A,LDX,#$508A,immediate,,,
+IAC_follower,9DB0,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_follower,9DB3,5F,CLRB,,inherent,,,
+IAC_follower,9DB4,12 37 01 0D,BRSET,"$37,#$01,$9DC5",direct,R,8,0037
+IAC_follower,9DB8,F6 50 A0,LDAB,$50A0,extended,R,8,50A0
+IAC_follower,9DBB,3D,MUL,,inherent,,,
+IAC_follower,9DBC,05,ASLD,,inherent,,,
+IAC_follower,9DBD,25 03,BCS,$9DC2,relative,,,
+IAC_follower,9DBF,05,ASLD,,inherent,,,
+IAC_follower,9DC0,24 03,BCC,$9DC5,relative,,,
+IAC_follower,9DC2,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_follower,9DC5,30,TSX,,inherent,,,
+IAC_follower,9DC6,1A A3 00,CPD,"$00,X",indexed_x,R,16,
+IAC_follower,9DC9,23 10,BLS,$9DDB,relative,,,
+IAC_follower,9DCB,ED 00,STD,"$00,X",indexed_x,W,16,
+IAC_follower,9DCD,20 0C,BRA,$9DDB,relative,,,
+IAC_follower,9DCF,C6 FF,LDAB,#$FF,immediate,,,
+IAC_follower,9DD1,12 36 04 14,BRSET,"$36,#$04,$9DE9",direct,R,8,0036
+IAC_follower,9DD5,5F,CLRB,,inherent,,,
+IAC_follower,9DD6,15 37 02,BCLR,"$37,#$02",direct,RW,8,0037
+IAC_follower,9DD9,20 0E,BRA,$9DE9,relative,,,
+IAC_follower,9DDB,F6 08 86,LDAB,$0886,extended,R,8,0886
+IAC_follower,9DDE,F1 50 97,CMPB,$5097,extended,R,8,5097
+IAC_follower,9DE1,25 05,BCS,$9DE8,relative,,,
+IAC_follower,9DE3,14 37 02,BSET,"$37,#$02",direct,RW,8,0037
+IAC_follower,9DE6,20 04,BRA,$9DEC,relative,,,
+IAC_follower,9DE8,5C,INCB,,inherent,,,
+IAC_follower,9DE9,F7 08 86,STAB,$0886,extended,W,8,0886
+IAC_follower,9DEC,32,PULA,,inherent,,,
+IAC_follower,9DED,33,PULB,,inherent,,,
+IAC_follower,9DEE,B7 08 82,STAA,$0882,extended,W,8,0882
+IAC_follower,9DF1,26 05,BNE,$9DF8,relative,,,
+IAC_follower,9DF3,C1 28,CMPB,#$28,immediate,,,
+IAC_follower,9DF5,24 01,BCC,$9DF8,relative,,,
+IAC_follower,9DF7,5F,CLRB,,inherent,,,
+IAC_follower,9DF8,F7 08 83,STAB,$0883,extended,W,8,0883
+IAC_follower,9DFB,B0 08 85,SUBA,$0885,extended,R,8,0885
+IAC_follower,9DFE,24 06,BCC,$9E06,relative,,,
+IAC_follower,9E00,CC 00 00,LDD,#$0000,immediate,,,
+IAC_follower,9E03,7E 9E 95,JMP,$9E95,extended,,,
+IAC_follower,9E06,13 37 02 11,BRCLR,"$37,#$02,$9E1B",direct,R,8,0037
+IAC_follower,9E0A,37,PSHB,,inherent,,,
+IAC_follower,9E0B,36,PSHA,,inherent,,,
+IAC_follower,9E0C,30,TSX,,inherent,,,
+IAC_follower,9E0D,B6 50 9E,LDAA,$509E,extended,R,8,509E
+IAC_follower,9E10,13 37 01 03,BRCLR,"$37,#$01,$9E17",direct,R,8,0037
+IAC_follower,9E14,B6 50 9F,LDAA,$509F,extended,R,8,509F
+IAC_follower,9E17,BD F5 50,JSR,$F550,extended,,,
+IAC_follower,9E1A,38,PULX,,inherent,,,
+IAC_follower,9E1B,37,PSHB,,inherent,,,
+IAC_follower,9E1C,36,PSHA,,inherent,,,
+IAC_follower,9E1D,96 63,LDAA,$63,direct,R,8,0063
+IAC_follower,9E1F,CE 50 64,LDX,#$5064,immediate,,,
+IAC_follower,9E22,BD F4 B6,JSR,$F4B6,extended,,,
+IAC_follower,9E25,30,TSX,,inherent,,,
+IAC_follower,9E26,BD F5 50,JSR,$F550,extended,,,
+IAC_follower,9E29,38,PULX,,inherent,,,
+IAC_follower,9E2A,05,ASLD,,inherent,,,
+IAC_follower,9E2B,25 03,BCS,$9E30,relative,,,
+IAC_follower,9E2D,05,ASLD,,inherent,,,
+IAC_follower,9E2E,24 05,BCC,$9E35,relative,,,
+IAC_follower,9E30,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_follower,9E33,20 19,BRA,$9E4E,relative,,,
+IAC_follower,9E35,37,PSHB,,inherent,,,
+IAC_follower,9E36,36,PSHA,,inherent,,,
+IAC_follower,9E37,CE 50 57,LDX,#$5057,immediate,,,
+IAC_follower,9E3A,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_follower,9E3D,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_follower,9E40,30,TSX,,inherent,,,
+IAC_follower,9E41,BD F5 50,JSR,$F550,extended,,,
+IAC_follower,9E44,38,PULX,,inherent,,,
+IAC_follower,9E45,05,ASLD,,inherent,,,
+IAC_follower,9E46,25 03,BCS,$9E4B,relative,,,
+IAC_follower,9E48,05,ASLD,,inherent,,,
+IAC_follower,9E49,24 03,BCC,$9E4E,relative,,,
+IAC_follower,9E4B,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_follower,9E4E,12 37 01 13,BRSET,"$37,#$01,$9E65",direct,R,8,0037
+IAC_follower,9E52,37,PSHB,,inherent,,,
+IAC_follower,9E53,36,PSHA,,inherent,,,
+IAC_follower,9E54,30,TSX,,inherent,,,
+IAC_follower,9E55,B6 50 A1,LDAA,$50A1,extended,R,8,50A1
+IAC_follower,9E58,BD F5 50,JSR,$F550,extended,,,
+IAC_follower,9E5B,38,PULX,,inherent,,,
+IAC_follower,9E5C,05,ASLD,,inherent,,,
+IAC_follower,9E5D,25 03,BCS,$9E62,relative,,,
+IAC_follower,9E5F,05,ASLD,,inherent,,,
+IAC_follower,9E60,24 03,BCC,$9E65,relative,,,
+IAC_follower,9E62,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_follower,9E65,13 39 80 14,BRCLR,"$39,#$80,$9E7D",direct,R,8,0039
+IAC_follower,9E69,37,PSHB,,inherent,,,
+IAC_follower,9E6A,36,PSHA,,inherent,,,
+IAC_follower,9E6B,38,PULX,,inherent,,,
+IAC_follower,9E6C,B3 08 80,SUBD,$0880,extended,R,16,0880
+IAC_follower,9E6F,24 04,BCC,$9E75,relative,,,
+IAC_follower,9E71,50,NEGB,,inherent,,,
+IAC_follower,9E72,89 00,ADCA,#$00,immediate,,,
+IAC_follower,9E74,40,NEGA,,inherent,,,
+IAC_follower,9E75,B1 50 87,CMPA,$5087,extended,R,8,5087
+IAC_follower,9E78,25 1E,BCS,$9E98,relative,,,
+IAC_follower,9E7A,8F,XGDX,,inherent,,,
+IAC_follower,9E7B,20 18,BRA,$9E95,relative,,,
+IAC_follower,9E7D,12 46 08 09,BRSET,"$46,#$08,$9E8A",direct,R,8,0046
+IAC_follower,9E81,13 39 40 05,BRCLR,"$39,#$40,$9E8A",direct,R,8,0039
+IAC_follower,9E85,15 39 40,BCLR,"$39,#$40",direct,RW,8,0039
+IAC_follower,9E88,20 0B,BRA,$9E95,relative,,,
+IAC_follower,9E8A,FE 08 80,LDX,$0880,extended,R,16,0880
+IAC_follower,9E8D,27 06,BEQ,$9E95,relative,,,
+IAC_follower,9E8F,1A B3 08 80,CPD,$0880,extended,R,16,0880
+IAC_follower,9E93,24 03,BCC,$9E98,relative,,,
+IAC_follower,9E95,FD 08 80,STD,$0880,extended,W,16,0880
+IAC_follower,9E98,39,RTS,,inherent,,,
+IAC_background_kicker,9E99,12 4F 80 03,BRSET,"$4F,#$80,$9EA0",direct,R,8,004F
+IAC_background_kicker,9E9D,7E A2 9A,JMP,$A29A,extended,,,
+IAC_background_kicker,9EA0,BD 98 9C,JSR,$989C,extended,,,
+IAC_background_kicker,9EA3,12 09 02 23,BRSET,"$09,#$02,$9ECA",direct,R,8,0009
+IAC_background_kicker,9EA7,B6 02 84,LDAA,$0284,extended,R,8,0284
+IAC_background_kicker,9EAA,B1 4E C0,CMPA,$4EC0,extended,R,8,4EC0
+IAC_background_kicker,9EAD,23 1B,BLS,$9ECA,relative,,,
+IAC_background_kicker,9EAF,B6 4E C1,LDAA,$4EC1,extended,R,8,4EC1
+IAC_background_kicker,9EB2,CE 02 A3,LDX,#$02A3,immediate,,,
+IAC_background_kicker,9EB5,BD F5 50,JSR,$F550,extended,,,
+IAC_background_kicker,9EB8,FD 02 A3,STD,$02A3,extended,W,16,02A3
+IAC_background_kicker,9EBB,B6 4E C1,LDAA,$4EC1,extended,R,8,4EC1
+IAC_background_kicker,9EBE,CE 02 AD,LDX,#$02AD,immediate,,,
+IAC_background_kicker,9EC1,BD F5 50,JSR,$F550,extended,,,
+IAC_background_kicker,9EC4,FD 02 AD,STD,$02AD,extended,W,16,02AD
+IAC_background_kicker,9EC7,14 09 02,BSET,"$09,#$02",direct,RW,8,0009
+IAC_background_kicker,9ECA,B6 08 87,LDAA,$0887,extended,R,8,0887
+IAC_background_kicker,9ECD,27 1B,BEQ,$9EEA,relative,,,
+IAC_background_kicker,9ECF,12 46 08 17,BRSET,"$46,#$08,$9EEA",direct,R,8,0046
+IAC_background_kicker,9ED3,7A 08 88,DEC,$0888,extended,RW,8,0888
+IAC_background_kicker,9ED6,26 12,BNE,$9EEA,relative,,,
+IAC_background_kicker,9ED8,F6 50 BF,LDAB,$50BF,extended,R,8,50BF
+IAC_background_kicker,9EDB,F7 08 88,STAB,$0888,extended,W,8,0888
+IAC_background_kicker,9EDE,B0 50 BE,SUBA,$50BE,extended,R,8,50BE
+IAC_background_kicker,9EE1,24 04,BCC,$9EE7,relative,,,
+IAC_background_kicker,9EE3,4F,CLRA,,inherent,,,
+IAC_background_kicker,9EE4,15 38 20,BCLR,"$38,#$20",direct,RW,8,0038
+IAC_background_kicker,9EE7,B7 08 87,STAA,$0887,extended,W,8,0887
+IAC_background_kicker,9EEA,B6 4E 8F,LDAA,$4E8F,extended,R,8,4E8F
+IAC_background_kicker,9EED,85 04,BITA,#$04,immediate,,,
+IAC_background_kicker,9EEF,26 02,BNE,$9EF3,relative,,,
+IAC_background_kicker,9EF1,20 53,BRA,$9F46,relative,,,
+IAC_background_kicker,9EF3,13 3B 10 09,BRCLR,"$3B,#$10,$9F00",direct,R,8,003B
+IAC_background_kicker,9EF7,B6 03 8F,LDAA,$038F,extended,R,8,038F
+IAC_background_kicker,9EFA,85 40,BITA,#$40,immediate,,,
+IAC_background_kicker,9EFC,27 02,BEQ,$9F00,relative,,,
+IAC_background_kicker,9EFE,20 46,BRA,$9F46,relative,,,
+IAC_background_kicker,9F00,12 37 04 03,BRSET,"$37,#$04,$9F07",direct,R,8,0037
+IAC_background_kicker,9F04,7E 9F 89,JMP,$9F89,extended,,,
+IAC_background_kicker,9F07,12 36 0C 02,BRSET,"$36,#$0C,$9F0D",direct,R,8,0036
+IAC_background_kicker,9F0B,20 09,BRA,$9F16,relative,,,
+IAC_background_kicker,9F0D,B6 02 F6,LDAA,$02F6,extended,R,8,02F6
+IAC_background_kicker,9F10,B7 02 B1,STAA,$02B1,extended,W,8,02B1
+IAC_background_kicker,9F13,14 39 01,BSET,"$39,#$01",direct,RW,8,0039
+IAC_background_kicker,9F16,12 37 08 41,BRSET,"$37,#$08,$9F5B",direct,R,8,0037
+IAC_background_kicker,9F1A,96 06,LDAA,$06,direct,R,8,0006
+IAC_background_kicker,9F1C,B1 50 C7,CMPA,$50C7,extended,R,8,50C7
+IAC_background_kicker,9F1F,24 09,BCC,$9F2A,relative,,,
+IAC_background_kicker,9F21,B6 50 CC,LDAA,$50CC,extended,R,8,50CC
+IAC_background_kicker,9F24,B7 08 8D,STAA,$088D,extended,W,8,088D
+IAC_background_kicker,9F27,7E 9F DB,JMP,$9FDB,extended,,,
+IAC_background_kicker,9F2A,12 37 10 2D,BRSET,"$37,#$10,$9F5B",direct,R,8,0037
+IAC_background_kicker,9F2E,B6 02 F4,LDAA,$02F4,extended,R,8,02F4
+IAC_background_kicker,9F31,B1 50 CD,CMPA,$50CD,extended,R,8,50CD
+IAC_background_kicker,9F34,24 25,BCC,$9F5B,relative,,,
+IAC_background_kicker,9F36,13 36 80 0C,BRCLR,"$36,#$80,$9F46",direct,R,8,0036
+IAC_background_kicker,9F3A,B6 02 A7,LDAA,$02A7,extended,R,8,02A7
+IAC_background_kicker,9F3D,B1 50 CF,CMPA,$50CF,extended,R,8,50CF
+IAC_background_kicker,9F40,24 04,BCC,$9F46,relative,,,
+IAC_background_kicker,9F42,12 36 08 03,BRSET,"$36,#$08,$9F49",direct,R,8,0036
+IAC_background_kicker,9F46,7E 9F DE,JMP,$9FDE,extended,,,
+IAC_background_kicker,9F49,B6 50 D1,LDAA,$50D1,extended,R,8,50D1
+IAC_background_kicker,9F4C,12 36 02 03,BRSET,"$36,#$02,$9F53",direct,R,8,0036
+IAC_background_kicker,9F50,B6 50 D2,LDAA,$50D2,extended,R,8,50D2
+IAC_background_kicker,9F53,B1 08 58,CMPA,$0858,extended,R,8,0858
+IAC_background_kicker,9F56,23 03,BLS,$9F5B,relative,,,
+IAC_background_kicker,9F58,14 37 10,BSET,"$37,#$10",direct,RW,8,0037
+IAC_background_kicker,9F5B,13 36 40 05,BRCLR,"$36,#$40,$9F64",direct,R,8,0036
+IAC_background_kicker,9F5F,B6 08 8D,LDAA,$088D,extended,R,8,088D
+IAC_background_kicker,9F62,26 19,BNE,$9F7D,relative,,,
+IAC_background_kicker,9F64,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+IAC_background_kicker,9F67,B1 50 CB,CMPA,$50CB,extended,R,8,50CB
+IAC_background_kicker,9F6A,22 47,BHI,$9FB3,relative,,,
+IAC_background_kicker,9F6C,B6 02 84,LDAA,$0284,extended,R,8,0284
+IAC_background_kicker,9F6F,B1 50 CA,CMPA,$50CA,extended,R,8,50CA
+IAC_background_kicker,9F72,22 3F,BHI,$9FB3,relative,,,
+IAC_background_kicker,9F74,12 36 40 63,BRSET,"$36,#$40,$9FDB",direct,R,8,0036
+IAC_background_kicker,9F78,B6 08 8D,LDAA,$088D,extended,R,8,088D
+IAC_background_kicker,9F7B,27 36,BEQ,$9FB3,relative,,,
+IAC_background_kicker,9F7D,D6 02,LDAB,$02,direct,R,8,0002
+IAC_background_kicker,9F7F,C4 F0,ANDB,#$F0,immediate,,,
+IAC_background_kicker,9F81,26 58,BNE,$9FDB,relative,,,
+IAC_background_kicker,9F83,4A,DECA,,inherent,,,
+IAC_background_kicker,9F84,B7 08 8D,STAA,$088D,extended,W,8,088D
+IAC_background_kicker,9F87,20 52,BRA,$9FDB,relative,,,
+IAC_background_kicker,9F89,B6 08 8D,LDAA,$088D,extended,R,8,088D
+IAC_background_kicker,9F8C,81 0F,CMPA,#$0F,immediate,,,
+IAC_background_kicker,9F8E,23 17,BLS,$9FA7,relative,,,
+IAC_background_kicker,9F90,12 36 0C 02,BRSET,"$36,#$0C,$9F96",direct,R,8,0036
+IAC_background_kicker,9F94,20 09,BRA,$9F9F,relative,,,
+IAC_background_kicker,9F96,B6 02 F6,LDAA,$02F6,extended,R,8,02F6
+IAC_background_kicker,9F99,B7 02 B2,STAA,$02B2,extended,W,8,02B2
+IAC_background_kicker,9F9C,14 39 02,BSET,"$39,#$02",direct,RW,8,0039
+IAC_background_kicker,9F9F,B6 08 8D,LDAA,$088D,extended,R,8,088D
+IAC_background_kicker,9FA2,B1 50 D7,CMPA,$50D7,extended,R,8,50D7
+IAC_background_kicker,9FA5,27 0C,BEQ,$9FB3,relative,,,
+IAC_background_kicker,9FA7,D6 02,LDAB,$02,direct,R,8,0002
+IAC_background_kicker,9FA9,C4 F0,ANDB,#$F0,immediate,,,
+IAC_background_kicker,9FAB,26 19,BNE,$9FC6,relative,,,
+IAC_background_kicker,9FAD,4C,INCA,,inherent,,,
+IAC_background_kicker,9FAE,B7 08 8D,STAA,$088D,extended,W,8,088D
+IAC_background_kicker,9FB1,20 13,BRA,$9FC6,relative,,,
+IAC_background_kicker,9FB3,B6 02 F4,LDAA,$02F4,extended,R,8,02F4
+IAC_background_kicker,9FB6,B1 50 CE,CMPA,$50CE,extended,R,8,50CE
+IAC_background_kicker,9FB9,23 10,BLS,$9FCB,relative,,,
+IAC_background_kicker,9FBB,FC 02 A7,LDD,$02A7,extended,R,16,02A7
+IAC_background_kicker,9FBE,F3 02 AD,ADDD,$02AD,extended,R,16,02AD
+IAC_background_kicker,9FC1,B1 50 D0,CMPA,$50D0,extended,R,8,50D0
+IAC_background_kicker,9FC4,22 05,BHI,$9FCB,relative,,,
+IAC_background_kicker,9FC6,BD 92 0E,JSR,$920E,extended,,,
+IAC_background_kicker,9FC9,20 13,BRA,$9FDE,relative,,,
+IAC_background_kicker,9FCB,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+IAC_background_kicker,9FCE,B1 50 CB,CMPA,$50CB,extended,R,8,50CB
+IAC_background_kicker,9FD1,22 08,BHI,$9FDB,relative,,,
+IAC_background_kicker,9FD3,B6 02 84,LDAA,$0284,extended,R,8,0284
+IAC_background_kicker,9FD6,B1 50 CA,CMPA,$50CA,extended,R,8,50CA
+IAC_background_kicker,9FD9,23 03,BLS,$9FDE,relative,,,
+IAC_background_kicker,9FDB,BD 92 26,JSR,$9226,extended,,,
+IAC_background_decay_and_learning,9FDE,B6 02 A5,LDAA,$02A5,extended,R,8,02A5
+IAC_background_decay_and_learning,9FE1,BA 02 AF,ORAA,$02AF,extended,R,8,02AF
+IAC_background_decay_and_learning,9FE4,26 03,BNE,$9FE9,relative,,,
+IAC_background_decay_and_learning,9FE6,7E A0 D8,JMP,$A0D8,extended,,,
+IAC_background_decay_and_learning,9FE9,B6 08 75,LDAA,$0875,extended,R,8,0875
+IAC_background_decay_and_learning,9FEC,27 03,BEQ,$9FF1,relative,,,
+IAC_background_decay_and_learning,9FEE,4A,DECA,,inherent,,,
+IAC_background_decay_and_learning,9FEF,20 78,BRA,$A069,relative,,,
+IAC_background_decay_and_learning,9FF1,B6 4E BD,LDAA,$4EBD,extended,R,8,4EBD
+IAC_background_decay_and_learning,9FF4,CE 02 A5,LDX,#$02A5,immediate,,,
+IAC_background_decay_and_learning,9FF7,BD F5 50,JSR,$F550,extended,,,
+IAC_background_decay_and_learning,9FFA,4D,TSTA,,inherent,,,
+IAC_background_decay_and_learning,9FFB,26 02,BNE,$9FFF,relative,,,
+IAC_background_decay_and_learning,9FFD,4F,CLRA,,inherent,,,
+IAC_background_decay_and_learning,9FFE,5F,CLRB,,inherent,,,
+IAC_background_decay_and_learning,9FFF,FD 02 A5,STD,$02A5,extended,W,16,02A5
+IAC_background_decay_and_learning,A002,27 12,BEQ,$A016,relative,,,
+IAC_background_decay_and_learning,A004,B6 4E BE,LDAA,$4EBE,extended,R,8,4EBE
+IAC_background_decay_and_learning,A007,CE 02 A3,LDX,#$02A3,immediate,,,
+IAC_background_decay_and_learning,A00A,BD F5 50,JSR,$F550,extended,,,
+IAC_background_decay_and_learning,A00D,1A B3 02 A5,CPD,$02A5,extended,R,16,02A5
+IAC_background_decay_and_learning,A011,23 03,BLS,$A016,relative,,,
+IAC_background_decay_and_learning,A013,FC 02 A5,LDD,$02A5,extended,R,16,02A5
+IAC_background_decay_and_learning,A016,FD 02 A3,STD,$02A3,extended,W,16,02A3
+IAC_background_decay_and_learning,A019,B6 4E BD,LDAA,$4EBD,extended,R,8,4EBD
+IAC_background_decay_and_learning,A01C,CE 02 AF,LDX,#$02AF,immediate,,,
+IAC_background_decay_and_learning,A01F,BD F5 50,JSR,$F550,extended,,,
+IAC_background_decay_and_learning,A022,4D,TSTA,,inherent,,,
+IAC_background_decay_and_learning,A023,26 02,BNE,$A027,relative,,,
+IAC_background_decay_and_learning,A025,4F,CLRA,,inherent,,,
+IAC_background_decay_and_learning,A026,5F,CLRB,,inherent,,,
+IAC_background_decay_and_learning,A027,FD 02 AF,STD,$02AF,extended,W,16,02AF
+IAC_background_decay_and_learning,A02A,27 12,BEQ,$A03E,relative,,,
+IAC_background_decay_and_learning,A02C,B6 4E BF,LDAA,$4EBF,extended,R,8,4EBF
+IAC_background_decay_and_learning,A02F,CE 02 AD,LDX,#$02AD,immediate,,,
+IAC_background_decay_and_learning,A032,BD F5 50,JSR,$F550,extended,,,
+IAC_background_decay_and_learning,A035,1A B3 02 AF,CPD,$02AF,extended,R,16,02AF
+IAC_background_decay_and_learning,A039,23 03,BLS,$A03E,relative,,,
+IAC_background_decay_and_learning,A03B,FC 02 AF,LDD,$02AF,extended,R,16,02AF
+IAC_background_decay_and_learning,A03E,FD 02 AD,STD,$02AD,extended,W,16,02AD
+IAC_background_decay_and_learning,A041,B6 02 A5,LDAA,$02A5,extended,R,8,02A5
+IAC_background_decay_and_learning,A044,BA 02 AF,ORAA,$02AF,extended,R,8,02AF
+IAC_background_decay_and_learning,A047,27 20,BEQ,$A069,relative,,,
+IAC_background_decay_and_learning,A049,B6 02 83,LDAA,$0283,extended,R,8,0283
+IAC_background_decay_and_learning,A04C,CE 4E DC,LDX,#$4EDC,immediate,,,
+IAC_background_decay_and_learning,A04F,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_background_decay_and_learning,A052,36,PSHA,,inherent,,,
+IAC_background_decay_and_learning,A053,CE 4E E9,LDX,#$4EE9,immediate,,,
+IAC_background_decay_and_learning,A056,B6 02 32,LDAA,$0232,extended,R,8,0232
+IAC_background_decay_and_learning,A059,81 40,CMPA,#$40,immediate,,,
+IAC_background_decay_and_learning,A05B,23 02,BLS,$A05F,relative,,,
+IAC_background_decay_and_learning,A05D,86 40,LDAA,#$40,immediate,,,
+IAC_background_decay_and_learning,A05F,BD F4 C1,JSR,$F4C1,extended,,,
+IAC_background_decay_and_learning,A062,33,PULB,,inherent,,,
+IAC_background_decay_and_learning,A063,3D,MUL,,inherent,,,
+IAC_background_decay_and_learning,A064,05,ASLD,,inherent,,,
+IAC_background_decay_and_learning,A065,24 02,BCC,$A069,relative,,,
+IAC_background_decay_and_learning,A067,86 FF,LDAA,#$FF,immediate,,,
+IAC_background_decay_and_learning,A069,B7 08 75,STAA,$0875,extended,W,8,0875
+IAC_background_decay_and_learning,A06C,12 36 02 30,BRSET,"$36,#$02,$A0A0",direct,R,8,0036
+IAC_background_decay_and_learning,A070,B6 02 A3,LDAA,$02A3,extended,R,8,02A3
+IAC_background_decay_and_learning,A073,27 61,BEQ,$A0D6,relative,,,
+IAC_background_decay_and_learning,A075,F6 4E F0,LDAB,$4EF0,extended,R,8,4EF0
+IAC_background_decay_and_learning,A078,27 0B,BEQ,$A085,relative,,,
+IAC_background_decay_and_learning,A07A,3D,MUL,,inherent,,,
+IAC_background_decay_and_learning,A07B,B9 02 A3,ADCA,$02A3,extended,R,8,02A3
+IAC_background_decay_and_learning,A07E,25 05,BCS,$A085,relative,,,
+IAC_background_decay_and_learning,A080,B1 02 AD,CMPA,$02AD,extended,R,8,02AD
+IAC_background_decay_and_learning,A083,25 15,BCS,$A09A,relative,,,
+IAC_background_decay_and_learning,A085,B6 02 A3,LDAA,$02A3,extended,R,8,02A3
+IAC_background_decay_and_learning,A088,F6 4E F1,LDAB,$4EF1,extended,R,8,4EF1
+IAC_background_decay_and_learning,A08B,27 49,BEQ,$A0D6,relative,,,
+IAC_background_decay_and_learning,A08D,3D,MUL,,inherent,,,
+IAC_background_decay_and_learning,A08E,89 00,ADCA,#$00,immediate,,,
+IAC_background_decay_and_learning,A090,16,TAB,,inherent,,,
+IAC_background_decay_and_learning,A091,B6 02 A3,LDAA,$02A3,extended,R,8,02A3
+IAC_background_decay_and_learning,A094,10,SBA,,inherent,,,
+IAC_background_decay_and_learning,A095,B1 02 AD,CMPA,$02AD,extended,R,8,02AD
+IAC_background_decay_and_learning,A098,25 39,BCS,$A0D3,relative,,,
+IAC_background_decay_and_learning,A09A,5F,CLRB,,inherent,,,
+IAC_background_decay_and_learning,A09B,FD 08 99,STD,$0899,extended,W,16,0899
+IAC_background_decay_and_learning,A09E,20 2E,BRA,$A0CE,relative,,,
+IAC_background_decay_and_learning,A0A0,B6 02 AD,LDAA,$02AD,extended,R,8,02AD
+IAC_background_decay_and_learning,A0A3,27 31,BEQ,$A0D6,relative,,,
+IAC_background_decay_and_learning,A0A5,F6 4E EE,LDAB,$4EEE,extended,R,8,4EEE
+IAC_background_decay_and_learning,A0A8,27 0B,BEQ,$A0B5,relative,,,
+IAC_background_decay_and_learning,A0AA,3D,MUL,,inherent,,,
+IAC_background_decay_and_learning,A0AB,B9 02 AD,ADCA,$02AD,extended,R,8,02AD
+IAC_background_decay_and_learning,A0AE,25 05,BCS,$A0B5,relative,,,
+IAC_background_decay_and_learning,A0B0,B1 02 A3,CMPA,$02A3,extended,R,8,02A3
+IAC_background_decay_and_learning,A0B3,25 15,BCS,$A0CA,relative,,,
+IAC_background_decay_and_learning,A0B5,B6 02 AD,LDAA,$02AD,extended,R,8,02AD
+IAC_background_decay_and_learning,A0B8,F6 4E EF,LDAB,$4EEF,extended,R,8,4EEF
+IAC_background_decay_and_learning,A0BB,27 19,BEQ,$A0D6,relative,,,
+IAC_background_decay_and_learning,A0BD,3D,MUL,,inherent,,,
+IAC_background_decay_and_learning,A0BE,89 00,ADCA,#$00,immediate,,,
+IAC_background_decay_and_learning,A0C0,16,TAB,,inherent,,,
+IAC_background_decay_and_learning,A0C1,B6 02 AD,LDAA,$02AD,extended,R,8,02AD
+IAC_background_decay_and_learning,A0C4,10,SBA,,inherent,,,
+IAC_background_decay_and_learning,A0C5,B1 02 A3,CMPA,$02A3,extended,R,8,02A3
+IAC_background_decay_and_learning,A0C8,25 09,BCS,$A0D3,relative,,,
+IAC_background_decay_and_learning,A0CA,5F,CLRB,,inherent,,,
+IAC_background_decay_and_learning,A0CB,FD 08 93,STD,$0893,extended,W,16,0893
+IAC_background_decay_and_learning,A0CE,14 38 10,BSET,"$38,#$10",direct,RW,8,0038
+IAC_background_decay_and_learning,A0D1,20 5A,BRA,$A12D,relative,,,
+IAC_background_decay_and_learning,A0D3,15 38 10,BCLR,"$38,#$10",direct,RW,8,0038
+IAC_background_decay_and_learning,A0D6,20 55,BRA,$A12D,relative,,,
+IAC_background_decay_and_learning,A0D8,12 36 0C 02,BRSET,"$36,#$0C,$A0DE",direct,R,8,0036
+IAC_background_decay_and_learning,A0DC,20 4F,BRA,$A12D,relative,,,
+IAC_background_decay_and_learning,A0DE,96 06,LDAA,$06,direct,R,8,0006
+IAC_background_decay_and_learning,A0E0,B1 4F BF,CMPA,$4FBF,extended,R,8,4FBF
+IAC_background_decay_and_learning,A0E3,25 48,BCS,$A12D,relative,,,
+IAC_background_decay_and_learning,A0E5,B1 4F C0,CMPA,$4FC0,extended,R,8,4FC0
+IAC_background_decay_and_learning,A0E8,22 43,BHI,$A12D,relative,,,
+IAC_background_decay_and_learning,A0EA,B6 08 58,LDAA,$0858,extended,R,8,0858
+IAC_background_decay_and_learning,A0ED,B1 4F BE,CMPA,$4FBE,extended,R,8,4FBE
+IAC_background_decay_and_learning,A0F0,22 3B,BHI,$A12D,relative,,,
+IAC_background_decay_and_learning,A0F2,B6 08 59,LDAA,$0859,extended,R,8,0859
+IAC_background_decay_and_learning,A0F5,B1 4F BE,CMPA,$4FBE,extended,R,8,4FBE
+IAC_background_decay_and_learning,A0F8,22 33,BHI,$A12D,relative,,,
+IAC_background_decay_and_learning,A0FA,15 18 08,BCLR,"$18,#$08",direct,RW,8,0018
+IAC_background_decay_and_learning,A0FD,12 36 02 14,BRSET,"$36,#$02,$A115",direct,R,8,0036
+IAC_background_decay_and_learning,A101,12 36 01 08,BRSET,"$36,#$01,$A10D",direct,R,8,0036
+IAC_background_decay_and_learning,A105,B6 02 9D,LDAA,$029D,extended,R,8,029D
+IAC_background_decay_and_learning,A108,B7 02 9F,STAA,$029F,extended,W,8,029F
+IAC_background_decay_and_learning,A10B,20 20,BRA,$A12D,relative,,,
+IAC_background_decay_and_learning,A10D,B6 02 A0,LDAA,$02A0,extended,R,8,02A0
+IAC_background_decay_and_learning,A110,B7 02 A2,STAA,$02A2,extended,W,8,02A2
+IAC_background_decay_and_learning,A113,20 18,BRA,$A12D,relative,,,
+IAC_background_decay_and_learning,A115,12 36 01 0B,BRSET,"$36,#$01,$A124",direct,R,8,0036
+IAC_background_decay_and_learning,A119,B6 02 A7,LDAA,$02A7,extended,R,8,02A7
+IAC_background_decay_and_learning,A11C,B7 02 A9,STAA,$02A9,extended,W,8,02A9
+IAC_background_decay_and_learning,A11F,14 09 10,BSET,"$09,#$10",direct,RW,8,0009
+IAC_background_decay_and_learning,A122,20 09,BRA,$A12D,relative,,,
+IAC_background_decay_and_learning,A124,B6 02 AA,LDAA,$02AA,extended,R,8,02AA
+IAC_background_decay_and_learning,A127,B7 02 AC,STAA,$02AC,extended,W,8,02AC
+IAC_background_decay_and_learning,A12A,14 09 20,BSET,"$09,#$20",direct,RW,8,0009
+IAC_background_decay_and_learning,A12D,B6 08 76,LDAA,$0876,extended,R,8,0876
+IAC_background_decay_and_learning,A130,27 22,BEQ,$A154,relative,,,
+IAC_background_decay_and_learning,A132,F6 08 77,LDAB,$0877,extended,R,8,0877
+IAC_background_decay_and_learning,A135,26 1D,BNE,$A154,relative,,,
+IAC_background_decay_and_learning,A137,13 36 01 15,BRCLR,"$36,#$01,$A150",direct,R,8,0036
+IAC_background_decay_and_learning,A13B,F6 08 78,LDAB,$0878,extended,R,8,0878
+IAC_background_decay_and_learning,A13E,27 05,BEQ,$A145,relative,,,
+IAC_background_decay_and_learning,A140,7A 08 78,DEC,$0878,extended,RW,8,0878
+IAC_background_decay_and_learning,A143,26 0F,BNE,$A154,relative,,,
+IAC_background_decay_and_learning,A145,F6 4F 22,LDAB,$4F22,extended,R,8,4F22
+IAC_background_decay_and_learning,A148,F7 08 78,STAB,$0878,extended,W,8,0878
+IAC_background_decay_and_learning,A14B,B0 4F 21,SUBA,$4F21,extended,R,8,4F21
+IAC_background_decay_and_learning,A14E,24 01,BCC,$A151,relative,,,
+IAC_background_decay_and_learning,A150,4F,CLRA,,inherent,,,
+IAC_background_decay_and_learning,A151,B7 08 76,STAA,$0876,extended,W,8,0876
+IAC_background_decay_and_learning,A154,D6 36,LDAB,$36,direct,R,8,0036
+IAC_background_decay_and_learning,A156,C5 08,BITB,#$08,immediate,,,
+IAC_background_decay_and_learning,A158,27 08,BEQ,$A162,relative,,,
+IAC_background_decay_and_learning,A15A,C5 10,BITB,#$10,immediate,,,
+IAC_background_decay_and_learning,A15C,26 04,BNE,$A162,relative,,,
+IAC_background_decay_and_learning,A15E,13 3E 04 03,BRCLR,"$3E,#$04,$A165",direct,R,8,003E
+IAC_background_decay_and_learning,A162,7E A2 88,JMP,$A288,extended,,,
+IAC_background_decay_and_learning,A165,5F,CLRB,,inherent,,,
+IAC_background_decay_and_learning,A166,12 36 01 09,BRSET,"$36,#$01,$A173",direct,R,8,0036
+IAC_background_decay_and_learning,A16A,CE 02 9D,LDX,#$029D,immediate,,,
+IAC_background_decay_and_learning,A16D,18 CE 08 8F,LDY,#$088F,immediate,,,
+IAC_background_decay_and_learning,A171,20 07,BRA,$A17A,relative,,,
+IAC_background_decay_and_learning,A173,CE 02 A0,LDX,#$02A0,immediate,,,
+IAC_background_decay_and_learning,A176,18 CE 08 91,LDY,#$0891,immediate,,,
+IAC_background_decay_and_learning,A17A,A6 00,LDAA,"$00,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A17C,A0 0A,SUBA,"$0A,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A17E,25 1D,BCS,$A19D,relative,,,
+IAC_background_decay_and_learning,A180,B1 4F C6,CMPA,$4FC6,extended,R,8,4FC6
+IAC_background_decay_and_learning,A183,23 36,BLS,$A1BB,relative,,,
+IAC_background_decay_and_learning,A185,12 36 02 0A,BRSET,"$36,#$02,$A193",direct,R,8,0036
+IAC_background_decay_and_learning,A189,A6 00,LDAA,"$00,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A18B,B0 4F C6,SUBA,$4FC6,extended,R,8,4FC6
+IAC_background_decay_and_learning,A18E,18 ED 06,STD,"$06,Y",indexed_y,W,16,
+IAC_background_decay_and_learning,A191,20 48,BRA,$A1DB,relative,,,
+IAC_background_decay_and_learning,A193,A6 0A,LDAA,"$0A,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A195,BB 4F C6,ADDA,$4FC6,extended,R,8,4FC6
+IAC_background_decay_and_learning,A198,18 ED 00,STD,"$00,Y",indexed_y,W,16,
+IAC_background_decay_and_learning,A19B,20 3E,BRA,$A1DB,relative,,,
+IAC_background_decay_and_learning,A19D,40,NEGA,,inherent,,,
+IAC_background_decay_and_learning,A19E,B1 4F C5,CMPA,$4FC5,extended,R,8,4FC5
+IAC_background_decay_and_learning,A1A1,23 18,BLS,$A1BB,relative,,,
+IAC_background_decay_and_learning,A1A3,12 36 02 0A,BRSET,"$36,#$02,$A1B1",direct,R,8,0036
+IAC_background_decay_and_learning,A1A7,A6 00,LDAA,"$00,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A1A9,BB 4F C5,ADDA,$4FC5,extended,R,8,4FC5
+IAC_background_decay_and_learning,A1AC,18 ED 06,STD,"$06,Y",indexed_y,W,16,
+IAC_background_decay_and_learning,A1AF,20 2A,BRA,$A1DB,relative,,,
+IAC_background_decay_and_learning,A1B1,A6 0A,LDAA,"$0A,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A1B3,B0 4F C5,SUBA,$4FC5,extended,R,8,4FC5
+IAC_background_decay_and_learning,A1B6,18 ED 00,STD,"$00,Y",indexed_y,W,16,
+IAC_background_decay_and_learning,A1B9,20 20,BRA,$A1DB,relative,,,
+IAC_background_decay_and_learning,A1BB,12 36 02 0E,BRSET,"$36,#$02,$A1CD",direct,R,8,0036
+IAC_background_decay_and_learning,A1BF,12 36 01 05,BRSET,"$36,#$01,$A1C8",direct,R,8,0036
+IAC_background_decay_and_learning,A1C3,15 38 04,BCLR,"$38,#$04",direct,RW,8,0038
+IAC_background_decay_and_learning,A1C6,20 31,BRA,$A1F9,relative,,,
+IAC_background_decay_and_learning,A1C8,15 38 08,BCLR,"$38,#$08",direct,RW,8,0038
+IAC_background_decay_and_learning,A1CB,20 2C,BRA,$A1F9,relative,,,
+IAC_background_decay_and_learning,A1CD,12 36 01 05,BRSET,"$36,#$01,$A1D6",direct,R,8,0036
+IAC_background_decay_and_learning,A1D1,15 38 01,BCLR,"$38,#$01",direct,RW,8,0038
+IAC_background_decay_and_learning,A1D4,20 23,BRA,$A1F9,relative,,,
+IAC_background_decay_and_learning,A1D6,15 38 02,BCLR,"$38,#$02",direct,RW,8,0038
+IAC_background_decay_and_learning,A1D9,20 1E,BRA,$A1F9,relative,,,
+IAC_background_decay_and_learning,A1DB,12 36 02 0E,BRSET,"$36,#$02,$A1ED",direct,R,8,0036
+IAC_background_decay_and_learning,A1DF,12 36 01 05,BRSET,"$36,#$01,$A1E8",direct,R,8,0036
+IAC_background_decay_and_learning,A1E3,14 38 04,BSET,"$38,#$04",direct,RW,8,0038
+IAC_background_decay_and_learning,A1E6,20 11,BRA,$A1F9,relative,,,
+IAC_background_decay_and_learning,A1E8,14 38 08,BSET,"$38,#$08",direct,RW,8,0038
+IAC_background_decay_and_learning,A1EB,20 0C,BRA,$A1F9,relative,,,
+IAC_background_decay_and_learning,A1ED,12 36 01 05,BRSET,"$36,#$01,$A1F6",direct,R,8,0036
+IAC_background_decay_and_learning,A1F1,14 38 01,BSET,"$38,#$01",direct,RW,8,0038
+IAC_background_decay_and_learning,A1F4,20 03,BRA,$A1F9,relative,,,
+IAC_background_decay_and_learning,A1F6,14 38 02,BSET,"$38,#$02",direct,RW,8,0038
+IAC_background_decay_and_learning,A1F9,12 36 02 0D,BRSET,"$36,#$02,$A20A",direct,R,8,0036
+IAC_background_decay_and_learning,A1FD,CE 08 8F,LDX,#$088F,immediate,,,
+IAC_background_decay_and_learning,A200,3C,PSHX,,inherent,,,
+IAC_background_decay_and_learning,A201,CE 02 9D,LDX,#$029D,immediate,,,
+IAC_background_decay_and_learning,A204,18 CE 4F C1,LDY,#$4FC1,immediate,,,
+IAC_background_decay_and_learning,A208,20 0B,BRA,$A215,relative,,,
+IAC_background_decay_and_learning,A20A,CE 08 95,LDX,#$0895,immediate,,,
+IAC_background_decay_and_learning,A20D,3C,PSHX,,inherent,,,
+IAC_background_decay_and_learning,A20E,CE 02 A7,LDX,#$02A7,immediate,,,
+IAC_background_decay_and_learning,A211,18 CE 4F C3,LDY,#$4FC3,immediate,,,
+IAC_background_decay_and_learning,A215,18 E6 00,LDAB,"$00,Y",indexed_y,R,8,
+IAC_background_decay_and_learning,A218,37,PSHB,,inherent,,,
+IAC_background_decay_and_learning,A219,EC 03,LDD,"$03,X",indexed_x,R,16,
+IAC_background_decay_and_learning,A21B,A3 00,SUBD,"$00,X",indexed_x,R,16,
+IAC_background_decay_and_learning,A21D,33,PULB,,inherent,,,
+IAC_background_decay_and_learning,A21E,23 09,BLS,$A229,relative,,,
+IAC_background_decay_and_learning,A220,11,CBA,,inherent,,,
+IAC_background_decay_and_learning,A221,25 06,BCS,$A229,relative,,,
+IAC_background_decay_and_learning,A223,18 E6 01,LDAB,"$01,Y",indexed_y,R,8,
+IAC_background_decay_and_learning,A226,11,CBA,,inherent,,,
+IAC_background_decay_and_learning,A227,23 20,BLS,$A249,relative,,,
+IAC_background_decay_and_learning,A229,12 36 01 10,BRSET,"$36,#$01,$A23D",direct,R,8,0036
+IAC_background_decay_and_learning,A22D,A6 00,LDAA,"$00,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A22F,1B,ABA,,inherent,,,
+IAC_background_decay_and_learning,A230,24 05,BCC,$A237,relative,,,
+IAC_background_decay_and_learning,A232,CC FF FF,LDD,#$FFFF,immediate,,,
+IAC_background_decay_and_learning,A235,20 01,BRA,$A238,relative,,,
+IAC_background_decay_and_learning,A237,5F,CLRB,,inherent,,,
+IAC_background_decay_and_learning,A238,38,PULX,,inherent,,,
+IAC_background_decay_and_learning,A239,ED 02,STD,"$02,X",indexed_x,W,16,
+IAC_background_decay_and_learning,A23B,20 2D,BRA,$A26A,relative,,,
+IAC_background_decay_and_learning,A23D,A6 03,LDAA,"$03,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A23F,10,SBA,,inherent,,,
+IAC_background_decay_and_learning,A240,24 01,BCC,$A243,relative,,,
+IAC_background_decay_and_learning,A242,4F,CLRA,,inherent,,,
+IAC_background_decay_and_learning,A243,5F,CLRB,,inherent,,,
+IAC_background_decay_and_learning,A244,38,PULX,,inherent,,,
+IAC_background_decay_and_learning,A245,ED 00,STD,"$00,X",indexed_x,W,16,
+IAC_background_decay_and_learning,A247,20 21,BRA,$A26A,relative,,,
+IAC_background_decay_and_learning,A249,38,PULX,,inherent,,,
+IAC_background_decay_and_learning,A24A,12 36 02 0E,BRSET,"$36,#$02,$A25C",direct,R,8,0036
+IAC_background_decay_and_learning,A24E,12 36 01 05,BRSET,"$36,#$01,$A257",direct,R,8,0036
+IAC_background_decay_and_learning,A252,15 38 02,BCLR,"$38,#$02",direct,RW,8,0038
+IAC_background_decay_and_learning,A255,20 31,BRA,$A288,relative,,,
+IAC_background_decay_and_learning,A257,15 38 01,BCLR,"$38,#$01",direct,RW,8,0038
+IAC_background_decay_and_learning,A25A,20 2C,BRA,$A288,relative,,,
+IAC_background_decay_and_learning,A25C,12 36 01 05,BRSET,"$36,#$01,$A265",direct,R,8,0036
+IAC_background_decay_and_learning,A260,15 38 08,BCLR,"$38,#$08",direct,RW,8,0038
+IAC_background_decay_and_learning,A263,20 23,BRA,$A288,relative,,,
+IAC_background_decay_and_learning,A265,15 38 04,BCLR,"$38,#$04",direct,RW,8,0038
+IAC_background_decay_and_learning,A268,20 1E,BRA,$A288,relative,,,
+IAC_background_decay_and_learning,A26A,12 36 02 0E,BRSET,"$36,#$02,$A27C",direct,R,8,0036
+IAC_background_decay_and_learning,A26E,12 36 01 05,BRSET,"$36,#$01,$A277",direct,R,8,0036
+IAC_background_decay_and_learning,A272,14 38 02,BSET,"$38,#$02",direct,RW,8,0038
+IAC_background_decay_and_learning,A275,20 11,BRA,$A288,relative,,,
+IAC_background_decay_and_learning,A277,14 38 01,BSET,"$38,#$01",direct,RW,8,0038
+IAC_background_decay_and_learning,A27A,20 0C,BRA,$A288,relative,,,
+IAC_background_decay_and_learning,A27C,12 36 01 05,BRSET,"$36,#$01,$A285",direct,R,8,0036
+IAC_background_decay_and_learning,A280,14 38 08,BSET,"$38,#$08",direct,RW,8,0038
+IAC_background_decay_and_learning,A283,20 03,BRA,$A288,relative,,,
+IAC_background_decay_and_learning,A285,14 38 04,BSET,"$38,#$04",direct,RW,8,0038
+IAC_background_decay_and_learning,A288,B6 08 66,LDAA,$0866,extended,R,8,0866
+IAC_background_decay_and_learning,A28B,27 04,BEQ,$A291,relative,,,
+IAC_background_decay_and_learning,A28D,4A,DECA,,inherent,,,
+IAC_background_decay_and_learning,A28E,B7 08 66,STAA,$0866,extended,W,8,0866
+IAC_background_decay_and_learning,A291,B6 08 67,LDAA,$0867,extended,R,8,0867
+IAC_background_decay_and_learning,A294,27 04,BEQ,$A29A,relative,,,
+IAC_background_decay_and_learning,A296,4A,DECA,,inherent,,,
+IAC_background_decay_and_learning,A297,B7 08 67,STAA,$0867,extended,W,8,0867
+IAC_background_decay_and_learning,A29A,CE 02 A7,LDX,#$02A7,immediate,,,
+IAC_background_decay_and_learning,A29D,12 36 02 03,BRSET,"$36,#$02,$A2A4",direct,R,8,0036
+IAC_background_decay_and_learning,A2A1,CE 02 9D,LDX,#$029D,immediate,,,
+IAC_background_decay_and_learning,A2A4,A6 02,LDAA,"$02,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A2A6,13 36 01 02,BRCLR,"$36,#$01,$A2AC",direct,R,8,0036
+IAC_background_decay_and_learning,A2AA,A6 05,LDAA,"$05,X",indexed_x,R,8,
+IAC_background_decay_and_learning,A2AC,B7 08 6A,STAA,$086A,extended,W,8,086A
+IAC_background_decay_and_learning,A2AF,39,RTS,,inherent,,,
+IAC_slow_decay_and_diagnostics,A2B0,12 4F 80 03,BRSET,"$4F,#$80,$A2B7",direct,R,8,004F
+IAC_slow_decay_and_diagnostics,A2B4,7E A4 06,JMP,$A406,extended,,,
+IAC_slow_decay_and_diagnostics,A2B7,BD 9C FD,JSR,$9CFD,extended,,,
+IAC_slow_decay_and_diagnostics,A2BA,B6 08 7B,LDAA,$087B,extended,R,8,087B
+IAC_slow_decay_and_diagnostics,A2BD,27 1B,BEQ,$A2DA,relative,,,
+IAC_slow_decay_and_diagnostics,A2BF,F6 08 7C,LDAB,$087C,extended,R,8,087C
+IAC_slow_decay_and_diagnostics,A2C2,27 05,BEQ,$A2C9,relative,,,
+IAC_slow_decay_and_diagnostics,A2C4,7A 08 7C,DEC,$087C,extended,RW,8,087C
+IAC_slow_decay_and_diagnostics,A2C7,26 11,BNE,$A2DA,relative,,,
+IAC_slow_decay_and_diagnostics,A2C9,B0 4F 31,SUBA,$4F31,extended,R,8,4F31
+IAC_slow_decay_and_diagnostics,A2CC,24 01,BCC,$A2CF,relative,,,
+IAC_slow_decay_and_diagnostics,A2CE,4F,CLRA,,inherent,,,
+IAC_slow_decay_and_diagnostics,A2CF,B7 08 7B,STAA,$087B,extended,W,8,087B
+IAC_slow_decay_and_diagnostics,A2D2,27 03,BEQ,$A2D7,relative,,,
+IAC_slow_decay_and_diagnostics,A2D4,B6 4F 30,LDAA,$4F30,extended,R,8,4F30
+IAC_slow_decay_and_diagnostics,A2D7,B7 08 7C,STAA,$087C,extended,W,8,087C
+IAC_slow_decay_and_diagnostics,A2DA,B6 08 6B,LDAA,$086B,extended,R,8,086B
+IAC_slow_decay_and_diagnostics,A2DD,27 1B,BEQ,$A2FA,relative,,,
+IAC_slow_decay_and_diagnostics,A2DF,13 3F 40 03,BRCLR,"$3F,#$40,$A2E6",direct,R,8,003F
+IAC_slow_decay_and_diagnostics,A2E3,4F,CLRA,,inherent,,,
+IAC_slow_decay_and_diagnostics,A2E4,20 11,BRA,$A2F7,relative,,,
+IAC_slow_decay_and_diagnostics,A2E6,F6 08 6C,LDAB,$086C,extended,R,8,086C
+IAC_slow_decay_and_diagnostics,A2E9,27 05,BEQ,$A2F0,relative,,,
+IAC_slow_decay_and_diagnostics,A2EB,7A 08 6C,DEC,$086C,extended,RW,8,086C
+IAC_slow_decay_and_diagnostics,A2EE,26 0A,BNE,$A2FA,relative,,,
+IAC_slow_decay_and_diagnostics,A2F0,F6 4E B9,LDAB,$4EB9,extended,R,8,4EB9
+IAC_slow_decay_and_diagnostics,A2F3,F7 08 6C,STAB,$086C,extended,W,8,086C
+IAC_slow_decay_and_diagnostics,A2F6,4A,DECA,,inherent,,,
+IAC_slow_decay_and_diagnostics,A2F7,B7 08 6B,STAA,$086B,extended,W,8,086B
+IAC_slow_decay_and_diagnostics,A2FA,B6 08 5C,LDAA,$085C,extended,R,8,085C
+IAC_slow_decay_and_diagnostics,A2FD,27 2B,BEQ,$A32A,relative,,,
+IAC_slow_decay_and_diagnostics,A2FF,13 3F 40 03,BRCLR,"$3F,#$40,$A306",direct,R,8,003F
+IAC_slow_decay_and_diagnostics,A303,4F,CLRA,,inherent,,,
+IAC_slow_decay_and_diagnostics,A304,20 21,BRA,$A327,relative,,,
+IAC_slow_decay_and_diagnostics,A306,F6 08 5E,LDAB,$085E,extended,R,8,085E
+IAC_slow_decay_and_diagnostics,A309,27 0B,BEQ,$A316,relative,,,
+IAC_slow_decay_and_diagnostics,A30B,D6 02,LDAB,$02,direct,R,8,0002
+IAC_slow_decay_and_diagnostics,A30D,C5 F0,BITB,#$F0,immediate,,,
+IAC_slow_decay_and_diagnostics,A30F,26 19,BNE,$A32A,relative,,,
+IAC_slow_decay_and_diagnostics,A311,7A 08 5E,DEC,$085E,extended,RW,8,085E
+IAC_slow_decay_and_diagnostics,A314,20 14,BRA,$A32A,relative,,,
+IAC_slow_decay_and_diagnostics,A316,F6 08 5D,LDAB,$085D,extended,R,8,085D
+IAC_slow_decay_and_diagnostics,A319,27 05,BEQ,$A320,relative,,,
+IAC_slow_decay_and_diagnostics,A31B,7A 08 5D,DEC,$085D,extended,RW,8,085D
+IAC_slow_decay_and_diagnostics,A31E,26 0A,BNE,$A32A,relative,,,
+IAC_slow_decay_and_diagnostics,A320,F6 4E BB,LDAB,$4EBB,extended,R,8,4EBB
+IAC_slow_decay_and_diagnostics,A323,F7 08 5D,STAB,$085D,extended,W,8,085D
+IAC_slow_decay_and_diagnostics,A326,4A,DECA,,inherent,,,
+IAC_slow_decay_and_diagnostics,A327,B7 08 5C,STAA,$085C,extended,W,8,085C
+IAC_slow_decay_and_diagnostics,A32A,96 36,LDAA,$36,direct,R,8,0036
+IAC_slow_decay_and_diagnostics,A32C,85 02,BITA,#$02,immediate,,,
+IAC_slow_decay_and_diagnostics,A32E,27 2C,BEQ,$A35C,relative,,,
+IAC_slow_decay_and_diagnostics,A330,85 0C,BITA,#$0C,immediate,,,
+IAC_slow_decay_and_diagnostics,A332,26 28,BNE,$A35C,relative,,,
+IAC_slow_decay_and_diagnostics,A334,85 01,BITA,#$01,immediate,,,
+IAC_slow_decay_and_diagnostics,A336,26 13,BNE,$A34B,relative,,,
+IAC_slow_decay_and_diagnostics,A338,B6 02 A9,LDAA,$02A9,extended,R,8,02A9
+IAC_slow_decay_and_diagnostics,A33B,BB 4F C7,ADDA,$4FC7,extended,R,8,4FC7
+IAC_slow_decay_and_diagnostics,A33E,25 1C,BCS,$A35C,relative,,,
+IAC_slow_decay_and_diagnostics,A340,B1 02 A7,CMPA,$02A7,extended,R,8,02A7
+IAC_slow_decay_and_diagnostics,A343,24 17,BCC,$A35C,relative,,,
+IAC_slow_decay_and_diagnostics,A345,5F,CLRB,,inherent,,,
+IAC_slow_decay_and_diagnostics,A346,FD 02 A7,STD,$02A7,extended,W,16,02A7
+IAC_slow_decay_and_diagnostics,A349,20 11,BRA,$A35C,relative,,,
+IAC_slow_decay_and_diagnostics,A34B,B6 02 AC,LDAA,$02AC,extended,R,8,02AC
+IAC_slow_decay_and_diagnostics,A34E,BB 4F C8,ADDA,$4FC8,extended,R,8,4FC8
+IAC_slow_decay_and_diagnostics,A351,25 09,BCS,$A35C,relative,,,
+IAC_slow_decay_and_diagnostics,A353,B1 02 AA,CMPA,$02AA,extended,R,8,02AA
+IAC_slow_decay_and_diagnostics,A356,24 04,BCC,$A35C,relative,,,
+IAC_slow_decay_and_diagnostics,A358,5F,CLRB,,inherent,,,
+IAC_slow_decay_and_diagnostics,A359,FD 02 AA,STD,$02AA,extended,W,16,02AA
+IAC_slow_decay_and_diagnostics,A35C,B6 4E 8F,LDAA,$4E8F,extended,R,8,4E8F
+IAC_slow_decay_and_diagnostics,A35F,85 04,BITA,#$04,immediate,,,
+IAC_slow_decay_and_diagnostics,A361,27 35,BEQ,$A398,relative,,,
+IAC_slow_decay_and_diagnostics,A363,B6 5B 02,LDAA,$5B02,extended,R,8,5B02
+IAC_slow_decay_and_diagnostics,A366,85 04,BITA,#$04,immediate,,,
+IAC_slow_decay_and_diagnostics,A368,27 2E,BEQ,$A398,relative,,,
+IAC_slow_decay_and_diagnostics,A36A,12 39 04 2A,BRSET,"$39,#$04,$A398",direct,R,8,0039
+IAC_slow_decay_and_diagnostics,A36E,12 39 03 02,BRSET,"$39,#$03,$A374",direct,R,8,0039
+IAC_slow_decay_and_diagnostics,A372,20 24,BRA,$A398,relative,,,
+IAC_slow_decay_and_diagnostics,A374,B6 02 B1,LDAA,$02B1,extended,R,8,02B1
+IAC_slow_decay_and_diagnostics,A377,B0 02 B2,SUBA,$02B2,extended,R,8,02B2
+IAC_slow_decay_and_diagnostics,A37A,25 05,BCS,$A381,relative,,,
+IAC_slow_decay_and_diagnostics,A37C,B1 50 D6,CMPA,$50D6,extended,R,8,50D6
+IAC_slow_decay_and_diagnostics,A37F,24 0E,BCC,$A38F,relative,,,
+IAC_slow_decay_and_diagnostics,A381,12 09 40 05,BRSET,"$09,#$40,$A38A",direct,R,8,0009
+IAC_slow_decay_and_diagnostics,A385,14 09 40,BSET,"$09,#$40",direct,RW,8,0009
+IAC_slow_decay_and_diagnostics,A388,20 0B,BRA,$A395,relative,,,
+IAC_slow_decay_and_diagnostics,A38A,14 18 04,BSET,"$18,#$04",direct,RW,8,0018
+IAC_slow_decay_and_diagnostics,A38D,20 06,BRA,$A395,relative,,,
+IAC_slow_decay_and_diagnostics,A38F,15 18 04,BCLR,"$18,#$04",direct,RW,8,0018
+IAC_slow_decay_and_diagnostics,A392,15 09 40,BCLR,"$09,#$40",direct,RW,8,0009
+IAC_slow_decay_and_diagnostics,A395,14 39 04,BSET,"$39,#$04",direct,RW,8,0039
+IAC_slow_decay_and_diagnostics,A398,12 02 20 6A,BRSET,"$02,#$20,$A406",direct,R,8,0002
+IAC_slow_decay_and_diagnostics,A39C,B6 5B 02,LDAA,$5B02,extended,R,8,5B02
+IAC_slow_decay_and_diagnostics,A39F,85 08,BITA,#$08,immediate,,,
+IAC_slow_decay_and_diagnostics,A3A1,27 43,BEQ,$A3E6,relative,,,
+IAC_slow_decay_and_diagnostics,A3A3,12 16 10 39,BRSET,"$16,#$10,$A3E0",direct,R,8,0016
+IAC_slow_decay_and_diagnostics,A3A7,12 16 01 35,BRSET,"$16,#$01,$A3E0",direct,R,8,0016
+IAC_slow_decay_and_diagnostics,A3AB,12 17 80 31,BRSET,"$17,#$80,$A3E0",direct,R,8,0017
+IAC_slow_decay_and_diagnostics,A3AF,12 3E 04 2D,BRSET,"$3E,#$04,$A3E0",direct,R,8,003E
+IAC_slow_decay_and_diagnostics,A3B3,13 36 08 29,BRCLR,"$36,#$08,$A3E0",direct,R,8,0036
+IAC_slow_decay_and_diagnostics,A3B7,12 09 40 25,BRSET,"$09,#$40,$A3E0",direct,R,8,0009
+IAC_slow_decay_and_diagnostics,A3BB,FE 02 AD,LDX,$02AD,extended,R,16,02AD
+IAC_slow_decay_and_diagnostics,A3BE,26 20,BNE,$A3E0,relative,,,
+IAC_slow_decay_and_diagnostics,A3C0,FE 02 A3,LDX,$02A3,extended,R,16,02A3
+IAC_slow_decay_and_diagnostics,A3C3,26 1B,BNE,$A3E0,relative,,,
+IAC_slow_decay_and_diagnostics,A3C5,F6 08 59,LDAB,$0859,extended,R,8,0859
+IAC_slow_decay_and_diagnostics,A3C8,F1 50 C0,CMPB,$50C0,extended,R,8,50C0
+IAC_slow_decay_and_diagnostics,A3CB,23 13,BLS,$A3E0,relative,,,
+IAC_slow_decay_and_diagnostics,A3CD,F6 08 8E,LDAB,$088E,extended,R,8,088E
+IAC_slow_decay_and_diagnostics,A3D0,F1 50 C1,CMPB,$50C1,extended,R,8,50C1
+IAC_slow_decay_and_diagnostics,A3D3,22 06,BHI,$A3DB,relative,,,
+IAC_slow_decay_and_diagnostics,A3D5,5C,INCB,,inherent,,,
+IAC_slow_decay_and_diagnostics,A3D6,F7 08 8E,STAB,$088E,extended,W,8,088E
+IAC_slow_decay_and_diagnostics,A3D9,20 0B,BRA,$A3E6,relative,,,
+IAC_slow_decay_and_diagnostics,A3DB,14 18 08,BSET,"$18,#$08",direct,RW,8,0018
+IAC_slow_decay_and_diagnostics,A3DE,20 06,BRA,$A3E6,relative,,,
+IAC_slow_decay_and_diagnostics,A3E0,7F 08 8E,CLR,$088E,extended,W,8,088E
+IAC_slow_decay_and_diagnostics,A3E3,15 18 08,BCLR,"$18,#$08",direct,RW,8,0018
+IAC_reset_request,A3E6,12 09 01 1C,BRSET,"$09,#$01,$A406",direct,R,8,0009
+IAC_reset_request,A3EA,12 09 04 18,BRSET,"$09,#$04,$A406",direct,R,8,0009
+IAC_reset_request,A3EE,12 44 10 08,BRSET,"$44,#$10,$A3FA",direct,R,8,0044
+IAC_reset_request,A3F2,B6 02 84,LDAA,$0284,extended,R,8,0284
+IAC_reset_request,A3F5,B1 4E B7,CMPA,$4EB7,extended,R,8,4EB7
+IAC_reset_request,A3F8,25 0C,BCS,$A406,relative,,,
+IAC_reset_request,A3FA,14 09 01,BSET,"$09,#$01",direct,RW,8,0009
+IAC_reset_request,A3FD,15 36 1C,BCLR,"$36,#$1C",direct,RW,8,0036
+IAC_reset_request,A400,4F,CLRA,,inherent,,,
+IAC_reset_request,A401,97 08,STAA,$08,direct,W,8,0008
+IAC_reset_request,A403,4A,DECA,,inherent,,,
+IAC_reset_request,A404,97 07,STAA,$07,direct,W,8,0007
+IAC_reset_request,A406,39,RTS,,inherent,,,
+IAC_service_override,A407,12 44 10 5A,BRSET,"$44,#$10,$A465",direct,R,8,0044
+IAC_service_override,A40B,12 09 01 56,BRSET,"$09,#$01,$A465",direct,R,8,0009
+IAC_service_override,A40F,F6 03 91,LDAB,$0391,extended,R,8,0391
+IAC_service_override,A412,C5 20,BITB,#$20,immediate,,,
+IAC_service_override,A414,27 04,BEQ,$A41A,relative,,,
+IAC_service_override,A416,38,PULX,,inherent,,,
+IAC_service_override,A417,7E A3 FA,JMP,$A3FA,extended,,,
+IAC_service_override,A41A,F6 03 95,LDAB,$0395,extended,R,8,0395
+IAC_service_override,A41D,C4 01,ANDB,#$01,immediate,,,
+IAC_service_override,A41F,B6 03 8F,LDAA,$038F,extended,R,8,038F
+IAC_service_override,A422,84 40,ANDA,#$40,immediate,,,
+IAC_service_override,A424,1B,ABA,,inherent,,,
+IAC_service_override,A425,27 3E,BEQ,$A465,relative,,,
+IAC_service_override,A427,81 41,CMPA,#$41,immediate,,,
+IAC_service_override,A429,27 3A,BEQ,$A465,relative,,,
+IAC_service_override,A42B,85 01,BITA,#$01,immediate,,,
+IAC_service_override,A42D,27 1C,BEQ,$A44B,relative,,,
+IAC_service_override,A42F,B6 03 95,LDAA,$0395,extended,R,8,0395
+IAC_service_override,A432,85 02,BITA,#$02,immediate,,,
+IAC_service_override,A434,26 0A,BNE,$A440,relative,,,
+IAC_service_override,A436,15 36 0C,BCLR,"$36,#$0C",direct,RW,8,0036
+IAC_service_override,A439,38,PULX,,inherent,,,
+IAC_service_override,A43A,B6 03 96,LDAA,$0396,extended,R,8,0396
+IAC_service_override,A43D,7E 98 99,JMP,$9899,extended,,,
+IAC_service_override,A440,B6 03 96,LDAA,$0396,extended,R,8,0396
+IAC_service_override,A443,B7 08 57,STAA,$0857,extended,W,8,0857
+IAC_service_override,A446,14 38 40,BSET,"$38,#$40",direct,RW,8,0038
+IAC_service_override,A449,20 1A,BRA,$A465,relative,,,
+IAC_service_override,A44B,38,PULX,,inherent,,,
+IAC_service_override,A44C,B6 03 90,LDAA,$0390,extended,R,8,0390
+IAC_service_override,A44F,85 40,BITA,#$40,immediate,,,
+IAC_service_override,A451,27 09,BEQ,$A45C,relative,,,
+IAC_service_override,A453,BD 92 3C,JSR,$923C,extended,,,
+IAC_service_override,A456,14 37 04,BSET,"$37,#$04",direct,RW,8,0037
+IAC_service_override,A459,7E 98 9B,JMP,$989B,extended,,,
+IAC_service_override,A45C,BD 92 22,JSR,$9222,extended,,,
+IAC_service_override,A45F,15 37 04,BCLR,"$37,#$04",direct,RW,8,0037
+IAC_service_override,A462,7E 98 9B,JMP,$989B,extended,,,
+IAC_service_override,A465,39,RTS,,inherent,,,
+VSS_sample,7BF5,0F,SEI,,inherent,,,
+VSS_sample,7BF6,FC 3F FA,LDD,$3FFA,extended,R,16,3FFA
+VSS_sample,7BF9,DD 73,STD,$73,direct,W,16,0073
+VSS_sample,7BFB,0E,CLI,,inherent,,,
+VSS_sample,7BFC,85 04,BITA,#$04,immediate,,,
+VSS_sample,7BFE,27 0F,BEQ,$7C0F,relative,,,
+VSS_sample,7C00,FC 3F C4,LDD,$3FC4,extended,R,16,3FC4
+VSS_sample,7C03,1A B3 08 0D,CPD,$080D,extended,R,16,080D
+VSS_sample,7C07,27 06,BEQ,$7C0F,relative,,,
+VSS_sample,7C09,7C 08 0C,INC,$080C,extended,RW,8,080C
+VSS_sample,7C0C,FD 08 0D,STD,$080D,extended,W,16,080D
+VSS_calculation_and_filter,D4A3,F6 08 0C,LDAB,$080C,extended,R,8,080C
+VSS_calculation_and_filter,D4A6,26 0E,BNE,$D4B6,relative,,,
+VSS_calculation_and_filter,D4A8,4F,CLRA,,inherent,,,
+VSS_calculation_and_filter,D4A9,F6 08 11,LDAB,$0811,extended,R,8,0811
+VSS_calculation_and_filter,D4AC,27 03,BEQ,$D4B1,relative,,,
+VSS_calculation_and_filter,D4AE,5A,DECB,,inherent,,,
+VSS_calculation_and_filter,D4AF,26 25,BNE,$D4D6,relative,,,
+VSS_calculation_and_filter,D4B1,FD 08 12,STD,$0812,extended,W,16,0812
+VSS_calculation_and_filter,D4B4,20 20,BRA,$D4D6,relative,,,
+VSS_calculation_and_filter,D4B6,B6 08 11,LDAA,$0811,extended,R,8,0811
+VSS_calculation_and_filter,D4B9,27 10,BEQ,$D4CB,relative,,,
+VSS_calculation_and_filter,D4BB,86 E6,LDAA,#$E6,immediate,,,
+VSS_calculation_and_filter,D4BD,3D,MUL,,inherent,,,
+VSS_calculation_and_filter,D4BE,05,ASLD,,inherent,,,
+VSS_calculation_and_filter,D4BF,8F,XGDX,,inherent,,,
+VSS_calculation_and_filter,D4C0,FC 08 0D,LDD,$080D,extended,R,16,080D
+VSS_calculation_and_filter,D4C3,B3 08 0F,SUBD,$080F,extended,R,16,080F
+VSS_calculation_and_filter,D4C6,8F,XGDX,,inherent,,,
+VSS_calculation_and_filter,D4C7,03,FDIV,,inherent,,,
+VSS_calculation_and_filter,D4C8,FF 08 12,STX,$0812,extended,W,16,0812
+VSS_calculation_and_filter,D4CB,7F 08 0C,CLR,$080C,extended,W,8,080C
+VSS_calculation_and_filter,D4CE,FE 08 0D,LDX,$080D,extended,R,16,080D
+VSS_calculation_and_filter,D4D1,FF 08 0F,STX,$080F,extended,W,16,080F
+VSS_calculation_and_filter,D4D4,C6 27,LDAB,#$27,immediate,,,
+VSS_calculation_and_filter,D4D6,F7 08 11,STAB,$0811,extended,W,8,0811
+VSS_calculation_and_filter,D4D9,39,RTS,,inherent,,,
+VSS_calculation_and_filter,D4DA,FC 08 12,LDD,$0812,extended,R,16,0812
+VSS_calculation_and_filter,D4DD,FE 02 84,LDX,$0284,extended,R,16,0284
+VSS_calculation_and_filter,D4E0,18 CE 4E 8E,LDY,#$4E8E,immediate,,,
+VSS_calculation_and_filter,D4E4,BD F4 36,JSR,$F436,extended,,,
+VSS_calculation_and_filter,D4E7,FD 02 84,STD,$0284,extended,W,16,0284
+VSS_calculation_and_filter,D4EA,39,RTS,,inherent,,,
+RPM_ratio,82ED,96 67,LDAA,$67,direct,R,8,0067
+RPM_ratio,82EF,B1 45 16,CMPA,$4516,extended,R,8,4516
+RPM_ratio,82F2,25 17,BCS,$830B,relative,,,
+RPM_ratio,82F4,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+RPM_ratio,82F7,B1 48 DB,CMPA,$48DB,extended,R,8,48DB
+RPM_ratio,82FA,22 0F,BHI,$830B,relative,,,
+RPM_ratio,82FC,B6 02 84,LDAA,$0284,extended,R,8,0284
+RPM_ratio,82FF,B1 48 DC,CMPA,$48DC,extended,R,8,48DC
+RPM_ratio,8302,22 07,BHI,$830B,relative,,,
+RPM_ratio,8304,96 06,LDAA,$06,direct,R,8,0006
+RPM_ratio,8306,B1 48 DD,CMPA,$48DD,extended,R,8,48DD
+RPM_ratio,8309,24 06,BCC,$8311,relative,,,
+RPM_ratio,830B,86 80,LDAA,#$80,immediate,,,
+RPM_ratio,830D,97 6C,STAA,$6C,direct,W,8,006C
+RPM_ratio,830F,20 31,BRA,$8342,relative,,,
+RPM_ratio,8311,DC 6A,LDD,$6A,direct,R,16,006A
+RPM_ratio,8313,04,LSRD,,inherent,,,
+RPM_ratio,8314,DE 68,LDX,$68,direct,R,16,0068
+RPM_ratio,8316,03,FDIV,,inherent,,,
+RPM_ratio,8317,8F,XGDX,,inherent,,,
+RPM_ratio,8318,C3 00 80,ADDD,#$0080,immediate,,,
+RPM_ratio,831B,24 02,BCC,$831F,relative,,,
+RPM_ratio,831D,86 FF,LDAA,#$FF,immediate,,,
+RPM_ratio,831F,97 6C,STAA,$6C,direct,W,8,006C
+RPM_ratio,8321,B1 45 1A,CMPA,$451A,extended,R,8,451A
+RPM_ratio,8324,25 05,BCS,$832B,relative,,,
+RPM_ratio,8326,B6 45 1A,LDAA,$451A,extended,R,8,451A
+RPM_ratio,8329,20 08,BRA,$8333,relative,,,
+RPM_ratio,832B,B1 45 19,CMPA,$4519,extended,R,8,4519
+RPM_ratio,832E,24 03,BCC,$8333,relative,,,
+RPM_ratio,8330,B6 45 19,LDAA,$4519,extended,R,8,4519
+RPM_ratio,8333,CE 02 4E,LDX,#$024E,immediate,,,
+RPM_ratio,8336,BD F5 50,JSR,$F550,extended,,,
+RPM_ratio,8339,05,ASLD,,inherent,,,
+RPM_ratio,833A,24 03,BCC,$833F,relative,,,
+RPM_ratio,833C,CC FF FF,LDD,#$FFFF,immediate,,,
+RPM_ratio,833F,FD 02 4E,STD,$024E,extended,W,16,024E
+REF_RPM_history,7765,FC 3F FA,LDD,$3FFA,extended,R,16,3FFA
+REF_RPM_history,7768,9A 73,ORAA,$73,direct,R,8,0073
+REF_RPM_history,776A,15 73 40,BCLR,"$73,#$40",direct,RW,8,0073
+REF_RPM_history,776D,85 40,BITA,#$40,immediate,,,
+REF_RPM_history,776F,27 55,BEQ,$77C6,relative,,,
+REF_RPM_history,7771,D6 67,LDAB,$67,direct,R,8,0067
+REF_RPM_history,7773,F1 45 16,CMPB,$4516,extended,R,8,4516
+REF_RPM_history,7776,25 16,BCS,$778E,relative,,,
+REF_RPM_history,7778,F6 01 D9,LDAB,$01D9,extended,R,8,01D9
+REF_RPM_history,777B,F1 48 DA,CMPB,$48DA,extended,R,8,48DA
+REF_RPM_history,777E,22 0E,BHI,$778E,relative,,,
+REF_RPM_history,7780,DC 68,LDD,$68,direct,R,16,0068
+REF_RPM_history,7782,CE 00 6A,LDX,#$006A,immediate,,,
+REF_RPM_history,7785,18 CE 45 18,LDY,#$4518,immediate,,,
+REF_RPM_history,7789,BD F4 79,JSR,$F479,extended,,,
+REF_RPM_history,778C,20 02,BRA,$7790,relative,,,
+REF_RPM_history,778E,DC 68,LDD,$68,direct,R,16,0068
+REF_RPM_history,7790,DD 6A,STD,$6A,direct,W,16,006A
+crank_RPM_history,7535,DC 68,LDD,$68,direct,R,16,0068
+crank_RPM_history,7537,DD 6A,STD,$6A,direct,W,16,006A
+fuel_RPM_VSS_limits,8058,12 16 10 40,BRSET,"$16,#$10,$809C",direct,R,8,0016
+fuel_RPM_VSS_limits,805C,CE 40 0F,LDX,#$400F,immediate,,,
+fuel_RPM_VSS_limits,805F,1E 00 80 10,BRSET,"$00,X,#$80,$8073",indexed_x,R,8,
+fuel_RPM_VSS_limits,8063,B6 51 55,LDAA,$5155,extended,R,8,5155
+fuel_RPM_VSS_limits,8066,12 41 20 06,BRSET,"$41,#$20,$8070",direct,R,8,0041
+fuel_RPM_VSS_limits,806A,B6 08 4D,LDAA,$084D,extended,R,8,084D
+fuel_RPM_VSS_limits,806D,27 2D,BEQ,$809C,relative,,,
+fuel_RPM_VSS_limits,806F,4A,DECA,,inherent,,,
+fuel_RPM_VSS_limits,8070,B7 08 4D,STAA,$084D,extended,W,8,084D
+fuel_RPM_VSS_limits,8073,B6 08 12,LDAA,$0812,extended,R,8,0812
+fuel_RPM_VSS_limits,8076,B1 51 56,CMPA,$5156,extended,R,8,5156
+fuel_RPM_VSS_limits,8079,22 21,BHI,$809C,relative,,,
+fuel_RPM_VSS_limits,807B,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+fuel_RPM_VSS_limits,807E,B1 51 59,CMPA,$5159,extended,R,8,5159
+fuel_RPM_VSS_limits,8081,23 19,BLS,$809C,relative,,,
+fuel_RPM_VSS_limits,8083,B6 51 57,LDAA,$5157,extended,R,8,5157
+fuel_RPM_VSS_limits,8086,13 53 08 03,BRCLR,"$53,#$08,$808D",direct,R,8,0053
+fuel_RPM_VSS_limits,808A,B6 51 58,LDAA,$5158,extended,R,8,5158
+fuel_RPM_VSS_limits,808D,91 61,CMPA,$61,direct,R,8,0061
+fuel_RPM_VSS_limits,808F,25 05,BCS,$8096,relative,,,
+fuel_RPM_VSS_limits,8091,15 53 08,BCLR,"$53,#$08",direct,RW,8,0053
+fuel_RPM_VSS_limits,8094,20 06,BRA,$809C,relative,,,
+fuel_RPM_VSS_limits,8096,14 53 08,BSET,"$53,#$08",direct,RW,8,0053
+fuel_RPM_VSS_limits,8099,7E 82 1D,JMP,$821D,extended,,,
+fuel_RPM_VSS_limits,809C,CE 40 0F,LDX,#$400F,immediate,,,
+fuel_RPM_VSS_limits,809F,1F 00 01 04,BRCLR,"$00,X,#$01,$80A7",indexed_x,R,8,
+fuel_RPM_VSS_limits,80A3,13 6F 34 5F,BRCLR,"$6F,#$34,$8106",direct,R,8,006F
+fuel_RPM_VSS_limits,80A7,CE 49 67,LDX,#$4967,immediate,,,
+fuel_RPM_VSS_limits,80AA,18 CE 49 6B,LDY,#$496B,immediate,,,
+fuel_RPM_VSS_limits,80AE,13 46 10 03,BRCLR,"$46,#$10,$80B5",direct,R,8,0046
+fuel_RPM_VSS_limits,80B2,08,INX,,inherent,,,
+fuel_RPM_VSS_limits,80B3,18 08,INY,,inherent,,,
+fuel_RPM_VSS_limits,80B5,12 16 10 04,BRSET,"$16,#$10,$80BD",direct,R,8,0016
+fuel_RPM_VSS_limits,80B9,13 99 03 02,BRCLR,"$99,#$03,$80BF",direct,R,8,0099
+fuel_RPM_VSS_limits,80BD,08,INX,,inherent,,,
+fuel_RPM_VSS_limits,80BE,08,INX,,inherent,,,
+fuel_RPM_VSS_limits,80BF,D6 62,LDAB,$62,direct,R,8,0062
+fuel_RPM_VSS_limits,80C1,E1 00,CMPB,"$00,X",indexed_x,R,8,
+fuel_RPM_VSS_limits,80C3,22 1D,BHI,$80E2,relative,,,
+fuel_RPM_VSS_limits,80C5,F6 02 84,LDAB,$0284,extended,R,8,0284
+fuel_RPM_VSS_limits,80C8,18 E1 00,CMPB,"$00,Y",indexed_y,R,8,
+fuel_RPM_VSS_limits,80CB,23 39,BLS,$8106,relative,,,
+fuel_RPM_VSS_limits,80CD,D6 62,LDAB,$62,direct,R,8,0062
+fuel_RPM_VSS_limits,80CF,F1 49 66,CMPB,$4966,extended,R,8,4966
+fuel_RPM_VSS_limits,80D2,23 32,BLS,$8106,relative,,,
+fuel_RPM_VSS_limits,80D4,F6 02 6A,LDAB,$026A,extended,R,8,026A
+fuel_RPM_VSS_limits,80D7,F1 49 65,CMPB,$4965,extended,R,8,4965
+fuel_RPM_VSS_limits,80DA,24 06,BCC,$80E2,relative,,,
+fuel_RPM_VSS_limits,80DC,5C,INCB,,inherent,,,
+fuel_RPM_VSS_limits,80DD,F7 02 6A,STAB,$026A,extended,W,8,026A
+fuel_RPM_VSS_limits,80E0,20 27,BRA,$8109,relative,,,
+fuel_RPM_VSS_limits,80E2,14 46 10,BSET,"$46,#$10",direct,RW,8,0046
+fuel_RPM_VSS_limits,80E5,CC 00 00,LDD,#$0000,immediate,,,
+fuel_RPM_VSS_limits,80E8,FD 02 4E,STD,$024E,extended,W,16,024E
+fuel_RPM_VSS_limits,80EB,7E 82 1D,JMP,$821D,extended,,,
+fuel_limit_counter_exits,8106,7F 02 6A,CLR,$026A,extended,W,8,026A
+fuel_limit_counter_exits,8109,15 46 10,BCLR,"$46,#$10",direct,RW,8,0046
+VSS_fault_local,DDBA,15 16 10,BCLR,"$16,#$10",direct,RW,8,0016
+VSS_fault_local,DDBD,96 6F,LDAA,$6F,direct,R,8,006F
+VSS_fault_local,DDBF,85 48,BITA,#$48,immediate,,,
+VSS_fault_local,DDC1,26 2B,BNE,$DDEE,relative,,,
+VSS_fault_local,DDC3,B6 02 84,LDAA,$0284,extended,R,8,0284
+VSS_fault_local,DDC6,B1 4E 3A,CMPA,$4E3A,extended,R,8,4E3A
+VSS_fault_local,DDC9,22 23,BHI,$DDEE,relative,,,
+VSS_fault_local,DDCB,B6 08 17,LDAA,$0817,extended,R,8,0817
+VSS_fault_local,DDCE,B1 4E 3F,CMPA,$4E3F,extended,R,8,4E3F
+VSS_fault_local,DDD1,22 31,BHI,$DE04,relative,,,
+VSS_fault_local,DDD3,B6 01 C6,LDAA,$01C6,extended,R,8,01C6
+VSS_fault_local,DDD6,B1 4E 3D,CMPA,$4E3D,extended,R,8,4E3D
+VSS_fault_local,DDD9,24 13,BCC,$DDEE,relative,,,
+VSS_fault_local,DDDB,96 06,LDAA,$06,direct,R,8,0006
+VSS_fault_local,DDDD,B1 4E 3E,CMPA,$4E3E,extended,R,8,4E3E
+VSS_fault_local,DDE0,23 0C,BLS,$DDEE,relative,,,
+VSS_fault_local,DDE2,96 62,LDAA,$62,direct,R,8,0062
+VSS_fault_local,DDE4,B1 4E 3B,CMPA,$4E3B,extended,R,8,4E3B
+VSS_fault_local,DDE7,23 05,BLS,$DDEE,relative,,,
+VSS_fault_local,DDE9,B1 4E 3C,CMPA,$4E3C,extended,R,8,4E3C
+VSS_fault_local,DDEC,23 05,BLS,$DDF3,relative,,,
+VSS_fault_local,DDEE,7F 08 17,CLR,$0817,extended,W,8,0817
+VSS_fault_local,DDF1,20 14,BRA,$DE07,relative,,,
+VSS_fault_local,DDF3,B6 01 D9,LDAA,$01D9,extended,R,8,01D9
+VSS_fault_local,DDF6,B1 4E 40,CMPA,$4E40,extended,R,8,4E40
+VSS_fault_local,DDF9,24 F3,BCC,$DDEE,relative,,,
+VSS_fault_local,DDFB,96 6F,LDAA,$6F,direct,R,8,006F
+VSS_fault_local,DDFD,2A 08,BPL,$DE07,relative,,,
+VSS_fault_local,DDFF,7C 08 17,INC,$0817,extended,RW,8,0817
+VSS_fault_local,DE02,20 03,BRA,$DE07,relative,,,
+VSS_fault_local,DE04,14 16 10,BSET,"$16,#$10",direct,RW,8,0016
+output_speed_fault_local,DE07,B6 40 0F,LDAA,$400F,extended,R,8,400F
+output_speed_fault_local,DE0A,85 80,BITA,#$80,immediate,,,
+output_speed_fault_local,DE0C,27 2C,BEQ,$DE3A,relative,,,
+output_speed_fault_local,DE0E,B6 5B 01,LDAA,$5B01,extended,R,8,5B01
+output_speed_fault_local,DE11,85 20,BITA,#$20,immediate,,,
+output_speed_fault_local,DE13,27 25,BEQ,$DE3A,relative,,,
+output_speed_fault_local,DE15,FC 08 49,LDD,$0849,extended,R,16,0849
+output_speed_fault_local,DE18,27 08,BEQ,$DE22,relative,,,
+output_speed_fault_local,DE1A,15 17 20,BCLR,"$17,#$20",direct,RW,8,0017
+output_speed_fault_local,DE1D,7F 08 1C,CLR,$081C,extended,W,8,081C
+output_speed_fault_local,DE20,20 18,BRA,$DE3A,relative,,,
+output_speed_fault_local,DE22,B6 08 1C,LDAA,$081C,extended,R,8,081C
+output_speed_fault_local,DE25,B1 4E 43,CMPA,$4E43,extended,R,8,4E43
+output_speed_fault_local,DE28,23 05,BLS,$DE2F,relative,,,
+output_speed_fault_local,DE2A,14 17 20,BSET,"$17,#$20",direct,RW,8,0017
+output_speed_fault_local,DE2D,20 0B,BRA,$DE3A,relative,,,
+output_speed_fault_local,DE2F,B6 02 84,LDAA,$0284,extended,R,8,0284
+output_speed_fault_local,DE32,B1 4E 44,CMPA,$4E44,extended,R,8,4E44
+output_speed_fault_local,DE35,23 03,BLS,$DE3A,relative,,,
+output_speed_fault_local,DE37,7C 08 1C,INC,$081C,extended,RW,8,081C
+governor_fault_local,DE3A,15 18 80,BCLR,"$18,#$80",direct,RW,8,0018
+governor_fault_local,DE3D,CE 40 0F,LDX,#$400F,immediate,,,
+governor_fault_local,DE40,1F 00 01 12,BRCLR,"$00,X,#$01,$DE56",indexed_x,R,8,
+governor_fault_local,DE44,12 6F 10 08,BRSET,"$6F,#$10,$DE50",direct,R,8,006F
+governor_fault_local,DE48,B6 02 88,LDAA,$0288,extended,R,8,0288
+governor_fault_local,DE4B,B1 4E 4B,CMPA,$4E4B,extended,R,8,4E4B
+governor_fault_local,DE4E,25 06,BCS,$DE56,relative,,,
+governor_fault_local,DE50,14 18 80,BSET,"$18,#$80",direct,RW,8,0018
+governor_fault_local,DE53,14 6F 10,BSET,"$6F,#$10",direct,RW,8,006F
+board_output_service,F3EE,0F,SEI,,inherent,,,
+board_output_service,F3EF,FC 3F FC,LDD,$3FFC,extended,R,16,3FFC
+board_output_service,F3F2,BD F3 ED,JSR,$F3ED,extended,,,
+board_output_service,F3F5,CA 08,ORAB,#$08,immediate,,,
+board_output_service,F3F7,13 72 80 02,BRCLR,"$72,#$80,$F3FD",direct,R,8,0072
+board_output_service,F3FB,C4 F7,ANDB,#$F7,immediate,,,
+board_output_service,F3FD,FD 3F FC,STD,$3FFC,extended,W,16,3FFC
+board_output_service,F400,B6 30 60,LDAA,$3060,extended,R,8,3060
+board_output_service,F403,84 6F,ANDA,#$6F,immediate,,,
+board_output_service,F405,D6 4B,LDAB,$4B,direct,R,8,004B
+board_output_service,F407,C4 90,ANDB,#$90,immediate,,,
+board_output_service,F409,F7 30 60,STAB,$3060,extended,W,8,3060
+board_output_service,F40C,1B,ABA,,inherent,,,
+board_output_service,F40D,97 4B,STAA,$4B,direct,W,8,004B
+board_output_service,F40F,96 4C,LDAA,$4C,direct,R,8,004C
+board_output_service,F411,B7 30 62,STAA,$3062,extended,W,8,3062
+board_output_service,F414,B6 30 64,LDAA,$3064,extended,R,8,3064
+board_output_service,F417,97 4D,STAA,$4D,direct,W,8,004D
+board_output_service,F419,96 4E,LDAA,$4E,direct,R,8,004E
+board_output_service,F41B,B7 30 67,STAA,$3067,extended,W,8,3067
+board_output_service,F41E,0E,CLI,,inherent,,,
+board_output_service,F41F,39,RTS,,inherent,,,
+retained_area_validation,720C,BD F3 26,JSR,$F326,extended,,,
+retained_area_validation,720F,91 15,CMPA,$15,direct,R,8,0015
+retained_area_validation,7211,27 29,BEQ,$723C,relative,,,
+retained_area_validation,7213,CE 00 00,LDX,#$0000,immediate,,,
+retained_area_validation,7216,CC 00 0B,LDD,#$000B,immediate,,,
+retained_area_validation,7219,BD F2 FD,JSR,$F2FD,extended,,,
+retained_area_validation,721C,CE 00 0B,LDX,#$000B,immediate,,,
+retained_area_validation,721F,CC 00 2B,LDD,#$002B,immediate,,,
+retained_area_validation,7222,BD F2 FD,JSR,$F2FD,extended,,,
+retained_area_validation,7225,CE 02 9D,LDX,#$029D,immediate,,,
+retained_area_validation,7228,CC 00 B1,LDD,#$00B1,immediate,,,
+retained_area_validation,722B,BD F2 FD,JSR,$F2FD,extended,,,
+retained_area_validation,722E,B6 5B 24,LDAA,$5B24,extended,R,8,5B24
+retained_area_validation,7231,C6 80,LDAB,#$80,immediate,,,
+retained_area_validation,7233,FD 02 F6,STD,$02F6,extended,W,16,02F6
+retained_area_validation,7236,BD F2 80,JSR,$F280,extended,,,
+retained_area_validation,7239,14 46 40,BSET,"$46,#$40",direct,RW,8,0046
+retained_checksum,F326,CE 00 14,LDX,#$0014,immediate,,,
+retained_checksum,F329,C6 0A,LDAB,#$0A,immediate,,,
+retained_checksum,F32B,4F,CLRA,,inherent,,,
+retained_checksum,F32C,A0 00,SUBA,"$00,X",indexed_x,R,8,
+retained_checksum,F32E,09,DEX,,inherent,,,
+retained_checksum,F32F,5A,DECB,,inherent,,,
+retained_checksum,F330,26 FA,BNE,$F32C,relative,,,
+retained_checksum,F332,39,RTS,,inherent,,,
+boot_output_shadow,7441,86 55,LDAA,#$55,immediate,,,
+boot_output_shadow,7443,B7 30 3A,STAA,$303A,extended,W,8,303A
+boot_output_shadow,7446,86 AA,LDAA,#$AA,immediate,,,
+boot_output_shadow,7448,B7 30 3A,STAA,$303A,extended,W,8,303A
+boot_output_shadow,744B,86 40,LDAA,#$40,immediate,,,
+boot_output_shadow,744D,97 4C,STAA,$4C,direct,W,8,004C
+TCC_shared_governor_output,CDCE,CE 40 0E,LDX,#$400E,immediate,,,
+TCC_shared_governor_output,CDD1,1F 00 04 0D,BRCLR,"$00,X,#$04,$CDE2",indexed_x,R,8,
+TCC_shared_governor_output,CDD5,CC 1F FF,LDD,#$1FFF,immediate,,,
+TCC_shared_governor_output,CDD8,12 53 04 03,BRSET,"$53,#$04,$CDDF",direct,R,8,0053
+TCC_shared_governor_output,CDDC,CC 1F 00,LDD,#$1F00,immediate,,,
+TCC_shared_governor_output,CDDF,FD 30 6C,STD,$306C,extended,W,16,306C
+diagnostic_flag_mirrors,7AF1,15 6F 24,BCLR,"$6F,#$24",direct,RW,8,006F
+diagnostic_flag_mirrors,7AF4,13 16 01 03,BRCLR,"$16,#$01,$7AFB",direct,R,8,0016
+diagnostic_flag_mirrors,7AF8,14 6F 04,BSET,"$6F,#$04",direct,RW,8,006F
+diagnostic_flag_mirrors,7AFB,13 17 80 03,BRCLR,"$17,#$80,$7B02",direct,R,8,0017
+diagnostic_flag_mirrors,7AFF,14 6F 20,BSET,"$6F,#$20",direct,RW,8,006F
+diagnostic_flag_mirrors,7B02,39,RTS,,inherent,,,
+tick_step_order,797A,BD 7B 6D,JSR,$7B6D,extended,,,
+tick_step_order,797D,13 4F 04 08,BRCLR,"$4F,#$04,$7989",direct,R,8,004F
+tick_step_order,7981,96 02,LDAA,$02,direct,R,8,0002
+tick_step_order,7983,97 03,STAA,$03,direct,W,8,0003
+tick_step_order,7985,14 3A 20,BSET,"$3A,#$20",direct,RW,8,003A
+tick_step_order,7988,3B,RTI,,inherent,,,
+tick_step_order,7989,14 4F 04,BSET,"$4F,#$04",direct,RW,8,004F
+tick_step_order,798C,13 3B 10 14,BRCLR,"$3B,#$10,$79A4",direct,R,8,003B
+tick_step_order,7990,F6 03 8F,LDAB,$038F,extended,R,8,038F
+tick_step_order,7993,C5 04,BITB,#$04,immediate,,,
+tick_step_order,7995,27 0D,BEQ,$79A4,relative,,,
+tick_step_order,7997,15 72 80,BCLR,"$72,#$80",direct,RW,8,0072
+tick_step_order,799A,F6 03 90,LDAB,$0390,extended,R,8,0390
+tick_step_order,799D,C5 04,BITB,#$04,immediate,,,
+tick_step_order,799F,27 03,BEQ,$79A4,relative,,,
+tick_step_order,79A1,14 72 80,BSET,"$72,#$80",direct,RW,8,0072
+tick_step_order,79A4,96 02,LDAA,$02,direct,R,8,0002
+tick_step_order,79A6,4C,INCA,,inherent,,,
+tick_step_order,79A7,81 A0,CMPA,#$A0,immediate,,,
+tick_step_order,79A9,26 1A,BNE,$79C5,relative,,,
+tick_step_order,79AB,D6 43,LDAB,$43,direct,R,8,0043
+tick_step_order,79AD,C8 20,EORB,#$20,immediate,,,
+tick_step_order,79AF,D7 43,STAB,$43,direct,W,8,0043
+tick_step_order,79B1,13 4F 80 0F,BRCLR,"$4F,#$80,$79C4",direct,R,8,004F
+tick_step_order,79B5,DE FD,LDX,$FD,direct,R,16,00FD
+tick_step_order,79B7,08,INX,,inherent,,,
+tick_step_order,79B8,27 02,BEQ,$79BC,relative,,,
+tick_step_order,79BA,DF FD,STX,$FD,direct,W,16,00FD
+tick_step_order,79BC,BC 49 5D,CPX,$495D,extended,R,16,495D
+tick_step_order,79BF,25 03,BCS,$79C4,relative,,,
+tick_step_order,79C1,15 04 10,BCLR,"$04,#$10",direct,RW,8,0004
+tick_step_order,79C4,4F,CLRA,,inherent,,,
+tick_step_order,79C5,97 02,STAA,$02,direct,W,8,0002
+tick_step_order,79C7,0F,SEI,,inherent,,,
+tick_step_order,79C8,96 3B,LDAA,$3B,direct,R,8,003B
+tick_step_order,79CA,84 FB,ANDA,#$FB,immediate,,,
+tick_step_order,79CC,12 51 08 04,BRSET,"$51,#$08,$79D4",direct,R,8,0051
+tick_step_order,79D0,85 18,BITA,#$18,immediate,,,
+tick_step_order,79D2,27 02,BEQ,$79D6,relative,,,
+tick_step_order,79D4,8A 04,ORAA,#$04,immediate,,,
+tick_step_order,79D6,97 3B,STAA,$3B,direct,W,8,003B
+tick_step_order,79D8,0E,CLI,,inherent,,,
+tick_step_order,79D9,13 1A 20 15,BRCLR,"$1A,#$20,$79F2",direct,R,8,001A
+tick_step_order,79DD,13 02 01 63,BRCLR,"$02,#$01,$7A44",direct,R,8,0002
+tick_step_order,79E1,14 43 80,BSET,"$43,#$80",direct,RW,8,0043
+tick_step_order,79E4,BD AC 51,JSR,$AC51,extended,,,
+tick_step_order,79E7,CC AA 55,LDD,#$AA55,immediate,,,
+tick_step_order,79EA,B7 30 3A,STAA,$303A,extended,W,8,303A
+tick_step_order,79ED,F7 30 3A,STAB,$303A,extended,W,8,303A
+tick_step_order,79F0,20 52,BRA,$7A44,relative,,,
+fuel_tail_admission,852C,12 02 02 08,BRSET,"$02,#$02,$8538",direct,R,8,0002
+fuel_tail_admission,8530,BD 86 3D,JSR,$863D,extended,,,
+fuel_tail_admission,8533,BD D4 A3,JSR,$D4A3,extended,,,
+fuel_tail_admission,8536,20 0F,BRA,$8547,relative,,,
+fuel_tail_admission,8538,BD 86 13,JSR,$8613,extended,,,
+fuel_tail_admission,853B,13 02 04 05,BRCLR,"$02,#$04,$8544",direct,R,8,0002
+fuel_tail_admission,853F,BD 89 1E,JSR,$891E,extended,,,
+fuel_tail_admission,8542,20 03,BRA,$8547,relative,,,
+fuel_tail_admission,8544,BD 8E B4,JSR,$8EB4,extended,,,
+fuel_tail_admission,8547,39,RTS,,inherent,,,
+governor_fast_call,7E36,B6 40 0F,LDAA,$400F,extended,R,8,400F
+governor_fast_call,7E39,84 01,ANDA,#$01,immediate,,,
+governor_fast_call,7E3B,27 03,BEQ,$7E40,relative,,,
+governor_fast_call,7E3D,BD 90 D3,JSR,$90D3,extended,,,
+gear_output_shadow_coowner,C514,D6 D9,LDAB,$D9,direct,R,8,00D9
+gear_output_shadow_coowner,C516,CE B3 19,LDX,#$B319,immediate,,,
+gear_output_shadow_coowner,C519,3A,ABX,,inherent,,,
+gear_output_shadow_coowner,C51A,A6 00,LDAA,"$00,X",indexed_x,R,8,
+gear_output_shadow_coowner,C51C,F6 00 4C,LDAB,$004C,extended,R,8,004C
+gear_output_shadow_coowner,C51F,C4 FC,ANDB,#$FC,immediate,,,
+gear_output_shadow_coowner,C521,1B,ABA,,inherent,,,
+gear_output_shadow_coowner,C522,B7 00 4C,STAA,$004C,extended,W,8,004C
+gear_output_shadow_coowner,C525,CE 03 99,LDX,#$0399,immediate,,,
+gear_output_shadow_coowner,C528,1F 01 40 06,BRCLR,"$01,X,#$40,$C532",indexed_x,R,8,
+gear_output_shadow_coowner,C52C,1E 02 40 16,BRSET,"$02,X,#$40,$C546",indexed_x,R,8,
+gear_output_shadow_coowner,C530,20 19,BRA,$C54B,relative,,,
+gear_output_shadow_coowner,C532,12 99 08 15,BRSET,"$99,#$08,$C54B",direct,R,8,0099
+gear_output_shadow_coowner,C536,12 1C 02 11,BRSET,"$1C,#$02,$C54B",direct,R,8,001C
+gear_output_shadow_coowner,C53A,12 1D 80 0D,BRSET,"$1D,#$80,$C54B",direct,R,8,001D
+gear_output_shadow_coowner,C53E,12 86 01 09,BRSET,"$86,#$01,$C54B",direct,R,8,0086
+gear_output_shadow_coowner,C542,12 8E 80 05,BRSET,"$8E,#$80,$C54B",direct,R,8,008E
+gear_output_shadow_coowner,C546,14 4C 20,BSET,"$4C,#$20",direct,RW,8,004C
+gear_output_shadow_coowner,C549,20 03,BRA,$C54E,relative,,,
+gear_output_shadow_coowner,C54B,15 4C 20,BCLR,"$4C,#$20",direct,RW,8,004C
+output_shadow_bit7_clear,CC79,15 4C 80,BCLR,"$4C,#$80",direct,RW,8,004C
+factory_IAC_latch_coowner,FB14,B6 30 62,LDAA,$3062,extended,R,8,3062
+factory_IAC_latch_coowner,FB17,16,TAB,,inherent,,,
+factory_IAC_latch_coowner,FB18,84 0C,ANDA,#$0C,immediate,,,
+factory_IAC_latch_coowner,FB1A,27 08,BEQ,$FB24,relative,,,
+factory_IAC_latch_coowner,FB1C,81 0C,CMPA,#$0C,immediate,,,
+factory_IAC_latch_coowner,FB1E,27 04,BEQ,$FB24,relative,,,
+factory_IAC_latch_coowner,FB20,C8 08,EORB,#$08,immediate,,,
+factory_IAC_latch_coowner,FB22,20 02,BRA,$FB26,relative,,,
+factory_IAC_latch_coowner,FB24,C8 04,EORB,#$04,immediate,,,
+factory_IAC_latch_coowner,FB26,CA 30,ORAB,#$30,immediate,,,
+factory_IAC_latch_coowner,FB28,F7 30 62,STAB,$3062,extended,W,8,3062
+factory_IAC_latch_coowner,FB2B,33,PULB,,inherent,,,
+factory_IAC_latch_coowner,FB2C,54,LSRB,,inherent,,,
+factory_IAC_latch_coowner,FB2D,54,LSRB,,inherent,,,
+factory_IAC_latch_coowner,FB2E,54,LSRB,,inherent,,,
+factory_IAC_latch_coowner,FB2F,54,LSRB,,inherent,,,
+factory_IAC_latch_coowner,FB30,86 03,LDAA,#$03,immediate,,,
+factory_IAC_latch_coowner,FB32,3D,MUL,,inherent,,,
+factory_IAC_latch_coowner,FB33,CE FB F2,LDX,#$FBF2,immediate,,,
+factory_IAC_latch_coowner,FB36,3A,ABX,,inherent,,,
+factory_IAC_latch_coowner,FB37,20 11,BRA,$FB4A,relative,,,
+factory_IAC_latch_coowner,FB39,B6 30 62,LDAA,$3062,extended,R,8,3062
+factory_IAC_latch_coowner,FB3C,84 E3,ANDA,#$E3,immediate,,,
+factory_IAC_latch_coowner,FB3E,B7 30 62,STAA,$3062,extended,W,8,3062
+factory_IAC_latch_coowner,FB41,CC 00 00,LDD,#$0000,immediate,,,
+factory_IAC_latch_coowner,FB44,FD 3F CE,STD,$3FCE,extended,W,16,3FCE
+factory_IAC_latch_coowner,FB47,BD FB D6,JSR,$FBD6,extended,,,
+factory_IAC_latch_coowner,FB4A,B6 30 60,LDAA,$3060,extended,R,8,3060
+factory_IAC_latch_coowner,FB4D,84 6F,ANDA,#$6F,immediate,,,
+factory_IAC_latch_coowner,FB4F,AA 00,ORAA,"$00,X",indexed_x,R,8,
+factory_IAC_latch_coowner,FB51,B7 30 60,STAA,$3060,extended,W,8,3060
+factory_IAC_latch_coowner,FB54,B6 30 62,LDAA,$3062,extended,R,8,3062
+factory_IAC_latch_coowner,FB57,84 FC,ANDA,#$FC,immediate,,,
+factory_IAC_latch_coowner,FB59,AA 01,ORAA,"$01,X",indexed_x,R,8,
+factory_IAC_latch_coowner,FB5B,B7 30 62,STAA,$3062,extended,W,8,3062
+factory_governor_write_1,FB8D,FF 30 6C,STX,$306C,extended,W,16,306C
+factory_governor_write_2,FBBF,FF 30 6C,STX,$306C,extended,W,16,306C
+shared_integer_helpers,F436,3C,PSHX,,inherent,,,
+shared_integer_helpers,F437,30,TSX,,inherent,,,
+shared_integer_helpers,F438,A3 00,SUBD,"$00,X",indexed_x,R,16,
+shared_integer_helpers,F43A,37,PSHB,,inherent,,,
+shared_integer_helpers,F43B,18 E6 00,LDAB,"$00,Y",indexed_y,R,8,
+shared_integer_helpers,F43E,25 03,BCS,$F443,relative,,,
+shared_integer_helpers,F440,3D,MUL,,inherent,,,
+shared_integer_helpers,F441,20 04,BRA,$F447,relative,,,
+shared_integer_helpers,F443,3D,MUL,,inherent,,,
+shared_integer_helpers,F444,18 A0 00,SUBA,"$00,Y",indexed_y,R,8,
+shared_integer_helpers,F447,E3 00,ADDD,"$00,X",indexed_x,R,16,
+shared_integer_helpers,F449,ED 00,STD,"$00,X",indexed_x,W,16,
+shared_integer_helpers,F44B,32,PULA,,inherent,,,
+shared_integer_helpers,F44C,18 E6 00,LDAB,"$00,Y",indexed_y,R,8,
+shared_integer_helpers,F44F,3D,MUL,,inherent,,,
+shared_integer_helpers,F450,A9 01,ADCA,"$01,X",indexed_x,R,8,
+shared_integer_helpers,F452,16,TAB,,inherent,,,
+shared_integer_helpers,F453,A6 00,LDAA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F455,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F457,38,PULX,,inherent,,,
+shared_integer_helpers,F458,39,RTS,,inherent,,,
+shared_integer_helpers,F459,37,PSHB,,inherent,,,
+shared_integer_helpers,F45A,3C,PSHX,,inherent,,,
+shared_integer_helpers,F45B,30,TSX,,inherent,,,
+shared_integer_helpers,F45C,A0 00,SUBA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F45E,25 03,BCS,$F463,relative,,,
+shared_integer_helpers,F460,3D,MUL,,inherent,,,
+shared_integer_helpers,F461,20 03,BRA,$F466,relative,,,
+shared_integer_helpers,F463,3D,MUL,,inherent,,,
+shared_integer_helpers,F464,A0 02,SUBA,"$02,X",indexed_x,R,8,
+shared_integer_helpers,F466,36,PSHA,,inherent,,,
+shared_integer_helpers,F467,37,PSHB,,inherent,,,
+shared_integer_helpers,F468,EC 01,LDD,"$01,X",indexed_x,R,16,
+shared_integer_helpers,F46A,50,NEGB,,inherent,,,
+shared_integer_helpers,F46B,27 03,BEQ,$F470,relative,,,
+shared_integer_helpers,F46D,3D,MUL,,inherent,,,
+shared_integer_helpers,F46E,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F470,33,PULB,,inherent,,,
+shared_integer_helpers,F471,1B,ABA,,inherent,,,
+shared_integer_helpers,F472,16,TAB,,inherent,,,
+shared_integer_helpers,F473,32,PULA,,inherent,,,
+shared_integer_helpers,F474,A9 00,ADCA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F476,38,PULX,,inherent,,,
+shared_integer_helpers,F477,31,INS,,inherent,,,
+shared_integer_helpers,F478,39,RTS,,inherent,,,
+shared_integer_helpers,F479,A3 00,SUBD,"$00,X",indexed_x,R,16,
+shared_integer_helpers,F47B,37,PSHB,,inherent,,,
+shared_integer_helpers,F47C,18 E6 00,LDAB,"$00,Y",indexed_y,R,8,
+shared_integer_helpers,F47F,25 03,BCS,$F484,relative,,,
+shared_integer_helpers,F481,3D,MUL,,inherent,,,
+shared_integer_helpers,F482,20 04,BRA,$F488,relative,,,
+shared_integer_helpers,F484,3D,MUL,,inherent,,,
+shared_integer_helpers,F485,18 A0 00,SUBA,"$00,Y",indexed_y,R,8,
+shared_integer_helpers,F488,E3 00,ADDD,"$00,X",indexed_x,R,16,
+shared_integer_helpers,F48A,ED 00,STD,"$00,X",indexed_x,W,16,
+shared_integer_helpers,F48C,32,PULA,,inherent,,,
+shared_integer_helpers,F48D,18 E6 00,LDAB,"$00,Y",indexed_y,R,8,
+shared_integer_helpers,F490,3D,MUL,,inherent,,,
+shared_integer_helpers,F491,A9 01,ADCA,"$01,X",indexed_x,R,8,
+shared_integer_helpers,F493,16,TAB,,inherent,,,
+shared_integer_helpers,F494,A6 00,LDAA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F496,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F498,39,RTS,,inherent,,,
+shared_integer_helpers,F499,5F,CLRB,,inherent,,,
+shared_integer_helpers,F49A,A1 00,CMPA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F49C,23 02,BLS,$F4A0,relative,,,
+shared_integer_helpers,F49E,A6 00,LDAA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F4A0,08,INX,,inherent,,,
+shared_integer_helpers,F4A1,8D 1A,BSR,$F4BD,relative,,,
+shared_integer_helpers,F4A3,39,RTS,,inherent,,,
+shared_integer_helpers,F4A4,3C,PSHX,,inherent,,,
+shared_integer_helpers,F4A5,37,PSHB,,inherent,,,
+shared_integer_helpers,F4A6,A0 00,SUBA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F4A8,24 01,BCC,$F4AB,relative,,,
+shared_integer_helpers,F4AA,4F,CLRA,,inherent,,,
+shared_integer_helpers,F4AB,A1 01,CMPA,"$01,X",indexed_x,R,8,
+shared_integer_helpers,F4AD,23 02,BLS,$F4B1,relative,,,
+shared_integer_helpers,F4AF,A6 01,LDAA,"$01,X",indexed_x,R,8,
+shared_integer_helpers,F4B1,C6 02,LDAB,#$02,immediate,,,
+shared_integer_helpers,F4B3,3A,ABX,,inherent,,,
+shared_integer_helpers,F4B4,20 02,BRA,$F4B8,relative,,,
+shared_integer_helpers,F4B6,3C,PSHX,,inherent,,,
+shared_integer_helpers,F4B7,37,PSHB,,inherent,,,
+shared_integer_helpers,F4B8,E6 00,LDAB,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F4BA,08,INX,,inherent,,,
+shared_integer_helpers,F4BB,20 08,BRA,$F4C5,relative,,,
+shared_integer_helpers,F4BD,10,SBA,,inherent,,,
+shared_integer_helpers,F4BE,24 01,BCC,$F4C1,relative,,,
+shared_integer_helpers,F4C0,4F,CLRA,,inherent,,,
+shared_integer_helpers,F4C1,3C,PSHX,,inherent,,,
+shared_integer_helpers,F4C2,37,PSHB,,inherent,,,
+shared_integer_helpers,F4C3,C6 10,LDAB,#$10,immediate,,,
+shared_integer_helpers,F4C5,3D,MUL,,inherent,,,
+shared_integer_helpers,F4C6,37,PSHB,,inherent,,,
+shared_integer_helpers,F4C7,16,TAB,,inherent,,,
+shared_integer_helpers,F4C8,3A,ABX,,inherent,,,
+shared_integer_helpers,F4C9,EC 00,LDD,"$00,X",indexed_x,R,16,
+shared_integer_helpers,F4CB,10,SBA,,inherent,,,
+shared_integer_helpers,F4CC,33,PULB,,inherent,,,
+shared_integer_helpers,F4CD,24 06,BCC,$F4D5,relative,,,
+shared_integer_helpers,F4CF,40,NEGA,,inherent,,,
+shared_integer_helpers,F4D0,3D,MUL,,inherent,,,
+shared_integer_helpers,F4D1,A9 00,ADCA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F4D3,20 06,BRA,$F4DB,relative,,,
+shared_integer_helpers,F4D5,3D,MUL,,inherent,,,
+shared_integer_helpers,F4D6,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F4D8,40,NEGA,,inherent,,,
+shared_integer_helpers,F4D9,AB 00,ADDA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F4DB,33,PULB,,inherent,,,
+shared_integer_helpers,F4DC,38,PULX,,inherent,,,
+shared_integer_helpers,F4DD,39,RTS,,inherent,,,
+shared_integer_helpers,F4DE,18 3C,PSHY,,inherent,,,
+shared_integer_helpers,F4E0,37,PSHB,,inherent,,,
+shared_integer_helpers,F4E1,3C,PSHX,,inherent,,,
+shared_integer_helpers,F4E2,A0 00,SUBA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F4E4,24 01,BCC,$F4E7,relative,,,
+shared_integer_helpers,F4E6,4F,CLRA,,inherent,,,
+shared_integer_helpers,F4E7,E0 01,SUBB,"$01,X",indexed_x,R,8,
+shared_integer_helpers,F4E9,24 01,BCC,$F4EC,relative,,,
+shared_integer_helpers,F4EB,5F,CLRB,,inherent,,,
+shared_integer_helpers,F4EC,3C,PSHX,,inherent,,,
+shared_integer_helpers,F4ED,18 38,PULY,,inherent,,,
+shared_integer_helpers,F4EF,36,PSHA,,inherent,,,
+shared_integer_helpers,F4F0,86 10,LDAA,#$10,immediate,,,
+shared_integer_helpers,F4F2,3D,MUL,,inherent,,,
+shared_integer_helpers,F4F3,37,PSHB,,inherent,,,
+shared_integer_helpers,F4F4,16,TAB,,inherent,,,
+shared_integer_helpers,F4F5,3A,ABX,,inherent,,,
+shared_integer_helpers,F4F6,32,PULA,,inherent,,,
+shared_integer_helpers,F4F7,33,PULB,,inherent,,,
+shared_integer_helpers,F4F8,36,PSHA,,inherent,,,
+shared_integer_helpers,F4F9,86 10,LDAA,#$10,immediate,,,
+shared_integer_helpers,F4FB,3D,MUL,,inherent,,,
+shared_integer_helpers,F4FC,37,PSHB,,inherent,,,
+shared_integer_helpers,F4FD,18 E6 02,LDAB,"$02,Y",indexed_y,R,8,
+shared_integer_helpers,F500,3D,MUL,,inherent,,,
+shared_integer_helpers,F501,3A,ABX,,inherent,,,
+shared_integer_helpers,F502,3C,PSHX,,inherent,,,
+shared_integer_helpers,F503,18 E6 02,LDAB,"$02,Y",indexed_y,R,8,
+shared_integer_helpers,F506,3A,ABX,,inherent,,,
+shared_integer_helpers,F507,18 30,TSY,,inherent,,,
+shared_integer_helpers,F509,EC 03,LDD,"$03,X",indexed_x,R,16,
+shared_integer_helpers,F50B,10,SBA,,inherent,,,
+shared_integer_helpers,F50C,18 E6 03,LDAB,"$03,Y",indexed_y,R,8,
+shared_integer_helpers,F50F,24 06,BCC,$F517,relative,,,
+shared_integer_helpers,F511,40,NEGA,,inherent,,,
+shared_integer_helpers,F512,3D,MUL,,inherent,,,
+shared_integer_helpers,F513,A9 03,ADCA,"$03,X",indexed_x,R,8,
+shared_integer_helpers,F515,20 06,BRA,$F51D,relative,,,
+shared_integer_helpers,F517,3D,MUL,,inherent,,,
+shared_integer_helpers,F518,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F51A,40,NEGA,,inherent,,,
+shared_integer_helpers,F51B,AB 03,ADDA,"$03,X",indexed_x,R,8,
+shared_integer_helpers,F51D,38,PULX,,inherent,,,
+shared_integer_helpers,F51E,36,PSHA,,inherent,,,
+shared_integer_helpers,F51F,EC 03,LDD,"$03,X",indexed_x,R,16,
+shared_integer_helpers,F521,10,SBA,,inherent,,,
+shared_integer_helpers,F522,18 E6 03,LDAB,"$03,Y",indexed_y,R,8,
+shared_integer_helpers,F525,24 06,BCC,$F52D,relative,,,
+shared_integer_helpers,F527,40,NEGA,,inherent,,,
+shared_integer_helpers,F528,3D,MUL,,inherent,,,
+shared_integer_helpers,F529,A9 03,ADCA,"$03,X",indexed_x,R,8,
+shared_integer_helpers,F52B,20 06,BRA,$F533,relative,,,
+shared_integer_helpers,F52D,3D,MUL,,inherent,,,
+shared_integer_helpers,F52E,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F530,40,NEGA,,inherent,,,
+shared_integer_helpers,F531,AB 03,ADDA,"$03,X",indexed_x,R,8,
+shared_integer_helpers,F533,33,PULB,,inherent,,,
+shared_integer_helpers,F534,36,PSHA,,inherent,,,
+shared_integer_helpers,F535,10,SBA,,inherent,,,
+shared_integer_helpers,F536,18 E6 02,LDAB,"$02,Y",indexed_y,R,8,
+shared_integer_helpers,F539,24 07,BCC,$F542,relative,,,
+shared_integer_helpers,F53B,40,NEGA,,inherent,,,
+shared_integer_helpers,F53C,3D,MUL,,inherent,,,
+shared_integer_helpers,F53D,18 A9 01,ADCA,"$01,Y",indexed_y,R,8,
+shared_integer_helpers,F540,20 07,BRA,$F549,relative,,,
+shared_integer_helpers,F542,3D,MUL,,inherent,,,
+shared_integer_helpers,F543,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F545,40,NEGA,,inherent,,,
+shared_integer_helpers,F546,18 AB 01,ADDA,"$01,Y",indexed_y,R,8,
+shared_integer_helpers,F549,31,INS,,inherent,,,
+shared_integer_helpers,F54A,38,PULX,,inherent,,,
+shared_integer_helpers,F54B,38,PULX,,inherent,,,
+shared_integer_helpers,F54C,33,PULB,,inherent,,,
+shared_integer_helpers,F54D,18 38,PULY,,inherent,,,
+shared_integer_helpers,F54F,39,RTS,,inherent,,,
+shared_integer_helpers,F550,36,PSHA,,inherent,,,
+shared_integer_helpers,F551,E6 01,LDAB,"$01,X",indexed_x,R,8,
+shared_integer_helpers,F553,3D,MUL,,inherent,,,
+shared_integer_helpers,F554,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F556,33,PULB,,inherent,,,
+shared_integer_helpers,F557,36,PSHA,,inherent,,,
+shared_integer_helpers,F558,A6 00,LDAA,"$00,X",indexed_x,R,8,
+shared_integer_helpers,F55A,3D,MUL,,inherent,,,
+shared_integer_helpers,F55B,3C,PSHX,,inherent,,,
+shared_integer_helpers,F55C,30,TSX,,inherent,,,
+shared_integer_helpers,F55D,EB 02,ADDB,"$02,X",indexed_x,R,8,
+shared_integer_helpers,F55F,89 00,ADCA,#$00,immediate,,,
+shared_integer_helpers,F561,38,PULX,,inherent,,,
+shared_integer_helpers,F562,31,INS,,inherent,,,
+shared_integer_helpers,F563,39,RTS,,inherent,,,

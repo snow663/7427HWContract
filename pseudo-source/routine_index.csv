@@ -1,0 +1,64 @@
+file,routine,status,reference,next_step
+src/drivers/heartbeat_toggle.c,pcm_heartbeat_toggle,implemented_outline,F3E4..F3EC. Physical purpose of 3066.7 remains unspecified. */,Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/mask_irq.c,pcm_mask_irq,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/read16.c,pcm_read16,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/read8.c,pcm_read8,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/timer_arm.c,pcm_timer_arm,implemented_outline,745E..7469: first TCNT-relative arm; recurrence is TOC3-relative. */,Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/watchdog_service.c,pcm_watchdog_service,implemented_outline,"79E7..79EE, FA84..FA8B and other literal COP services. */",Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/write16.c,pcm_write16,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/write8.c,pcm_write8,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/emissions/egr_control.c,pcm_egr_control,dependency_boundary,D1F6: EGR position and duty controller.,Implement the named body and compare observable state/transactions
+src/emissions/egr_feedback.c,pcm_egr_feedback,dependency_boundary,D14E: EGR feedback acquisition and closed-reference handling.,Implement the named body and compare observable state/transactions
+src/emissions/egr_flow.c,pcm_egr_flow,dependency_boundary,D03E: EGR flow calculation.,Implement the named body and compare observable state/transactions
+src/emissions/egr_output.c,pcm_egr_output,dependency_boundary,CDF7: EGR hardware command publication.,Implement the named body and compare observable state/transactions
+src/fuel/fuel_base.c,pcm_fuel_base,implemented_algorithm,7FD8..802F; each divide retains its own truncation/saturation. */,Retain source/ROM checks; target ABI and timing still need verification
+src/fuel/fuel_control.c,pcm_fuel_control,dependency_boundary,7D4B: Ignition handling and scheduled fuel group.,Implement the named body and compare observable state/transactions
+src/idle/iac_control.c,pcm_iac_control,dependency_boundary,93D0: Main idle-air controller with service escapes.,Implement the named body and compare observable state/transactions
+src/idle/iac_step.c,pcm_iac_step,dependency_boundary,91A3: Per-tick idle-air phase service.,Implement the named body and compare observable state/transactions
+src/interrupts/oc1_irq.c,pcm_oc1_irq,dependency_boundary,FFE8 -> CE7C. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
+src/interrupts/periodic_irq.c,pcm_periodic_irq,implemented_outline,793D..7989. Actual interrupt entry/RTI and SP recovery need target,Retain source/ROM checks; target ABI and timing still need verification
+src/interrupts/reference_irq.c,pcm_reference_irq,dependency_boundary,FFF2 -> 74EA. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
+src/interrupts/sci_irq.c,pcm_sci_irq,dependency_boundary,FFD6 -> F7EA. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
+src/kernel/dispatch_fast.c,pcm_dispatch_fast,implemented_outline,79D9..7A44. Fields are sampled at their own gates. Callees may,Retain source/ROM checks; target ABI and timing still need verification
+src/kernel/dispatch_slot.c,pcm_dispatch_slot,implemented_outline,7A44..7AA5. Addresses become linker-assigned C function pointers. */,Retain source/ROM checks; target ABI and timing still need verification
+src/kernel/dispatcher.c,pcm_dispatcher,implemented_outline,7989..7A84. Catch-up repeats main work without fast_service.,Retain source/ROM checks; target ABI and timing still need verification
+src/kernel/fast_service.c,pcm_fast_service,implemented_outline,"7B6D..7BA6. Runs before the busy test, including busy reentry. */",Retain source/ROM checks; target ABI and timing still need verification
+src/kernel/main_pass.c,pcm_main_pass,implemented_outline,7989..7A51. Busy ownership is handled by dispatcher.c. */,Retain source/ROM checks; target ABI and timing still need verification
+src/kernel/phase_advance.c,pcm_phase_advance,implemented_outline,"798C..79C5. Counts admitted passes, not every timer arrival. */",Retain source/ROM checks; target ABI and timing still need verification
+src/kernel/profile_tail.c,pcm_profile_tail,implemented_outline,"7A55..7A77. Timer counts, unsigned modulo arithmetic. */",Retain source/ROM checks; target ABI and timing still need verification
+src/kernel/run_task.c,pcm_run_task,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/sensors/adc_feedback.c,pcm_adc_feedback,dependency_boundary,7B6D: Intervening ADC acquisition F245 and averaged014E publication.,Implement the named body and compare observable state/transactions
+src/sensors/common_io.c,pcm_common_io,dependency_boundary,7BA7: Board flush MAP filtering and speed input sampling.,Implement the named body and compare observable state/transactions
+src/sensors/input_housekeeping.c,pcm_input_housekeeping,dependency_boundary,9167: AC and park/neutral input housekeeping.,Implement the named body and compare observable state/transactions
+src/serial/serial_poll.c,pcm_serial_poll,dependency_boundary,F5E8: Serial polling and optional broadcast schedule.,Implement the named body and compare observable state/transactions
+src/slots/slot_00.c,pcm_slot_00,dependency_boundary,"7AA6, table word 7A85.",Implement the named body and compare observable state/transactions
+src/slots/slot_01.c,pcm_slot_01,dependency_boundary,"7AAD, table word 7A87.",Implement the named body and compare observable state/transactions
+src/slots/slot_02.c,pcm_slot_02,dependency_boundary,"7AB7, table word 7A89.",Implement the named body and compare observable state/transactions
+src/slots/slot_03.c,pcm_slot_03,dependency_boundary,"7ABD, table word 7A8B.",Implement the named body and compare observable state/transactions
+src/slots/slot_04.c,pcm_slot_04,dependency_boundary,"7AC7, table word 7A8D.",Implement the named body and compare observable state/transactions
+src/slots/slot_05.c,pcm_slot_05,dependency_boundary,"7B03, table word 7A8F.",Implement the named body and compare observable state/transactions
+src/slots/slot_06.c,pcm_slot_06,dependency_boundary,"7B14, table word 7A91.",Implement the named body and compare observable state/transactions
+src/slots/slot_07.c,pcm_slot_07,dependency_boundary,"7B1B, table word 7A93.",Implement the named body and compare observable state/transactions
+src/slots/slot_08.c,pcm_slot_08,dependency_boundary,"7B2B, table word 7A95.",Implement the named body and compare observable state/transactions
+src/slots/slot_09.c,pcm_slot_09,dependency_boundary,"7B2F, table word 7A97.",Implement the named body and compare observable state/transactions
+src/slots/slot_0a.c,pcm_slot_0a,dependency_boundary,"7B39, table word 7A99.",Implement the named body and compare observable state/transactions
+src/slots/slot_0b.c,pcm_slot_0b,dependency_boundary,"7B3D, table word 7A9B.",Implement the named body and compare observable state/transactions
+src/slots/slot_0c.c,pcm_slot_0c,dependency_boundary,"7B44, table word 7A9D.",Implement the named body and compare observable state/transactions
+src/slots/slot_0d.c,pcm_slot_0d,dependency_boundary,"7B48, table word 7A9F.",Implement the named body and compare observable state/transactions
+src/slots/slot_0e.c,pcm_slot_0e,implemented_outline,"7B52, table word 7AA1.",Retain source/ROM checks; target ABI and timing still need verification
+src/slots/slot_0f.c,pcm_slot_0f,dependency_boundary,"7B5A, table word 7AA3.",Implement the named body and compare observable state/transactions
+src/spark/alternate_rpm.c,pcm_alternate_rpm,dependency_boundary,AC51: Alternate reference-period RPM and board-request path.,Implement the named body and compare observable state/transactions
+src/spark/spark_control.c,pcm_spark_control,dependency_boundary,A466: Load conversion reference consumption and spark-control group.,Implement the named body and compare observable state/transactions
+src/startup/reset_controllers.c,pcm_reset_controllers,dependency_boundary,stage 7392..7431: Controller state seeds and hardware baselines.,Implement the named body and compare observable state/transactions
+src/startup/reset_cpu.c,pcm_reset_cpu,dependency_boundary,stage 7100..7144: CPU mode register relocation and chip-select setup.,Implement the named body and compare observable state/transactions
+src/startup/reset_outputs.c,pcm_reset_outputs,dependency_boundary,stage 7144..7164: Literal ASIC initialization and output transaction sequence.,Implement the named body and compare observable state/transactions
+src/startup/reset_ram.c,pcm_reset_ram,dependency_boundary,stage 7164..718A: Working and serial RAM initialization.,Implement the named body and compare observable state/transactions
+src/startup/reset_retained.c,pcm_reset_retained,dependency_boundary,stage 71C3..7392: ROM validation retained checksums and recovery bookkeeping.,Implement the named body and compare observable state/transactions
+src/startup/reset_sensors.c,pcm_reset_sensors,dependency_boundary,stage 718A..71C3: Initial samples and factory-mode admission boundary.,Implement the named body and compare observable state/transactions
+src/startup/reset_sequence.c,pcm_reset_sequence,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/startup/reset_serial.c,pcm_reset_serial,dependency_boundary,stage 7431..7459: Phase-related startup context and serial setup.,Implement the named body and compare observable state/transactions
+src/transmission/current_control.c,pcm_current_control,dependency_boundary,7C13: Current-control calculation producing014C; hardware meaning stays scoped.,Implement the named body and compare observable state/transactions
+src/transmission/pressure_tcc.c,pcm_pressure_tcc,dependency_boundary,B56B: Pressure and TCC progress group.,Implement the named body and compare observable state/transactions
+src/transmission/shift_control.c,pcm_shift_control,dependency_boundary,B32D: Shift progress group.,Implement the named body and compare observable state/transactions
+src/transmission/transmission_input.c,pcm_transmission_input,dependency_boundary,AE85: Input wrapper ending in F781 then F64E.,Implement the named body and compare observable state/transactions
+src/transmission/transmission_spark.c,pcm_transmission_spark,dependency_boundary,C4E5: TPS and transmission spark input group.,Implement the named body and compare observable state/transactions

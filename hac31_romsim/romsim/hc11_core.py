@@ -833,6 +833,7 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "NOP")
             return 2
         if prefix is None and opcode == 0x02:  # IDIV
+            self._set_flag(CCR_V, False)
             divisor = self.s.x & 0xFFFF
             if divisor == 0:
                 self.s.x = 0xFFFF
@@ -849,6 +850,7 @@ class HC11CPU:
         if prefix is None and opcode == 0x03:  # FDIV
             divisor = self.s.x & 0xFFFF
             numerator = self.s.d
+            self._set_flag(CCR_V, numerator >= divisor)
             if divisor == 0:
                 self.s.x = 0xFFFF
                 self._set_flag(CCR_C, True)
@@ -1071,12 +1073,12 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "INS")
             return 3
         if prefix is None and opcode == 0x32:  # PULA
-            self.s.a = self._logic8(self._pull8())
+            self.s.a = self._pull8()
             self.mem.tick(4)
             self._trace(start_pc, opcode, prefix, "PULA")
             return 4
         if prefix is None and opcode == 0x33:  # PULB
-            self.s.b = self._logic8(self._pull8())
+            self.s.b = self._pull8()
             self.mem.tick(4)
             self._trace(start_pc, opcode, prefix, "PULB")
             return 4
@@ -1106,12 +1108,12 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "PSHB")
             return 3
         if prefix is None and opcode == 0x38:  # PULX
-            self.s.x = self._logic16(self._pull16())
+            self.s.x = self._pull16()
             self.mem.tick(5)
             self._trace(start_pc, opcode, prefix, "PULX")
             return 5
         if prefix == 0x18 and opcode == 0x38:  # PULY
-            self.s.y = self._logic16(self._pull16())
+            self.s.y = self._pull16()
             self.mem.tick(6)
             self._trace(start_pc, opcode, prefix, "PULY")
             return 6
@@ -1153,7 +1155,8 @@ class HC11CPU:
         if prefix is None and opcode == 0x3D:  # MUL
             product = (self.s.a & 0xFF) * (self.s.b & 0xFF)
             self.s.d = product
-            self._set_flag(CCR_C, bool(product & 0x8000))
+            # HC11 MUL copies result bit 7 to C, enabling MUL; ADCA #0 rounding.
+            self._set_flag(CCR_C, bool(product & 0x0080))
             self.mem.tick(10)
             self._trace(start_pc, opcode, prefix, "MUL")
             return 10
@@ -1459,13 +1462,13 @@ class HC11CPU:
                 self.s.d = self._logic16(val16)
                 self.mem.tick(4); self._trace(start_pc, opcode, prefix, "LDD"); return 4
             if opcode in {0x8C,0x9C,0xAC,0xBC}:  # CPX or CPY with prefix
-                _ = self._sub16(self.s.y if prefix == 0x18 else self.s.x, val16)
-                self.mem.tick(4); self._trace(start_pc, opcode, prefix, "CPY" if prefix == 0x18 else "CPX"); return 4
+                _ = self._sub16(self.s.y if prefix in {0x18, 0x1A} else self.s.x, val16)
+                self.mem.tick(4); self._trace(start_pc, opcode, prefix, "CPY" if prefix in {0x18, 0x1A} else "CPX"); return 4
             if opcode in {0x8E,0x9E,0xAE,0xBE}:  # LDS
                 self.s.sp = self._logic16(val16)
                 self.mem.tick(4); self._trace(start_pc, opcode, prefix, "LDS"); return 4
             if opcode in {0xCE,0xDE,0xEE,0xFE}:  # LDX or LDY
-                if prefix == 0x18:
+                if prefix in {0x18, 0x1A}:
                     self.s.y = self._logic16(val16)
                     name = "LDY"
                 else:
@@ -1473,12 +1476,12 @@ class HC11CPU:
                     name = "LDX"
                 self.mem.tick(4); self._trace(start_pc, opcode, prefix, name); return 4
             if opcode in {0xDF,0xEF,0xFF}:      # STX or STY
-                value = self.s.y if prefix == 0x18 else self.s.x
+                value = self.s.y if prefix in {0x18, 0x1A} else self.s.x
                 if addr is None:
                     raise UnknownOpcode(start_pc, opcode, prefix)
                 self.mem.write16(addr, value)
                 self._logic16(value)
-                self.mem.tick(5); self._trace(start_pc, opcode, prefix, "STY" if prefix == 0x18 else "STX"); return 5
+                self.mem.tick(5); self._trace(start_pc, opcode, prefix, "STY" if prefix in {0x18, 0x1A} else "STX"); return 5
             if opcode in {0x9F,0xAF,0xBF}:      # STS
                 if addr is None:
                     raise UnknownOpcode(start_pc, opcode, prefix)

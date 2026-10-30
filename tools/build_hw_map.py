@@ -65,12 +65,13 @@ lines = text.splitlines()
 line_re = re.compile(r'^\s*([0-9A-F]{4}):\s*(?:(L[0-9A-F]{4})\s+)?([A-Z][A-Z0-9/]*|\*{3,5})?\s*(.*)$')
 org_re = re.compile(r'\bORG\s+\$([0-9A-F]{4})')
 
-# HC11F1/GM relocated register quick names; exactness varies by mask/comment.
+# F1-style register identities: NXP MC68HC11F1 table4-1. The stock INIT03
+# relocation puts this block at3000. This does not identify board pin wiring.
 REG_NAMES = {
-    0x3000:'PORTA / timer pin status', 0x3001:'PIOC', 0x3002:'PORTC', 0x3003:'PORTB',
-    0x3004:'PORTCL', 0x3005:'DDRC', 0x3006:'PORTD', 0x3007:'DDRD', 0x3008:'PORTE / ADC input port',
-    0x3009:'CFORC/Timer force compare candidate', 0x300A:'OC1M candidate', 0x300B:'CFORC / compare force',
-    0x300C:'OC1D candidate', 0x300D:'TCNT high? candidate', 0x300E:'TCNT 16-bit free-running counter',
+    0x3000:'PORTA / timer pin status', 0x3001:'DDRA', 0x3002:'PORTG', 0x3003:'DDRG',
+    0x3004:'PORTB', 0x3005:'PORTF', 0x3006:'PORTC', 0x3007:'DDRC', 0x3008:'PORTD',
+    0x3009:'DDRD', 0x300A:'PORTE', 0x300B:'CFORC / compare force',
+    0x300C:'OC1M output-compare1 mask', 0x300D:'OC1D output-compare1 data', 0x300E:'TCNT 16-bit free-running counter',
     0x3010:'TIC1', 0x3012:'TIC2', 0x3014:'TIC3', 0x3016:'TOC1', 0x3018:'TOC2',
     0x301A:'TOC3', 0x301C:'TOC4 compare', 0x301E:'TOC5/TIC4 compare',
     0x3020:'TCTL1 output compare action', 0x3021:'TCTL2 input capture edge', 0x3022:'TMSK1 timer interrupt mask',
@@ -80,7 +81,9 @@ REG_NAMES = {
     0x302C:'SCCR1 SCI control 1', 0x302D:'SCCR2 SCI control 2', 0x302E:'SCSR SCI status', 0x302F:'SCDR SCI data',
     0x3030:'ADCTL A/D control', 0x3031:'ADR1 A/D result 1', 0x3032:'ADR2 A/D result 2', 0x3033:'ADR3 A/D result 3',
     0x3034:'ADR4 A/D result 4', 0x3035:'BPROT EEPROM block protect', 0x3038:'OPT2', 0x3039:'OPTION',
-    0x303A:'COPRST watchdog clear', 0x303B:'PPROG EEPROM program', 0x303D:'INIT register relocation', 0x303F:'CONFIG/EPROM config candidate',
+    0x303A:'COPRST watchdog clear', 0x303B:'PPROG EEPROM program', 0x303C:'HPRIO', 0x303D:'INIT register relocation', 0x303E:'TEST1', 0x303F:'CONFIG',
+    0x305C:'CSSTRH clock stretching', 0x305D:'CSCTL chip-select control',
+    0x305E:'CSGADR general chip-select address', 0x305F:'CSGSIZ general chip-select size',
     0x3062:'External 306x hardware latch/status candidate', 0x3068:'External 306x output command candidate',
     0x306E:'External 306x I/O latch candidate', 0x306F:'External 306x I/O latch/status candidate',
     0x3FC0:'ASIC last DRP/ref period counter', 0x3FC4:'ASIC period/status latch candidate',
@@ -193,7 +196,7 @@ def address_class(addr, mnemonic=None):
         return 'ROM_TABLE'
     if 0x302B <= addr <= 0x302F:
         return 'ALDL'
-    if 0x3000 <= addr <= 0x303F:
+    if 0x3000 <= addr <= 0x305F:
         return 'HC11_REG'
     if 0x3060 <= addr <= 0x30FF:
         return 'UNKNOWN_HW'
@@ -417,7 +420,7 @@ def subsystem_for(row):
     if any(k in notes for k in ['a/d','adc','map','tps','cool','battery']): return 'SENSOR_ADC'
     if addr is not None and 0x3060 <= addr <= 0x307F: return 'UNKNOWN_306X_BOARD_IO'
     if addr is not None and 0x3F00 <= addr <= 0x3FFF: return 'ASIC_UNKNOWN'
-    if addr is not None and 0x3000 <= addr <= 0x303F: return 'HC11_CORE'
+    if addr is not None and 0x3000 <= addr <= 0x305F: return 'HC11_CORE'
     return 'OTHER'
 
 
@@ -449,13 +452,13 @@ for row in rows:
 # Filter down? User requested hardware access map including direct RAM / ROM table too. Keep all classes.
 fieldnames=['pc','bank/page','opcode','mnemonic','access_type','effective_address','address_class','subsystem','minimal_os_required','risk','width','bitmask','value_source','x_base/y_base','routine_label','interrupt_context','callers','engine_state_seen','notes','confidence']
 with OUTCSV.open('w',newline='',encoding='utf-8') as f:
-    w=csv.DictWriter(f,fieldnames=fieldnames)
+    w=csv.DictWriter(f,fieldnames=fieldnames,lineterminator="\n")
     w.writeheader(); w.writerows(rows)
 
 hardware_classes = {'HC11_REG','ALDL','ASIC_3FXX','UNKNOWN_HW'}
 hardware_rows = [r for r in rows if r['address_class'] in hardware_classes]
 with OUTHW.open('w',newline='',encoding='utf-8') as f:
-    w=csv.DictWriter(f,fieldnames=fieldnames)
+    w=csv.DictWriter(f,fieldnames=fieldnames,lineterminator="\n")
     w.writeheader(); w.writerows(hardware_rows)
 
 # Aggregations for contract
@@ -481,10 +484,19 @@ def const_writes(rs):
 
 # Contract markdown
 md=[]
-md.append('# 7427 ASIC / Hardware Register Contract v0.1')
+md.append(f'# 7427 Hardware Access Listing Inventory {VERSION}')
 md.append('')
 md.append('Generated from static source walk. This is not a dynamic proof; unknown or inferred meanings are marked as test items.')
 md.append('')
+md.extend([
+    '**Scope:** source-listing inventory with F1-style CPU register names corrected',
+    '[external/hardware contract](analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md)',
+    'is the stronger ROM-backed authority for accesses and observable interfaces.',
+    'CPU names follow [MC68HC11F1 table4-1](https://www.nxp.com/docs/en/data-sheet/MC68HC11F1.pdf);',
+    'they do not establish physical board wiring. Current direct/indexed',
+    'hardware access authority is `maps/structure/factory_global_hardware_accesses.csv`.',
+    '',
+])
 for cls,title in [('HC11_REG','HC11 relocated registers'),('ALDL','SCI/ALDL registers'),('ASIC_3FXX','External ASIC / board registers'),('UNKNOWN_HW','Unknown external hardware / board register space')]:
     md.append(f'## {title}')
     md.append('')
@@ -646,12 +658,12 @@ sm.append('')
 sm.append(f'## UNKNOWN_HW addresses/ranges found ({len(unknown_hw)})')
 sm.append(', '.join(unknown_hw))
 sm.append('')
-sm.append('## Highest-priority next traces')
-sm.append('1. Prove `$3FCE` EFI pulsewidth handoff first; scope injector output while forcing known values.')
-sm.append('2. Passive observer log of `$301C/$301E/$3020/$3022/$3023` only if `$3FCE` alone does not explain injector pulse behavior.')
-sm.append('3. Passive observer log of `$3FDC/$3FE6/$3FE8/$3FF6` to prove spark handoff units and write order.')
-sm.append('4. Passive observer log of `$3FFC` and `$306x` writes to separate IAC/port/force-motor/trans leftovers.')
-sm.append('5. SCI/ALDL preservation check for `$302D/$302E/$302F` before adding debug export frames.')
+sm.append('## Scope and current follow-up')
+sm.append('This is a coarse source-listing inventory, not whole-program or physical-hardware proof.')
+sm.append('Use [ROM-backed hardware boundaries](analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md) and `maps/structure/factory_global_hardware_accesses.csv` for the stronger access contracts.')
+sm.append('Current implementation work and physical-evidence gaps are linked from [WORKING_STATE.md](WORKING_STATE.md) and [pseudo-source/](../pseudo-source/README.md).')
+sm.append('Stock BMHM leaves OC4/5 locally disabled; source paths available under other mode constants remain explicitly separate.')
+sm.append('')
 OUTSUMMARY.write_text('\n'.join(sm),encoding='utf-8')
 
 print(json.dumps({

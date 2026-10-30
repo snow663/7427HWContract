@@ -1,0 +1,52 @@
+gate,byte_address,bit,mask,writer_pc,bytes_hex,instruction,effect_on_bit,condition,limit
+factory_callback_armed,0001,0,01,71B7,7F 00 01,CLR $0001,clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+factory_callback_armed,0001,0,01,7486,ED 00,"STD $00,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+factory_callback_armed,0001,0,01,F301,6F 00,"CLR $00,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+factory_callback_armed,0001,0,01,FA9F,14 01 01,"BSET $01,#$01",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+factory_callback_armed,0001,0,01,FAAD,15 01 01,"BCLR $01,#$01",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+ROM_fault_fast_group,001A,5,20,71FA,14 1A 20,"BSET $1A,#$20",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+ROM_fault_fast_group,001A,5,20,749A,ED 0A,"STD $0A,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+ROM_fault_fast_group,001A,5,20,F31B,1A EF 04,"STY $04,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+ROM_fault_fast_group,001A,5,20,F346,A7 15,"STAA $15,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+ROM_fault_fast_group,001A,5,20,F393,A7 15,"STAA $15,X",preserve,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+pending_main_pass,003A,5,20,749A,ED 0A,"STD $0A,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+pending_main_pass,003A,5,20,7985,14 3A 20,"BSET $3A,#$20",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+pending_main_pass,003A,5,20,7A7D,15 3A 20,"BCLR $3A,#$20",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+pending_main_pass,003A,5,20,F318,1A EF 02,"STY $02,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+factory_mode,0044,0,01,71B4,14 44 01,"BSET $44,#$01",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+factory_mode,0044,0,01,748E,ED 04,"STD $04,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+factory_mode,0044,0,01,F31B,1A EF 04,"STY $04,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+main_pass_busy,004F,2,04,74A2,ED 0E,"STD $0E,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+main_pass_busy,004F,2,04,7974,15 4F 04,"BCLR $4F,#$04",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+main_pass_busy,004F,2,04,7989,14 4F 04,"BSET $4F,#$04",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+main_pass_busy,004F,2,04,7A52,15 4F 04,"BCLR $4F,#$04",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+main_pass_busy,004F,2,04,F31E,1A EF 06,"STY $06,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+foreground_refresh_request,0051,2,04,7486,ED 00,"STD $00,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+foreground_refresh_request,0051,2,04,74B0,15 51 04,"BCLR $51,#$04",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+foreground_refresh_request,0051,2,04,7B69,14 51 04,"BSET $51,#$04",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+foreground_refresh_request,0051,2,04,F315,1A EF 00,"STY $00,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+extension_and_profiling_enable,0086,6,40,7492,ED 06,"STD $06,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+extension_and_profiling_enable,0086,6,40,F31E,1A EF 06,"STY $06,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_service_active,003B,4,10,749A,ED 0A,"STD $0A,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_service_active,003B,4,10,79D6,97 3B,STAA $3B,whole_byte_or_word_mutation; value_flow_required,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_service_active,003B,4,10,F318,1A EF 02,"STY $02,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_service_active,003B,4,10,F720,14 3B 10,"BSET $3B,#$10",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_service_active,003B,4,10,F777,15 3B 10,"BCLR $3B,#$10",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_service_active,003B,3,08,749A,ED 0A,"STD $0A,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_service_active,003B,3,08,79D6,97 3B,STAA $3B,whole_byte_or_word_mutation; value_flow_required,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_service_active,003B,3,08,F318,1A EF 02,"STY $02,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_service_active,003B,3,08,F68A,14 3B 08,"BSET $3B,#$08",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_service_active,003B,3,08,F712,15 3B 08,"BCLR $3B,#$08",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+shared_service_monitor_gate,003B,2,04,749A,ED 0A,"STD $0A,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+shared_service_monitor_gate,003B,2,04,79D6,97 3B,STAA $3B,whole_byte_or_word_mutation; value_flow_required,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+shared_service_monitor_gate,003B,2,04,F318,1A EF 02,"STY $02,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_session,0042,0,01,748A,ED 02,"STD $02,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_session,0042,0,01,F318,1A EF 02,"STY $02,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_session,0042,0,01,F799,15 42 03,"BCLR $42,#$03",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_session,0042,0,01,F93F,14 42 01,"BSET $42,#$01",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+engine_session,0042,0,01,F9ED,D7 42,STAB $42,whole_byte_or_word_mutation; value_flow_required,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_session,0042,1,02,748A,ED 02,"STD $02,X",preserve_by_self_copy,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_session,0042,1,02,F318,1A EF 02,"STY $02,X",clear,see indexed alias contract,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_session,0042,1,02,F799,15 42 03,"BCLR $42,#$03",clear,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_session,0042,1,02,F948,14 42 02,"BSET $42,#$02",set,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases
+transmission_session,0042,1,02,F9ED,D7 42,STAB $42,whole_byte_or_word_mutation; value_flow_required,instruction admission,local bit effect; does not prove this writer is admitted or exclude formal/opaque aliases

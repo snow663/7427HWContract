@@ -1,0 +1,16 @@
+block,start,end_exclusive,instruction_starts,scope
+boot_serial_and_factory_admission,7100,71C3,79,reviewed local software; physical interfaces separate
+timer_arm_and_foreground,7459,74D3,54,reviewed local software; physical interfaces separate
+timer_factory_and_normal_dispatch,793D,7A85,130,reviewed local software; physical interfaces separate
+transmission_service_admission,AE85,AEA4,11,reviewed local software; physical interfaces separate
+factory_mode_refresh,CB15,CB31,12,reviewed local software; physical interfaces separate
+register_initializer,CC7C,CCC1,34,reviewed local software; physical interfaces separate
+ADC_test_helpers,F20D,F280,51,reviewed local software; physical interfaces separate
+heartbeat_and_board_flush,F3E4,F420,27,reviewed local software; physical interfaces separate
+extensions_and_optional_broadcast,F5CF,F64E,57,reviewed local software; physical interfaces separate
+service_override_and_timeout,F64E,F7EA,162,reviewed local software; physical interfaces separate
+SCI_ISR,F7EA,F822,19,reviewed local software; physical interfaces separate
+transmitter,F822,F90B,106,reviewed local software; physical interfaces separate
+receiver_and_reply,F90B,FA5B,149,reviewed local software; physical interfaces separate
+factory_test_loop,FA5B,FBD7,155,reviewed local software; physical interfaces separate
+trap_and_fallback_handlers,FC04,FC45,29,reviewed local software; physical interfaces separate

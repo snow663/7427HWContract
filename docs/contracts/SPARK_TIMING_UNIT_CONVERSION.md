@@ -1,5 +1,7 @@
 # Spark Timing Unit Conversion
 
+The exact normal `$AB3E-$ABC8` integer path is now ROM-verified and independently replayed in [FACTORY_SPARK_INTEGER_HANDOFF.md](../analysis/FACTORY_SPARK_INTEGER_HANDOFF.md). Its saved timing word, separate period anchor, N-bit selection, and four ordered writes take precedence over older provisional arithmetic below. Physical role/unit hypotheses and the later monitor remain separate.
+
 ## Purpose
 
 Document how degree-domain spark/retard state is converted into the timing-domain value consumed by `LA906` at `0xAB97`.
@@ -43,7 +45,7 @@ L01FD final spark advance
 Provisional form:
 
 ```text
-D_AB97 = f(L01EE, L005F, L0201, L3FC0)
+saved = f(L01EE, L01F2, L005F, L0201); D_AB97 = (u16(-L3FC0) >> 4) | 0xF000
 ```
 
 More concrete static shape:
@@ -54,10 +56,10 @@ latency = lookup_$454A(RPM/25) → L0201
 period_basis = L005F
 period_anchor = L3FC0
 mult = LF550(spark_mag, period_basis)
-D_AB97 ≈ ((mult - latency - period_anchor) >> 4) with high-nibble/sign tagging
+saved = u16(signed_mult - latency); D_AB97 = (u16(-period_anchor) >> 4) | 0xF000
 ```
 
-Do not treat this as final executable math yet. `LF550` return scaling, borrow behavior around `SUBB L0201`, and the meaning of `ORAA #$F0` still need helper-level trace or bench proof.
+The bounded raw integer math is now verified; use the linked factory model for byte-width sign/startup handling and all live read samples. The engineering scale and hardware timing still require separate evidence.
 
 ## Static Conversion Stages
 
@@ -69,9 +71,9 @@ Do not treat this as final executable math yet. `LF550` return scaling, borrow b
 | sign_magnitude_transform | `0xAB47-0xAB50` | if negative set L004F bit0 and negate B; clear A | `L01EE` | `B with L004F bit0 sign` | 8-bit magnitude used for multiply | medium_static |
 | startup_override_magnitude | `0xAB55-0xAB5B` | startup path can replace/scale the normal B magnitude | `L01F2` | `D` | startup-specific; bench required | medium_static |
 | latency_lookup | `0xAB69-0xAB72` | 2D lookup indexed by engine RPM/25 stores latency correction | `L0062/table_$454A` | `L0201` | table units unknown; subtracted from B after multiply | medium_static |
-| degree_period_multiply | `0xAB76-0xAB79` | multiply 8-bit spark magnitude against 16-bit period basis using LF550 | `B magnitude, L005F` | `D` | likely 8x16 fixed-point multiply; exact LF550 contract still needed | medium_static |
+| degree_period_multiply | `0xAB76-0xAB79` | multiply 8-bit spark magnitude against 16-bit period basis using LF550 | `A effective magnitude, L005F` | `D` | likely 8x16 fixed-point multiply; exact LF550 contract still needed | medium_static |
 | latency_subtract | `0xAB84` | subtract latency lookup from low byte of multiply result | `L0201` | `D/B` | same low-byte units as LF550 output | medium_static |
-| period_anchor_subtract | `0xAB8E-0xAB96` | subtract period/timebase term, shift right 4, set high nibble marker/sign bits | `L3FC0` | `D_AB97` | `(multiply_result - L3FC0) >> 4` with high-nibble tagging | medium_static |
+| period_anchor_subtract | `0xAB8E-0xAB96` | clear D; subtract fresh period from zero; four unsigned shifts; OR high byte with F0 | `L3FC0` | `D_AB97` | (u16(-read16(3FC0)) >> 4) | F000; timing product is separately saved | medium_static |
 | la906_sink | `0xAB97` | add rolling anchor L3FF6 | `D_AB97,L3FF6` | `D` | same timebase as LA906 ASIC timing writes, exact count/us pending | high_static_sink_low_physical_units |
 
 ## LF550 Helper Gate

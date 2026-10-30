@@ -1,6 +1,13 @@
-# 7427 ASIC / Hardware Register Contract v0.1
+# 7427 Hardware Access Listing Inventory v0.3
 
 Generated from static source walk. This is not a dynamic proof; unknown or inferred meanings are marked as test items.
+
+**Scope:** source-listing inventory with F1-style CPU register names corrected
+[external/hardware contract](analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md)
+is the stronger ROM-backed authority for accesses and observable interfaces.
+CPU names follow [MC68HC11F1 table4-1](https://www.nxp.com/docs/en/data-sheet/MC68HC11F1.pdf);
+they do not establish physical board wiring. Current direct/indexed
+hardware access authority is `maps/structure/factory_global_hardware_accesses.csv`.
 
 ## HC11 relocated registers
 
@@ -8,14 +15,14 @@ Generated from static source walk. This is not a dynamic proof; unknown or infer
 |---|---|---:|---|---|---|
 | `0x103D` | CPU INIT REG | indexed_resolved | W:1 | 0x7108 | 0x7108 STAA $3D,X ← A=0x03 | KEEP / required until bench proven otherwise |
 | `0x3000` | PORTA / timer pin status | W:1, R:5 | 0x7120, 0x77E2, 0x7812, 0x787C, 0x78E0, 0xAEA7 | 0x7120 STAA 0,X ← A=0x00 | KEEP / required until bench proven otherwise |
-| `0x3001` | PIOC | W:1 | 0xCC97 | 0xCC97 STAA $0001,X ← A=0x38 | KEEP / required until bench proven otherwise |
-| `0x3002` | PORTC | R:1 | 0xAEB1 |  | KEEP / required until bench proven otherwise |
-| `0x3003` | PORTB | W:1 | 0xCC8B | 0xCC8B STAA $03,X ← A=0x00 | KEEP / required until bench proven otherwise |
-| `0x3008` | PORTE / ADC input port | W:3, R:3, RMW:2 | 0x7122, 0x9251, 0xD162, 0xD168, 0xD16A, 0xF275, 0xF27B, 0xF27D | 0x7122 STAA $08,X ← A=0x00 | KEEP / required until bench proven otherwise |
-| `0x3009` | CFORC/Timer force compare candidate | W:1 | 0xCC9B | 0xCC9B STAA $0009,X ← A=0x38 | KEEP / required until bench proven otherwise |
+| `0x3001` | DDRA | W:1 | 0xCC97 | 0xCC97 STAA $0001,X ← A=0x38 | KEEP / required until bench proven otherwise |
+| `0x3002` | PORTG | R:1 | 0xAEB1 |  | KEEP / required until bench proven otherwise |
+| `0x3003` | DDRG | W:1 | 0xCC8B | 0xCC8B STAA $03,X ← A=0x00 | KEEP / required until bench proven otherwise |
+| `0x3008` | PORTD | W:3, R:3, RMW:2 | 0x7122, 0x9251, 0xD162, 0xD168, 0xD16A, 0xF275, 0xF27B, 0xF27D | 0x7122 STAA $08,X ← A=0x00 | KEEP / required until bench proven otherwise |
+| `0x3009` | DDRD | W:1 | 0xCC9B | 0xCC9B STAA $0009,X ← A=0x38 | KEEP / required until bench proven otherwise |
 | `0x300B` | CFORC / compare force | W:1 | 0xCC83 | 0xCC83 STAA $0B,X ← A=0x00 | KEEP / required until bench proven otherwise |
-| `0x300C` | OC1D candidate | W:1 | 0xCC7D | 0xCC7D STAA $0C,X ← A=0x00 | KEEP / required until bench proven otherwise |
-| `0x300D` | TCNT high? candidate | W:1 | 0xCC7F | 0xCC7F STAA $0D,X ← A=0x00 | KEEP / required until bench proven otherwise |
+| `0x300C` | OC1M output-compare1 mask | W:1 | 0xCC7D | 0xCC7D STAA $0C,X ← A=0x00 | KEEP / required until bench proven otherwise |
+| `0x300D` | OC1D output-compare1 data | W:1 | 0xCC7F | 0xCC7F STAA $0D,X ← A=0x00 | KEEP / required until bench proven otherwise |
 | `0x300E` | TCNT 16-bit free-running counter | R:9 | 0x745E, 0x74F1, 0x77D6, 0x7806, 0x78B5, 0x78C8, 0x7919, 0x792C, 0x7A62 |  | KEEP / required until bench proven otherwise |
 | `0x3010` | TIC1 | R:2 | 0xAF7B, 0xAF83 |  | KEEP / required until bench proven otherwise |
 | `0x3012` | TIC2 | R:2 | 0x7425, 0xAE67 |  | KEEP / required until bench proven otherwise |
@@ -41,9 +48,13 @@ Generated from static source walk. This is not a dynamic proof; unknown or infer
 | `0x3038` | OPT2 | RMW:1 | 0x7115 |  | KEEP / required until bench proven otherwise |
 | `0x3039` | OPTION | W:2 | 0x710F, 0x7D89 | 0x710F STAA $39,X ← A=0xB8; 0x7D89 STAB L3039 ← B=0x08 | KEEP / required until bench proven otherwise |
 | `0x303A` | COPRST watchdog clear | W:10 | 0x7443, 0x7448, 0x79EA, 0x79ED, 0x7DB3, 0x9169, 0xF2EF, 0xF2F3, 0xFA87, 0xFA8A | 0x7443 STAA L303A ← A=0x55; 0x7448 STAA L303A ← A=0xAA; 0x79EA STAA L303A ← A=0xAA; 0x79ED STAB L303A ← B=0x55; 0x7DB3 STAA L303A ← A=0x55; 0x9169 STAB L303A ← B=0xAA; 0xF2EF STAA L303A ← A=0x55; 0xF2F3 STAA L303A ← A=0x55 | KEEP / required until bench proven otherwise |
-| `0x303C` | indexed_resolved | W:1 | 0xCCA3 | 0xCCA3 STAA $003C,X ← A=0x15 | KEEP / required until bench proven otherwise |
-| `0x303E` | indexed_resolved | W:1 | 0xCC87 | 0xCC87 STAA $3E,X ← A=0x00 | KEEP / required until bench proven otherwise |
-| `0x303F` | CONFIG/EPROM config candidate | R:1 | 0x71C6 |  | KEEP / required until bench proven otherwise |
+| `0x303C` | HPRIO | W:1 | 0xCCA3 | 0xCCA3 STAA $003C,X ← A=0x15 | KEEP / required until bench proven otherwise |
+| `0x303E` | TEST1 | W:1 | 0xCC87 | 0xCC87 STAA $3E,X ← A=0x00 | KEEP / required until bench proven otherwise |
+| `0x303F` | CONFIG | R:1 | 0x71C6 |  | KEEP / required until bench proven otherwise |
+| `0x305C` | CSSTRH clock stretching | W:1 | 0xCC89 | 0xCC89 STAA $5C,X ← A=0x00 | KEEP / required until bench proven otherwise |
+| `0x305D` | CSCTL chip-select control | W:1 | 0xCCA7 | 0xCCA7 STAA $005D,X ← A=0xAC | KEEP / required until bench proven otherwise |
+| `0x305E` | CSGADR general chip-select address | W:1 | 0xCCAF | 0xCCAF STAA $005E,X ← A=0x00 | KEEP / required until bench proven otherwise |
+| `0x305F` | CSGSIZ general chip-select size | W:1 | 0xCCAB | 0xCCAB STAA $005F,X ← A=0xCB | KEEP / required until bench proven otherwise |
 
 ## SCI/ALDL registers
 
@@ -88,10 +99,6 @@ Generated from static source walk. This is not a dynamic proof; unknown or infer
 
 | Address | Name / hypothesis | Accesses | First PCs | Constant writes / source hints | Contract status |
 |---|---|---:|---|---|---|
-| `0x305C` | indexed_resolved | W:1 | 0xCC89 | 0xCC89 STAA $5C,X ← A=0x00 | TEST ITEM: classify before removal |
-| `0x305D` | indexed_resolved | W:1 | 0xCCA7 | 0xCCA7 STAA $005D,X ← A=0xAC | TEST ITEM: classify before removal |
-| `0x305E` | indexed_resolved | W:1 | 0xCCAF | 0xCCAF STAA $005E,X ← A=0x00 | TEST ITEM: classify before removal |
-| `0x305F` | indexed_resolved | W:1 | 0xCCAB | 0xCCAB STAA $005F,X ← A=0xCB | TEST ITEM: classify before removal |
 | `0x3060` | CLR b4, | indexed_resolved | RMW:1, R:3, W:2 | 0xA5D4, 0xAEB7, 0xF400, 0xF409, 0xFB4A, 0xFB51 |  | TEST ITEM: classify before removal |
 | `0x3061` |  | W:1 | 0xCCB3 | 0xCCB3 STAA L3061 ← A=0x90 | TEST ITEM: classify before removal |
 | `0x3062` | External 306x hardware latch/status candidate | RMW:2, R:4, W:4 | 0x7509, 0x750C, 0xAEBA, 0xF411, 0xFB14, 0xFB28, 0xFB39, 0xFB3E, 0xFB54, 0xFB5B |  | TEST ITEM: classify before removal |

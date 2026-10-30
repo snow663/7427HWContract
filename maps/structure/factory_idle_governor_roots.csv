@@ -1,0 +1,26 @@
+entry,local_instructions,return_sites,proof
+8EB4,222,8EC8;90D2,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+90D3,63,9166,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9167,24,91A2,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+91A3,48,920D,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+920E,8,9225,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9226,9,923F,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9240,3,9246,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9247,5,924F,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9250,9,925D,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+925E,28,92A3,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+92A4,32,92F0,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+92F1,86,93C4,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+93C5,5,93CF,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+93D0,510,989B;A406,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+989C,125,99C4,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+99C5,246,9C1F,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9C20,49,9C95,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9CA6,39,9CFC,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9CFD,187,9E98,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+9E99,408,A2AF,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+A2B0,133,A406,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+A407,48,989B;A406;A465,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+D4A3,26,D4D9,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+D4DA,6,D4EA,intraprocedural CFG; calls retained; A407 nonlocal return documented separately
+F3EE,22,F41F,intraprocedural CFG; calls retained; A407 nonlocal return documented separately

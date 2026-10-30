@@ -153,7 +153,7 @@ ROWS = [
         "reset_in_work_dependency": "primary path",
         "required_for_minimal_os": "yes",
         "confidence": "high_static",
-        "notes": "This is the clearest source proof that actual position is made trustworthy by driving toward zero during reset-in-work, then clearing the reset flag only when L0007 reaches zero",
+        "notes": "The software count is accepted as zero after reset countdown; this is not a measured pintle position. The ROM reset seed is255 and target0.",
     },
     {
         "stage": "reset_complete_seed_and_request",
@@ -258,7 +258,7 @@ def resolve(path: str | Path) -> Path:
 def write_csv(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
+        writer = csv.DictWriter(f, fieldnames=FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(ROWS)
 
@@ -465,6 +465,7 @@ def write_md(path: Path) -> None:
         "CALIBRATION_SOURCE_INDEX",
         "```",
     ]
+    lines[2:2] = ['Current factory software authority: [FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md](../analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md), [IAC controller](../analysis/FACTORY_IAC_CONTROLLER.md), and [learning/output](../analysis/FACTORY_IAC_LEARNING_AND_OUTPUT.md). These ROM-byte contracts close the strategy, retained state, reset/service and software cadence gaps of this earlier source-only note. Physical pin mapping and motor response remain separate. In particular, reset seeds position255 and target0; software position is not sensor feedback.', ""]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

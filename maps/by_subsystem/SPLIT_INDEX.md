@@ -1,5 +1,7 @@
 # Hardware Access Map Split Index
 
+**Historical split export:** these source-only partitions retain their original scope and counts. Current broad queries use `maps/full/hardware_access_map_v0.3.csv`; ROM-backed hardware ownership uses `maps/structure/factory_global_hardware_accesses.csv`. See [maps index](../README.md).
+
 The full v0.2 access map is large, so the working repo uses subsystem splits plus a hardware-only current map target.
 
 ## v0.2 subsystem counts

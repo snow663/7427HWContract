@@ -2,6 +2,13 @@ name: Static Artifact Builder Verification
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "tools/build_*.py"
+      - "tools/verify_static_artifact_builders.py"
+      - "docs/**"
+      - "maps/**"
+      - ".github/workflows/static-artifact-verifier.yml"
   push:
     branches:
       - main

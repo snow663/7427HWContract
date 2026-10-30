@@ -1,0 +1,23 @@
+area,device_id,command,pointer_address,descriptor,accepted,rule
+engine,F4,00,51C8,51E0,1,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,01,51CA,51EF,1,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,02,51CC,5384,1,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,03,51CE,538D,1,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,04,51D0,5396,1,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,05,51D2,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,06,51D4,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,07,51D6,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,08,51D8,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,09,51DA,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+engine,F4,0A,51DC,539F,1,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,00,53B1,53C9,1,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,01,53B3,53D8,1,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,02,53B5,5567,1,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,03,53B7,5570,1,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,04,53B9,5579,1,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,05,53BB,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,06,53BD,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,07,53BF,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,08,53C1,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,09,53C3,0000,0,mode<=10 and nonzero word; no per-mode RX length check
+transmission,F5,0A,53C5,5582,1,mode<=10 and nonzero word; no per-mode RX length check

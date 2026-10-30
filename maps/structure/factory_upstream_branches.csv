@@ -1,0 +1,827 @@
+block,pc,bytes_hex,mnemonic,operand,condition,target,fallthrough
+boot_sensor_seeds,73A5,24 03,BCC,$73AA,C=0,73AA,73A7
+boot_sensor_seeds,73D1,25 08,BCS,$73DB,C=1,73DB,73D3
+boot_sensor_seeds,73D6,25 03,BCS,$73DB,C=1,73DB,73D8
+boot_crank_count_seed,744F,13 04 08 06,BRCLR,"$04,#$08,$7459",(byte[operand] & $08) == 0 (all selected bits clear),7459,7453
+reference_input,750F,12 44 10 03,BRSET,"$44,#$10,$7516",(byte[operand] & $10) == mask (all selected bits),7516,7513
+reference_input,751B,13 50 01 0F,BRCLR,"$50,#$01,$752E",(byte[operand] & $01) == 0 (all selected bits clear),752E,751F
+reference_input,752E,13 4F 10 03,BRCLR,"$4F,#$10,$7535",(byte[operand] & $10) == 0 (all selected bits clear),7535,7532
+reference_input,7539,12 44 10 0B,BRSET,"$44,#$10,$7548",(byte[operand] & $10) == mask (all selected bits),7548,753D
+reference_input,7541,27 0F,BEQ,$7552,Z=1,7552,7543
+reference_input,7546,20 0A,BRA,$7552,always,7552,7548
+reference_input,755D,24 E9,BCC,$7548,C=0,7548,755F
+reference_input,7562,1F 00 04 13,BRCLR,"$00,X,#$04,$7579",(byte[operand] & $04) == 0 (all selected bits clear),7579,7566
+reference_input,7572,1E 00 10 06,BRSET,"$00,X,#$10,$757C",(byte[operand] & $10) == mask (all selected bits),757C,7576
+reference_input,757C,13 19 40 07,BRCLR,"$19,#$40,$7587",(byte[operand] & $40) == 0 (all selected bits clear),7587,7580
+reference_input,758C,2A 03,BPL,$7591,N=0,7591,758E
+reference_input,7597,1E 23 01 5C,BRSET,"$23,X,#$01,$75F7",(byte[operand] & $01) == mask (all selected bits),75F7,759B
+reference_input,75A0,26 05,BNE,$75A7,Z=0,75A7,75A2
+reference_input,75A5,20 24,BRA,$75CB,always,75CB,75A7
+reference_input,75A7,13 53 20 20,BRCLR,"$53,#$20,$75CB",(byte[operand] & $20) == 0 (all selected bits clear),75CB,75AB
+reference_input,75B7,24 03,BCC,$75BC,C=0,75BC,75B9
+reference_input,75C5,26 01,BNE,$75C8,Z=0,75C8,75C7
+reference_input,75D8,24 03,BCC,$75DD,C=0,75DD,75DA
+reference_input,75EE,2A 03,BPL,$75F3,N=0,75F3,75F0
+reference_input,75F5,20 39,BRA,$7630,always,7630,75F7
+reference_input,760B,24 03,BCC,$7610,C=0,7610,760D
+reference_input,7621,2A 03,BPL,$7626,N=0,7626,7623
+reference_input,7628,20 06,BRA,$7630,always,7630,762A
+reference_input,7634,26 02,BNE,$7638,Z=0,7638,7636
+reference_input,7640,22 0B,BHI,$764D,C=0 and Z=0,764D,7642
+reference_input,7645,23 06,BLS,$764D,C=1 or Z=1,764D,7647
+hot_restart_events,7653,27 41,BEQ,$7696,Z=1,7696,7655
+hot_restart_events,7659,27 03,BEQ,$765E,Z=1,765E,765B
+hot_restart_events,766F,24 02,BCC,$7673,C=0,7673,7671
+hot_restart_events,767A,24 1A,BCC,$7696,C=0,7696,767C
+hot_restart_events,7685,25 0F,BCS,$7696,C=1,7696,7687
+hot_restart_events,7690,24 01,BCC,$7693,C=0,7693,7692
+crank_event_gain,782E,23 07,BLS,$7837,C=1 or Z=1,7837,7830
+crank_event_gain,7835,20 14,BRA,$784B,always,784B,7837
+crank_event_gain,783A,12 04 10 0D,BRSET,"$04,#$10,$784B",(byte[operand] & $10) == mask (all selected bits),784B,783E
+crank_event_gain,7846,24 03,BCC,$784B,C=0,784B,7848
+crank_event_gain,7854,24 03,BCC,$7859,C=0,7859,7856
+MAP_lag,7BB1,27 29,BEQ,$7BDC,Z=1,7BDC,7BB3
+MAP_lag,7BB3,13 4F 10 22,BRCLR,"$4F,#$10,$7BD9",(byte[operand] & $10) == 0 (all selected bits clear),7BD9,7BB7
+MAP_lag,7BBF,25 18,BCS,$7BD9,C=1,7BD9,7BC1
+MAP_lag,7BC2,25 15,BCS,$7BD9,C=1,7BD9,7BC4
+MAP_lag,7BD2,25 05,BCS,$7BD9,C=1,7BD9,7BD4
+MAP_lag,7BD7,23 03,BLS,$7BDC,C=1 or Z=1,7BDC,7BD9
+MAP_lag,7BDF,12 47 01 03,BRSET,"$47,#$01,$7BE6",(byte[operand] & $01) == mask (all selected bits),7BE6,7BE3
+fuel_mode_and_AE,7D4E,13 44 10 3E,BRCLR,"$44,#$10,$7D90",(byte[operand] & $10) == 0 (all selected bits clear),7D90,7D52
+fuel_mode_and_AE,7D55,25 56,BCS,$7DAD,C=1,7DAD,7D57
+fuel_mode_and_AE,7D84,25 27,BCS,$7DAD,C=1,7DAD,7D86
+fuel_mode_and_AE,7D8E,20 FE,BRA,$7D8E,always,7D8E,7D90
+fuel_mode_and_AE,7D90,13 51 08 13,BRCLR,"$51,#$08,$7DA7",(byte[operand] & $08) == 0 (all selected bits clear),7DA7,7D94
+fuel_mode_and_AE,7DBD,2B 05,BMI,$7DC4,N=1,7DC4,7DBF
+fuel_mode_and_AE,7DC9,26 1C,BNE,$7DE7,Z=0,7DE7,7DCB
+fuel_mode_and_AE,7DCF,24 01,BCC,$7DD2,C=0,7DD2,7DD1
+fuel_mode_and_AE,7DD5,22 10,BHI,$7DE7,C=0 and Z=0,7DE7,7DD7
+fuel_mode_and_AE,7DD7,13 50 80 0C,BRCLR,"$50,#$80,$7DE7",(byte[operand] & $80) == 0 (all selected bits clear),7DE7,7DDB
+fuel_mode_and_AE,7DDB,13 3E A0 08,BRCLR,"$3E,#$A0,$7DE7",(byte[operand] & $A0) == 0 (all selected bits clear),7DE7,7DDF
+fuel_mode_and_AE,7DE2,27 0B,BEQ,$7DEF,Z=1,7DEF,7DE4
+fuel_mode_and_AE,7DE5,20 03,BRA,$7DEA,always,7DEA,7DE7
+fuel_mode_and_AE,7DFA,12 98 01 05,BRSET,"$98,#$01,$7E03",(byte[operand] & $01) == mask (all selected bits),7E03,7DFE
+fuel_mode_and_AE,7E01,20 06,BRA,$7E09,always,7E09,7E03
+fuel_mode_and_AE,7E0C,12 50 80 0A,BRSET,"$50,#$80,$7E1A",(byte[operand] & $80) == mask (all selected bits),7E1A,7E10
+fuel_mode_and_AE,7E20,22 0B,BHI,$7E2D,C=0 and Z=0,7E2D,7E22
+fuel_mode_and_AE,7E28,25 03,BCS,$7E2D,C=1,7E2D,7E2A
+fuel_mode_and_AE,7E3B,27 03,BEQ,$7E40,Z=1,7E40,7E3D
+fuel_mode_and_AE,7E4F,12 4F 10 53,BRSET,"$4F,#$10,$7EA6",(byte[operand] & $10) == mask (all selected bits),7EA6,7E53
+fuel_mode_and_AE,7E6A,24 03,BCC,$7E6F,C=0,7E6F,7E6C
+fuel_mode_and_AE,7E89,1E 00 04 0D,BRSET,"$00,X,#$04,$7E9A",(byte[operand] & $04) == mask (all selected bits),7E9A,7E8D
+fuel_mode_and_AE,7E98,23 03,BLS,$7E9D,C=1 or Z=1,7E9D,7E9A
+fuel_mode_and_AE,7EA9,12 3D 02 05,BRSET,"$3D,#$02,$7EB2",(byte[operand] & $02) == mask (all selected bits),7EB2,7EAD
+fuel_mode_and_AE,7EB9,23 5C,BLS,$7F17,C=1 or Z=1,7F17,7EBB
+fuel_mode_and_AE,7EC4,12 50 80 03,BRSET,"$50,#$80,$7ECB",(byte[operand] & $80) == mask (all selected bits),7ECB,7EC8
+fuel_mode_and_AE,7ED1,22 05,BHI,$7ED8,C=0 and Z=0,7ED8,7ED3
+fuel_mode_and_AE,7ED4,24 02,BCC,$7ED8,C=0,7ED8,7ED6
+fuel_mode_and_AE,7EDC,23 3C,BLS,$7F1A,C=1 or Z=1,7F1A,7EDE
+fuel_mode_and_AE,7EEA,23 05,BLS,$7EF1,C=1 or Z=1,7EF1,7EEC
+fuel_mode_and_AE,7EED,24 02,BCC,$7EF1,C=0,7EF1,7EEF
+fuel_mode_and_AE,7EFF,24 02,BCC,$7F03,C=0,7F03,7F01
+fuel_mode_and_AE,7F0D,27 02,BEQ,$7F11,Z=1,7F11,7F0F
+fuel_mode_and_AE,7F15,20 07,BRA,$7F1E,always,7F1E,7F17
+fuel_mode_and_AE,7F27,23 43,BLS,$7F6C,C=1 or Z=1,7F6C,7F29
+fuel_mode_and_AE,7F2C,2A 03,BPL,$7F31,N=0,7F31,7F2E
+fuel_mode_and_AE,7F2F,27 3B,BEQ,$7F6C,Z=1,7F6C,7F31
+fuel_mode_and_AE,7F31,12 05 40 05,BRSET,"$05,#$40,$7F3A",(byte[operand] & $40) == mask (all selected bits),7F3A,7F35
+fuel_mode_and_AE,7F38,23 32,BLS,$7F6C,C=1 or Z=1,7F6C,7F3A
+fuel_mode_and_AE,7F3B,24 02,BCC,$7F3F,C=0,7F3F,7F3D
+fuel_mode_and_AE,7F4B,24 0D,BCC,$7F5A,C=0,7F5A,7F4D
+fuel_mode_and_AE,7F55,24 03,BCC,$7F5A,C=0,7F5A,7F57
+fuel_mode_and_AE,7F62,24 03,BCC,$7F67,C=0,7F67,7F64
+fuel_mode_and_AE,7F6A,20 04,BRA,$7F70,always,7F70,7F6C
+fuel_mode_and_AE,7F73,13 02 02 0F,BRCLR,"$02,#$02,$7F86",(byte[operand] & $02) == 0 (all selected bits clear),7F86,7F77
+VE_selection,7F8B,23 05,BLS,$7F92,C=1 or Z=1,7F92,7F8D
+VE_selection,7F98,24 0E,BCC,$7FA8,C=0,7FA8,7F9A
+VE_selection,7FA0,24 06,BCC,$7FA8,C=0,7FA8,7FA2
+VE_selection,7FA6,25 0D,BCS,$7FB5,C=1,7FB5,7FA8
+VE_selection,7FB3,20 20,BRA,$7FD5,always,7FD5,7FB5
+VE_selection,7FB9,23 02,BLS,$7FBD,C=1 or Z=1,7FBD,7FBB
+VE_selection,7FC3,13 4F 08 0E,BRCLR,"$4F,#$08,$7FD5",(byte[operand] & $08) == 0 (all selected bits clear),7FD5,7FC7
+VE_selection,7FCD,22 03,BHI,$7FD2,C=0 and Z=0,7FD2,7FCF
+crank_equation,8595,27 07,BEQ,$859E,Z=1,859E,8597
+crank_equation,85A1,22 03,BHI,$85A6,C=0 and Z=0,85A6,85A3
+crank_equation,85A4,20 0B,BRA,$85B1,always,85B1,85A6
+crank_equation,85AD,23 02,BLS,$85B1,C=1 or Z=1,85B1,85AF
+crank_equation,85C8,23 17,BLS,$85E1,C=1 or Z=1,85E1,85CA
+crank_equation,85D0,13 04 10 03,BRCLR,"$04,#$10,$85D7",(byte[operand] & $10) == 0 (all selected bits clear),85D7,85D4
+crank_equation,85F2,24 03,BCC,$85F7,C=0,85F7,85F4
+crank_equation,85F7,25 19,BCS,$8612,C=1,8612,85F9
+crank_equation,860A,25 03,BCS,$860F,C=1,860F,860C
+crank_equation,860D,24 03,BCC,$8612,C=0,8612,860F
+battery_ignition_state,8617,24 0C,BCC,$8625,C=0,8625,8619
+battery_ignition_state,861B,24 1F,BCC,$863C,C=0,863C,861D
+battery_ignition_state,8623,20 17,BRA,$863C,always,863C,8625
+battery_ignition_state,8625,13 44 10 06,BRCLR,"$44,#$10,$862F",(byte[operand] & $10) == 0 (all selected bits clear),862F,8629
+battery_ignition_state,8637,27 03,BEQ,$863C,Z=1,863C,8639
+O2_preparation,863D,13 4F 10 21,BRCLR,"$4F,#$10,$8662",(byte[operand] & $10) == 0 (all selected bits clear),8662,8641
+O2_preparation,8644,13 50 80 03,BRCLR,"$50,#$80,$864B",(byte[operand] & $80) == 0 (all selected bits clear),864B,8648
+O2_preparation,864B,12 3E 80 02,BRSET,"$3E,#$80,$8651",(byte[operand] & $80) == mask (all selected bits),8651,864F
+O2_preparation,8656,22 04,BHI,$865C,C=0 and Z=0,865C,8658
+O2_preparation,865A,24 06,BCC,$8662,C=0,8662,865C
+O2_preparation,866A,25 07,BCS,$8673,C=1,8673,866C
+O2_preparation,866D,25 04,BCS,$8673,C=1,8673,866F
+O2_preparation,8671,23 02,BLS,$8675,C=1 or Z=1,8675,8673
+O2_preparation,867A,13 50 80 0D,BRCLR,"$50,#$80,$868B",(byte[operand] & $80) == 0 (all selected bits clear),868B,867E
+O2_preparation,869E,27 06,BEQ,$86A6,Z=1,86A6,86A0
+O2_preparation,86A4,20 E5,BRA,$868B,always,868B,86A6
+O2_preparation,86A6,13 70 04 03,BRCLR,"$70,#$04,$86AD",(byte[operand] & $04) == 0 (all selected bits clear),86AD,86AA
+O2_preparation,86B8,25 05,BCS,$86BF,C=1,86BF,86BA
+O2_preparation,86BD,25 19,BCS,$86D8,C=1,86D8,86BF
+O2_preparation,86C5,25 05,BCS,$86CC,C=1,86CC,86C7
+O2_preparation,86CA,22 08,BHI,$86D4,C=0 and Z=0,86D4,86CC
+O2_preparation,86D2,22 04,BHI,$86D8,C=0 and Z=0,86D8,86D4
+O2_preparation,86D6,20 02,BRA,$86DA,always,86DA,86D8
+O2_preparation,86DC,27 09,BEQ,$86E7,Z=1,86E7,86DE
+O2_preparation,86E5,20 06,BRA,$86ED,always,86ED,86E7
+O2_preparation,86EB,27 03,BEQ,$86F0,Z=1,86F0,86ED
+O2_preparation,86F2,13 3B 10 10,BRCLR,"$3B,#$10,$8706",(byte[operand] & $10) == 0 (all selected bits clear),8706,86F6
+O2_preparation,86F9,1F 00 01 09,BRCLR,"$00,X,#$01,$8706",(byte[operand] & $01) == 0 (all selected bits clear),8706,86FD
+O2_preparation,86FD,1F 01 01 02,BRCLR,"$01,X,#$01,$8703",(byte[operand] & $01) == 0 (all selected bits clear),8703,8701
+O2_preparation,8701,20 76,BRA,$8779,always,8779,8703
+O2_preparation,8706,12 3E 80 04,BRSET,"$3E,#$80,$870E",(byte[operand] & $80) == mask (all selected bits),870E,870A
+O2_preparation,870A,13 52 80 6E,BRCLR,"$52,#$80,$877C",(byte[operand] & $80) == 0 (all selected bits clear),877C,870E
+O2_preparation,870E,12 46 08 64,BRSET,"$46,#$08,$8776",(byte[operand] & $08) == mask (all selected bits),8776,8712
+O2_preparation,8712,12 3D 20 60,BRSET,"$3D,#$20,$8776",(byte[operand] & $20) == mask (all selected bits),8776,8716
+O2_preparation,8716,12 52 40 5C,BRSET,"$52,#$40,$8776",(byte[operand] & $40) == mask (all selected bits),8776,871A
+O2_preparation,871D,1F 00 20 09,BRCLR,"$00,X,#$20,$872A",(byte[operand] & $20) == 0 (all selected bits clear),872A,8721
+O2_preparation,8721,13 6E 08 05,BRCLR,"$6E,#$08,$872A",(byte[operand] & $08) == 0 (all selected bits clear),872A,8725
+O2_preparation,8728,20 4F,BRA,$8779,always,8779,872A
+O2_preparation,872D,1E 00 10 04,BRSET,"$00,X,#$10,$8735",(byte[operand] & $10) == mask (all selected bits),8735,8731
+O2_preparation,8731,1F 00 40 04,BRCLR,"$00,X,#$40,$8739",(byte[operand] & $40) == 0 (all selected bits clear),8739,8735
+O2_preparation,8735,12 3D 04 40,BRSET,"$3D,#$04,$8779",(byte[operand] & $04) == mask (all selected bits),8779,8739
+O2_preparation,8739,13 4F 20 05,BRCLR,"$4F,#$20,$8742",(byte[operand] & $20) == 0 (all selected bits clear),8742,873D
+O2_preparation,8740,20 37,BRA,$8779,always,8779,8742
+O2_preparation,8742,13 3D 10 0B,BRCLR,"$3D,#$10,$8751",(byte[operand] & $10) == 0 (all selected bits clear),8751,8746
+O2_preparation,8746,12 3E 40 46,BRSET,"$3E,#$40,$8790",(byte[operand] & $40) == mask (all selected bits),8790,874A
+O2_preparation,874D,2A 41,BPL,$8790,N=0,8790,874F
+O2_preparation,874F,20 28,BRA,$8779,always,8779,8751
+O2_preparation,8757,22 37,BHI,$8790,C=0 and Z=0,8790,8759
+O2_preparation,875E,23 30,BLS,$8790,C=1 or Z=1,8790,8760
+O2_preparation,8763,22 2B,BHI,$8790,C=0 and Z=0,8790,8765
+O2_preparation,876B,25 23,BCS,$8790,C=1,8790,876D
+O2_preparation,876D,12 3E 40 1F,BRSET,"$3E,#$40,$8790",(byte[operand] & $40) == mask (all selected bits),8790,8771
+O2_preparation,8774,2A 1A,BPL,$8790,N=0,8790,8776
+O2_control,8796,22 0E,BHI,$87A6,C=0 and Z=0,87A6,8798
+O2_control,879B,25 03,BCS,$87A0,C=1,87A0,879D
+O2_control,879E,20 1E,BRA,$87BE,always,87BE,87A0
+O2_control,87A4,20 0A,BRA,$87B0,always,87B0,87A6
+O2_control,87B0,13 50 80 04,BRCLR,"$50,#$80,$87B8",(byte[operand] & $80) == 0 (all selected bits clear),87B8,87B4
+O2_control,87BA,23 02,BLS,$87BE,C=1 or Z=1,87BE,87BC
+O2_control,87CB,13 50 80 44,BRCLR,"$50,#$80,$8813",(byte[operand] & $80) == 0 (all selected bits clear),8813,87CF
+O2_control,87DA,12 3E 40 08,BRSET,"$3E,#$40,$87E6",(byte[operand] & $40) == mask (all selected bits),87E6,87DE
+O2_control,87E6,12 3F 03 0E,BRSET,"$3F,#$03,$87F8",(byte[operand] & $03) == mask (all selected bits),87F8,87EA
+O2_control,87EA,12 3F 0C 0A,BRSET,"$3F,#$0C,$87F8",(byte[operand] & $0C) == mask (all selected bits),87F8,87EE
+O2_control,87F6,20 0B,BRA,$8803,always,8803,87F8
+O2_control,87FE,12 3E 40 01,BRSET,"$3E,#$40,$8803",(byte[operand] & $40) == mask (all selected bits),8803,8802
+O2_control,880A,25 03,BCS,$880F,C=1,880F,880C
+O2_control,880D,24 2D,BCC,$883C,C=0,883C,880F
+O2_control,8811,20 29,BRA,$883C,always,883C,8813
+O2_control,8821,23 02,BLS,$8825,C=1 or Z=1,8825,8823
+O2_control,8837,24 03,BCC,$883C,C=0,883C,8839
+O2_control,884B,24 02,BCC,$884F,C=0,884F,884D
+O2_control,885E,13 50 80 07,BRCLR,"$50,#$80,$8869",(byte[operand] & $80) == 0 (all selected bits clear),8869,8862
+O2_control,8865,24 02,BCC,$8869,C=0,8869,8867
+O2_control,8879,27 04,BEQ,$887F,Z=1,887F,887B
+O2_control,887D,26 4E,BNE,$88CD,Z=0,88CD,887F
+O2_control,8886,22 05,BHI,$888D,C=0 and Z=0,888D,8888
+O2_control,888B,20 40,BRA,$88CD,always,88CD,888D
+O2_control,8893,25 03,BCS,$8898,C=1,8898,8895
+O2_control,8896,20 01,BRA,$8899,always,8899,8898
+O2_control,889C,26 2F,BNE,$88CD,Z=0,88CD,889E
+O2_control,88A1,12 46 02 10,BRSET,"$46,#$02,$88B5",(byte[operand] & $02) == mask (all selected bits),88B5,88A5
+O2_control,88A8,27 20,BEQ,$88CA,Z=1,88CA,88AA
+O2_control,88AA,13 52 80 04,BRCLR,"$52,#$80,$88B2",(byte[operand] & $80) == 0 (all selected bits clear),88B2,88AE
+O2_control,88B0,24 18,BCC,$88CA,C=0,88CA,88B2
+O2_control,88B3,20 15,BRA,$88CA,always,88CA,88B5
+O2_control,88B8,1F 00 08 04,BRCLR,"$00,X,#$08,$88C0",(byte[operand] & $08) == 0 (all selected bits clear),88C0,88BC
+O2_control,88BC,12 44 02 0D,BRSET,"$44,#$02,$88CD",(byte[operand] & $02) == mask (all selected bits),88CD,88C0
+O2_control,88C3,27 05,BEQ,$88CA,Z=1,88CA,88C5
+O2_control,88C5,12 3F 80 01,BRSET,"$3F,#$80,$88CA",(byte[operand] & $80) == mask (all selected bits),88CA,88C9
+O2_control,88D1,23 0F,BLS,$88E2,C=1 or Z=1,88E2,88D3
+O2_control,88D6,24 02,BCC,$88DA,C=0,88DA,88D8
+O2_control,88DB,24 05,BCC,$88E2,C=0,88E2,88DD
+O2_control,88E0,20 07,BRA,$88E9,always,88E9,88E2
+O2_control,88E2,13 52 80 03,BRCLR,"$52,#$80,$88E9",(byte[operand] & $80) == 0 (all selected bits clear),88E9,88E6
+O2_control,88EC,13 3E 40 21,BRCLR,"$3E,#$40,$8911",(byte[operand] & $40) == 0 (all selected bits clear),8911,88F0
+O2_control,88F3,1F 00 08 0F,BRCLR,"$00,X,#$08,$8906",(byte[operand] & $08) == 0 (all selected bits clear),8906,88F7
+O2_control,88F7,13 44 02 0B,BRCLR,"$44,#$02,$8906",(byte[operand] & $02) == 0 (all selected bits clear),8906,88FB
+O2_control,8901,24 03,BCC,$8906,C=0,8906,8903
+O2_control,890C,24 0A,BCC,$8918,C=0,8918,890E
+O2_control,890F,20 07,BRA,$8918,always,8918,8911
+O2_control,8914,24 02,BCC,$8918,C=0,8918,8916
+AFR_base,8925,27 11,BEQ,$8938,Z=1,8938,8927
+AFR_base,892D,1F 00 01 3C,BRCLR,"$00,X,#$01,$896D",(byte[operand] & $01) == 0 (all selected bits clear),896D,8931
+AFR_base,8936,22 1A,BHI,$8952,C=0 and Z=0,8952,8938
+AFR_base,8940,27 03,BEQ,$8945,Z=1,8945,8942
+AFR_base,894B,23 02,BLS,$894F,C=1 or Z=1,894F,894D
+AFR_base,8955,24 01,BCC,$8958,C=0,8958,8957
+AFR_base,8958,13 50 80 13,BRCLR,"$50,#$80,$896F",(byte[operand] & $80) == 0 (all selected bits clear),896F,895C
+AFR_base,895F,23 03,BLS,$8964,C=1 or Z=1,8964,8961
+AFR_base,896D,20 29,BRA,$8998,always,8998,896F
+AFR_base,8972,27 14,BEQ,$8988,Z=1,8988,8974
+AFR_base,897B,23 0B,BLS,$8988,C=1 or Z=1,8988,897D
+AFR_base,8986,20 06,BRA,$898E,always,898E,8988
+AFR_base,898C,20 0A,BRA,$8998,always,8998,898E
+AFR_base,8994,24 02,BCC,$8998,C=0,8998,8996
+AFR_base,89A1,22 68,BHI,$8A0B,C=0 and Z=0,8A0B,89A3
+AFR_base,89A9,22 60,BHI,$8A0B,C=0 and Z=0,8A0B,89AB
+AFR_base,89B4,22 63,BHI,$8A19,C=0 and Z=0,8A19,89B6
+AFR_base,89BB,23 49,BLS,$8A06,C=1 or Z=1,8A06,89BD
+AFR_base,89C0,27 24,BEQ,$89E6,Z=1,89E6,89C2
+AFR_base,89C5,1E 00 02 04,BRSET,"$00,X,#$02,$89CD",(byte[operand] & $02) == mask (all selected bits),89CD,89C9
+AFR_base,89C9,12 41 20 4C,BRSET,"$41,#$20,$8A19",(byte[operand] & $20) == mask (all selected bits),8A19,89CD
+AFR_base,89CD,13 50 02 0D,BRCLR,"$50,#$02,$89DE",(byte[operand] & $02) == 0 (all selected bits clear),89DE,89D1
+AFR_base,89D7,23 1D,BLS,$89F6,C=1 or Z=1,89F6,89D9
+AFR_base,89DC,20 44,BRA,$8A22,always,8A22,89DE
+AFR_base,89E4,24 10,BCC,$89F6,C=0,89F6,89E6
+AFR_base,89ED,24 01,BCC,$89F0,C=0,89F0,89EF
+AFR_base,89F4,23 0B,BLS,$8A01,C=1 or Z=1,8A01,89F6
+AFR_base,89FA,26 23,BNE,$8A1F,Z=0,8A1F,89FC
+AFR_base,89FF,20 1E,BRA,$8A1F,always,8A1F,8A01
+AFR_base,8A04,20 16,BRA,$8A1C,always,8A1C,8A06
+AFR_base,8A09,20 17,BRA,$8A22,always,8A22,8A0B
+AFR_base,8A11,25 03,BCS,$8A16,C=1,8A16,8A13
+AFR_base,8A22,12 3E 80 36,BRSET,"$3E,#$80,$8A5C",(byte[operand] & $80) == mask (all selected bits),8A5C,8A26
+AFR_base,8A26,13 04 10 06,BRCLR,"$04,#$10,$8A30",(byte[operand] & $10) == 0 (all selected bits clear),8A30,8A2A
+AFR_base,8A2D,24 01,BCC,$8A30,C=0,8A30,8A2F
+AFR_base,8A35,23 25,BLS,$8A5C,C=1 or Z=1,8A5C,8A37
+AFR_base,8A3A,24 20,BCC,$8A5C,C=0,8A5C,8A3C
+AFR_base,8A3C,12 41 20 16,BRSET,"$41,#$20,$8A56",(byte[operand] & $20) == mask (all selected bits),8A56,8A40
+AFR_base,8A46,22 14,BHI,$8A5C,C=0 and Z=0,8A5C,8A48
+AFR_base,8A49,27 03,BEQ,$8A4E,Z=1,8A4E,8A4B
+AFR_base,8A51,24 09,BCC,$8A5C,C=0,8A5C,8A53
+AFR_base,8A54,20 06,BRA,$8A5C,always,8A5C,8A56
+AFR_base,8A59,24 01,BCC,$8A5C,C=0,8A5C,8A5B
+AFR_base,8A5F,13 72 40 03,BRCLR,"$72,#$40,$8A66",(byte[operand] & $40) == 0 (all selected bits clear),8A66,8A63
+AFR_base,8A67,23 01,BLS,$8A6A,C=1 or Z=1,8A6A,8A69
+AFR_base,8A70,25 16,BCS,$8A88,C=1,8A88,8A72
+AFR_base,8A77,22 08,BHI,$8A81,C=0 and Z=0,8A81,8A79
+AFR_base,8A7C,24 0A,BCC,$8A88,C=0,8A88,8A7E
+AFR_base,8A7F,20 07,BRA,$8A88,always,8A88,8A81
+AFR_base,8A84,24 02,BCC,$8A88,C=0,8A88,8A86
+PE_state,8A8B,12 4F 10 03,BRSET,"$4F,#$10,$8A92",(byte[operand] & $10) == mask (all selected bits),8A92,8A8F
+PE_state,8A98,24 10,BCC,$8AAA,C=0,8AAA,8A9A
+PE_state,8AA0,22 08,BHI,$8AAA,C=0 and Z=0,8AAA,8AA2
+PE_state,8AA8,20 0F,BRA,$8AB9,always,8AB9,8AAA
+PE_state,8AB0,24 07,BCC,$8AB9,C=0,8AB9,8AB2
+PE_state,8ADD,13 3D 20 06,BRCLR,"$3D,#$20,$8AE7",(byte[operand] & $20) == 0 (all selected bits clear),8AE7,8AE1
+PE_state,8AE4,24 01,BCC,$8AE7,C=0,8AE7,8AE6
+PE_state,8AEA,25 03,BCS,$8AEF,C=1,8AEF,8AEC
+PE_state,8AEF,12 3F 20 5E,BRSET,"$3F,#$20,$8B51",(byte[operand] & $20) == mask (all selected bits),8B51,8AF3
+PE_state,8AF7,24 01,BCC,$8AFA,C=0,8AFA,8AF9
+PE_state,8AFD,23 06,BLS,$8B05,C=1 or Z=1,8B05,8AFF
+PE_state,8B0A,22 45,BHI,$8B51,C=0 and Z=0,8B51,8B0C
+PE_state,8B0F,23 40,BLS,$8B51,C=1 or Z=1,8B51,8B11
+PE_state,8B16,23 39,BLS,$8B51,C=1 or Z=1,8B51,8B18
+PE_state,8B21,25 03,BCS,$8B26,C=1,8B26,8B23
+PE_state,8B24,23 28,BLS,$8B4E,C=1 or Z=1,8B4E,8B26
+PE_state,8B2B,23 07,BLS,$8B34,C=1 or Z=1,8B34,8B2D
+PE_state,8B2D,12 3D 20 03,BRSET,"$3D,#$20,$8B34",(byte[operand] & $20) == mask (all selected bits),8B34,8B31
+PE_state,8B34,12 3D 01 03,BRSET,"$3D,#$01,$8B3B",(byte[operand] & $01) == mask (all selected bits),8B3B,8B38
+PE_state,8B42,25 13,BCS,$8B57,C=1,8B57,8B44
+PE_state,8B4A,24 07,BCC,$8B53,C=0,8B53,8B4C
+PE_state,8B4C,20 03,BRA,$8B51,always,8B51,8B4E
+PE_state,8B6C,22 53,BHI,$8BC1,C=0 and Z=0,8BC1,8B6E
+PE_state,8B72,26 03,BNE,$8B77,Z=0,8B77,8B74
+PE_state,8B7C,24 43,BCC,$8BC1,C=0,8BC1,8B7E
+PE_state,8B83,22 3C,BHI,$8BC1,C=0 and Z=0,8BC1,8B85
+PE_state,8B88,23 37,BLS,$8BC1,C=1 or Z=1,8BC1,8B8A
+PE_state,8B90,22 2F,BHI,$8BC1,C=0 and Z=0,8BC1,8B92
+PE_state,8B95,24 02,BCC,$8B99,C=0,8B99,8B97
+PE_state,8BA1,24 02,BCC,$8BA5,C=0,8BA5,8BA3
+PE_state,8BB6,24 02,BCC,$8BBA,C=0,8BBA,8BB8
+PE_state,8BBC,24 02,BCC,$8BC0,C=0,8BC0,8BBE
+PE_state,8BC6,22 15,BHI,$8BDD,C=0 and Z=0,8BDD,8BC8
+PE_state,8BCD,24 0E,BCC,$8BDD,C=0,8BDD,8BCF
+PE_state,8BD5,24 06,BCC,$8BDD,C=0,8BDD,8BD7
+PE_state,8BDA,24 01,BCC,$8BDD,C=0,8BDD,8BDC
+PE_state,8BE1,23 55,BLS,$8C38,C=1 or Z=1,8C38,8BE3
+PE_state,8BF1,20 45,BRA,$8C38,always,8C38,8BF3
+PE_state,8BFA,24 11,BCC,$8C0D,C=0,8C0D,8BFC
+PE_state,8C03,25 24,BCS,$8C29,C=1,8C29,8C05
+PE_state,8C0B,20 25,BRA,$8C32,always,8C32,8C0D
+PE_state,8C10,26 06,BNE,$8C18,Z=0,8C18,8C12
+PE_state,8C1E,23 08,BLS,$8C28,C=1 or Z=1,8C28,8C20
+PE_state,8C23,24 04,BCC,$8C29,C=0,8C29,8C25
+PE_state,8C26,20 01,BRA,$8C29,always,8C29,8C28
+PE_state,8C2D,26 03,BNE,$8C32,Z=0,8C32,8C2F
+AFR_final,8C3E,13 52 40 11,BRCLR,"$52,#$40,$8C53",(byte[operand] & $40) == 0 (all selected bits clear),8C53,8C42
+AFR_final,8C4E,22 03,BHI,$8C53,C=0 and Z=0,8C53,8C50
+AFR_final,8C53,13 3B 10 0F,BRCLR,"$3B,#$10,$8C66",(byte[operand] & $10) == 0 (all selected bits clear),8C66,8C57
+AFR_final,8C5C,27 08,BEQ,$8C66,Z=1,8C66,8C5E
+AFR_final,8C64,20 07,BRA,$8C6D,always,8C6D,8C66
+AFR_final,8C66,13 86 40 03,BRCLR,"$86,#$40,$8C6D",(byte[operand] & $40) == 0 (all selected bits clear),8C6D,8C6A
+BLM_cell_selection,8C77,26 15,BNE,$8C8E,Z=0,8C8E,8C79
+BLM_cell_selection,8C7F,24 04,BCC,$8C85,C=0,8C85,8C81
+BLM_cell_selection,8C96,27 33,BEQ,$8CCB,Z=1,8CCB,8C98
+BLM_cell_selection,8C9E,24 2B,BCC,$8CCB,C=0,8CCB,8CA0
+BLM_cell_selection,8CA6,24 23,BCC,$8CCB,C=0,8CCB,8CA8
+BLM_cell_selection,8CAC,27 05,BEQ,$8CB3,Z=1,8CB3,8CAE
+BLM_cell_selection,8CAE,13 41 10 01,BRCLR,"$41,#$10,$8CB3",(byte[operand] & $10) == 0 (all selected bits clear),8CB3,8CB2
+BLM_cell_selection,8CB5,27 06,BEQ,$8CBD,Z=1,8CBD,8CB7
+BLM_cell_selection,8CB7,13 41 20 02,BRCLR,"$41,#$20,$8CBD",(byte[operand] & $20) == 0 (all selected bits clear),8CBD,8CBB
+BLM_cell_selection,8CBD,13 51 01 02,BRCLR,"$51,#$01,$8CC3",(byte[operand] & $01) == 0 (all selected bits clear),8CC3,8CC1
+BLM_cell_selection,8CC6,27 72,BEQ,$8D3A,Z=1,8D3A,8CC8
+BLM_cell_selection,8CD0,24 6A,BCC,$8D3C,C=0,8D3C,8CD2
+BLM_cell_selection,8CDA,27 0F,BEQ,$8CEB,Z=1,8CEB,8CDC
+BLM_cell_selection,8CE1,25 04,BCS,$8CE7,C=1,8CE7,8CE3
+BLM_cell_selection,8CE5,22 55,BHI,$8D3C,C=0 and Z=0,8D3C,8CE7
+BLM_cell_selection,8CE9,27 0B,BEQ,$8CF6,Z=1,8CF6,8CEB
+BLM_cell_selection,8CF0,25 04,BCS,$8CF6,C=1,8CF6,8CF2
+BLM_cell_selection,8CF4,25 46,BCS,$8D3C,C=1,8D3C,8CF6
+BLM_cell_selection,8D03,27 1C,BEQ,$8D21,Z=1,8D21,8D05
+BLM_cell_selection,8D0A,25 11,BCS,$8D1D,C=1,8D1D,8D0C
+BLM_cell_selection,8D13,18 1E 00 01 03,BRSET,"$00,Y,#$01,$8D1B",(byte[operand] & $01) == mask (all selected bits),8D1B,8D18
+BLM_cell_selection,8D1B,22 1F,BHI,$8D3C,C=0 and Z=0,8D3C,8D1D
+BLM_cell_selection,8D1F,27 16,BEQ,$8D37,Z=1,8D37,8D21
+BLM_cell_selection,8D26,25 0F,BCS,$8D37,C=1,8D37,8D28
+BLM_cell_selection,8D2E,1E 00 01 03,BRSET,"$00,X,#$01,$8D35",(byte[operand] & $01) == mask (all selected bits),8D35,8D32
+BLM_cell_selection,8D35,25 05,BCS,$8D3C,C=1,8D3C,8D37
+BLM_cell_selection,8D3A,20 3D,BRA,$8D79,always,8D79,8D3C
+BLM_cell_selection,8D42,25 0D,BCS,$8D51,C=1,8D51,8D44
+BLM_cell_selection,8D48,25 07,BCS,$8D51,C=1,8D51,8D4A
+BLM_cell_selection,8D4E,25 01,BCS,$8D51,C=1,8D51,8D50
+BLM_cell_selection,8D57,1E 00 01 03,BRSET,"$00,X,#$01,$8D5E",(byte[operand] & $01) == mask (all selected bits),8D5E,8D5B
+BLM_cell_selection,8D61,25 10,BCS,$8D73,C=1,8D73,8D63
+BLM_cell_selection,8D68,25 09,BCS,$8D73,C=1,8D73,8D6A
+BLM_cell_selection,8D6F,25 02,BCS,$8D73,C=1,8D73,8D71
+BLM_cell_selection,8D82,22 0E,BHI,$8D92,C=0 and Z=0,8D92,8D84
+BLM_cell_selection,8D86,25 05,BCS,$8D8D,C=1,8D8D,8D88
+BLM_cell_selection,8D8B,20 03,BRA,$8D90,always,8D90,8D8D
+BLM_cell_selection,8D90,24 06,BCC,$8D98,C=0,8D98,8D92
+BLM_transitions,8DA1,1E 00 10 4A,BRSET,"$00,X,#$10,$8DEF",(byte[operand] & $10) == mask (all selected bits),8DEF,8DA5
+BLM_transitions,8DAB,25 09,BCS,$8DB6,C=1,8DB6,8DAD
+BLM_transitions,8DAD,13 52 04 0E,BRCLR,"$52,#$04,$8DBF",(byte[operand] & $04) == 0 (all selected bits clear),8DBF,8DB1
+BLM_transitions,8DB4,20 33,BRA,$8DE9,always,8DE9,8DB6
+BLM_transitions,8DB6,12 52 04 05,BRSET,"$52,#$04,$8DBF",(byte[operand] & $04) == mask (all selected bits),8DBF,8DBA
+BLM_transitions,8DBD,20 2A,BRA,$8DE9,always,8DE9,8DBF
+BLM_transitions,8DC5,27 1F,BEQ,$8DE6,Z=1,8DE6,8DC7
+BLM_transitions,8DC7,2B 0F,BMI,$8DD8,N=1,8DD8,8DC9
+BLM_transitions,8DCC,25 18,BCS,$8DE6,C=1,8DE6,8DCE
+BLM_transitions,8DD4,22 10,BHI,$8DE6,C=0 and Z=0,8DE6,8DD6
+BLM_transitions,8DD6,20 11,BRA,$8DE9,always,8DE9,8DD8
+BLM_transitions,8DDC,25 08,BCS,$8DE6,C=1,8DE6,8DDE
+BLM_transitions,8DE4,24 03,BCC,$8DE9,C=0,8DE9,8DE6
+decel_history_lags,8DF2,26 26,BNE,$8E1A,Z=0,8E1A,8DF4
+decel_history_lags,8E18,20 03,BRA,$8E1D,always,8E1D,8E1A
+BLM_learning,8E1D,13 3E 02 47,BRCLR,"$3E,#$02,$8E68",(byte[operand] & $02) == 0 (all selected bits clear),8E68,8E21
+BLM_learning,8E21,12 3D 08 43,BRSET,"$3D,#$08,$8E68",(byte[operand] & $08) == mask (all selected bits),8E68,8E25
+BLM_learning,8E2A,27 3C,BEQ,$8E68,Z=1,8E68,8E2C
+BLM_learning,8E30,2B 09,BMI,$8E3B,N=1,8E3B,8E32
+BLM_learning,8E39,25 6B,BCS,$8EA6,C=1,8EA6,8E3B
+BLM_learning,8E3F,27 08,BEQ,$8E49,Z=1,8E49,8E41
+BLM_learning,8E47,25 5D,BCS,$8EA6,C=1,8EA6,8E49
+BLM_learning,8E55,25 03,BCS,$8E5A,C=1,8E5A,8E57
+BLM_learning,8E5C,25 0D,BCS,$8E6B,C=1,8E6B,8E5E
+BLM_learning,8E60,23 44,BLS,$8EA6,C=1 or Z=1,8EA6,8E62
+BLM_learning,8E62,12 3E 40 40,BRSET,"$3E,#$40,$8EA6",(byte[operand] & $40) == mask (all selected bits),8EA6,8E66
+BLM_learning,8E66,20 0C,BRA,$8E74,always,8E74,8E68
+BLM_learning,8E6E,23 36,BLS,$8EA6,C=1 or Z=1,8EA6,8E70
+BLM_learning,8E70,13 3E 40 32,BRCLR,"$3E,#$40,$8EA6",(byte[operand] & $40) == 0 (all selected bits clear),8EA6,8E74
+BLM_learning,8E7A,13 3E 40 0F,BRCLR,"$3E,#$40,$8E8D",(byte[operand] & $40) == 0 (all selected bits clear),8E8D,8E7E
+BLM_learning,8E81,25 05,BCS,$8E88,C=1,8E88,8E83
+BLM_learning,8E86,24 12,BCC,$8E9A,C=0,8E9A,8E88
+BLM_learning,8E8B,20 0D,BRA,$8E9A,always,8E9A,8E8D
+BLM_learning,8E90,25 05,BCS,$8E97,C=1,8E97,8E92
+BLM_learning,8E95,23 03,BLS,$8E9A,C=1 or Z=1,8E9A,8E97
+load_coordinates,A46E,22 02,BHI,$A472,C=0 and Z=0,A472,A470
+load_coordinates,A477,24 03,BCC,$A47C,C=0,A47C,A479
+load_coordinates,A487,24 03,BCC,$A48C,C=0,A48C,A489
+load_coordinates,A48A,20 0A,BRA,$A496,always,A496,A48C
+load_coordinates,A491,24 03,BCC,$A496,C=0,A496,A493
+load_coordinates,A4A6,24 03,BCC,$A4AB,C=0,A4AB,A4A8
+load_coordinates,A4AC,24 02,BCC,$A4B0,C=0,A4B0,A4AE
+run_admission,A4B9,12 6F 04 24,BRSET,"$6F,#$04,$A4E1",(byte[operand] & $04) == mask (all selected bits),A4E1,A4BD
+run_admission,A4C3,24 1C,BCC,$A4E1,C=0,A4E1,A4C5
+run_admission,A4CB,22 19,BHI,$A4E6,C=0 and Z=0,A4E6,A4CD
+run_admission,A4D2,25 08,BCS,$A4DC,C=1,A4DC,A4D4
+run_admission,A4DA,23 05,BLS,$A4E1,C=1 or Z=1,A4E1,A4DC
+run_admission,A4DF,20 0B,BRA,$A4EC,always,A4EC,A4E1
+run_admission,A4E4,20 06,BRA,$A4EC,always,A4EC,A4E6
+run_admission,A4EC,13 50 20 4D,BRCLR,"$50,#$20,$A53D",(byte[operand] & $20) == 0 (all selected bits clear),A53D,A4F0
+run_admission,A506,2A 02,BPL,$A50A,N=0,A50A,A508
+run_admission,A510,13 4F 80 2C,BRCLR,"$4F,#$80,$A540",(byte[operand] & $80) == 0 (all selected bits clear),A540,A514
+run_admission,A514,12 4F 10 03,BRSET,"$4F,#$10,$A51B",(byte[operand] & $10) == mask (all selected bits),A51B,A518
+run_admission,A51B,13 4F 40 60,BRCLR,"$4F,#$40,$A57F",(byte[operand] & $40) == 0 (all selected bits clear),A57F,A51F
+run_admission,A51F,12 51 40 5C,BRSET,"$51,#$40,$A57F",(byte[operand] & $40) == mask (all selected bits),A57F,A523
+run_admission,A52C,22 0A,BHI,$A538,C=0 and Z=0,A538,A52E
+run_admission,A536,20 47,BRA,$A57F,always,A57F,A538
+run_admission,A53B,20 42,BRA,$A57F,always,A57F,A53D
+run_admission,A540,12 44 08 06,BRSET,"$44,#$08,$A54A",(byte[operand] & $08) == mask (all selected bits),A54A,A544
+run_admission,A54A,12 4F 10 03,BRSET,"$4F,#$10,$A551",(byte[operand] & $10) == mask (all selected bits),A551,A54E
+run_admission,A558,25 06,BCS,$A560,C=1,A560,A55A
+run_admission,A569,24 03,BCC,$A56E,C=0,A56E,A56B
+run_admission,A57F,20 64,BRA,$A5E5,always,A5E5,A581
+run_admission,A588,24 0C,BCC,$A596,C=0,A596,A58A
+run_admission,A591,25 04,BCS,$A597,C=1,A597,A593
+run_admission,A5A1,24 06,BCC,$A5A9,C=0,A5A9,A5A3
+run_admission,A5A7,20 04,BRA,$A5AD,always,A5AD,A5A9
+run_admission,A5B0,25 0C,BCS,$A5BE,C=1,A5BE,A5B2
+run_admission,A5B9,24 03,BCC,$A5BE,C=0,A5BE,A5BB
+run_admission,A5C4,25 14,BCS,$A5DA,C=1,A5DA,A5C6
+run_admission,A5D8,20 FD,BRA,$A5D7,always,A5D7,A5DA
+run_admission,A5DA,12 4F 80 03,BRSET,"$4F,#$80,$A5E1",(byte[operand] & $80) == mask (all selected bits),A5E1,A5DE
+RPM_coordinates,A5F7,27 05,BEQ,$A5FE,Z=1,A5FE,A5F9
+RPM_coordinates,A60C,25 09,BCS,$A617,C=1,A617,A60E
+RPM_coordinates,A611,24 0B,BCC,$A61E,C=0,A61E,A613
+RPM_coordinates,A615,20 07,BRA,$A61E,always,A61E,A617
+RPM_coordinates,A61B,24 01,BCC,$A61E,C=0,A61E,A61D
+RPM_coordinates,A63F,26 0A,BNE,$A64B,Z=0,A64B,A641
+RPM_coordinates,A64F,25 08,BCS,$A659,C=1,A659,A651
+RPM_coordinates,A652,25 05,BCS,$A659,C=1,A659,A654
+RPM_coordinates,A657,24 02,BCC,$A65B,C=0,A65B,A659
+RPM_coordinates,A660,27 0A,BEQ,$A66C,Z=1,A66C,A662
+RPM_coordinates,A672,24 03,BCC,$A677,C=0,A677,A674
+RPM_coordinates,A67C,27 07,BEQ,$A685,Z=1,A685,A67E
+not_running_RPM,AC54,13 44 08 46,BRCLR,"$44,#$08,$AC9E",(byte[operand] & $08) == 0 (all selected bits clear),AC9E,AC58
+not_running_RPM,AC6A,27 05,BEQ,$AC71,Z=1,AC71,AC6C
+not_running_RPM,AC7E,25 09,BCS,$AC89,C=1,AC89,AC80
+not_running_RPM,AC83,24 0B,BCC,$AC90,C=0,AC90,AC85
+not_running_RPM,AC87,20 07,BRA,$AC90,always,AC90,AC89
+not_running_RPM,AC8D,24 01,BCC,$AC90,C=0,AC90,AC8F
+not_running_RPM,AC9C,20 02,BRA,$ACA0,always,ACA0,AC9E
+spark_base_terms,A70F,13 50 40 03,BRCLR,"$50,#$40,$A716",(byte[operand] & $40) == 0 (all selected bits clear),A716,A713
+spark_base_terms,A71D,23 08,BLS,$A727,C=1 or Z=1,A727,A71F
+spark_base_terms,A723,24 02,BCC,$A727,C=0,A727,A725
+spark_base_terms,A735,27 03,BEQ,$A73A,Z=1,A73A,A737
+spark_base_terms,A740,23 09,BLS,$A74B,C=1 or Z=1,A74B,A742
+spark_base_terms,A744,23 02,BLS,$A748,C=1 or Z=1,A748,A746
+spark_base_terms,A750,2A 0F,BPL,$A761,N=0,A761,A752
+spark_base_terms,A757,24 08,BCC,$A761,C=0,A761,A759
+spark_base_terms,A75C,24 03,BCC,$A761,C=0,A761,A75E
+spark_base_terms,A769,27 0F,BEQ,$A77A,Z=1,A77A,A76B
+spark_sum,A796,13 6E 80 3A,BRCLR,"$6E,#$80,$A7D4",(byte[operand] & $80) == 0 (all selected bits clear),A7D4,A79A
+spark_sum,A7A6,27 16,BEQ,$A7BE,Z=1,A7BE,A7A8
+spark_sum,A7AE,22 03,BHI,$A7B3,C=0 and Z=0,A7B3,A7B0
+spark_sum,A7B1,20 0B,BRA,$A7BE,always,A7BE,A7B3
+spark_sum,A7BA,23 02,BLS,$A7BE,C=1 or Z=1,A7BE,A7BC
+spark_sum,A7C2,23 02,BLS,$A7C6,C=1 or Z=1,A7C6,A7C4
+spark_sum,A808,13 A4 0F 05,BRCLR,"$A4,#$0F,$A811",(byte[operand] & $0F) == 0 (all selected bits clear),A811,A80C
+spark_MAT,A824,12 41 02 03,BRSET,"$41,#$02,$A82B",(byte[operand] & $02) == mask (all selected bits),A82B,A828
+spark_MAT,A835,13 41 02 0D,BRCLR,"$41,#$02,$A846",(byte[operand] & $02) == 0 (all selected bits clear),A846,A839
+spark_MAT,A844,20 08,BRA,$A84E,always,A84E,A846
+spark_idle,A853,24 02,BCC,$A857,C=0,A857,A855
+spark_idle,A855,20 5A,BRA,$A8B1,always,A8B1,A857
+spark_idle,A860,24 4F,BCC,$A8B1,C=0,A8B1,A862
+spark_idle,A865,13 50 40 03,BRCLR,"$50,#$40,$A86C",(byte[operand] & $40) == 0 (all selected bits clear),A86C,A869
+spark_idle,A86F,22 02,BHI,$A873,C=0 and Z=0,A873,A871
+spark_idle,A871,20 3E,BRA,$A8B1,always,A8B1,A873
+spark_idle,A878,23 37,BLS,$A8B1,C=1 or Z=1,A8B1,A87A
+spark_idle,A87E,12 50 80 0C,BRSET,"$50,#$80,$A88E",(byte[operand] & $80) == mask (all selected bits),A88E,A882
+spark_idle,A885,24 07,BCC,$A88E,C=0,A88E,A887
+spark_idle,A88C,20 23,BRA,$A8B1,always,A8B1,A88E
+spark_idle,A890,25 05,BCS,$A897,C=1,A897,A892
+spark_idle,A895,20 0A,BRA,$A8A1,always,A8A1,A897
+spark_idle,A8A3,25 08,BCS,$A8AD,C=1,A8AD,A8A5
+spark_idle,A8A7,25 0E,BCS,$A8B7,C=1,A8B7,A8A9
+spark_idle,A8AB,24 0D,BCC,$A8BA,C=0,A8BA,A8AD
+spark_idle,A8AF,20 09,BRA,$A8BA,always,A8BA,A8B1
+spark_idle,A8CA,13 53 01 01,BRCLR,"$53,#$01,$A8CF",(byte[operand] & $01) == 0 (all selected bits clear),A8CF,A8CE
+spark_idle,A8D7,24 03,BCC,$A8DC,C=0,A8DC,A8D9
+spark_idle,A8DA,20 06,BRA,$A8E2,always,A8E2,A8DC
+spark_idle,A8DE,23 02,BLS,$A8E2,C=1 or Z=1,A8E2,A8E0
+spark_idle,A8EC,2B 0C,BMI,$A8FA,N=1,A8FA,A8EE
+spark_idle,A8F1,23 03,BLS,$A8F6,C=1 or Z=1,A8F6,A8F3
+spark_idle,A8F8,20 03,BRA,$A8FD,always,A8FD,A8FA
+spark_transient,A90B,25 6D,BCS,$A97A,C=1,A97A,A90D
+spark_transient,A910,22 68,BHI,$A97A,C=0 and Z=0,A97A,A912
+spark_transient,A917,27 61,BEQ,$A97A,Z=1,A97A,A919
+spark_transient,A919,13 50 80 09,BRCLR,"$50,#$80,$A926",(byte[operand] & $80) == 0 (all selected bits clear),A926,A91D
+spark_transient,A924,20 54,BRA,$A97A,always,A97A,A926
+spark_transient,A94C,2A 04,BPL,$A952,N=0,A952,A94E
+spark_transient,A959,23 02,BLS,$A95D,C=1 or Z=1,A95D,A95B
+spark_transient,A963,2A 0A,BPL,$A96F,N=0,A96F,A965
+spark_transient,A96D,20 08,BRA,$A977,always,A977,A96F
+spark_decel,A97D,13 46 08 22,BRCLR,"$46,#$08,$A9A3",(byte[operand] & $08) == 0 (all selected bits clear),A9A3,A981
+spark_decel,A992,2B 02,BMI,$A996,N=1,A996,A994
+spark_decel,A9A1,20 3A,BRA,$A9DD,always,A9DD,A9A3
+spark_decel,A9A3,13 51 20 39,BRCLR,"$51,#$20,$A9E0",(byte[operand] & $20) == 0 (all selected bits clear),A9E0,A9A7
+spark_decel,A9B0,23 03,BLS,$A9B5,C=1 or Z=1,A9B5,A9B2
+spark_decel,A9BB,22 0A,BHI,$A9C7,C=0 and Z=0,A9C7,A9BD
+spark_decel,A9C5,20 03,BRA,$A9CA,always,A9CA,A9C7
+spark_pre_knock_override,A9E0,13 86 40 03,BRCLR,"$86,#$40,$A9E7",(byte[operand] & $40) == 0 (all selected bits clear),A9E7,A9E4
+spark_pre_knock_override,A9EC,27 2C,BEQ,$AA1A,Z=1,AA1A,A9EE
+spark_pre_knock_override,A9EE,13 36 20 25,BRCLR,"$36,#$20,$AA17",(byte[operand] & $20) == 0 (all selected bits clear),AA17,A9F2
+spark_pre_knock_override,A9F7,23 1E,BLS,$AA17,C=1 or Z=1,AA17,A9F9
+spark_pre_knock_override,A9FC,12 53 10 07,BRSET,"$53,#$10,$AA07",(byte[operand] & $10) == mask (all selected bits),AA07,AA00
+spark_pre_knock_override,AA03,22 12,BHI,$AA17,C=0 and Z=0,AA17,AA05
+spark_pre_knock_override,AA05,20 05,BRA,$AA0C,always,AA0C,AA07
+spark_pre_knock_override,AA0A,22 0B,BHI,$AA17,C=0 and Z=0,AA17,AA0C
+spark_pre_knock_override,AA15,20 03,BRA,$AA1A,always,AA1A,AA17
+spark_reference_burst,AA2B,2E 06,BGT,$AA33,Z=0 and N xor V=0,AA33,AA2D
+spark_reference_burst,AA38,27 47,BEQ,$AA81,Z=1,AA81,AA3A
+spark_reference_burst,AA3A,12 50 10 43,BRSET,"$50,#$10,$AA81",(byte[operand] & $10) == mask (all selected bits),AA81,AA3E
+spark_reference_burst,AA43,23 3C,BLS,$AA81,C=1 or Z=1,AA81,AA45
+spark_reference_burst,AA45,13 6E 02 15,BRCLR,"$6E,#$02,$AA5E",(byte[operand] & $02) == 0 (all selected bits clear),AA5E,AA49
+spark_reference_burst,AA4C,26 03,BNE,$AA51,Z=0,AA51,AA4E
+spark_reference_burst,AA5C,20 23,BRA,$AA81,always,AA81,AA5E
+spark_reference_burst,AA64,24 1B,BCC,$AA81,C=0,AA81,AA66
+spark_reference_burst,AA6C,24 13,BCC,$AA81,C=0,AA81,AA6E
+spark_reference_burst,AA71,25 0E,BCS,$AA81,C=1,AA81,AA73
+spark_reference_burst,AA76,25 09,BCS,$AA81,C=1,AA81,AA78
+spark_normal_knock,AA89,12 6E 02 0D,BRSET,"$6E,#$02,$AA9A",(byte[operand] & $02) == mask (all selected bits),AA9A,AA8D
+spark_normal_knock,AA8D,13 16 60 02,BRCLR,"$16,#$60,$AA93",(byte[operand] & $60) == 0 (all selected bits clear),AA93,AA91
+spark_normal_knock,AA91,20 0A,BRA,$AA9D,always,AA9D,AA93
+spark_normal_knock,AA98,24 03,BCC,$AA9D,C=0,AA9D,AA9A
+spark_normal_knock,AA9B,20 2E,BRA,$AACB,always,AACB,AA9D
+spark_normal_knock,AAA3,24 07,BCC,$AAAC,C=0,AAAC,AAA5
+spark_normal_knock,AAAA,25 30,BCS,$AADC,C=1,AADC,AAAC
+spark_normal_knock,AAAC,13 19 10 05,BRCLR,"$19,#$10,$AAB5",(byte[operand] & $10) == 0 (all selected bits clear),AAB5,AAB0
+spark_normal_knock,AAB3,20 16,BRA,$AACB,always,AACB,AAB5
+spark_normal_knock,AABA,25 05,BCS,$AAC1,C=1,AAC1,AABC
+spark_normal_knock,AABF,24 02,BCC,$AAC3,C=0,AAC3,AAC1
+spark_normal_knock,AAC8,23 01,BLS,$AACB,C=1 or Z=1,AACB,AACA
+spark_limits_override,AADF,27 16,BEQ,$AAF7,Z=1,AAF7,AAE1
+spark_limits_override,AAE4,12 A4 08 07,BRSET,"$A4,#$08,$AAEF",(byte[operand] & $08) == mask (all selected bits),AAEF,AAE8
+spark_limits_override,AAE8,13 A4 17 0B,BRCLR,"$A4,#$17,$AAF7",(byte[operand] & $17) == 0 (all selected bits clear),AAF7,AAEC
+spark_limits_override,AAF3,2D 25,BLT,$AB1A,N xor V=1,AB1A,AAF5
+spark_limits_override,AAF5,20 20,BRA,$AB17,always,AB17,AAF7
+spark_limits_override,AAF7,13 51 20 13,BRCLR,"$51,#$20,$AB0E",(byte[operand] & $20) == 0 (all selected bits clear),AB0E,AAFB
+spark_limits_override,AB01,22 0B,BHI,$AB0E,C=0 and Z=0,AB0E,AB03
+spark_limits_override,AB0A,2D 0E,BLT,$AB1A,N xor V=1,AB1A,AB0C
+spark_limits_override,AB0C,20 09,BRA,$AB17,always,AB17,AB0E
+spark_limits_override,AB15,2D 03,BLT,$AB1A,N xor V=1,AB1A,AB17
+spark_limits_override,AB1D,13 3B 10 1D,BRCLR,"$3B,#$10,$AB3E",(byte[operand] & $10) == 0 (all selected bits clear),AB3E,AB21
+spark_limits_override,AB24,1F 00 08 16,BRCLR,"$00,X,#$08,$AB3E",(byte[operand] & $08) == 0 (all selected bits clear),AB3E,AB28
+spark_limits_override,AB28,1E 00 10 02,BRSET,"$00,X,#$10,$AB2E",(byte[operand] & $10) == mask (all selected bits),AB2E,AB2C
+spark_limits_override,AB2E,1E 00 20 07,BRSET,"$00,X,#$20,$AB39",(byte[operand] & $20) == mask (all selected bits),AB39,AB32
+spark_limits_override,AB37,20 05,BRA,$AB3E,always,AB3E,AB39
+fuel_authorization,AE61,27 1E,BEQ,$AE81,Z=1,AE81,AE63
+fuel_authorization,AE63,12 3D 02 1D,BRSET,"$3D,#$02,$AE84",(byte[operand] & $02) == mask (all selected bits),AE84,AE67
+fuel_authorization,AE70,27 12,BEQ,$AE84,Z=1,AE84,AE72
+fuel_authorization,AE79,22 09,BHI,$AE84,C=0 and Z=0,AE84,AE7B
+fuel_authorization,AE7F,25 03,BCS,$AE84,C=1,AE84,AE81
+TPS_coordinate,B1D9,24 01,BCC,$B1DC,C=0,B1DC,B1DB
+TPS_coordinate,B1E4,25 03,BCS,$B1E9,C=1,B1E9,B1E6
+TPS_coordinate,B1E7,24 03,BCC,$B1EC,C=0,B1EC,B1E9
+BARO_coordinates,C586,1F 00 04 1C,BRCLR,"$00,X,#$04,$C5A6",(byte[operand] & $04) == 0 (all selected bits clear),C5A6,C58A
+BARO_coordinates,C5A0,24 67,BCC,$C609,C=0,C609,C5A2
+BARO_coordinates,C5A4,20 63,BRA,$C609,always,C609,C5A6
+BARO_coordinates,C5A7,12 44 10 54,BRSET,"$44,#$10,$C5FF",(byte[operand] & $10) == mask (all selected bits),C5FF,C5AB
+BARO_coordinates,C5B1,22 4C,BHI,$C5FF,C=0 and Z=0,C5FF,C5B3
+BARO_coordinates,C5B3,12 6F 40 62,BRSET,"$6F,#$40,$C619",(byte[operand] & $40) == mask (all selected bits),C619,C5B7
+BARO_coordinates,C5BB,27 05,BEQ,$C5C2,Z=1,C5C2,C5BD
+BARO_coordinates,C5C0,25 57,BCS,$C619,C=1,C619,C5C2
+BARO_coordinates,C5C7,22 4B,BHI,$C614,C=0 and Z=0,C614,C5C9
+BARO_coordinates,C5CC,25 46,BCS,$C614,C=1,C614,C5CE
+BARO_coordinates,C5D3,25 3F,BCS,$C614,C=1,C614,C5D5
+BARO_coordinates,C5DB,23 37,BLS,$C614,C=1 or Z=1,C614,C5DD
+BARO_coordinates,C5E0,24 01,BCC,$C5E3,C=0,C5E3,C5E2
+BARO_coordinates,C5E6,22 2C,BHI,$C614,C=0 and Z=0,C614,C5E8
+BARO_coordinates,C5F1,23 02,BLS,$C5F5,C=1 or Z=1,C5F5,C5F3
+BARO_coordinates,C602,24 02,BCC,$C606,C=0,C606,C604
+BARO_coordinates,C612,20 0C,BRA,$C620,always,C620,C614
+BARO_coordinates,C617,26 0A,BNE,$C623,Z=0,C623,C619
+BARO_coordinates,C628,25 05,BCS,$C62F,C=1,C62F,C62A
+coolant_coordinate,C970,12 43 80 07,BRSET,"$43,#$80,$C97B",(byte[operand] & $80) == mask (all selected bits),C97B,C974
+coolant_coordinate,C974,12 4E 01 03,BRSET,"$4E,#$01,$C97B",(byte[operand] & $01) == mask (all selected bits),C97B,C978
+coolant_coordinate,C983,22 09,BHI,$C98E,C=0 and Z=0,C98E,C985
+coolant_coordinate,C987,22 08,BHI,$C991,C=0 and Z=0,C991,C989
+coolant_coordinate,C98C,20 03,BRA,$C991,always,C991,C98E
+coolant_coordinate,C991,13 16 60 11,BRCLR,"$16,#$60,$C9A6",(byte[operand] & $60) == 0 (all selected bits clear),C9A6,C995
+coolant_coordinate,C99D,22 03,BHI,$C9A2,C=0 and Z=0,C9A2,C99F
+coolant_coordinate,C9A4,20 04,BRA,$C9AA,always,C9AA,C9A6
+coolant_coordinate,C9B1,24 03,BCC,$C9B6,C=0,C9B6,C9B3
+coolant_coordinate,C9B4,20 06,BRA,$C9BC,always,C9BC,C9B6
+coolant_coordinate,C9B8,23 02,BLS,$C9BC,C=1 or Z=1,C9BC,C9BA
+environmental_lookup_inputs,CA17,23 02,BLS,$CA1B,C=1 or Z=1,CA1B,CA19
+environmental_lookup_inputs,CA1E,12 3F 40 0E,BRSET,"$3F,#$40,$CA30",(byte[operand] & $40) == mask (all selected bits),CA30,CA22
+environmental_lookup_inputs,CA27,22 07,BHI,$CA30,C=0 and Z=0,CA30,CA29
+environmental_lookup_inputs,CA2C,24 02,BCC,$CA30,C=0,CA30,CA2E
+environmental_lookup_inputs,CA50,24 02,BCC,$CA54,C=0,CA54,CA52
+environmental_lookup_inputs,CA56,24 02,BCC,$CA5A,C=0,CA5A,CA58
+spark_lookup_inputs,CA6F,1F 00 40 3E,BRCLR,"$00,X,#$40,$CAB1",(byte[operand] & $40) == 0 (all selected bits clear),CAB1,CA73
+spark_lookup_inputs,CA78,25 04,BCS,$CA7E,C=1,CA7E,CA7A
+spark_lookup_inputs,CA7C,20 07,BRA,$CA85,always,CA85,CA7E
+spark_lookup_inputs,CA80,24 03,BCC,$CA85,C=0,CA85,CA82
+spark_lookup_inputs,CA83,20 2C,BRA,$CAB1,always,CAB1,CA85
+spark_lookup_inputs,CA8A,27 0A,BEQ,$CA96,Z=1,CA96,CA8C
+spark_lookup_inputs,CA90,23 0D,BLS,$CA9F,C=1 or Z=1,CA9F,CA92
+spark_lookup_inputs,CA94,20 09,BRA,$CA9F,always,CA9F,CA96
+spark_lookup_inputs,CA9B,24 02,BCC,$CA9F,C=0,CA9F,CA9D
+spark_lookup_inputs,CAA6,2B 05,BMI,$CAAD,N=1,CAAD,CAA8
+spark_lookup_inputs,CAAB,20 04,BRA,$CAB1,always,CAB1,CAAD
+spark_lookup_inputs,CABA,23 16,BLS,$CAD2,C=1 or Z=1,CAD2,CABC
+spark_lookup_inputs,CABC,12 19 10 12,BRSET,"$19,#$10,$CAD2",(byte[operand] & $10) == mask (all selected bits),CAD2,CAC0
+spark_lookup_inputs,CAC0,13 3D 20 0E,BRCLR,"$3D,#$20,$CAD2",(byte[operand] & $20) == 0 (all selected bits clear),CAD2,CAC4
+spark_lookup_inputs,CAEC,13 3D 20 0D,BRCLR,"$3D,#$20,$CAFD",(byte[operand] & $20) == 0 (all selected bits clear),CAFD,CAF0
+spark_lookup_inputs,CAFB,20 14,BRA,$CB11,always,CB11,CAFD
+spark_lookup_inputs,CB03,26 03,BNE,$CB08,Z=0,CB08,CB05
+knock_reference_word,CDF8,12 51 10 0E,BRSET,"$51,#$10,$CE0A",(byte[operand] & $10) == mask (all selected bits),CE0A,CDFC
+knock_reference_word,CDFC,12 4F 80 07,BRSET,"$4F,#$80,$CE07",(byte[operand] & $80) == mask (all selected bits),CE07,CE00
+knock_reference_word,CE00,13 71 80 06,BRCLR,"$71,#$80,$CE0A",(byte[operand] & $80) == 0 (all selected bits clear),CE0A,CE04
+knock_reference_word,CE05,20 03,BRA,$CE0A,always,CE0A,CE07
+low_octane,CE14,26 65,BNE,$CE7B,Z=0,CE7B,CE16
+low_octane,CE19,12 19 10 47,BRSET,"$19,#$10,$CE64",(byte[operand] & $10) == mask (all selected bits),CE64,CE1D
+low_octane,CE22,23 54,BLS,$CE78,C=1 or Z=1,CE78,CE24
+low_octane,CE2A,25 4C,BCS,$CE78,C=1,CE78,CE2C
+low_octane,CE2F,25 05,BCS,$CE36,C=1,CE36,CE31
+low_octane,CE34,22 42,BHI,$CE78,C=0 and Z=0,CE78,CE36
+low_octane,CE3C,23 1A,BLS,$CE58,C=1 or Z=1,CE58,CE3E
+low_octane,CE41,23 35,BLS,$CE78,C=1 or Z=1,CE78,CE43
+low_octane,CE43,12 52 01 08,BRSET,"$52,#$01,$CE4F",(byte[operand] & $01) == mask (all selected bits),CE4F,CE47
+low_octane,CE4D,20 1B,BRA,$CE6A,always,CE6A,CE4F
+low_octane,CE52,24 16,BCC,$CE6A,C=0,CE6A,CE54
+low_octane,CE56,20 12,BRA,$CE6A,always,CE6A,CE58
+low_octane,CE58,12 52 02 08,BRSET,"$52,#$02,$CE64",(byte[operand] & $02) == mask (all selected bits),CE64,CE5C
+low_octane,CE62,20 06,BRA,$CE6A,always,CE6A,CE64
+low_octane,CE67,24 01,BCC,$CE6A,C=0,CE6A,CE69
+low_octane,CE76,20 03,BRA,$CE7B,always,CE7B,CE78
+knock_interrupt,CE8A,27 02,BEQ,$CE8E,Z=1,CE8E,CE8C
+knock_interrupt,CE9D,23 1B,BLS,$CEBA,C=1 or Z=1,CEBA,CE9F
+knock_interrupt,CEA9,24 04,BCC,$CEAF,C=0,CEAF,CEAB
+knock_interrupt,CEAD,20 08,BRA,$CEB7,always,CEB7,CEAF
+knock_interrupt,CEB3,24 02,BCC,$CEB7,C=0,CEB7,CEB5
+knock_decay_fault,CEBB,12 02 10 1C,BRSET,"$02,#$10,$CEDB",(byte[operand] & $10) == mask (all selected bits),CEDB,CEBF
+knock_decay_fault,CECE,26 02,BNE,$CED2,Z=0,CED2,CED0
+knock_decay_fault,CED5,25 01,BCS,$CED8,C=1,CED8,CED7
+knock_decay_fault,CEE0,27 33,BEQ,$CF15,Z=1,CF15,CEE2
+knock_decay_fault,CEF6,22 05,BHI,$CEFD,C=0 and Z=0,CEFD,CEF8
+knock_decay_fault,CEFB,24 12,BCC,$CF0F,C=0,CF0F,CEFD
+knock_decay_fault,CF03,22 05,BHI,$CF0A,C=0 and Z=0,CF0A,CF05
+knock_decay_fault,CF08,20 0B,BRA,$CF15,always,CF15,CF0A
+knock_decay_fault,CF0D,20 06,BRA,$CF15,always,CF15,CF0F
+EGR_desired,CF1E,27 0E,BEQ,$CF2E,Z=1,CF2E,CF20
+EGR_desired,CF25,12 6E 80 02,BRSET,"$6E,#$80,$CF2B",(byte[operand] & $80) == mask (all selected bits),CF2B,CF29
+EGR_desired,CF2C,23 5B,BLS,$CF89,C=1 or Z=1,CF89,CF2E
+EGR_desired,CF33,23 08,BLS,$CF3D,C=1 or Z=1,CF3D,CF35
+EGR_desired,CF39,22 4E,BHI,$CF89,C=0 and Z=0,CF89,CF3B
+EGR_desired,CF3B,20 06,BRA,$CF43,always,CF43,CF3D
+EGR_desired,CF41,22 46,BHI,$CF89,C=0 and Z=0,CF89,CF43
+EGR_desired,CF43,13 18 30 02,BRCLR,"$18,#$30,$CF49",(byte[operand] & $30) == 0 (all selected bits clear),CF49,CF47
+EGR_desired,CF47,20 40,BRA,$CF89,always,CF89,CF49
+EGR_desired,CF4B,13 6E 10 02,BRCLR,"$6E,#$10,$CF51",(byte[operand] & $10) == 0 (all selected bits clear),CF51,CF4F
+EGR_desired,CF54,25 05,BCS,$CF5B,C=1,CF5B,CF56
+EGR_desired,CF59,20 2E,BRA,$CF89,always,CF89,CF5B
+EGR_desired,CF62,26 15,BNE,$CF79,Z=0,CF79,CF64
+EGR_desired,CF66,13 6E 20 02,BRCLR,"$6E,#$20,$CF6C",(byte[operand] & $20) == 0 (all selected bits clear),CF6C,CF6A
+EGR_desired,CF6F,25 05,BCS,$CF76,C=1,CF76,CF71
+EGR_desired,CF74,20 13,BRA,$CF89,always,CF89,CF76
+EGR_desired,CF7D,13 6E 40 02,BRCLR,"$6E,#$40,$CF83",(byte[operand] & $40) == 0 (all selected bits clear),CF83,CF81
+EGR_desired,CF84,23 07,BLS,$CF8D,C=1 or Z=1,CF8D,CF86
+EGR_desired,CF90,12 16 10 08,BRSET,"$16,#$10,$CF9C",(byte[operand] & $10) == mask (all selected bits),CF9C,CF94
+EGR_desired,CF9A,25 ED,BCS,$CF89,C=1,CF89,CF9C
+EGR_desired,CF9E,12 6E 04 02,BRSET,"$6E,#$04,$CFA4",(byte[operand] & $04) == mask (all selected bits),CFA4,CFA2
+EGR_desired,CFA7,24 05,BCC,$CFAE,C=0,CFAE,CFA9
+EGR_desired,CFAC,20 DB,BRA,$CF89,always,CF89,CFAE
+EGR_desired,CFB6,25 D1,BCS,$CF89,C=1,CF89,CFB8
+EGR_desired,CFBD,22 CA,BHI,$CF89,C=0 and Z=0,CF89,CFBF
+EGR_desired,CFBF,12 46 08 C6,BRSET,"$46,#$08,$CF89",(byte[operand] & $08) == mask (all selected bits),CF89,CFC3
+EGR_desired,CFC8,27 04,BEQ,$CFCE,Z=1,CFCE,CFCA
+EGR_desired,CFCA,13 3E 80 BB,BRCLR,"$3E,#$80,$CF89",(byte[operand] & $80) == 0 (all selected bits clear),CF89,CFCE
+EGR_desired,CFD8,27 0A,BEQ,$CFE4,Z=1,CFE4,CFDA
+EGR_desired,CFDF,27 03,BEQ,$CFE4,Z=1,CFE4,CFE1
+EGR_desired,CFEA,23 02,BLS,$CFEE,C=1 or Z=1,CFEE,CFEC
+EGR_desired,CFF7,24 02,BCC,$CFFB,C=0,CFFB,CFF9
+EGR_desired,D00C,24 02,BCC,$D010,C=0,D010,D00E
+EGR_desired,D013,24 02,BCC,$D017,C=0,D017,D015
+EGR_desired,D015,20 0A,BRA,$D021,always,D021,D017
+EGR_desired,D017,12 51 10 06,BRSET,"$51,#$10,$D021",(byte[operand] & $10) == mask (all selected bits),D021,D01B
+EGR_desired,D01B,12 72 20 02,BRSET,"$72,#$20,$D021",(byte[operand] & $20) == mask (all selected bits),D021,D01F
+EGR_desired,D01F,20 01,BRA,$D022,always,D022,D021
+EGR_desired,D025,13 86 40 03,BRCLR,"$86,#$40,$D02C",(byte[operand] & $40) == 0 (all selected bits clear),D02C,D029
+EGR_desired,D02C,13 3B 10 0D,BRCLR,"$3B,#$10,$D03D",(byte[operand] & $10) == 0 (all selected bits clear),D03D,D030
+EGR_desired,D035,27 06,BEQ,$D03D,Z=1,D03D,D037
+EGR_fraction,D041,1E 00 20 04,BRSET,"$00,X,#$20,$D049",(byte[operand] & $20) == mask (all selected bits),D049,D045
+EGR_fraction,D045,1F 00 04 3F,BRCLR,"$00,X,#$04,$D088",(byte[operand] & $04) == 0 (all selected bits clear),D088,D049
+EGR_fraction,D04C,12 70 01 09,BRSET,"$70,#$01,$D059",(byte[operand] & $01) == mask (all selected bits),D059,D050
+EGR_fraction,D050,12 70 04 0B,BRSET,"$70,#$04,$D05F",(byte[operand] & $04) == mask (all selected bits),D05F,D054
+EGR_fraction,D057,26 03,BNE,$D05C,Z=0,D05C,D059
+EGR_fraction,D05A,20 28,BRA,$D084,always,D084,D05C
+EGR_fraction,D068,22 03,BHI,$D06D,C=0 and Z=0,D06D,D06A
+EGR_fraction,D06B,20 0B,BRA,$D078,always,D078,D06D
+EGR_fraction,D074,23 02,BLS,$D078,C=1 or Z=1,D078,D076
+EGR_fraction,D07C,23 02,BLS,$D080,C=1 or Z=1,D080,D07E
+EGR_fraction,D08B,12 70 01 74,BRSET,"$70,#$01,$D103",(byte[operand] & $01) == mask (all selected bits),D103,D08F
+EGR_fraction,D08F,12 72 20 70,BRSET,"$72,#$20,$D103",(byte[operand] & $20) == mask (all selected bits),D103,D093
+EGR_fraction,D093,12 70 04 35,BRSET,"$70,#$04,$D0CC",(byte[operand] & $04) == mask (all selected bits),D0CC,D097
+EGR_fraction,D09A,1F 00 02 19,BRCLR,"$00,X,#$02,$D0B7",(byte[operand] & $02) == 0 (all selected bits clear),D0B7,D09E
+EGR_fraction,D09E,1F 00 10 04,BRCLR,"$00,X,#$10,$D0A6",(byte[operand] & $10) == 0 (all selected bits clear),D0A6,D0A2
+EGR_fraction,D0A2,12 50 80 5D,BRSET,"$50,#$80,$D103",(byte[operand] & $80) == mask (all selected bits),D103,D0A6
+EGR_fraction,D0AC,25 55,BCS,$D103,C=1,D103,D0AE
+EGR_fraction,D0B3,25 4E,BCS,$D103,C=1,D103,D0B5
+EGR_fraction,D0B5,20 08,BRA,$D0BF,always,D0BF,D0B7
+EGR_fraction,D0BD,25 44,BCS,$D103,C=1,D103,D0BF
+EGR_fraction,D0C8,1E 00 02 03,BRSET,"$00,X,#$02,$D0CF",(byte[operand] & $02) == mask (all selected bits),D0CF,D0CC
+EGR_fraction,D0E3,24 02,BCC,$D0E7,C=0,D0E7,D0E5
+EGR_fraction,D0EC,25 0B,BCS,$D0F9,C=1,D0F9,D0EE
+EGR_fraction,D0F5,25 02,BCS,$D0F9,C=1,D0F9,D0F7
+EGR_fraction,D101,20 01,BRA,$D104,always,D104,D103
+EGR_fraction,D10C,24 03,BCC,$D111,C=0,D111,D10E
+EGR_fraction,D11A,27 04,BEQ,$D120,Z=1,D120,D11C
+EGR_fraction,D11D,2A 01,BPL,$D120,N=0,D120,D11F
+EGR_fraction,D12F,2A 01,BPL,$D132,N=0,D132,D131
+EGR_fraction,D138,23 02,BLS,$D13C,C=1 or Z=1,D13C,D13A
+temperature_startup_admission,E289,1F 00 04 3B,BRCLR,"$00,X,#$04,$E2C8",(byte[operand] & $04) == 0 (all selected bits clear),E2C8,E28D
+temperature_startup_admission,E290,12 72 01 31,BRSET,"$72,#$01,$E2C5",(byte[operand] & $01) == mask (all selected bits),E2C5,E294
+temperature_startup_admission,E299,25 2D,BCS,$E2C8,C=1,E2C8,E29B
+temperature_startup_admission,E29D,13 72 02 0B,BRCLR,"$72,#$02,$E2AC",(byte[operand] & $02) == 0 (all selected bits clear),E2AC,E2A1
+temperature_startup_admission,E2A1,13 4F 10 23,BRCLR,"$4F,#$10,$E2C8",(byte[operand] & $10) == 0 (all selected bits clear),E2C8,E2A5
+temperature_startup_admission,E2A8,24 1E,BCC,$E2C8,C=0,E2C8,E2AA
+temperature_startup_admission,E2AA,20 19,BRA,$E2C5,always,E2C5,E2AC
+temperature_startup_admission,E2B6,22 0A,BHI,$E2C2,C=0 and Z=0,E2C2,E2B8
+temperature_startup_admission,E2BB,25 0B,BCS,$E2C8,C=1,E2C8,E2BD
+temperature_startup_admission,E2C0,20 06,BRA,$E2C8,always,E2C8,E2C2
+temperature_startup_admission,E2CD,1F 00 40 1C,BRCLR,"$00,X,#$40,$E2ED",(byte[operand] & $40) == 0 (all selected bits clear),E2ED,E2D1
+temperature_startup_admission,E2DF,24 01,BCC,$E2E2,C=0,E2E2,E2E1
+temperature_startup_admission,E2E4,25 05,BCS,$E2EB,C=1,E2EB,E2E6
+temperature_startup_admission,E2E9,24 02,BCC,$E2ED,C=0,E2ED,E2EB
+temperature_startup_admission,E306,13 02 10 01,BRCLR,"$02,#$10,$E30B",(byte[operand] & $10) == 0 (all selected bits clear),E30B,E30A
+temperature_startup_admission,E32A,24 02,BCC,$E32E,C=0,E32E,E32C
+temperature_startup_admission,E33C,12 4F 10 4F,BRSET,"$4F,#$10,$E38F",(byte[operand] & $10) == mask (all selected bits),E38F,E340
+temperature_startup_admission,E340,12 04 08 32,BRSET,"$04,#$08,$E376",(byte[operand] & $08) == mask (all selected bits),E376,E344
+temperature_startup_admission,E398,24 03,BCC,$E39D,C=0,E39D,E39A
+temperature_startup_admission,E3A0,25 02,BCS,$E3A4,C=1,E3A4,E3A2
+temperature_startup_admission,E3AE,23 02,BLS,$E3B2,C=1 or Z=1,E3B2,E3B0
+temperature_startup_admission,E3B2,13 36 80 02,BRCLR,"$36,#$80,$E3B8",(byte[operand] & $80) == 0 (all selected bits clear),E3B8,E3B6
+temperature_startup_admission,E3BE,26 74,BNE,$E434,Z=0,E434,E3C0
+temperature_startup_admission,E3C3,26 03,BNE,$E3C8,Z=0,E3C8,E3C5
+temperature_startup_admission,E3CB,27 19,BEQ,$E3E6,Z=1,E3E6,E3CD
+temperature_startup_admission,E3D0,26 0B,BNE,$E3DD,Z=0,E3DD,E3D2
+temperature_startup_admission,E3D7,22 04,BHI,$E3DD,C=0 and Z=0,E3DD,E3D9
+temperature_startup_admission,E3D9,12 41 20 5F,BRSET,"$41,#$20,$E43C",(byte[operand] & $20) == mask (all selected bits),E43C,E3DD
+temperature_startup_admission,E3E1,26 59,BNE,$E43C,Z=0,E43C,E3E3
+temperature_startup_admission,E3E9,26 4E,BNE,$E439,Z=0,E439,E3EB
+temperature_startup_admission,E3FE,23 02,BLS,$E402,C=1 or Z=1,E402,E400
+temperature_startup_admission,E40B,24 02,BCC,$E40F,C=0,E40F,E40D
+temperature_startup_admission,E419,12 3E 08 12,BRSET,"$3E,#$08,$E42F",(byte[operand] & $08) == mask (all selected bits),E42F,E41D
+temperature_startup_admission,E420,22 0D,BHI,$E42F,C=0 and Z=0,E42F,E422
+temperature_startup_admission,E427,22 06,BHI,$E42F,C=0 and Z=0,E42F,E429
+temperature_startup_admission,E432,20 08,BRA,$E43C,always,E43C,E434
+temperature_startup_admission,E437,20 03,BRA,$E43C,always,E43C,E439
+temperature_startup_admission,E43F,27 0B,BEQ,$E44C,Z=1,E44C,E441
+temperature_startup_admission,E445,26 30,BNE,$E477,Z=0,E477,E447
+temperature_startup_admission,E44A,20 2B,BRA,$E477,always,E477,E44C
+temperature_startup_admission,E44F,27 26,BEQ,$E477,Z=1,E477,E451
+temperature_startup_admission,E454,27 05,BEQ,$E45B,Z=1,E45B,E456
+temperature_startup_admission,E459,20 1C,BRA,$E477,always,E477,E45B
+temperature_startup_admission,E460,23 02,BLS,$E464,C=1 or Z=1,E464,E462
+temperature_startup_admission,E477,13 4F 10 15,BRCLR,"$4F,#$10,$E490",(byte[operand] & $10) == 0 (all selected bits clear),E490,E47B
+temperature_startup_admission,E47B,13 19 0C 02,BRCLR,"$19,#$0C,$E481",(byte[operand] & $0C) == 0 (all selected bits clear),E481,E47F
+temperature_startup_admission,E47F,20 0C,BRA,$E48D,always,E48D,E481
+temperature_startup_admission,E481,12 72 40 08,BRSET,"$72,#$40,$E48D",(byte[operand] & $40) == mask (all selected bits),E48D,E485
+temperature_startup_admission,E485,13 18 30 0A,BRCLR,"$18,#$30,$E493",(byte[operand] & $30) == 0 (all selected bits clear),E493,E489
+temperature_startup_admission,E489,13 50 80 06,BRCLR,"$50,#$80,$E493",(byte[operand] & $80) == 0 (all selected bits clear),E493,E48D
+temperature_startup_admission,E493,13 3B 10 0D,BRCLR,"$3B,#$10,$E4A4",(byte[operand] & $10) == 0 (all selected bits clear),E4A4,E497
+temperature_startup_admission,E49A,1F 00 01 06,BRCLR,"$00,X,#$01,$E4A4",(byte[operand] & $01) == 0 (all selected bits clear),E4A4,E49E
+temperature_startup_admission,E49E,1F 01 01 74,BRCLR,"$01,X,#$01,$E516",(byte[operand] & $01) == 0 (all selected bits clear),E516,E4A2
+temperature_startup_admission,E4A2,20 58,BRA,$E4FC,always,E4FC,E4A4
+temperature_startup_admission,E4AA,24 06,BCC,$E4B2,C=0,E4B2,E4AC
+temperature_startup_admission,E4B0,20 03,BRA,$E4B5,always,E4B5,E4B2
+temperature_startup_admission,E4B5,13 04 01 5D,BRCLR,"$04,#$01,$E516",(byte[operand] & $01) == 0 (all selected bits clear),E516,E4B9
+temperature_startup_admission,E4B9,12 50 10 2D,BRSET,"$50,#$10,$E4EA",(byte[operand] & $10) == mask (all selected bits),E4EA,E4BD
+temperature_startup_admission,E4BD,12 04 02 29,BRSET,"$04,#$02,$E4EA",(byte[operand] & $02) == mask (all selected bits),E4EA,E4C1
+temperature_startup_admission,E4CA,23 07,BLS,$E4D3,C=1 or Z=1,E4D3,E4CC
+temperature_startup_admission,E4CF,25 3A,BCS,$E50B,C=1,E50B,E4D1
+temperature_startup_admission,E4D1,20 11,BRA,$E4E4,always,E4E4,E4D3
+temperature_startup_admission,E4D6,22 07,BHI,$E4DF,C=0 and Z=0,E4DF,E4D8
+temperature_startup_admission,E4DB,24 07,BCC,$E4E4,C=0,E4E4,E4DD
+temperature_startup_admission,E4DD,20 2C,BRA,$E50B,always,E50B,E4DF
+temperature_startup_admission,E4E2,25 27,BCS,$E50B,C=1,E50B,E4E4
+temperature_startup_admission,E4EF,23 28,BLS,$E519,C=1 or Z=1,E519,E4F1
+temperature_startup_admission,E4F1,13 86 40 07,BRCLR,"$86,#$40,$E4FC",(byte[operand] & $40) == 0 (all selected bits clear),E4FC,E4F5
+temperature_startup_admission,E4FA,26 1D,BNE,$E519,Z=0,E519,E4FC
+temperature_startup_admission,E502,13 50 02 18,BRCLR,"$50,#$02,$E51E",(byte[operand] & $02) == 0 (all selected bits clear),E51E,E506
+temperature_startup_admission,E509,20 56,BRA,$E561,always,E561,E50B
+temperature_startup_admission,E514,24 03,BCC,$E519,C=0,E519,E516
+temperature_startup_admission,E51C,20 43,BRA,$E561,always,E561,E51E
+temperature_startup_admission,E522,26 3A,BNE,$E55E,Z=0,E55E,E524
+temperature_startup_admission,E529,23 33,BLS,$E55E,C=1 or Z=1,E55E,E52B
+temperature_startup_admission,E531,26 2B,BNE,$E55E,Z=0,E55E,E533
+temperature_startup_admission,E539,22 23,BHI,$E55E,C=0 and Z=0,E55E,E53B
+temperature_startup_admission,E543,26 03,BNE,$E548,Z=0,E548,E545
+temperature_startup_admission,E54B,22 11,BHI,$E55E,C=0 and Z=0,E55E,E54D
+temperature_startup_admission,E550,25 0C,BCS,$E55E,C=1,E55E,E552
+temperature_startup_admission,E557,24 05,BCC,$E55E,C=0,E55E,E559
+temperature_startup_admission,E55C,20 03,BRA,$E561,always,E561,E55E
+shared_math,F43E,25 03,BCS,$F443,C=1,F443,F440
+shared_math,F441,20 04,BRA,$F447,always,F447,F443
+shared_math,F45E,25 03,BCS,$F463,C=1,F463,F460
+shared_math,F461,20 03,BRA,$F466,always,F466,F463
+shared_math,F46B,27 03,BEQ,$F470,Z=1,F470,F46D
+shared_math,F47F,25 03,BCS,$F484,C=1,F484,F481
+shared_math,F482,20 04,BRA,$F488,always,F488,F484
+shared_math,F49C,23 02,BLS,$F4A0,C=1 or Z=1,F4A0,F49E
+shared_math,F4A8,24 01,BCC,$F4AB,C=0,F4AB,F4AA
+shared_math,F4AD,23 02,BLS,$F4B1,C=1 or Z=1,F4B1,F4AF
+shared_math,F4B4,20 02,BRA,$F4B8,always,F4B8,F4B6
+shared_math,F4BB,20 08,BRA,$F4C5,always,F4C5,F4BD
+shared_math,F4BE,24 01,BCC,$F4C1,C=0,F4C1,F4C0
+shared_math,F4CD,24 06,BCC,$F4D5,C=0,F4D5,F4CF
+shared_math,F4D3,20 06,BRA,$F4DB,always,F4DB,F4D5
+shared_math,F4E4,24 01,BCC,$F4E7,C=0,F4E7,F4E6
+shared_math,F4E9,24 01,BCC,$F4EC,C=0,F4EC,F4EB
+shared_math,F50F,24 06,BCC,$F517,C=0,F517,F511
+shared_math,F515,20 06,BRA,$F51D,always,F51D,F517
+shared_math,F525,24 06,BCC,$F52D,C=0,F52D,F527
+shared_math,F52B,20 06,BRA,$F533,always,F533,F52D
+shared_math,F539,24 07,BCC,$F542,C=0,F542,F53B
+shared_math,F540,20 07,BRA,$F549,always,F549,F542
+BLM_reset,F28B,23 F8,BLS,$F285,C=1 or Z=1,F285,F28D
+BLM_reset,F299,24 02,BCC,$F29D,C=0,F29D,F29B
+BLM_reset,F29F,23 02,BLS,$F2A3,C=1 or Z=1,F2A3,F2A1
+BLM_reset,F2A7,23 EE,BLS,$F297,C=1 or Z=1,F297,F2A9
+source_RPM_writer_exclusion_reader,B597,12 A2 20 02,BRSET,"$A2,#$20,$B59D",(byte[operand] & $20) == mask (all selected bits),B59D,B59B
+source_RPM_writer_exclusion_reader,B59E,24 03,BCC,$B5A3,C=0,B5A3,B5A0

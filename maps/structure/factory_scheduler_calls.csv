@@ -1,0 +1,92 @@
+scope,call_pc,bytes_hex,target,target_resolution,guard,nominal_period_ticks,nominal_period_ms,rate_limit
+boot_clear_calls,716A,BD F2 FD,F2FD,direct,see enclosing ROM control-flow edges,,,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+boot_clear_calls,7173,BD F2 FD,F2FD,direct,see enclosing ROM control-flow edges,,,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+boot_clear_calls,717C,BD F2 FD,F2FD,direct,see enclosing ROM control-flow edges,,,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,797A,BD 7B 6D,7B6D,direct,non-factory timer entry after stack check; includes busy reentry,1,6.248474,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,79E4,BD AC 51,AC51,direct,($001A & $20)!=0 at $79D9; phase bit0=1,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,79F2,BD 7B A7,7BA7,direct,($001A & $20)==0 at $79D9,1,6.248474,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,79F9,BD 91 67,9167,direct,($001A & $20)==0 at $79D9; phase bit0=0,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,79FC,BD A4 66,A466,direct,($001A & $20)==0 at $79D9; phase bit0=0,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,79FF,BD D1 4E,D14E,direct,($001A & $20)==0 at $79D9; phase bit0=0,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A02,BD D1 F6,D1F6,direct,($001A & $20)==0 at $79D9; phase bit0=0,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A05,BD F5 E8,F5E8,direct,($001A & $20)==0 at $79D9; phase bit0=0,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A0C,BD B5 6B,B56B,direct,($001A & $20)==0 at $79D9; phase & $03 == $02,4,24.993896,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A11,BD D0 3E,D03E,direct,($001A & $20)==0 at $79D9; phase & $03 == $00,4,24.993896,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A14,BD AE 85,AE85,direct,($001A & $20)==0 at $79D9; phase & $03 == $00,4,24.993896,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A19,BD 7D 4B,7D4B,direct,($001A & $20)==0 at $79D9; phase bit0=1,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A1C,BD CD F7,CDF7,direct,($001A & $20)==0 at $79D9; phase bit0=1,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A32,BD F3 E4,F3E4,direct,($001A & $20)==0 at $79D9; phase bit0=1; not (($003B & $10)!=0 and ($0391 & $80)!=0) at $7A1F-$7A28,2,12.496948,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A39,BD 93 D0,93D0,direct,($001A & $20)==0 at $79D9; phase & $03 == $03,4,24.993896,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A3C,BD C4 E5,C4E5,direct,($001A & $20)==0 at $79D9; phase & $03 == $03,4,24.993896,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A41,BD B3 2D,B32D,direct,($001A & $20)==0 at $79D9; phase & $03 == $01,4,24.993896,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7AA6,rom_word_table,main pass; phase & $0F == $0; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7AAD,rom_word_table,main pass; phase & $0F == $1; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7AB7,rom_word_table,main pass; phase & $0F == $2; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7ABD,rom_word_table,main pass; phase & $0F == $3; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7AC7,rom_word_table,main pass; phase & $0F == $4; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B03,rom_word_table,main pass; phase & $0F == $5; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B14,rom_word_table,main pass; phase & $0F == $6; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B1B,rom_word_table,main pass; phase & $0F == $7; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B2B,rom_word_table,main pass; phase & $0F == $8; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B2F,rom_word_table,main pass; phase & $0F == $9; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B39,rom_word_table,main pass; phase & $0F == $A; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B3D,rom_word_table,main pass; phase & $0F == $B; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B44,rom_word_table,main pass; phase & $0F == $C; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B48,rom_word_table,main pass; phase & $0F == $D; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B52,rom_word_table,main pass; phase & $0F == $E; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+timer_isr,7A4F,AD 00,7B5A,rom_word_table,main pass; phase & $0F == $F; either $001A mode,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+tick_service,7B6D,BD 91 A3,91A3,direct,inside $7B6D on non-factory timer entry; includes busy reentry; not repeated by tail catch-up,1,6.248474,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+tick_service,7B97,BD F2 45,F245,direct,inside $7B6D on non-factory timer entry; includes busy reentry; not repeated by tail catch-up,1,6.248474,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+tick_service,7B9B,BD 7C 13,7C13,direct,inside $7B6D on non-factory timer entry; includes busy reentry; not repeated by tail catch-up,1,6.248474,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+factory_entry,FA63,BD F2 75,F275,direct,factory entry before ADC qualification,,,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+factory_entry,FA68,BD F2 5F,F25F,direct,factory entry before ADC qualification,,,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+factory_entry,FA78,BD F2 5F,F25F,direct,factory entry; first ADC sample is $28..$63 inclusive,,,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+factory_entry,FA94,BD F3 E4,F3E4,direct,factory entry; selector byte $0364 != $02,,,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+factory_entry,FAA5,AD 00,,unresolved_ram_word,factory entry; selector=$02 or (selector=$03 and $0001 bit0=1); target=wordRAM[$038E],,,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_0,7AA6,BD C5 6F,C56F,direct,phase & $0F == $0,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_0,7AA9,BD CF 15,CF15,direct,phase & $0F == $0,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_1,7AAD,BD C5 83,C583,direct,phase & $0F == $1,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_1,7AB0,BD C6 68,C668,direct,phase & $0F == $1,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_1,7AB3,BD AD AA,ADAA,direct,phase & $0F == $1,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_2,7AB8,BD F2 0D,F20D,direct,phase & $0F == $2,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_3,7ABD,BD F5 CF,F5CF,direct,phase & $0F == $3,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_3,7AC0,BD D4 EB,D4EB,direct,phase & $0F == $3,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_3,7AC3,BD C5 14,C514,direct,phase & $0F == $3,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AC7,BD C8 B1,C8B1,direct,phase & $0F == $4,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7ACE,BD B9 EE,B9EE,direct,phase & $0F == $4; phase bit4=1,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AD1,BD B9 9F,B99F,direct,phase & $0F == $4; phase bit4=1,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AD4,BD EA B1,EAB1,direct,phase & $0F == $4; phase bit4=1,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AD7,BD EA E4,EAE4,direct,phase & $0F == $4; phase bit4=1,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7ADA,BD C8 D6,C8D6,direct,phase & $0F == $4; phase bit4=1,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7ADD,BD C8 FD,C8FD,direct,phase & $0F == $4; phase bit4=1,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AE2,BD E7 5F,E75F,direct,phase & $0F == $4; phase bit4=0,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AE5,BD E7 93,E793,direct,phase & $0F == $4; phase bit4=0,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AE8,BD C9 6A,C96A,direct,phase & $0F == $4; phase bit4=0,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AEB,BD C9 C0,C9C0,direct,phase & $0F == $4; phase bit4=0,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_4,7AEE,BD C9 F7,C9F7,direct,phase & $0F == $4; phase bit4=0,32,199.951172,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_5,7B03,BD D3 B0,D3B0,direct,phase & $0F == $5,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_5,7B06,BD D4 72,D472,direct,phase & $0F == $5,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_5,7B10,BD C6 BB,C6BB,direct,phase & $0F == $5; ROM[$400F] bit6=0 (true in stock BMHM: $10),16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_6,7B14,BD CB 15,CB15,direct,phase & $0F == $6,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_6,7B17,BD CE 10,CE10,direct,phase & $0F == $6,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_7,7B1B,BD C5 14,C514,direct,phase & $0F == $7,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_7,7B1E,BD F5 DC,F5DC,direct,phase & $0F == $7,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_7,7B21,BD 9E 99,9E99,direct,phase & $0F == $7,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_7,7B24,BD CA 6B,CA6B,direct,phase & $0F == $7,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_7,7B27,BD AC A7,ACA7,direct,phase & $0F == $7,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_8,7B2B,BD CE BB,CEBB,direct,phase & $0F == $8,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_9,7B2F,BD CF 16,CF16,direct,phase & $0F == $9,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_9,7B32,BD A2 B0,A2B0,direct,phase & $0F == $9,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_9,7B35,BD D4 DA,D4DA,direct,phase & $0F == $9,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_A,7B39,BD D2 B2,D2B2,direct,phase & $0F == $A,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_B,7B3D,BD D4 EB,D4EB,direct,phase & $0F == $B,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_B,7B40,BD C5 14,C514,direct,phase & $0F == $B,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_C,7B44,BD CC 35,CC35,direct,phase & $0F == $C,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_D,7B48,BD CC C1,CCC1,direct,phase & $0F == $D,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_D,7B4B,BD DB FB,DBFB,direct,phase & $0F == $D,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_D,7B4E,BD DC 89,DC89,direct,phase & $0F == $D,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_F,7B5A,BD C5 14,C514,direct,phase & $0F == $F,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_F,7B5D,BD C4 F5,C4F5,direct,phase & $0F == $F,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_F,7B60,BD E6 2D,E62D,direct,phase & $0F == $F,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_F,7B63,BD E6 E5,E6E5,direct,phase & $0F == $F,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time
+slot_F,7B66,BD E2 86,E286,direct,phase & $0F == $F,16,99.975586,admission_if_gates_hold;overrun_and_callee_side_effects_can_change_wall_time

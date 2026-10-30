@@ -281,7 +281,7 @@ def resolve(path: str | Path) -> Path:
 def write_csv(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
+        writer = csv.DictWriter(f, fieldnames=FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(ROWS)
 
@@ -372,7 +372,7 @@ def write_md(path: Path) -> None:
         "",
         "else:",
         "  set L003E bit2 low-battery/protection flag",
-        "  skip ORAB #$10",
+        "  skip ORAB #$10; retain the old bit4 value",
         "```",
         "",
         "Current interpretation: `L00A7` is proven as the compared variable. `#169` is the high voltage threshold candidate. `L4EB6` is the low voltage threshold candidate. `L003E bit2` is the low-battery/protection flag associated with this gate.",
@@ -448,6 +448,7 @@ def write_md(path: Path) -> None:
         "IAC_INIT_PARK_CONTRACT",
         "```",
     ]
+    lines[2:2] = ['Current factory software authority: [FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md](../analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md), [IAC controller](../analysis/FACTORY_IAC_CONTROLLER.md), and [learning/output](../analysis/FACTORY_IAC_LEARNING_AND_OUTPUT.md). These ROM-byte contracts close the strategy, retained state, reset/service and software cadence gaps of this earlier source-only note. Physical pin mapping and motor response remain separate. In particular, reset seeds position255 and target0; software position is not sensor feedback.', ""]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

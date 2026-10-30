@@ -1,0 +1,101 @@
+state,width_bits,role,reviewed_direct_writers,other_listing_writer_candidates,initialization,scope
+0007,8,software IAC position,91E6;926D;9B10;9BD6;A404,,conditional low-retained-area clear at 7219/7222; local seed/reset rules apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0008,8,IAC step target,929E;93E5;9899;A401,,conditional low-retained-area clear at 7219/7222; local seed/reset rules apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0009,8,retained IAC flags,930C;932A;93F0;93F3;94B2;9B06;9BCC;9EC7;A11F;A12A;A385;A392;A3FA,,conditional low-retained-area clear at 7219/7222; local seed/reset rules apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+000A,8,IAC direction/phase/enable,9200;93CD,,conditional low-retained-area clear at 7219/7222; local seed/reset rules apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0036,8,IAC controller flags,921F;949D;954F;9571;95B9;95E2;96AA;96BF;96DE;96F5;96FB;9A00;9A05;9A58;9A5E;9A74;A3FD;A436,,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0037,8,IAC follower/kicker flags,920E;9218;9239;9294;94A0;9865;9C55;9C5F;9CED;9CF2;9D8A;9DD6;9DE3;9F58;A456;A45F,,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0038,8,IAC transfer/override flags,93D7;94A3;94A6;9698;969B;9806;980B;9EE4;A0CE;A0D3;A1C3;A1C8;A1D1;A1D6;A1E3;A1E8;A1F1;A1F6;A252;A257;A260;A265;A272;A277;A280;A285;A446,,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0039,8,IAC qualification/diagnostic flags,94A9;99EA;99EF;9DA5;9E85;9F13;9F9C;A395,,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+004B,8,shared kicker/board request,9222;923C;F40D,AC31;ACA0,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+004C,8,shared board output shadow,744D;920A;C522;C546;C54B;CC79,,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0068,16,filtered RPM basis,,A66C,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+006A,16,reference-qualified RPM history,7537;7790,,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+006C,8,RPM ratio,830D;831F,,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0075,8,governor mode,8EC9;8ED5;8EFD;8F12;8F27;8F33;8F38;8F50;8F53;902D;9047;90CF,,unconditional clear at 716A; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+080C,8,observed VSS timestamp changes,7C09;D4CB,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+080D,16,current VSS timestamp,7C0C,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+080F,16,previous VSS batch timestamp,D4D1,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0811,8,VSS timeout,D4D6,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0812,16,raw VSS,D4B1;D4C8,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0284,16,filtered VSS,D4E7,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0286,16,governor target accumulator,8F0F;8F4D;8FE5;9003;9094,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0288,16,governor integral,911A;9135;9148,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+028A,16,governor target step,8F84;8F8F,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+028D,8,RPM sampled change,,A645,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+028E,16,filtered governor RPM,,A633,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0290,16,governor lead term,8FA2;8FC9,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0292,8,governor speed correction,8FA5;8FC2;9010,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0293,8,RPM error magnitude,8ED8,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0294,8,VSS error magnitude,8EFA;8F24,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0295,16,governor actuator P,90F5,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0297,16,governor actuator I step,9105,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0299,8,governor target byte,8EC5;90B7,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+029A,8,governor TPS error,90DC,,unconditional clear at 7173; later producers apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+3062,8,shared board hardware latch,F411;FB28;FB3E;FB5B,,separate hardware/service owner,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+306C,16,shared governor/TCC hardware command,9163;CDDF;FB8D;FBBF,,separate hardware/service owner,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+029D,16,park/no-AC integral,92CD;9337;9648,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+029F,8,park/no-AC snapshot,92D0;A108,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02A0,16,park/AC integral,92E4;9361;9364;93BB;9654,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02A2,8,park/AC snapshot,92E7;937B;A110,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02A3,16,park cold flow,94CF;968D;9EB8;A016,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02A5,16,park cold-flow bound,94D2;9FFF,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02A7,16,drive/no-AC integral,92AD;9309;933D;9664;A346,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02A9,8,drive/no-AC snapshot,92B0;9301;A11C,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02AA,16,drive/AC integral,92C4;9327;9392;9395;93C1;9670;A359,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02AC,8,drive/AC snapshot,92C7;931F;93AC;A127,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02AD,16,drive cold flow,94BF;9695;9EC4;A03E,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02AF,16,drive cold-flow bound,94C2;A027,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02B1,8,kicker-on TPS baseline,92ED;9F10,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+02B2,8,kicker-off TPS baseline,9F99,,conditional retained-area clear at 722B; byte-only seeds may retain fractions,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0857,8,desired idle RPM,9470;99A8;A443,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0858,8,absolute RPM error,96FE,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0859,16,RPM error lag,94AF;9746,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+085B,8,BLM-qualified idle timer,990A;991D,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+085C,8,startup RPM adder,945B;A327,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+085D,8,RPM decay divider,9476;A31B;A323,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+085E,8,RPM decay hold,947C;A311,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+085F,8,slewed base idle RPM,9959,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0860,8,switch RPM offset,999F,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0861,8,switch RPM offset delay,99A5,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0862,16,selected integral flow,950B;9C16,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0864,8,IAC qualification delay,9495;959E;9629;96BC;99FD;9A16,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0866,8,underspeed entry hold,941A;A28E,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0867,8,overspeed entry hold,9426;A297,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0868,8,stall threshold,99C1,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0869,8,stall timer,96E4;9A8D,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+086A,8,selected flow snapshot,A2AC,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+086B,8,startup flow adder,942C;9B79;A2F7,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+086C,8,startup flow divider,9432;A2EB;A2F3,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+086D,8,proportional flow,9480;9C92,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+086E,16,derivative lag,949A;9CE5,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0870,8,derivative flow magnitude,9CF9,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0871,16,selected cold flow,950E;9C0B,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0873,16,selected cold bound,9C10,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0875,8,cold-flow decay delay,94DE;A069,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0876,8,AC transition flow,9489;961C;A151,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0877,8,AC transition hold,948C;961F;96D6,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0878,8,AC transition divider,95EC;A140;A148,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0879,8,gear transition flow,9483;9596;96C7,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+087A,8,gear transition hold,9486;9591;96CD,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+087B,8,switch flow adder,9492;96B0;9B61;A2CF,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+087C,8,switch flow hold,96B6;A2C4;A2D7,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+087D,16,previous/base composite flow,9514;97B9,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+087F,8,IAC-change AE contribution,97E3,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0880,16,throttle follower flow,9E95,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0882,16,filtered scaled TPS,9DEE;9DF8,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0884,8,follower delay,96ED;9D25,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0885,8,TPS closed threshold,9263,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0886,8,cracker age,9DE9,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0887,8,DFCO flow correction,948F;980F;9EE7,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0888,8,DFCO correction divider,9815;9ED3;9EDB,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0889,16,pre-BARO flow,983D,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+088B,16,final IAC flow,9880,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+088D,8,kicker timer,9215;9236;9F24;9F84;9FAE,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+088E,8,IAC diagnostic timer,A3D6;A3E0,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+088F,16,park/no-AC transfer,,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0891,16,park/AC transfer,,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0893,16,park cold transfer,A0CB,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0895,16,drive/no-AC transfer,,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0897,16,drive/AC transfer,,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation
+0899,16,drive cold transfer,A09B,,unconditional clear at 717C; local seeds apply,direct byte-overlap audit; cell aliases and external co-owners explicit in documentation

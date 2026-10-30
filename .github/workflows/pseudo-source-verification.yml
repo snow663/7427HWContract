@@ -1,0 +1,25 @@
+name: Modular C Pseudo-source Verification
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "pseudo-source/**"
+      - ".github/workflows/pseudo-source-verification.yml"
+  push:
+    branches: [main]
+    paths:
+      - "pseudo-source/**"
+      - ".github/workflows/pseudo-source-verification.yml"
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure host source checks
+        run: cmake -S pseudo-source -B pseudo-source/build -DBUILD_TESTING=ON
+      - name: Compile separate routine files
+        run: cmake --build pseudo-source/build --parallel 2
+      - name: Test source contracts and provenance
+        run: ctest --test-dir pseudo-source/build --output-on-failure

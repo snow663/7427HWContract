@@ -1,5 +1,7 @@
 # Literal `2.bin` VSS Authority Audit — 2026-08-20
 
+**Historical snapshot:** this document concerns the image/logs identified below. It does not establish current0.3.12 calibration values or active consumers. Current state: [WORKING_STATE.md](../WORKING_STATE.md).
+
 ## Purpose
 
 Trace every stock `$31` use of vehicle speed that is reachable from the literal numbered `2.bin`, separate active engine-control authority from dormant/peripheral use, and define a VSS-elimination method that does **not** globally force the VSS variable to an arbitrary value.

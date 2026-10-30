@@ -1,0 +1,9 @@
+call_pc,bytes_hex,destination,guard_pc,condition,resident_position,boundary
+8C6A,BD 18 00,1800,8C66,0086.6 set at guard; local controller admission still applies,AFR before024B publication,implementation absent; memory/register/return effects unknown
+8EDF,BD 18 09,1809,8EDB,0086.6 set at guard; local controller admission still applies,governor returned carry/A can bypass target math,implementation absent; memory/register/return effects unknown
+93D4,BD 18 03,1803,93D0,0086.6 set at guard; local controller admission still applies,IAC before resident controller,implementation absent; memory/register/return effects unknown
+A9E4,BD 18 12,1812,A9E0,0086.6 set at guard; local controller admission still applies,composite spark before subsequent local override,implementation absent; memory/register/return effects unknown
+AB66,BD 18 0F,180F,AB62,0086.6 set at guard; local controller admission still applies,spark conversion factor,implementation absent; memory/register/return effects unknown
+D029,BD 18 15,1815,D025,0086.6 set at guard; local controller admission still applies,EGR desired before service override,implementation absent; memory/register/return effects unknown
+F5D3,BD 18 06,1806,F5CF,0086.6 set at guard; local controller admission still applies,background before0F00 store,implementation absent; memory/register/return effects unknown
+F5E4,BD 18 0C,180C,F5DC,word_runtime[1800]==7E18; no0086.6 requirement,independent signature connection/initialization,implementation absent; memory/register/return effects unknown

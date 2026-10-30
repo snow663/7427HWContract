@@ -1,0 +1,2 @@
+pc,address_expression,contract_class,condition,limit
+FABC,u16((u16(word_at_FAB0[038E]+j)) + $00),runtime_pointer,accepted factory ID01; j0..31; u16 wrap; no destination whitelist,bind this formal footprint before asserting a complete finite byte owner set

@@ -1,0 +1,13 @@
+pc,bytes_hex,ROM,listing,scope
+B32D,BD B3 34,JSR $B334,,covered byte authority; raw HAC and global partial overlay remain separate
+B99F,F6 01 1A,LDAB $011A,,covered byte authority; raw HAC and global partial overlay remain separate
+CFCA,13 3E 80 BB,"BRCLR $3E,#$80,$CF89","BRCLR L003E,#$80,LCF8",covered byte authority; raw HAC and global partial overlay remain separate
+E25E,CE FE 56,LDX #$FE56,LDX #$FE56		INDEX BLINK OUT CODES,covered byte authority; raw HAC and global partial overlay remain separate
+E75F,12 3B 04 2F,"BRSET $3B,#$04,$E792",FDB $123B,covered byte authority; raw HAC and global partial overlay remain separate
+E763,CE 5B 00,LDX #$5B00,FDB $CE5B,covered byte authority; raw HAC and global partial overlay remain separate
+E8FB,25 04,BCS $E901,BCS LE90,covered byte authority; raw HAC and global partial overlay remain separate
+F346,A7 15,"STAA $15,X","STAA 15,X",covered byte authority; raw HAC and global partial overlay remain separate
+F348,A6 55,"LDAA $55,X","LDAA 55,X",covered byte authority; raw HAC and global partial overlay remain separate
+F380,CE 00 09,LDX #$0009,,covered byte authority; raw HAC and global partial overlay remain separate
+F459,37,PSHB ,,covered byte authority; raw HAC and global partial overlay remain separate
+F479,A3 00,"SUBD $00,X",,covered byte authority; raw HAC and global partial overlay remain separate

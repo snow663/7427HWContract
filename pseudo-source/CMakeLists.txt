@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.16)
+project(pcm_pseudo_source LANGUAGES C)
+
+# Host compilation checks source interfaces and selected algorithms. This is
+# deliberately not an HC11 image target and cannot emit a flashable BIN yet.
+file(GLOB_RECURSE PCM_ROUTINES CONFIGURE_DEPENDS "src/*.c" "calibration/*.c")
+add_library(pcm_pseudo_source STATIC ${PCM_ROUTINES})
+target_include_directories(pcm_pseudo_source PUBLIC include)
+target_compile_features(pcm_pseudo_source PUBLIC c_std_11)
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+  target_compile_options(pcm_pseudo_source PRIVATE -Wall -Wextra -Wpedantic -Werror)
+endif()
+
+include(CTest)
+if(BUILD_TESTING)
+  add_executable(pcm_kernel_tests tests/kernel_test.c)
+  target_link_libraries(pcm_kernel_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME kernel_contracts COMMAND pcm_kernel_tests)
+  find_package(Python3 COMPONENTS Interpreter REQUIRED)
+  add_test(NAME source_provenance COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_provenance.py)
+  add_test(NAME fuel_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_rom.py $<TARGET_FILE:pcm_kernel_tests>)
+endif()

@@ -1,5 +1,7 @@
 # VSS / Fueling / BPW-Drop Trace — 2026-08-20
 
+**Historical snapshot:** this document concerns the image/logs identified below. It does not establish current0.3.12 calibration values or active consumers. Current state: [WORKING_STATE.md](../WORKING_STATE.md).
+
 ## Purpose
 
 Determine whether the VSS faults present with literal numbered `2.bin` can directly reduce synchronous injector pulse width enough to cause the observed road stumble, and correlate the stock-code paths against the available ALDL log evidence.

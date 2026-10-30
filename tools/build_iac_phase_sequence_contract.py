@@ -251,7 +251,7 @@ def resolve(path: str | Path) -> Path:
 def write_csv(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
+        writer = csv.DictWriter(f, fieldnames=FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(ROWS)
 
@@ -342,7 +342,7 @@ def write_md(path: Path) -> None:
         "| 1 | A+B | `0x0C` | A | `0x04` | `-1` |",
         "| 1 | A | `0x04` | none | `0x00` | `-1` |",
         "",
-        "Direction reversal can update `L000A bit0` before the actual count is changed. Treat the first reversal edge as a possible zero-count-delta phase/authority change until bench confirms behavior.",
+        "ROM confirms that direction reversal updates `L000A bit0` while holding the count and phase on that invocation. Physical motor response remains separate from this software result.",
         "",
         "## Output Shadow / Latch Path",
         "",
@@ -402,6 +402,7 @@ def write_md(path: Path) -> None:
         "IAC writer implementation",
         "```",
     ]
+    lines[2:2] = ['Current factory software authority: [FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md](../analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md), [IAC controller](../analysis/FACTORY_IAC_CONTROLLER.md), and [learning/output](../analysis/FACTORY_IAC_LEARNING_AND_OUTPUT.md). These ROM-byte contracts close the strategy, retained state, reset/service and software cadence gaps of this earlier source-only note. Physical pin mapping and motor response remain separate. In particular, reset seeds position255 and target0; software position is not sensor feedback.', ""]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

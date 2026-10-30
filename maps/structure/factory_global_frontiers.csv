@@ -1,0 +1,10 @@
+pc,target,boundary
+8C6A,1800,external_extension; effects and return unknown
+8EDF,1809,external_extension; effects and return unknown
+93D4,1803,external_extension; effects and return unknown
+A9E4,1812,external_extension; effects and return unknown
+AB66,180F,external_extension; effects and return unknown
+D029,1815,external_extension; effects and return unknown
+F5D3,1806,external_extension; effects and return unknown
+F5E4,180C,external_extension; effects and return unknown
+FAA5,wordRAM[038E],payload_supplied_callback; no resident target whitelist

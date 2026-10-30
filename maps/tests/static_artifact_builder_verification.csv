@@ -1,5 +1,78 @@
-builder_scope,verification_status,expected_action,decision_effect,notes
-all_tools_build_py,pending_local_run,run tools/verify_static_artifact_builders.py --write-report,none,"Discovers every tools/build_*.py at runtime, runs each in a temporary repo copy, and compares generated outputs against committed files."
-static_artifact_builder_verification,not_hardware_proof,record repo-internal consistency only,none,"Mismatches are repo defects, not hardware findings."
-subsystem_gate_decisions,unchanged,no gate decision may be changed by this verifier,none,"Does not accept fuel stock-driver preservation, does not accept IAC stock-driver preservation, does not relax SLICE-1."
-runtime_artifacts,forbidden,no runtime ASM or hardware writer may be created,none,"Verifier is limited to static artifact reproducibility."
+builder_path,status,returncode,changed_files,missing_files,extra_files,stdout_tail,stderr_tail,notes
+tools/build_address_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--addr"
+tools/build_bench_proof_package.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_bypass_est_transition.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--watch"
+tools/build_calibration_source_index.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_dependency_trace.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--watch,--sink-pc,--sink-register"
+tools/build_dispatcher_reverse_map.py,pass,0,,,,wrote 17 dispatcher rows,,builder output matches committed artifact(s)
+tools/build_est_fault_monitor_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--watch"
+tools/build_factory_scheduler.py,pass,0,,,,PASS: 10 scheduler outputs; recorded excerpt consistency only,,builder output matches committed artifact(s); manifest_args_used
+tools/build_factory_state_flow.py,pass,0,,,,PASS: 9 nested state-flow outputs; recorded excerpt consistency only,,builder output matches committed artifact(s); manifest_args_used
+tools/build_factory_structure.py,pass,0,,,,Generated 7 factory-structure files,,builder output matches committed artifact(s)
+tools/build_first_minimal_fuel_only_slice.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_fuel_minimal_module_inputs.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_fuel_slice0_bench_execution_checklist.py,pass,0,,,,"wrote maps/bench/fuel_slice0_bench_execution_checklist.csv
+wrote docs/bench/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST.md
+wrote docs/tests/FUEL_SLICE0_BENCH_EXECUTION_CHECKLIST_TEST.md",,builder output matches committed artifact(s); newline_only_ignored=maps/bench/fuel_slice0_bench_execution_checklist.csv
+tools/build_fuel_stock_output_driver_preservation_contract.py,pass,0,,,,"wrote docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT.md
+wrote maps/contracts/fuel_stock_output_driver_preservation_contract.csv
+wrote docs/tests/FUEL_STOCK_OUTPUT_DRIVER_PRESERVATION_CONTRACT_TEST.md",,builder output matches committed artifact(s); newline_only_ignored=maps/contracts/fuel_stock_output_driver_preservation_contract.csv
+tools/build_fuel_stock_output_driver_static_proof_index.py,pass,0,,,,"wrote maps/contracts/fuel_stock_output_driver_static_proof_index.csv
+wrote docs/contracts/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX.md
+wrote docs/tests/FUEL_STOCK_OUTPUT_DRIVER_STATIC_PROOF_INDEX_TEST.md",,builder output matches committed artifact(s); newline_only_ignored=maps/contracts/fuel_stock_output_driver_static_proof_index.csv
+tools/build_full_rom_write_target_sweep.py,pass,0,,,,wrote 2188 rows to maps/generated/full_rom_write_target_sweep.csv,,builder output matches committed artifact(s)
+tools/build_hardware_output_gate_matrix.py,pass,0,,,,"wrote maps/contracts/hardware_output_gate_matrix.csv
+wrote docs/contracts/HARDWARE_OUTPUT_GATE_MATRIX.md
+wrote docs/tests/HARDWARE_OUTPUT_GATE_MATRIX_TEST.md",,builder output matches committed artifact(s); newline_only_ignored=maps/contracts/hardware_output_gate_matrix.csv
+tools/build_hw_map.py,pass,0,,,,"    ""0x305C"",
+    ""0x305D"",
+    ""0x305E"",
+    ""0x305F""
+  ],
+  ""unknown_hw"": [
+    ""0x3060"",
+    ""0x3061"",
+    ""0x3062"",
+    ""0x3063"",
+    ""0x3064"",
+    ""0x3065"",
+    ""0x3067"",
+    ""0x3068"",
+    ""0x306A"",
+    ""0x306C"",
+    ""0x306E"",
+    ""0x306F""
+  ]
+}",,builder output matches committed artifact(s)
+tools/build_iac_enable_fault_gate_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_iac_init_park_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_iac_minimal_module_inputs.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_iac_output_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name"
+tools/build_iac_phase_sequence_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_iac_stock_driver_preservation_contract.py,skip_parameterized_no_manifest,skip,,,,,,skip_help_failed_no_manifest
+tools/build_init_state_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--addr"
+tools/build_la906_output_sequence.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_math_helper_contract.py,pass,0,,,,"helper rows: 15
+caller context rows: 315",,builder output matches committed artifact(s); manifest_args_used
+tools/build_minimal_os_aldl_debug_map.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_minimal_os_boot_safe_state.py,pass,0,,,,MINIMAL_OS_BOOT_SAFE_STATE: wrote 28 boot-state rows,,builder output matches committed artifact(s); manifest_args_used
+tools/build_minimal_os_execution_scheduler.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_minimal_os_module_boundary.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name"
+tools/build_minimal_os_state_variables.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_per_target_dossier_index.py,pass,0,,,,wrote 786 per-target dossiers,,builder output matches committed artifact(s)
+tools/build_register_window_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--window,--anchor"
+tools/build_routine_slice.py,pass,0,,,,wrote 113 rows,,builder output matches committed artifact(s); manifest_args_used
+tools/build_spark_conversion_equation.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--vectors"
+tools/build_spark_handoff_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--window,--anchor"
+tools/build_spark_init_state.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_spark_magnitude_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--watch"
+tools/build_spark_minimal_module_boundary.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_spark_minimal_module_inputs.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_spark_rolling_state_model.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_spark_stock_handoff_preservation_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_spark_timing_units.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv"
+tools/build_stock_driver_preservation_policy.py,pass,0,,,,wrote stock driver preservation policy artifacts,,builder output matches committed artifact(s); newline_only_ignored=maps/contracts/stock_driver_preservation_policy.csv
+tools/build_subsystem_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--subsystem"
+tools/build_subsystem_isolation_index.py,pass,0,,,,wrote 8 subsystem isolation rows,,builder output matches committed artifact(s)
+tools/build_timebase_contract.py,skip_parameterized_no_manifest,skip,,,,,,"skip_parameterized_no_manifest: --out-md,--out-csv,--name,--watch"
+tools/build_write_target_network_index.py,pass,0,,,,wrote 786 target dossier rows from 2188 write rows,,builder output matches committed artifact(s)

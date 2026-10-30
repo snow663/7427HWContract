@@ -1,0 +1,17 @@
+slot_hex,table_word_address,table_bytes,entry,nominal_period_ticks,nominal_period_ms,ordered_call_sites,local_state_access_pcs,special_behavior,scope_limit
+0,7A85,7A A6,7AA6,16,99.975586,7AA6:C56F;7AA9:CF15,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+1,7A87,7A AD,7AAD,16,99.975586,7AAD:C583;7AB0:C668;7AB3:ADAA,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+2,7A89,7A B7,7AB7,16,99.975586,7AB8:F20D,,"SEI around $F20D, then CLI",slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+3,7A8B,7A BD,7ABD,16,99.975586,7ABD:F5CF;7AC0:D4EB;7AC3:C514,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+4,7A8D,7A C7,7AC7,16,99.975586,7AC7:C8B1;7ACE:B9EE;7AD1:B99F;7AD4:EAB1;7AD7:EAE4;7ADA:C8D6;7ADD:C8FD;7AE2:E75F;7AE5:E793;7AE8:C96A;7AEB:C9C0;7AEE:C9F7,7ACA;7AF1;7AF4;7AF8;7AFB;7AFF,bit4 selects alternating call groups; rebuilds $006F bits $24,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+5,7A8F,7B 03,7B03,16,99.975586,7B03:D3B0;7B06:D472;7B10:C6BB,7B0C,$400F bit6 gates $C6BB,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+6,7A91,7B 14,7B14,16,99.975586,7B14:CB15;7B17:CE10,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+7,7A93,7B 1B,7B1B,16,99.975586,7B1B:C514;7B1E:F5DC;7B21:9E99;7B24:CA6B;7B27:ACA7,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+8,7A95,7B 2B,7B2B,16,99.975586,7B2B:CEBB,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+9,7A97,7B 2F,7B2F,16,99.975586,7B2F:CF16;7B32:A2B0;7B35:D4DA,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+A,7A99,7B 39,7B39,16,99.975586,7B39:D2B2,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+B,7A9B,7B 3D,7B3D,16,99.975586,7B3D:D4EB;7B40:C514,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+C,7A9D,7B 44,7B44,16,99.975586,7B44:CC35,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+D,7A9F,7B 48,7B48,16,99.975586,7B48:CCC1;7B4B:DBFB;7B4E:DC89,,,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+E,7AA1,7B 52,7B52,16,99.975586,,7B52;7B56,no calls; sets $0004 bit2 if $0051 bit2 still set,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure
+F,7AA3,7B 5A,7B5A,16,99.975586,7B5A:C514;7B5D:C4F5;7B60:E62D;7B63:E6E5;7B66:E286,7B69,sets $0051 bit2 after calls; foreground refresh clears it,slot_wrapper_and_one_level_callee_CFG;not_transitive_state_closure

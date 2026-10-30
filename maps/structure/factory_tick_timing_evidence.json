@@ -1,0 +1,33 @@
+{
+  "ADC4_poll_cap": 12,
+  "ADC7_poll_cap": 20,
+  "ADC7_ready_after_write_E": 129,
+  "H_definition": "additional preemption and extra wait delay during this entry; excludes its nominal own instruction cost",
+  "L_definition": "time from prior OC3 match to first instruction at793D; includes prior arbitration/entry delay",
+  "compare_delta_counts": 819,
+  "inequality": "L + H + nominal_upper_E < period_E excludes the next scheduled OC3 match before the endpoint",
+  "instruction_sites": 246,
+  "late_rearm": "If newly written compare is behind TCNT and its equality window is past, the next match waits for 16-bit counter wrap; there is no elapsed-interval queue",
+  "limits": [
+    "nominal HC11/F1-style timing contract, not identified-board measurement",
+    "both branch arms overapproximated; structural lower endpoints are not feasible-path claims",
+    "ADC power/clock/stabilization and completion premise required",
+    "no complete main-pass WCET or bound on L/H/source event rates",
+    "opaque code, factory redirection, stack recovery and reset are excluded",
+    "bus-stretch and compare-write edge behavior need separate treatment at equality borders"
+  ],
+  "period_E": 13104,
+  "poll_caps_include_exit_attempt": true,
+  "programmed_prescaler": 16,
+  "reset_handler_to_prescaler_write_E": {
+    "FFFA": 39,
+    "FFFE": 36
+  },
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "sources": [
+    "https://www.nxp.com/docs/en/reference-manual/M68HC11ERG.pdf Table1 pp13..20",
+    "https://www.nxp.com/docs/en/reference-manual/M68HC11RM.pdf AppendixA and section5.7.2",
+    "https://www.nxp.com/docs/en/data-sheet/MC68HC11F1.pdf sections9.3 and10.3; figure10-3; table9-3"
+  ],
+  "timer_wrap_E": 1048576
+}

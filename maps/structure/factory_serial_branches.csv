@@ -1,0 +1,213 @@
+pc,bytes_hex,mnemonic,operand,condition,target,fallthrough
+7132,18 1F 00 01 03,BRCLR,"$00,Y,#$01,$713A",(byte[operand] & $01) == 0 (all selected bits clear),713A,7137
+7162,26 F7,BNE,$715B,Z=0,715B,7164
+7188,26 F8,BNE,$7182,Z=0,7182,718A
+7198,24 29,BCC,$71C3,C=0,71C3,719A
+719C,25 25,BCS,$71C3,C=1,71C3,719E
+71A5,25 1C,BCS,$71C3,C=1,71C3,71A7
+71AC,25 15,BCS,$71C3,C=1,71C3,71AE
+71B2,22 0F,BHI,$71C3,C=0 and Z=0,71C3,71B4
+746C,13 51 04 43,BRCLR,"$51,#$04,$74B3",(byte[operand] & $04) == 0 (all selected bits clear),74B3,7470
+7476,26 06,BNE,$747E,Z=0,747E,7478
+7481,27 2A,BEQ,$74AD,Z=1,74AD,7483
+74AB,20 C6,BRA,$7473,always,7473,74AD
+74B9,26 08,BNE,$74C3,Z=0,74C3,74BB
+74BE,24 03,BCC,$74C3,C=0,74C3,74C0
+74C1,20 F4,BRA,$74B7,always,74B7,74C3
+74C6,27 05,BEQ,$74CD,Z=1,74CD,74C8
+74CB,24 03,BCC,$74D0,C=0,74D0,74CD
+74D1,20 99,BRA,$746C,always,746C,74D3
+794E,13 44 01 06,BRCLR,"$44,#$01,$7958",(byte[operand] & $01) == 0 (all selected bits clear),7958,7952
+795C,12 4F 04 07,BRSET,"$4F,#$04,$7967",(byte[operand] & $04) == mask (all selected bits),7967,7960
+7963,23 07,BLS,$796C,C=1 or Z=1,796C,7965
+7965,20 0A,BRA,$7971,always,7971,7967
+796A,22 05,BHI,$7971,C=0 and Z=0,7971,796C
+796F,24 09,BCC,$797A,C=0,797A,7971
+797D,13 4F 04 08,BRCLR,"$4F,#$04,$7989",(byte[operand] & $04) == 0 (all selected bits clear),7989,7981
+798C,13 3B 10 14,BRCLR,"$3B,#$10,$79A4",(byte[operand] & $10) == 0 (all selected bits clear),79A4,7990
+7995,27 0D,BEQ,$79A4,Z=1,79A4,7997
+799F,27 03,BEQ,$79A4,Z=1,79A4,79A1
+79A9,26 1A,BNE,$79C5,Z=0,79C5,79AB
+79B1,13 4F 80 0F,BRCLR,"$4F,#$80,$79C4",(byte[operand] & $80) == 0 (all selected bits clear),79C4,79B5
+79B8,27 02,BEQ,$79BC,Z=1,79BC,79BA
+79BF,25 03,BCS,$79C4,C=1,79C4,79C1
+79CC,12 51 08 04,BRSET,"$51,#$08,$79D4",(byte[operand] & $08) == mask (all selected bits),79D4,79D0
+79D2,27 02,BEQ,$79D6,Z=1,79D6,79D4
+79D9,13 1A 20 15,BRCLR,"$1A,#$20,$79F2",(byte[operand] & $20) == 0 (all selected bits clear),79F2,79DD
+79DD,13 02 01 63,BRCLR,"$02,#$01,$7A44",(byte[operand] & $01) == 0 (all selected bits clear),7A44,79E1
+79F0,20 52,BRA,$7A44,always,7A44,79F2
+79F5,12 02 01 20,BRSET,"$02,#$01,$7A19",(byte[operand] & $01) == mask (all selected bits),7A19,79F9
+7A08,13 02 02 05,BRCLR,"$02,#$02,$7A11",(byte[operand] & $02) == 0 (all selected bits clear),7A11,7A0C
+7A0F,20 33,BRA,$7A44,always,7A44,7A11
+7A17,20 2B,BRA,$7A44,always,7A44,7A19
+7A1F,13 3B 10 0F,BRCLR,"$3B,#$10,$7A32",(byte[operand] & $10) == 0 (all selected bits clear),7A32,7A23
+7A28,27 08,BEQ,$7A32,Z=1,7A32,7A2A
+7A30,20 03,BRA,$7A35,always,7A35,7A32
+7A35,13 02 02 08,BRCLR,"$02,#$02,$7A41",(byte[operand] & $02) == 0 (all selected bits clear),7A41,7A39
+7A3F,20 03,BRA,$7A44,always,7A44,7A41
+7A55,13 86 40 20,BRCLR,"$86,#$40,$7A79",(byte[operand] & $40) == 0 (all selected bits clear),7A79,7A59
+7A6B,13 3A 20 03,BRCLR,"$3A,#$20,$7A72",(byte[operand] & $20) == 0 (all selected bits clear),7A72,7A6F
+7A75,23 02,BLS,$7A79,C=1 or Z=1,7A79,7A77
+7A79,13 3A 20 07,BRCLR,"$3A,#$20,$7A84",(byte[operand] & $20) == 0 (all selected bits clear),7A84,7A7D
+CB1E,25 0D,BCS,$CB2D,C=1,CB2D,CB20
+CB22,24 0C,BCC,$CB30,C=0,CB30,CB24
+CB24,13 44 01 08,BRCLR,"$44,#$01,$CB30",(byte[operand] & $01) == 0 (all selected bits clear),CB30,CB28
+CB2B,20 03,BRA,$CB30,always,CB30,CB2D
+F243,20 19,BRA,$F25E,always,F25E,F245
+F250,12 50 01 05,BRSET,"$50,#$01,$F259",(byte[operand] & $01) == mask (all selected bits),F259,F254
+F267,1E 30 80 09,BRSET,"$30,X,#$80,$F274",(byte[operand] & $80) == mask (all selected bits),F274,F26B
+F26C,26 F9,BNE,$F267,Z=0,F267,F26E
+F3F7,13 72 80 02,BRCLR,"$72,#$80,$F3FD",(byte[operand] & $80) == 0 (all selected bits clear),F3FD,F3FB
+F5CF,13 86 40 03,BRCLR,"$86,#$40,$F5D6",(byte[operand] & $40) == 0 (all selected bits clear),F5D6,F5D3
+F5E2,26 03,BNE,$F5E7,Z=0,F5E7,F5E4
+F5EC,26 5F,BNE,$F64D,Z=0,F64D,F5EE
+F5F8,27 53,BEQ,$F64D,Z=1,F64D,F5FA
+F5FC,27 4F,BEQ,$F64D,Z=1,F64D,F5FE
+F5FE,12 3B 40 48,BRSET,"$3B,#$40,$F64A",(byte[operand] & $40) == mask (all selected bits),F64A,F602
+F617,27 19,BEQ,$F632,Z=1,F632,F619
+F61D,26 13,BNE,$F632,Z=0,F632,F61F
+F630,26 F0,BNE,$F622,Z=0,F622,F632
+F648,20 03,BRA,$F64D,always,F64D,F64A
+F677,13 42 02 52,BRCLR,"$42,#$02,$F6CD",(byte[operand] & $02) == 0 (all selected bits clear),F6CD,F67B
+F683,26 70,BNE,$F6F5,Z=0,F6F5,F685
+F688,26 6B,BNE,$F6F5,Z=0,F6F5,F68A
+F68D,1F 01 18 30,BRCLR,"$01,X,#$18,$F6C1",(byte[operand] & $18) == 0 (all selected bits clear),F6C1,F691
+F692,1F 01 08 06,BRCLR,"$01,X,#$08,$F69C",(byte[operand] & $08) == 0 (all selected bits clear),F69C,F696
+F696,1F 02 08 02,BRCLR,"$02,X,#$08,$F69C",(byte[operand] & $08) == 0 (all selected bits clear),F69C,F69A
+F69C,1F 01 10 06,BRCLR,"$01,X,#$10,$F6A6",(byte[operand] & $10) == 0 (all selected bits clear),F6A6,F6A0
+F6A0,1F 02 10 02,BRCLR,"$02,X,#$10,$F6A6",(byte[operand] & $10) == 0 (all selected bits clear),F6A6,F6A4
+F6AE,27 0D,BEQ,$F6BD,Z=1,F6BD,F6B0
+F6B4,27 07,BEQ,$F6BD,Z=1,F6BD,F6B6
+F6BA,27 01,BEQ,$F6BD,Z=1,F6BD,F6BC
+F6C1,1F 05 80 0A,BRCLR,"$05,X,#$80,$F6CF",(byte[operand] & $80) == 0 (all selected bits clear),F6CF,F6C5
+F6CB,20 02,BRA,$F6CF,always,F6CF,F6CD
+F6CD,20 26,BRA,$F6F5,always,F6F5,F6CF
+F6CF,13 3B 08 19,BRCLR,"$3B,#$08,$F6EC",(byte[operand] & $08) == 0 (all selected bits clear),F6EC,F6D3
+F6D8,1F 07 40 02,BRCLR,"$07,X,#$40,$F6DE",(byte[operand] & $40) == 0 (all selected bits clear),F6DE,F6DC
+F6E6,1F 07 80 02,BRCLR,"$07,X,#$80,$F6EC",(byte[operand] & $80) == 0 (all selected bits clear),F6EC,F6EA
+F6F5,13 3B 08 1C,BRCLR,"$3B,#$08,$F715",(byte[operand] & $08) == 0 (all selected bits clear),F715,F6F9
+F6F9,13 42 02 05,BRCLR,"$42,#$02,$F702",(byte[operand] & $02) == 0 (all selected bits clear),F702,F6FD
+F700,27 13,BEQ,$F715,Z=1,F715,F702
+F715,13 42 01 20,BRCLR,"$42,#$01,$F739",(byte[operand] & $01) == 0 (all selected bits clear),F739,F719
+F71E,26 19,BNE,$F739,Z=0,F739,F720
+F728,27 0C,BEQ,$F736,Z=1,F736,F72A
+F72A,12 45 10 0B,BRSET,"$45,#$10,$F739",(byte[operand] & $10) == mask (all selected bits),F739,F72E
+F734,20 03,BRA,$F739,always,F739,F736
+F739,12 3B 02 0B,BRSET,"$3B,#$02,$F748",(byte[operand] & $02) == mask (all selected bits),F748,F73D
+F73D,13 3B 10 13,BRCLR,"$3B,#$10,$F754",(byte[operand] & $10) == 0 (all selected bits clear),F754,F741
+F746,27 0C,BEQ,$F754,Z=1,F754,F748
+F748,12 45 80 0B,BRSET,"$45,#$80,$F757",(byte[operand] & $80) == mask (all selected bits),F757,F74C
+F752,20 03,BRA,$F757,always,F757,F754
+F757,13 3B 01 0C,BRCLR,"$3B,#$01,$F767",(byte[operand] & $01) == 0 (all selected bits clear),F767,F75B
+F75B,12 45 40 0B,BRSET,"$45,#$40,$F76A",(byte[operand] & $40) == mask (all selected bits),F76A,F75F
+F765,20 03,BRA,$F76A,always,F76A,F767
+F76A,13 3B 10 12,BRCLR,"$3B,#$10,$F780",(byte[operand] & $10) == 0 (all selected bits clear),F780,F76E
+F76E,13 42 01 05,BRCLR,"$42,#$01,$F777",(byte[operand] & $01) == 0 (all selected bits clear),F777,F772
+F775,27 09,BEQ,$F780,Z=1,F780,F777
+F782,13 42 03 34,BRCLR,"$42,#$03,$F7BA",(byte[operand] & $03) == 0 (all selected bits clear),F7BA,F786
+F78A,27 07,BEQ,$F793,Z=1,F793,F78C
+F791,25 27,BCS,$F7BA,C=1,F7BA,F793
+F7BB,13 3B 18 14,BRCLR,"$3B,#$18,$F7D3",(byte[operand] & $18) == 0 (all selected bits clear),F7D3,F7BF
+F7C9,25 1E,BCS,$F7E9,C=1,F7E9,F7CB
+F7D1,20 16,BRA,$F7E9,always,F7E9,F7D3
+F7D6,27 11,BEQ,$F7E9,Z=1,F7E9,F7D8
+F7DF,25 08,BCS,$F7E9,C=1,F7E9,F7E1
+F7ED,1F 2D 20 09,BRCLR,"$2D,X,#$20,$F7FA",(byte[operand] & $20) == 0 (all selected bits clear),F7FA,F7F1
+F7F1,1F 2E 20 2C,BRCLR,"$2E,X,#$20,$F821",(byte[operand] & $20) == 0 (all selected bits clear),F821,F7F5
+F7F8,20 27,BRA,$F821,always,F821,F7FA
+F7FA,1F 2D 80 09,BRCLR,"$2D,X,#$80,$F807",(byte[operand] & $80) == 0 (all selected bits clear),F807,F7FE
+F7FE,1F 2E 80 1F,BRCLR,"$2E,X,#$80,$F821",(byte[operand] & $80) == 0 (all selected bits clear),F821,F802
+F805,20 1A,BRA,$F821,always,F821,F807
+F807,1F 2D 40 16,BRCLR,"$2D,X,#$40,$F821",(byte[operand] & $40) == 0 (all selected bits clear),F821,F80B
+F80B,1F 2E 40 12,BRCLR,"$2E,X,#$40,$F821",(byte[operand] & $40) == 0 (all selected bits clear),F821,F80F
+F829,26 27,BNE,$F852,Z=0,F852,F82B
+F82D,13 42 03 19,BRCLR,"$42,#$03,$F84A",(byte[operand] & $03) == 0 (all selected bits clear),F84A,F831
+F83A,26 03,BNE,$F83F,Z=0,F83F,F83C
+F842,26 06,BNE,$F84A,Z=0,F84A,F844
+F853,26 14,BNE,$F869,Z=0,F869,F855
+F855,13 42 03 10,BRCLR,"$42,#$03,$F869",(byte[operand] & $03) == 0 (all selected bits clear),F869,F859
+F861,26 03,BNE,$F866,Z=0,F866,F863
+F86C,24 72,BCC,$F8E0,C=0,F8E0,F86E
+F86E,12 3B 80 62,BRSET,"$3B,#$80,$F8D4",(byte[operand] & $80) == mask (all selected bits),F8D4,F872
+F872,1E 03 80 0B,BRSET,"$03,X,#$80,$F881",(byte[operand] & $80) == mask (all selected bits),F881,F876
+F876,1E 03 40 12,BRSET,"$03,X,#$40,$F88C",(byte[operand] & $40) == mask (all selected bits),F88C,F87A
+F87F,20 65,BRA,$F8E6,always,F8E6,F881
+F881,13 42 03 01,BRCLR,"$42,#$03,$F886",(byte[operand] & $03) == 0 (all selected bits clear),F886,F885
+F88A,20 2C,BRA,$F8B8,always,F8B8,F88C
+F898,27 08,BEQ,$F8A2,Z=1,F8A2,F89A
+F89F,27 01,BEQ,$F8A2,Z=1,F8A2,F8A1
+F8A5,27 0D,BEQ,$F8B4,Z=1,F8B4,F8A7
+F8AB,26 02,BNE,$F8AF,Z=0,F8AF,F8AD
+F8B2,20 04,BRA,$F8B8,always,F8B8,F8B4
+F8BB,25 1F,BCS,$F8DC,C=1,F8DC,F8BD
+F8C0,22 1A,BHI,$F8DC,C=0 and Z=0,F8DC,F8C2
+F8C3,12 50 08 02,BRSET,"$50,#$08,$F8C9",(byte[operand] & $08) == mask (all selected bits),F8C9,F8C7
+F8D2,20 12,BRA,$F8E6,always,F8E6,F8D4
+F8DA,20 0A,BRA,$F8E6,always,F8E6,F8DC
+F8DE,20 06,BRA,$F8E6,always,F8E6,F8E0
+F8E0,26 12,BNE,$F8F4,Z=0,F8F4,F8E2
+F8F2,20 16,BRA,$F90A,always,F90A,F8F4
+F919,26 1E,BNE,$F939,Z=0,F939,F91B
+F925,26 2E,BNE,$F955,Z=0,F955,F927
+F92A,13 50 08 03,BRCLR,"$50,#$08,$F931",(byte[operand] & $08) == 0 (all selected bits clear),F931,F92E
+F933,27 06,BEQ,$F93B,Z=1,F93B,F935
+F937,26 F8,BNE,$F931,Z=0,F931,F939
+F939,20 7B,BRA,$F9B6,always,F9B6,F93B
+F93D,26 05,BNE,$F944,Z=0,F944,F93F
+F942,20 07,BRA,$F94B,always,F94B,F944
+F946,26 03,BNE,$F94B,Z=0,F94B,F948
+F953,20 5B,BRA,$F9B0,always,F9B0,F955
+F956,26 0D,BNE,$F965,Z=0,F965,F958
+F95A,25 5A,BCS,$F9B6,C=1,F9B6,F95C
+F95E,22 56,BHI,$F9B6,C=0 and Z=0,F9B6,F960
+F963,20 4B,BRA,$F9B0,always,F9B0,F965
+F969,24 4E,BCC,$F9B9,C=0,F9B9,F96B
+F96C,26 16,BNE,$F984,Z=0,F984,F96E
+F96E,13 42 03 39,BRCLR,"$42,#$03,$F9AB",(byte[operand] & $03) == 0 (all selected bits clear),F9AB,F972
+F974,22 40,BHI,$F9B6,C=0 and Z=0,F9B6,F976
+F97D,27 37,BEQ,$F9B6,Z=1,F9B6,F97F
+F982,20 27,BRA,$F9AB,always,F9AB,F984
+F984,13 42 03 23,BRCLR,"$42,#$03,$F9AB",(byte[operand] & $03) == 0 (all selected bits clear),F9AB,F988
+F991,26 18,BNE,$F9AB,Z=0,F9AB,F993
+F995,26 14,BNE,$F9AB,Z=0,F9AB,F997
+F999,25 01,BCS,$F99C,C=1,F99C,F99B
+F9BC,26 F8,BNE,$F9B6,Z=0,F9B6,F9BE
+F9CA,12 50 08 42,BRSET,"$50,#$08,$FA10",(byte[operand] & $08) == mask (all selected bits),FA10,F9CE
+F9D0,26 04,BNE,$F9D6,Z=0,F9D6,F9D2
+F9DF,26 10,BNE,$F9F1,Z=0,F9F1,F9E1
+F9E7,26 02,BNE,$F9EB,Z=0,F9EB,F9E9
+F9EF,20 30,BRA,$FA21,always,FA21,F9F1
+F9F3,26 11,BNE,$FA06,Z=0,FA06,F9F5
+F9FA,27 05,BEQ,$FA01,Z=1,FA01,F9FC
+F9FF,20 20,BRA,$FA21,always,FA21,FA01
+FA04,20 1B,BRA,$FA21,always,FA21,FA06
+FA08,26 17,BNE,$FA21,Z=0,FA21,FA0A
+FA0C,23 02,BLS,$FA10,C=1 or Z=1,FA10,FA0E
+FA11,27 0E,BEQ,$FA21,Z=1,FA21,FA13
+FA1F,26 F5,BNE,$FA16,Z=0,FA16,FA21
+FA24,1E 04 80 25,BRSET,"$04,X,#$80,$FA4D",(byte[operand] & $80) == mask (all selected bits),FA4D,FA28
+FA4B,20 0D,BRA,$FA5A,always,FA5A,FA4D
+FA70,24 10,BCC,$FA82,C=0,FA82,FA72
+FA74,25 0C,BCS,$FA82,C=1,FA82,FA76
+FA80,22 01,BHI,$FA83,C=0 and Z=0,FA83,FA82
+FA92,27 0B,BEQ,$FA9F,Z=1,FA9F,FA94
+FA99,26 0E,BNE,$FAA9,Z=0,FAA9,FA9B
+FA9B,13 01 01 0A,BRCLR,"$01,#$01,$FAA9",(byte[operand] & $01) == 0 (all selected bits clear),FAA9,FA9F
+FAA7,20 1E,BRA,$FAC7,always,FAC7,FAA9
+FAAB,26 1D,BNE,$FACA,Z=0,FACA,FAAD
+FAC2,26 F5,BNE,$FAB9,Z=0,FAB9,FAC4
+FACE,26 69,BNE,$FB39,Z=0,FB39,FAD0
+FAD4,18 1F 00 80 60,BRCLR,"$00,Y,#$80,$FB39",(byte[operand] & $80) == 0 (all selected bits clear),FB39,FAD9
+FB0A,23 01,BLS,$FB0D,C=1 or Z=1,FB0D,FB0C
+FB11,26 B4,BNE,$FAC7,Z=0,FAC7,FB13
+FB1A,27 08,BEQ,$FB24,Z=1,FB24,FB1C
+FB1E,27 04,BEQ,$FB24,Z=1,FB24,FB20
+FB22,20 02,BRA,$FB26,always,FB26,FB24
+FB37,20 11,BRA,$FB4A,always,FB4A,FB39
+FB73,26 23,BNE,$FB98,Z=0,FB98,FB75
+FB96,20 3C,BRA,$FBD4,always,FBD4,FB98
+FBD4,20 FE,BRA,$FBD4,always,FBD4,FBD6
+FC07,20 FE,BRA,$FC07,always,FC07,FC09
+FC1D,20 FE,BRA,$FC1D,always,FC1D,FC1F
+FC22,20 08,BRA,$FC2C,always,FC2C,FC24
+FC27,20 FE,BRA,$FC27,always,FC27,FC29

@@ -1,0 +1,22 @@
+vector_address,name,target,proof
+FFD6,SCI,F7EA,ROM vector word; interrupt enable/admission is separate
+FFD8,SPI,FC44,ROM vector word; interrupt enable/admission is separate
+FFDA,pulse_accumulator_edge,FC3A,ROM vector word; interrupt enable/admission is separate
+FFDC,pulse_accumulator_overflow,FC3A,ROM vector word; interrupt enable/admission is separate
+FFDE,timer_overflow,FC3A,ROM vector word; interrupt enable/admission is separate
+FFE0,TOC5_or_TIC4,7875,ROM vector word; interrupt enable/admission is separate
+FFE2,TOC4,78D9,ROM vector word; interrupt enable/admission is separate
+FFE4,TOC3,793D,ROM vector word; interrupt enable/admission is separate
+FFE6,TOC2,FC2F,ROM vector word; interrupt enable/admission is separate
+FFE8,TOC1,CE7C,ROM vector word; interrupt enable/admission is separate
+FFEA,TIC3,FC2F,ROM vector word; interrupt enable/admission is separate
+FFEC,TIC2,FC2F,ROM vector word; interrupt enable/admission is separate
+FFEE,TIC1,FC2F,ROM vector word; interrupt enable/admission is separate
+FFF0,RTI_timer,FC2F,ROM vector word; interrupt enable/admission is separate
+FFF2,IRQ,74EA,ROM vector word; interrupt enable/admission is separate
+FFF4,XIRQ,FC09,ROM vector word; interrupt enable/admission is separate
+FFF6,SWI,FC04,ROM vector word; interrupt enable/admission is separate
+FFF8,illegal_opcode,FC1A,ROM vector word; interrupt enable/admission is separate
+FFFA,COP_failure,FC1F,ROM vector word; interrupt enable/admission is separate
+FFFC,clock_monitor,FC24,ROM vector word; interrupt enable/admission is separate
+FFFE,reset,FC29,ROM vector word; interrupt enable/admission is separate

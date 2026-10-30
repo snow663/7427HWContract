@@ -1,0 +1,7 @@
+caller_entry,call_pc,helper,start,byte_count,end_exclusive,value_hex,precondition
+7100,716A,F2FD,0036,202,00100,00,1<=D<=512;normal_return;no_return_frame_overlap
+7100,7173,F2FD,0100,413,0029D,00,1<=D<=512;normal_return;no_return_frame_overlap
+7100,717C,F2FD,0800,256,00900,00,1<=D<=512;normal_return;no_return_frame_overlap
+7100,7219,F2FD,0000,11,0000B,00,1<=D<=512;normal_return;no_return_frame_overlap
+7100,7222,F2FD,000B,43,00036,00,1<=D<=512;normal_return;no_return_frame_overlap
+7100,722B,F2FD,029D,177,0034E,00,1<=D<=512;normal_return;no_return_frame_overlap

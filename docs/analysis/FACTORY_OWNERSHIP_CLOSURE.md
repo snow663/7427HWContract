@@ -1,0 +1,147 @@
+# Factory indexed ownership, flags and external-interface closure
+
+This pass finishes the **global address-provenance and gate-lifetime
+documentation**, and specifies the resident side of the remaining external
+and physical interfaces. It does not claim hardware bench completion or
+reconstruct code that is not in the supplied ROM.
+
+| Checklist item | Result / evidence | Remaining limit |
+|---|---|---|
+| All951 rooted explicit indexed-memory PCs | Each has a qualified address expression/context in [global alias contract](FACTORY_GLOBAL_ALIAS_CONTRACT.md) | Dynamic read/caller parameters remain formulas, not invented fixed addresses |
+| Interrupt, boot, serial and scheduler contexts |253 procedure entries,1,071 local context rows,657 call bindings | Conditional normal returns and interrupt timing retain their stated assumptions |
+| Remaining state-writing helper parameters | All rooted callers bind E58C/F275/F25F/F479; six F2FD calls have exact footprints | Local saved frames stay relative to their own SP |
+| Ordinary indexed write destinations | Every non-frame indexed write exceptFABC has a finite conditional footprint | Footprints rely on explicit resident state/admission invariants; no arbitrary-code exclusion is implied |
+| Unrestricted factory upload |FABC=word[038E]+0..31, byte-source/latch/dispatch lifetime documented | Actual destination unrestricted; writes wrap atCPU16-bit address level; target hardware response separate |
+| Flag and overlapping byte owners |3,846 bit-writer rows;1,415 runtime-address owner rows;45 masked clears included | Value-dependent assignments are marked, not guessed; these counts are not counts of distinct variables |
+| Scheduler/service gates |12 named gates /51 writer rows plus [flag lifetimes](FACTORY_FLAG_LIFETIMES.md) | Instruction-time tests do not create a single coherent mode snapshot |
+| Extension/profiling enable | No ordinary resident0086.6 setter; boot clear/self-copy accounted for | Independent signature-qualified180C can change it; body absent |
+| Shared output ownership | Normal, boot and factory co-writers plus output shadows linked | Issued command, latch effect and physical movement are different observations |
+| Eight extension entries | [INIT/chip-select and caller trace](FACTORY_EXTENSION_MEMORY_INTERFACE.md) locates the configured window and observable result channels | Actual1800..1817 instructions and supplying hardware remain unidentified |
+| Received callbackFAA5 | Full supplied word and repeat/arming rules documented | Arbitrary supplied code/register/memory/control effects remain unbounded |
+| Alternate entriesFF90/FF93/FF96 | Jump bytes/destinations documented; no direct rooted resident references | Intended external callers still need actual caller/runtime evidence |
+| CPU versus board-register labels | F1-style register-map match resolves provisional3008/300C/300D/305C..5F names | Package/wiring and proprietary device behavior are separate evidence |
+| Physical electrical/mechanical behavior | [Interface evidence matrix](FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md) identifies the missing observation for each interface | No new bench measurement supplied in this task |
+
+The older262-row indexed baseline is preserved as historical analysis, including
+its28 previously unknown rows. The new951-PC map gives their global formal
+contracts; this does not turn an arbitrary runtime pointer into a singleton
+or change the old finite-analysis output to manufacture a zero-unknown count.
+
+The [startup/REF/EST lifecycle](FACTORY_STARTUP_REF_EST_LIFECYCLE.md) adds a
+cross-routine state sequence and eleven bounded execution checks: actual REF
+IRQ/RTI, complete selected startup calculations, separate run qualifiers,
+equal-sample EST acceptance, later unchanged-sample fault, software ignition
+history, missing-REF SWI trap and three pending-latch interrupt schedules.
+This narrows specific state/interleaving questions without asserting general
+whole-program interleaving closure.
+
+The [independent-equivalence information ledger](FACTORY_EQUIVALENCE_INFORMATION_GAPS.md)
+adds nineteen scoped contracts, one remaining ROM state-joining work package and three
+external evidence packages. Twelve new bounded checks cover caller masking,
+TOC3 reentry, serial mailbox/payload lifetime and trap/vector behavior; the new
+253-entry structural normal-return I-mask summaries narrow the callee context
+question. These counts describe this prioritized pass, not a completeness score.
+
+The [stack/shared-output follow-up](FACTORY_STACK_AND_SHARED_OUTPUT_CONTRACT.md)
+adds all253 resident stack envelopes, proved local-frame cleanup and nonlocal
+IAC service returns. Nine additional checks include complete selected TOC3
+handlers with every resident callee: a gear-shadow read/modify/write can undo
+an intervening IAC phase update, and catch-up publishes the stale command.
+Finite stack use is kept separate from ADC completion and admitted nesting/time
+bounds.
+
+The [interrupt-admission/current-output contract](FACTORY_INTERRUPT_ADMISSION_AND_CURRENT_OUTPUT.md)
+joins all15 ordinary vector words with the mask/stack evidence. OnlyTOC3 opens
+ordinary nesting; all seven rootedTAPs preserve reset X=1 under valid frames
+and no supplied-code effects. Seven additional checks include a complete
+busy-timer current-control witness: reentry can overwrite an accumulator
+update or publish an older command even with the correct final accumulator.
+Physical timer feasibility remains a separate condition.
+
+The [fast-tick timing contract](FACTORY_FAST_TICK_TIMING_CONTRACT.md) adds a
+13104-E-cycle compare recurrence and a conditional1090-cycle complete busy
+handler bound. Entry lateness and additional preemption remain explicit in
+the exclusion condition. Five further checks use counter-driven compares and
+normal ADC completion to distinguish on-time exclusion, late current overwrite
+and a passed target waiting for wrap. Complete main/tail and source-arrival
+bounds remain open; no full-machine WCET or nesting limit is inferred.
+
+The [masked-interval/IRQ timing contract](FACTORY_MASKED_INTERVAL_AND_IRQ_TIMING.md)
+accounts for all29 rooted SEIs and bounds the27 ordinary resident spans at
+709 E cycles, including the instruction afterCLI. Complete non-TOC3 handlers
+have independent nominal bounds, including1221 own cycles forREF and481 for
+normal-session SCI. Six new execution checks validate selected intervals and
+complete REF/SCI exchanges. The remaining timing join concerns source arrival
+counts and bursts, complete non-busy main/tail work and actual bus behavior.
+
+The [joined interrupt/timing closure](FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md)
+completesEQ-10 as a conditional resident specification: four stock live sources,
+all46 local loop components, all253 procedure entries, a separate main-pass
+envelope, source-count deadline and tail/guard stack accounting. Eleven new
+checks include clock-driven SCI, complete passes, source-driven late current
+overwrite, tail ownership/recovery and boot unmasking. Remaining input/board/
+module premises are explicitly assigned toEQ-12/13/14; joined state sequences
+remainEQ-11. Unrestricted edges and failed devices are not given fictional
+finite completion bounds.
+
+The [joined state/optional contract](FACTORY_JOINED_STATE_AND_OPTIONAL_BEHAVIOR.md)
+adds thirty selected transitions, eight optional caller contracts and twenty-six
+checks. It verifies the consecutive ordinaryF781/F64E calls, corrects the
+comparison words toFFFF/0000, and demonstrates expiry rearming a held engine
+clear before cleanup. Other witnesses cover cooldown asymmetry, retained raw
+outputs, checksum sampling, optional activation/precedence and factory
+callback/upload retarget/restart. Synthetic supplied programs establish the
+resident interfaces; actual module behavior and board retention remain
+EQ-14/13. EQ-11 stays open for additional state combinations. The full factory
+suite now has190 passing tests.
+
+## Reproducible files
+
+All generated evidence lives in `maps/structure/`:
+
+| File | Purpose |
+|---|---|
+| bmhm_ownership_rom_evidence.json | Image/listing identity, entire mapped4000..FFFF byte evidence and scoped counts |
+| factory_global_alias_sites.csv | One qualified contract per951 indexed PCs |
+| factory_global_alias_contexts.csv | Unmodified finite-analysis results per generic procedure context |
+| factory_global_call_bindings.csv | Per-call X/Y/D and target binding; unknown inputs retained |
+| factory_global_alias_owners.csv | Direct plus finite qualified indexed byte owners below4000 |
+| factory_global_formal_writers.csv | Sole non-frame write without finite footprint:FABC supplied destination |
+| factory_global_flag_writers.csv | Bit-level effects including clears, mask preservation, self-copy and dependent full-byte writes |
+| factory_global_gate_lifetimes.csv | Writer join for the12 documented scheduler/service gates |
+| factory_global_hardware_accesses.csv |131 concrete hardware-byte access rows, with wildcard interfaces separate |
+| factory_external_hook_contracts.csv | Eight external calls with ROM-checked enable/signature guards and resident continuation roles |
+| factory_extension_memory_evidence.json | Boot/CSGEN/CSIO settings, all nine literal low-memory references and hook result-channel byte spans |
+| factory_joined_state_transitions.csv | Thirty selected event/admission/effect/ordering contracts with execution witnesses |
+| factory_optional_behavior_contracts.csv | Eight optional caller result channels and resident precedence |
+| factory_state_transition_fields.csv |39 selected byte roles joined to qualified resident owners |
+| factory_state_transition_evidence.json | Stock operands/caller order, instruction anchors, test inventory and explicit fixture limits |
+
+Fresh verification uses the **actual full image**, with its SHA checked first:
+
+```sh
+python tools/verify_factory_ownership.py --rom /path/to/BMHM.BIN
+python tools/verify_factory_ownership.py --rom /path/to/other_stock_BMHM.bin
+```
+
+The two supplied filenames have identical image identity; checking both verifies
+the copies, not two different factory calibrations. `--check-recorded` reproduces
+the committed mapped bytes and artifacts; it is not another independent ROM read.
+`--write --rom ...` regenerates the evidence. The original HAC is unchanged.
+
+## What can be crossed off, and what remains
+
+The named resident subsystem dossiers, rooted structure, indexed-address
+provenance, writing-helper bindings and scheduler/service flag lifetimes now
+connect in one documentation chain. This does not grade every whole-byte
+assignment as a semantic proof of every bit, prove all interrupt interleavings,
+or establish a whole-firmware understanding percentage.
+
+The outstanding evidence is now specifically identified: actual external
+extension/caller code, any supplied factory callback/upload session to be
+analyzed, and physical CPU/board/actuator observations in the interface matrix.
+An unconditional whole-machine write set cannot exclude code that the factory
+protocol explicitly allows a tool to supply. General semantic closure of
+every flag under every possible mode/interleaving remains stronger than the
+documented local effects and controller contracts; it is not silently declared
+complete by the size of the generated indexes.

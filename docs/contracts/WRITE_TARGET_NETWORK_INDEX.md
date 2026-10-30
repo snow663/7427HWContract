@@ -8,34 +8,34 @@ This is a static analysis artifact only. It does not implement runtime ASM, rela
 
 ## Source
 
-- source file: `source\31\BMHM_HAC_ORG_7100_to_end.asm`
-- target dossier rows emitted: `793`
+- source file: `source/31/BMHM_HAC_ORG_7100_to_end.asm`
+- target dossier rows emitted: `786`
 
 ## Write op coverage
 
 - `ASL`: 11
-- `BCLR`: 34
-- `BSET`: 35
+- `BCLR`: 37
+- `BSET`: 33
 - `CLR`: 31
 - `COM`: 2
-- `DEC`: 27
-- `INC`: 19
-- `LSR`: 1
-- `ROL`: 13
-- `ROR`: 11
-- `STAA`: 359
-- `STAB`: 75
-- `STD`: 145
-- `STX`: 25
-- `STY`: 5
+- `DEC`: 14
+- `INC`: 13
+- `ROL`: 14
+- `ROR`: 9
+- `STAA`: 365
+- `STAB`: 76
+- `STD`: 148
+- `STX`: 27
+- `STY`: 6
 
 ## Candidate role counts
 
-- `RAM state/calculation/shadow`: 458
-- `ROM/data? unexpected write target`: 197
-- `mode flag/safety gate/state latch`: 72
-- `hardware register/ASIC/CPU peripheral`: 42
-- `unknown`: 14
+- `RAM state/calculation/shadow`: 449
+- `ROM/data? unexpected write target`: 114
+- `unknown`: 109
+- `mode flag/safety gate/state latch`: 70
+- `hardware register/ASIC/CPU peripheral`: 24
+- `local stack save`: 10
 - `hardware sink/state:spark stock handoff`: 5
 - `hardware sink/state:IAC candidate`: 3
 - `hardware sink:watchdog/COP`: 1
@@ -53,12 +53,13 @@ This is a static analysis artifact only. It does not implement runtime ASM, rela
 | `L3FEC` | 0 | `not written in sweep` | no write row emitted |
 | `L3FE4` | 1 | `hardware sink/state:spark stock handoff` | spark stock handoff / rolling-state candidate |
 | `L3062` | 4 | `hardware sink/state:IAC candidate` | IAC port/phase/enable/park candidate |
-| `L3060` | 2 | `hardware sink/state:IAC candidate` | IAC port/phase/enable/park candidate |
+| `L3060` | 3 | `hardware sink/state:IAC candidate` | IAC port/phase/enable/park candidate; ROM state-flow contexts only; see factory_indexed_flow.csv |
 | `L3FFC` | 13 | `hardware sink/state:IAC candidate` | IAC port/phase/enable/park candidate |
 | `L303A` | 10 | `hardware sink:watchdog/COP` | COP reset register candidate |
 
 ## Indexing limitations
 
+- Reviewed embedded data is excluded using `maps/structure/reviewed_source_regions.csv`, checked against the source hash.
 - Indexed writes are resolved only when the linear pass can see a recent immediate `LDX`/`LDY` base.
 - Branch context is nearby static context, not a full path-sensitive proof.
 - Read counts are symbol-token observations and are intended as triage hints, not complete dataflow proof.

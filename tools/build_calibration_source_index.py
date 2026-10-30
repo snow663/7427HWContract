@@ -201,7 +201,7 @@ def validate_stats(stats: dict[str, Any]) -> list[str]:
 def write_csv(path: Path, rows: list[dict[str, str]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=CSV_FIELDS)
+        writer = csv.DictWriter(f, fieldnames=CSV_FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -322,7 +322,7 @@ def write_md(path: Path, stats: dict[str, Any], rows: list[dict[str, str]], sour
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--source", default="/mnt/data/31_HAC_calibration_extract_nowrap.html")
+    p.add_argument("--source", required=True, help="HAC calibration-extract HTML supplied by the user")
     p.add_argument("--out-md", required=True)
     p.add_argument("--out-csv", required=True)
     args = p.parse_args()

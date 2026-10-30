@@ -1,0 +1,48 @@
+{
+  "TAP_sites": [
+    "7D8C",
+    "92B3",
+    "92D3",
+    "9350",
+    "936A",
+    "9381",
+    "939B"
+  ],
+  "TPA_sites": [
+    "92A9",
+    "934C"
+  ],
+  "XIRQ_bytes_hex": "14 00 04 32 8A 40 36 3B",
+  "XIRQ_entry": "FC09",
+  "active_ordinary_nesting_shape": "zero or more ordinary TOC3 handlers followed by at most one other ordinary handler",
+  "cold_reset_X_invariant": "X remains one in reviewed resident execution with valid frames and no supplied-code CCR effects",
+  "limits": [
+    "structural branch overapproximation, not feasible event timing",
+    "no local-enable, priority, pending-flag or peripheral-completion arbitration model",
+    "no global bound on TOC3 depth or execution time",
+    "valid frames required; arbitrary uploads, SP recovery, external code and resets remain boundaries",
+    "XIRQ pin can also affect STOP wakeup even when its vector is masked; no board wake claim"
+  ],
+  "ordinary_distinct_handlers": 9,
+  "ordinary_handler_that_opens_nesting": [
+    "793D"
+  ],
+  "ordinary_vector_count": 15,
+  "rom_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "vectors_blocked_through_RTI": [
+    "FFD6",
+    "FFD8",
+    "FFDA",
+    "FFDC",
+    "FFDE",
+    "FFE0",
+    "FFE2",
+    "FFE6",
+    "FFE8",
+    "FFEA",
+    "FFEC",
+    "FFEE",
+    "FFF0",
+    "FFF2"
+  ]
+}

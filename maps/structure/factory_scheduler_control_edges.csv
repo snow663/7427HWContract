@@ -1,0 +1,583 @@
+scope,from_pc,to_pc,kind,condition
+boot_clock,7100,7103,fallthrough,
+boot_clock,7103,7106,fallthrough,
+boot_clock,7106,7108,fallthrough,
+boot_clock,7108,710A,fallthrough,
+boot_clock,710A,710D,fallthrough,
+boot_clock,710D,710F,fallthrough,
+boot_clock,710F,7111,fallthrough,
+boot_clock,7111,7113,fallthrough,
+boot_clock,7113,7115,fallthrough,
+boot_clear_calls,7164,7167,fallthrough,
+boot_clear_calls,7167,716A,fallthrough,
+boot_clear_calls,716A,F2FD,call,call target
+boot_clear_calls,716A,716D,on_call_return,callee must return
+boot_clear_calls,716D,7170,fallthrough,
+boot_clear_calls,7170,7173,fallthrough,
+boot_clear_calls,7173,F2FD,call,call target
+boot_clear_calls,7173,7176,on_call_return,callee must return
+boot_clear_calls,7176,7179,fallthrough,
+boot_clear_calls,7179,717C,fallthrough,
+boot_clear_calls,717C,F2FD,call,call target
+boot_clear_calls,717C,717F,on_call_return,callee must return
+boot_clear_calls,717F,7182,fallthrough,
+boot_clear_calls,7182,7184,fallthrough,
+boot_clear_calls,7184,7185,fallthrough,
+boot_clear_calls,7185,7188,fallthrough,
+boot_clear_calls,7188,7182,branch_taken,BNE $7182
+boot_clear_calls,7188,718A,branch_not_taken,BNE $7182
+phase_seed,7431,7433,fallthrough,
+phase_seed,7433,7435,fallthrough,
+timer_arm,7459,745B,fallthrough,
+timer_arm,745B,745E,fallthrough,
+timer_arm,745E,7461,fallthrough,
+timer_arm,7461,7464,fallthrough,
+timer_arm,7464,7467,fallthrough,
+timer_arm,7467,7469,fallthrough,
+timer_arm,7469,746C,fallthrough,
+foreground_refresh,746C,74B3,branch_taken,"BRCLR $51,#$04,$74B3"
+foreground_refresh,746C,7470,branch_not_taken,"BRCLR $51,#$04,$74B3"
+foreground_refresh,7470,7473,fallthrough,
+foreground_refresh,7473,7476,fallthrough,
+foreground_refresh,7476,747E,branch_taken,BNE $747E
+foreground_refresh,7476,7478,branch_not_taken,BNE $747E
+foreground_refresh,7478,747B,fallthrough,
+foreground_refresh,747B,747E,fallthrough,
+foreground_refresh,747E,7481,fallthrough,
+foreground_refresh,7481,74AD,branch_taken,BEQ $74AD
+foreground_refresh,7481,7483,branch_not_taken,BEQ $74AD
+foreground_refresh,7483,7484,fallthrough,
+foreground_refresh,7484,7486,fallthrough,
+foreground_refresh,7486,7488,fallthrough,
+foreground_refresh,7488,748A,fallthrough,
+foreground_refresh,748A,748C,fallthrough,
+foreground_refresh,748C,748E,fallthrough,
+foreground_refresh,748E,7490,fallthrough,
+foreground_refresh,7490,7492,fallthrough,
+foreground_refresh,7492,7494,fallthrough,
+foreground_refresh,7494,7496,fallthrough,
+foreground_refresh,7496,7498,fallthrough,
+foreground_refresh,7498,749A,fallthrough,
+foreground_refresh,749A,749C,fallthrough,
+foreground_refresh,749C,749E,fallthrough,
+foreground_refresh,749E,74A0,fallthrough,
+foreground_refresh,74A0,74A2,fallthrough,
+foreground_refresh,74A2,74A4,fallthrough,
+foreground_refresh,74A4,74A6,fallthrough,
+foreground_refresh,74A6,74A7,fallthrough,
+foreground_refresh,74A7,74AA,fallthrough,
+foreground_refresh,74AA,74AB,fallthrough,
+foreground_refresh,74AB,7473,jump,
+foreground_refresh,74AD,74B0,fallthrough,
+foreground_refresh,74B0,74B3,fallthrough,
+foreground_refresh,74B3,74B4,fallthrough,
+foreground_refresh,74B4,74B7,fallthrough,
+foreground_refresh,74B7,74B9,fallthrough,
+foreground_refresh,74B9,74C3,branch_taken,BNE $74C3
+foreground_refresh,74B9,74BB,branch_not_taken,BNE $74C3
+foreground_refresh,74BB,74BE,fallthrough,
+foreground_refresh,74BE,74C3,branch_taken,BCC $74C3
+foreground_refresh,74BE,74C0,branch_not_taken,BCC $74C3
+foreground_refresh,74C0,74C1,fallthrough,
+foreground_refresh,74C1,74B7,jump,
+foreground_refresh,74C3,74C6,fallthrough,
+foreground_refresh,74C6,74CD,branch_taken,BEQ $74CD
+foreground_refresh,74C6,74C8,branch_not_taken,BEQ $74CD
+foreground_refresh,74C8,74CB,fallthrough,
+foreground_refresh,74CB,74D0,branch_taken,BCC $74D0
+foreground_refresh,74CB,74CD,branch_not_taken,BCC $74D0
+foreground_refresh,74CD,74D0,fallthrough,
+foreground_refresh,74D1,746C,jump,
+timer_isr,793D,7940,fallthrough,
+timer_isr,7940,7943,fallthrough,
+timer_isr,7943,7946,fallthrough,
+timer_isr,7946,7948,fallthrough,
+timer_isr,7948,794B,fallthrough,
+timer_isr,794B,794E,fallthrough,
+timer_isr,794E,7958,branch_taken,"BRCLR $44,#$01,$7958"
+timer_isr,794E,7952,branch_not_taken,"BRCLR $44,#$01,$7958"
+timer_isr,7952,7955,fallthrough,
+timer_isr,7955,FA5B,jump,
+timer_isr,7958,7959,fallthrough,
+timer_isr,7959,795A,fallthrough,
+timer_isr,795A,795B,fallthrough,
+timer_isr,795B,795C,fallthrough,
+timer_isr,795C,7967,branch_taken,"BRSET $4F,#$04,$7967"
+timer_isr,795C,7960,branch_not_taken,"BRSET $4F,#$04,$7967"
+timer_isr,7960,7963,fallthrough,
+timer_isr,7963,796C,branch_taken,BLS $796C
+timer_isr,7963,7965,branch_not_taken,BLS $796C
+timer_isr,7965,7971,jump,
+timer_isr,7967,796A,fallthrough,
+timer_isr,796A,7971,branch_taken,BHI $7971
+timer_isr,796A,796C,branch_not_taken,BHI $7971
+timer_isr,796C,796F,fallthrough,
+timer_isr,796F,797A,branch_taken,BCC $797A
+timer_isr,796F,7971,branch_not_taken,BCC $797A
+timer_isr,7971,7974,fallthrough,
+timer_isr,7974,7977,fallthrough,
+timer_isr,7977,797A,fallthrough,
+timer_isr,797A,7B6D,call,call target
+timer_isr,797A,797D,on_call_return,callee must return
+timer_isr,797D,7989,branch_taken,"BRCLR $4F,#$04,$7989"
+timer_isr,797D,7981,branch_not_taken,"BRCLR $4F,#$04,$7989"
+timer_isr,7981,7983,fallthrough,
+timer_isr,7983,7985,fallthrough,
+timer_isr,7985,7988,fallthrough,
+timer_isr,7989,798C,fallthrough,
+timer_isr,798C,79A4,branch_taken,"BRCLR $3B,#$10,$79A4"
+timer_isr,798C,7990,branch_not_taken,"BRCLR $3B,#$10,$79A4"
+timer_isr,7990,7993,fallthrough,
+timer_isr,7993,7995,fallthrough,
+timer_isr,7995,79A4,branch_taken,BEQ $79A4
+timer_isr,7995,7997,branch_not_taken,BEQ $79A4
+timer_isr,7997,799A,fallthrough,
+timer_isr,799A,799D,fallthrough,
+timer_isr,799D,799F,fallthrough,
+timer_isr,799F,79A4,branch_taken,BEQ $79A4
+timer_isr,799F,79A1,branch_not_taken,BEQ $79A4
+timer_isr,79A1,79A4,fallthrough,
+timer_isr,79A4,79A6,fallthrough,
+timer_isr,79A6,79A7,fallthrough,
+timer_isr,79A7,79A9,fallthrough,
+timer_isr,79A9,79C5,branch_taken,BNE $79C5
+timer_isr,79A9,79AB,branch_not_taken,BNE $79C5
+timer_isr,79AB,79AD,fallthrough,
+timer_isr,79AD,79AF,fallthrough,
+timer_isr,79AF,79B1,fallthrough,
+timer_isr,79B1,79C4,branch_taken,"BRCLR $4F,#$80,$79C4"
+timer_isr,79B1,79B5,branch_not_taken,"BRCLR $4F,#$80,$79C4"
+timer_isr,79B5,79B7,fallthrough,
+timer_isr,79B7,79B8,fallthrough,
+timer_isr,79B8,79BC,branch_taken,BEQ $79BC
+timer_isr,79B8,79BA,branch_not_taken,BEQ $79BC
+timer_isr,79BA,79BC,fallthrough,
+timer_isr,79BC,79BF,fallthrough,
+timer_isr,79BF,79C4,branch_taken,BCS $79C4
+timer_isr,79BF,79C1,branch_not_taken,BCS $79C4
+timer_isr,79C1,79C4,fallthrough,
+timer_isr,79C4,79C5,fallthrough,
+timer_isr,79C5,79C7,fallthrough,
+timer_isr,79C7,79C8,fallthrough,
+timer_isr,79C8,79CA,fallthrough,
+timer_isr,79CA,79CC,fallthrough,
+timer_isr,79CC,79D4,branch_taken,"BRSET $51,#$08,$79D4"
+timer_isr,79CC,79D0,branch_not_taken,"BRSET $51,#$08,$79D4"
+timer_isr,79D0,79D2,fallthrough,
+timer_isr,79D2,79D6,branch_taken,BEQ $79D6
+timer_isr,79D2,79D4,branch_not_taken,BEQ $79D6
+timer_isr,79D4,79D6,fallthrough,
+timer_isr,79D6,79D8,fallthrough,
+timer_isr,79D8,79D9,fallthrough,
+timer_isr,79D9,79F2,branch_taken,"BRCLR $1A,#$20,$79F2"
+timer_isr,79D9,79DD,branch_not_taken,"BRCLR $1A,#$20,$79F2"
+timer_isr,79DD,7A44,branch_taken,"BRCLR $02,#$01,$7A44"
+timer_isr,79DD,79E1,branch_not_taken,"BRCLR $02,#$01,$7A44"
+timer_isr,79E1,79E4,fallthrough,
+timer_isr,79E4,AC51,call,call target
+timer_isr,79E4,79E7,on_call_return,callee must return
+timer_isr,79E7,79EA,fallthrough,
+timer_isr,79EA,79ED,fallthrough,
+timer_isr,79ED,79F0,fallthrough,
+timer_isr,79F0,7A44,jump,
+timer_isr,79F2,7BA7,call,call target
+timer_isr,79F2,79F5,on_call_return,callee must return
+timer_isr,79F5,7A19,branch_taken,"BRSET $02,#$01,$7A19"
+timer_isr,79F5,79F9,branch_not_taken,"BRSET $02,#$01,$7A19"
+timer_isr,79F9,9167,call,call target
+timer_isr,79F9,79FC,on_call_return,callee must return
+timer_isr,79FC,A466,call,call target
+timer_isr,79FC,79FF,on_call_return,callee must return
+timer_isr,79FF,D14E,call,call target
+timer_isr,79FF,7A02,on_call_return,callee must return
+timer_isr,7A02,D1F6,call,call target
+timer_isr,7A02,7A05,on_call_return,callee must return
+timer_isr,7A05,F5E8,call,call target
+timer_isr,7A05,7A08,on_call_return,callee must return
+timer_isr,7A08,7A11,branch_taken,"BRCLR $02,#$02,$7A11"
+timer_isr,7A08,7A0C,branch_not_taken,"BRCLR $02,#$02,$7A11"
+timer_isr,7A0C,B56B,call,call target
+timer_isr,7A0C,7A0F,on_call_return,callee must return
+timer_isr,7A0F,7A44,jump,
+timer_isr,7A11,D03E,call,call target
+timer_isr,7A11,7A14,on_call_return,callee must return
+timer_isr,7A14,AE85,call,call target
+timer_isr,7A14,7A17,on_call_return,callee must return
+timer_isr,7A17,7A44,jump,
+timer_isr,7A19,7D4B,call,call target
+timer_isr,7A19,7A1C,on_call_return,callee must return
+timer_isr,7A1C,CDF7,call,call target
+timer_isr,7A1C,7A1F,on_call_return,callee must return
+timer_isr,7A1F,7A32,branch_taken,"BRCLR $3B,#$10,$7A32"
+timer_isr,7A1F,7A23,branch_not_taken,"BRCLR $3B,#$10,$7A32"
+timer_isr,7A23,7A26,fallthrough,
+timer_isr,7A26,7A28,fallthrough,
+timer_isr,7A28,7A32,branch_taken,BEQ $7A32
+timer_isr,7A28,7A2A,branch_not_taken,BEQ $7A32
+timer_isr,7A2A,7A2D,fallthrough,
+timer_isr,7A2D,7A30,fallthrough,
+timer_isr,7A30,7A35,jump,
+timer_isr,7A32,F3E4,call,call target
+timer_isr,7A32,7A35,on_call_return,callee must return
+timer_isr,7A35,7A41,branch_taken,"BRCLR $02,#$02,$7A41"
+timer_isr,7A35,7A39,branch_not_taken,"BRCLR $02,#$02,$7A41"
+timer_isr,7A39,93D0,call,call target
+timer_isr,7A39,7A3C,on_call_return,callee must return
+timer_isr,7A3C,C4E5,call,call target
+timer_isr,7A3C,7A3F,on_call_return,callee must return
+timer_isr,7A3F,7A44,jump,
+timer_isr,7A41,B32D,call,call target
+timer_isr,7A41,7A44,on_call_return,callee must return
+timer_isr,7A44,7A46,fallthrough,
+timer_isr,7A46,7A48,fallthrough,
+timer_isr,7A48,7A4B,fallthrough,
+timer_isr,7A4B,7A4C,fallthrough,
+timer_isr,7A4C,7A4D,fallthrough,
+timer_isr,7A4D,7A4F,fallthrough,
+timer_isr,7A4F,7AA6,call,phase-selected ROM table word
+timer_isr,7A4F,7AAD,call,phase-selected ROM table word
+timer_isr,7A4F,7AB7,call,phase-selected ROM table word
+timer_isr,7A4F,7ABD,call,phase-selected ROM table word
+timer_isr,7A4F,7AC7,call,phase-selected ROM table word
+timer_isr,7A4F,7B03,call,phase-selected ROM table word
+timer_isr,7A4F,7B14,call,phase-selected ROM table word
+timer_isr,7A4F,7B1B,call,phase-selected ROM table word
+timer_isr,7A4F,7B2B,call,phase-selected ROM table word
+timer_isr,7A4F,7B2F,call,phase-selected ROM table word
+timer_isr,7A4F,7B39,call,phase-selected ROM table word
+timer_isr,7A4F,7B3D,call,phase-selected ROM table word
+timer_isr,7A4F,7B44,call,phase-selected ROM table word
+timer_isr,7A4F,7B48,call,phase-selected ROM table word
+timer_isr,7A4F,7B52,call,phase-selected ROM table word
+timer_isr,7A4F,7B5A,call,phase-selected ROM table word
+timer_isr,7A4F,7A51,on_call_return,callee must return
+timer_isr,7A51,7A52,fallthrough,
+timer_isr,7A52,7A55,fallthrough,
+timer_isr,7A55,7A79,branch_taken,"BRCLR $86,#$40,$7A79"
+timer_isr,7A55,7A59,branch_not_taken,"BRCLR $86,#$40,$7A79"
+timer_isr,7A59,7A5B,fallthrough,
+timer_isr,7A5B,7A5D,fallthrough,
+timer_isr,7A5D,7A5E,fallthrough,
+timer_isr,7A5E,7A61,fallthrough,
+timer_isr,7A61,7A62,fallthrough,
+timer_isr,7A62,7A65,fallthrough,
+timer_isr,7A65,7A68,fallthrough,
+timer_isr,7A68,7A6B,fallthrough,
+timer_isr,7A6B,7A72,branch_taken,"BRCLR $3A,#$20,$7A72"
+timer_isr,7A6B,7A6F,branch_not_taken,"BRCLR $3A,#$20,$7A72"
+timer_isr,7A6F,7A72,fallthrough,
+timer_isr,7A72,7A75,fallthrough,
+timer_isr,7A75,7A79,branch_taken,BLS $7A79
+timer_isr,7A75,7A77,branch_not_taken,BLS $7A79
+timer_isr,7A77,7A79,fallthrough,
+timer_isr,7A79,7A84,branch_taken,"BRCLR $3A,#$20,$7A84"
+timer_isr,7A79,7A7D,branch_not_taken,"BRCLR $3A,#$20,$7A84"
+timer_isr,7A7D,7A80,fallthrough,
+timer_isr,7A80,7A81,fallthrough,
+timer_isr,7A81,7989,jump,
+tick_service,7B6D,91A3,call,call target
+tick_service,7B6D,7B70,on_call_return,callee must return
+tick_service,7B70,7B71,fallthrough,
+tick_service,7B71,7B73,fallthrough,
+tick_service,7B73,7B76,fallthrough,
+tick_service,7B76,7B79,fallthrough,
+tick_service,7B79,7B79,branch_taken,"BRCLR $30,X,#$80,$7B79"
+tick_service,7B79,7B7D,branch_not_taken,"BRCLR $30,X,#$80,$7B79"
+tick_service,7B7D,7B7E,fallthrough,
+tick_service,7B7E,7B81,fallthrough,
+tick_service,7B81,7B84,fallthrough,
+tick_service,7B84,7B86,fallthrough,
+tick_service,7B86,7B89,fallthrough,
+tick_service,7B89,7B8B,fallthrough,
+tick_service,7B8B,7B8E,fallthrough,
+tick_service,7B8E,7B90,fallthrough,
+tick_service,7B90,7B91,fallthrough,
+tick_service,7B91,7B92,fallthrough,
+tick_service,7B92,7B94,fallthrough,
+tick_service,7B94,7B97,fallthrough,
+tick_service,7B97,F245,call,call target
+tick_service,7B97,7B9A,on_call_return,callee must return
+tick_service,7B9A,7B9B,fallthrough,
+tick_service,7B9B,7C13,call,call target
+tick_service,7B9B,7B9E,on_call_return,callee must return
+tick_service,7B9E,7BA1,fallthrough,
+tick_service,7BA1,7BA3,fallthrough,
+tick_service,7BA3,7BA6,fallthrough,
+ram_clear_helper,F2FD,F2FF,fallthrough,
+ram_clear_helper,F2FF,F30B,branch_taken,BEQ $F30B
+ram_clear_helper,F2FF,F301,branch_not_taken,BEQ $F30B
+ram_clear_helper,F301,F303,fallthrough,
+ram_clear_helper,F303,F304,fallthrough,
+ram_clear_helper,F304,F307,fallthrough,
+ram_clear_helper,F307,F2FD,branch_taken,BNE $F2FD
+ram_clear_helper,F307,F309,branch_not_taken,BNE $F2FD
+ram_clear_helper,F309,F325,jump,
+ram_clear_helper,F30B,F30C,fallthrough,
+ram_clear_helper,F30C,F30D,fallthrough,
+ram_clear_helper,F30D,F30E,fallthrough,
+ram_clear_helper,F30E,F30F,fallthrough,
+ram_clear_helper,F30F,F311,fallthrough,
+ram_clear_helper,F311,F315,fallthrough,
+ram_clear_helper,F315,F318,fallthrough,
+ram_clear_helper,F318,F31B,fallthrough,
+ram_clear_helper,F31B,F31E,fallthrough,
+ram_clear_helper,F31E,F321,fallthrough,
+ram_clear_helper,F321,F322,fallthrough,
+ram_clear_helper,F322,F323,fallthrough,
+ram_clear_helper,F323,F315,branch_taken,BNE $F315
+ram_clear_helper,F323,F325,branch_not_taken,BNE $F315
+heartbeat,F3E4,F3E7,fallthrough,
+heartbeat,F3E7,F3E9,fallthrough,
+heartbeat,F3E9,F3EC,fallthrough,
+service_receive,F9B9,F9BC,fallthrough,
+service_receive,F9BC,F9B6,branch_taken,BNE $F9B6
+service_receive,F9BC,F9BE,branch_not_taken,BNE $F9B6
+service_receive,F9BE,F9C0,fallthrough,
+service_receive,F9C0,F9C3,fallthrough,
+service_receive,F9C3,F9C7,fallthrough,
+service_receive,F9C7,F9CA,fallthrough,
+service_receive,F9CA,FA10,branch_taken,"BRSET $50,#$08,$FA10"
+service_receive,F9CA,F9CE,branch_not_taken,"BRSET $50,#$08,$FA10"
+service_receive,F9CE,F9D0,fallthrough,
+service_receive,F9D0,F9D6,branch_taken,BNE $F9D6
+service_receive,F9D0,F9D2,branch_not_taken,BNE $F9D6
+service_receive,F9D2,F9D6,fallthrough,
+service_receive,F9D6,F9D9,fallthrough,
+service_receive,F9D9,F9DC,fallthrough,
+service_receive,F9DC,F9DF,fallthrough,
+service_receive,F9DF,F9F1,branch_taken,BNE $F9F1
+service_receive,F9DF,F9E1,branch_not_taken,BNE $F9F1
+service_receive,F9E1,F9E3,fallthrough,
+service_receive,F9E3,F9E7,fallthrough,
+service_receive,F9E7,F9EB,branch_taken,BNE $F9EB
+service_receive,F9E7,F9E9,branch_not_taken,BNE $F9EB
+service_receive,F9E9,F9EB,fallthrough,
+service_receive,F9EB,F9ED,fallthrough,
+service_receive,F9ED,F9EF,fallthrough,
+service_receive,F9EF,FA21,jump,
+service_receive,F9F1,F9F3,fallthrough,
+service_receive,F9F3,FA06,branch_taken,BNE $FA06
+service_receive,F9F3,F9F5,branch_not_taken,BNE $FA06
+service_receive,F9F5,F9F8,fallthrough,
+service_receive,F9F8,F9FA,fallthrough,
+service_receive,F9FA,FA01,branch_taken,BEQ $FA01
+service_receive,F9FA,F9FC,branch_not_taken,BEQ $FA01
+service_receive,F9FC,F9FF,fallthrough,
+service_receive,F9FF,FA21,jump,
+service_receive,FA01,FA04,fallthrough,
+service_receive,FA04,FA21,jump,
+service_receive,FA06,FA08,fallthrough,
+service_receive,FA08,FA21,branch_taken,BNE $FA21
+service_receive,FA08,FA0A,branch_not_taken,BNE $FA21
+service_receive,FA0A,FA0C,fallthrough,
+service_receive,FA0C,FA10,branch_taken,BLS $FA10
+service_receive,FA0C,FA0E,branch_not_taken,BLS $FA10
+service_receive,FA0E,FA10,fallthrough,
+service_receive,FA10,FA11,fallthrough,
+service_receive,FA11,FA21,branch_taken,BEQ $FA21
+service_receive,FA11,FA13,branch_not_taken,BEQ $FA21
+service_receive,FA13,FA16,fallthrough,
+service_receive,FA16,FA18,fallthrough,
+service_receive,FA18,FA1B,fallthrough,
+service_receive,FA1B,FA1C,fallthrough,
+service_receive,FA1C,FA1E,fallthrough,
+service_receive,FA1E,FA1F,fallthrough,
+service_receive,FA1F,FA16,branch_taken,BNE $FA16
+service_receive,FA1F,FA21,branch_not_taken,BNE $FA16
+service_payload_copy,FA10,FA11,fallthrough,
+service_payload_copy,FA11,FA21,branch_taken,BEQ $FA21
+service_payload_copy,FA11,FA13,branch_not_taken,BEQ $FA21
+service_payload_copy,FA13,FA16,fallthrough,
+service_payload_copy,FA16,FA18,fallthrough,
+service_payload_copy,FA18,FA1B,fallthrough,
+service_payload_copy,FA1B,FA1C,fallthrough,
+service_payload_copy,FA1C,FA1E,fallthrough,
+service_payload_copy,FA1E,FA1F,fallthrough,
+service_payload_copy,FA1F,FA16,branch_taken,BNE $FA16
+service_payload_copy,FA1F,FA21,branch_not_taken,BNE $FA16
+factory_entry,FA5B,FA5E,fallthrough,
+factory_entry,FA5E,FA60,fallthrough,
+factory_entry,FA60,FA63,fallthrough,
+factory_entry,FA63,F275,call,call target
+factory_entry,FA63,FA66,on_call_return,callee must return
+factory_entry,FA66,FA68,fallthrough,
+factory_entry,FA68,F25F,call,call target
+factory_entry,FA68,FA6B,on_call_return,callee must return
+factory_entry,FA6B,FA6E,fallthrough,
+factory_entry,FA6E,FA70,fallthrough,
+factory_entry,FA70,FA82,branch_taken,BCC $FA82
+factory_entry,FA70,FA72,branch_not_taken,BCC $FA82
+factory_entry,FA72,FA74,fallthrough,
+factory_entry,FA74,FA82,branch_taken,BCS $FA82
+factory_entry,FA74,FA76,branch_not_taken,BCS $FA82
+factory_entry,FA76,FA78,fallthrough,
+factory_entry,FA78,F25F,call,call target
+factory_entry,FA78,FA7B,on_call_return,callee must return
+factory_entry,FA7B,FA7E,fallthrough,
+factory_entry,FA7E,FA80,fallthrough,
+factory_entry,FA80,FA83,branch_taken,BHI $FA83
+factory_entry,FA80,FA82,branch_not_taken,BHI $FA83
+factory_entry,FA83,FA84,fallthrough,
+factory_entry,FA84,FA87,fallthrough,
+factory_entry,FA87,FA8A,fallthrough,
+factory_entry,FA8A,FA8D,fallthrough,
+factory_entry,FA8D,FA90,fallthrough,
+factory_entry,FA90,FA92,fallthrough,
+factory_entry,FA92,FA9F,branch_taken,BEQ $FA9F
+factory_entry,FA92,FA94,branch_not_taken,BEQ $FA9F
+factory_entry,FA94,F3E4,call,call target
+factory_entry,FA94,FA97,on_call_return,callee must return
+factory_entry,FA97,FA99,fallthrough,
+factory_entry,FA99,FAA9,branch_taken,BNE $FAA9
+factory_entry,FA99,FA9B,branch_not_taken,BNE $FAA9
+factory_entry,FA9B,FAA9,branch_taken,"BRCLR $01,#$01,$FAA9"
+factory_entry,FA9B,FA9F,branch_not_taken,"BRCLR $01,#$01,$FAA9"
+factory_entry,FA9F,FAA2,fallthrough,
+factory_entry,FAA2,FAA5,fallthrough,
+factory_entry,FAA5,,call,RAM[$038E:$038F]
+factory_entry,FAA5,FAA7,on_call_return,callee must return
+factory_entry,FAA7,FAC7,jump,
+factory_entry,FAA9,FAAB,fallthrough,
+factory_entry,FAAB,FACA,branch_taken,BNE $FACA
+factory_entry,FAAB,FAAD,branch_not_taken,BNE $FACA
+factory_entry,FAAD,FAB0,fallthrough,
+factory_entry,FAB0,FAB3,fallthrough,
+factory_entry,FAB3,FAB7,fallthrough,
+factory_entry,FAB7,FAB9,fallthrough,
+factory_entry,FAB9,FABC,fallthrough,
+factory_entry,FABC,FABE,fallthrough,
+factory_entry,FABE,FAC0,fallthrough,
+factory_entry,FAC0,FAC1,fallthrough,
+factory_entry,FAC1,FAC2,fallthrough,
+factory_entry,FAC2,FAB9,branch_taken,BNE $FAB9
+factory_entry,FAC2,FAC4,branch_not_taken,BNE $FAB9
+factory_entry,FAC4,FAC7,fallthrough,
+factory_entry,FAC7,FBD4,jump,
+factory_cycle_phase,FAFD,FB00,fallthrough,
+factory_cycle_phase,FB00,FB03,fallthrough,
+factory_cycle_phase,FB03,FB06,fallthrough,
+factory_cycle_phase,FB06,FB08,fallthrough,
+factory_cycle_phase,FB08,FB0A,fallthrough,
+factory_cycle_phase,FB0A,FB0D,branch_taken,BLS $FB0D
+factory_cycle_phase,FB0A,FB0C,branch_not_taken,BLS $FB0D
+factory_cycle_phase,FB0C,FB0D,fallthrough,
+factory_cycle_phase,FB0D,FB0F,fallthrough,
+factory_cycle_phase,FB0F,FB11,fallthrough,
+factory_cycle_phase,FB11,FAC7,branch_taken,BNE $FAC7
+factory_cycle_phase,FB11,FB13,branch_not_taken,BNE $FAC7
+factory_wait,FBD4,FBD4,jump,
+reset,FC29,FC2C,fallthrough,
+reset,FC2C,7100,jump,
+slot_0,7AA6,C56F,call,call target
+slot_0,7AA6,7AA9,on_call_return,callee must return
+slot_0,7AA9,CF15,call,call target
+slot_0,7AA9,7AAC,on_call_return,callee must return
+slot_1,7AAD,C583,call,call target
+slot_1,7AAD,7AB0,on_call_return,callee must return
+slot_1,7AB0,C668,call,call target
+slot_1,7AB0,7AB3,on_call_return,callee must return
+slot_1,7AB3,ADAA,call,call target
+slot_1,7AB3,7AB6,on_call_return,callee must return
+slot_2,7AB7,7AB8,fallthrough,
+slot_2,7AB8,F20D,call,call target
+slot_2,7AB8,7ABB,on_call_return,callee must return
+slot_2,7ABB,7ABC,fallthrough,
+slot_3,7ABD,F5CF,call,call target
+slot_3,7ABD,7AC0,on_call_return,callee must return
+slot_3,7AC0,D4EB,call,call target
+slot_3,7AC0,7AC3,on_call_return,callee must return
+slot_3,7AC3,C514,call,call target
+slot_3,7AC3,7AC6,on_call_return,callee must return
+slot_4,7AC7,C8B1,call,call target
+slot_4,7AC7,7ACA,on_call_return,callee must return
+slot_4,7ACA,7AE2,branch_taken,"BRCLR $02,#$10,$7AE2"
+slot_4,7ACA,7ACE,branch_not_taken,"BRCLR $02,#$10,$7AE2"
+slot_4,7ACE,B9EE,call,call target
+slot_4,7ACE,7AD1,on_call_return,callee must return
+slot_4,7AD1,B99F,call,call target
+slot_4,7AD1,7AD4,on_call_return,callee must return
+slot_4,7AD4,EAB1,call,call target
+slot_4,7AD4,7AD7,on_call_return,callee must return
+slot_4,7AD7,EAE4,call,call target
+slot_4,7AD7,7ADA,on_call_return,callee must return
+slot_4,7ADA,C8D6,call,call target
+slot_4,7ADA,7ADD,on_call_return,callee must return
+slot_4,7ADD,C8FD,call,call target
+slot_4,7ADD,7AE0,on_call_return,callee must return
+slot_4,7AE0,7AF1,jump,
+slot_4,7AE2,E75F,call,call target
+slot_4,7AE2,7AE5,on_call_return,callee must return
+slot_4,7AE5,E793,call,call target
+slot_4,7AE5,7AE8,on_call_return,callee must return
+slot_4,7AE8,C96A,call,call target
+slot_4,7AE8,7AEB,on_call_return,callee must return
+slot_4,7AEB,C9C0,call,call target
+slot_4,7AEB,7AEE,on_call_return,callee must return
+slot_4,7AEE,C9F7,call,call target
+slot_4,7AEE,7AF1,on_call_return,callee must return
+slot_4,7AF1,7AF4,fallthrough,
+slot_4,7AF4,7AFB,branch_taken,"BRCLR $16,#$01,$7AFB"
+slot_4,7AF4,7AF8,branch_not_taken,"BRCLR $16,#$01,$7AFB"
+slot_4,7AF8,7AFB,fallthrough,
+slot_4,7AFB,7B02,branch_taken,"BRCLR $17,#$80,$7B02"
+slot_4,7AFB,7AFF,branch_not_taken,"BRCLR $17,#$80,$7B02"
+slot_4,7AFF,7B02,fallthrough,
+slot_5,7B03,D3B0,call,call target
+slot_5,7B03,7B06,on_call_return,callee must return
+slot_5,7B06,D472,call,call target
+slot_5,7B06,7B09,on_call_return,callee must return
+slot_5,7B09,7B0C,fallthrough,
+slot_5,7B0C,7B13,branch_taken,"BRSET $00,X,#$40,$7B13"
+slot_5,7B0C,7B10,branch_not_taken,"BRSET $00,X,#$40,$7B13"
+slot_5,7B10,C6BB,call,call target
+slot_5,7B10,7B13,on_call_return,callee must return
+slot_6,7B14,CB15,call,call target
+slot_6,7B14,7B17,on_call_return,callee must return
+slot_6,7B17,CE10,call,call target
+slot_6,7B17,7B1A,on_call_return,callee must return
+slot_7,7B1B,C514,call,call target
+slot_7,7B1B,7B1E,on_call_return,callee must return
+slot_7,7B1E,F5DC,call,call target
+slot_7,7B1E,7B21,on_call_return,callee must return
+slot_7,7B21,9E99,call,call target
+slot_7,7B21,7B24,on_call_return,callee must return
+slot_7,7B24,CA6B,call,call target
+slot_7,7B24,7B27,on_call_return,callee must return
+slot_7,7B27,ACA7,call,call target
+slot_7,7B27,7B2A,on_call_return,callee must return
+slot_8,7B2B,CEBB,call,call target
+slot_8,7B2B,7B2E,on_call_return,callee must return
+slot_9,7B2F,CF16,call,call target
+slot_9,7B2F,7B32,on_call_return,callee must return
+slot_9,7B32,A2B0,call,call target
+slot_9,7B32,7B35,on_call_return,callee must return
+slot_9,7B35,D4DA,call,call target
+slot_9,7B35,7B38,on_call_return,callee must return
+slot_A,7B39,D2B2,call,call target
+slot_A,7B39,7B3C,on_call_return,callee must return
+slot_B,7B3D,D4EB,call,call target
+slot_B,7B3D,7B40,on_call_return,callee must return
+slot_B,7B40,C514,call,call target
+slot_B,7B40,7B43,on_call_return,callee must return
+slot_C,7B44,CC35,call,call target
+slot_C,7B44,7B47,on_call_return,callee must return
+slot_D,7B48,CCC1,call,call target
+slot_D,7B48,7B4B,on_call_return,callee must return
+slot_D,7B4B,DBFB,call,call target
+slot_D,7B4B,7B4E,on_call_return,callee must return
+slot_D,7B4E,DC89,call,call target
+slot_D,7B4E,7B51,on_call_return,callee must return
+slot_E,7B52,7B59,branch_taken,"BRCLR $51,#$04,$7B59"
+slot_E,7B52,7B56,branch_not_taken,"BRCLR $51,#$04,$7B59"
+slot_E,7B56,7B59,fallthrough,
+slot_F,7B5A,C514,call,call target
+slot_F,7B5A,7B5D,on_call_return,callee must return
+slot_F,7B5D,C4F5,call,call target
+slot_F,7B5D,7B60,on_call_return,callee must return
+slot_F,7B60,E62D,call,call target
+slot_F,7B60,7B63,on_call_return,callee must return
+slot_F,7B63,E6E5,call,call target
+slot_F,7B63,7B66,on_call_return,callee must return
+slot_F,7B66,E286,call,call target
+slot_F,7B66,7B69,on_call_return,callee must return
+slot_F,7B69,7B6C,fallthrough,

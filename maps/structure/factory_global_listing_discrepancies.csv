@@ -1,0 +1,48 @@
+pc,bytes_hex,ROM,listing,scope
+74A4,C6 10,LDAB #$10,LDAB #010,rooted ROM decode; raw HAC unchanged
+751F,86 05,LDAA #$05,LDAA #$05					' SET A/D MODE,rooted ROM decode; raw HAC unchanged
+770C,CC 7F FF,LDD #$7FFF,LDD #$#32767,rooted ROM decode; raw HAC unchanged
+7D8D,CF,STOP,*****,rooted ROM decode; raw HAC unchanged
+7F57,CC FF FF,LDD #$FFFF,LDD #65525,rooted ROM decode; raw HAC unchanged
+7F64,CC FF FF,LDD #$FFFF,LDD #65525,rooted ROM decode; raw HAC unchanged
+81F4,CC 7F FF,LDD #$7FFF,LDD #$#32767,rooted ROM decode; raw HAC unchanged
+82AB,86 FF,LDAA #$FF,LDAA #255F,rooted ROM decode; raw HAC unchanged
+8613,96 A7,LDAA $A7,,rooted ROM decode; raw HAC unchanged
+864B,12 3E 80 02,"BRSET $3E,#$80,$8651","BRSET L003E,#$80,L865",rooted ROM decode; raw HAC unchanged
+866F,81 80,CMPA #$80,CMPA #$008,rooted ROM decode; raw HAC unchanged
+87AD,14 46 02,"BSET $46,#$02",,rooted ROM decode; raw HAC unchanged
+9CA6,CE 50 3C,LDX #$503C,,rooted ROM decode; raw HAC unchanged
+A0FA,15 18 08,"BCLR $18,#$08",,rooted ROM decode; raw HAC unchanged
+A0FD,12 36 02 14,"BRSET $36,#$02,$A115",,rooted ROM decode; raw HAC unchanged
+A101,12 36 01 08,"BRSET $36,#$01,$A10D",,rooted ROM decode; raw HAC unchanged
+A105,B6 02 9D,LDAA $029D,,rooted ROM decode; raw HAC unchanged
+A108,B7 02 9F,STAA $029F,,rooted ROM decode; raw HAC unchanged
+A10B,20 20,BRA $A12D,,rooted ROM decode; raw HAC unchanged
+A10D,B6 02 A0,LDAA $02A0,,rooted ROM decode; raw HAC unchanged
+A110,B7 02 A2,STAA $02A2,,rooted ROM decode; raw HAC unchanged
+A113,20 18,BRA $A12D,,rooted ROM decode; raw HAC unchanged
+A361,27 35,BEQ $A398,,rooted ROM decode; raw HAC unchanged
+A363,B6 5B 02,LDAA $5B02,BEQ LA398,rooted ROM decode; raw HAC unchanged
+A381,12 09 40 05,"BRSET $09,#$40,$A38A","BRSET L0009,#$40,LA38",rooted ROM decode; raw HAC unchanged
+A3EA,12 09 04 18,"BRSET $09,#$04,$A406","BRSET L0009,#$04,LA40",rooted ROM decode; raw HAC unchanged
+A40B,12 09 01 56,"BRSET $09,#$01,$A465","BRSET L0009,#$01,LA4656",rooted ROM decode; raw HAC unchanged
+A60E,C3 40 80,ADDD #$4080,ADDD #65512,rooted ROM decode; raw HAC unchanged
+A7B6,CB 80,ADDB #$80,ADDB #127,rooted ROM decode; raw HAC unchanged
+A7BC,C6 C0,LDAB #$C0,LDAB #160,rooted ROM decode; raw HAC unchanged
+B32D,BD B3 34,JSR $B334,,rooted ROM decode; raw HAC unchanged
+B99F,F6 01 1A,LDAB $011A,,rooted ROM decode; raw HAC unchanged
+CFCA,13 3E 80 BB,"BRCLR $3E,#$80,$CF89","BRCLR L003E,#$80,LCF8",rooted ROM decode; raw HAC unchanged
+E25E,CE FE 56,LDX #$FE56,LDX #$FE56		INDEX BLINK OUT CODES,rooted ROM decode; raw HAC unchanged
+E75F,12 3B 04 2F,"BRSET $3B,#$04,$E792",FDB $123B,rooted ROM decode; raw HAC unchanged
+E763,CE 5B 00,LDX #$5B00,FDB $CE5B,rooted ROM decode; raw HAC unchanged
+E8FB,25 04,BCS $E901,BCS LE90,rooted ROM decode; raw HAC unchanged
+F346,A7 15,"STAA $15,X","STAA 15,X",rooted ROM decode; raw HAC unchanged
+F348,A6 55,"LDAA $55,X","LDAA 55,X",rooted ROM decode; raw HAC unchanged
+F380,CE 00 09,LDX #$0009,,rooted ROM decode; raw HAC unchanged
+F3E4,B6 30 66,LDAA $3066,,rooted ROM decode; raw HAC unchanged
+F3E7,88 80,EORA #$80,,rooted ROM decode; raw HAC unchanged
+F3E9,B7 30 66,STAA $3066,,rooted ROM decode; raw HAC unchanged
+F3EC,39,RTS,,rooted ROM decode; raw HAC unchanged
+F459,37,PSHB,,rooted ROM decode; raw HAC unchanged
+F479,A3 00,"SUBD $00,X",,rooted ROM decode; raw HAC unchanged
+FA72,81 28,CMPA #$28,CMPA #$40,rooted ROM decode; raw HAC unchanged

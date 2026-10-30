@@ -1,5 +1,7 @@
 # VSS / BPW Causality Reassessment — ALDL Transport Timing
 
+**Historical snapshot:** this document concerns the image/logs identified below. It does not establish current0.3.12 calibration values or active consumers. Current state: [WORKING_STATE.md](../WORKING_STATE.md).
+
 ## Status / supersession
 
 This investigation **supersedes the temporal row-order inference** in:

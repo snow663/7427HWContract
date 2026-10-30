@@ -8,11 +8,12 @@
     "repository": "snow663/7427HWContract",
     "commit": "c902ff4c53356c089cefa8f92263454e960bf667",
     "authority": "docs/WORKING_STATE.md",
-    "hardware_contract": "docs/ASIC_HARDWARE_REGISTER_CONTRACT.md",
+    "hardware_contract": "docs/analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md",
+    "register_identity_reference": "NXP MC68HC11F1 table4-1; INIT03 relocation; device behavior remains modeled",
     "dynamic_trace_plan": "docs/DYNAMIC_TRACE_PLAN.md",
     "known_images": {
       "stock_BMHM": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
-      "current_2.bin": "2387d708c8d4cc82b78fabda579e48b7daef79f331543a54b669b70b6262877e"
+      "historical_2.bin": "2387d708c8d4cc82b78fabda579e48b7daef79f331543a54b669b70b6262877e"
     },
     "warning": "Contract-high means source/dataflow confidence, not physical bench proof. HAC annotations are optional hypotheses."
   },
@@ -25,15 +26,15 @@
   "regions": [
     {"start":"0x0000","end":"0x01FF","name":"HC11 internal RAM (reset mapping)","kind":"ram","writable":true,"evidence":"contract_high"},
     {"start":"0x0200","end":"0x2FFF","name":"External working RAM","kind":"ram","writable":true,"evidence":"contract_high"},
-    {"start":"0x3000","end":"0x303F","name":"Relocated HC11 registers","kind":"device","writable":true,"evidence":"contract_high"},
-    {"start":"0x3040","end":"0x3FBF","name":"Board I/O and external RAM","kind":"device_or_ram","writable":true,"evidence":"contract_test_item"},
+    {"start":"0x3000","end":"0x305F","name":"Relocated HC11 registers","kind":"device","writable":true,"evidence":"contract_high"},
+    {"start":"0x3060","end":"0x3FBF","name":"Board I/O candidate region","kind":"device_or_ram","writable":true,"evidence":"contract_test_item"},
     {"start":"0x3FC0","end":"0x3FFF","name":"7427 ASIC register window","kind":"device","writable":true,"evidence":"contract_high"},
     {"start":"0x4000","end":"0xFFFF","name":"EPROM/ROM","kind":"rom","writable":false,"evidence":"contract_high"}
   ],
   "registers": [
     {"address":"0x3000","name":"PORTA / timer pin status","access":"RW","behavior":"storage","subsystem":"HC11_CORE","evidence":"contract_high"},
-    {"address":"0x3002","name":"PORTC","access":"R","behavior":"input","subsystem":"HC11_CORE","evidence":"contract_high"},
-    {"address":"0x3008","name":"PORTE / external ADC mux selector","access":"RW","behavior":"input_selector","subsystem":"SENSOR_ADC","evidence":"contract_high"},
+    {"address":"0x3002","name":"PORTG","access":"R","behavior":"input","subsystem":"HC11_CORE","evidence":"contract_high"},
+    {"address":"0x3008","name":"PORTD / sensor-interface control candidate","access":"RW","behavior":"input_selector","subsystem":"SENSOR_ADC","evidence":"contract_high"},
     {"address":"0x300E","name":"TCNT free-running counter","width":16,"access":"R","behavior":"counter","subsystem":"HC11_TIMER","evidence":"contract_high"},
     {"address":"0x3010","name":"TIC1","width":16,"access":"R","behavior":"capture","subsystem":"HC11_TIMER","evidence":"contract_high"},
     {"address":"0x3012","name":"TIC2","width":16,"access":"R","behavior":"capture","subsystem":"HC11_TIMER","evidence":"contract_high"},

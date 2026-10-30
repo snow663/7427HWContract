@@ -1,0 +1,54 @@
+start,end_exclusive,byte_count,classification,evidence_role
+7100,07A85,2437,rooted_instruction_bytes,structural CFG
+7A85,07AA5,32,data_or_declared_tail,main_dispatch_words
+7AA5,07AA6,1,alternate_candidate_bytes,separately decoded; no rooted incoming edge
+7AA6,09C96,8688,rooted_instruction_bytes,structural CFG
+9C96,09CA6,16,data_or_declared_tail,IAC_P_table_pointers
+9CA6,0A5D8,2354,rooted_instruction_bytes,structural CFG
+A5D8,0A5DA,2,alternate_candidate_bytes,separately decoded; no rooted incoming edge
+A5DA,0B010,2614,rooted_instruction_bytes,structural CFG
+B010,0B018,8,data_or_declared_tail,range_decode
+B018,0B084,108,rooted_instruction_bytes,structural CFG
+B084,0B089,5,data_or_declared_tail,pattern_decode
+B089,0B319,656,rooted_instruction_bytes,structural CFG
+B319,0B31D,4,data_or_declared_tail,gear_output_lookup;solenoid_and_gains
+B31D,0B32D,16,data_or_declared_tail,solenoid_and_gains
+B32D,0B961,1588,rooted_instruction_bytes,structural CFG
+B961,0B96D,12,data_or_declared_tail,pressure_pointers;source_RPM_false_writer_pointer_data
+B96D,0B99F,50,data_or_declared_tail,pressure_pointers
+B99F,0BA32,147,rooted_instruction_bytes,structural CFG
+BA32,0BA38,6,data_or_declared_tail,adaptive_seed_pointers
+BA38,0BA5F,39,rooted_instruction_bytes,structural CFG
+BA5F,0BA65,6,data_or_declared_tail,adaptive_count_pointers
+BA65,0BC3B,470,rooted_instruction_bytes,structural CFG
+BC3B,0BC77,60,data_or_declared_tail,adaptive_pointer_sets
+BC77,0BE37,448,rooted_instruction_bytes,structural CFG
+BE37,0BE5C,37,data_or_declared_tail,pressure_shape_pointers
+BE5C,0C2D6,1146,rooted_instruction_bytes,structural CFG
+C2D6,0C40A,308,data_or_declared_tail,TCC_descriptors
+C40A,0D69F,4757,rooted_instruction_bytes,structural CFG
+D69F,0D7E5,326,data_or_declared_tail,shift_descriptors
+D7E5,0DBE3,1022,rooted_instruction_bytes,structural CFG
+DBE3,0DBFB,24,data_or_declared_tail,spark_request_pointers
+DBFB,0E57C,2433,rooted_instruction_bytes,structural CFG
+E57C,0E58C,16,data_or_declared_tail,range_gear_caps
+E58C,0E717,395,rooted_instruction_bytes,structural CFG
+E717,0E75F,72,data_or_declared_tail,fault_reaction_masks
+E75F,0F377,3096,rooted_instruction_bytes,structural CFG
+F377,0F380,9,data_or_declared_tail,clear_A_masks
+F380,0F3DB,91,rooted_instruction_bytes,structural CFG
+F3DB,0F3E4,9,data_or_declared_tail,clear_B_masks
+F3E4,0F564,384,rooted_instruction_bytes,structural CFG
+F564,0F5A2,62,alternate_candidate_bytes,separately decoded; no rooted incoming edge
+F5A2,0FBD7,1589,rooted_instruction_bytes,structural CFG
+FBD7,0FC04,45,data_or_declared_tail,factory_serial_and_cycle_data
+FC04,0FC45,65,rooted_instruction_bytes,structural CFG
+FC45,0FE45,512,data_or_declared_tail,coolant_conversion_tables;temperature_tables
+FE45,0FE56,17,data_or_declared_tail,temperature_tables
+FE56,0FE9F,73,data_or_declared_tail,flash_code_values
+FE9F,0FF90,241,data_or_declared_tail,zero_tail
+FF90,0FF99,9,alternate_candidate_bytes,separately decoded; no rooted incoming edge
+FF99,0FFA0,7,data_or_declared_tail,zero_gap
+FFA0,0FFC0,32,data_or_declared_tail,unreferenced_tail_words
+FFC0,0FFD6,22,data_or_declared_tail,reserved_vector_words
+FFD6,10000,42,data_or_declared_tail,interrupt_vectors
