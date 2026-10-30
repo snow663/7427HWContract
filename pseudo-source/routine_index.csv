@@ -1,9 +1,14 @@
 file,routine,status,reference,next_step
+src/drivers/delay_cycles.c,pcm_delay_cycles,implemented_outline,New backend delay contract for the literal33-cycle ADC gap.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/drivers/heartbeat_toggle.c,pcm_heartbeat_toggle,implemented_outline,F3E4..F3EC. Physical purpose of 3066.7 remains unspecified. */,Retain source/ROM checks; target ABI and timing still need verification
 src/drivers/mask_irq.c,pcm_mask_irq,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
 src/drivers/read16.c,pcm_read16,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
 src/drivers/read8.c,pcm_read8,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/reference_crank_timer.c,pcm_reference_crank_timer,implemented_outline,7587..7628: alternate crank timer transaction branches.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/drivers/reference_prefix.c,pcm_reference_prefix,implemented_outline,74EA..751B: factory gate and OC1/strobe/pending prefix.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/drivers/reference_timer_arm.c,pcm_reference_timer_arm,implemented_outline,77C7..7826: both parameterized timer-arm routines.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/drivers/timer_arm.c,pcm_timer_arm,implemented_outline,745E..7469: first TCNT-relative arm; recurrence is TOC3-relative. */,Retain source/ROM checks; target ABI and timing still need verification
+src/drivers/update8.c,pcm_update8,implemented_outline,New byte read/modify/write interface; caller owns masking.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/drivers/watchdog_service.c,pcm_watchdog_service,implemented_outline,"79E7..79EE, FA84..FA8B and other literal COP services. */",Retain source/ROM checks; target ABI and timing still need verification
 src/drivers/write16.c,pcm_write16,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
 src/drivers/write8.c,pcm_write8,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
@@ -11,13 +16,21 @@ src/emissions/egr_control.c,pcm_egr_control,dependency_boundary,D1F6: EGR positi
 src/emissions/egr_feedback.c,pcm_egr_feedback,dependency_boundary,D14E: EGR feedback acquisition and closed-reference handling.,Implement the named body and compare observable state/transactions
 src/emissions/egr_flow.c,pcm_egr_flow,dependency_boundary,D03E: EGR flow calculation.,Implement the named body and compare observable state/transactions
 src/emissions/egr_output.c,pcm_egr_output,dependency_boundary,CDF7: EGR hardware command publication.,Implement the named body and compare observable state/transactions
+src/fuel/crank_event_gain.c,pcm_crank_event_gain,implemented_algorithm,7827..7859: four gain tables and saturated pulse doubling.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/fuel/fuel_async.c,pcm_fuel_async,implemented_outline,"8548..858A: short-packet shaping, additive offset and literal3FF2/3FFC sequence.","Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/fuel/fuel_base.c,pcm_fuel_base,implemented_algorithm,7FD8..802F; each divide retains its own truncation/saturation. */,Retain source/ROM checks; target ABI and timing still need verification
 src/fuel/fuel_control.c,pcm_fuel_control,dependency_boundary,7D4B: Ignition handling and scheduled fuel group.,Implement the named body and compare observable state/transactions
+src/fuel/reference_bank_guard.c,pcm_reference_bank_guard,implemented_outline,785A..7874: saturating observation count and fault latch.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/fuel/reference_common.c,pcm_reference_common,implemented_outline,"7765..77C6 plus F479: request consumption, load filtering and extra timer route.","Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/fuel/reference_crank.c,pcm_reference_crank,implemented_outline,"7535..764F: strict skip gate, event gain, async/timer delivery and count policy.","Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/fuel/reference_decay.c,pcm_reference_decay,implemented_outline,7650..7696: event-driven additional-enrichment decay.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/fuel/reference_event.c,pcm_reference_event,implemented_outline,751B..7535: optional ADC sample and crank/running dispatch.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/fuel/reference_run.c,pcm_reference_run,implemented_outline,7696..7765: running split-packet and bank timer scheduling.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/idle/iac_control.c,pcm_iac_control,dependency_boundary,93D0: Main idle-air controller with service escapes.,Implement the named body and compare observable state/transactions
 src/idle/iac_step.c,pcm_iac_step,dependency_boundary,91A3: Per-tick idle-air phase service.,Implement the named body and compare observable state/transactions
 src/interrupts/oc1_irq.c,pcm_oc1_irq,dependency_boundary,FFE8 -> CE7C. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
 src/interrupts/periodic_irq.c,pcm_periodic_irq,implemented_outline,793D..7989. Actual interrupt entry/RTI and SP recovery need target,Retain source/ROM checks; target ABI and timing still need verification
-src/interrupts/reference_irq.c,pcm_reference_irq,implemented_outline,74EA..751B: REF compare/strobes/pending latch; remaining751B..77C6 is PCM_REFERENCE_BODY.,Port the remaining reference-event/fuel body and target entry/RTI frame
+src/interrupts/reference_irq.c,pcm_reference_irq,implemented_outline,"FFF2 ->74EA..77C6: complete resident event body, hardware entry/RTI remains target work.",Target interrupt entry/RTI and physical driver timing remain separate validation
 src/interrupts/sci_irq.c,pcm_sci_irq,dependency_boundary,FFD6 -> F7EA. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
 src/kernel/dispatch_fast.c,pcm_dispatch_fast,implemented_outline,79D9..7A44. Fields are sampled at their own gates. Callees may,Retain source/ROM checks; target ABI and timing still need verification
 src/kernel/dispatch_slot.c,pcm_dispatch_slot,implemented_outline,7A44..7AA5. Addresses become linker-assigned C function pointers. */,Retain source/ROM checks; target ABI and timing still need verification
@@ -27,6 +40,8 @@ src/kernel/main_pass.c,pcm_main_pass,implemented_outline,7989..7A51. Busy owners
 src/kernel/phase_advance.c,pcm_phase_advance,implemented_outline,"798C..79C5. Counts admitted passes, not every timer arrival. */",Retain source/ROM checks; target ABI and timing still need verification
 src/kernel/profile_tail.c,pcm_profile_tail,implemented_outline,"7A55..7A77. Timer counts, unsigned modulo arithmetic. */",Retain source/ROM checks; target ABI and timing still need verification
 src/kernel/run_task.c,pcm_run_task,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
+src/math/gain_word.c,pcm_gain_word,implemented_algorithm,F550..F563: rounded unsigned gain/256 word multiply.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/math/lookup16.c,pcm_lookup16,implemented_algorithm,F4C1..F4DD: rounded 16-segment unsigned lookup.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/sensors/adc_feedback.c,pcm_adc_feedback,dependency_boundary,7B6D: Intervening ADC acquisition F245 and averaged014E publication.,Implement the named body and compare observable state/transactions
 src/sensors/common_io.c,pcm_common_io,dependency_boundary,7BA7: Board flush MAP filtering and speed input sampling.,Implement the named body and compare observable state/transactions
 src/sensors/input_housekeeping.c,pcm_input_housekeeping,dependency_boundary,9167: AC and park/neutral input housekeeping.,Implement the named body and compare observable state/transactions

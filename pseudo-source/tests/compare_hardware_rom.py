@@ -132,9 +132,9 @@ for case, actual in zip(ref_cases, c_cases("--reference", ref_cases)):
     memory.strobe_samples = [first, second]
     stop = run(0x74EA, {0x751B, 0xFC11})
     expected = {
-        "status": 4 if stop == 0xFC11 else 1,  # factory boundary / unported continuation
+        "status": 4 if stop == 0xFC11 else 0,  # factory boundary / completed prefix
         "pending": int(bool(memory.mem[0x50] & 0x20)),
-        "tail": int(stop == 0x751B),
+        "tail": 0,
         "events": memory.trace,
     }
     assert actual == expected, (case, actual, expected)

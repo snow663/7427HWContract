@@ -26,7 +26,7 @@ assert sorted(r['file'] for r in rows)==files
 functions=[]
 for row in rows:
     content=(BASE/row['file']).read_text()
-    names=re.findall(r'^(?:PcmStatus|PcmFuelBase)\s+(pcm_\w+)\s*\(',content,re.M)
+    names=re.findall(r'^(?:PcmStatus|PcmFuelBase|uint8_t|uint16_t)\s+(pcm_\w+)\s*\(',content,re.M)
     assert names==[row['routine']],(row,names)
     functions+=names
     assert row['status'] in {'implemented_outline','dependency_boundary','implemented_algorithm'}

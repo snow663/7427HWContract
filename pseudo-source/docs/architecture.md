@@ -56,9 +56,10 @@ recovery and output dispositions remain to be specified at that failure point.
 
 Reset CPU/board writes and output initialization now retain their stock
 transaction order in C. The early reset precondition is a separate required
-assembly boundary. The REF prefix likewise implements timer/strobe/latch work
-before an explicit continuation dependency. See the
-[reset/REF contract](../reference/reset_ref_transactions.md).
+assembly boundary. The REF prefix now calls an implemented event body, split into
+crank, running, decay, filter and individual output/timer routines. ADC sampling
+requires a backend delay binding. See the
+[REF event contract](../reference/ref_event_contract.md).
 
 The remaining reset stages are coarse ownership boundaries rather than a
 complete boot translation. Early boot unmasking, retained-state branches,

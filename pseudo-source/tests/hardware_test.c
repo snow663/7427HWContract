@@ -100,7 +100,7 @@ static void init(Fixture *f, Pcm *pcm)
 static void print_result(const Fixture *f, const Pcm *pcm, PcmStatus status)
 {
     printf("{\"status\":%u,\"pending\":%u,\"tail\":%u,\"events\":[", (unsigned)status,
-           (unsigned)pcm->reference.pending, (unsigned)(pcm->unresolved_task == PCM_REFERENCE_BODY));
+           (unsigned)pcm->reference.pending, 0u);
     for (unsigned index = 0; index < f->used; ++index) {
         const Event *event = &f->events[index];
         printf("%s[\"%c\",%u,%u,%u]", index ? "," : "", event->kind, event->width,
@@ -112,12 +112,12 @@ static void test_failure_prefixes(void)
 {
     static Fixture f;
     Pcm pcm;
-    const PcmRoutine routines[] = {pcm_reset_cpu, pcm_reset_outputs, pcm_reference_irq};
+    const PcmRoutine routines[] = {pcm_reset_cpu, pcm_reset_outputs, pcm_reference_prefix};
     unsigned checks = 0;
     for (unsigned routine = 0; routine < sizeof(routines) / sizeof(routines[0]); ++routine) {
         init(&f, &pcm);
         PcmStatus status = routines[routine](&pcm);
-        CHECK(status == (routine == 2 ? PCM_UNIMPLEMENTED : PCM_OK));
+        CHECK(status == (PCM_OK));
         unsigned operations = f.attempts;
         CHECK(operations > 0);
         for (unsigned failure = 1; failure <= operations; ++failure) {
@@ -146,19 +146,19 @@ static void test_entry_and_continuation_boundaries(void)
     init(&f, &pcm);
     pcm.reference.pending = true;
     pcm.runtime.factory_mode = true;
-    CHECK(pcm_reference_irq(&pcm) == PCM_FACTORY_BOUNDARY && pcm.reference.pending && f.used == 0);
+    CHECK(pcm_reference_prefix(&pcm) == PCM_FACTORY_BOUNDARY && pcm.reference.pending && f.used == 0);
     init(&f, &pcm);
     pcm.runtime.ignition_off = true; /* RAM0051.3 is not the0044.4 latch gate. */
     pcm.scheduler.pending = true;
-    CHECK(pcm_reference_irq(&pcm) == PCM_UNIMPLEMENTED);
-    CHECK(pcm.reference.pending && pcm.scheduler.pending && pcm.unresolved_task == PCM_REFERENCE_BODY);
+    CHECK(pcm_reference_prefix(&pcm) == PCM_OK);
+    CHECK(pcm.reference.pending && pcm.scheduler.pending && pcm.unresolved_task == PCM_TASK_COUNT);
     init(&f, &pcm);
     pcm.calibration = NULL;
     CHECK(pcm_reset_outputs(&pcm) == PCM_BAD_CONFIGURATION && f.used == 0);
-    CHECK(pcm_reference_irq(&pcm) == PCM_BAD_CONFIGURATION && f.used == 0);
+    CHECK(pcm_reference_prefix(&pcm) == PCM_BAD_CONFIGURATION && f.used == 0);
     init(&f, &pcm);
     f.platform.read16 = NULL;
-    CHECK(pcm_reference_irq(&pcm) == PCM_NO_HARDWARE && f.used == 0);
+    CHECK(pcm_reference_prefix(&pcm) == PCM_NO_HARDWARE && f.used == 0);
 }
 static void test_gate_sampling(void)
 {
@@ -166,11 +166,11 @@ static void test_gate_sampling(void)
     Pcm pcm;
     init(&f, &pcm);
     f.mutate_rpm = true;
-    CHECK(pcm_reference_irq(&pcm) == PCM_UNIMPLEMENTED);
+    CHECK(pcm_reference_prefix(&pcm) == PCM_OK);
     CHECK(f.events[1].address == PCM_TOC1 && f.events[1].value == 0x00db);
     init(&f, &pcm);
     f.inhibit_after_strobe = true;
-    CHECK(pcm_reference_irq(&pcm) == PCM_UNIMPLEMENTED && !pcm.reference.pending);
+    CHECK(pcm_reference_prefix(&pcm) == PCM_OK && !pcm.reference.pending);
 }
 int main(int argc, char **argv)
 {
@@ -206,7 +206,7 @@ int main(int argc, char **argv)
             pcm.reference.pending = pending != 0;
             pcm.reference.latch_inhibited = inhibited != 0;
             pcm.runtime.factory_mode = factory != 0;
-            PcmStatus result = pcm_reference_irq(&pcm);
+            PcmStatus result = pcm_reference_prefix(&pcm);
             print_result(&f, &pcm, result);
         }
         return 0;
@@ -214,6 +214,13 @@ int main(int argc, char **argv)
     test_failure_prefixes();
     test_entry_and_continuation_boundaries();
     test_gate_sampling();
+    init(&f, &pcm);
+    pcm.reference.sample_map = true;
+    pcm.reference.map_sample = 0x42;
+    CHECK(pcm_reference_irq(&pcm) == PCM_NO_HARDWARE);
+    CHECK(f.used == 8 && f.events[7].address == PCM_ADCTL);
+    CHECK(pcm.reference.map_sample == 0x42);
+
     puts("64 hardware failure prefixes, startup/REF boundaries and gate-sampling checks passed.");
     return 0;
 }
