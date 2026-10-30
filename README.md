@@ -10,7 +10,7 @@ Older investigations and prototype build records retain their original scope.
 
 | Workstream | Start here | Status |
 |---|---|---|
-| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 79 public routine files; checked kernel/reset/REF event logic, fixed-point algorithms and explicit unfinished bodies |
+| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 79 public routine files; checked kernel/reset/REF/OC1 logic, fixed-point algorithms and explicit unfinished bodies |
 | Factory behavior and hardware | [Ownership closure](docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md) | ROM-backed access, arithmetic, state and interface contracts |
 | Timing and interrupts | [Timing closure](docs/analysis/FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md) | Conditional source/deadline/stack contracts; physical premises remain explicit |
 | Remaining information | [Equivalence ledger](docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md) | Scoped specifications plus identified ROM/device/board/module work |
@@ -58,8 +58,8 @@ build. Its implemented kernel checks and 532 compiled-C base-fuel/ROM cases
 are joined by 128 startup and 4,112 REF transaction comparisons plus 64 injected
 I/O-failure positions. The full REF body adds 2,502 handler comparisons, 143 failure
 prefixes and 38 direct timer-entry cases. These remain separate from the 190
-factory tests.
-The target hardware backend,
+factory tests. OC1 adds 261,632 numeric comparisons, 16 I/O-failure cases and 1,280
+REF/OC1 sequences. The target hardware backend,
 startup/vector assembly, final linker/calibration layout and HC11 cycle/stack
 checks remain next work. [CMake instructions](pseudo-source/README.md) are
 also available and checked in CI.

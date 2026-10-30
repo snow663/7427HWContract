@@ -38,7 +38,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 79 public routines: 34 implemented outlines, 41 dependency
+The tree contains 79 public routines: 35 implemented outlines, 40 dependency
 boundaries and four implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -51,6 +51,12 @@ filter, async-output and timer routines. Another 2,502 complete-handler comparis
 The [REF event contract](reference/ref_event_contract.md) records the configuration
 and coverage boundaries. Early reset/interrupt assembly and real device/backend
 timing remain unfinished.
+
+The OC1 handler now acknowledges its flag, samples the knock-counter word,
+advances its baseline, applies both direct-index curves and accumulates the
+bounded observation. Its 261,632 numeric comparisons and 1,280 REF/OC1 sequences
+match the stock code. See the [OC1 contract](reference/oc1_knock_contract.md) for
+failure-prefix checks, coverage and the remaining knock-controller boundaries.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -93,18 +99,18 @@ The checks compile the separate source files, test five kernel contract groups,
 check provenance, compare 532 base-fuel cases, and compare 128 startup plus 4,112
 REF prefix cases with actual stock instructions. Full-handler tests add 2,502
 cases, 143 failure prefixes and 38 direct timer-entry cases. The hardware harness
-also checks 64
-injected failure positions and the startup/REF dependency boundaries. Host tests
-do not establish target instruction timing,
-physical output behavior or whole-program equivalence. The dedicated GitHub
-workflow runs the CMake route.
+also checks 64 injected failure positions and the startup/REF dependency boundaries.
+OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
+Host tests do not establish target instruction timing, physical output behavior
+or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
-Next separate the OC1 knock observation and main fuel/spark consumers of the
-new REF state. Retain verified driver ordering and fault exits. Then port the
-remaining injector, spark and IAC drivers individually. Controller task boundaries can be replaced
+Next port the scheduled knock decay/sensor diagnostic and normal-spark
+consumption of the new observation accumulator. Retain verified driver ordering
+and fault exits. Then port the remaining injector, spark and IAC drivers
+individually. Controller task boundaries can be replaced
 with direct calls to implemented routines as those modules are completed.
 Feature removal will update both dispatch admissions and shared-state producers.
 

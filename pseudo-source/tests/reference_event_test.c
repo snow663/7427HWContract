@@ -25,7 +25,8 @@ static const Mapping state_map[] = {
     B(0x84e,reference.bank_guard_count), W(0x254,reference.running_packet), W(0x81f,reference.timer_delay),
     W(0x821,reference.compare_a), W(0x823,reference.compare_b), W(0x825,reference.extended_a),
     W(0x827,reference.extended_b), B(0x829,reference.split_count), B(0x82a,reference.split_clear),
-    B(0x82e,reference.map_sample)
+    B(0x82e,reference.map_sample), W(0x203,knock.sample_baseline),
+    B(0x20d,knock.observation_accumulator)
 };
 #undef B
 #undef W
@@ -35,6 +36,7 @@ static const Mapping state_map[] = {
 #define A(a,n,m) {a,8,0,n,offsetof(PcmCalibration,m)}
 static const Mapping cal_map[] = {
     A(0x465d,128,reference_compare_counts),
+    A(0x45db,64,knock.noise_floor), A(0x461c,64,knock.observation_bias),
     B(0x400b,reference.mode_b), B(0x400c,reference.mode_c), B(0x400e,reference.mode_e),
     B(0x5b03,reference.diagnostic_options), A(0x4dcd,17,reference.crank_skip),
     A(0x4cbf,17,reference.decay_temperature), A(0x4cd0,17,reference.decay_event),
@@ -114,9 +116,83 @@ static PcmStatus delay(void *v,uint16_t cycles) { return record(v,'D',0,0,cycles
 static void hex(const uint8_t *memory,unsigned start,unsigned end)
 { for (unsigned a=start;a<end;++a) printf("%02x",memory[a]); }
 static const unsigned blocks[][2]={{0,0x900},{0x3000,0x3070},{0x3fc0,0x3ffe},{0x4000,0x5b04}};
+static void require(bool condition)
+{
+    if (!condition) { fputs("OC1 contract failed\n",stderr);exit(4); }
+}
+static void init_oc1(Fixture *f,Pcm *pcm,PcmCalibration *cal)
+{
+    memset(f,0,sizeof(*f));memset(pcm,0,sizeof(*pcm));
+    *cal=pcm_reference_scheduler_calibration;
+    f->platform.context=f;f->platform.read8=read8;f->platform.read16=read16;
+    f->platform.write8=write8;f->platform.write16=write16;
+    pcm->platform=&f->platform;pcm->calibration=cal;pcm->unresolved_task=PCM_TASK_COUNT;
+    pcm->knock.sample_baseline=0x1234;pcm->knock.observation_accumulator=0x56;
+    pcm->scheduler.phase=0x93;pcm->scheduler.pending=true;
+    pcm->reference.pending=true;
+    pcm->runtime.factory_mode=true; /* OC1 has no resident factory gate. */
+}
+static void oc1_contracts(void)
+{
+    static Fixture f;Pcm pcm;PcmCalibration cal;
+    init_oc1(&f,&pcm,&cal);pcm.calibration=NULL;
+    require(pcm_oc1_irq(&pcm)==PCM_BAD_CONFIGURATION&&f.used==0);
+    init_oc1(&f,&pcm,&cal);pcm.platform=NULL;
+    require(pcm_oc1_irq(&pcm)==PCM_NO_HARDWARE&&f.used==0);
+    init_oc1(&f,&pcm,&cal);f.platform.write8=NULL;
+    require(pcm_oc1_irq(&pcm)==PCM_NO_HARDWARE&&f.used==0);
+    init_oc1(&f,&pcm,&cal);f.platform.read16=NULL;
+    require(pcm_oc1_irq(&pcm)==PCM_NO_HARDWARE&&f.used==1);
+    require(pcm.knock.sample_baseline==0x1234&&pcm.knock.observation_accumulator==0x56);
+    for (unsigned failure=1;failure<=2;++failure) {
+        init_oc1(&f,&pcm,&cal);f.fail_at=failure;f.memory[PCM_TFLG1]=255;
+        require(pcm_oc1_irq(&pcm)==PCM_NO_HARDWARE);
+        require(f.attempts==failure&&f.used==failure-1);
+        require(pcm.knock.sample_baseline==0x1234&&pcm.knock.observation_accumulator==0x56);
+        require(f.memory[PCM_TFLG1]==(failure==1?255:127));
+    }
+}
+static int oc1_cases(bool pair)
+{
+    static Fixture f;Pcm pcm;PcmCalibration cal;
+    unsigned sample,baseline,accumulator,rpm,floor,bias,variant,fail,flags;
+    while (scanf("%u %u %u %u %u %u %u %u %u",&sample,&baseline,&accumulator,&rpm,&floor,&bias,&variant,&fail,&flags)==9) {
+        if (sample>65535||baseline>65535||accumulator>255||rpm>255||floor>255||bias>255||variant>1||flags>255) return 2;
+        init_oc1(&f,&pcm,&cal);
+        pcm.knock.sample_baseline=(uint16_t)baseline;
+        pcm.knock.observation_accumulator=(uint8_t)accumulator;
+        pcm.reference.rpm_coordinate=(uint8_t)rpm;
+        f.memory[PCM_KNOCK_COUNTER]=(uint8_t)(sample>>8);
+        f.memory[PCM_KNOCK_COUNTER+1]=(uint8_t)sample;
+        f.memory[PCM_TFLG1]=(uint8_t)flags;
+        f.fail_at=fail;
+        if (variant) { cal.knock.noise_floor[rpm>>2]=(uint8_t)floor;cal.knock.observation_bias[rpm>>2]=(uint8_t)bias; }
+        PcmStatus result;
+        if (pair) {
+            pcm.runtime.factory_mode=false;pcm.runtime.fuel_running=false;
+            pcm.reference.pending=false;pcm.reference.crank_references=0;
+            f.timer_seed=0xfffe;
+            result=pcm_reference_irq(&pcm);
+            if (result==PCM_OK) result=pcm_oc1_irq(&pcm);
+        } else result=pcm_oc1_irq(&pcm);
+        require(pcm.scheduler.phase==0x93&&pcm.scheduler.pending&&pcm.reference.rpm_coordinate==rpm);
+        require(pcm.unresolved_task==PCM_TASK_COUNT);
+        if (!pair) require(pcm.reference.pending&&pcm.runtime.factory_mode);
+        printf("{\"status\":%u,\"baseline\":%u,\"accumulator\":%u,\"flags\":%u,\"pending\":%u,\"crank\":%u,\"toc1\":%u,\"events\":[",
+            (unsigned)result,(unsigned)pcm.knock.sample_baseline,(unsigned)pcm.knock.observation_accumulator,
+            f.memory[PCM_TFLG1],(unsigned)pcm.reference.pending,(unsigned)pcm.reference.crank_references,word(f.memory,PCM_TOC1));
+        for (unsigned i=0;i<f.used;++i) { const Event *e=&f.events[i];printf("%s[\"%c\",%u,%u,%u]",i?",":"",e->kind,e->width,e->address,e->value); }
+        puts("]}");
+    }
+    return 0;
+}
+
 int main(int argc,char **argv)
 {
     static Fixture f;
+    if (argc==2&&strcmp(argv[1],"--oc1-contracts")==0) { oc1_contracts();puts("OC1 missing-I/O, failure-prefix and shared-state contracts pass.");return 0; }
+    if (argc==2&&strcmp(argv[1],"--oc1")==0) return oc1_cases(false);
+    if (argc==2&&strcmp(argv[1],"--ref-oc1")==0) return oc1_cases(true);
     if (argc==2&&strcmp(argv[1],"--defaults")==0) {
         PcmCalibration cal=pcm_reference_scheduler_calibration;
         transfer(&cal,f.memory,cal_map,sizeof(cal_map)/sizeof(cal_map[0]),false);

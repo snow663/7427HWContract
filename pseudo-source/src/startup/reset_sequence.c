@@ -15,6 +15,7 @@ PcmStatus pcm_reset_sequence(Pcm *pcm, const PcmPlatform *platform, const PcmCal
     pcm->scheduler = (PcmScheduler){0};
     pcm->runtime = (PcmRuntime){0};
     pcm->reference = (PcmReference){0};
+    pcm->knock = (PcmKnock){0};
     pcm->application = NULL;
     pcm->unresolved_task = PCM_TASK_COUNT;
     RUN(pcm_mask_irq(pcm, true));

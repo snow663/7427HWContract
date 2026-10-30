@@ -25,3 +25,5 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     subprocess.run([*compiler,'-std=c11','-Wall','-Wextra','-Wpedantic','-Werror',
                     '-I',str(ROOT/'include'),*[str(p) for p in sources],str(ROOT/'tests/reference_event_test.c'),'-o',str(event_binary)],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/compare_reference_event_rom.py'),str(event_binary)],check=True)
+    subprocess.run([str(event_binary),'--oc1-contracts'],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tests/compare_oc1_rom.py'),str(event_binary)],check=True)

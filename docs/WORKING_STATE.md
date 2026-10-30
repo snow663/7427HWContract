@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 79 public routines: 34 implemented outlines,
-41 explicit dependency boundaries and four implemented algorithms.
+The source currently has 79 public routines: 35 implemented outlines,
+40 explicit dependency boundaries and four implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -24,11 +24,13 @@ reset assembly precondition remains explicit. The resident REF event body and
 its crank/running, enrichment, filter, asynchronous-output and timer helpers are
 now C implementations. See the
 [REF event contract](../pseudo-source/reference/ref_event_contract.md).
-Next are the remaining reset/backend stages and the OC1/main-controller
-consumers of the named REF state, followed by remaining injector/spark/IAC work.
-Known
-access widths/order and timing premises remain binding until better evidence
-supports a deliberate change. No actuator authority is granted by a host test.
+The OC1 counter observer is also implemented, including its baseline, noise/bias
+curves and saturating pending-observation accumulator. See the
+[OC1 contract](../pseudo-source/reference/oc1_knock_contract.md).
+Next are scheduled knock decay/fault handling and the normal-spark observation
+consumer, plus the remaining reset/backend and injector/spark/IAC work.
+Known access widths/order and timing premises remain binding until better
+evidence supports a deliberate change. No actuator authority is granted by a host test.
 
 Truck tuning and continued stock-ROM analysis remain supported workstreams.
 They use the same evidence with separate calibration/image identities.
@@ -105,7 +107,9 @@ failures check prefix exits. The complete REF adds 2,502 handler cases, 143 I/O
 failure comparisons, 38 direct timer-entry cases and 293 verified calibration bytes.
 All 423 scoped instruction starts are exercised; two guards need direct driver
 entry because the complete-handler producer limits their input. This is coverage,
-not all-state equivalence. The simulator has 17 CPU/GUI/real-ROM tests and its
+not all-state equivalence. OC1 adds 261,632 numeric cases, 16 failure prefixes and
+1,280 REF/OC1 sequences, covering all 34 handler instructions and 128 table bytes.
+The simulator has 17 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 
 EQ-11 retains additional joined state combinations. EQ-12/13 cover physical
