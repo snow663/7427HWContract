@@ -23,8 +23,9 @@ typedef enum {
     PCM_SLOT_04, PCM_SLOT_05, PCM_SLOT_06, PCM_SLOT_07,
     PCM_SLOT_08, PCM_SLOT_09, PCM_SLOT_0A, PCM_SLOT_0B,
     PCM_SLOT_0C, PCM_SLOT_0D, PCM_SLOT_0E, PCM_SLOT_0F,
-    PCM_REFERENCE_BODY, PCM_OC1_BODY, PCM_SCI_BODY,
-    PCM_RESET_CPU, PCM_RESET_OUTPUTS, PCM_RESET_RAM,
+    PCM_REFERENCE_BODY, /* Remaining REF751B..77C6 after the implemented prefix. */
+    PCM_OC1_BODY, PCM_SCI_BODY,
+    PCM_RESET_ENTRY, PCM_RESET_RAM,
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
     PCM_RESET_SERIAL, PCM_TASK_COUNT
 } PcmTask;
@@ -51,6 +52,8 @@ typedef struct {
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
     uint16_t run_counter_clear_threshold;
+    uint16_t board_startup_word;
+    uint16_t reference_compare_counts[64]; /* stock words465D..46DC */
     uint8_t initial_phase;
 } PcmCalibration;
 
@@ -86,11 +89,18 @@ typedef struct {
     uint8_t current_output;            /* RAM014C */
 } PcmRuntime;
 
+typedef struct {
+    volatile uint8_t rpm_coordinate;    /* RAM0062, not engineering RPM */
+    volatile bool latch_inhibited;     /* RAM0044.4, distinct from0051.3 */
+    volatile bool pending;             /* RAM0050.5: one bit, never a count */
+} PcmReference;
+
 typedef struct Pcm {
     const PcmPlatform *platform; /* immutable bindings can live in ROM */
     const PcmCalibration *calibration;
     PcmScheduler scheduler;
     PcmRuntime runtime;
+    PcmReference reference;
     PcmTask unresolved_task;
     void *application;                 /* tests/strategy-owned explicit state */
 } Pcm;

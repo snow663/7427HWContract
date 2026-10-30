@@ -17,7 +17,7 @@ src/idle/iac_control.c,pcm_iac_control,dependency_boundary,93D0: Main idle-air c
 src/idle/iac_step.c,pcm_iac_step,dependency_boundary,91A3: Per-tick idle-air phase service.,Implement the named body and compare observable state/transactions
 src/interrupts/oc1_irq.c,pcm_oc1_irq,dependency_boundary,FFE8 -> CE7C. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
 src/interrupts/periodic_irq.c,pcm_periodic_irq,implemented_outline,793D..7989. Actual interrupt entry/RTI and SP recovery need target,Retain source/ROM checks; target ABI and timing still need verification
-src/interrupts/reference_irq.c,pcm_reference_irq,dependency_boundary,FFF2 -> 74EA. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
+src/interrupts/reference_irq.c,pcm_reference_irq,implemented_outline,74EA..751B: REF compare/strobes/pending latch; remaining751B..77C6 is PCM_REFERENCE_BODY.,Port the remaining reference-event/fuel body and target entry/RTI frame
 src/interrupts/sci_irq.c,pcm_sci_irq,dependency_boundary,FFD6 -> F7EA. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
 src/kernel/dispatch_fast.c,pcm_dispatch_fast,implemented_outline,79D9..7A44. Fields are sampled at their own gates. Callees may,Retain source/ROM checks; target ABI and timing still need verification
 src/kernel/dispatch_slot.c,pcm_dispatch_slot,implemented_outline,7A44..7AA5. Addresses become linker-assigned C function pointers. */,Retain source/ROM checks; target ABI and timing still need verification
@@ -50,8 +50,9 @@ src/slots/slot_0f.c,pcm_slot_0f,dependency_boundary,"7B5A, table word 7AA3.",Imp
 src/spark/alternate_rpm.c,pcm_alternate_rpm,dependency_boundary,AC51: Alternate reference-period RPM and board-request path.,Implement the named body and compare observable state/transactions
 src/spark/spark_control.c,pcm_spark_control,dependency_boundary,A466: Load conversion reference consumption and spark-control group.,Implement the named body and compare observable state/transactions
 src/startup/reset_controllers.c,pcm_reset_controllers,dependency_boundary,stage 7392..7431: Controller state seeds and hardware baselines.,Implement the named body and compare observable state/transactions
-src/startup/reset_cpu.c,pcm_reset_cpu,dependency_boundary,stage 7100..7144: CPU mode register relocation and chip-select setup.,Implement the named body and compare observable state/transactions
-src/startup/reset_outputs.c,pcm_reset_outputs,dependency_boundary,stage 7144..7164: Literal ASIC initialization and output transaction sequence.,Implement the named body and compare observable state/transactions
+src/startup/reset_cpu.c,pcm_reset_cpu,implemented_outline,CC7C..CCC0 plus711F..712B: ordered CPU/chip-select/board writes after reset-entry prelude.,Target early-reset assembly must establish the entry precondition; retain differential transaction checks
+src/startup/reset_entry.c,pcm_reset_entry,dependency_boundary,7100..711C: target assembly establishes SP/CCR INIT and timed CPU setup before C entry.,Implement target startup and verify the precondition without resetting SP inside a C call frame
+src/startup/reset_outputs.c,pcm_reset_outputs,implemented_outline,712B..7164: control readback SCSR/SCDR word read and29 literal zero-word transactions.,Target bus byte order and physical output effects remain hardware evidence work
 src/startup/reset_ram.c,pcm_reset_ram,dependency_boundary,stage 7164..718A: Working and serial RAM initialization.,Implement the named body and compare observable state/transactions
 src/startup/reset_retained.c,pcm_reset_retained,dependency_boundary,stage 71C3..7392: ROM validation retained checksums and recovery bookkeeping.,Implement the named body and compare observable state/transactions
 src/startup/reset_sensors.c,pcm_reset_sensors,dependency_boundary,stage 718A..71C3: Initial samples and factory-mode admission boundary.,Implement the named body and compare observable state/transactions
