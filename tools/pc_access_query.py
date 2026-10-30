@@ -86,7 +86,7 @@ def print_table(rows: list[dict[str, str]], limit: int) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--map', default='maps/full/hardware_access_map_v0.2.csv', help='hardware access CSV')
+    ap.add_argument('--map', default='maps/full/hardware_access_map_v0.3.csv', help='hardware access CSV')
     ap.add_argument('--addr', help='address to match, e.g. 0x3FCE or $301E')
     ap.add_argument('--subsystem', help='subsystem filter, e.g. FUEL_SCHED_TIMER')
     ap.add_argument('--pc', help='PC filter, e.g. 0x8512')

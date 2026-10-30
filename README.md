@@ -1,166 +1,77 @@
 # 7427HWContract
 
-Working repository for GM `16197427` (`7427`) `$31` PCM reverse engineering, truck-runtime decoding, tuning support, hardware-contract capture, and replacement-OS development.
+GM16197427 / $31 PCM hardware contracts, stock BMHM reverse engineering,
+modular replacement-firmware source, ROM simulation and tuning references.
 
-`docs/WORKING_STATE.md` is the single live project-state authority.
+[Working state](docs/WORKING_STATE.md) is the single live project-state index.
+Older investigations and prototype build records retain their original scope.
 
-## Current truck baseline
+## Current work
 
-```text
-PCM:                 16197427
-mask:                $31
-engine:              L19 7.4L TBI
-current running BIN: 2.bin
-2.bin SHA-256:       2387d708c8d4cc82b78fabda579e48b7daef79f331543a54b669b70b6262877e
-```
+| Workstream | Start here | Status |
+|---|---|---|
+| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 63 public routine files; host-checked kernel, explicit unfinished bodies and a verified base-fuel calculation |
+| Factory behavior and hardware | [Ownership closure](docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md) | ROM-backed access, arithmetic, state and interface contracts |
+| Timing and interrupts | [Timing closure](docs/analysis/FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md) | Conditional source/deadline/stack contracts; physical premises remain explicit |
+| Remaining information | [Equivalence ledger](docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md) | Scoped specifications plus identified ROM/device/board/module work |
+| Truck tuning | [Runtime workflow](docs/TRUCK_FIRST_RUNTIME_DECODING.md) | Use the exact current tune and matching logs for calibration-specific conclusions |
+| ROM simulator | [hac31_romsim/](hac31_romsim/README.md) | Existing clickable GUI and instruction/peripheral fixtures |
 
-`2.bin` is the current calibration-value authority for truck behavior and byte-specific tuning analysis.
+The user restored the **regular 0.3.12 tune** after the temporary 1800 readback
+probe. Its exact normal-image filename and SHA-256 are not asserted here.
+The old `2.bin` snapshot is historical and is not the current calibration
+value authority. No old pressure, injector, VSS or table value is promoted to
+current tune fact without checking the current image and observations.
 
-The stock BMHM/HAC source remains the algorithm/dataflow/hardware-interface authority:
+## Evidence authority
 
-```text
-source/31/BMHM_HAC_ORG_7100_to_end.asm
-```
-
-Do not substitute stock calibration values for current `2.bin` values when analyzing the running truck.
-
-## Active project posture
-
-The active workstream is truck-first stock `$31` runtime/calibration decoding and tuning.
-
-Current focus includes:
+Stock BMHM SHA-256:
 
 ```text
-road-log reconstruction
-fuel / VE / PE / AE / BLM behavior
-spark / knock behavior
-VSS authority audit/removal for the manual truck
-ALDL field timing and causality
-capture of reusable stock behavior as durable contracts
+6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004
 ```
 
-Replacement-OS development is preserved at its current checkpoint and advances when intentionally selected or when runtime decoding produces reusable hardware/algorithm contracts.
+Actual hash-identified ROM bytes take precedence over conflicting HAC labels.
+The original listing remains preserved in
+[source/31/](source/README.md); mapped 4000..FFFF evidence is committed in
+[maps/structure/](maps/README.md). BIN padding below 4000 is not runtime RAM.
+Source-only maps are useful indexes, not stronger evidence than rooted,
+ROM-checked access and state contracts.
 
-Workflow authority:
+The test probe returned a checksum-valid 24-byte all-zero sample from actual
+CPU 1800..1817. [The observation](pseudo-source/reference/1800_readback.md)
+records its image identity and limits. It does not prove RAM backing or
+writability, and the optional module/loader is outside the initial C scope.
 
-```text
-docs/TRUCK_FIRST_RUNTIME_DECODING.md
+## Verification
+
+```sh
+python -m unittest discover -s tests -p 'test_factory_*.py' -v
+python pseudo-source/tests/run_checks.py
+python tools/verify_repository_hygiene.py
 ```
 
-## Current authority order
+From `hac31_romsim/`, run `python -m unittest discover -s tests -v`.
 
-```text
-1. docs/WORKING_STATE.md
-2. docs/TRUCK_FIRST_RUNTIME_DECODING.md
-3. current docs/contracts/*.md and maps/contracts/*.csv
-4. current investigation/reassessment docs, respecting explicit supersession
-5. source/31/BMHM_HAC_ORG_7100_to_end.asm
-6. current running 2.bin for calibration-byte truth
-7. source/replacement_os/* for replacement-OS implementation
-8. frozen V1 planning documents/maps
-9. docs/closeout/* as historical checkpoints only
-```
+The current C work is a host-compilable source outline, not a target image
+build. Its implemented kernel checks and 532 compiled-C base-fuel/ROM cases
+are separate from the 190 factory tests. The target hardware backend,
+startup/vector assembly, final linker/calibration layout and HC11 cycle/stack
+checks remain next work. [CMake instructions](pseudo-source/README.md) are
+also available and checked in CI.
 
-Git history is the version record. Do not create parallel `almost-the-same` live-state documents.
+## Historical and retained material
 
-## Important current runtime contracts
+- [Earlier assembly prototypes](source/replacement_os/README.md) preserve
+  bootstrap/read-only/debug proofs; they are separate from the active C source.
+- [Earlier minimal output slices](source/minimal_os/README.md) retain their
+  original source/bench limitations.
+- [Frozen V1 design](docs/planning/README.md) and
+  [planning maps](maps/planning/README.md) are optional reference inputs.
+- [Dated investigations](docs/investigations/README.md) describe the image/log
+  snapshot named in each document.
+- [Closeout records](docs/closeout/README.md) are historical checkpoints.
 
-```text
-docs/contracts/SPARK_ALDL_KR_ORDERING_CONTRACT.md
-docs/contracts/SPARK_UPSTREAM_MODIFIER_CONTRACT.md
-docs/contracts/ALDL_SERIALIZATION_TIMING_CONTRACT.md
-docs/contracts/FUEL_CALCULATION_TRACE_CONTRACT.md
-```
-
-Locked tuning interpretations include:
-
-```text
-ALDL Spark Advance = post-normal-KR spark
-ALDL Knock Retard  = amount normal knock logic removed
-```
-
-and:
-
-```text
-ALDL row != one atomic PCM snapshot
-```
-
-The `$31` transmitter live-dereferences fields while serializing them, so fast-event causality must account for field-order timing skew.
-
-Factory-code documentation now includes [engine calculations](docs/analysis/FACTORY_ENGINE_CALCULATION_CLOSURE.md),
-[IAC/speed/governor](docs/analysis/FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md),
-[diagnostics/transmission/emissions](docs/analysis/FACTORY_DIAGNOSTICS_TRANSMISSION_EMISSIONS_CLOSURE.md),
-and [serial/service/factory test](docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md).
-The [global ROM structure audit](docs/analysis/FACTORY_GLOBAL_STRUCTURE_AUDIT.md)
-records vector-rooted execution structure and direct state owners. The
-[ownership closure](docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md) adds all951
-indexed-address contracts, writing-helper caller bindings, flag co-writers and
-gate lifetimes, with supplied-code and physical interfaces explicitly graded.
-
-## Current VSS conclusion
-
-The running `2.bin` contains real fuel/mixture/idle/spark consumers of raw or filtered VSS.
-
-There is no globally neutral forced VSS value. For the manual/cable-speedometer truck, VSS should be removed from required engine authority consumer-by-consumer while optional acquisition/telemetry may remain.
-
-Authority:
-
-```text
-docs/investigations/BIN2_VSS_AUTHORITY_AUDIT_2026-08-20.md
-docs/investigations/VSS_FUELING_TRANSPORT_REASSESSMENT_2026-08-20.md
-maps/analysis/bin2_vss_consumer_audit.csv
-```
-
-The transport reassessment supersedes earlier statements that inferred exact internal VSS/BPW ordering from adjacent ALDL rows.
-
-## Replacement-OS checkpoint
-
-Maintainable modular source:
-
-```text
-source/replacement_os/7427_rom.asm
-source/replacement_os/include/*.inc
-source/replacement_os/core/*.asm
-source/replacement_os/hal/*.asm
-```
-
-Current proof stages:
-
-```text
-Milestone A  bootstrap/vectors       PROVEN BUILD
-Milestone B  read-only ADC/REF path  PROVEN BUILD; live hardware proof pending
-Milestone C  engine-off ALDL         SOURCE READY; assembly/bench proof pending
-```
-
-No observability milestone grants production fuel, spark, IAC, pump, or auxiliary-output authority.
-
-## Source-derived calibration/data trace
-
-A broader raw-source trace package is indexed under:
-
-```text
-maps/source_trace/README.md
-```
-
-It contains source-derived ORG/data/XDF-seed inventory metadata. Source comments and raw declarations are preserved as evidence; unknown scaling remains unknown rather than being guessed.
-
-## Experimental tools
-
-```text
-hac31_romsim/
-tools/distributor_phasing_sim.py
-```
-
-`hac31_romsim/` is the contract-driven MC68HC11/7427 ROM simulator. Its native clickable operator GUI loads and executes real BIN images behind a modeled memory, RAM, HC11 peripheral, and external-I/O bus; provides Run/Pause/Reset, stepping, live inputs, raw ADC controls, scenarios, breakpoints, interrupts, memory inspection, and chronological trace/output views; and keeps modeled or HAC-derived behavior visibly below repository contracts and bench proof.
-
-The distributor-phasing simulator is an exploratory geometry tool, not stock `$31` ignition-algorithm authority.
-
-## Historical records
-
-`docs/closeout/` contains prior audits/checkpoints. They remain useful provenance, but their old `next step`, `current state`, or branch-status language does not override `docs/WORKING_STATE.md`.
-
-See:
-
-```text
-docs/closeout/README.md
-```
+[Repository audit](docs/REPOSITORY_AUDIT.md) explains the current cleanup,
+retired exports and validation. Git history preserves removed artifacts;
+we keep the original source, required generated evidence and useful proofs.

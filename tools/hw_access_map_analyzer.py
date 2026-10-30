@@ -78,7 +78,7 @@ def parse_int_hex(s: str) -> int:
 def classify_address(addr: Optional[int]) -> str:
     if addr is None:
         return "UNKNOWN"
-    if 0x3000 <= addr <= 0x303F:
+    if 0x3000 <= addr <= 0x305F:
         return "HC11_REG"
     if 0x3F00 <= addr <= 0x3FFF:
         return "ASIC_3FXX"

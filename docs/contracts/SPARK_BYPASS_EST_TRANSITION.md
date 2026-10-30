@@ -24,7 +24,7 @@ This is an authority-transfer contract, not spark math and not a spark writer.
 This pass uses the committed static baseline:
 
 ```text
-maps/full/hardware_access_map_v0.2.csv
+maps/full/hardware_access_map_v0.3.csv
 ```
 
 Do not reference `hardware_access_map_v0.3.csv` until it is generated and committed.

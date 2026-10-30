@@ -61,19 +61,18 @@ differences remain local byte authority rather than a claim that the entire
 global source overlay is corrected. Use `FACTORY_IDLE_SPEED_CONTROL_CLOSURE.md`
 and `python tools/verify_factory_idle_governor.py --check-recorded` (or `--rom`).
 
-## Current hardware-access outputs
+## Listing-derived hardware-access outputs
 
 ```text
 maps/current/hardware_access_map_hw_only.csv
 maps/current/hardware_test_matrix.csv
 maps/current/HARDWARE_TEST_MATRIX.md
 maps/full/hardware_access_map_v0.3.csv
-maps/by_subsystem/*.csv
 ```
 
-`maps/full/hardware_access_map_v0.3.csv` is the current full generated static-access map.
+`maps/full/hardware_access_map_v0.3.csv` is the retained full generated listing-access map. Historical `maps/by_subsystem/` splits have their own frozen scope in `maps/by_subsystem/SPLIT_INDEX.md`; they are not the current query defaults.
 
-`maps/full/hardware_access_map_v0.2.csv` is retained only as historical generated evidence. It must not be treated as newer authority than v0.3.
+The superseded v0.2 full export has been retired; its identity is recorded in `maps/maintenance/retired_artifacts.csv`. Active query/build defaults use v0.3. Both are listing-derived inventories; ROM-backed `maps/structure/factory_global_hardware_accesses.csv` is the stronger hardware access authority.
 
 The hardware-map regeneration workflow explicitly targets v0.3.
 
@@ -83,7 +82,7 @@ The hardware-map regeneration workflow explicitly targets v0.3.
 maps/analysis/bin2_vss_consumer_audit.csv
 ```
 
-For current truck behavior, `2.bin` is the running calibration-value authority. See `docs/WORKING_STATE.md`.
+The `bin2_*` maps describe the historical `2.bin` snapshot. The user restored the regular0.3.12 tune after the readback test; current calibration-byte facts require that exact normal image. See `docs/WORKING_STATE.md`.
 
 ## Source-trace index
 
@@ -99,10 +98,10 @@ Source-derived rows are evidence/index material. Do not promote guessed scaling,
 
 ```text
 maps/planning/*.csv
-maps/telemetry/v1_adx_manifest.csv
+maps/telemetry/v1_*.csv
 ```
 
-These remain frozen semantic-design requirements for the replacement-OS workstream. They do not override built ROM placement or current truck calibration values.
+These preserve the earlier V1 design. They are historical planning inputs and do not constrain the active `pseudo-source/` design unless explicitly adopted.
 
 ## Regeneration rule
 

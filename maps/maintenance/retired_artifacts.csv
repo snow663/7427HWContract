@@ -1,0 +1,4 @@
+path,git_blob_sha,size_bytes,reason,replacement,last_tree_commit
+maps/full/hardware_access_map_v0.2.csv,38bc14ff3e5849243988f930fa9ac4491adb7ad0,1521785,Superseded generated listing inventory; active callers moved to v0.3,maps/full/hardware_access_map_v0.3.csv,f4238b766ef083bf7c088f6e111b1a73149c9f7a
+docs/ASIC_Register_Contract.md,2e32df183f979a848d3f21f041dbf67646370f3a,187531,Unreferenced coarse per-address export; superseded by ROM-backed access contracts,docs/analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md;maps/structure/factory_global_hardware_accesses.csv,f4238b766ef083bf7c088f6e111b1a73149c9f7a
+tools/build_v02_outputs.py,4cae3d690f4d337248f8ca33ca8ed32f2de3305a,13621,Obsolete one-off exporter requiring absent /mnt/data v0.1 inputs,tools/build_hw_map.py,f4238b766ef083bf7c088f6e111b1a73149c9f7a

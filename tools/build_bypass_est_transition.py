@@ -587,7 +587,7 @@ def require(path: str | Path) -> None:
 def write_csv(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS)
+        writer = csv.DictWriter(f, fieldnames=FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(ROWS)
 
@@ -621,7 +621,7 @@ def write_md(path: Path) -> None:
         "This pass uses the committed static baseline:",
         "",
         "```text",
-        "maps/full/hardware_access_map_v0.2.csv",
+        "maps/full/hardware_access_map_v0.3.csv",
         "```",
         "",
         "Do not reference `hardware_access_map_v0.3.csv` until it is generated and committed.",
@@ -775,7 +775,7 @@ def write_md(path: Path) -> None:
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--source", default="source/31/BMHM_HAC_ORG_7100_to_end.asm")
-    p.add_argument("--map", default="maps/full/hardware_access_map_v0.2.csv")
+    p.add_argument("--map", default="maps/full/hardware_access_map_v0.3.csv")
     p.add_argument("--name", default="SPARK_BYPASS_EST_TRANSITION")
     p.add_argument("--watch", action="append", default=[])
     p.add_argument("--out-md", required=True)

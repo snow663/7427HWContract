@@ -229,7 +229,7 @@ def main() -> int:
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     fields = ['routine','pc','mnemonic','operands','access_type','effective_address','address_class','width','value_source','a_source','b_source','d_source','x_source','y_source','branch_target','call_target','hardware_role_candidate','notes','confidence']
     with out_csv.open('w', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, fieldnames=fields)
+        w = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         w.writeheader(); w.writerows(out_rows)
 
     out_md = resolve_path(args.out_md)

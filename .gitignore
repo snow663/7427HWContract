@@ -3,3 +3,7 @@ __pycache__/
 *.tmp
 *.bak
 .DS_Store
+
+# Local verification outputs and interrupted generated-file writes
+build/
+.factory_*.csv.*

@@ -149,7 +149,7 @@ def write_csv(helper_body: list[dict[str, str]], callers: list[dict[str, str]], 
     out.parent.mkdir(parents=True, exist_ok=True)
     fields = ["helper","pc","mnemonic","operands","access_type","effective_address","address_class","register_read","register_write","memory_read","memory_write","operation_class","input_candidate","output_candidate","scale_candidate","caller_pc","caller_context","notes","confidence"]
     with out.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=fields)
+        w = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         w.writeheader()
         for row in helper_body:
             ea = effective_address(row)

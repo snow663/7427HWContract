@@ -9,6 +9,7 @@ permissions:
 jobs:
   regenerate-hardware-map:
     name: Regenerate hardware map outputs
+    if: github.ref_type == 'branch'
     runs-on: ubuntu-latest
 
     steps:
@@ -27,9 +28,10 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pandas
 
-      - name: Regenerate build_hw_map outputs
+      - name: Regenerate listing inventory and test views
         run: |
           python tools/build_hw_map.py
+          python tools/trace_matrix_builder.py
 
       - name: Show regenerated output diff
         run: |
@@ -39,7 +41,9 @@ jobs:
             docs/STATIC_ANALYSIS_SUMMARY.md \
             docs/VARIABLE_DEPENDENCY_GRAPH.md \
             maps/current/hardware_access_map_hw_only.csv \
-            maps/full/hardware_access_map_v0.3.csv
+            maps/full/hardware_access_map_v0.3.csv \
+            maps/current/hardware_test_matrix.csv \
+            maps/current/HARDWARE_TEST_MATRIX.md
 
       - name: Commit regenerated outputs
         run: |
@@ -50,12 +54,14 @@ jobs:
             docs/STATIC_ANALYSIS_SUMMARY.md \
             docs/VARIABLE_DEPENDENCY_GRAPH.md \
             maps/current/hardware_access_map_hw_only.csv \
-            maps/full/hardware_access_map_v0.3.csv
+            maps/full/hardware_access_map_v0.3.csv \
+            maps/current/hardware_test_matrix.csv \
+            maps/current/HARDWARE_TEST_MATRIX.md
           if git diff --cached --quiet; then
             echo "No regenerated hardware map output changes to commit."
           else
             git commit -m "Regenerate hardware access map outputs"
-            git push origin HEAD:main
+            git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
 
       - name: Verify static artifact builders after regeneration

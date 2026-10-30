@@ -284,7 +284,7 @@ def write_md(path: Path) -> None:
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--source", default="source/31/BMHM_HAC_ORG_7100_to_end.asm")
-    p.add_argument("--map", default="maps/full/hardware_access_map_v0.2.csv")
+    p.add_argument("--map", default="maps/full/hardware_access_map_v0.3.csv")
     p.add_argument("--name", default="IAC_IDLE_AIR_OUTPUT")
     p.add_argument("--out-md", required=True)
     p.add_argument("--out-csv", required=True)
