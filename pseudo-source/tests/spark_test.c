@@ -21,7 +21,12 @@ static const Mapping state_map[]={
     B(0x1fa,spark.mat_magnitude),B(0x1fb,spark.altitude_advance),B(0x1fc,spark.pe_advance),
     W(0x1fd,spark.composite),B(0x20a,knock.scaled_activity),B(0x20b,knock.adaptive_retard),
     B(0x22f,spark.mat_sample),B(0x278,spark.pe_fraction),B(0x2cb,spark.startup_adder),
-    B(0x83c,spark.mat_effect),B(0x841,knock.octane_rpm_factor),B(0x843,knock.event_gain),B(0x844,knock.retard_limit)
+    B(0x83c,spark.mat_effect),B(0x841,knock.octane_rpm_factor),B(0x843,knock.event_gain),B(0x844,knock.retard_limit),
+    B(0x63,spark.rpm_high),B(0x64,spark.rpm_fraction),B(0x6c,spark.idle_derivative),W(0xfd,scheduler.run_counter),
+    F(0x46,0x08,runtime.deceleration_fuel_cut),F(0x51,0x20,spark.recovery_active),F(0x53,0x01,spark.idle_negative),
+    B(0x1d9,reference.throttle),W(0x1f2,spark.startup_recovery_gain),B(0x208,spark.decel_retard),
+    B(0x837,spark.transient_target),W(0x838,spark.transient_filtered),B(0x83a,spark.transient_error),
+    B(0x83b,spark.transient_correction),B(0x857,spark.iac_desired_speed),B(0x284,spark.vehicle_speed_high)
 };
 #undef B
 #undef W
@@ -29,7 +34,7 @@ static const Mapping state_map[]={
 #define B(a,m) {a,8,0,1,offsetof(PcmCalibration,m)}
 #define A(a,n,m) {a,8,0,n,offsetof(PcmCalibration,m)}
 static const Mapping root_map[]={
-    B(0x400b,reference.mode_b),B(0x400d,mode_d),B(0x45da,knock.minimum_coolant),
+    B(0x400b,reference.mode_b),B(0x400d,mode_d),B(0x400f,mode_f),B(0x45da,knock.minimum_coolant),
     A(0x4585,8,knock.pe_retard_cap),A(0x458d,7,knock.cruise_retard_cap),
     A(0x4594,17,knock.event_gain_curve),A(0x45be,9,knock.octane_rpm),A(0x45c7,17,knock.octane_load)
 };
@@ -37,20 +42,30 @@ static const Mapping root_map[]={
 #undef A
 #define B(a,m) {a,8,0,1,offsetof(PcmSparkCalibration,m)}
 #define A(a,n,m) {a,8,0,n,offsetof(PcmSparkCalibration,m)}
+#define W(a,m) {a,16,0,1,offsetof(PcmSparkCalibration,m)}
 static const Mapping spark_map[]={
     B(0x43ae,coolant_mode),B(0x4439,mat_mode),B(0x485f,egr_mode),B(0x485e,egr_gain),
     B(0x413b,base_bias),B(0x413c,coolant_bias),B(0x413d,altitude_bias),B(0x413e,egr_bias),
     B(0x413f,mat_bias),B(0x4140,idle_coolant_threshold),B(0x55f2,transmission_bias),
-    A(0x449d,17,mat_negative_gain),A(0x44ae,17,mat_positive_gain),A(0x44bf,17,pe_curve)
+    A(0x449d,17,mat_negative_gain),A(0x44ae,17,mat_positive_gain),A(0x44bf,17,pe_curve),
+    B(0x415a,idle_speed_limit),B(0x415b,idle_throttle_entry),B(0x415c,idle_throttle_retained),
+    B(0x415d,idle_coolant_minimum),W(0x415e,idle_runtime_minimum),B(0x4160,idle_target_adder),
+    B(0x4514,idle_bias),B(0x4515,idle_positive_cap),A(0x451b,17,idle_derivative_curve),
+    B(0x46f2,transient_coolant_minimum),B(0x46f3,transient_coolant_maximum),A(0x46f4,5,transient_gain),
+    A(0x46ec,3,transient_positive),A(0x46ef,3,transient_negative),B(0x414f,recovery_gain),
+    B(0x4150,recovery_fast_gain),B(0x4151,recovery_throttle),B(0x4152,decel_base)
 };
 #undef B
 #undef A
+#undef W
 typedef struct { uint16_t address,capacity;size_t offset; } TableMapping;
 #define T(a,n,m) {a,n,offsetof(PcmSparkCalibration,m)}
 static const TableMapping tables[]={T(0x4166,289,base_normal),T(0x428a,289,base_idle),
     T(0x43af,144,coolant),T(0x44d5,66,altitude),T(0x443a,109,mat),T(0x4860,79,egr)};
+static const TableMapping curves[]={T(0x44f0,8,idle_negative_speed),T(0x44f8,10,idle_negative_load),
+    T(0x4502,8,idle_positive_speed),T(0x450a,10,idle_positive_load)};
 #undef T
-typedef struct { uint8_t memory[65536],present[65536],data[6][527]; } Fixture;
+typedef struct { uint8_t memory[65536],present[65536],data[6][527],curve_data[4][17]; } Fixture;
 static uint16_t word(const uint8_t *m,uint16_t a)
 { return (uint16_t)((uint16_t)m[a]*256u+m[(uint16_t)(a+1u)]); }
 static void transfer(void *object,uint8_t *memory,const Mapping *map,size_t count,bool load)
@@ -89,7 +104,18 @@ static void defaults(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
         const Mapping *map=group?spark_map:root_map;
         size_t count=group?sizeof(spark_map)/sizeof(spark_map[0]):sizeof(root_map)/sizeof(root_map[0]);
         const uint8_t *object=group?(const uint8_t *)spark:(const uint8_t *)root;
-        for (size_t i=0;i<count;++i) for (unsigned j=0;j<map[i].count;++j) put(f,map[i].address+j,object[map[i].offset+j]);
+        for (size_t i=0;i<count;++i) {
+            if (map[i].width==16) {
+                uint16_t value=*(const uint16_t *)(const void *)(object+map[i].offset);
+                put(f,map[i].address,(uint8_t)(value>>8));put(f,map[i].address+1,(uint8_t)value);
+            } else for (unsigned j=0;j<map[i].count;++j) put(f,map[i].address+j,object[map[i].offset+j]);
+        }
+    }
+    for (unsigned i=0;i<4;++i) {
+        const TableMapping *map=&curves[i];
+        const PcmCappedCurve *v=(const PcmCappedCurve *)(const void *)((const uint8_t *)spark+map->offset);
+        CHECK(v->length==map->capacity);put(f,map->address,v->limit);
+        for (unsigned j=0;j<v->length;++j) put(f,map->address+1+j,v->values[j]);
     }
 }
 static void init(Fixture *f,Pcm *pcm,PcmCalibration *root,PcmSparkCalibration *spark)
@@ -100,6 +126,8 @@ static void init(Fixture *f,Pcm *pcm,PcmCalibration *root,PcmSparkCalibration *s
     defaults(f,root,spark);
     for (unsigned i=0;i<527;++i) f->memory[0x6003+i]=(uint8_t)(i*73u+(i>>2)*19u+41u);
     f->memory[0x6002]=17;f->memory[0x5ffe]=2;f->memory[0x5fff]=15; /* length527 */
+    f->memory[0x6300]=128;f->memory[0x905]=17;
+    for (unsigned i=0;i<17;++i) f->memory[0x6301+i]=(uint8_t)(i*73u+(i>>2)*19u+41u);
 }
 static void load_cal(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
 {
@@ -109,6 +137,13 @@ static void load_cal(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
         const TableMapping *map=&tables[i];PcmTable2D *v=(PcmTable2D *)(void *)((uint8_t *)spark+map->offset);
         v->row_offset=f->memory[map->address];v->column_offset=f->memory[map->address+1];v->stride=f->memory[map->address+2];
         v->values=f->data[i];memcpy(f->data[i],f->memory+map->address+3,map->capacity);
+    }
+    for (unsigned i=0;i<4;++i) {
+        const TableMapping *map=&curves[i];PcmCappedCurve *v=(PcmCappedCurve *)(void *)((uint8_t *)spark+map->offset);
+        v->limit=f->memory[map->address];v->values=f->curve_data[i];
+        /* Test-only profile expansion exposes coordinates hidden by stock caps. */
+        v->length=f->memory[0x906]?17:(uint8_t)map->capacity;
+        memcpy(f->curve_data[i],f->memory+map->address+1,v->length);
     }
 }
 static void contracts(void)
@@ -147,9 +182,39 @@ static void contracts(void)
     pcm.spark.egr_active=true;CHECK(pcm_spark_egr(&pcm)==PCM_BAD_CONFIGURATION && pcm.spark.egr_filtered==0x1700);
     puts("Spark calibration, matrix bounds, retained routes and failure-prefix contracts pass.");
 }
+static void modifier_contracts(void)
+{
+    static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
+    const PcmRoutine routines[]={pcm_spark_idle,pcm_spark_transient,pcm_spark_decel,pcm_spark_modifiers,pcm_spark_composite};
+    for (unsigned i=0;i<5;++i) {
+        init(&f,&pcm,&root,&spark);pcm.calibration=NULL;CHECK(routines[i](&pcm)==PCM_BAD_CONFIGURATION);
+        init(&f,&pcm,&root,&spark);root.spark=NULL;CHECK(routines[i](&pcm)==PCM_BAD_CONFIGURATION);
+        init(&f,&pcm,&root,&spark);CHECK(routines[i](&pcm)==PCM_OK);
+    }
+    uint8_t values[17]={0},result=222;PcmCappedCurve curve={255,17,values};
+    CHECK(pcm_lookup_capped(0,NULL,&result)==PCM_BAD_CONFIGURATION && result==222);
+    CHECK(pcm_lookup_capped(0,&curve,NULL)==PCM_BAD_CONFIGURATION);
+    curve.values=NULL;CHECK(pcm_lookup_capped(0,&curve,&result)==PCM_BAD_CONFIGURATION && result==222);
+    curve.values=values;curve.length=1;CHECK(pcm_lookup_capped(0,&curve,&result)==PCM_BAD_CONFIGURATION && result==222);
+    curve.length=8;curve.limit=112;CHECK(pcm_lookup_capped(255,&curve,&result)==PCM_BAD_CONFIGURATION && result==222);
+    curve.limit=96;CHECK(pcm_lookup_capped(255,&curve,&result)==PCM_OK);
+    init(&f,&pcm,&root,&spark);pcm.reference.coolant=200;pcm.spark.idle_feedback=true;
+    pcm.spark.rpm_high=1;pcm.spark.composite=0x1234;spark.idle_negative_speed.values=NULL;
+    CHECK(pcm_spark_idle(&pcm)==PCM_BAD_CONFIGURATION && pcm.spark.idle_negative && pcm.spark.idle_feedback);
+    CHECK(pcm.spark.composite==0x1234);
+    pcm.reference.throttle=255;CHECK(pcm_spark_idle(&pcm)==PCM_OK && !pcm.spark.idle_feedback && pcm.spark.idle_negative);
+    init(&f,&pcm,&root,&spark);pcm.reference.coolant=200;pcm.spark.rpm_high=1;spark.idle_negative_speed.values=NULL;
+    CHECK(pcm_spark_composite(&pcm)==PCM_BAD_CONFIGURATION);
+    CHECK(pcm.spark.recent_load==0 && pcm.spark.coolant_advance!=0 && pcm.spark.idle_negative);
+    puts("Modifier calibration, capped-curve bounds, idle retention and prefix contracts pass.");
+}
 static const uint16_t outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6e,0x6f,0xa4,0x15a,
     0x1b2,0x1c0,0x1c1,0x1c2,0x1c9,0x1cc,0x1f4,0x1f5,0x1f8,0x1f9,0x1fa,0x1fb,0x1fc,
     0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844};
+static const uint16_t modifier_outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6e,0x6f,0xa4,0x15a,
+    0x1b2,0x1c0,0x1c1,0x1c2,0x1c9,0x1cc,0x1f4,0x1f5,0x1f8,0x1f9,0x1fa,0x1fb,0x1fc,
+    0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844,
+    0x63,0x64,0x6c,0xfd,0xfe,0x46,0x51,0x53,0x1d9,0x1f2,0x1f3,0x208,0x837,0x838,0x839,0x83a,0x83b,0x857,0x284};
 static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
 {
     switch (mode) {
@@ -173,6 +238,19 @@ static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
         PcmStatus status=pcm_spark_auxiliary(pcm);
         return status==PCM_OK?pcm_spark_terms(pcm):status;
     }
+    case 13: {
+        PcmCappedCurve curve={f->memory[0x6300],f->memory[0x905],f->memory+0x6301};uint8_t result=222;
+        PcmStatus status=pcm_lookup_capped(f->memory[0x900],&curve,&result);*value=result;return status;
+    }
+    case 14:return pcm_spark_idle(pcm);
+    case 15:return pcm_spark_transient(pcm);
+    case 16:return pcm_spark_decel(pcm);
+    case 17:return pcm_spark_modifiers(pcm);
+    case 18:return pcm_spark_composite(pcm);
+    case 19: {
+        PcmStatus status=pcm_spark_auxiliary(pcm);
+        return status==PCM_OK?pcm_spark_composite(pcm):status;
+    }
     default:return PCM_BAD_CONFIGURATION;
     }
 }
@@ -180,6 +258,7 @@ int main(int argc,char **argv)
 {
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
     if (argc==2 && strcmp(argv[1],"--contracts")==0) { contracts();return 0; }
+    if (argc==2 && strcmp(argv[1],"--modifier-contracts")==0) { modifier_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--defaults")==0) {
         init(&f,&pcm,&root,&spark);printf("[");bool first=true;
         for (unsigned a=0;a<65536;++a) if (f.present[a]) { printf("%s[%u,%u]",first?"":",",a,f.memory[a]);first=false; }
@@ -187,7 +266,7 @@ int main(int argc,char **argv)
     }
     unsigned mode,count;
     while (scanf("%u %u",&mode,&count)==2) {
-        if (mode>12 || count>2048) return 2;
+        if (mode>19 || count>2048) return 2;
         init(&f,&pcm,&root,&spark);
         for (unsigned i=0;i<count;++i) {
             unsigned a,v;if (scanf("%u %u",&a,&v)!=2 || a>65535 || v>255) return 2;f.memory[a]=(uint8_t)v;
@@ -197,7 +276,9 @@ int main(int argc,char **argv)
         transfer(&pcm,f.memory,state_map,sizeof(state_map)/sizeof(state_map[0]),false);
         CHECK(pcm.unresolved_task==PCM_TASK_COUNT && pcm.platform==NULL);
         printf("{\"status\":%u,\"value\":%u,\"state\":[",(unsigned)status,(unsigned)value);
-        for (size_t i=0;i<sizeof(outputs)/sizeof(outputs[0]);++i) printf("%s%u",i?",":"",f.memory[outputs[i]]);
+        const uint16_t *selected=mode>=13?modifier_outputs:outputs;
+        size_t size=mode>=13?sizeof(modifier_outputs)/sizeof(modifier_outputs[0]):sizeof(outputs)/sizeof(outputs[0]);
+        for (size_t i=0;i<size;++i) printf("%s%u",i?",":"",f.memory[selected[i]]);
         puts("]}");
     }
     return 0;

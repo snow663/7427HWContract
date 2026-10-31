@@ -145,11 +145,11 @@ The kernel regression confirms ten CB15 admissions and one learning update per
 160 phases with the selected admitted inputs.
 
 Both host verification routes retain these adaptive entries alongside the newer
-spark-terms suite, bringing CTest to 14 checks. The C inventory is 103 public
-routines: 43 implemented outlines, 39 dependency boundaries and twenty-one algorithms.
+spark-terms suite, bringing CTest to 16 checks. The C inventory is 109 public
+routines: 45 implemented outlines, 39 dependency boundaries and twenty-five algorithms.
 These counts describe source organization, not whole-firmware equivalence. Base/environmental composite
-construction is now implemented; idle/transient/decel corrections, admission,
-limits and the remaining command/output handoff still need ports.
+construction and idle/transient/decel corrections are now implemented.
+Overrides, admission, limits/service and the remaining output handoff need ports.
 
 See the [knock consumer contract](knock_control_contract.md),
 [factory upstream spark derivation](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)

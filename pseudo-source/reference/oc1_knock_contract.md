@@ -79,6 +79,6 @@ instruction/stack costs, hardware timing and final backend remain unverified.
 
 Both local verification routes include OC1 contracts and differential checks.
 The previous kernel, fuel, reset and full REF checks remain in place. The source
-inventory is 103 routines: 43 implemented outlines, 39 dependency boundaries and
-twenty-one algorithms. These counts and instruction coverage are not a whole-program
+inventory is 109 routines: 45 implemented outlines, 39 dependency boundaries and
+twenty-five algorithms. These counts and instruction coverage are not a whole-program
 equivalence percentage or a target BIN build.

@@ -87,7 +87,12 @@ matrix descriptors with explicit backing lengths; table offsets/stride retain
 the ROM arithmetic while out-of-bounds profiles return BAD_CONFIGURATION.
 Profiles and arrays can live in ROM; descriptor pointers are not a serialized
 EEPROM format. See the [spark terms contract](../reference/spark_terms_contract.md).
-Idle/transient/decel corrections, the broad root and subsequent output conversion
+Idle/transient/decel corrections now extend the contiguous body through A9DF.
+Idle direction uses unsigned target/RPM borrow; transient error is saved before
+filter update, and recovery shares the startup01F2 word and applies its final
+correction on the latch-clearing call. See the
+[modifier contract](../reference/spark_modifiers_contract.md).
+Override/limits/service work, the broad root and subsequent output conversion
 remain unfinished.
 
 ## Freedom to change algorithms
