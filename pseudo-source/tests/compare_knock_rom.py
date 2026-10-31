@@ -21,9 +21,9 @@ from verify_factory_rom_structure import EXPECTED_SHA256
 rom = recorded_rom(json.loads(EVIDENCE.read_text()))
 assert sha256(bytes([255])*0x4000+rom.read(0x4000,0xC000)).hexdigest() == EXPECTED_SHA256
 binary = sys.argv[1]
-defaults = json.loads(subprocess.check_output([binary,'--defaults'],text=True))
 addresses = (set(range(0x45A5,0x45B6)) | set(range(0x45D8,0x461B)) |
              set(range(0x461C,0x465C)) | set(range(0x4E74,0x4E78)) | {0x5B03})
+defaults = [row for row in json.loads(subprocess.check_output([binary,'--defaults'],text=True)) if row[0] in addresses]
 assert len(defaults) == len(addresses) == 153
 assert {a for a,_ in defaults} == addresses
 for address,value in defaults:

@@ -1,8 +1,10 @@
 #include "scheduler.h"
-/* Reference 7B14, table word 7A91.
- * Stock body: 7B14:CB15;7B17:CE10
- * Body binding required unless state-only slot E. */
+#include "control.h"
+#include "knock.h"
+/* 7B14..7B1A: preserve the CB15 dependency before resident CE10 learning. */
 PcmStatus pcm_slot_06(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_SLOT_06);
+    PcmStatus result = pcm_ac_switch_inputs(pcm);
+    if (result != PCM_OK) return result;
+    return pcm_low_octane_learn(pcm);
 }

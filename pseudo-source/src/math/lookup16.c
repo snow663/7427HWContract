@@ -1,6 +1,6 @@
 #include "reference_math.h"
 /* F4C1..F4DD: 16 segments, rounded absolute difference, either slope. */
-uint8_t pcm_lookup16(uint8_t input, const uint8_t knots[17])
+uint8_t pcm_lookup16(uint8_t input, const uint8_t *knots)
 {
     uint8_t index = (uint8_t)(input >> 4), fraction = (uint8_t)(input << 4);
     uint8_t first = knots[index], second = knots[index + 1u];

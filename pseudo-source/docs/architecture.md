@@ -75,8 +75,14 @@ and mux/ADC diagnostic. ADC timeout sets flags but still reaches ADR4, and
 callback failures preserve the current prefix and mask. See the
 [OC1 contract](../reference/oc1_knock_contract.md) and
 [knock control contract](../reference/knock_control_contract.md).
-The broad spark root remains delegated; gain/cap, burst, prior command and
-subsequent output conversion are explicit interfaces to unfinished work.
+Burst, low-octane learning/scaling and gain/cap production now have checked C
+routines. Slot6 preserves the CB15 input dependency before the learner, which
+samples the full phase after that dependency returns. The prior whole-slot6
+binding is replaced by the narrower AC/switch owner. Other broad roots retain
+their unfinished work; callable slices do not silently replace their remaining
+callees. See the [adaptive spark contract](../reference/adaptive_spark_contract.md).
+Prior composite command, the broad spark root and subsequent output conversion
+remain unfinished.
 
 ## Freedom to change algorithms
 

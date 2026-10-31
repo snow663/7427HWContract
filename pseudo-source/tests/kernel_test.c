@@ -82,6 +82,8 @@ static void test_initialization_and_missing_contracts(void) {
 }
 static void test_full_phase_cycle(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm); pcm.scheduler.phase=0x9f;
+    pcm.reference.coolant=200;pcm.spark.load_coordinate=128;pcm.spark.previous_load=128;
+    pcm.knock.retard=13;pcm.knock.activity=7;pcm.knock.learning_high=true;
     for (unsigned k=0;k<160;++k) {
         CHECK(pcm_periodic_irq(&pcm)==PCM_OK);
         CHECK(pcm.scheduler.phase==k && !pcm.scheduler.busy);
@@ -94,6 +96,7 @@ static void test_full_phase_cycle(void) {
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
         CHECK(f.counts[k]==(k==PCM_SLOT_0E?0u:10u));
     CHECK(f.adc_starts==10); /* Slot8 now runs its real diagnostic, without a task binding. */
+    CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==10 && pcm.knock.activity==59);
     CHECK(pcm.runtime.refresh_requested && pcm.runtime.refresh_late);
     uint16_t compare; CHECK(read16(&f,PCM_TOC3,&compare)==PCM_OK);
     CHECK(compare==(uint16_t)(819u*160u));

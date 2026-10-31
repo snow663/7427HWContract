@@ -32,3 +32,5 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
                     '-I',str(ROOT/'include'),*[str(p) for p in sources],str(ROOT/'tests/knock_test.c'),'-o',str(knock_binary)],check=True)
     subprocess.run([str(knock_binary),'--contracts'],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/compare_knock_rom.py'),str(knock_binary)],check=True)
+    subprocess.run([str(knock_binary),'--adaptive-contracts'],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tests/compare_adaptive_spark_rom.py'),str(knock_binary)],check=True)

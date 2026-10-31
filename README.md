@@ -10,7 +10,7 @@ Older investigations and prototype build records retain their original scope.
 
 | Workstream | Start here | Status |
 |---|---|---|
-| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 84 public routine files; checked kernel/reset/REF/knock logic, fixed-point algorithms and explicit unfinished bodies |
+| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 91 public routine files; checked kernel/reset/REF/adaptive-spark logic, fixed-point algorithms and explicit unfinished bodies |
 | Factory behavior and hardware | [Ownership closure](docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md) | ROM-backed access, arithmetic, state and interface contracts |
 | Timing and interrupts | [Timing closure](docs/analysis/FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md) | Conditional source/deadline/stack contracts; physical premises remain explicit |
 | Remaining information | [Equivalence ledger](docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md) | Scoped specifications plus identified ROM/device/board/module work |
