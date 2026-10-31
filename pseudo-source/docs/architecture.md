@@ -92,8 +92,14 @@ Idle direction uses unsigned target/RPM borrow; transient error is saved before
 filter update, and recovery shares the startup01F2 word and applies its final
 correction on the latch-clearing call. See the
 [modifier contract](../reference/spark_modifiers_contract.md).
-Override/limits/service work, the broad root and subsequent output conversion
-remain unfinished.
+The A9E0..AB43 command wrapper now preserves the optional 1812 dependency,
+resident override, signed upper limit, knock corrections, signed lower limit
+and post-limit service edits in order. Both RAM command stores happen even
+when service is inactive; they are not physical output writes. The module gate
+reuses the profiling 0086.6 flag. Callback fixtures establish host state effects,
+not the unknown 1812 machine ABI. See the
+[command contract](../reference/spark_command_contract.md). The broad A466 root,
+remaining admission and AB44 period/EST output conversion remain unfinished.
 
 ## Freedom to change algorithms
 

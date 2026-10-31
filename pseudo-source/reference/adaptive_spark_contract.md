@@ -28,9 +28,10 @@ now have an implemented callable wrapper; the other slot7 callees remain
 unported. See the [spark terms contract](spark_terms_contract.md). The earlier C9F7 body also remains part
 of its existing slot dependency. This step does not replace those boundaries
 with partial gain calls or change their cadence. The broad A466 spark root
-remains delegated; its future implementation must retain command preparation
-and upper limits before AA33, and lower limits/service/output conversion after
-AA81's normal-KR slice. Producer/consumer sequence tests make those handoffs
+remains delegated. The [command wrapper](spark_command_contract.md) now retains
+command preparation and the upper limit before AA33, followed by the lower
+limit and service edits after AA81's normal-KR slice. Output conversion and
+remaining root admission still need ports. Producer/consumer sequence tests make those handoffs
 reviewable without claiming the test call order is a new factory schedule.
 
 ## Named state and calibration
@@ -145,11 +146,12 @@ The kernel regression confirms ten CB15 admissions and one learning update per
 160 phases with the selected admitted inputs.
 
 Both host verification routes retain these adaptive entries alongside the newer
-spark-terms suite, bringing CTest to 16 checks. The C inventory is 109 public
-routines: 45 implemented outlines, 39 dependency boundaries and twenty-five algorithms.
+spark-terms, modifiers and command suites, bringing CTest to 18 checks. The C inventory is 116 public
+routines: 47 implemented outlines, 40 dependency boundaries and twenty-nine algorithms.
 These counts describe source organization, not whole-firmware equivalence. Base/environmental composite
 construction and idle/transient/decel corrections are now implemented.
-Overrides, admission, limits/service and the remaining output handoff need ports.
+Resident overrides and limits/service are also implemented; remaining admission,
+optional 1812 and output handoff keep explicit boundaries.
 
 See the [knock consumer contract](knock_control_contract.md),
 [factory upstream spark derivation](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)

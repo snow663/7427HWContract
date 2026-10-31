@@ -26,7 +26,12 @@ static const Mapping state_map[]={
     F(0x46,0x08,runtime.deceleration_fuel_cut),F(0x51,0x20,spark.recovery_active),F(0x53,0x01,spark.idle_negative),
     B(0x1d9,reference.throttle),W(0x1f2,spark.startup_recovery_gain),B(0x208,spark.decel_retard),
     B(0x837,spark.transient_target),W(0x838,spark.transient_filtered),B(0x83a,spark.transient_error),
-    B(0x83b,spark.transient_correction),B(0x857,spark.iac_desired_speed),B(0x284,spark.vehicle_speed_high)
+    B(0x83b,spark.transient_correction),B(0x857,spark.iac_desired_speed),B(0x284,spark.vehicle_speed_high),
+    F(0x86,0x40,scheduler.profiling_enabled),F(0x36,0x20,spark.override_request),F(0x53,0x10,spark.override_active),
+    F(0x3b,0x10,runtime.engine_service),B(0x395,spark.service_flags),B(0x398,spark.service_amount),
+    W(0x1ee,spark.command),W(0x1f0,spark.command_latched),B(0x16,runtime.primary_faults),
+    F(0x50,0x10,runtime.diagnostic_switch),F(0x6e,0x02,knock.burst_active),B(0x1da,spark.previous_throttle),
+    B(0x20c,knock.retard),B(0x20d,knock.observation_accumulator),B(0x20e,knock.burst_countdown),B(0x842,knock.burst_gain)
 };
 #undef B
 #undef W
@@ -36,7 +41,10 @@ static const Mapping state_map[]={
 static const Mapping root_map[]={
     B(0x400b,reference.mode_b),B(0x400d,mode_d),B(0x400f,mode_f),B(0x45da,knock.minimum_coolant),
     A(0x4585,8,knock.pe_retard_cap),A(0x458d,7,knock.cruise_retard_cap),
-    A(0x4594,17,knock.event_gain_curve),A(0x45be,9,knock.octane_rpm),A(0x45c7,17,knock.octane_load)
+    A(0x4594,17,knock.event_gain_curve),A(0x45be,9,knock.octane_rpm),A(0x45c7,17,knock.octane_load),
+    B(0x45d8,knock.minimum_speed),B(0x45d9,knock.minimum_rpm_high),B(0x4e77,knock.fault_retard),
+    B(0x46df,knock.burst_load_limit),B(0x46e0,knock.burst_throttle_limit),B(0x46e1,knock.burst_throttle_delta),
+    B(0x46e2,knock.burst_duration),B(0x48da,reference.throttle_limit)
 };
 #undef B
 #undef A
@@ -53,7 +61,11 @@ static const Mapping spark_map[]={
     B(0x4514,idle_bias),B(0x4515,idle_positive_cap),A(0x451b,17,idle_derivative_curve),
     B(0x46f2,transient_coolant_minimum),B(0x46f3,transient_coolant_maximum),A(0x46f4,5,transient_gain),
     A(0x46ec,3,transient_positive),A(0x46ef,3,transient_negative),B(0x414f,recovery_gain),
-    B(0x4150,recovery_fast_gain),B(0x4151,recovery_throttle),B(0x4152,decel_base)
+    B(0x4150,recovery_fast_gain),B(0x4151,recovery_throttle),B(0x4152,decel_base),
+    B(0x4132,reference_bias),B(0x4e90,override_options),B(0x4161,override_coolant_minimum),
+    B(0x4164,override_throttle_entry),B(0x4165,override_throttle_retained),W(0x4162,override_command),
+    W(0x4144,upper_limit),W(0x4146,lower_normal),W(0x4148,lower_recovery),
+    W(0x414a,lower_transmission),W(0x414c,lower_transmission_state)
 };
 #undef B
 #undef A
@@ -65,7 +77,12 @@ static const TableMapping tables[]={T(0x4166,289,base_normal),T(0x428a,289,base_
 static const TableMapping curves[]={T(0x44f0,8,idle_negative_speed),T(0x44f8,10,idle_negative_load),
     T(0x4502,8,idle_positive_speed),T(0x450a,10,idle_positive_load)};
 #undef T
-typedef struct { uint8_t memory[65536],present[65536],data[6][527],curve_data[4][17]; } Fixture;
+typedef struct { char kind;uint16_t address,value;bool masked; } Event;
+typedef struct {
+    uint8_t memory[65536],present[65536],data[6][527],curve_data[4][17];
+    Event events[16];unsigned used,attempts,fail_at,action;bool masked;
+    PcmPlatform platform;
+} Fixture;
 static uint16_t word(const uint8_t *m,uint16_t a)
 { return (uint16_t)((uint16_t)m[a]*256u+m[(uint16_t)(a+1u)]); }
 static void transfer(void *object,uint8_t *memory,const Mapping *map,size_t count,bool load)
@@ -146,6 +163,34 @@ static void load_cal(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
         memcpy(f->curve_data[i],f->memory+map->address+1,v->length);
     }
 }
+static PcmStatus record(Fixture *f,char kind,uint16_t address,uint16_t value)
+{
+    if (++f->attempts==f->fail_at) return PCM_NO_HARDWARE;
+    CHECK(f->used<16);f->events[f->used++]=(Event){kind,address,value,f->masked};return PCM_OK;
+}
+static PcmStatus mask(void *context,bool masked)
+{
+    Fixture *f=context;PcmStatus result=record(f,'M',0,masked);
+    if (result==PCM_OK) f->masked=masked;
+    return result;
+}
+static PcmStatus extension(Pcm *pcm,PcmTask task)
+{
+    CHECK(task==PCM_SPARK_EXTENSION);Fixture *f=pcm->platform->context;
+    PcmStatus result=record(f,'T',0x1812,(uint16_t)f->action);
+    if (result!=PCM_OK) return result;
+    if (f->action==1) { pcm->spark.composite=0x8123;pcm->scheduler.profiling_enabled=false; }
+    else if (f->action==2) {
+        pcm->spark.override_request=true;pcm->spark.override_active=true;
+        pcm->reference.coolant=255;pcm->reference.throttle=7;
+    }
+    return PCM_OK;
+}
+static void bind(Fixture *f,Pcm *pcm)
+{
+    f->platform.context=f;f->platform.mask_irq=mask;f->platform.task[PCM_SPARK_EXTENSION]=extension;
+    pcm->platform=&f->platform;
+}
 static void contracts(void)
 {
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
@@ -208,6 +253,32 @@ static void modifier_contracts(void)
     CHECK(pcm.spark.recent_load==0 && pcm.spark.coolant_advance!=0 && pcm.spark.idle_negative);
     puts("Modifier calibration, capped-curve bounds, idle retention and prefix contracts pass.");
 }
+static void command_contracts(void)
+{
+    static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
+    const PcmRoutine routines[]={pcm_spark_override,pcm_spark_upper_limit,pcm_spark_lower_limit};
+    for (unsigned i=0;i<3;++i) {
+        init(&f,&pcm,&root,&spark);pcm.calibration=NULL;CHECK(routines[i](&pcm)==PCM_BAD_CONFIGURATION);
+        init(&f,&pcm,&root,&spark);root.spark=NULL;CHECK(routines[i](&pcm)==PCM_BAD_CONFIGURATION);
+        init(&f,&pcm,&root,&spark);CHECK(routines[i](&pcm)==PCM_OK);
+    }
+    init(&f,&pcm,&root,&spark);pcm.calibration=NULL;CHECK(pcm_spark_service(&pcm)==PCM_OK);
+    CHECK(pcm_spark_extension(&pcm)==PCM_OK);
+    pcm.scheduler.profiling_enabled=true;pcm.spark.command=0x1234;
+    CHECK(pcm_spark_extension(&pcm)==PCM_UNIMPLEMENTED && pcm.unresolved_task==PCM_SPARK_EXTENSION);
+    CHECK(pcm.spark.command==0x1234);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.scheduler.profiling_enabled=true;
+    f.action=1;f.fail_at=2;pcm.knock.observation_accumulator=73;pcm.spark.command_latched=0x3333;
+    CHECK(pcm_spark_command(&pcm)==PCM_NO_HARDWARE);
+    CHECK(pcm.spark.composite==0x8123 && !pcm.scheduler.profiling_enabled && pcm.spark.command==0x8118);
+    CHECK(pcm.knock.observation_accumulator==73 && pcm.spark.command_latched==0x3333);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);f.fail_at=2;pcm.knock.observation_accumulator=73;
+    CHECK(pcm_spark_command(&pcm)==PCM_NO_HARDWARE && pcm.knock.observation_accumulator==0 && f.masked);
+    init(&f,&pcm,&root,&spark);pcm.scheduler.profiling_enabled=true;
+    CHECK(pcm_spark_calculate(&pcm)==PCM_UNIMPLEMENTED && pcm.unresolved_task==PCM_SPARK_EXTENSION);
+    CHECK(pcm.spark.coolant_advance!=0 && pcm.spark.command_latched==0);
+    puts("Command calibration, inactive/unbound extension and failure-prefix contracts pass.");
+}
 static const uint16_t outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6e,0x6f,0xa4,0x15a,
     0x1b2,0x1c0,0x1c1,0x1c2,0x1c9,0x1cc,0x1f4,0x1f5,0x1f8,0x1f9,0x1fa,0x1fb,0x1fc,
     0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844};
@@ -215,6 +286,11 @@ static const uint16_t modifier_outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6
     0x1b2,0x1c0,0x1c1,0x1c2,0x1c9,0x1cc,0x1f4,0x1f5,0x1f8,0x1f9,0x1fa,0x1fb,0x1fc,
     0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844,
     0x63,0x64,0x6c,0xfd,0xfe,0x46,0x51,0x53,0x1d9,0x1f2,0x1f3,0x208,0x837,0x838,0x839,0x83a,0x83b,0x857,0x284};
+static const uint16_t command_outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6e,0x6f,0xa4,0x15a,
+    0x1b2,0x1c0,0x1c1,0x1c2,0x1c9,0x1cc,0x1f4,0x1f5,0x1f8,0x1f9,0x1fa,0x1fb,0x1fc,
+    0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844,
+    0x63,0x64,0x6c,0xfd,0xfe,0x46,0x51,0x53,0x1d9,0x1f2,0x1f3,0x208,0x837,0x838,0x839,0x83a,0x83b,0x857,0x284,
+    0x86,0x36,0x3b,0x395,0x398,0x1ee,0x1ef,0x1f0,0x1f1,0x16,0x1da,0x20c,0x20d,0x20e,0x842};
 static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
 {
     switch (mode) {
@@ -251,6 +327,17 @@ static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
         PcmStatus status=pcm_spark_auxiliary(pcm);
         return status==PCM_OK?pcm_spark_composite(pcm):status;
     }
+    case 20:return pcm_spark_extension(pcm);
+    case 21:return pcm_spark_override(pcm);
+    case 22:return pcm_spark_upper_limit(pcm);
+    case 23:return pcm_spark_lower_limit(pcm);
+    case 24:return pcm_spark_service(pcm);
+    case 25:return pcm_spark_command(pcm);
+    case 26:return pcm_spark_calculate(pcm);
+    case 27: {
+        PcmStatus status=pcm_spark_auxiliary(pcm);
+        return status==PCM_OK?pcm_spark_calculate(pcm):status;
+    }
     default:return PCM_BAD_CONFIGURATION;
     }
 }
@@ -259,6 +346,7 @@ int main(int argc,char **argv)
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
     if (argc==2 && strcmp(argv[1],"--contracts")==0) { contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--modifier-contracts")==0) { modifier_contracts();return 0; }
+    if (argc==2 && strcmp(argv[1],"--command-contracts")==0) { command_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--defaults")==0) {
         init(&f,&pcm,&root,&spark);printf("[");bool first=true;
         for (unsigned a=0;a<65536;++a) if (f.present[a]) { printf("%s[%u,%u]",first?"":",",a,f.memory[a]);first=false; }
@@ -266,20 +354,30 @@ int main(int argc,char **argv)
     }
     unsigned mode,count;
     while (scanf("%u %u",&mode,&count)==2) {
-        if (mode>19 || count>2048) return 2;
+        if (mode>27 || count>2048) return 2;
         init(&f,&pcm,&root,&spark);
         for (unsigned i=0;i<count;++i) {
             unsigned a,v;if (scanf("%u %u",&a,&v)!=2 || a>65535 || v>255) return 2;f.memory[a]=(uint8_t)v;
         }
         transfer(&pcm,f.memory,state_map,sizeof(state_map)/sizeof(state_map[0]),true);load_cal(&f,&root,&spark);
+        if (mode>=20) {
+            bind(&f,&pcm);f.fail_at=f.memory[0x907];f.action=f.memory[0x908];f.masked=f.memory[0x909]!=0;
+            if (f.memory[0x90a]) f.platform.task[PCM_SPARK_EXTENSION]=NULL;
+        }
         uint16_t value=0;PcmStatus status=run(&f,&pcm,mode,&value);
         transfer(&pcm,f.memory,state_map,sizeof(state_map)/sizeof(state_map[0]),false);
-        CHECK(pcm.unresolved_task==PCM_TASK_COUNT && pcm.platform==NULL);
+        CHECK(pcm.unresolved_task==PCM_TASK_COUNT || (mode>=20 && pcm.unresolved_task==PCM_SPARK_EXTENSION));
+        CHECK(mode>=20 || pcm.platform==NULL);
         printf("{\"status\":%u,\"value\":%u,\"state\":[",(unsigned)status,(unsigned)value);
-        const uint16_t *selected=mode>=13?modifier_outputs:outputs;
-        size_t size=mode>=13?sizeof(modifier_outputs)/sizeof(modifier_outputs[0]):sizeof(outputs)/sizeof(outputs[0]);
+        const uint16_t *selected=mode>=20?command_outputs:mode>=13?modifier_outputs:outputs;
+        size_t size=mode>=20?sizeof(command_outputs)/sizeof(command_outputs[0]):mode>=13?sizeof(modifier_outputs)/sizeof(modifier_outputs[0]):sizeof(outputs)/sizeof(outputs[0]);
         for (size_t i=0;i<size;++i) printf("%s%u",i?",":"",f.memory[selected[i]]);
-        puts("]}");
+        if (mode<20) puts("]}");
+        else {
+            printf("],\"masked\":%u,\"unresolved\":%u,\"events\":[",(unsigned)f.masked,(unsigned)(pcm.unresolved_task==PCM_SPARK_EXTENSION));
+            for (unsigned i=0;i<f.used;++i) { Event *e=&f.events[i];printf("%s[\"%c\",0,%u,%u,%u]",i?",":"",e->kind,e->address,e->value,(unsigned)e->masked); }
+            puts("]}");
+        }
     }
     return 0;
 }

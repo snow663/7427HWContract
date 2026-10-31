@@ -101,8 +101,10 @@ at AACF..AADB becomes a local C subtraction value; the source does not alias a
 native C frame to factory RAM. Burst state, low-octane learning/scaling and
 gain/cap production are now implemented in the [adaptive spark slices](adaptive_spark_contract.md).
 The base/environmental composite is now implemented in the
-[spark terms body](spark_terms_contract.md). Idle/transient/decel modifiers are also implemented; overrides, signed limits,
-service edits and period/EST conversion remain unfinished spark work.
+[spark terms body](spark_terms_contract.md). Idle/transient/decel modifiers,
+resident override and limits/service are also implemented in the
+[command body](spark_command_contract.md). Remaining admission, optional 1812
+and period/EST conversion retain explicit boundaries.
 
 ## Failures and interrupt witnesses
 
@@ -143,8 +145,8 @@ delay, hardware pending-request delivery, physical timer edges or all interleavi
 The kernel regression also confirms ten real slot8 ADC starts per160 phases.
 Both local verification routes retain every earlier kernel, fuel, reset, REF
 and OC1 check and add knock contracts and this differential suite. This brings
-the C inventory to 109 routines: 45 implemented outlines, 39 explicit dependency
-boundaries and twenty-five algorithms. Counts and tested numeric domains do not prove
+the C inventory to 116 routines: 47 implemented outlines, 40 explicit dependency
+boundaries and twenty-nine algorithms. Counts and tested numeric domains do not prove
 whole-firmware equivalence, target memory fit, stack bounds or physical timing.
 
 See the [OC1 contract](oc1_knock_contract.md),

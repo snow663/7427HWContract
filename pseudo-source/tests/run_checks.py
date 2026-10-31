@@ -41,3 +41,5 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     subprocess.run([sys.executable,str(ROOT/'tests/compare_spark_rom.py'),str(spark_binary)],check=True)
     subprocess.run([str(spark_binary),'--modifier-contracts'],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/compare_spark_modifiers_rom.py'),str(spark_binary)],check=True)
+    subprocess.run([str(spark_binary),'--command-contracts'],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tests/compare_spark_command_rom.py'),str(spark_binary)],check=True)
