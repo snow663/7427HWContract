@@ -32,7 +32,7 @@ The source has no factory-mode gate, no TOC1 write and no ordinary nesting.
 Target entry/RTI and the masked-entry contract remain assembly responsibilities.
 The C body preserves that contract without calling mask/unmask bindings.
 
-Cold initialization clears both named knock-state fields. They remain separate
+Cold initialization clears the named knock-state fields. They remain separate
 from the REF pending latch and periodic busy/pending state. The code uses named
 state and immutable calibration; original RAM/ROM addresses do not prescribe
 our final target allocation or a serialized calibration layout.
@@ -50,8 +50,9 @@ counter readback. Passing these tests does not establish how the knock interface
 generates 3FC8 counts or how a physical sensor responds.
 
 The scheduled decay/fault routine at CEBB..CF15 and normal-spark consumption at
-AA81..AADB remain to be ported. In the factory program, AA81 atomically consumes
-and clears 020D. OC1 observation counts are not themselves knock-retard degrees.
+AA81..AADB are now implemented; see the [knock control contract](knock_control_contract.md).
+The latter atomically consumes and clears020D. OC1 observation counts are not
+themselves knock-retard degrees.
 See the [upstream spark contract](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)
 and [physical hardware boundaries](../../docs/analysis/FACTORY_EXTERNAL_HARDWARE_BOUNDARIES.md).
 
@@ -78,6 +79,6 @@ instruction/stack costs, hardware timing and final backend remain unverified.
 
 Both local verification routes include OC1 contracts and differential checks.
 The previous kernel, fuel, reset and full REF checks remain in place. The source
-inventory stays 79 routines: 35 implemented outlines, 40 dependency boundaries and
-four algorithms. These counts and instruction coverage are not a whole-program
+inventory is 84 routines: 39 implemented outlines, 39 dependency boundaries and
+six algorithms. These counts and instruction coverage are not a whole-program
 equivalence percentage or a target BIN build.

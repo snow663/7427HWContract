@@ -14,7 +14,7 @@ enum {
     PCM_TMSK1 = 0x3022, PCM_TFLG1 = 0x3023,
     PCM_BAUD = 0x302b, PCM_SCCR1 = 0x302c, PCM_SCCR2 = 0x302d,
     PCM_SCSR = 0x302e, PCM_SCDR = 0x302f,
-    PCM_ADCTL = 0x3030, PCM_ADR1 = 0x3031,
+    PCM_ADCTL = 0x3030, PCM_ADR1 = 0x3031, PCM_ADR4 = 0x3034,
     PCM_COPRST = 0x303a, PCM_HPRIO = 0x303c, PCM_TEST1 = 0x303e,
     PCM_CSSTRH = 0x305c, PCM_CSCTL = 0x305d,
     PCM_CSGADR = 0x305e, PCM_CSGSIZ = 0x305f,
@@ -43,6 +43,8 @@ PcmStatus pcm_reference_timer_arm(Pcm *, bool bank_b);
 PcmStatus pcm_fuel_async(Pcm *, uint16_t pulse);
 PcmStatus pcm_delay_cycles(Pcm *, uint16_t cycles);
 PcmStatus pcm_update8(Pcm *, uint16_t address, uint8_t clear, uint8_t set);
+PcmStatus pcm_adc_mux(Pcm *, uint8_t selector);
+PcmStatus pcm_adc_convert(Pcm *, uint8_t control);
 PcmStatus pcm_oc1_irq(Pcm *);
 PcmStatus pcm_sci_irq(Pcm *);
 PcmStatus pcm_reset_sequence(Pcm *, const PcmPlatform *, const PcmCalibration *);

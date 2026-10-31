@@ -1,4 +1,6 @@
 file,routine,status,reference,next_step
+src/drivers/adc_convert.c,pcm_adc_convert,implemented_outline,F25F..F274: twelve-poll bounded ADC conversion and timeout flags.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/drivers/adc_mux.c,pcm_adc_mux,implemented_outline,F275..F27F: two fresh PORTD reads and mux selection.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/drivers/delay_cycles.c,pcm_delay_cycles,implemented_outline,New backend delay contract for the literal33-cycle ADC gap.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/drivers/heartbeat_toggle.c,pcm_heartbeat_toggle,implemented_outline,F3E4..F3EC. Physical purpose of 3066.7 remains unspecified. */,Retain source/ROM checks; target ABI and timing still need verification
 src/drivers/mask_irq.c,pcm_mask_irq,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
@@ -28,7 +30,7 @@ src/fuel/reference_event.c,pcm_reference_event,implemented_outline,751B..7535: o
 src/fuel/reference_run.c,pcm_reference_run,implemented_outline,7696..7765: running split-packet and bank timer scheduling.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/idle/iac_control.c,pcm_iac_control,dependency_boundary,93D0: Main idle-air controller with service escapes.,Implement the named body and compare observable state/transactions
 src/idle/iac_step.c,pcm_iac_step,dependency_boundary,91A3: Per-tick idle-air phase service.,Implement the named body and compare observable state/transactions
-src/interrupts/oc1_irq.c,pcm_oc1_irq,implemented_outline,"FFE8 ->CE7C..CEBA: flag acknowledgement, unsigned counter delta, floor/bias gates and saturated observation accumulation.","Port the scheduled knock consumer; target entry/RTI, counter coherency and physical knock response remain separate validation"
+src/interrupts/oc1_irq.c,pcm_oc1_irq,implemented_outline,"FFE8 ->CE7C..CEBA: flag acknowledgement, unsigned counter delta, floor/bias gates and saturated observation accumulation.","Retain producer/consumer differential checks; target entry/RTI, counter coherency and physical knock response remain separate validation"
 src/interrupts/periodic_irq.c,pcm_periodic_irq,implemented_outline,793D..7989. Actual interrupt entry/RTI and SP recovery need target,Retain source/ROM checks; target ABI and timing still need verification
 src/interrupts/reference_irq.c,pcm_reference_irq,implemented_outline,"FFF2 ->74EA..77C6: complete resident event body, hardware entry/RTI remains target work.",Target interrupt entry/RTI and physical driver timing remain separate validation
 src/interrupts/sci_irq.c,pcm_sci_irq,dependency_boundary,FFD6 -> F7EA. Target entry/RTI preserves the real interrupt frame.,Implement the named body and compare observable state/transactions
@@ -45,6 +47,7 @@ src/math/lookup16.c,pcm_lookup16,implemented_algorithm,F4C1..F4DD: rounded 16-se
 src/sensors/adc_feedback.c,pcm_adc_feedback,dependency_boundary,7B6D: Intervening ADC acquisition F245 and averaged014E publication.,Implement the named body and compare observable state/transactions
 src/sensors/common_io.c,pcm_common_io,dependency_boundary,7BA7: Board flush MAP filtering and speed input sampling.,Implement the named body and compare observable state/transactions
 src/sensors/input_housekeeping.c,pcm_input_housekeeping,dependency_boundary,9167: AC and park/neutral input housekeeping.,Implement the named body and compare observable state/transactions
+src/sensors/knock_sensor.c,pcm_knock_sensor,implemented_outline,CEDB..CF15: mux0/ADCTL01/ADR4 sensor diagnostic and literal masking.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/serial/serial_poll.c,pcm_serial_poll,dependency_boundary,F5E8: Serial polling and optional broadcast schedule.,Implement the named body and compare observable state/transactions
 src/slots/slot_00.c,pcm_slot_00,dependency_boundary,"7AA6, table word 7A85.",Implement the named body and compare observable state/transactions
 src/slots/slot_01.c,pcm_slot_01,dependency_boundary,"7AAD, table word 7A87.",Implement the named body and compare observable state/transactions
@@ -54,7 +57,7 @@ src/slots/slot_04.c,pcm_slot_04,dependency_boundary,"7AC7, table word 7A8D.",Imp
 src/slots/slot_05.c,pcm_slot_05,dependency_boundary,"7B03, table word 7A8F.",Implement the named body and compare observable state/transactions
 src/slots/slot_06.c,pcm_slot_06,dependency_boundary,"7B14, table word 7A91.",Implement the named body and compare observable state/transactions
 src/slots/slot_07.c,pcm_slot_07,dependency_boundary,"7B1B, table word 7A93.",Implement the named body and compare observable state/transactions
-src/slots/slot_08.c,pcm_slot_08,dependency_boundary,"7B2B, table word 7A95.",Implement the named body and compare observable state/transactions
+src/slots/slot_08.c,pcm_slot_08,implemented_outline,7B2B..7B2E; CEBB..CF15: phase-gated knock decay and sensor diagnostic.,Retain differential checks; target ADC timing and physical mux behavior need verification
 src/slots/slot_09.c,pcm_slot_09,dependency_boundary,"7B2F, table word 7A97.",Implement the named body and compare observable state/transactions
 src/slots/slot_0a.c,pcm_slot_0a,dependency_boundary,"7B39, table word 7A99.",Implement the named body and compare observable state/transactions
 src/slots/slot_0b.c,pcm_slot_0b,dependency_boundary,"7B3D, table word 7A9B.",Implement the named body and compare observable state/transactions
@@ -63,6 +66,8 @@ src/slots/slot_0d.c,pcm_slot_0d,dependency_boundary,"7B48, table word 7A9F.",Imp
 src/slots/slot_0e.c,pcm_slot_0e,implemented_outline,"7B52, table word 7AA1.",Retain source/ROM checks; target ABI and timing still need verification
 src/slots/slot_0f.c,pcm_slot_0f,dependency_boundary,"7B5A, table word 7AA3.",Implement the named body and compare observable state/transactions
 src/spark/alternate_rpm.c,pcm_alternate_rpm,dependency_boundary,AC51: Alternate reference-period RPM and board-request path.,Implement the named body and compare observable state/transactions
+src/spark/knock_decay.c,pcm_knock_decay,implemented_algorithm,CEBB..CEDA; F4C1..F4DD: phase-gated rounded decay with minimum step1.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/spark/knock_retard.c,pcm_knock_retard,implemented_algorithm,AA81..AADB: atomic observations and gated normal-KR command subtraction.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/spark/spark_control.c,pcm_spark_control,dependency_boundary,A466: Load conversion reference consumption and spark-control group.,Implement the named body and compare observable state/transactions
 src/startup/reset_controllers.c,pcm_reset_controllers,dependency_boundary,stage 7392..7431: Controller state seeds and hardware baselines.,Implement the named body and compare observable state/transactions
 src/startup/reset_cpu.c,pcm_reset_cpu,implemented_outline,CC7C..CCC0 plus711F..712B: ordered CPU/chip-select/board writes after reset-entry prelude.,Target early-reset assembly must establish the entry precondition; retain differential transaction checks

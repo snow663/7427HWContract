@@ -69,9 +69,14 @@ The stock stack guards cannot simply be copied onto a different C call graph.
 
 The OC1 observer owns its sample baseline and pending-observation accumulator.
 It reuses the REF RPM coordinate and retains both table gates and saturations.
-The future normal-spark consumer must preserve the factory atomic read/clear
-ownership when consuming those observations. See the
-[OC1 contract](../reference/oc1_knock_contract.md).
+The implemented normal-spark consumer uses literal SEI/read/clear/CLI to
+consume observations. Slot8 directly calls the implemented phase-gated decay
+and mux/ADC diagnostic. ADC timeout sets flags but still reaches ADR4, and
+callback failures preserve the current prefix and mask. See the
+[OC1 contract](../reference/oc1_knock_contract.md) and
+[knock control contract](../reference/knock_control_contract.md).
+The broad spark root remains delegated; gain/cap, burst, prior command and
+subsequent output conversion are explicit interfaces to unfinished work.
 
 ## Freedom to change algorithms
 
