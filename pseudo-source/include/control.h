@@ -19,6 +19,7 @@ PcmStatus pcm_alternate_rpm(Pcm *);
 PcmStatus pcm_iac_step(Pcm *);
 PcmStatus pcm_adc_feedback(Pcm *);
 PcmStatus pcm_current_control(Pcm *);
+PcmStatus pcm_ac_switch_inputs(Pcm *);
 
 /* A first real algorithm slice. Inputs retain the factory fixed-point
  * representations; they are not yet RPM/kPa/microsecond engineering units. */

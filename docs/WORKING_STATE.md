@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 84 public routines: 39 implemented outlines,
-39 explicit dependency boundaries and six implemented algorithms.
+The source currently has 91 public routines: 41 implemented outlines,
+39 explicit dependency boundaries and eleven implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -31,8 +31,12 @@ Slot8 now implements knock decay and the mux/ADC sensor diagnostic, and the
 normal-spark observation consumer is a checked callable C slice. The broad spark
 root remains a boundary. See the
 [knock control contract](../pseudo-source/reference/knock_control_contract.md).
-Next are burst/low-octane logic and the spark gain/cap producers, alongside
-remaining reset/backend and injector/spark/IAC work.
+Burst, low-octane learning/scaling and spark gain/cap producers now have checked
+C routines. Slot6 directly calls the learner after its explicit AC/switch input
+dependency; the other broad slot/controller roots retain their unfinished work.
+See the [adaptive spark contract](../pseudo-source/reference/adaptive_spark_contract.md).
+Next are base/environmental spark terms and composite command construction,
+alongside remaining reset/backend and injector/spark/IAC work.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -116,7 +120,9 @@ not all-state equivalence. OC1 adds 261,632 numeric cases, 16 failure prefixes a
 Knock control adds 283,023 comparisons across decay, normal KR, acquisition,
 failure prefixes and selected producer/consumer histories. All 121 scoped
 instruction starts execute; 24 new calibration bytes and the shared diagnostic
-enable match stock. The source check suite now has ten CTest entries.
+enable match stock. Adaptive spark adds 480,560 comparisons and covers all 201
+scoped instruction starts plus 83 new calibration bytes. The source check suite
+now has twelve CTest entries.
 The simulator has 17 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 

@@ -19,7 +19,8 @@ checks do not establish sensor scaling or physical spark degrees.
 
 Each public routine has its own source file. The broad A466 spark root still
 returns through its explicit dependency binding. Its future implementation must
-call `pcm_knock_retard` at the AA81 position after the burst routine. Extracting
+call the ordered `pcm_knock_corrections` wrapper at AA33, including normal KR
+at AA81, after the earlier command preparation and upper limit. Extracting
 this callable slice does not complete the spark root or its physical output.
 
 ## State and calibration
@@ -29,8 +30,8 @@ this callable slice does not complete the spark root or its physical output.
 | 0203,020D | `knock.sample_baseline`, `knock.observation_accumulator` | Existing OC1 producer state |
 | 020C | `knock.retard` | Byte state; subtraction uses its unsigned half |
 | 0207,0019.4 | `knock.sensor_fault_count`, `knock.sensor_fault` | Sensor qualification history and live fault |
-| 006E.1 | `knock.burst_active` | Explicit input from the unported burst logic |
-| 0843,0844 | `knock.event_gain`, `knock.retard_limit` | Explicit inputs from the unported scheduled spark-gain producer |
+| 006E.1 | `knock.burst_active` | Input from the implemented burst logic |
+| 0843,0844 | `knock.event_gain`, `knock.retard_limit` | Inputs from the implemented scheduled spark-gain producer |
 | 0016 | `runtime.primary_faults` | Normal KR tests mask60 only |
 | 001A.1,003A.0 | `runtime.adc_timeout`, `runtime.adc_fault` | Per-conversion timeout flag and retained timeout notification |
 | 0002,0062,0006 | Existing phase, RPM coordinate and coolant fields | Shared inputs, not new duplicate state |
@@ -52,7 +53,7 @@ Only a clear phase bit4 permits decay. On actual slot8 admissions in the
 per complete phase cycle. A set bit skips decay and still runs the diagnostic.
 
 The rate is `pcm_lookup16(RPM62,decay_rate)`. Multiply it by the old020C byte,
-round by128 before taking the high byte, and use at least1 as the decrement.
+round by 128 before taking the high byte, and use at least1 as the decrement.
 Subtract from a fresh020C read with a zero floor. The diagnostic can run with
 the resulting retard already committed; an acquisition failure does not undo it.
 
@@ -97,9 +98,10 @@ Then cap at0844. The retained product fraction is discarded, not rounded.
 
 Command subtraction wraps at16 bits. The byte saved on the factory CPU stack
 at AACF..AADB becomes a local C subtraction value; the source does not alias a
-native C frame to factory RAM. Burst arm/decay, low-octane learning, gain/cap
-production, prior composite spark, subsequent signed limits, service edits and
-period/EST conversion remain separate unfinished spark work.
+native C frame to factory RAM. Burst state, low-octane learning/scaling and
+gain/cap production are now implemented in the [adaptive spark slices](adaptive_spark_contract.md).
+Prior composite spark, subsequent signed limits, service edits and period/EST
+conversion remain separate unfinished spark work.
 
 ## Failures and interrupt witnesses
 
@@ -140,8 +142,8 @@ delay, hardware pending-request delivery, physical timer edges or all interleavi
 The kernel regression also confirms ten real slot8 ADC starts per160 phases.
 Both local verification routes retain every earlier kernel, fuel, reset, REF
 and OC1 check and add knock contracts and this differential suite. This brings
-the C inventory to 84 routines: 39 implemented outlines, 39 explicit dependency
-boundaries and six algorithms. Counts and tested numeric domains do not prove
+the C inventory to 91 routines: 41 implemented outlines, 39 explicit dependency
+boundaries and eleven algorithms. Counts and tested numeric domains do not prove
 whole-firmware equivalence, target memory fit, stack bounds or physical timing.
 
 See the [OC1 contract](oc1_knock_contract.md),

@@ -20,7 +20,7 @@ typedef enum {
     PCM_TRANSMISSION_SPARK, PCM_ALTERNATE_RPM,
     PCM_IAC_STEP, PCM_ADC_FEEDBACK, PCM_CURRENT_CONTROL,
     PCM_SLOT_00, PCM_SLOT_01, PCM_SLOT_02, PCM_SLOT_03,
-    PCM_SLOT_04, PCM_SLOT_05, PCM_SLOT_06, PCM_SLOT_07,
+    PCM_SLOT_04, PCM_SLOT_05, PCM_AC_SWITCH_INPUTS, PCM_SLOT_07,
     PCM_SLOT_09, PCM_SLOT_0A, PCM_SLOT_0B,
     PCM_SLOT_0C, PCM_SLOT_0D, PCM_SLOT_0E, PCM_SLOT_0F,
     PCM_SCI_BODY,
@@ -66,6 +66,12 @@ typedef struct {
     uint8_t decay_rate[17];            /* stock 45A5..45B5 */
     uint8_t minimum_speed, minimum_rpm_high, minimum_coolant; /* 45D8..45DA */
     uint8_t sensor_fault_delay, sensor_upper, sensor_lower, fault_retard; /* 4E74..4E77 */
+    uint8_t event_gain_curve[17], pe_retard_cap[8], cruise_retard_cap[7]; /* 4594,4585,458D */
+    uint8_t octane_rpm[9], octane_load[17]; /* 45BE,45C7; bounded RPM input uses 9 knots */
+    uint8_t learn_min_coolant, learn_min_load, learn_load_change_limit; /* 45B6..45B8 */
+    uint8_t learn_high_retard, learn_low_retard, learn_increment, learn_decrement, learn_scale; /* 45B9..45BD */
+    uint8_t burst_load_limit, burst_throttle_limit, burst_throttle_delta, burst_duration; /* 46DF..46E2 */
+    uint8_t burst_table_limit, burst_curve[11]; /* 46E3..46EE; lookup input is at most 152 */
 } PcmKnockCalibration;
 
 typedef struct {
@@ -76,6 +82,7 @@ typedef struct {
     uint16_t board_startup_word;
     uint16_t reference_compare_counts[64]; /* stock words465D..46DC */
     uint8_t initial_phase;
+    uint8_t mode_f;                    /* stock400F, shared feature-selection byte */
     PcmReferenceCalibration reference;
     PcmKnockCalibration knock;
 } PcmCalibration;
@@ -114,6 +121,8 @@ typedef struct {
     volatile uint8_t primary_faults;   /* RAM0016; normal KR tests bits60 */
     volatile bool adc_timeout;         /* RAM001A.1; cleared before each F25F conversion */
     volatile bool adc_fault;           /* RAM003A.0; timeout sets, success retains */
+    volatile bool power_enrichment;    /* RAM003D.5 */
+    volatile bool diagnostic_switch;   /* RAM0050.4, produced by CB15 input boundary */
 } PcmRuntime;
 
 typedef struct {
@@ -145,12 +154,19 @@ typedef struct {
     volatile uint8_t event_gain, retard_limit; /* RAM0843,0844; upstream spark inputs */
     volatile uint8_t sensor_fault_count; /* RAM0207 */
     volatile bool sensor_fault, burst_active; /* RAM0019.4,006E.1 */
+    volatile uint8_t burst_gain, burst_countdown; /* RAM0842,020E */
+    volatile uint8_t octane_rpm_factor; /* RAM0841 */
+    volatile uint8_t activity, scaled_activity, adaptive_retard; /* RAM0209..020B */
+    volatile bool learning_high, learning_low; /* RAM0052.0,0052.1 */
 } PcmKnock;
 
 typedef struct {
     volatile uint16_t command;         /* RAM01EE, wrapped signed-command representation */
     volatile uint8_t rpm_high;         /* RAM0063, high byte of filtered RPM word */
     volatile uint8_t vehicle_speed_high; /* RAM0284, high byte of filtered VSS word */
+    volatile uint8_t load_coordinate, previous_load, vacuum; /* RAM01C0,01C2,01C9 */
+    volatile uint8_t previous_throttle; /* RAM01DA; current TPS shares reference.throttle */
+    volatile uint8_t load_status;       /* RAM006F; gain/cap producer tests mask48 */
 } PcmSpark;
 
 typedef struct Pcm {

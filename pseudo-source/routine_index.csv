@@ -44,6 +44,7 @@ src/kernel/profile_tail.c,pcm_profile_tail,implemented_outline,"7A55..7A77. Time
 src/kernel/run_task.c,pcm_run_task,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
 src/math/gain_word.c,pcm_gain_word,implemented_algorithm,F550..F563: rounded unsigned gain/256 word multiply.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/math/lookup16.c,pcm_lookup16,implemented_algorithm,F4C1..F4DD: rounded 16-segment unsigned lookup.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
+src/sensors/ac_switch_inputs.c,pcm_ac_switch_inputs,dependency_boundary,CB15..CC34: AC and diagnostic-switch input owner.,Implement the named body and compare observable state/transactions
 src/sensors/adc_feedback.c,pcm_adc_feedback,dependency_boundary,7B6D: Intervening ADC acquisition F245 and averaged014E publication.,Implement the named body and compare observable state/transactions
 src/sensors/common_io.c,pcm_common_io,dependency_boundary,7BA7: Board flush MAP filtering and speed input sampling.,Implement the named body and compare observable state/transactions
 src/sensors/input_housekeeping.c,pcm_input_housekeeping,dependency_boundary,9167: AC and park/neutral input housekeeping.,Implement the named body and compare observable state/transactions
@@ -55,7 +56,7 @@ src/slots/slot_02.c,pcm_slot_02,dependency_boundary,"7AB7, table word 7A89.",Imp
 src/slots/slot_03.c,pcm_slot_03,dependency_boundary,"7ABD, table word 7A8B.",Implement the named body and compare observable state/transactions
 src/slots/slot_04.c,pcm_slot_04,dependency_boundary,"7AC7, table word 7A8D.",Implement the named body and compare observable state/transactions
 src/slots/slot_05.c,pcm_slot_05,dependency_boundary,"7B03, table word 7A8F.",Implement the named body and compare observable state/transactions
-src/slots/slot_06.c,pcm_slot_06,dependency_boundary,"7B14, table word 7A91.",Implement the named body and compare observable state/transactions
+src/slots/slot_06.c,pcm_slot_06,implemented_outline,7B14..7B1A: CB15 input dependency before CE10 learning.,Port the explicit AC/switch input owner; retain full-phase06 learning admission
 src/slots/slot_07.c,pcm_slot_07,dependency_boundary,"7B1B, table word 7A93.",Implement the named body and compare observable state/transactions
 src/slots/slot_08.c,pcm_slot_08,implemented_outline,7B2B..7B2E; CEBB..CF15: phase-gated knock decay and sensor diagnostic.,Retain differential checks; target ADC timing and physical mux behavior need verification
 src/slots/slot_09.c,pcm_slot_09,dependency_boundary,"7B2F, table word 7A97.",Implement the named body and compare observable state/transactions
@@ -66,8 +67,14 @@ src/slots/slot_0d.c,pcm_slot_0d,dependency_boundary,"7B48, table word 7A9F.",Imp
 src/slots/slot_0e.c,pcm_slot_0e,implemented_outline,"7B52, table word 7AA1.",Retain source/ROM checks; target ABI and timing still need verification
 src/slots/slot_0f.c,pcm_slot_0f,dependency_boundary,"7B5A, table word 7AA3.",Implement the named body and compare observable state/transactions
 src/spark/alternate_rpm.c,pcm_alternate_rpm,dependency_boundary,AC51: Alternate reference-period RPM and board-request path.,Implement the named body and compare observable state/transactions
+src/spark/burst_gain.c,pcm_burst_gain,implemented_algorithm,CA4C..CA6A ->CB14: coolant transform and bounded burst curve.,Retain C/ROM checks; broad spark integration and target execution remain separate work
+src/spark/knock_burst.c,pcm_knock_burst,implemented_algorithm,"AA33..AA80: burst gates, latch, countdown and command subtraction.",Retain C/ROM checks; broad spark integration and target execution remain separate work
+src/spark/knock_corrections.c,pcm_knock_corrections,implemented_outline,AA33..AADB: ordered burst and normal-KR command corrections.,Retain C/ROM checks; broad spark integration and target execution remain separate work
 src/spark/knock_decay.c,pcm_knock_decay,implemented_algorithm,CEBB..CEDA; F4C1..F4DD: phase-gated rounded decay with minimum step1.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/spark/knock_gains.c,pcm_knock_gains,implemented_algorithm,"CAD5..CB14: low-octane RPM factor, event gain and PE/non-PE cap.",Retain C/ROM checks; broad spark integration and target execution remain separate work
 src/spark/knock_retard.c,pcm_knock_retard,implemented_algorithm,AA81..AADB: atomic observations and gated normal-KR command subtraction.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/spark/low_octane_learn.c,pcm_low_octane_learn,implemented_algorithm,CE10..CE7B: phase06 activity learning and scaling.,Retain C/ROM checks; broad spark integration and target execution remain separate work
+src/spark/low_octane_retard.c,pcm_low_octane_retard,implemented_algorithm,A77A..A791: load/RPM/activity scaling with successive rounding.,Retain C/ROM checks; broad spark integration and target execution remain separate work
 src/spark/spark_control.c,pcm_spark_control,dependency_boundary,A466: Load conversion reference consumption and spark-control group.,Implement the named body and compare observable state/transactions
 src/startup/reset_controllers.c,pcm_reset_controllers,dependency_boundary,stage 7392..7431: Controller state seeds and hardware baselines.,Implement the named body and compare observable state/transactions
 src/startup/reset_cpu.c,pcm_reset_cpu,implemented_outline,CC7C..CCC0 plus711F..712B: ordered CPU/chip-select/board writes after reset-entry prelude.,Target early-reset assembly must establish the entry precondition; retain differential transaction checks
