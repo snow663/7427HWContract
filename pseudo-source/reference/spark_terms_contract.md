@@ -137,12 +137,12 @@ history calls. All 336 scoped instruction starts execute. The ROM side checks
 local stack balance and the math helpers' preserved registers; it performs no
 hardware transactions in these slices.
 
-The earlier source suites remain, bringing CTest to 18 checks. There are 116 public
-routines: 47 implemented outlines, 40 explicit dependency boundaries and twenty-nine
+The earlier source suites remain, bringing CTest to 20 checks. There are 122 public
+routines: 51 implemented outlines, 40 explicit dependency boundaries and thirty-one
 algorithms. Target ABI, memory/stack fit, physical timing and the complete spark
 root/output controller remain separate work. Idle/transient/decel corrections
 and resident override/limits/service edits are now implemented. Optional1812,
-remaining admission and output handoff retain their explicit boundaries.
+period/RPM preparation and output handoff retain their explicit boundaries.
 
 See the [adaptive spark contract](adaptive_spark_contract.md),
 [factory upstream derivation](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)

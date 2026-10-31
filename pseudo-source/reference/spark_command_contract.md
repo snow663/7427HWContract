@@ -156,11 +156,12 @@ override hysteresis and enabled/disabled option variants supplement those
 corpora. This is not an exhaustive product of all states or interrupt
 interleavings; target C stack costs, compiler ABI and timing remain separate.
 
-Both host verification routes retain the earlier suites and add command
-contracts/differential checks, bringing CTest to 18 entries. The source inventory
-is 116 public routines: 47 implemented outlines, 40 explicit dependency boundaries
-and 29 implemented algorithms. These counts are not whole-firmware equivalence.
-Next source work is remaining A466..A6FF admission and the AB44 period/EST
+Both host verification routes retain this command suite and the newer admission
+contracts/differential checks, bringing CTest to 20 entries. The source inventory
+is 122 public routines: 51 implemented outlines, 40 explicit dependency boundaries
+and 31 implemented algorithms. These counts are not whole-firmware equivalence.
+The [A466..A5E4 admission prelude](spark_admission_contract.md) is now callable.
+Next source work is A5E5..A6FF period/RPM preparation and the AB44 period/EST
 conversion/output path, with unfinished producers and the optional module
 remaining explicit.
 
