@@ -81,11 +81,23 @@ typedef struct {
 } PcmTable2D;
 
 typedef struct {
+    uint8_t limit, length;
+    const uint8_t *values;
+} PcmCappedCurve;
+
+typedef struct {
     PcmTable2D base_normal, base_idle, coolant, altitude, mat, egr;
     uint8_t coolant_mode, mat_mode, egr_mode, egr_gain;
     uint8_t base_bias, coolant_bias, altitude_bias, egr_bias, mat_bias;
     uint8_t idle_coolant_threshold, transmission_bias;
     uint8_t mat_negative_gain[17], mat_positive_gain[17], pe_curve[17];
+    PcmCappedCurve idle_negative_speed, idle_negative_load, idle_positive_speed, idle_positive_load;
+    uint16_t idle_runtime_minimum;     /* 415E */
+    uint8_t idle_speed_limit, idle_throttle_entry, idle_throttle_retained, idle_coolant_minimum, idle_target_adder; /* 415A..4160 */
+    uint8_t idle_bias, idle_positive_cap, idle_derivative_curve[17]; /* 4514,4515,451B */
+    uint8_t transient_coolant_minimum, transient_coolant_maximum, transient_gain[5]; /* 46F2..46F8 */
+    uint8_t transient_positive[3], transient_negative[3]; /* 46EC..46F1: gain,offset,cap */
+    uint8_t recovery_gain, recovery_fast_gain, recovery_throttle, decel_base; /* 414F..4152 */
 } PcmSparkCalibration;
 
 typedef struct {
@@ -139,6 +151,7 @@ typedef struct {
     volatile bool adc_fault;           /* RAM003A.0; timeout sets, success retains */
     volatile bool power_enrichment;    /* RAM003D.5 */
     volatile bool diagnostic_switch;   /* RAM0050.4, produced by CB15 input boundary */
+    volatile bool deceleration_fuel_cut; /* RAM0046.3 */
 } PcmRuntime;
 
 typedef struct {
@@ -192,6 +205,14 @@ typedef struct {
     volatile bool egr_active;           /* RAM006E.7 */
     volatile uint8_t egr_fraction_high, pe_fraction; /* RAM01B2 high byte,0278 */
     volatile uint8_t startup_adder, transmission_retard, transmission_status; /* 02CB,015A,00A4 */
+    volatile uint8_t rpm_fraction;      /* RAM0064, low byte paired with rpm_high0063 */
+    volatile uint8_t iac_desired_speed, idle_derivative; /* RAM0857,006C, explicit IAC inputs */
+    volatile bool idle_negative;       /* RAM0053.0; unsigned target/RPM borrow */
+    volatile uint8_t transient_target, transient_error, transient_correction; /* 0837,083A,083B */
+    volatile uint16_t transient_filtered; /* RAM0838 */
+    volatile bool recovery_active;     /* RAM0051.5 */
+    volatile uint8_t decel_retard;      /* RAM0208 */
+    volatile uint16_t startup_recovery_gain; /* RAM01F2, one shared startup/decel word */
 } PcmSpark;
 
 typedef struct Pcm {

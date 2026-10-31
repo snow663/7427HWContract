@@ -28,7 +28,7 @@ ADDRESSES = ({0x400B,0x400D,0x45DA,0x43AE,0x4439,0x485E,0x485F,0x55F2} |
              set(range(0x4585,0x45A5)) | set(range(0x45BE,0x45D8)))
 for address,size in TABLES:
     ADDRESSES.update(range(address,address+3+size))
-defaults = json.loads(subprocess.check_output([binary,'--defaults'],text=True))
+defaults = [row for row in json.loads(subprocess.check_output([binary,'--defaults'],text=True)) if row[0] in ADDRESSES]
 assert len(defaults) == len(ADDRESSES) == 1095
 assert {a for a,_ in defaults} == ADDRESSES
 for address,value in defaults:

@@ -5,8 +5,9 @@ Authority is the recorded stock BMHM image, SHA-256
 This step implements the contiguous A700..A84D composite calculation and the
 complete CA6B..CB14 auxiliary producer. The broad A466 root and slot7 retain
 their other unfinished work; these callable bodies do not bypass that work.
-The composite at 01FD still precedes idle/transient/decel corrections, limits,
-service edits and conversion to the physical spark interface.
+The composite at 01FD from this slice feeds the now-implemented
+[idle/transient/decel body](spark_modifiers_contract.md), before remaining
+overrides, limits, service edits and physical spark conversion.
 
 ## Module ownership
 
@@ -84,7 +85,7 @@ error return; these invalid-profile checks are C contracts, not claimed ROM
 equivalence cases. Changed profiles can supply larger arrays. A 527-byte test
 view covers every byte-stride geometry, including endpoint index 526.
 
-The default fixture verifies 1,095 distinct calibration bytes: 1,035 new and 60
+The spark-terms comparison verifies 1,095 distinct calibration bytes: 1,035 new and 60
 previous/shared. These include table headers and reachable backing, scalar
 mode/bias/threshold fields, MAT coefficients, PE curve and the reused adaptive
 and knock curves. Independent views do not inflate the distinct-byte count.
@@ -135,11 +136,12 @@ history calls. All 336 scoped instruction starts execute. The ROM side checks
 local stack balance and the math helpers' preserved registers; it performs no
 hardware transactions in these slices.
 
-The earlier source suites remain, bringing CTest to 14 checks. There are 103 public
-routines: 43 implemented outlines, 39 explicit dependency boundaries and twenty-one
+The earlier source suites remain, bringing CTest to 16 checks. There are 109 public
+routines: 45 implemented outlines, 39 explicit dependency boundaries and twenty-five
 algorithms. Target ABI, memory/stack fit, physical timing and the complete spark
-root/output controller remain separate work. Next are idle, transient and decel
-spark corrections, followed by remaining limits, admission and output handoff.
+root/output controller remain separate work. Idle/transient/decel corrections
+are now implemented; override/limits/service work, admission and output handoff
+remain.
 
 See the [adaptive spark contract](adaptive_spark_contract.md),
 [factory upstream derivation](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)

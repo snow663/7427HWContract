@@ -11,4 +11,9 @@ PcmStatus pcm_spark_mat(Pcm *);
 PcmStatus pcm_spark_pe(Pcm *);
 PcmStatus pcm_spark_auxiliary(Pcm *);
 PcmStatus pcm_spark_terms(Pcm *);
+PcmStatus pcm_spark_idle(Pcm *);
+PcmStatus pcm_spark_transient(Pcm *);
+PcmStatus pcm_spark_decel(Pcm *);
+PcmStatus pcm_spark_modifiers(Pcm *);
+PcmStatus pcm_spark_composite(Pcm *);
 #endif
