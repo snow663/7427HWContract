@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 116 public routines: 47 implemented outlines, 40 dependency
-boundaries and twenty-nine implemented algorithms. Reset CPU/chip-select/board
+The tree contains 122 public routines: 51 implemented outlines, 40 dependency
+boundaries and thirty-one implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -91,6 +91,12 @@ flag as profiling and remains an explicit missing-code dependency. See the
 [command contract](reference/spark_command_contract.md) for the complete
 composite/command wrappers and 356,872 further comparisons.
 
+The earlier A466..A5E4 prelude now has separate load, MAP plausibility, fuel
+qualification, reference admission and timeout routines. The normal route stops
+at A5E5, AC51 remains an explicit dependency, and the timeout stops before SWI.
+See the [admission contract](reference/spark_admission_contract.md) for 620,169
+comparisons, literal mask behavior and independent running qualifications.
+
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
 uses the old compare plus819; initial arming uses sampled TCNT plus8. SlotE's
@@ -136,7 +142,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are eighteen CTest entries; the Python route runs the same contract/differential checks.
+are twenty CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -144,14 +150,15 @@ new distinct calibration bytes, including the two-dimensional lookup/filter help
 Modifiers add 225,622 comparisons, all 234 scoped instruction starts and 81 checked
 calibration bytes (38 new, 43 prior/shared).
 Command construction adds 356,872 comparisons, all 137 scoped instruction starts
-and 27 checked calibration bytes (17 new, 10 shared).
+and 27 checked calibration bytes (17 new, 10 shared). Admission adds 620,169
+comparisons across all 155 pre-trap instruction starts and 14 new calibration bytes.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
-Next port the remaining A466..A6FF spark admission and AB44 period/EST
+Next port A5E5..A6FF period/RPM preparation and AB44 period/EST
 conversion/output work. Keep the optional 1812 implementation and machine ABI
 as an explicit dependency. Connect the
 implemented slices without skipping unfinished producer work. Retain verified

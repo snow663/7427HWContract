@@ -1,6 +1,14 @@
 #ifndef PSEUDO_SOURCE_SPARK_H
 #define PSEUDO_SOURCE_SPARK_H
 #include "pcm.h"
+PcmStatus pcm_spark_load(Pcm *);
+PcmStatus pcm_spark_map_check(Pcm *);
+PcmStatus pcm_spark_fuel_admit(Pcm *);
+PcmStatus pcm_spark_timeout(Pcm *);
+/* normal=true only at the A5E5 continuation. Alternate RPM is an explicit
+ * dependency; TRAP_BOUNDARY identifies the first SWI without emulating it. */
+PcmStatus pcm_spark_admit(Pcm *, bool *normal);
+PcmStatus pcm_spark_prepare(Pcm *, bool *normal);
 PcmStatus pcm_spark_base(Pcm *);
 PcmStatus pcm_spark_coolant(Pcm *);
 PcmStatus pcm_spark_altitude(Pcm *);

@@ -135,4 +135,15 @@ const PcmSparkCalibration pcm_reference_spark_calibration = {
     .lower_recovery = 0xfff5, /* 4148 */
     .lower_transmission = 0xfff5, /* 414A */
     .lower_transmission_state = 0x0000, /* 414C */
+    .spark_run_period_limit = 0x0888, /* 4133 */
+    .fuel_run_period_limit = 0x0ccc, /* 4135 */
+    .no_reference_age_limit = 0x00f0, /* 4962 */
+    .spark_run_events = 0x02, /* 4142 */
+    .fuel_run_events = 0x02, /* 4143 */
+    .startup_gain = 0xa0, /* 414E */
+    .map_sample_minimum = 0x0a, /* 4E64 */
+    .map_rpm_minimum = 0x40, /* 4E65 */
+    .map_count_limit = 0x02, /* 4E66 */
+    .map_throttle_limit = 0x1a, /* 4E67 */
+    .missing_reference_age_cap = 0x05, /* 4D96 */
 };

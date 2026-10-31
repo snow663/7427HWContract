@@ -9,7 +9,7 @@
  * placement is implied by compiling this host-checkable outline. */
 typedef enum {
     PCM_OK = 0, PCM_UNIMPLEMENTED, PCM_NO_HARDWARE, PCM_BAD_CONFIGURATION,
-    PCM_FACTORY_BOUNDARY, PCM_STACK_BOUNDARY
+    PCM_FACTORY_BOUNDARY, PCM_STACK_BOUNDARY, PCM_TRAP_BOUNDARY
 } PcmStatus;
 
 typedef enum {
@@ -102,6 +102,10 @@ typedef struct {
     uint8_t override_throttle_entry, override_throttle_retained; /* 4164,4165 */
     uint16_t override_command;          /* 4162 */
     uint16_t upper_limit, lower_normal, lower_recovery, lower_transmission, lower_transmission_state; /* 4144..414D */
+    uint16_t spark_run_period_limit, fuel_run_period_limit, no_reference_age_limit; /* 4133,4135,4962 */
+    uint8_t spark_run_events, fuel_run_events, startup_gain; /* 4142,4143,414E */
+    uint8_t map_sample_minimum, map_rpm_minimum, map_count_limit, map_throttle_limit; /* 4E64..4E67 */
+    uint8_t missing_reference_age_cap; /* 4D96 */
 } PcmSparkCalibration;
 
 typedef struct {
@@ -135,8 +139,8 @@ typedef struct {
 typedef struct {
     bool factory_mode;                 /* RAM0044.0 */
     bool special_fast_group;           /* RAM001A.5 */
-    bool fuel_running;                 /* RAM004F.4 */
-    bool spark_running;                /* RAM004F.7 */
+    volatile bool fuel_running;        /* RAM004F.4 */
+    volatile bool spark_running;       /* RAM004F.7 */
     bool ignition_off;                 /* RAM0051.3 */
     bool engine_service;               /* RAM003B.4 */
     bool transmission_service;         /* RAM003B.3 */
@@ -162,6 +166,7 @@ typedef struct {
     volatile uint8_t rpm_coordinate;    /* RAM0062, not engineering RPM */
     volatile bool latch_inhibited;     /* RAM0044.4, distinct from0051.3 */
     volatile bool pending;             /* RAM0050.5: one bit, never a count */
+    volatile bool consumed;            /* RAM0050.2, set when spark consumes a reference */
     volatile bool sample_map;          /* RAM0050.0 */
     volatile uint8_t map_sample;        /* RAM082E */
     volatile uint8_t coolant, battery, load_coordinate, throttle; /* 0006,0055,0067,01D9 */
@@ -220,6 +225,13 @@ typedef struct {
     volatile bool override_request, override_active; /* RAM0036.5,0053.4 */
     volatile uint8_t service_flags, service_amount; /* RAM0395,0398 */
     volatile uint16_t command_latched;  /* RAM01F0, common post-service latch */
+    volatile uint8_t map_filtered, barometric_high, normalized_load_divisor; /* 01C6,02F4,01CE */
+    volatile uint16_t density;          /* RAM0257, upstream normalized-load numerator */
+    volatile uint8_t normalized_load, map_fault_count; /* 01CF,0229 */
+    volatile bool map_fault, first_reference; /* RAM0018.4,0044.3 */
+    volatile bool startup_gain_enabled, startup_gain_complete, run_transition; /* 004F.6,0051.6,0004.3 */
+    volatile uint8_t fuel_run_count, spark_run_count, missing_reference_count; /* 0211,0210,0202 */
+    volatile uint16_t reference_age, adaptive_period, period_basis; /* 0260,01EA,005F */
 } PcmSpark;
 
 typedef struct Pcm {
