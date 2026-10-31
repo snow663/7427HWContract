@@ -104,8 +104,8 @@ The base/environmental composite is now implemented in the
 [spark terms body](spark_terms_contract.md). Idle/transient/decel modifiers,
 resident override and limits/service are also implemented in the
 [command body](spark_command_contract.md). The [admission prelude](spark_admission_contract.md)
-is also implemented. Period/RPM preparation, optional 1812
-and period/EST conversion retain explicit boundaries.
+is also implemented, as is [normal period/RPM preparation](spark_period_contract.md).
+Optional 1812, AC51 and period/EST conversion retain explicit boundaries.
 
 ## Failures and interrupt witnesses
 
@@ -146,8 +146,8 @@ delay, hardware pending-request delivery, physical timer edges or all interleavi
 The kernel regression also confirms ten real slot8 ADC starts per160 phases.
 Both local verification routes retain every earlier kernel, fuel, reset, REF
 and OC1 check and add knock contracts and this differential suite. This brings
-the C inventory to 122 routines: 51 implemented outlines, 40 explicit dependency
-boundaries and thirty-one algorithms. Counts and tested numeric domains do not prove
+the C inventory to 129 routines: 55 implemented outlines, 40 explicit dependency
+boundaries and thirty-four algorithms. Counts and tested numeric domains do not prove
 whole-firmware equivalence, target memory fit, stack bounds or physical timing.
 
 See the [OC1 contract](oc1_knock_contract.md),

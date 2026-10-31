@@ -99,13 +99,19 @@ when service is inactive; they are not physical output writes. The module gate
 reuses the profiling 0086.6 flag. Callback fixtures establish host state effects,
 not the unknown 1812 machine ABI. See the
 [command contract](../reference/spark_command_contract.md). The broad A466 root,
-A5E5 period/RPM preparation and AB44 period/EST output conversion remain unfinished.
+AB44 period/EST output conversion remains unfinished.
 The A466..A5E4 prelude is now callable with an explicit normal-route output.
 It preserves independent fuel/spark run states, first-reference alternate
 admission, word/byte ages and literal CLI. AC51 stays delegated. The timeout
 commits state and 3060 RMW, then returns TRAP_BOUNDARY before SWI; target trap
 handling is not replaced by a normal C return. See the
 [admission contract](../reference/spark_admission_contract.md).
+The A5E5..A6FF normal period/RPM and adaptive timing body is now implemented.
+The word-lag helper returns both its intermediate and final values; REF006A
+and normal-load0068 preserve both stores. A conditional full builder joins
+admission through AB43 and marks completion only after a successful normal
+command. It does not publish physical EST output. See the
+[period/RPM contract](../reference/spark_period_contract.md).
 
 ## Freedom to change algorithms
 

@@ -9,6 +9,13 @@ PcmStatus pcm_spark_timeout(Pcm *);
  * dependency; TRAP_BOUNDARY identifies the first SWI without emulating it. */
 PcmStatus pcm_spark_admit(Pcm *, bool *normal);
 PcmStatus pcm_spark_prepare(Pcm *, bool *normal);
+PcmStatus pcm_spark_period_sample(Pcm *);
+PcmStatus pcm_spark_rpm_filters(Pcm *);
+uint16_t pcm_spark_reference_term(uint16_t period);
+PcmStatus pcm_spark_period_terms(Pcm *);
+PcmStatus pcm_spark_precompute(Pcm *);
+/* built=true only after a successful normal A466..AB43 calculation. */
+PcmStatus pcm_spark_build(Pcm *, bool *built);
 PcmStatus pcm_spark_base(Pcm *);
 PcmStatus pcm_spark_coolant(Pcm *);
 PcmStatus pcm_spark_altitude(Pcm *);
