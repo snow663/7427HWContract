@@ -18,6 +18,8 @@ const PcmCalibration pcm_reference_scheduler_calibration = {
     },
     .initial_phase = 0x0e,
     .mode_f = 0x10, /* 400F; burst bit3 is clear in stock BMHM */
+    .mode_d = 0x82, /* 400D; altitude bit2 is clear in stock BMHM */
+    .spark = &pcm_reference_spark_calibration,
     .reference = {
         .mode_b = 0x04, /* 400B */
         .mode_c = 0xb7, /* 400C */

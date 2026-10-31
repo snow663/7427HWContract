@@ -23,8 +23,9 @@ The former `PCM_SLOT_06` whole-slot binding is replaced by
 stops before learning. Learning tests the full phase after that callback; it
 runs only at06, once per complete 160-phase cycle in ordinary dispatcher fixtures.
 
-Slot7 still delegates its complete body, including unported MAT/PE terms at
-CA6B..CAD4 and the other slot7 callees. The earlier C9F7 body also remains part
+Slot7 still delegates its complete body. MAT/PE and knock gains at CA6B..CB14
+now have an implemented callable wrapper; the other slot7 callees remain
+unported. See the [spark terms contract](spark_terms_contract.md). The earlier C9F7 body also remains part
 of its existing slot dependency. This step does not replace those boundaries
 with partial gain calls or change their cadence. The broad A466 spark root
 remains delegated; its future implementation must retain command preparation
@@ -55,7 +56,8 @@ reviewable without claiming the test call order is a new factory schedule.
 
 The gain inputs are sampled at their own ROM positions. They are not replaced
 by one shared snapshot. The learner's01C2 input is the older of two load-history
-latches, distinct from immediate01C1; the A700 history producer is still unported.
+latches, distinct from immediate01C1; `pcm_spark_base` now implements the A700
+history producer within the still-delegated broader spark root.
 Named state is cleared by the existing reset outline;
 remaining reset stages and retained-state behavior still need their own ports.
 
@@ -142,11 +144,12 @@ stack costs, interrupt interleavings and physical timing remain separate work.
 The kernel regression confirms ten CB15 admissions and one learning update per
 160 phases with the selected admitted inputs.
 
-Both host verification routes retain earlier suites and add two adaptive entries,
-bringing CTest to 12 checks. The C inventory is 91 public routines: 41 implemented
-outlines, 39 dependency boundaries and eleven algorithms. These counts describe source
-organization, not whole-firmware equivalence. Next are base/environmental spark
-terms, composite summation, admission and remaining command/output handoff work.
+Both host verification routes retain these adaptive entries alongside the newer
+spark-terms suite, bringing CTest to 14 checks. The C inventory is 103 public
+routines: 43 implemented outlines, 39 dependency boundaries and twenty-one algorithms.
+These counts describe source organization, not whole-firmware equivalence. Base/environmental composite
+construction is now implemented; idle/transient/decel corrections, admission,
+limits and the remaining command/output handoff still need ports.
 
 See the [knock consumer contract](knock_control_contract.md),
 [factory upstream spark derivation](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)

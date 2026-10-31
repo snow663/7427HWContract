@@ -100,8 +100,9 @@ Command subtraction wraps at16 bits. The byte saved on the factory CPU stack
 at AACF..AADB becomes a local C subtraction value; the source does not alias a
 native C frame to factory RAM. Burst state, low-octane learning/scaling and
 gain/cap production are now implemented in the [adaptive spark slices](adaptive_spark_contract.md).
-Prior composite spark, subsequent signed limits, service edits and period/EST
-conversion remain separate unfinished spark work.
+The base/environmental composite is now implemented in the
+[spark terms body](spark_terms_contract.md). Later modifiers, signed limits,
+service edits and period/EST conversion remain unfinished spark work.
 
 ## Failures and interrupt witnesses
 
@@ -142,8 +143,8 @@ delay, hardware pending-request delivery, physical timer edges or all interleavi
 The kernel regression also confirms ten real slot8 ADC starts per160 phases.
 Both local verification routes retain every earlier kernel, fuel, reset, REF
 and OC1 check and add knock contracts and this differential suite. This brings
-the C inventory to 91 routines: 41 implemented outlines, 39 explicit dependency
-boundaries and eleven algorithms. Counts and tested numeric domains do not prove
+the C inventory to 103 routines: 43 implemented outlines, 39 explicit dependency
+boundaries and twenty-one algorithms. Counts and tested numeric domains do not prove
 whole-firmware equivalence, target memory fit, stack bounds or physical timing.
 
 See the [OC1 contract](oc1_knock_contract.md),
