@@ -81,7 +81,13 @@ samples the full phase after that dependency returns. The prior whole-slot6
 binding is replaced by the narrower AC/switch owner. Other broad roots retain
 their unfinished work; callable slices do not silently replace their remaining
 callees. See the [adaptive spark contract](../reference/adaptive_spark_contract.md).
-Prior composite command, the broad spark root and subsequent output conversion
+The new A700..A84D body now constructs the base/environmental composite word,
+and CA6B..CB14 is a complete callable auxiliary producer. They use immutable
+matrix descriptors with explicit backing lengths; table offsets/stride retain
+the ROM arithmetic while out-of-bounds profiles return BAD_CONFIGURATION.
+Profiles and arrays can live in ROM; descriptor pointers are not a serialized
+EEPROM format. See the [spark terms contract](../reference/spark_terms_contract.md).
+Idle/transient/decel corrections, the broad root and subsequent output conversion
 remain unfinished.
 
 ## Freedom to change algorithms

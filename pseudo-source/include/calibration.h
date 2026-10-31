@@ -2,4 +2,5 @@
 #define PSEUDO_SOURCE_CALIBRATION_H
 #include "pcm.h"
 extern const PcmCalibration pcm_reference_scheduler_calibration;
+extern const PcmSparkCalibration pcm_reference_spark_calibration;
 #endif

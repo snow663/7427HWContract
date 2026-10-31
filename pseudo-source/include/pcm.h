@@ -75,6 +75,20 @@ typedef struct {
 } PcmKnockCalibration;
 
 typedef struct {
+    uint8_t row_offset, column_offset, stride;
+    uint16_t length;
+    const uint8_t *values;
+} PcmTable2D;
+
+typedef struct {
+    PcmTable2D base_normal, base_idle, coolant, altitude, mat, egr;
+    uint8_t coolant_mode, mat_mode, egr_mode, egr_gain;
+    uint8_t base_bias, coolant_bias, altitude_bias, egr_bias, mat_bias;
+    uint8_t idle_coolant_threshold, transmission_bias;
+    uint8_t mat_negative_gain[17], mat_positive_gain[17], pe_curve[17];
+} PcmSparkCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -83,8 +97,10 @@ typedef struct {
     uint16_t reference_compare_counts[64]; /* stock words465D..46DC */
     uint8_t initial_phase;
     uint8_t mode_f;                    /* stock400F, shared feature-selection byte */
+    uint8_t mode_d;                    /* stock400D, altitude uses bit2 */
     PcmReferenceCalibration reference;
     PcmKnockCalibration knock;
+    const PcmSparkCalibration *spark;   /* immutable source profile, not a serialized pointer */
 } PcmCalibration;
 
 typedef struct {
@@ -167,6 +183,15 @@ typedef struct {
     volatile uint8_t load_coordinate, previous_load, vacuum; /* RAM01C0,01C2,01C9 */
     volatile uint8_t previous_throttle; /* RAM01DA; current TPS shares reference.throttle */
     volatile uint8_t load_status;       /* RAM006F; gain/cap producer tests mask48 */
+    volatile uint8_t recent_load, rpm_low_coordinate, barometric_pressure; /* 01C1,0061,01CC */
+    volatile bool idle_feedback, idle_state; /* RAM0050.6,0050.7, sampled at their own gates */
+    volatile uint8_t mat_sample, mat_magnitude, mat_effect; /* RAM022F,01FA,083C */
+    volatile bool mat_negative;        /* RAM0041.1 */
+    volatile uint8_t base_advance, coolant_advance, altitude_advance, pe_advance; /* 01F8,01F9,01FB,01FC */
+    volatile uint16_t egr_filtered, composite; /* RAM01F4,01FD */
+    volatile bool egr_active;           /* RAM006E.7 */
+    volatile uint8_t egr_fraction_high, pe_fraction; /* RAM01B2 high byte,0278 */
+    volatile uint8_t startup_adder, transmission_retard, transmission_status; /* 02CB,015A,00A4 */
 } PcmSpark;
 
 typedef struct Pcm {

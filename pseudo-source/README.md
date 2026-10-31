@@ -21,7 +21,7 @@ controller bodies and physical hardware backend remain to be implemented.
 | `src/slots/` | One file per slow slot,00..0F |
 | `src/drivers/` | Explicit byte/word transactions, timer arm, watchdog and board-bit toggle |
 | `src/fuel/` | Base calculation, REF crank/running/decay logic and asynchronous delivery |
-| `src/math/` | Shared rounded lookup and word-gain arithmetic |
+| `src/math/` | Rounded 1D/2D lookup, word gain and signed-floor filter arithmetic |
 | `src/spark/`, `src/idle/` | Knock/adaptive gains, learning, corrections and remaining spark/IAC boundaries |
 | `src/sensors/` | Knock sensor diagnostic and remaining acquisition/housekeeping boundaries |
 | `src/serial/` | Serial-service boundary |
@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 91 public routines: 41 implemented outlines, 39 dependency
-boundaries and eleven implemented algorithms. Reset CPU/chip-select/board
+The tree contains 103 public routines: 43 implemented outlines, 39 dependency
+boundaries and twenty-one implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -71,6 +71,12 @@ boundary. The other broad slot/controller roots retain their unported work.
 The [adaptive spark contract](reference/adaptive_spark_contract.md) records
 480,560 further ROM comparisons, stock burst-disable defaults and the exact
 first-observation, timer-expiry and rounding behavior.
+
+Base, coolant, altitude, EGR, MAT and PE terms now have separate routines.
+The complete CA6B auxiliary producer and contiguous A700..A84D composite body
+are callable C wrappers; broad roots retain their other unfinished work.
+See the [spark terms contract](reference/spark_terms_contract.md) for 753,561
+additional comparisons, bounded matrix views and exact rounding/retention rules.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -117,17 +123,19 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are twelve CTest entries; the Python route runs the same contract/differential checks.
+are fourteen CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
+Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
+new distinct calibration bytes, including the two-dimensional lookup/filter helpers.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
-Next port base/environmental spark terms and composite summation, followed by
-remaining spark admission, limits and command/output conversion. Connect the
+Next port idle, transient and decel spark corrections, followed by remaining
+spark admission, limits and command/output conversion. Connect the
 implemented slices without skipping unfinished producer work. Retain verified
 driver ordering and fault exits. Continue the remaining injector, spark and IAC drivers
 individually. Controller task boundaries can be replaced
