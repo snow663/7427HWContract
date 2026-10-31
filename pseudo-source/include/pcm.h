@@ -26,7 +26,7 @@ typedef enum {
     PCM_SCI_BODY,
     PCM_RESET_ENTRY, PCM_RESET_RAM,
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
-    PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_TASK_COUNT
+    PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -107,6 +107,7 @@ typedef struct {
     uint8_t map_sample_minimum, map_rpm_minimum, map_count_limit, map_throttle_limit; /* 4E64..4E67 */
     uint8_t missing_reference_age_cap; /* 4D96 */
     uint8_t period_scale, rpm_filter_gain, load_filter_gain, monitor_filter_gain; /* 4141,4153,4517,50E4 */
+    PcmCappedCurve output_latency;      /* 454A header, 454B..4558 reachable backing */
 } PcmSparkCalibration;
 
 typedef struct {
@@ -237,6 +238,9 @@ typedef struct {
     volatile uint8_t rpm_monitor_previous, rpm_monitor_delta; /* RAM028C,028D */
     volatile uint16_t period, previous_period, reference_term, period_correction; /* 01E8,01E6,083F,01EC */
     volatile uint8_t battery_sample;    /* RAM00A7; separate from reference.battery0055 */
+    volatile bool command_negative, output_request; /* RAM004F.0,004B.4 */
+    volatile uint8_t output_latency;    /* RAM0201 */
+    uint8_t extension_magnitude;        /* C180F dependency argument/result, no factory RAM address */
 } PcmSpark;
 
 typedef struct Pcm {

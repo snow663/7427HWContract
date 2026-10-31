@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 129 public routines: 55 implemented outlines,
-40 explicit dependency boundaries and thirty-four implemented algorithms.
+The source currently has 136 public routines: 60 implemented outlines,
+41 explicit dependency boundaries and thirty-five implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -54,8 +54,12 @@ The normal A5E5..A6FF period/RPM and adaptive timing preparation is now
 implemented, along with a conditional A466..AB43 builder. The shared word lag
 retains the intermediate stores in both REF and normal load filtering. See the
 [period/RPM contract](../pseudo-source/reference/spark_period_contract.md).
-Next are AB44 period/EST conversion/output and AC51 alternate RPM, then complete
-root integration, alongside reset/backend work.
+AB44..ABCA conversion and ordered publication now have C bodies, as does
+AC51..ACA6 alternate RPM. A conditional publication wrapper keeps completion
+separate from alternate returns and failures. See the
+[output contract](../pseudo-source/reference/spark_output_contract.md).
+Next are the ABCB..AC50 bypass/fault monitor and connection of the complete
+controller/alternate bodies to dispatch, alongside reset/backend work.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -141,7 +145,7 @@ failure prefixes and selected producer/consumer histories. All 121 scoped
 instruction starts execute; 24 new calibration bytes and the shared diagnostic
 enable match stock. Adaptive spark adds 480,560 comparisons and covers all 201
 scoped instruction starts plus 83 new calibration bytes. The source check suite
-now has twenty-two CTest entries. Base/environmental spark adds 753,561 comparisons,
+now has twenty-four CTest entries. Base/environmental spark adds 753,561 comparisons,
 all 336 scoped instruction starts and 1,035 new distinct calibration bytes.
 Modifiers add 225,622 comparisons, all 234 scoped instruction starts and 38 new
 calibration bytes, with 43 prior/shared bytes checked again. Command construction
@@ -152,6 +156,8 @@ Admission adds 620,169 comparisons across
 execution remains outside the host routine. Period/RPM work adds 699,057
 comparisons across 163 scoped instructions and four calibration bytes (three
 new, one shared), including full-builder histories and 660 failure prefixes.
+Output/alternate work adds 603,682 comparisons across 104 instruction starts
+and 15 new latency bytes, including 1,174 failure prefixes.
 The simulator has 17 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 

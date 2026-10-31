@@ -43,7 +43,8 @@ static const Mapping state_map[]={
     F(0x4f,0x10,runtime.fuel_running),F(0x4f,0x80,runtime.spark_running),F(0x4f,0x40,spark.startup_gain_enabled),
     F(0x44,0x08,spark.first_reference),F(0x51,0x40,spark.startup_gain_complete),F(0x04,0x08,spark.run_transition),
     B(0x211,spark.fuel_run_count),B(0x210,spark.spark_run_count),B(0x202,spark.missing_reference_count),
-    W(0x260,spark.reference_age),W(0x1ea,spark.adaptive_period),W(0x5f,spark.period_basis),B(0x2ce,reference.event_age)
+    W(0x260,spark.reference_age),W(0x1ea,spark.adaptive_period),W(0x5f,spark.period_basis),B(0x2ce,reference.event_age),
+    F(0x4f,0x01,spark.command_negative),F(0x4b,0x10,spark.output_request),B(0x201,spark.output_latency)
 };
 #undef B
 #undef W
@@ -92,13 +93,14 @@ typedef struct { uint16_t address,capacity;size_t offset; } TableMapping;
 static const TableMapping tables[]={T(0x4166,289,base_normal),T(0x428a,289,base_idle),
     T(0x43af,144,coolant),T(0x44d5,66,altitude),T(0x443a,109,mat),T(0x4860,79,egr)};
 static const TableMapping curves[]={T(0x44f0,8,idle_negative_speed),T(0x44f8,10,idle_negative_load),
-    T(0x4502,8,idle_positive_speed),T(0x450a,10,idle_positive_load)};
+    T(0x4502,8,idle_positive_speed),T(0x450a,10,idle_positive_load),T(0x454a,14,output_latency)};
 #undef T
 typedef struct { char kind;uint8_t width;uint16_t address,value;bool masked; } Event;
 typedef struct {
-    uint8_t memory[65536],present[65536],data[6][527],curve_data[4][17];
-    Event events[16];unsigned used,attempts,fail_at,action;bool masked;
-    uint16_t periods[4],partial;unsigned read_count,read_index;Pcm *pcm;
+    uint8_t memory[65536],present[65536],data[6][527],curve_data[5][17];
+    Event events[32];unsigned used,attempts,fail_at,action;bool masked;
+    uint16_t periods[16],partial;unsigned read_count,read_index;Pcm *pcm;
+    bool real_alternate;uint8_t coordinate_low,coordinate_rounded;
     PcmPlatform platform;
 } Fixture;
 static uint16_t word(const uint8_t *m,uint16_t a)
@@ -146,7 +148,7 @@ static void defaults(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
             } else for (unsigned j=0;j<map[i].count;++j) put(f,map[i].address+j,object[map[i].offset+j]);
         }
     }
-    for (unsigned i=0;i<4;++i) {
+    for (unsigned i=0;i<5;++i) {
         const TableMapping *map=&curves[i];
         const PcmCappedCurve *v=(const PcmCappedCurve *)(const void *)((const uint8_t *)spark+map->offset);
         CHECK(v->length==map->capacity);put(f,map->address,v->limit);
@@ -173,7 +175,7 @@ static void load_cal(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
         v->row_offset=f->memory[map->address];v->column_offset=f->memory[map->address+1];v->stride=f->memory[map->address+2];
         v->values=f->data[i];memcpy(f->data[i],f->memory+map->address+3,map->capacity);
     }
-    for (unsigned i=0;i<4;++i) {
+    for (unsigned i=0;i<5;++i) {
         const TableMapping *map=&curves[i];PcmCappedCurve *v=(PcmCappedCurve *)(void *)((uint8_t *)spark+map->offset);
         v->limit=f->memory[map->address];v->values=f->curve_data[i];
         /* Test-only profile expansion exposes coordinates hidden by stock caps. */
@@ -184,7 +186,7 @@ static void load_cal(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
 static PcmStatus record(Fixture *f,char kind,uint8_t width,uint16_t address,uint16_t value)
 {
     if (++f->attempts==f->fail_at) return PCM_NO_HARDWARE;
-    CHECK(f->used<16);f->events[f->used++]=(Event){kind,width,address,value,f->masked};return PCM_OK;
+    CHECK(f->used<32);f->events[f->used++]=(Event){kind,width,address,value,f->masked};return PCM_OK;
 }
 static PcmStatus mask(void *context,bool masked)
 {
@@ -197,9 +199,17 @@ static PcmStatus mask(void *context,bool masked)
 }
 static PcmStatus extension(Pcm *pcm,PcmTask task)
 {
-    CHECK(task==PCM_SPARK_EXTENSION);Fixture *f=pcm->platform->context;
-    PcmStatus result=record(f,'T',0,0x1812,(uint16_t)f->action);
+    CHECK(task==PCM_SPARK_EXTENSION || task==PCM_SPARK_OUTPUT_EXTENSION);Fixture *f=pcm->platform->context;
+    PcmStatus result=record(f,'T',0,task==PCM_SPARK_EXTENSION?0x1812:0x180f,
+                            task==PCM_SPARK_EXTENSION?(uint16_t)f->action:pcm->spark.extension_magnitude);
     if (result!=PCM_OK) return result;
+    if (task==PCM_SPARK_OUTPUT_EXTENSION) {
+        if (f->action==6) {
+            pcm->spark.extension_magnitude^=0xa5;pcm->spark.command_negative=true;
+            pcm->reference.rpm_coordinate=0xc1;pcm->spark.period_basis=0xff80;
+        }
+        return PCM_OK;
+    }
     if (f->action==1) { pcm->spark.composite=0x8123;pcm->scheduler.profiling_enabled=false; }
     else if (f->action==2) {
         pcm->spark.override_request=true;pcm->spark.override_active=true;
@@ -216,12 +226,14 @@ static PcmStatus read8(void *context,uint16_t address,uint8_t *value)
 }
 static PcmStatus read16(void *context,uint16_t address,uint16_t *value)
 {
-    Fixture *f=context;CHECK(address==PCM_REFERENCE_PERIOD);uint16_t sample=word(f->memory,address);
+    Fixture *f=context;CHECK(address==PCM_REFERENCE_PERIOD || address==PCM_SPARK_ROLLING || address==PCM_SPARK_WORD);
+    uint16_t sample=word(f->memory,address);
     if (f->read_count) { CHECK(f->read_index<f->read_count);sample=f->periods[f->read_index++]; }
     PcmStatus result=record(f,'R',16,address,sample);
     if (result==PCM_OK) {
         *value=sample;
         if (f->action==3) f->pcm->spark.period_correction=0xffff;
+        if (f->action==9 && address==PCM_SPARK_WORD) f->pcm->spark.period_correction=0x9abc;
     }
     return result;
 }
@@ -235,16 +247,30 @@ static PcmStatus write8(void *context,uint16_t address,uint8_t value)
 static PcmStatus alternate(Pcm *pcm,PcmTask task)
 {
     CHECK(task==PCM_ALTERNATE_RPM);Fixture *f=pcm->platform->context;
+    if (f->real_alternate) return pcm_spark_alternate(pcm);
     PcmStatus result=record(f,'T',0,0xac51,(uint16_t)f->action);
     if (result==PCM_OK && f->action==5) {
         pcm->reference.consumed=false;pcm->spark.period_basis=0xffff;pcm->spark.rpm_low_coordinate=0x77;
     }
     return result;
 }
+static PcmStatus write16(void *context,uint16_t address,uint16_t value)
+{
+    Fixture *f=context;
+    CHECK(address==PCM_SPARK_TIMING_A || address==PCM_SPARK_TIMING_B || address==PCM_SPARK_WORD || address==PCM_SPARK_ROLLING);
+    PcmStatus result=record(f,'W',16,address,value);
+    if (result==PCM_OK) {
+        f->memory[address]=(uint8_t)(value>>8);f->memory[address+1u]=(uint8_t)value;
+        if (f->action==7 && address==PCM_SPARK_TIMING_B) f->pcm->spark.period_correction=0x1234;
+        if (f->action==8 && address==PCM_SPARK_TIMING_A) f->pcm->spark.period_correction=0x5678;
+    }
+    return result;
+}
 static void bind(Fixture *f,Pcm *pcm)
 {
-    f->pcm=pcm;f->platform.read8=read8;f->platform.read16=read16;f->platform.write8=write8;
+    f->pcm=pcm;f->platform.read8=read8;f->platform.read16=read16;f->platform.write8=write8;f->platform.write16=write16;
     f->platform.context=f;f->platform.mask_irq=mask;f->platform.task[PCM_SPARK_EXTENSION]=extension;
+    f->platform.task[PCM_SPARK_OUTPUT_EXTENSION]=extension;
     f->platform.task[PCM_ALTERNATE_RPM]=alternate;
     pcm->platform=&f->platform;
 }
@@ -374,6 +400,49 @@ static void period_contracts(void)
     CHECK(value==pcm_lag16(0,65535,255,NULL) && intermediate==255 && value==256);
     puts("Period/filter calibration, prefix retention, zero seeding, rounding and build-route contracts pass.");
 }
+static void output_contracts(void)
+{
+    static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
+    uint8_t magnitude=91,low,rounded;uint16_t saved=0xbeef;bool published=true;
+    init(&f,&pcm,&root,&spark);CHECK(pcm_spark_output_extension(&pcm,NULL)==PCM_BAD_CONFIGURATION);
+    pcm.calibration=NULL;CHECK(pcm_spark_output_extension(&pcm,&magnitude)==PCM_OK && magnitude==91);
+    pcm.scheduler.profiling_enabled=true;
+    CHECK(pcm_spark_output_extension(&pcm,&magnitude)==PCM_UNIMPLEMENTED && magnitude==91);
+    CHECK(pcm.unresolved_task==PCM_SPARK_OUTPUT_EXTENSION);
+    init(&f,&pcm,&root,&spark);CHECK(pcm_spark_convert(&pcm,NULL)==PCM_BAD_CONFIGURATION);
+    pcm.calibration=NULL;CHECK(pcm_spark_convert(&pcm,&saved)==PCM_BAD_CONFIGURATION && saved==0xbeef);
+    init(&f,&pcm,&root,&spark);pcm.spark.command=0x1234;pcm.spark.startup_recovery_gain=0xff80;pcm.spark.period_basis=256;
+    CHECK(pcm_spark_convert(&pcm,&saved)==PCM_OK && saved==0xffff && !pcm.spark.command_negative);
+    init(&f,&pcm,&root,&spark);pcm.spark.command=0x8000;spark.output_latency.values=NULL;
+    saved=0xbeef;pcm.spark.output_latency=77;
+    CHECK(pcm_spark_convert(&pcm,&saved)==PCM_BAD_CONFIGURATION && saved==0xbeef);
+    CHECK(pcm.spark.command_negative && pcm.spark.output_latency==77);
+    init(&f,&pcm,&root,&spark);pcm.spark.period=0x1234;pcm.spark.rpm_raw=0x5678;
+    pcm.calibration=NULL;pcm.spark.output_request=pcm.reference.consumed=true;
+    CHECK(pcm_spark_alternate(&pcm)==PCM_OK && pcm.spark.period_basis==0xffff);
+    CHECK(!pcm.spark.output_request && !pcm.reference.consumed && pcm.spark.period==0x1234 && pcm.spark.rpm_raw==0x5678);
+    pcm.spark.first_reference=true;CHECK(pcm_spark_alternate(&pcm)==PCM_BAD_CONFIGURATION);
+    init(&f,&pcm,&root,&spark);pcm.spark.first_reference=true;pcm.spark.period_basis=88;
+    CHECK(pcm_spark_alternate(&pcm)==PCM_NO_HARDWARE && pcm.spark.period_basis==88);
+    CHECK(pcm_spark_coordinates(2000,&low,&rounded)==pcm_spark_coordinates(2000,NULL,NULL));
+    CHECK(low==7 && rounded==20);
+    for (unsigned failure=1;failure<=8;++failure) {
+        init(&f,&pcm,&root,&spark);bind(&f,&pcm);f.fail_at=failure;
+        CHECK(pcm_spark_handoff(&pcm,0x1234)==PCM_NO_HARDWARE && f.used==failure-1u);
+    }
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.calibration=NULL;f.action=7;pcm.spark.period_correction=0x66;
+    CHECK(pcm_spark_handoff(&pcm,0x1234)==PCM_OK && f.used==8);
+    CHECK(pcm.spark.period_correction==0x1234 && word(f.memory,0x3fdc)==0x66);
+    init(&f,&pcm,&root,&spark);CHECK(pcm_spark_publish(&pcm,NULL)==PCM_BAD_CONFIGURATION);
+    bind(&f,&pcm);f.real_alternate=true;
+    CHECK(pcm_spark_publish(&pcm,&published)==PCM_OK && !published && f.used==1);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);f.real_alternate=true;pcm.runtime.spark_running=true;
+    CHECK(pcm_spark_publish(&pcm,&published)==PCM_OK && published);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.scheduler.profiling_enabled=true;f.action=6;magnitude=91;
+    CHECK(pcm_spark_output_extension(&pcm,&magnitude)==PCM_OK && magnitude==(91^0xa5));
+    CHECK(pcm.spark.command_negative && pcm.reference.rpm_coordinate==0xc1 && pcm.spark.period_basis==0xff80);
+    puts("Output calibration, extension payload, alternate retention, eight failure positions and pre-write latching contracts pass.");
+}
 static const uint16_t outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6e,0x6f,0xa4,0x15a,
     0x1b2,0x1c0,0x1c1,0x1c2,0x1c9,0x1cc,0x1f4,0x1f5,0x1f8,0x1f9,0x1fa,0x1fb,0x1fc,
     0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844};
@@ -390,6 +459,7 @@ static const uint16_t period_extra[]={0x02,0x04,0x18,0x44,0x4f,0x5f,0x60,0x67,0x
     0x1c6,0x1ce,0x1cf,0x1e6,0x1e7,0x1e8,0x1e9,0x1ea,0x1eb,0x1ec,0x1ed,
     0x202,0x210,0x211,0x229,0x257,0x258,0x260,0x261,0x28c,0x28d,0x28e,0x28f,
     0x2ce,0x2f4,0x82e,0x83d,0x83e,0x83f,0x840,0x3060,0x306f,0x880,0x881};
+static const uint16_t output_extra[]={0x4b,0x201,0x3fdc,0x3fdd,0x3fe6,0x3fe7,0x3fe8,0x3fe9,0x3ff6,0x3ff7};
 static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
 {
     switch (mode) {
@@ -456,6 +526,23 @@ static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
         PcmStatus status=pcm_spark_precompute(pcm);
         return status==PCM_OK?pcm_spark_calculate(pcm):status;
     }
+    case 38:*value=pcm_spark_coordinates(word(f->memory,0x900),&f->coordinate_low,&f->coordinate_rounded);return PCM_OK;
+    case 39: {
+        uint8_t magnitude=f->memory[0x900];PcmStatus status=pcm_spark_output_extension(pcm,&magnitude);
+        *value=magnitude;return status;
+    }
+    case 40:*value=0xbeef;return pcm_spark_convert(pcm,value);
+    case 41:return pcm_spark_handoff(pcm,word(f->memory,0x900));
+    case 42:return pcm_spark_output(pcm);
+    case 43:return pcm_spark_alternate(pcm);
+    case 44:case 46: {
+        PcmStatus status=mode==46?pcm_spark_auxiliary(pcm):PCM_OK;
+        if (status!=PCM_OK) return status;
+        bool published;status=pcm_spark_publish(pcm,&published);*value=published;return status;
+    }
+    case 45: {
+        bool built;PcmStatus status=pcm_spark_build(pcm,&built);*value=built;return status;
+    }
     default:return PCM_BAD_CONFIGURATION;
     }
 }
@@ -466,6 +553,7 @@ int main(int argc,char **argv)
     if (argc==2 && strcmp(argv[1],"--modifier-contracts")==0) { modifier_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--command-contracts")==0) { command_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--period-contracts")==0) { period_contracts();return 0; }
+    if (argc==2 && strcmp(argv[1],"--output-contracts")==0) { output_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--defaults")==0) {
         init(&f,&pcm,&root,&spark);printf("[");bool first=true;
         for (unsigned a=0;a<65536;++a) if (f.present[a]) { printf("%s[%u,%u]",first?"":",",a,f.memory[a]);first=false; }
@@ -473,7 +561,7 @@ int main(int argc,char **argv)
     }
     unsigned mode,count;
     while (scanf("%u %u",&mode,&count)==2) {
-        if (mode>37 || count>2048) return 2;
+        if (mode>46 || count>2048) return 2;
         init(&f,&pcm,&root,&spark);
         for (unsigned i=0;i<count;++i) {
             unsigned a,v;if (scanf("%u %u",&a,&v)!=2 || a>65535 || v>255) return 2;f.memory[a]=(uint8_t)v;
@@ -484,25 +572,33 @@ int main(int argc,char **argv)
             if (f.memory[0x90a]) f.platform.task[PCM_SPARK_EXTENSION]=NULL;
             if (mode>=28) {
                 if (f.memory[0x90c]) f.platform.task[PCM_ALTERNATE_RPM]=NULL;
-                f.read_count=f.memory[0x90b];CHECK(f.read_count<=4);
+                f.read_count=f.memory[0x90b];CHECK(f.read_count<=16);
                 for (unsigned i=0;i<f.read_count;++i) f.periods[i]=word(f.memory,(uint16_t)(0x910+i*2u));
+            }
+            if (mode>=38) {
+                f.real_alternate=true;
+                if (f.memory[0x90d]) f.platform.task[PCM_SPARK_OUTPUT_EXTENSION]=NULL;
             }
         }
         uint16_t value=0;PcmStatus status=run(&f,&pcm,mode,&value);
         transfer(&pcm,f.memory,state_map,sizeof(state_map)/sizeof(state_map[0]),false);
         CHECK(pcm.unresolved_task==PCM_TASK_COUNT || (mode>=20 && pcm.unresolved_task==PCM_SPARK_EXTENSION) ||
-              (mode>=28 && pcm.unresolved_task==PCM_ALTERNATE_RPM));
+              (mode>=28 && pcm.unresolved_task==PCM_ALTERNATE_RPM) ||
+              (mode>=38 && pcm.unresolved_task==PCM_SPARK_OUTPUT_EXTENSION));
         CHECK(mode>=20 || pcm.platform==NULL);
         printf("{\"status\":%u,\"value\":%u,\"state\":[",(unsigned)status,(unsigned)value);
         const uint16_t *selected=mode>=20?command_outputs:mode>=13?modifier_outputs:outputs;
         size_t size=mode>=20?sizeof(command_outputs)/sizeof(command_outputs[0]):mode>=13?sizeof(modifier_outputs)/sizeof(modifier_outputs[0]):sizeof(outputs)/sizeof(outputs[0]);
         for (size_t i=0;i<size;++i) printf("%s%u",i?",":"",f.memory[selected[i]]);
         if (mode>=28) for (size_t i=0;i<sizeof(period_extra)/sizeof(period_extra[0]);++i) printf(",%u",f.memory[period_extra[i]]);
+        if (mode>=38) for (size_t i=0;i<sizeof(output_extra)/sizeof(output_extra[0]);++i) printf(",%u",f.memory[output_extra[i]]);
         if (mode<20) puts("]}");
         else {
-            unsigned unresolved=pcm.unresolved_task==PCM_SPARK_EXTENSION?1u:pcm.unresolved_task==PCM_ALTERNATE_RPM?2u:0u;
+            unsigned unresolved=pcm.unresolved_task==PCM_SPARK_EXTENSION?1u:pcm.unresolved_task==PCM_ALTERNATE_RPM?2u:
+                                pcm.unresolved_task==PCM_SPARK_OUTPUT_EXTENSION?3u:0u;
             printf("],\"masked\":%u,\"unresolved\":%u",(unsigned)f.masked,unresolved);
             if (mode>=28) printf(",\"partial\":%u",(unsigned)f.partial);
+            if (mode>=38) printf(",\"coordinates\":[%u,%u]",(unsigned)f.coordinate_low,(unsigned)f.coordinate_rounded);
             printf(",\"events\":[");
             for (unsigned i=0;i<f.used;++i) { Event *e=&f.events[i];printf("%s[\"%c\",%u,%u,%u,%u]",i?",":"",e->kind,e->width,e->address,e->value,(unsigned)e->masked); }
             puts("]}");

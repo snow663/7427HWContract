@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 129 public routines: 55 implemented outlines, 40 dependency
-boundaries and thirty-four implemented algorithms. Reset CPU/chip-select/board
+The tree contains 136 public routines: 60 implemented outlines, 41 dependency
+boundaries and thirty-five implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -102,7 +102,14 @@ preserves separate raw/scaled periods, filter seeding and rounding, adaptive
 N-bit adoption and a fresh final limit read. The combined builder reports
 completion separately from alternate success. See the
 [period/RPM contract](reference/spark_period_contract.md) for 699,057 further
-comparisons across 163 scoped instructions and the remaining output boundaries.
+comparisons across 163 scoped instructions.
+
+Conversion/publication at AB44..ABCA and the actual AC51..ACA6 alternate body
+are now callable C routines. The new180F hook stays explicit; publication
+preserves four reads and four writes, repeated rolling/correction samples and
+failure prefixes. See the [output contract](reference/spark_output_contract.md)
+for 603,682 new comparisons across all 104 output/alternate instruction starts.
+The following monitor and broad-controller/alternate adapter integration remain.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -149,7 +156,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are twenty-two CTest entries; the Python route runs the same contract/differential checks.
+are twenty-four CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -161,15 +168,17 @@ and 27 checked calibration bytes (17 new, 10 shared). Admission adds 620,169
 comparisons across all 155 pre-trap instruction starts and 14 new calibration bytes.
 Period/RPM preparation adds 699,057 comparisons, 163 scoped instructions and four
 checked calibration bytes (three new, one shared), including the word-lag helper
-and full-builder failure/retained-state histories.
+and full-builder failure/retained-state histories. Output/alternate work adds
+603,682 comparisons, 104 instruction starts and 15 new stock calibration bytes;
+all 1,194 bytes in the expanded fixture match the recorded image.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
-Next port AB44 period/EST conversion/output and AC51 alternate RPM, then
-integrate the complete root. Keep the optional 1812 implementation and machine ABI
+Next port the ABCB..AC50 bypass/fault monitor and connect the complete
+controller and alternate bodies to dispatch. Keep the optional 1812 implementation and machine ABI
 as an explicit dependency. Connect the
 implemented slices without skipping unfinished producer work. Retain verified
 driver ordering and fault exits. Continue the remaining injector, spark and IAC drivers

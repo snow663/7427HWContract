@@ -5,8 +5,8 @@ Authority is the recorded stock BMHM image, SHA-256
 The callable prelude covers A466..A5E4 and stops at the A5E5 normal continuation,
 the explicit AC51 alternate dependency, or the first SWI boundary at A5D7.
 The SWI instruction, its handler/frame and the following trap loop are outside
-this host implementation. The broad A466 controller remains delegated until
-its period/RPM preparation and output work are implemented.
+this host implementation. The broad A466 controller remains delegated pending its ABCB monitor and
+connection of the implemented bodies.
 
 ## Routine ownership
 
@@ -148,11 +148,11 @@ fresh period samples, unrelated flag bits, and selected callback-time input
 changes. These are not every state combination or interrupt interleaving.
 Coherent fixture period words do not prove physical counter coherency.
 
-Both host routes now contain 22 CTest entries. The inventory is 129 public
-routines: 55 implemented outlines, 40 explicit boundaries and 34 algorithms.
+Both host routes now contain 24 CTest entries. The inventory is 136 public
+routines: 60 implemented outlines, 41 explicit boundaries and 35 algorithms.
 The [normal period/RPM preparation](spark_period_contract.md) is now implemented.
-Next are AB44 period/EST conversion/output and AC51 alternate RPM, followed by
-integration of the complete root. Target ABI, physical backend,
+The [output/alternate bodies](spark_output_contract.md) are now implemented.
+Next are the ABCB monitor and complete-root/alternate adapter integration. Target ABI, physical backend,
 memory/stack fit and cycle timing remain separate verification.
 
 See the [command contract](spark_command_contract.md),

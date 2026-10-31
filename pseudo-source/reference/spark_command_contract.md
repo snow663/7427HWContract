@@ -157,12 +157,13 @@ corpora. This is not an exhaustive product of all states or interrupt
 interleavings; target C stack costs, compiler ABI and timing remain separate.
 
 Both host verification routes retain this command suite and the newer admission
-contracts/differential checks, bringing CTest to 22 entries. The source inventory
-is 129 public routines: 55 implemented outlines, 40 explicit dependency boundaries
-and 34 implemented algorithms. These counts are not whole-firmware equivalence.
+contracts/differential checks, bringing CTest to 24 entries. The source inventory
+is 136 public routines: 60 implemented outlines, 41 explicit dependency boundaries
+and 35 implemented algorithms. These counts are not whole-firmware equivalence.
 The [A466..A5E4 admission prelude](spark_admission_contract.md) is now callable.
 The [normal period/RPM preparation](spark_period_contract.md) is also implemented.
-Next source work is AB44 period/EST conversion/output and AC51 alternate RPM, with unfinished producers and the optional module
+The [output/alternate bodies](spark_output_contract.md) are also implemented.
+Next source work is the ABCB monitor and complete-root/alternate adapter integration, with unfinished producers and the optional module
 remaining explicit.
 
 See the [modifier contract](spark_modifiers_contract.md),
