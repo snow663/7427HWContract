@@ -6,7 +6,7 @@ hardware and scheduling reference; algorithms and calibration layout can evolve
 independently behind named interfaces.
 
 The current deliverable is a host-compilable outline with checked scheduler
-logic, reset/REF transactions and a verified fuel calculation. It does not emit
+logic, reset/REF/knock routines and verified integer algorithms. It does not emit
 a flashable BIN.
 The HC11 startup/vector assembly, target compiler/linker layout, complete
 controller bodies and physical hardware backend remain to be implemented.
@@ -22,8 +22,8 @@ controller bodies and physical hardware backend remain to be implemented.
 | `src/drivers/` | Explicit byte/word transactions, timer arm, watchdog and board-bit toggle |
 | `src/fuel/` | Base calculation, REF crank/running/decay logic and asynchronous delivery |
 | `src/math/` | Shared rounded lookup and word-gain arithmetic |
-| `src/spark/`, `src/idle/` | Spark and IAC task boundaries |
-| `src/sensors/` | Input acquisition/housekeeping boundaries |
+| `src/spark/`, `src/idle/` | Knock decay/retard slices and remaining spark/IAC boundaries |
+| `src/sensors/` | Knock sensor diagnostic and remaining acquisition/housekeeping boundaries |
 | `src/serial/` | Serial-service boundary |
 | `src/transmission/`, `src/emissions/` | Existing scheduling dependencies retained visibly for later feature selection |
 | `include/` | Public routine declarations, named state, platform and calibration interfaces |
@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 79 public routines: 35 implemented outlines, 40 dependency
-boundaries and four implemented algorithms. Reset CPU/chip-select/board
+The tree contains 84 public routines: 39 implemented outlines, 39 dependency
+boundaries and six implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -57,6 +57,13 @@ advances its baseline, applies both direct-index curves and accumulates the
 bounded observation. Its 261,632 numeric comparisons and 1,280 REF/OC1 sequences
 match the stock code. See the [OC1 contract](reference/oc1_knock_contract.md) for
 failure-prefix checks, coverage and the remaining knock-controller boundaries.
+
+Slot8 now directly calls implemented knock decay and sensor diagnostics.
+The normal-spark consumer atomically reads/clears pending observations and
+implements its distinct zero, skip, fault and capped-update routes. The broad
+spark task remains a dependency until its other slices are ported. See the
+[knock control contract](reference/knock_control_contract.md) for exact mux/ADC
+transactions, timeout behavior and the 283,023 additional C/ROM comparisons.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -101,15 +108,18 @@ REF prefix cases with actual stock instructions. Full-handler tests add 2,502
 cases, 143 failure prefixes and 38 direct timer-entry cases. The hardware harness
 also checks 64 injected failure positions and the startup/REF dependency boundaries.
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
+Knock control adds 283,023 comparisons and checks all 121 scoped instruction
+starts, including selected IRQ boundaries and sensor-fault histories. There
+are ten CTest entries; the Python route runs the same contract/differential checks.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
-Next port the scheduled knock decay/sensor diagnostic and normal-spark
-consumption of the new observation accumulator. Retain verified driver ordering
-and fault exits. Then port the remaining injector, spark and IAC drivers
+Next port burst/low-octane state and the spark gain/cap producers, then connect
+these slices within the spark root. Retain verified driver ordering and fault
+exits. Continue the remaining injector, spark and IAC drivers
 individually. Controller task boundaries can be replaced
 with direct calls to implemented routines as those modules are completed.
 Feature removal will update both dispatch admissions and shared-state producers.

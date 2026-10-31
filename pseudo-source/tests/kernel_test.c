@@ -11,7 +11,7 @@ typedef struct {
     uint8_t memory[65536]; /* Test fixture only; never the target RAM model. */
     unsigned counts[PCM_TASK_COUNT];
     PcmTask trace[2048]; unsigned used;
-    unsigned timer_writes, current_writes, watchdog_writes;
+    unsigned timer_writes, current_writes, watchdog_writes, adc_starts;
     bool masked, inject, injected, guard_fails;
     PcmPlatform platform;
 } Fixture;
@@ -21,6 +21,7 @@ static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
 }
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     Fixture *f=v; f->memory[a]=value;
+    if (a==PCM_ADCTL) ++f->adc_starts;
     if (a==PCM_COPRST) {
         CHECK(value==((f->watchdog_writes&1u)?0x55:0xaa)); ++f->watchdog_writes;
     }
@@ -61,9 +62,13 @@ static void test_initialization_and_missing_contracts(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
     f.memory[PCM_TCNT]=0xff; f.memory[PCM_TCNT+1]=0xfc;
     pcm.knock.sample_baseline=0xabcd; pcm.knock.observation_accumulator=0x55;
+    pcm.knock.retard=0x23; pcm.knock.sensor_fault=true; pcm.knock.sensor_fault_count=0x64;
+    pcm.spark.command=0xabcd; pcm.runtime.adc_timeout=true; pcm.runtime.adc_fault=true;
     CHECK(pcm_reset_sequence(&pcm,&f.platform,&pcm_reference_scheduler_calibration)==PCM_OK);
     CHECK(pcm.scheduler.phase==0x0e && f.masked);
     CHECK(pcm.knock.sample_baseline==0 && pcm.knock.observation_accumulator==0);
+    CHECK(pcm.knock.retard==0 && !pcm.knock.sensor_fault && pcm.knock.sensor_fault_count==0);
+    CHECK(pcm.spark.command==0 && !pcm.runtime.adc_timeout && !pcm.runtime.adc_fault);
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
     static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RAM,
@@ -88,6 +93,7 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==40);
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
         CHECK(f.counts[k]==(k==PCM_SLOT_0E?0u:10u));
+    CHECK(f.adc_starts==10); /* Slot8 now runs its real diagnostic, without a task binding. */
     CHECK(pcm.runtime.refresh_requested && pcm.runtime.refresh_late);
     uint16_t compare; CHECK(read16(&f,PCM_TOC3,&compare)==PCM_OK);
     CHECK(compare==(uint16_t)(819u*160u));

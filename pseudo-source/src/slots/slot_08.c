@@ -1,8 +1,9 @@
 #include "scheduler.h"
-/* Reference 7B2B, table word 7A95.
- * Stock body: 7B2B:CEBB
- * Body binding required unless state-only slot E. */
+#include "knock.h"
+/* 7B2B calls CEBB..CF15 then returns. This slot has no other task body. */
 PcmStatus pcm_slot_08(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_SLOT_08);
+    PcmStatus result = pcm_knock_decay(pcm);
+    if (result != PCM_OK) return result;
+    return pcm_knock_sensor(pcm);
 }

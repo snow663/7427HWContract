@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 79 public routines: 35 implemented outlines,
-40 explicit dependency boundaries and four implemented algorithms.
+The source currently has 84 public routines: 39 implemented outlines,
+39 explicit dependency boundaries and six implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -27,8 +27,12 @@ now C implementations. See the
 The OC1 counter observer is also implemented, including its baseline, noise/bias
 curves and saturating pending-observation accumulator. See the
 [OC1 contract](../pseudo-source/reference/oc1_knock_contract.md).
-Next are scheduled knock decay/fault handling and the normal-spark observation
-consumer, plus the remaining reset/backend and injector/spark/IAC work.
+Slot8 now implements knock decay and the mux/ADC sensor diagnostic, and the
+normal-spark observation consumer is a checked callable C slice. The broad spark
+root remains a boundary. See the
+[knock control contract](../pseudo-source/reference/knock_control_contract.md).
+Next are burst/low-octane logic and the spark gain/cap producers, alongside
+remaining reset/backend and injector/spark/IAC work.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -109,6 +113,10 @@ All 423 scoped instruction starts are exercised; two guards need direct driver
 entry because the complete-handler producer limits their input. This is coverage,
 not all-state equivalence. OC1 adds 261,632 numeric cases, 16 failure prefixes and
 1,280 REF/OC1 sequences, covering all 34 handler instructions and 128 table bytes.
+Knock control adds 283,023 comparisons across decay, normal KR, acquisition,
+failure prefixes and selected producer/consumer histories. All 121 scoped
+instruction starts execute; 24 new calibration bytes and the shared diagnostic
+enable match stock. The source check suite now has ten CTest entries.
 The simulator has 17 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 
