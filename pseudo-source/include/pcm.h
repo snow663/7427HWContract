@@ -26,7 +26,7 @@ typedef enum {
     PCM_SCI_BODY,
     PCM_RESET_ENTRY, PCM_RESET_RAM,
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
-    PCM_RESET_SERIAL, PCM_TASK_COUNT
+    PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -98,6 +98,10 @@ typedef struct {
     uint8_t transient_coolant_minimum, transient_coolant_maximum, transient_gain[5]; /* 46F2..46F8 */
     uint8_t transient_positive[3], transient_negative[3]; /* 46EC..46F1: gain,offset,cap */
     uint8_t recovery_gain, recovery_fast_gain, recovery_throttle, decel_base; /* 414F..4152 */
+    uint8_t reference_bias, override_options, override_coolant_minimum; /* 4132,4E90,4161 */
+    uint8_t override_throttle_entry, override_throttle_retained; /* 4164,4165 */
+    uint16_t override_command;          /* 4162 */
+    uint16_t upper_limit, lower_normal, lower_recovery, lower_transmission, lower_transmission_state; /* 4144..414D */
 } PcmSparkCalibration;
 
 typedef struct {
@@ -213,6 +217,9 @@ typedef struct {
     volatile bool recovery_active;     /* RAM0051.5 */
     volatile uint8_t decel_retard;      /* RAM0208 */
     volatile uint16_t startup_recovery_gain; /* RAM01F2, one shared startup/decel word */
+    volatile bool override_request, override_active; /* RAM0036.5,0053.4 */
+    volatile uint8_t service_flags, service_amount; /* RAM0395,0398 */
+    volatile uint16_t command_latched;  /* RAM01F0, common post-service latch */
 } PcmSpark;
 
 typedef struct Pcm {

@@ -6,8 +6,9 @@ This step implements the contiguous A700..A84D composite calculation and the
 complete CA6B..CB14 auxiliary producer. The broad A466 root and slot7 retain
 their other unfinished work; these callable bodies do not bypass that work.
 The composite at 01FD from this slice feeds the now-implemented
-[idle/transient/decel body](spark_modifiers_contract.md), before remaining
-overrides, limits, service edits and physical spark conversion.
+[idle/transient/decel body](spark_modifiers_contract.md) and
+[command body](spark_command_contract.md), under the optional 1812 dependency.
+The broad root and physical spark conversion remain unfinished.
 
 ## Module ownership
 
@@ -136,12 +137,12 @@ history calls. All 336 scoped instruction starts execute. The ROM side checks
 local stack balance and the math helpers' preserved registers; it performs no
 hardware transactions in these slices.
 
-The earlier source suites remain, bringing CTest to 16 checks. There are 109 public
-routines: 45 implemented outlines, 39 explicit dependency boundaries and twenty-five
+The earlier source suites remain, bringing CTest to 18 checks. There are 116 public
+routines: 47 implemented outlines, 40 explicit dependency boundaries and twenty-nine
 algorithms. Target ABI, memory/stack fit, physical timing and the complete spark
 root/output controller remain separate work. Idle/transient/decel corrections
-are now implemented; override/limits/service work, admission and output handoff
-remain.
+and resident override/limits/service edits are now implemented. Optional1812,
+remaining admission and output handoff retain their explicit boundaries.
 
 See the [adaptive spark contract](adaptive_spark_contract.md),
 [factory upstream derivation](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)

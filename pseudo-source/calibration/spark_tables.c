@@ -124,4 +124,15 @@ const PcmSparkCalibration pcm_reference_spark_calibration = {
     .transient_gain = {0x00, 0x00, 0x00, 0x00, 0x00},
     .transient_positive = {0x00, 0x00, 0x00},
     .transient_negative = {0x00, 0x00, 0x00},
+    .reference_bias = 0x0b, /* 4132 */
+    .override_options = 0x01, /* 4E90 */
+    .override_coolant_minimum = 0xff, /* 4161 */
+    .override_throttle_entry = 0x00, /* 4164 */
+    .override_throttle_retained = 0x00, /* 4165 */
+    .override_command = 0x0000, /* 4162 */
+    .upper_limit = 0x0077, /* 4144 */
+    .lower_normal = 0xfff5, /* 4146 */
+    .lower_recovery = 0xfff5, /* 4148 */
+    .lower_transmission = 0xfff5, /* 414A */
+    .lower_transmission_state = 0x0000, /* 414C */
 };
