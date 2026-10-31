@@ -1,6 +1,7 @@
 #include "spark.h"
 #include "reference_math.h"
 #include "calibration.h"
+#include "hardware.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,7 +32,18 @@ static const Mapping state_map[]={
     F(0x3b,0x10,runtime.engine_service),B(0x395,spark.service_flags),B(0x398,spark.service_amount),
     W(0x1ee,spark.command),W(0x1f0,spark.command_latched),B(0x16,runtime.primary_faults),
     F(0x50,0x10,runtime.diagnostic_switch),F(0x6e,0x02,knock.burst_active),B(0x1da,spark.previous_throttle),
-    B(0x20c,knock.retard),B(0x20d,knock.observation_accumulator),B(0x20e,knock.burst_countdown),B(0x842,knock.burst_gain)
+    B(0x20c,knock.retard),B(0x20d,knock.observation_accumulator),B(0x20e,knock.burst_countdown),B(0x842,knock.burst_gain),
+    B(0x02,scheduler.phase),W(0x83d,spark.rpm_raw),W(0x28e,spark.rpm_monitor_filtered),
+    B(0x28c,spark.rpm_monitor_previous),B(0x28d,spark.rpm_monitor_delta),B(0x67,reference.load_coordinate),
+    W(0x68,reference.load_filtered),W(0x1e8,spark.period),W(0x1e6,spark.previous_period),
+    W(0x83f,spark.reference_term),W(0x1ec,spark.period_correction),B(0xa7,spark.battery_sample),
+    B(0x1c6,spark.map_filtered),B(0x2f4,spark.barometric_high),B(0x1ce,spark.normalized_load_divisor),
+    W(0x257,spark.density),B(0x1cf,spark.normalized_load),B(0x229,spark.map_fault_count),F(0x18,0x10,spark.map_fault),
+    B(0x82e,reference.map_sample),F(0x50,0x20,reference.pending),F(0x50,0x04,reference.consumed),
+    F(0x4f,0x10,runtime.fuel_running),F(0x4f,0x80,runtime.spark_running),F(0x4f,0x40,spark.startup_gain_enabled),
+    F(0x44,0x08,spark.first_reference),F(0x51,0x40,spark.startup_gain_complete),F(0x04,0x08,spark.run_transition),
+    B(0x211,spark.fuel_run_count),B(0x210,spark.spark_run_count),B(0x202,spark.missing_reference_count),
+    W(0x260,spark.reference_age),W(0x1ea,spark.adaptive_period),W(0x5f,spark.period_basis),B(0x2ce,reference.event_age)
 };
 #undef B
 #undef W
@@ -65,7 +77,12 @@ static const Mapping spark_map[]={
     B(0x4132,reference_bias),B(0x4e90,override_options),B(0x4161,override_coolant_minimum),
     B(0x4164,override_throttle_entry),B(0x4165,override_throttle_retained),W(0x4162,override_command),
     W(0x4144,upper_limit),W(0x4146,lower_normal),W(0x4148,lower_recovery),
-    W(0x414a,lower_transmission),W(0x414c,lower_transmission_state)
+    W(0x414a,lower_transmission),W(0x414c,lower_transmission_state),
+    B(0x4141,period_scale),B(0x4153,rpm_filter_gain),B(0x4517,load_filter_gain),B(0x50e4,monitor_filter_gain),
+    W(0x4133,spark_run_period_limit),W(0x4135,fuel_run_period_limit),W(0x4962,no_reference_age_limit),
+    B(0x4142,spark_run_events),B(0x4143,fuel_run_events),B(0x414e,startup_gain),
+    B(0x4e64,map_sample_minimum),B(0x4e65,map_rpm_minimum),B(0x4e66,map_count_limit),
+    B(0x4e67,map_throttle_limit),B(0x4d96,missing_reference_age_cap)
 };
 #undef B
 #undef A
@@ -77,10 +94,11 @@ static const TableMapping tables[]={T(0x4166,289,base_normal),T(0x428a,289,base_
 static const TableMapping curves[]={T(0x44f0,8,idle_negative_speed),T(0x44f8,10,idle_negative_load),
     T(0x4502,8,idle_positive_speed),T(0x450a,10,idle_positive_load)};
 #undef T
-typedef struct { char kind;uint16_t address,value;bool masked; } Event;
+typedef struct { char kind;uint8_t width;uint16_t address,value;bool masked; } Event;
 typedef struct {
     uint8_t memory[65536],present[65536],data[6][527],curve_data[4][17];
     Event events[16];unsigned used,attempts,fail_at,action;bool masked;
+    uint16_t periods[4],partial;unsigned read_count,read_index;Pcm *pcm;
     PcmPlatform platform;
 } Fixture;
 static uint16_t word(const uint8_t *m,uint16_t a)
@@ -163,21 +181,24 @@ static void load_cal(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
         memcpy(f->curve_data[i],f->memory+map->address+1,v->length);
     }
 }
-static PcmStatus record(Fixture *f,char kind,uint16_t address,uint16_t value)
+static PcmStatus record(Fixture *f,char kind,uint8_t width,uint16_t address,uint16_t value)
 {
     if (++f->attempts==f->fail_at) return PCM_NO_HARDWARE;
-    CHECK(f->used<16);f->events[f->used++]=(Event){kind,address,value,f->masked};return PCM_OK;
+    CHECK(f->used<16);f->events[f->used++]=(Event){kind,width,address,value,f->masked};return PCM_OK;
 }
 static PcmStatus mask(void *context,bool masked)
 {
-    Fixture *f=context;PcmStatus result=record(f,'M',0,masked);
-    if (result==PCM_OK) f->masked=masked;
+    Fixture *f=context;PcmStatus result=record(f,'M',0,0,masked);
+    if (result==PCM_OK) {
+        f->masked=masked;
+        if (!masked && f->action==4) { f->pcm->reference.pending=true;f->pcm->runtime.spark_running=true; }
+    }
     return result;
 }
 static PcmStatus extension(Pcm *pcm,PcmTask task)
 {
     CHECK(task==PCM_SPARK_EXTENSION);Fixture *f=pcm->platform->context;
-    PcmStatus result=record(f,'T',0x1812,(uint16_t)f->action);
+    PcmStatus result=record(f,'T',0,0x1812,(uint16_t)f->action);
     if (result!=PCM_OK) return result;
     if (f->action==1) { pcm->spark.composite=0x8123;pcm->scheduler.profiling_enabled=false; }
     else if (f->action==2) {
@@ -186,9 +207,45 @@ static PcmStatus extension(Pcm *pcm,PcmTask task)
     }
     return PCM_OK;
 }
+static PcmStatus read8(void *context,uint16_t address,uint8_t *value)
+{
+    Fixture *f=context;CHECK(address==PCM_BOARD_3060);
+    uint8_t sample=f->memory[address];PcmStatus result=record(f,'R',8,address,sample);
+    if (result==PCM_OK) *value=sample;
+    return result;
+}
+static PcmStatus read16(void *context,uint16_t address,uint16_t *value)
+{
+    Fixture *f=context;CHECK(address==PCM_REFERENCE_PERIOD);uint16_t sample=word(f->memory,address);
+    if (f->read_count) { CHECK(f->read_index<f->read_count);sample=f->periods[f->read_index++]; }
+    PcmStatus result=record(f,'R',16,address,sample);
+    if (result==PCM_OK) {
+        *value=sample;
+        if (f->action==3) f->pcm->spark.period_correction=0xffff;
+    }
+    return result;
+}
+static PcmStatus write8(void *context,uint16_t address,uint8_t value)
+{
+    Fixture *f=context;CHECK(address==PCM_BOARD_3060 || address==PCM_REFERENCE_AGE);
+    PcmStatus result=record(f,'W',8,address,value);
+    if (result==PCM_OK) f->memory[address]=value;
+    return result;
+}
+static PcmStatus alternate(Pcm *pcm,PcmTask task)
+{
+    CHECK(task==PCM_ALTERNATE_RPM);Fixture *f=pcm->platform->context;
+    PcmStatus result=record(f,'T',0,0xac51,(uint16_t)f->action);
+    if (result==PCM_OK && f->action==5) {
+        pcm->reference.consumed=false;pcm->spark.period_basis=0xffff;pcm->spark.rpm_low_coordinate=0x77;
+    }
+    return result;
+}
 static void bind(Fixture *f,Pcm *pcm)
 {
+    f->pcm=pcm;f->platform.read8=read8;f->platform.read16=read16;f->platform.write8=write8;
     f->platform.context=f;f->platform.mask_irq=mask;f->platform.task[PCM_SPARK_EXTENSION]=extension;
+    f->platform.task[PCM_ALTERNATE_RPM]=alternate;
     pcm->platform=&f->platform;
 }
 static void contracts(void)
@@ -279,6 +336,44 @@ static void command_contracts(void)
     CHECK(pcm.spark.coolant_advance!=0 && pcm.spark.command_latched==0);
     puts("Command calibration, inactive/unbound extension and failure-prefix contracts pass.");
 }
+static void period_contracts(void)
+{
+    static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
+    const PcmRoutine routines[]={pcm_spark_period_sample,pcm_spark_rpm_filters,pcm_spark_precompute};
+    for (unsigned i=0;i<3;++i) {
+        init(&f,&pcm,&root,&spark);pcm.calibration=NULL;CHECK(routines[i](&pcm)==PCM_BAD_CONFIGURATION);
+        init(&f,&pcm,&root,&spark);root.spark=NULL;CHECK(routines[i](&pcm)==PCM_BAD_CONFIGURATION);
+    }
+    init(&f,&pcm,&root,&spark);pcm.spark.period=77;pcm.spark.period_basis=88;
+    CHECK(pcm_spark_period_sample(&pcm)==PCM_NO_HARDWARE && pcm.spark.period==77 && pcm.spark.period_basis==88);
+    init(&f,&pcm,&root,&spark);pcm.spark.period=2000;pcm.spark.previous_period=2100;
+    CHECK(pcm_spark_period_terms(&pcm)==PCM_NO_HARDWARE && pcm.spark.previous_period==2000 && pcm.spark.reference_term!=0);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.calibration=NULL;pcm.spark.period=2000;
+    CHECK(pcm_spark_period_terms(&pcm)==PCM_OK);
+    init(&f,&pcm,&root,&spark);pcm.spark.rpm_raw=12345;pcm.reference.rpm_coordinate=99;
+    spark.rpm_filter_gain=spark.load_filter_gain=0;CHECK(pcm_spark_rpm_filters(&pcm)==PCM_OK);
+    CHECK(pcm.spark.rpm_high==96 && pcm.spark.rpm_fraction==114 && pcm.reference.load_filtered!=0);
+    pcm.spark.rpm_monitor_filtered=0xff80;pcm.scheduler.phase=4;pcm.spark.rpm_monitor_previous=255;
+    CHECK(pcm_spark_rpm_filters(&pcm)==PCM_OK && pcm.spark.rpm_monitor_previous==0 && pcm.spark.rpm_monitor_delta==1);
+    bool built=true;init(&f,&pcm,&root,&spark);CHECK(pcm_spark_build(&pcm,NULL)==PCM_BAD_CONFIGURATION);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.spark.command_latched=0x1234;
+    CHECK(pcm_spark_build(&pcm,&built)==PCM_OK && !built && pcm.spark.command_latched==0x1234);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.runtime.spark_running=true;
+    f.read_count=2;f.periods[0]=f.periods[1]=2000;f.fail_at=3;pcm.spark.command_latched=0x1234;
+    CHECK(pcm_spark_build(&pcm,&built)==PCM_NO_HARDWARE && !built);
+    CHECK(pcm.spark.period==2000 && pcm.spark.previous_period==2000 && pcm.spark.command_latched==0x1234);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.runtime.spark_running=true;
+    f.read_count=2;f.periods[0]=f.periods[1]=2000;
+    CHECK(pcm_spark_build(&pcm,&built)==PCM_OK && built);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.runtime.spark_running=true;pcm.scheduler.profiling_enabled=true;
+    f.platform.task[PCM_SPARK_EXTENSION]=NULL;
+    CHECK(pcm_spark_build(&pcm,&built)==PCM_UNIMPLEMENTED && !built && pcm.unresolved_task==PCM_SPARK_EXTENSION);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.spark.missing_reference_count=23;
+    CHECK(pcm_spark_build(&pcm,&built)==PCM_TRAP_BOUNDARY && !built);
+    uint16_t intermediate=0;uint16_t value=pcm_lag16(0,65535,255,&intermediate);
+    CHECK(value==pcm_lag16(0,65535,255,NULL) && intermediate==255 && value==256);
+    puts("Period/filter calibration, prefix retention, zero seeding, rounding and build-route contracts pass.");
+}
 static const uint16_t outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6e,0x6f,0xa4,0x15a,
     0x1b2,0x1c0,0x1c1,0x1c2,0x1c9,0x1cc,0x1f4,0x1f5,0x1f8,0x1f9,0x1fa,0x1fb,0x1fc,
     0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844};
@@ -291,6 +386,10 @@ static const uint16_t command_outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6e
     0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844,
     0x63,0x64,0x6c,0xfd,0xfe,0x46,0x51,0x53,0x1d9,0x1f2,0x1f3,0x208,0x837,0x838,0x839,0x83a,0x83b,0x857,0x284,
     0x86,0x36,0x3b,0x395,0x398,0x1ee,0x1ef,0x1f0,0x1f1,0x16,0x1da,0x20c,0x20d,0x20e,0x842};
+static const uint16_t period_extra[]={0x02,0x04,0x18,0x44,0x4f,0x5f,0x60,0x67,0x68,0x69,0xa7,
+    0x1c6,0x1ce,0x1cf,0x1e6,0x1e7,0x1e8,0x1e9,0x1ea,0x1eb,0x1ec,0x1ed,
+    0x202,0x210,0x211,0x229,0x257,0x258,0x260,0x261,0x28c,0x28d,0x28e,0x28f,
+    0x2ce,0x2f4,0x82e,0x83d,0x83e,0x83f,0x840,0x3060,0x306f,0x880,0x881};
 static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
 {
     switch (mode) {
@@ -338,6 +437,25 @@ static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
         PcmStatus status=pcm_spark_auxiliary(pcm);
         return status==PCM_OK?pcm_spark_calculate(pcm):status;
     }
+    case 28:case 29: {
+        *value=pcm_lag16(word(f->memory,0x900),word(f->memory,0x902),f->memory[0x904],&f->partial);
+        if (mode==29) { f->memory[0x880]=(uint8_t)(f->partial>>8);f->memory[0x881]=(uint8_t)f->partial; }
+        return PCM_OK;
+    }
+    case 30:*value=pcm_spark_reference_term(word(f->memory,0x900));return PCM_OK;
+    case 31:return pcm_spark_period_sample(pcm);
+    case 32:return pcm_spark_rpm_filters(pcm);
+    case 33:return pcm_spark_period_terms(pcm);
+    case 34:return pcm_spark_precompute(pcm);
+    case 35:case 37: {
+        PcmStatus status=mode==37?pcm_spark_auxiliary(pcm):PCM_OK;
+        if (status!=PCM_OK) return status;
+        bool built;status=pcm_spark_build(pcm,&built);*value=built;return status;
+    }
+    case 36: {
+        PcmStatus status=pcm_spark_precompute(pcm);
+        return status==PCM_OK?pcm_spark_calculate(pcm):status;
+    }
     default:return PCM_BAD_CONFIGURATION;
     }
 }
@@ -347,6 +465,7 @@ int main(int argc,char **argv)
     if (argc==2 && strcmp(argv[1],"--contracts")==0) { contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--modifier-contracts")==0) { modifier_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--command-contracts")==0) { command_contracts();return 0; }
+    if (argc==2 && strcmp(argv[1],"--period-contracts")==0) { period_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--defaults")==0) {
         init(&f,&pcm,&root,&spark);printf("[");bool first=true;
         for (unsigned a=0;a<65536;++a) if (f.present[a]) { printf("%s[%u,%u]",first?"":",",a,f.memory[a]);first=false; }
@@ -354,7 +473,7 @@ int main(int argc,char **argv)
     }
     unsigned mode,count;
     while (scanf("%u %u",&mode,&count)==2) {
-        if (mode>27 || count>2048) return 2;
+        if (mode>37 || count>2048) return 2;
         init(&f,&pcm,&root,&spark);
         for (unsigned i=0;i<count;++i) {
             unsigned a,v;if (scanf("%u %u",&a,&v)!=2 || a>65535 || v>255) return 2;f.memory[a]=(uint8_t)v;
@@ -363,19 +482,29 @@ int main(int argc,char **argv)
         if (mode>=20) {
             bind(&f,&pcm);f.fail_at=f.memory[0x907];f.action=f.memory[0x908];f.masked=f.memory[0x909]!=0;
             if (f.memory[0x90a]) f.platform.task[PCM_SPARK_EXTENSION]=NULL;
+            if (mode>=28) {
+                if (f.memory[0x90c]) f.platform.task[PCM_ALTERNATE_RPM]=NULL;
+                f.read_count=f.memory[0x90b];CHECK(f.read_count<=4);
+                for (unsigned i=0;i<f.read_count;++i) f.periods[i]=word(f.memory,(uint16_t)(0x910+i*2u));
+            }
         }
         uint16_t value=0;PcmStatus status=run(&f,&pcm,mode,&value);
         transfer(&pcm,f.memory,state_map,sizeof(state_map)/sizeof(state_map[0]),false);
-        CHECK(pcm.unresolved_task==PCM_TASK_COUNT || (mode>=20 && pcm.unresolved_task==PCM_SPARK_EXTENSION));
+        CHECK(pcm.unresolved_task==PCM_TASK_COUNT || (mode>=20 && pcm.unresolved_task==PCM_SPARK_EXTENSION) ||
+              (mode>=28 && pcm.unresolved_task==PCM_ALTERNATE_RPM));
         CHECK(mode>=20 || pcm.platform==NULL);
         printf("{\"status\":%u,\"value\":%u,\"state\":[",(unsigned)status,(unsigned)value);
         const uint16_t *selected=mode>=20?command_outputs:mode>=13?modifier_outputs:outputs;
         size_t size=mode>=20?sizeof(command_outputs)/sizeof(command_outputs[0]):mode>=13?sizeof(modifier_outputs)/sizeof(modifier_outputs[0]):sizeof(outputs)/sizeof(outputs[0]);
         for (size_t i=0;i<size;++i) printf("%s%u",i?",":"",f.memory[selected[i]]);
+        if (mode>=28) for (size_t i=0;i<sizeof(period_extra)/sizeof(period_extra[0]);++i) printf(",%u",f.memory[period_extra[i]]);
         if (mode<20) puts("]}");
         else {
-            printf("],\"masked\":%u,\"unresolved\":%u,\"events\":[",(unsigned)f.masked,(unsigned)(pcm.unresolved_task==PCM_SPARK_EXTENSION));
-            for (unsigned i=0;i<f.used;++i) { Event *e=&f.events[i];printf("%s[\"%c\",0,%u,%u,%u]",i?",":"",e->kind,e->address,e->value,(unsigned)e->masked); }
+            unsigned unresolved=pcm.unresolved_task==PCM_SPARK_EXTENSION?1u:pcm.unresolved_task==PCM_ALTERNATE_RPM?2u:0u;
+            printf("],\"masked\":%u,\"unresolved\":%u",(unsigned)f.masked,unresolved);
+            if (mode>=28) printf(",\"partial\":%u",(unsigned)f.partial);
+            printf(",\"events\":[");
+            for (unsigned i=0;i<f.used;++i) { Event *e=&f.events[i];printf("%s[\"%c\",%u,%u,%u,%u]",i?",":"",e->kind,e->width,e->address,e->value,(unsigned)e->masked); }
             puts("]}");
         }
     }

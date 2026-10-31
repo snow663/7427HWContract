@@ -106,6 +106,7 @@ typedef struct {
     uint8_t spark_run_events, fuel_run_events, startup_gain; /* 4142,4143,414E */
     uint8_t map_sample_minimum, map_rpm_minimum, map_count_limit, map_throttle_limit; /* 4E64..4E67 */
     uint8_t missing_reference_age_cap; /* 4D96 */
+    uint8_t period_scale, rpm_filter_gain, load_filter_gain, monitor_filter_gain; /* 4141,4153,4517,50E4 */
 } PcmSparkCalibration;
 
 typedef struct {
@@ -232,6 +233,10 @@ typedef struct {
     volatile bool startup_gain_enabled, startup_gain_complete, run_transition; /* 004F.6,0051.6,0004.3 */
     volatile uint8_t fuel_run_count, spark_run_count, missing_reference_count; /* 0211,0210,0202 */
     volatile uint16_t reference_age, adaptive_period, period_basis; /* 0260,01EA,005F */
+    volatile uint16_t rpm_raw, rpm_monitor_filtered; /* RAM083D,028E */
+    volatile uint8_t rpm_monitor_previous, rpm_monitor_delta; /* RAM028C,028D */
+    volatile uint16_t period, previous_period, reference_term, period_correction; /* 01E8,01E6,083F,01EC */
+    volatile uint8_t battery_sample;    /* RAM00A7; separate from reference.battery0055 */
 } PcmSpark;
 
 typedef struct Pcm {

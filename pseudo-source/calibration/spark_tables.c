@@ -146,4 +146,8 @@ const PcmSparkCalibration pcm_reference_spark_calibration = {
     .map_count_limit = 0x02, /* 4E66 */
     .map_throttle_limit = 0x1a, /* 4E67 */
     .missing_reference_age_cap = 0x05, /* 4D96 */
+    .period_scale = 0x08, /* 4141: low byte of 32*08 is zero, so scaling is skipped */
+    .rpm_filter_gain = 0xf0, /* 4153 */
+    .load_filter_gain = 0x00, /* 4517 */
+    .monitor_filter_gain = 0x00, /* 50E4 */
 };
