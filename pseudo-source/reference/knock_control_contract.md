@@ -147,7 +147,7 @@ delay, hardware pending-request delivery, physical timer edges or all interleavi
 The kernel regression also confirms ten real slot8 ADC starts per160 phases.
 Both local verification routes retain every earlier kernel, fuel, reset, REF
 and OC1 check and add knock contracts and this differential suite. This brings
-the C inventory to 137 routines: 63 implemented outlines, 39 explicit dependency
+the C inventory to 141 routines: 65 implemented outlines, 41 explicit dependency
 boundaries and thirty-five algorithms. Counts and tested numeric domains do not prove
 whole-firmware equivalence, target memory fit, stack bounds or physical timing.
 

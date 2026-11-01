@@ -26,7 +26,8 @@ typedef enum {
     PCM_SCI_BODY,
     PCM_RESET_ENTRY, PCM_RESET_RAM,
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
-    PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION, PCM_TASK_COUNT
+    PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
+    PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -112,6 +113,11 @@ typedef struct {
 } PcmSparkCalibration;
 
 typedef struct {
+    uint16_t gear_pattern_length;
+    const uint8_t *gear_patterns;      /* B319 + raw byte gear index */
+} PcmTransmissionCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -124,6 +130,7 @@ typedef struct {
     PcmReferenceCalibration reference;
     PcmKnockCalibration knock;
     const PcmSparkCalibration *spark;   /* immutable source profile, not a serialized pointer */
+    const PcmTransmissionCalibration *transmission;
 } PcmCalibration;
 
 typedef struct {
@@ -248,6 +255,16 @@ typedef struct {
     uint8_t extension_magnitude;        /* C180F dependency argument/result, no factory RAM address */
 } PcmSpark;
 
+typedef struct {
+    volatile uint8_t selected_gear, output_shadow; /* 00D9,004C */
+    volatile uint8_t inhibit_flags, fault_flags_primary, fault_flags_secondary; /* 0099,001C,001D */
+    volatile bool driver_inhibit;      /* 0086.0; shares its byte with profiling0086.6 */
+    volatile uint8_t output_fault_flags; /* 008E */
+    volatile uint8_t current_service_enable, current_service_value; /* 039A,039B, bit6 */
+    volatile uint8_t tcc_flags, tcc_state; /* 008A,008B */
+    volatile uint16_t tcc_command, tcc_lower_limit; /* 0126,012B */
+} PcmTransmission;
+
 typedef struct Pcm {
     const PcmPlatform *platform; /* immutable bindings can live in ROM */
     const PcmCalibration *calibration;
@@ -256,6 +273,7 @@ typedef struct Pcm {
     PcmReference reference;
     PcmKnock knock;
     PcmSpark spark;
+    PcmTransmission transmission;
     PcmTask unresolved_task;
     void *application;                 /* tests/strategy-owned explicit state */
 } Pcm;

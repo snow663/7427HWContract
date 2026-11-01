@@ -12,6 +12,7 @@ typedef struct {
     unsigned counts[PCM_TASK_COUNT];
     PcmTask trace[2048]; unsigned used;
     unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
+    unsigned connection_action, signature_reads, transmission_writes;
     bool masked, inject, injected, guard_fails, feed_reference;
     PcmPlatform platform;
 } Fixture;
@@ -19,6 +20,7 @@ static PcmStatus read8(void *v, uint16_t a, uint8_t *out) { *out=((Fixture *)v)-
 static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
     Fixture *f=v;
     if (a==PCM_REFERENCE_PERIOD) ++f->period_reads;
+    if (a==PCM_EXTENSION_SIGNATURE) ++f->signature_reads;
     *out=(uint16_t)((uint16_t)f->memory[a]*256u+f->memory[(uint16_t)(a+1u)]); return PCM_OK;
 }
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
@@ -34,6 +36,7 @@ static PcmStatus write16(void *v, uint16_t a, uint16_t value) {
     if (a==PCM_TOC3) ++f->timer_writes;
     if (a==PCM_CURRENT_COMMAND) ++f->current_writes;
     if (a==PCM_SPARK_TIMING_A) ++f->spark_writes;
+    if (a==PCM_TCC_COMMAND) ++f->transmission_writes;
     return PCM_OK;
 }
 static PcmStatus mask_irq(void *v, bool value) { ((Fixture *)v)->masked=value; return PCM_OK; }
@@ -46,6 +49,8 @@ static PcmStatus task(Pcm *pcm, PcmTask id) {
     f->trace[f->used++]=id; ++f->counts[id];
     if (id==PCM_SLOT_02) CHECK(f->masked);
     if (id==PCM_CURRENT_CONTROL) pcm->runtime.current_output=0x42;
+    if (id==PCM_CONNECTION_EXTENSION && f->connection_action)
+        pcm->scheduler.profiling_enabled=f->connection_action==1;
     if (id==PCM_INPUT_HOUSEKEEPING && f->feed_reference) {
         pcm->reference.pending=true;pcm->spark.map_filtered=135;pcm->knock.retard=13;
     }
@@ -70,11 +75,13 @@ static void test_initialization_and_missing_contracts(void) {
     pcm.knock.sample_baseline=0xabcd; pcm.knock.observation_accumulator=0x55;
     pcm.knock.retard=0x23; pcm.knock.sensor_fault=true; pcm.knock.sensor_fault_count=0x64;
     pcm.spark.command=0xabcd; pcm.runtime.adc_timeout=true; pcm.runtime.adc_fault=true;
+    pcm.transmission.output_shadow=0xff;pcm.transmission.tcc_command=0xabcd;
     CHECK(pcm_reset_sequence(&pcm,&f.platform,&pcm_reference_scheduler_calibration)==PCM_OK);
     CHECK(pcm.scheduler.phase==0x0e && f.masked);
     CHECK(pcm.knock.sample_baseline==0 && pcm.knock.observation_accumulator==0);
     CHECK(pcm.knock.retard==0 && !pcm.knock.sensor_fault && pcm.knock.sensor_fault_count==0);
     CHECK(pcm.spark.command==0 && !pcm.runtime.adc_timeout && !pcm.runtime.adc_fault);
+    CHECK(pcm.transmission.output_shadow==0 && pcm.transmission.tcc_command==0);
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
     static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RAM,
@@ -101,12 +108,14 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==40 && f.counts[PCM_PRESSURE_TCC]==40);
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==40);
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_SLOT_0E?0u:10u));
+        CHECK(f.counts[k]==(k==PCM_SLOT_07 || k==PCM_SLOT_0E?0u:10u));
+    CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+    CHECK(f.counts[PCM_IAC_BACKGROUND]==10 && f.counts[PCM_SHIFT_LAMP]==10);
     CHECK(f.adc_starts==10); /* Slot8 now runs its real diagnostic, without a task binding. */
-    /* The real spark consumer clamps the injected retard before phase6's
-     * learner sees it, so its first low observation arms rather than learns. */
+    /* The phase6 observation precedes the first slot7 gain publication and
+     * arms the low latch. Later slot7 caps let the consumer retain13. */
     CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==10 && pcm.knock.activity==7);
-    CHECK(pcm.knock.learning_low && !pcm.knock.learning_high && pcm.knock.retard==0);
+    CHECK(pcm.knock.learning_low && !pcm.knock.learning_high && pcm.knock.retard==13 && pcm.knock.retard_limit==23);
     CHECK(pcm.runtime.refresh_requested && pcm.runtime.refresh_late);
     uint16_t compare; CHECK(read16(&f,PCM_TOC3,&compare)==PCM_OK);
     CHECK(compare==(uint16_t)(819u*160u));
@@ -147,6 +156,17 @@ static void test_retained_fields_profile_and_boundaries(void) {
     CHECK(pcm_main_pass(&pcm)==PCM_OK);
     CHECK(pcm.runtime.service_output_mirror && pcm.runtime.monitor_freeze);
     CHECK(pcm.runtime.output_override && pcm.runtime.first_conversion);
+    for (unsigned action=1;action<=2;++action) {
+        init(&f,&pcm);pcm.scheduler.phase=6;f.connection_action=action;
+        pcm.scheduler.profiling_enabled=action==2;pcm.scheduler.peak_counts[7]=123;
+        f.memory[PCM_EXTENSION_SIGNATURE]=0x7e;f.memory[PCM_EXTENSION_SIGNATURE+1]=0x18;
+        f.memory[PCM_TCNT]=3;f.memory[PCM_TCNT+1]=0xe8;
+        f.platform.task[PCM_SLOT_07]=NULL;
+        CHECK(pcm_periodic_irq(&pcm)==PCM_OK && f.counts[PCM_CONNECTION_EXTENSION]==1);
+        CHECK(f.counts[PCM_IAC_BACKGROUND]==1 && f.counts[PCM_SHIFT_LAMP]==1 && f.signature_reads==1);
+        CHECK(pcm.scheduler.profiling_enabled==(action==1));
+        CHECK(pcm.scheduler.peak_counts[7]==(action==1?1000:123));
+    }
     init(&f,&pcm); pcm.runtime.factory_mode=true;
     CHECK(pcm_periodic_irq(&pcm)==PCM_FACTORY_BOUNDARY && f.used==0 && f.timer_writes==1);
     init(&f,&pcm); f.guard_fails=true;

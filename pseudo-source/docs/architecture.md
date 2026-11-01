@@ -123,6 +123,14 @@ by production. Earlier slice suites alone substitute the alternate adapter at
 link time; the new full-controller and kernel tests use the real code. See the
 [controller contract](../reference/spark_controller_contract.md).
 
+Slot7 now calls C514 output construction and F5DC signature probing before the
+explicit9E99 background-IAC dependency, then the real CA6B producer and explicit
+ACA7 shift-lamp dependency. The old whole-slot7 task ID remains reserved.
+A matching1800 signature calls the180C dependency independently of0086.6; the
+same pass's profiling tail sees any resulting flag change. The raw gear-index
+profile has explicit backing, independent of target placement. See the
+[slot7 contract](../reference/slot7_contract.md).
+
 ## Freedom to change algorithms
 
 Fuel calculation, injector scheduling, spark calculation, spark scheduling and
