@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 150 public routines: 69 implemented outlines, 40 dependency
-boundaries and forty-one implemented algorithms. Reset CPU/chip-select/board
+The tree contains 161 public routines: 73 implemented outlines, 41 dependency
+boundaries and forty-seven implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -127,10 +127,17 @@ The [background IAC](reference/iac_background_contract.md) now runs desired RPM,
 movement/DFCO decay, kicker qualification, cold bounds, queued gear/AC transfers
 and snapshot publication. The stopped path publishes without aging holds. Its
 shared0036 state preserves spark override ownership, and source profiles retain
-137 distinct stock bytes. Main/slow IAC and the step driver remain separate.
+137 distinct stock bytes. The slow path is now also implemented; main IAC and
+the step driver remain separate.
 The new partial-mask witnesses also exposed a simulator BRSET error; the CPU
 now checks all selected bits, with exhaustive direct/X/Y branch tests and the
 prior C regressions retained.
+
+The [slow IAC contract](reference/iac_slow_contract.md) covers the9CFD follower,
+startup/switch decays, snapshot cap, faults and reset admission. Slot9 calls the
+resident body between named EGR-demand and VSS-filter dependencies. The follower
+retains the RPM-overflow exit that skips coolant gain; reset uses0044.4 separately
+from0051.3. Production keeps a bounded nine-knot scaled RPM view.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -177,7 +184,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are thirty CTest entries; the Python route runs the same contract/differential checks.
+are thirty-two CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -199,14 +206,16 @@ shared400F option. Background IAC adds 1,645,037 comparisons across559
 instruction starts and137 new source-profile bytes, including full slot7 and
 subsequent normal-spark witnesses. The original slot7 suite alone substitutes a
 test-only IAC boundary; production and the new suite use the resident body.
+Slow IAC adds 749,466 comparisons across348 follower/slow/slot9/scaled-lookup
+instruction starts,86 new profile bytes and256 verified test-only backing bytes.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
-Next port the slow-IAC A2B0 body and its9CFD follower, then connect the main
-IAC controller and step driver. ACA7 shift-lamp work and C9F7 environmental
+Next port the main93D0 IAC controller, including its service/reset/learning
+consumers, then the91A3 phase/count driver. ACA7 shift-lamp work and C9F7 environmental
 precomputation remain separate scheduled producers.
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified

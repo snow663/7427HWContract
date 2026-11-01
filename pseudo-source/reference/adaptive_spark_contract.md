@@ -150,8 +150,8 @@ the final stock cap in that fixture is23.
 The dedicated learner corpus still checks admitted high/low updates.
 
 Both host verification routes retain these adaptive entries alongside the newer
-spark-terms, modifiers and command suites, bringing CTest to 30 checks. The C inventory is 150 public
-routines: 69 implemented outlines, 40 dependency boundaries and forty-one algorithms.
+spark-terms, modifiers and command suites, bringing CTest to 32 checks. The C inventory is 161 public
+routines: 73 implemented outlines, 41 dependency boundaries and forty-seven algorithms.
 These counts describe source organization, not whole-firmware equivalence. Base/environmental composite
 construction and idle/transient/decel corrections are now implemented.
 Resident overrides and limits/service are also implemented, as is the

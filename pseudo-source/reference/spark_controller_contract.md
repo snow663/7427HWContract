@@ -127,8 +127,8 @@ changed profiles, independent word samples, selected callback changes, failure
 prefixes and repeated reference/startup/monitor histories. New C contracts and
 the full 160-phase kernel fixtures also exercise ordinary and special dispatcher
 calls with the production task bindings absent. The source inventory is now
-150 public routines: 69 implemented outlines, 40 explicit boundaries and 41
-algorithms. Both host verification routes include 30 CTest entries.
+161 public routines: 73 implemented outlines, 41 explicit boundaries and 47
+algorithms. Both host verification routes include 32 CTest entries.
 
 This establishes the resident controller's implemented source path under its
 named inputs and explicit external boundaries. Upstream acquisition, slot7's

@@ -147,6 +147,16 @@ its original narrow scope. Production, kernel and new IAC tests link the residen
 body; no runtime IAC task override exists. Neither host ordering nor instruction
 coverage establishes every interrupt interleaving or coherent target word access.
 
+Slot9 now preserves CF16 EGR-demand →A2B0 slow IAC →D4DA VSS-filter order. EGR
+and VSS retain named task boundaries; the old whole-slot9 task ID is reserved.
+The resident follower/decay/diagnostic/reset body uses the existing IAC state and
+new named word/flag fields.0044.4 reuses `reference.latch_inhibited`; it is separate
+from0051.3. Phase bit5 skips both the later fault and reset checks after earlier
+updates. Reset requests seed software homing state and do not move a motor.
+The scaled lookup has an immutable descriptor and explicit backing length;
+production keeps nine stock knots, while exhaustive scale tests supply a larger
+ROM-checked fixture view. See the [slow IAC contract](../reference/iac_slow_contract.md).
+
 ## Freedom to change algorithms
 
 Fuel calculation, injector scheduling, spark calculation, spark scheduling and

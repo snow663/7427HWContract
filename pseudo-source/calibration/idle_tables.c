@@ -1,6 +1,7 @@
 #include "calibration.h"
-/* Stock background-IAC profile. Curves include reachable neighboring reads;
+/* Stock background/slow-IAC profile. Curves include reachable neighboring reads;
  * overlapping stock views do not fix our native executable/calibration layout. */
+static const uint8_t follower_rpm_knots[9] = {0x10, 0x20, 0x30, 0x38, 0x40, 0x40, 0x40, 0x40, 0x40};
 const PcmIacCalibration pcm_reference_iac_calibration = {
     .options = 0x0e, /* 4E8F */
     .startup_rpm_gain = 0x80, /* 4EBC */
@@ -58,4 +59,31 @@ const PcmIacCalibration pcm_reference_iac_calibration = {
     .kicker_on_reload = 0x20, /* 50D3 */
     .kicker_tps_adder = 0x06, /* 50D5 */
     .kicker_off_match = 0x60, /* 50D7 */
+    .follower_rpm = {9, 0x08, follower_rpm_knots}, /* 5064..506D */
+    .follower_coolant = {0xb0, 0xa0, 0x90, 0x80, 0x70, 0x60, 0x50, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x08, 0x10, 0x20, 0x30}, /* 5057 */
+    .follower_cap = {0x20, 0x80}, /* 506E */
+    .follower_park_gain = 0xa0, /* 5070 */
+    .follower_drive_hold = {0x00, 0x05, 0x08, 0x0a, 0x0c, 0x0f, 0x11, 0x14, 0x16, 0x19, 0x1b, 0x64}, /* 5071 */
+    .follower_drive_gain = {0x64, 0x14, 0x0f, 0x0a, 0x08, 0x06, 0x04, 0x02, 0x02, 0x02, 0x02, 0x08}, /* 507C */
+    .follower_change_limit = 0x08, /* 5087 */
+    .follower_load_limit = 0x80, /* 5088 */
+    .follower_low_load_gain = 0x80, /* 5089 */
+    .follower_minimum = {0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x28, 0x64, 0x0a, 0x08, 0x49}, /* 508A */
+    .follower_age_limit = 0x64, /* 5097 */
+    .hotstart_coolant_minimum = 0x49, /* 509A */
+    .hotstart_coolant_maximum = 0x49, /* 509B */
+    .hotstart_runtime_limit = 0x0032, /* 509C */
+    .follower_extended_gain = {0xc0, 0xc0}, /* 509E */
+    .follower_start_minimum_gain = 0x40, /* 50A0 */
+    .follower_start_flow_gain = 0x40, /* 50A1 */
+    .switch_decay_reload = 0x00, /* 4F30 */
+    .switch_decay_amount = 0x00, /* 4F31 */
+    .startup_flow_reload = 0x01, /* 4EB9 */
+    .startup_rpm_reload = 0x05, /* 4EBB */
+    .drive_snapshot_delta = {0x0f, 0x11}, /* 4FC7 */
+    .fault_options = 0x7f, /* 5B02 */
+    .kicker_baseline_limit = 0x02, /* 50D6 */
+    .learning_error_limit = 0x0a, /* 50C0 */
+    .learning_count_limit = 0x32, /* 50C1 */
+    .reset_speed = 0x1e, /* 4EB7 */
 };

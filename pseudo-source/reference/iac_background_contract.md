@@ -185,11 +185,11 @@ spark call is supplied explicitly; the intervening input pipeline is not inferre
 Only the earlier400,081-case slot7 suite links `tests/iac_background_boundary.c`
 to preserve its narrow fixture contract. Production, the new suite and the
 full160-phase kernel tests use the resident IAC body with its task binding absent.
-Both host routes contain30 CTest entries. The inventory is150 public routines:
-69 implemented outlines,40 dependency boundaries and41 algorithms.
+Both host routes contain32 CTest entries. The inventory is161 public routines:
+73 implemented outlines,41 dependency boundaries and47 algorithms.
 
-Next are slow IAC atA2B0 and its9CFD follower, followed by main IAC and the step
-driver. ACA7, upstream acquisition and other scheduled producers remain explicit.
+The [slow IAC and9CFD follower](iac_slow_contract.md) now run in slot9.
+Next are main IAC and the step driver. ACA7, upstream acquisition and other scheduled producers remain explicit.
 Target reset/interrupt assembly, compiler ABI, coherent shared-word access,
 memory/stack fit and physical motor/timing validation are still required. This
 source and its witness corpus do not constitute a flashable target BIN or a

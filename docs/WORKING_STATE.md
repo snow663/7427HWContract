@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 150 public routines: 69 implemented outlines,
-40 explicit dependency boundaries and forty-one implemented algorithms.
+The source currently has 161 public routines: 73 implemented outlines,
+41 explicit dependency boundaries and forty-seven implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -70,15 +70,20 @@ is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md
 Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
 state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
 The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
-new source-profile bytes. Both host routes now have30 CTest entries. See the
+new source-profile bytes. Both host routes now have32 CTest entries. See the
 [background IAC contract](../pseudo-source/reference/iac_background_contract.md).
 Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
 Direct and both indexed forms now use all-selected-bit semantics;393,216
 exhaustive branch vectors, all18 simulator tests (including real-ROM boot/run),
 all190 factory tests and the previous C differential suites pass. Historical
 factory replay guards retain their original zero/full-mask witness domain.
-Next are slow IAC at A2B0 and its9CFD follower, then the main IAC controller and
-step driver, alongside remaining scheduled producers and reset/backend work.
+Slow IAC atA2B0 and its9CFD follower now run from the real slot9 wrapper between
+named EGR-demand and VSS-filter dependencies. The port preserves filtered words,
+hot-start/DFCO latches, timer expiry, snapshot caps, two-observation faults and
+reset admission using the existing0044.4 owner. See the
+[slow IAC contract](../pseudo-source/reference/iac_slow_contract.md).
+Next are the main93D0 IAC controller and91A3 step service, alongside remaining
+scheduled producers and reset/backend work.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -164,7 +169,7 @@ failure prefixes and selected producer/consumer histories. All 121 scoped
 instruction starts execute; 24 new calibration bytes and the shared diagnostic
 enable match stock. Adaptive spark adds 480,560 comparisons and covers all 201
 scoped instruction starts plus 83 new calibration bytes. The source check suite
-now has thirty CTest entries. Base/environmental spark adds 753,561 comparisons,
+now has thirty-two CTest entries. Base/environmental spark adds 753,561 comparisons,
 all 336 scoped instruction starts and 1,035 new distinct calibration bytes.
 Modifiers add 225,622 comparisons, all 234 scoped instruction starts and 38 new
 calibration bytes, with 43 prior/shared bytes checked again. Command construction
@@ -188,6 +193,9 @@ Background IAC adds1,645,037 comparisons across559 desired/helper/background
 instruction starts, with137 new source-profile bytes,333 failure prefixes and
 512 retained-state calls. Slot7 and subsequent normal spark use the real body
 in the new suite; the prior slot7 suite alone retains a test-only boundary.
+Slow IAC adds 749,466 comparisons across348 scoped instruction starts and
+86 new profile bytes, retaining explicit EGR/VSS dependencies. CI runs the32
+independent CTest entries two at a time.
 The simulator has 18 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 

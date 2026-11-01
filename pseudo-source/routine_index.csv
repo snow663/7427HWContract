@@ -63,7 +63,7 @@ src/slots/slot_05.c,pcm_slot_05,dependency_boundary,"7B03, table word 7A8F.",Imp
 src/slots/slot_06.c,pcm_slot_06,implemented_outline,7B14..7B1A: CB15 input dependency before CE10 learning.,Port the explicit AC/switch input owner; retain full-phase06 learning admission
 src/slots/slot_07.c,pcm_slot_07,implemented_outline,7B1B..7B2A: ordered five-call slot7 wrapper.,Direct output/probe/auxiliary calls with named IAC and shift-lamp boundaries
 src/slots/slot_08.c,pcm_slot_08,implemented_outline,7B2B..7B2E; CEBB..CF15: phase-gated knock decay and sensor diagnostic.,Retain differential checks; target ADC timing and physical mux behavior need verification
-src/slots/slot_09.c,pcm_slot_09,dependency_boundary,"7B2F, table word 7A97.",Implement the named body and compare observable state/transactions
+src/slots/slot_09.c,pcm_slot_09,implemented_outline,"7B2F..7B38: ordered EGR demand, resident slow IAC and VSS-filter wrapper.","Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/slots/slot_0a.c,pcm_slot_0a,dependency_boundary,"7B39, table word 7A99.",Implement the named body and compare observable state/transactions
 src/slots/slot_0b.c,pcm_slot_0b,dependency_boundary,"7B3D, table word 7A9B.",Implement the named body and compare observable state/transactions
 src/slots/slot_0c.c,pcm_slot_0c,dependency_boundary,"7B44, table word 7A9D.",Implement the named body and compare observable state/transactions
@@ -149,3 +149,14 @@ src/idle/iac_cold.c,pcm_iac_cold,implemented_algorithm,9FDE..A12C: cold bounds a
 src/idle/iac_transition_decay.c,pcm_iac_transition_decay,implemented_algorithm,A12D..A153: AC transition-flow decay.,Retain ROM comparisons and explicit target timing/storage interfaces
 src/idle/iac_transfer.c,pcm_iac_transfer,implemented_algorithm,A154..A287: queued gear and AC integral transfers.,Retain ROM comparisons and explicit target timing/storage interfaces
 src/idle/iac_publish.c,pcm_iac_publish,implemented_outline,A288..A2AF andA29A entry: hold ages and selected snapshot.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/emissions/egr_demand.c,pcm_egr_demand,dependency_boundary,CF16..D03D: slot9 desired EGR producer.,Implement the named body and compare observable state/transactions
+src/idle/iac_drive_limit.c,pcm_iac_drive_limit,implemented_algorithm,A32A..A35B: drive snapshot cap with no byte carry.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/idle/iac_follower.c,pcm_iac_follower,implemented_algorithm,"9CFD..9E98: throttle follower, hot-start latch and filtered flow publication.","Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/idle/iac_kicker_diagnostic.c,pcm_iac_kicker_diagnostic,implemented_algorithm,A35C..A397: paired baseline qualification and retained two-observation fault.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/idle/iac_learning_diagnostic.c,pcm_iac_learning_diagnostic,implemented_algorithm,"A39C..A3E5: learning fault count, ordered gates and zero/retain routes.","Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/idle/iac_reset_admit.c,pcm_iac_reset_admit,implemented_outline,A3E6..A3F9: reset qualification and current0044.4 gate.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/idle/iac_reset_request.c,pcm_iac_reset_request,implemented_outline,A3FA..A406: software homing state and target/position stores.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/idle/iac_slow.c,pcm_iac_slow,implemented_outline,A2B0..A406: complete running slow-IAC root with late phase gate.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/idle/iac_slow_decays.c,pcm_iac_slow_decays,implemented_algorithm,"A2BA..A329: switch, startup-flow and phase-gated startup-RPM decay.","Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/math/lookup_scaled.c,pcm_lookup_scaled,implemented_algorithm,"F4B6..F4BB ->F4C5..F4DD: scaled coordinate, bounded backing and rounded interpolation.","Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
+src/sensors/vss_filter.c,pcm_vss_filter,dependency_boundary,D4DA..D4EA: slot9 VSS filter.,Implement the named body and compare observable state/transactions

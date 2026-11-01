@@ -128,9 +128,9 @@ runs the real background body, verifies changed target/kicker state and admits
 the shift-lamp dependency ten times, with the former whole-slot and IAC bindings
 absent in activation tests.
 
-The inventory is 150 public routines: 69 implemented outlines, 40 dependency
-boundaries and 41 algorithms. Both host verification routes include 30 CTest
-entries. The9E99 background path is now implemented. Next are slow/main IAC
+The inventory is 161 public routines: 73 implemented outlines, 41 dependency
+boundaries and 47 algorithms. Both host verification routes include 32 CTest
+entries. The9E99 background path is now implemented. The [slow IAC](iac_slow_contract.md) now runs in slot9. Next are main IAC
 and its step driver, alongside ACA7's shift-lamp body. Other producers, target assembly,
 native ABI, memory/stack fit and physical peripheral timing remain separate work.
 
