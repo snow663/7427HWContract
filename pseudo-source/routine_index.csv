@@ -61,7 +61,7 @@ src/slots/slot_03.c,pcm_slot_03,dependency_boundary,"7ABD, table word 7A8B.",Imp
 src/slots/slot_04.c,pcm_slot_04,dependency_boundary,"7AC7, table word 7A8D.",Implement the named body and compare observable state/transactions
 src/slots/slot_05.c,pcm_slot_05,dependency_boundary,"7B03, table word 7A8F.",Implement the named body and compare observable state/transactions
 src/slots/slot_06.c,pcm_slot_06,implemented_outline,7B14..7B1A: CB15 input dependency before CE10 learning.,Port the explicit AC/switch input owner; retain full-phase06 learning admission
-src/slots/slot_07.c,pcm_slot_07,dependency_boundary,"7B1B, table word 7A93.",Implement the named body and compare observable state/transactions
+src/slots/slot_07.c,pcm_slot_07,implemented_outline,7B1B..7B2A: ordered five-call slot7 wrapper.,Direct output/probe/auxiliary calls with named IAC and shift-lamp boundaries
 src/slots/slot_08.c,pcm_slot_08,implemented_outline,7B2B..7B2E; CEBB..CF15: phase-gated knock decay and sensor diagnostic.,Retain differential checks; target ADC timing and physical mux behavior need verification
 src/slots/slot_09.c,pcm_slot_09,dependency_boundary,"7B2F, table word 7A97.",Implement the named body and compare observable state/transactions
 src/slots/slot_0a.c,pcm_slot_0a,dependency_boundary,"7B39, table word 7A99.",Implement the named body and compare observable state/transactions
@@ -136,3 +136,7 @@ src/transmission/shift_control.c,pcm_shift_control,dependency_boundary,B32D: Shi
 src/transmission/transmission_input.c,pcm_transmission_input,dependency_boundary,AE85: Input wrapper ending in F781 then F64E.,Implement the named body and compare observable state/transactions
 src/transmission/transmission_spark.c,pcm_transmission_spark,dependency_boundary,C4E5: TPS and transmission spark input group.,Implement the named body and compare observable state/transactions
 src/spark/spark_monitor.c,pcm_spark_monitor,implemented_outline,ABCB..AC50 and ACA0/ACA3: EST bypass/fault monitor.,Preserve counter qualification fault latches word handoff and request/service cleanup
+src/transmission/transmission_outputs.c,pcm_transmission_outputs,implemented_outline,C514..C56E: gear/current-enable shadow and electronic TCC word write.,ROM-checked raw index addition masks branch retention and ordered publication
+src/serial/connection_probe.c,pcm_connection_probe,dependency_boundary,F5DC..F5E7: signature-qualified180C connection probe.,Resident probe implemented; module and machine ABI remain unsupplied
+src/idle/iac_background.c,pcm_iac_background,dependency_boundary,9E99: background IAC/kicker and stopped-engine tail.,Implement the complete named body without changing slot7 order
+src/transmission/shift_lamp.c,pcm_shift_lamp,dependency_boundary,ACA7..ADA9: shift-lamp decision.,Implement the named body without changing slot7 order

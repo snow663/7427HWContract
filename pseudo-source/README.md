@@ -38,7 +38,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 137 public routines: 63 implemented outlines, 39 dependency
+The tree contains 141 public routines: 65 implemented outlines, 41 dependency
 boundaries and thirty-five implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -74,7 +74,8 @@ first-observation, timer-expiry and rounding behavior.
 
 Base, coolant, altitude, EGR, MAT and PE terms now have separate routines.
 The complete CA6B auxiliary producer and contiguous A700..A84D composite body
-are callable C wrappers; slot7 retains its other unfinished producers.
+are callable C wrappers. Slot7 now calls the auxiliary producer directly in its
+verified five-call order, between named background-IAC and shift-lamp dependencies.
 See the [spark terms contract](reference/spark_terms_contract.md) for 753,561
 additional comparisons, bounded matrix views and exact rounding/retention rules.
 
@@ -114,6 +115,12 @@ now join these bodies in the dispatcher. Both ordinary spark calls and special
 alternate calls run the implemented code without platform task bindings. The
 monitor retains wrapped counter deltas, qualification/fault latches and ordered
 3FEC→3FE4 handoff; upstream inputs and physical EST semantics remain explicit.
+
+The [slot7 wrapper](reference/slot7_contract.md) now executes the output builder,
+signature-qualified connection probe and spark auxiliary body. Background IAC
+and shift-lamp work use named dependencies. The probe can change profiling for
+the same pass. The output builder preserves the shared shadow and literal
+7Fxx command publication, including failed prefixes.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -160,7 +167,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are twenty-six CTest entries; the Python route runs the same contract/differential checks.
+are twenty-eight CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -176,14 +183,17 @@ and full-builder failure/retained-state histories. Output/alternate work adds
 603,682 comparisons, 104 instruction starts and 15 new stock calibration bytes.
 The monitor/controller suite adds 468,978 comparisons across all 50 monitor/cleanup
 instruction starts and three new calibration bytes; all 1,197 expanded fixture
-bytes match the recorded image.
+bytes match the recorded image. Slot7 adds400,081 comparisons across43 scoped
+instructions, with a separately checked256-byte raw-index backing view and
+shared400F option.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
-Next port the scheduled spark-input producer and the remaining slot7 work.
+Next port the9E99 background IAC path, its learning/stopped-engine tails and
+ACA7 shift-lamp work. C9F7 environmental precomputation is separate slot4 work.
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified
 driver ordering and fault exits. Continue the remaining injector, spark and IAC drivers

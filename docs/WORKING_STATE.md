@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 137 public routines: 63 implemented outlines,
-39 explicit dependency boundaries and thirty-five implemented algorithms.
+The source currently has 141 public routines: 65 implemented outlines,
+41 explicit dependency boundaries and thirty-five implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -47,7 +47,7 @@ extend command construction through AB43, under the explicit optional 1812
 dependency. Both command RAM stores are retained, with no service re-clamp. See
 the [command contract](../pseudo-source/reference/spark_command_contract.md).
 The A466..A5E4 load/MAP/admission prelude now has checked C routines, with
-independent fuel/spark qualification, explicit AC51 alternate dependency and
+independent fuel/spark qualification, the resident AC51 alternate path and
 a pre-SWI timeout boundary. See the
 [admission contract](../pseudo-source/reference/spark_admission_contract.md).
 The normal A5E5..A6FF period/RPM and adaptive timing preparation is now
@@ -63,8 +63,12 @@ controller/alternate adapters call real C bodies from dispatch. Counter
 qualification and fault latches, the 3FEC→3FE4 word handoff, request/service gates
 and failed-prefix retention remain explicit. See the
 [controller contract](../pseudo-source/reference/spark_controller_contract.md).
-Next are the scheduled spark-input producer and its other slot7 dependencies,
-alongside remaining controllers and reset/backend work.
+Slot7 now directly calls its gear/current/TCC output builder, the recurring
+signature probe, an explicit background-IAC dependency, the real MAT/PE/knock
+producer and an explicit shift-lamp dependency. The former whole-slot binding
+is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md).
+Next are the background IAC path and its learning/stopped-engine tails, then the
+shift-lamp body, alongside remaining controllers and reset/backend work.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -150,7 +154,7 @@ failure prefixes and selected producer/consumer histories. All 121 scoped
 instruction starts execute; 24 new calibration bytes and the shared diagnostic
 enable match stock. Adaptive spark adds 480,560 comparisons and covers all 201
 scoped instruction starts plus 83 new calibration bytes. The source check suite
-now has twenty-six CTest entries. Base/environmental spark adds 753,561 comparisons,
+now has twenty-eight CTest entries. Base/environmental spark adds 753,561 comparisons,
 all 336 scoped instruction starts and 1,035 new distinct calibration bytes.
 Modifiers add 225,622 comparisons, all 234 scoped instruction starts and 38 new
 calibration bytes, with 43 prior/shared bytes checked again. Command construction
@@ -166,6 +170,10 @@ and 15 new latency bytes, including 1,174 failure prefixes. The monitor/controll
 suite adds 468,978 comparisons across all 50 monitor/cleanup instruction starts,
 three new calibration bytes, 2,894 failure prefixes and 512 history calls. The
 full root and both real dispatcher adapters run without their former task bindings.
+Slot7 adds400,081 comparisons across43 output/probe/wrapper instruction starts,
+945 failure prefixes and256 history steps. Its256-byte raw gear-index view and
+shared400F option match stock; that view includes neighboring code/data rather
+than claiming256 separate calibration parameters.
 The simulator has 17 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 
