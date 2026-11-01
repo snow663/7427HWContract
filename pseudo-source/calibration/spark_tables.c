@@ -81,6 +81,9 @@ static const uint8_t idle_negative_speed_values[8] = {0x00, 0x06, 0x07, 0x08, 0x
 static const uint8_t idle_negative_load_values[10] = {0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0xff, 0xff, 0x60};
 static const uint8_t idle_positive_speed_values[8] = {0x00, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0a, 0x80};
 static const uint8_t idle_positive_load_values[10] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00};
+static const uint8_t output_latency_values[14] = { /* 454B..4558, including zero-weight neighbor */
+    0x00, 0x00, 0x01, 0x05, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0c, 0x0c, 0x0a, 0x0a, 0x20
+};
 const PcmSparkCalibration pcm_reference_spark_calibration = {
     .base_normal = {0x00, 0x00, 17, sizeof(base_normal_values), base_normal_values},
     .base_idle = {0x00, 0x00, 17, sizeof(base_idle_values), base_idle_values},
@@ -150,4 +153,5 @@ const PcmSparkCalibration pcm_reference_spark_calibration = {
     .rpm_filter_gain = 0xf0, /* 4153 */
     .load_filter_gain = 0x00, /* 4517 */
     .monitor_filter_gain = 0x00, /* 50E4 */
+    .output_latency = {0xc0, 14, output_latency_values}, /* 454A */
 };

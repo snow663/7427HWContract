@@ -4,8 +4,9 @@ Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 The new normal precomputation covers A5E5..A6FF. A conditional wrapper joins
 the earlier admission and A700..AB43 command bodies. AC51 and optional 1812
-remain explicit dependencies; AB44 period/EST conversion and the SWI handler
-remain outside the implemented path.
+remain explicit dependencies for this wrapper. The separate
+[output body](spark_output_contract.md) now implements AB44 publication; SWI
+handling remains outside the implemented normal path.
 
 ## Routine ownership
 
@@ -151,7 +152,7 @@ These four bytes include three newly represented addresses and one previously
 represented byte: 4517 is within the earlier altitude table's backing view.
 The address-based ROM fixture updates both views consistently. Native source
 profiles and the future serialized calibration layout need not preserve factory
-overlapping placement. All 1,179 fixture bytes match the stock image.
+overlapping placement. All 1,194 fixture bytes match the stock image.
 
 The new differential suite exercises all 163 instruction starts in A5E5..A6FF,
 F436..F458 and F479..F498. It checks return values and helper intermediates,
@@ -170,10 +171,11 @@ fixture return with register clobbers. These are not implementations or ABI
 proofs of those bodies. The first SWI and AB44 output conversion are not executed.
 Selected callback-time state changes do not establish every IRQ interleaving.
 
-Both host routes contain 22 CTest entries. The inventory is 129 public routines:
-55 implemented outlines, 40 explicit boundaries and 34 algorithms. Next are AB44
-period/EST conversion/output and AC51 alternate RPM, then complete-root
-integration. Target compiler ABI, stack/memory fit, cycle timing and physical
+Both host routes contain 24 CTest entries. The inventory is 136 public routines:
+60 implemented outlines, 41 explicit boundaries and 35 algorithms. The
+[output/alternate bodies](spark_output_contract.md) are also implemented.
+Next are the ABCB monitor and complete-root/alternate adapter integration. Target compiler ABI, stack/memory fit, cycle timing and
+physical
 backend behavior remain separate work.
 
 See the [admission contract](spark_admission_contract.md),

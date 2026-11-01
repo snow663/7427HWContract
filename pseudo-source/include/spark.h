@@ -1,6 +1,16 @@
 #ifndef PSEUDO_SOURCE_SPARK_H
 #define PSEUDO_SOURCE_SPARK_H
 #include "pcm.h"
+/* Pure shared quotient/coordinate transform; either byte output may be NULL. */
+uint16_t pcm_spark_coordinates(uint16_t basis, uint8_t *low, uint8_t *rounded);
+PcmStatus pcm_spark_output_extension(Pcm *, uint8_t *magnitude);
+PcmStatus pcm_spark_convert(Pcm *, uint16_t *saved);
+PcmStatus pcm_spark_handoff(Pcm *, uint16_t saved);
+PcmStatus pcm_spark_output(Pcm *);
+/* Callable AC51 body; the existing alternate task adapter is connected separately. */
+PcmStatus pcm_spark_alternate(Pcm *);
+/* Stops after ABCA publication; post-output monitor/control integration is separate. */
+PcmStatus pcm_spark_publish(Pcm *, bool *published);
 PcmStatus pcm_spark_load(Pcm *);
 PcmStatus pcm_spark_map_check(Pcm *);
 PcmStatus pcm_spark_fuel_admit(Pcm *);
