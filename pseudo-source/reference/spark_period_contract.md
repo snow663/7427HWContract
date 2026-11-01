@@ -172,8 +172,8 @@ fixture return with register clobbers. These are not implementations or ABI
 proofs of those bodies. The first SWI and AB44 output conversion are not executed.
 Selected callback-time state changes do not establish every IRQ interleaving.
 
-Both host routes contain 28 CTest entries. The inventory is 141 public routines:
-65 implemented outlines, 41 explicit boundaries and 35 algorithms. The
+Both host routes contain 30 CTest entries. The inventory is 150 public routines:
+69 implemented outlines, 40 explicit boundaries and 41 algorithms. The
 [output/alternate bodies](spark_output_contract.md) are also implemented.
 The [monitor and resident controller](spark_controller_contract.md) are now implemented. Target compiler ABI, stack/memory fit, cycle timing and
 physical

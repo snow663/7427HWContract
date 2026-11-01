@@ -5,7 +5,8 @@ Authority is the recorded stock BMHM image, SHA-256
 This step implements the contiguous A700..A84D composite calculation and the
 complete CA6B..CB14 auxiliary producer. The [resident controller](spark_controller_contract.md)
 now joins this body. The [slot7 wrapper](slot7_contract.md) calls the auxiliary
-producer directly between named background-IAC and shift-lamp dependencies.
+producer directly after the [background IAC](iac_background_contract.md) and
+before the remaining shift-lamp dependency.
 The composite at 01FD from this slice feeds the now-implemented
 [idle/transient/decel body](spark_modifiers_contract.md) and
 [command body](spark_command_contract.md), under the optional 1812 dependency.
@@ -139,8 +140,8 @@ history calls. All 336 scoped instruction starts execute. The ROM side checks
 local stack balance and the math helpers' preserved registers; it performs no
 hardware transactions in these slices.
 
-The earlier source suites remain, bringing CTest to 28 checks. There are 141 public
-routines: 65 implemented outlines, 41 explicit dependency boundaries and thirty-five
+The earlier source suites remain, bringing CTest to 30 checks. There are 150 public
+routines: 69 implemented outlines, 40 explicit dependency boundaries and forty-one
 algorithms. Target ABI, memory/stack fit and physical timing remain separate work. Idle/transient/decel corrections
 and resident override/limits/service edits are now implemented. The
 [normal period/RPM preparation](spark_period_contract.md) is also implemented.

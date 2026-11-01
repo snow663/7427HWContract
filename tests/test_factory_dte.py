@@ -2,8 +2,9 @@
 
 No full transmission/device simulation is asserted. Fixtures explicitly set
 RAM and counterfactual calibration bytes where a branch boundary is tested.
-The runner rejects a partial multi-bit BRSET: the existing general CPU has
-an any-bit implementation, and these tests do not use it to prove that case.
+The runner retains its historical all-or-none multi-bit BRSET input domain.
+The general CPU now implements all-selected semantics; its separate exhaustive
+byte/mask regression and new IAC tests cover partial-mask cases.
 """
 from __future__ import annotations
 
@@ -42,7 +43,7 @@ class DTEFixture:
             pc=self.cpu.s.pc
             if pc==stop:return
             # This guard does not execute or repair the branch; it excludes
-            # cases outside the existing CPU's independently usable subset.
+            # cases outside this fixture's historical all-or-none input domain.
             i=decode(lambda a,n:bytes(self.memory.read8(a+j) for j in range(n)),pc)
             if i.op=='BRSET' and i.mask.bit_count()>1:
                 address=i.value

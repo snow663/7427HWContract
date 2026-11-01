@@ -118,6 +118,20 @@ typedef struct {
 } PcmTransmissionCalibration;
 
 typedef struct {
+    uint8_t options, startup_rpm_gain, movement_speed_limit, movement_gain;
+    uint8_t rpm_curve[4][17], rough_gain, rough_limit, battery_threshold, battery_gain, battery_limit;
+    uint8_t blm_limit, blm_count_limit, blm_coolant_minimum, blm_adder[4];
+    uint8_t switch_threshold[2], switch_up_delay, switch_down_delay, stall_factor[4];
+    uint8_t cold_decay_gain, cold_gain[2], cold_delay_curve[17], cold_runtime_curve[6];
+    uint8_t cold_upper[2], cold_lower[2], warm_error_limit, warm_coolant_minimum, warm_coolant_maximum;
+    uint8_t ac_difference_lower[2], ac_difference_upper[2], drive_park_delta, park_drive_delta;
+    uint8_t ac_decay_amount, ac_decay_reload, dfco_decay_amount, dfco_decay_reload;
+    uint8_t kicker_coolant_minimum, kicker_speed_limit, kicker_throttle_limit, kicker_cold_reload;
+    uint8_t kicker_baro_entry, kicker_baro_exit, kicker_integral_limit, kicker_flow_limit;
+    uint8_t kicker_error_limit[2], kicker_on_reload, kicker_tps_adder, kicker_off_match;
+} PcmIacCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -131,6 +145,7 @@ typedef struct {
     PcmKnockCalibration knock;
     const PcmSparkCalibration *spark;   /* immutable source profile, not a serialized pointer */
     const PcmTransmissionCalibration *transmission;
+    const PcmIacCalibration *iac;
 } PcmCalibration;
 
 typedef struct {
@@ -265,6 +280,25 @@ typedef struct {
     volatile uint16_t tcc_command, tcc_lower_limit; /* 0126,012B */
 } PcmTransmission;
 
+typedef struct {
+    volatile uint16_t no_ac, ac, cold, bound;
+    volatile uint8_t no_ac_snapshot, ac_snapshot;
+} PcmIacBank;
+typedef struct {
+    /* Context carries0036 bitsDF only. Bit5 remains spark.override_request. */
+    volatile uint8_t context, kicker_flags, transfer_flags, learning_flags, state_flags; /* 0036..0039,0009 */
+    volatile bool low_battery, learning_fault, kicker_request, service_kicker; /* 003E.2,0018.3,004B.7,038F.6 */
+    PcmIacBank bank[2];                /* 0=park029D..02A6; 1=drive02A7..02B0 */
+    volatile uint16_t proposed[2][2], cold_proposed[2]; /* 088F/0891/0895/0897;0893/0899 */
+    volatile uint8_t baseline_on, baseline_off, tps_zero_high, tps_zero_low; /* 02B1,02B2,02F6,02F7 */
+    volatile uint8_t coolant_index, runtime_high, blm_cell_index, blm_value; /* 0283,0232,0247,0248 */
+    volatile uint8_t rpm_error, blm_count, startup_rpm_adder, slewed_base; /* 0858,085B,085C,085F */
+    volatile uint16_t rpm_error_filtered; /* 0859 */
+    volatile uint8_t switch_offset, switch_delay, hold[2], stall_threshold, selected_snapshot; /* 0860,0861,0866/67,0868,086A */
+    volatile uint8_t cold_delay, ac_adder, ac_hold, ac_divider; /* 0875..0878 */
+    volatile uint8_t dfco_adder, dfco_divider, kicker_timer; /* 0887,0888,088D */
+} PcmIac;
+
 typedef struct Pcm {
     const PcmPlatform *platform; /* immutable bindings can live in ROM */
     const PcmCalibration *calibration;
@@ -274,6 +308,7 @@ typedef struct Pcm {
     PcmKnock knock;
     PcmSpark spark;
     PcmTransmission transmission;
+    PcmIac iac;
     PcmTask unresolved_task;
     void *application;                 /* tests/strategy-owned explicit state */
 } Pcm;

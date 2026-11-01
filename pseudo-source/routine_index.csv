@@ -138,5 +138,14 @@ src/transmission/transmission_spark.c,pcm_transmission_spark,dependency_boundary
 src/spark/spark_monitor.c,pcm_spark_monitor,implemented_outline,ABCB..AC50 and ACA0/ACA3: EST bypass/fault monitor.,Preserve counter qualification fault latches word handoff and request/service cleanup
 src/transmission/transmission_outputs.c,pcm_transmission_outputs,implemented_outline,C514..C56E: gear/current-enable shadow and electronic TCC word write.,ROM-checked raw index addition masks branch retention and ordered publication
 src/serial/connection_probe.c,pcm_connection_probe,dependency_boundary,F5DC..F5E7: signature-qualified180C connection probe.,Resident probe implemented; module and machine ABI remain unsupplied
-src/idle/iac_background.c,pcm_iac_background,dependency_boundary,9E99: background IAC/kicker and stopped-engine tail.,Implement the complete named body without changing slot7 order
+src/idle/iac_background.c,pcm_iac_background,implemented_outline,9E99..A2AF: complete desired-RPM and background IAC body.,Direct resident routines; preserve stopped snapshot-only return
 src/transmission/shift_lamp.c,pcm_shift_lamp,dependency_boundary,ACA7..ADA9: shift-lamp decision.,Implement the named body without changing slot7 order
+src/idle/iac_desired.c,pcm_iac_desired,implemented_algorithm,989C..99C4 and9250..925D: desired RPM and optional switch sample.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/idle/iac_kicker_disable.c,pcm_iac_kicker_disable,implemented_outline,920E..9225: disable and request state.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/idle/iac_kicker_enable.c,pcm_iac_kicker_enable,implemented_outline,9226..923F: high-byte TPS baseline and enable state.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/idle/iac_movement.c,pcm_iac_movement,implemented_algorithm,9EA3..9EE9: speed one-shot and DFCO decay.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/idle/iac_kicker.c,pcm_iac_kicker,implemented_algorithm,9EEA..9FDD: background kicker state machine.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/idle/iac_cold.c,pcm_iac_cold,implemented_algorithm,9FDE..A12C: cold bounds and bank transfer or warm snapshots.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/idle/iac_transition_decay.c,pcm_iac_transition_decay,implemented_algorithm,A12D..A153: AC transition-flow decay.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/idle/iac_transfer.c,pcm_iac_transfer,implemented_algorithm,A154..A287: queued gear and AC integral transfers.,Retain ROM comparisons and explicit target timing/storage interfaces
+src/idle/iac_publish.c,pcm_iac_publish,implemented_outline,A288..A2AF andA29A entry: hold ages and selected snapshot.,Retain ROM comparisons and explicit target timing/storage interfaces

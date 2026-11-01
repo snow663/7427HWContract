@@ -2,8 +2,9 @@
 
 No hardware-timing claim: ADC ready values and IRQ arrivals are fixture inputs.
 The IAC/gear witness executes all resident callees of the selected TOC3 passes.
-Partial multi-bit BRSET cases outside the existing CPU's usable subset fail
-explicitly instead of contributing evidence. The simulator is not changed.
+The historical all-or-none BRSET fixture domain remains explicit. The CPU's
+all-selected branch semantics are now independently tested over all byte/mask
+pairs; partial-mask IAC comparisons are supplied by the newer source suite.
 """
 from __future__ import annotations
 

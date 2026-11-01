@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 141 public routines: 65 implemented outlines,
-41 explicit dependency boundaries and thirty-five implemented algorithms.
+The source currently has 150 public routines: 69 implemented outlines,
+40 explicit dependency boundaries and forty-one implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -64,11 +64,21 @@ qualification and fault latches, the 3FEC→3FE4 word handoff, request/service g
 and failed-prefix retention remain explicit. See the
 [controller contract](../pseudo-source/reference/spark_controller_contract.md).
 Slot7 now directly calls its gear/current/TCC output builder, the recurring
-signature probe, an explicit background-IAC dependency, the real MAT/PE/knock
-producer and an explicit shift-lamp dependency. The former whole-slot binding
+signature probe, the implemented background IAC, the real MAT/PE/knock producer
+and an explicit shift-lamp dependency. The former whole-slot binding
 is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md).
-Next are the background IAC path and its learning/stopped-engine tails, then the
-shift-lamp body, alongside remaining controllers and reset/backend work.
+Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
+state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
+The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
+new source-profile bytes. Both host routes now have30 CTest entries. See the
+[background IAC contract](../pseudo-source/reference/iac_background_contract.md).
+Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
+Direct and both indexed forms now use all-selected-bit semantics;393,216
+exhaustive branch vectors, all18 simulator tests (including real-ROM boot/run),
+all190 factory tests and the previous C differential suites pass. Historical
+factory replay guards retain their original zero/full-mask witness domain.
+Next are slow IAC at A2B0 and its9CFD follower, then the main IAC controller and
+step driver, alongside remaining scheduled producers and reset/backend work.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -154,7 +164,7 @@ failure prefixes and selected producer/consumer histories. All 121 scoped
 instruction starts execute; 24 new calibration bytes and the shared diagnostic
 enable match stock. Adaptive spark adds 480,560 comparisons and covers all 201
 scoped instruction starts plus 83 new calibration bytes. The source check suite
-now has twenty-eight CTest entries. Base/environmental spark adds 753,561 comparisons,
+now has thirty CTest entries. Base/environmental spark adds 753,561 comparisons,
 all 336 scoped instruction starts and 1,035 new distinct calibration bytes.
 Modifiers add 225,622 comparisons, all 234 scoped instruction starts and 38 new
 calibration bytes, with 43 prior/shared bytes checked again. Command construction
@@ -174,7 +184,11 @@ Slot7 adds400,081 comparisons across43 output/probe/wrapper instruction starts,
 945 failure prefixes and256 history steps. Its256-byte raw gear-index view and
 shared400F option match stock; that view includes neighboring code/data rather
 than claiming256 separate calibration parameters.
-The simulator has 17 CPU/GUI/real-ROM tests and its
+Background IAC adds1,645,037 comparisons across559 desired/helper/background
+instruction starts, with137 new source-profile bytes,333 failure prefixes and
+512 retained-state calls. Slot7 and subsequent normal spark use the real body
+in the new suite; the prior slot7 suite alone retains a test-only boundary.
+The simulator has 18 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 
 EQ-11 retains additional joined state combinations. EQ-12/13 cover physical

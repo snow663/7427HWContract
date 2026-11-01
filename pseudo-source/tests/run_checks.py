@@ -59,7 +59,13 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     subprocess.run([str(controller_binary),'--controller-contracts'],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/compare_spark_controller_rom.py'),str(controller_binary)],check=True)
     slot7_binary=Path(directory)/'pcm_slot7_tests'
+    slot7_sources=[p for p in sources if p != ROOT/'src/idle/iac_background.c']+[ROOT/'tests/iac_background_boundary.c']
     subprocess.run([*compiler,'-std=c11','-Wall','-Wextra','-Wpedantic','-Werror',
-                    '-I',str(ROOT/'include'),*[str(p) for p in sources],str(ROOT/'tests/slot7_test.c'),'-o',str(slot7_binary)],check=True)
+                    '-I',str(ROOT/'include'),*[str(p) for p in slot7_sources],str(ROOT/'tests/slot7_test.c'),'-o',str(slot7_binary)],check=True)
     subprocess.run([str(slot7_binary),'--contracts'],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/compare_slot7_rom.py'),str(slot7_binary)],check=True)
+    iac_binary=Path(directory)/'pcm_iac_tests'
+    subprocess.run([*compiler,'-std=c11','-Wall','-Wextra','-Wpedantic','-Werror',
+                    '-I',str(ROOT/'include'),*[str(p) for p in sources],str(ROOT/'tests/iac_test.c'),'-o',str(iac_binary)],check=True)
+    subprocess.run([str(iac_binary),'--contracts'],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tests/compare_iac_rom.py'),str(iac_binary)],check=True)

@@ -124,12 +124,28 @@ link time; the new full-controller and kernel tests use the real code. See the
 [controller contract](../reference/spark_controller_contract.md).
 
 Slot7 now calls C514 output construction and F5DC signature probing before the
-explicit9E99 background-IAC dependency, then the real CA6B producer and explicit
-ACA7 shift-lamp dependency. The old whole-slot7 task ID remains reserved.
+implemented9E99 background IAC, then the real CA6B producer and explicit ACA7
+shift-lamp dependency. The old whole-slot7 and IAC-background task IDs remain
+reserved and unused in production.
 A matching1800 signature calls the180C dependency independently of0086.6; the
 same pass's profiling tail sees any resulting flag change. The raw gear-index
 profile has explicit backing, independent of target placement. See the
 [slot7 contract](../reference/slot7_contract.md).
+
+Background IAC now owns its desired-RPM producer and9E99..A2AF work. A stopped
+call publishes the selected snapshot without requiring an IAC profile or aging
+holds. A running call preserves desired RPM, movement/DFCO, kicker, cold bounds,
+AC decay, queued transfers and hold/publication order. Proposals retain separate
+work words and pending bits; they do not directly replace learned cell words.
+RAM0036 bitsDF belong to the IAC context; bit20 remains the existing spark
+override request. One raw byte is reconstructed only in the ROM fixture. The
+PORTD read stays an explicit transaction with checked prefix/callback behavior.
+See the [background IAC contract](../reference/iac_background_contract.md).
+
+The earlier slot7 suite alone links a test-only background boundary to preserve
+its original narrow scope. Production, kernel and new IAC tests link the resident
+body; no runtime IAC task override exists. Neither host ordering nor instruction
+coverage establishes every interrupt interleaving or coherent target word access.
 
 ## Freedom to change algorithms
 

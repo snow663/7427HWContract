@@ -4,6 +4,9 @@
 #define main inherited_spark_fixture_main
 #include "spark_test.c"
 #undef main
+#ifndef SLOT7_FIXTURE_ENTRY
+#define SLOT7_FIXTURE_ENTRY main
+#endif
 
 #define B(a,m) {a,8,0,1,offsetof(Pcm,m)}
 #define W(a,m) {a,16,0,1,offsetof(Pcm,m)}
@@ -124,7 +127,7 @@ static void print_group(const Fixture *f,const uint16_t *addresses,size_t count,
     for (size_t i=0;i<count;++i) { printf("%s%u",*first?"":",",f->memory[addresses[i]]);*first=false; }
 }
 #define GROUP(a) print_group(&f,a,sizeof(a)/sizeof(a[0]),&first)
-int main(int argc,char **argv)
+int SLOT7_FIXTURE_ENTRY(int argc,char **argv)
 {
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
     PcmTransmissionCalibration transmission;uint8_t patterns[256];
