@@ -24,7 +24,7 @@ rom=recorded_rom(json.loads(EVIDENCE.read_text()))
 assert sha256(bytes([255])*0x4000+rom.read(0x4000,0xC000)).hexdigest()==EXPECTED_SHA256
 binary=sys.argv[1]
 defaults=json.loads(subprocess.check_output([binary,'--defaults'],text=True))
-assert len(defaults)==1194 and len({a for a,_ in defaults})==1194
+assert len(defaults)==1197 and len({a for a,_ in defaults})==1197
 for a,v in defaults:assert v==rom.read(a,1)[0],(hex(a),v)
 NEW_CAL={0x4141,0x4153,0x4517,0x50E4}
 assert NEW_CAL<={a for a,_ in defaults}
@@ -270,4 +270,4 @@ for start,end in [(0xA5E5,0xA700),(0xF436,0xF459),(0xF479,0xF499)]:
     while pc<end:required.add(pc);pc=decode(rom.read,pc).next_pc
 assert required<=coverage,','.join(f'{pc:04X}' for pc in sorted(required-coverage))
 print(f'{sum(counts.values()):,} period comparisons; all {len(required)} scoped instruction starts exercised; '
-      '4 scoped calibration bytes (3 new,1 shared) and all 1,194 fixture bytes match stock. AC51/1812 and SWI/AB44 boundaries stay explicit.')
+      '4 scoped calibration bytes (3 new,1 shared) and all 1,197 fixture bytes match stock. AC51/1812 and SWI/AB44 boundaries stay explicit.')

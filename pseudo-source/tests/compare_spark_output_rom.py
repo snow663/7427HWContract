@@ -197,4 +197,4 @@ for start,end in [(0xAB44,0xABCB),(0xAC51,0xACA7)]:
     while pc<end:required.add(pc);pc=decode(rom.read,pc).next_pc
 assert required<=coverage,','.join(f'{pc:04X}' for pc in sorted(required-coverage))
 print(f'{sum(counts.values()):,} output comparisons; all {len(required)} output/alternate instruction starts exercised; '
-      '15 new latency bytes and all 1,194 fixture bytes match stock. ABCB tail and module implementations remain separate.')
+      '15 new latency bytes and all 1,197 fixture bytes match stock. ABCB tail and module implementations remain separate.')

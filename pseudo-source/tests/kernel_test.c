@@ -11,13 +11,15 @@ typedef struct {
     uint8_t memory[65536]; /* Test fixture only; never the target RAM model. */
     unsigned counts[PCM_TASK_COUNT];
     PcmTask trace[2048]; unsigned used;
-    unsigned timer_writes, current_writes, watchdog_writes, adc_starts;
-    bool masked, inject, injected, guard_fails;
+    unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
+    bool masked, inject, injected, guard_fails, feed_reference;
     PcmPlatform platform;
 } Fixture;
 static PcmStatus read8(void *v, uint16_t a, uint8_t *out) { *out=((Fixture *)v)->memory[a]; return PCM_OK; }
 static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
-    Fixture *f=v; *out=(uint16_t)((uint16_t)f->memory[a]*256u+f->memory[(uint16_t)(a+1u)]); return PCM_OK;
+    Fixture *f=v;
+    if (a==PCM_REFERENCE_PERIOD) ++f->period_reads;
+    *out=(uint16_t)((uint16_t)f->memory[a]*256u+f->memory[(uint16_t)(a+1u)]); return PCM_OK;
 }
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     Fixture *f=v; f->memory[a]=value;
@@ -31,6 +33,7 @@ static PcmStatus write16(void *v, uint16_t a, uint16_t value) {
     Fixture *f=v; f->memory[a]=(uint8_t)(value>>8); f->memory[(uint16_t)(a+1u)]=(uint8_t)value;
     if (a==PCM_TOC3) ++f->timer_writes;
     if (a==PCM_CURRENT_COMMAND) ++f->current_writes;
+    if (a==PCM_SPARK_TIMING_A) ++f->spark_writes;
     return PCM_OK;
 }
 static PcmStatus mask_irq(void *v, bool value) { ((Fixture *)v)->masked=value; return PCM_OK; }
@@ -43,6 +46,9 @@ static PcmStatus task(Pcm *pcm, PcmTask id) {
     f->trace[f->used++]=id; ++f->counts[id];
     if (id==PCM_SLOT_02) CHECK(f->masked);
     if (id==PCM_CURRENT_CONTROL) pcm->runtime.current_output=0x42;
+    if (id==PCM_INPUT_HOUSEKEEPING && f->feed_reference) {
+        pcm->reference.pending=true;pcm->spark.map_filtered=135;pcm->knock.retard=13;
+    }
     if (id==PCM_COMMON_IO && f->inject && !f->injected) {
         f->injected=true;
         for (unsigned k=0;k<3;++k) CHECK(pcm_periodic_irq(pcm)==PCM_OK);
@@ -82,6 +88,7 @@ static void test_initialization_and_missing_contracts(void) {
 }
 static void test_full_phase_cycle(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm); pcm.scheduler.phase=0x9f;
+    f.feed_reference=true;pcm.runtime.spark_running=pcm.runtime.fuel_running=true;
     pcm.reference.coolant=200;pcm.spark.load_coordinate=128;pcm.spark.previous_load=128;
     pcm.knock.retard=13;pcm.knock.activity=7;pcm.knock.learning_high=true;
     for (unsigned k=0;k<160;++k) {
@@ -90,13 +97,16 @@ static void test_full_phase_cycle(void) {
     }
     CHECK(f.counts[PCM_IAC_STEP]==160 && f.current_writes==160);
     CHECK(f.counts[PCM_COMMON_IO]==160 && f.counts[PCM_INPUT_HOUSEKEEPING]==80);
-    CHECK(f.counts[PCM_SPARK_CONTROL]==80 && f.counts[PCM_FUEL_CONTROL]==80);
+    CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==80);
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==40 && f.counts[PCM_PRESSURE_TCC]==40);
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==40);
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
         CHECK(f.counts[k]==(k==PCM_SLOT_0E?0u:10u));
     CHECK(f.adc_starts==10); /* Slot8 now runs its real diagnostic, without a task binding. */
-    CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==10 && pcm.knock.activity==59);
+    /* The real spark consumer clamps the injected retard before phase6's
+     * learner sees it, so its first low observation arms rather than learns. */
+    CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==10 && pcm.knock.activity==7);
+    CHECK(pcm.knock.learning_low && !pcm.knock.learning_high && pcm.knock.retard==0);
     CHECK(pcm.runtime.refresh_requested && pcm.runtime.refresh_late);
     uint16_t compare; CHECK(read16(&f,PCM_TOC3,&compare)==PCM_OK);
     CHECK(compare==(uint16_t)(819u*160u));
@@ -112,8 +122,10 @@ static void test_busy_coalescing_and_call_order(void) {
 }
 static void test_special_mode_and_slot_state(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm); pcm.scheduler.phase=0x9f; pcm.runtime.special_fast_group=true;
+    pcm.spark.first_reference=true;pcm.spark.output_request=pcm.reference.consumed=true;
     for (unsigned k=0;k<160;++k) CHECK(pcm_periodic_irq(&pcm)==PCM_OK);
-    CHECK(f.counts[PCM_ALTERNATE_RPM]==80 && f.watchdog_writes==160);
+    CHECK(f.counts[PCM_ALTERNATE_RPM]==0 && f.period_reads==80 && f.watchdog_writes==160);
+    CHECK(!pcm.spark.output_request && !pcm.reference.consumed);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_FUEL_CONTROL]==0);
     CHECK(f.counts[PCM_SLOT_00]==10 && f.counts[PCM_SLOT_0F]==10);
 }
@@ -154,6 +166,6 @@ int main(int argc, char **argv) {
     test_initialization_and_missing_contracts(); test_full_phase_cycle();
     test_busy_coalescing_and_call_order(); test_special_mode_and_slot_state();
     test_retained_fields_profile_and_boundaries();
-    puts("Five kernel contract groups passed; controller bodies remain explicit dependencies.");
+    puts("Five kernel contract groups passed, including resident spark/alternate calls; other controller dependencies remain explicit.");
     return 0;
 }

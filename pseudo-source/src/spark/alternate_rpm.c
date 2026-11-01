@@ -1,7 +1,8 @@
 #include "control.h"
+#include "spark.h"
 /* Reference AC51: Alternate reference-period RPM and board-request path.
- * Contract boundary: body not ported. An explicit platform binding is required. */
+ * Resident adapter; it no longer requires a platform task binding. */
 PcmStatus pcm_alternate_rpm(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_ALTERNATE_RPM);
+    return pcm_spark_alternate(pcm);
 }

@@ -7,9 +7,11 @@ PcmStatus pcm_spark_output_extension(Pcm *, uint8_t *magnitude);
 PcmStatus pcm_spark_convert(Pcm *, uint16_t *saved);
 PcmStatus pcm_spark_handoff(Pcm *, uint16_t saved);
 PcmStatus pcm_spark_output(Pcm *);
-/* Callable AC51 body; the existing alternate task adapter is connected separately. */
+/* Callable AC51 body, also reached through the resident alternate adapter. */
 PcmStatus pcm_spark_alternate(Pcm *);
-/* Stops after ABCA publication; post-output monitor/control integration is separate. */
+/* ABCB..AC50 monitor and shared ACA0/ACA3 cleanup. */
+PcmStatus pcm_spark_monitor(Pcm *);
+/* Stops after ABCA publication; pcm_spark_control also runs the monitor. */
 PcmStatus pcm_spark_publish(Pcm *, bool *published);
 PcmStatus pcm_spark_load(Pcm *);
 PcmStatus pcm_spark_map_check(Pcm *);

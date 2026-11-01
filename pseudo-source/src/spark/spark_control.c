@@ -1,7 +1,11 @@
 #include "control.h"
-/* Reference A466: Load conversion reference consumption and spark-control group.
- * Contract boundary: body not ported. An explicit platform binding is required. */
+#include "spark.h"
+/* A466..ACA6 resident body. An alternate return has already performed its
+ * cleanup; only completed normal publication proceeds to the EST monitor. */
 PcmStatus pcm_spark_control(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_SPARK_CONTROL);
+    bool published;
+    PcmStatus result = pcm_spark_publish(pcm, &published);
+    if (result != PCM_OK || !published) return result;
+    return pcm_spark_monitor(pcm);
 }

@@ -106,7 +106,7 @@ resident override and limits/service are also implemented in the
 [command body](spark_command_contract.md). The [admission prelude](spark_admission_contract.md)
 is also implemented, as is [normal period/RPM preparation](spark_period_contract.md).
 The [output/alternate bodies](spark_output_contract.md) are also implemented.
-Optional modules, the ABCB monitor and broad adapters retain explicit boundaries.
+The [monitor and resident controller](spark_controller_contract.md) are now implemented; optional modules remain explicit boundaries.
 
 ## Failures and interrupt witnesses
 
@@ -147,7 +147,7 @@ delay, hardware pending-request delivery, physical timer edges or all interleavi
 The kernel regression also confirms ten real slot8 ADC starts per160 phases.
 Both local verification routes retain every earlier kernel, fuel, reset, REF
 and OC1 check and add knock contracts and this differential suite. This brings
-the C inventory to 136 routines: 60 implemented outlines, 41 explicit dependency
+the C inventory to 137 routines: 63 implemented outlines, 39 explicit dependency
 boundaries and thirty-five algorithms. Counts and tested numeric domains do not prove
 whole-firmware equivalence, target memory fit, stack bounds or physical timing.
 

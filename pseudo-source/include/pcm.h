@@ -108,6 +108,7 @@ typedef struct {
     uint8_t missing_reference_age_cap; /* 4D96 */
     uint8_t period_scale, rpm_filter_gain, load_filter_gain, monitor_filter_gain; /* 4141,4153,4517,50E4 */
     PcmCappedCurve output_latency;      /* 454A header, 454B..4558 reachable backing */
+    uint8_t bypass_options, bypass_delta_limit, bypass_count_limit; /* 5B03,4E71,4E72 */
 } PcmSparkCalibration;
 
 typedef struct {
@@ -240,6 +241,10 @@ typedef struct {
     volatile uint8_t battery_sample;    /* RAM00A7; separate from reference.battery0055 */
     volatile bool command_negative, output_request; /* RAM004F.0,004B.4 */
     volatile uint8_t output_latency;    /* RAM0201 */
+    volatile bool bypass_qualified, bypass_fault_latched, est_fault; /* 0044.6,0044.7,0019.5 */
+    volatile bool bypass_supervision, service_bypass; /* 0004.7,0391.3, upstream inputs */
+    volatile uint16_t bypass_baseline; /* RAM0205, saved 3FCA sample */
+    volatile uint8_t bypass_count;     /* RAM022C, wrapping byte */
     uint8_t extension_magnitude;        /* C180F dependency argument/result, no factory RAM address */
 } PcmSpark;
 

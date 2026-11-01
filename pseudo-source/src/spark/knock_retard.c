@@ -1,5 +1,5 @@
 #include "knock.h"
-/* AA81..AADB. Callable slice within the still-delegated A466 spark root.
+/* AA81..AADB. Callable slice within the implemented resident A466 spark root.
  * The original stack byte at AACF..AADB becomes a local subtraction value. */
 PcmStatus pcm_knock_retard(Pcm *pcm)
 {

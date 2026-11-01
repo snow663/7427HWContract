@@ -154,4 +154,7 @@ const PcmSparkCalibration pcm_reference_spark_calibration = {
     .load_filter_gain = 0x00, /* 4517 */
     .monitor_filter_gain = 0x00, /* 50E4 */
     .output_latency = {0xc0, 14, output_latency_values}, /* 454A */
+    .bypass_options = 0xbc, /* 5B03, bit5 */
+    .bypass_delta_limit = 0x00, /* 4E71 */
+    .bypass_count_limit = 0x04, /* 4E72 */
 };

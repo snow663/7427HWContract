@@ -105,6 +105,6 @@ compared. The C remains free to allocate its named state differently on target.
 
 The prior 4,240 startup/prefix comparisons, 64 startup/prefix failure checks,
 532 base-fuel comparisons and five kernel groups remain in both verification
-routes. The C inventory is 136 public routines: 60 implemented outlines,
-41 dependency boundaries and thirty-five implemented algorithms. These counts are
+routes. The C inventory is 137 public routines: 63 implemented outlines,
+39 dependency boundaries and thirty-five implemented algorithms. These counts are
 not a whole-firmware completion percentage.
