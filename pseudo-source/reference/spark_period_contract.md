@@ -3,8 +3,8 @@
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 The new normal precomputation covers A5E5..A6FF. A conditional wrapper joins
-the earlier admission and A700..AB43 command bodies. AC51 and optional 1812
-remain explicit dependencies for this wrapper. The separate
+the earlier admission and A700..AB43 command bodies. Production AC51 now calls
+the resident alternate implementation; optional 1812 remains an explicit dependency. The separate
 [output body](spark_output_contract.md) now implements AB44 publication; SWI
 handling remains outside the implemented normal path.
 
@@ -21,9 +21,9 @@ handling remains outside the implemented normal path.
 | `pcm_spark_build` | Normal A466..AB43 | Admission→precompute→command, with an explicit completed-command result |
 
 Each public routine has its own file. The existing REF common tail now uses
-the shared word-lag helper while retaining its two 006A stores. The broad
-`pcm_spark_control` task stays delegated until the output and alternate bodies
-are ported; these wrappers do not replace unfinished work in the dispatcher.
+the shared word-lag helper while retaining its two 006A stores. The completed
+[resident controller](spark_controller_contract.md) now joins these wrappers,
+publication and the monitor in the dispatcher.
 
 ## State interfaces
 
@@ -166,15 +166,16 @@ every low-difference/gain pair at both word-filter entries, every period word,
 all raw RPM words, phase/rounding boundaries, load-byte pairs, every adaptive
 word, battery/limit boundaries, joined paths, selected failures and histories.
 
-AC51 uses explicit return/state fixtures; 1812 uses an explicit well-formed
+This earlier slice suite substitutes AC51 with a link-time return/state fixture;
+production and the complete-controller suite use the real adapter. 1812 uses an explicit well-formed
 fixture return with register clobbers. These are not implementations or ABI
 proofs of those bodies. The first SWI and AB44 output conversion are not executed.
 Selected callback-time state changes do not establish every IRQ interleaving.
 
-Both host routes contain 24 CTest entries. The inventory is 136 public routines:
-60 implemented outlines, 41 explicit boundaries and 35 algorithms. The
+Both host routes contain 26 CTest entries. The inventory is 137 public routines:
+63 implemented outlines, 39 explicit boundaries and 35 algorithms. The
 [output/alternate bodies](spark_output_contract.md) are also implemented.
-Next are the ABCB monitor and complete-root/alternate adapter integration. Target compiler ABI, stack/memory fit, cycle timing and
+The [monitor and resident controller](spark_controller_contract.md) are now implemented. Target compiler ABI, stack/memory fit, cycle timing and
 physical
 backend behavior remain separate work.
 

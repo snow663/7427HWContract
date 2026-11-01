@@ -3,8 +3,8 @@
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 This step implements AB44..ABCA output conversion/publication and a callable
-AC51..ACA6 alternate body. The ABCB..AC50 post-output monitor and connection of
-the completed bodies to the broad controller/dispatcher remain separate work.
+AC51..ACA6 alternate body. The following [controller contract](spark_controller_contract.md)
+now implements the ABCB..AC50 monitor and connects both resident adapters to dispatch.
 Optional 180F/1812 implementations and their target machine ABIs remain unsupplied.
 
 ## Routine ownership
@@ -20,11 +20,11 @@ Optional 180F/1812 implementations and their target machine ABIs remain unsuppli
 | `pcm_spark_publish` | Conditional normal A466..ABCA | Build then publish, with a completion result |
 
 Each public routine has its own file. Normal period sampling now uses the same
-pure coordinate helper as the alternate body. The existing `pcm_alternate_rpm`
-task adapter remains explicit until controller integration; new joined fixtures
-bind that adapter to the implemented body. Earlier admission-only tests retain
-their narrower explicit boundary fixtures. The broad `pcm_spark_control` task
-also remains delegated; publication alone does not silently skip its monitor.
+pure coordinate helper as the alternate body. Production `pcm_alternate_rpm`
+now calls that body directly, and `pcm_spark_control` follows completed publication
+with the monitor. This output-only suite retains a link-time alternate boundary
+fixture to preserve its scoped comparisons; the newer complete-controller suite
+links both real adapters. Publication alone still stops before the monitor.
 
 ## Interfaces and conversion
 
@@ -117,7 +117,7 @@ mean rollback. This wrapper stops before the ABCB monitor. The existing 3060/
 `00 00 01 05 0A 0A 0A 0A 0A 0C 0C 0A 0A 20`.
 The 4558 neighbor is read even at zero weight at the cap. These 15 distinct
 calibration bytes are newly represented in C; the expanded fixture now verifies
-all 1,194 stock bytes. Alternate scaling reuses the existing 4141 field.
+all 1,197 stock bytes, including the newer monitor defaults. Alternate scaling reuses the existing 4141 field.
 Changed caps can use explicit 17-knot test profiles with supplied extra backing;
 the factory default retains 14 knots. Native profile/storage placement remains
 independent of the factory address overlap and serialized layout.
@@ -150,10 +150,9 @@ cases, 196,608 handoff cases, 69,632 alternate cases, 4,236 joined witnesses,
 1,174 failure prefixes and 256 history calls. These are not whole-program or
 physical equivalence claims.
 
-Both host routes contain 24 CTest entries. The source inventory is 136 public
-routines: 60 implemented outlines, 41 explicit boundaries and 35 algorithms.
-Next are the ABCB..AC50 bypass/fault monitor, its extra peripheral transaction,
-and complete-controller/alternate integration into the dispatcher. Startup/vector
+Both host routes contain 26 CTest entries. The source inventory is 137 public
+routines: 63 implemented outlines, 39 explicit boundaries and 35 algorithms.
+The [monitor and resident controller](spark_controller_contract.md) are now implemented. Startup/vector
 assembly, native ABI, memory/stack fit and physical timing/backend checks remain.
 
 See the [period/RPM contract](spark_period_contract.md),

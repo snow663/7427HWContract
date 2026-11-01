@@ -27,11 +27,11 @@ Slot7 still delegates its complete body. MAT/PE and knock gains at CA6B..CB14
 now have an implemented callable wrapper; the other slot7 callees remain
 unported. See the [spark terms contract](spark_terms_contract.md). The earlier C9F7 body also remains part
 of its existing slot dependency. This step does not replace those boundaries
-with partial gain calls or change their cadence. The broad A466 spark root
-remains delegated. The [command wrapper](spark_command_contract.md) now retains
+with partial gain calls or change their cadence. The [A466 resident controller](spark_controller_contract.md)
+is now implemented. The [command wrapper](spark_command_contract.md) now retains
 command preparation and the upper limit before AA33, followed by the lower
 limit and service edits after AA81's normal-KR slice. Output conversion and
-remaining root admission still need ports. Producer/consumer sequence tests make those handoffs
+root admission are now implemented. Producer/consumer sequence tests make those handoffs
 reviewable without claiming the test call order is a new factory schedule.
 
 ## Named state and calibration
@@ -58,7 +58,7 @@ reviewable without claiming the test call order is a new factory schedule.
 The gain inputs are sampled at their own ROM positions. They are not replaced
 by one shared snapshot. The learner's01C2 input is the older of two load-history
 latches, distinct from immediate01C1; `pcm_spark_base` now implements the A700
-history producer within the still-delegated broader spark root.
+history producer within the now-implemented resident spark root.
 Named state is cleared by the existing reset outline;
 remaining reset stages and retained-state behavior still need their own ports.
 
@@ -142,18 +142,20 @@ can fail or change selected inputs, and returns through a real ROM RTS with
 register clobbers. Its body, ADC behavior and physical switch inputs are not
 modeled. ROM-side local stack use and balanced returns are checked; target C
 stack costs, interrupt interleavings and physical timing remain separate work.
-The kernel regression confirms ten CB15 admissions and one learning update per
-160 phases with the selected admitted inputs.
+The kernel regression confirms ten CB15 admissions and one learning gate per
+160 phases. Its real spark consumer now clamps the injected retard before the
+learner, so the first low observation arms the latch without changing activity.
+The dedicated learner corpus still checks admitted high/low updates.
 
 Both host verification routes retain these adaptive entries alongside the newer
-spark-terms, modifiers and command suites, bringing CTest to 24 checks. The C inventory is 136 public
-routines: 60 implemented outlines, 41 dependency boundaries and thirty-five algorithms.
+spark-terms, modifiers and command suites, bringing CTest to 26 checks. The C inventory is 137 public
+routines: 63 implemented outlines, 39 dependency boundaries and thirty-five algorithms.
 These counts describe source organization, not whole-firmware equivalence. Base/environmental composite
 construction and idle/transient/decel corrections are now implemented.
 Resident overrides and limits/service are also implemented, as is the
 [admission prelude](spark_admission_contract.md). The [normal period/RPM preparation](spark_period_contract.md) is also implemented.
 The [output/alternate bodies](spark_output_contract.md) are also implemented;
-optional modules, the ABCB monitor and broad adapters keep explicit boundaries.
+the [monitor and resident controller](spark_controller_contract.md) are now implemented; optional modules keep explicit boundaries.
 
 See the [knock consumer contract](knock_control_contract.md),
 [factory upstream spark derivation](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)

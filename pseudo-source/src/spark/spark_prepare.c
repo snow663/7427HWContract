@@ -1,6 +1,6 @@
 #include "spark.h"
 /* A466..A5E4: load coordinates, MAP check and reference/run admission. Normal
- * continuation stops at A5E5; AC51 stays explicit and SWI stops at a boundary. */
+ * continuation stops at A5E5; AC51 runs the resident alternate body; SWI stops at a boundary. */
 PcmStatus pcm_spark_prepare(Pcm *pcm, bool *normal)
 {
     if (normal == NULL) return PCM_BAD_CONFIGURATION;

@@ -3,10 +3,10 @@
 Authority is the recorded stock BMHM image, SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 The callable prelude covers A466..A5E4 and stops at the A5E5 normal continuation,
-the explicit AC51 alternate dependency, or the first SWI boundary at A5D7.
+the resident AC51 alternate path, or the first SWI boundary at A5D7.
 The SWI instruction, its handler/frame and the following trap loop are outside
-this host implementation. The broad A466 controller remains delegated pending its ABCB monitor and
-connection of the implemented bodies.
+this host implementation. The [complete resident controller](spark_controller_contract.md)
+now connects the implemented bodies and their normal monitor.
 
 ## Routine ownership
 
@@ -124,10 +124,10 @@ Missing calibration/profile returns BAD_CONFIGURATION from MAP, fuel-admission
 and admission routines. The prepare wrapper retains any preceding load writes.
 The load and direct-timeout routines do not require calibration.
 
-Missing hardware returns NO_HARDWARE. Missing AC51 binding returns UNIMPLEMENTED
-and records `PCM_ALTERNATE_RPM`. The AC51 body remains an explicit resident-code
-dependency, with supplied success/state effects only in test fixtures. The
-fixtures do not implement that body or its machine ABI. Failure injection checks
+Missing hardware returns NO_HARDWARE. Production AC51 now runs the implemented
+resident body without a task binding. This earlier slice suite alone links a
+substitute adapter, with explicit success/state fixtures and missing-dependency
+returns. The newer complete-controller suite links the real adapter. Failure injection checks
 every event position in selected read, write, mask and dependency histories.
 
 ## Verification and next work
@@ -148,11 +148,11 @@ fresh period samples, unrelated flag bits, and selected callback-time input
 changes. These are not every state combination or interrupt interleaving.
 Coherent fixture period words do not prove physical counter coherency.
 
-Both host routes now contain 24 CTest entries. The inventory is 136 public
-routines: 60 implemented outlines, 41 explicit boundaries and 35 algorithms.
+Both host routes now contain 26 CTest entries. The inventory is 137 public
+routines: 63 implemented outlines, 39 explicit boundaries and 35 algorithms.
 The [normal period/RPM preparation](spark_period_contract.md) is now implemented.
 The [output/alternate bodies](spark_output_contract.md) are now implemented.
-Next are the ABCB monitor and complete-root/alternate adapter integration. Target ABI, physical backend,
+The [monitor and resident controller](spark_controller_contract.md) are now implemented. Target ABI, physical backend,
 memory/stack fit and cycle timing remain separate verification.
 
 See the [command contract](spark_command_contract.md),

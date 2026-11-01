@@ -3,12 +3,13 @@
 Authority is the recorded stock BMHM image, SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 This step implements the contiguous A700..A84D composite calculation and the
-complete CA6B..CB14 auxiliary producer. The broad A466 root and slot7 retain
-their other unfinished work; these callable bodies do not bypass that work.
+complete CA6B..CB14 auxiliary producer. The [resident controller](spark_controller_contract.md)
+now joins this body; slot7 retains its other unfinished producers.
 The composite at 01FD from this slice feeds the now-implemented
 [idle/transient/decel body](spark_modifiers_contract.md) and
 [command body](spark_command_contract.md), under the optional 1812 dependency.
-The broad root and physical spark conversion remain unfinished.
+The [output conversion](spark_output_contract.md) is now implemented; physical
+EST semantics and target execution remain separate work.
 
 ## Module ownership
 
@@ -137,14 +138,13 @@ history calls. All 336 scoped instruction starts execute. The ROM side checks
 local stack balance and the math helpers' preserved registers; it performs no
 hardware transactions in these slices.
 
-The earlier source suites remain, bringing CTest to 24 checks. There are 136 public
-routines: 60 implemented outlines, 41 explicit dependency boundaries and thirty-five
-algorithms. Target ABI, memory/stack fit, physical timing and the complete spark
-root/output controller remain separate work. Idle/transient/decel corrections
+The earlier source suites remain, bringing CTest to 26 checks. There are 137 public
+routines: 63 implemented outlines, 39 explicit dependency boundaries and thirty-five
+algorithms. Target ABI, memory/stack fit and physical timing remain separate work. Idle/transient/decel corrections
 and resident override/limits/service edits are now implemented. The
 [normal period/RPM preparation](spark_period_contract.md) is also implemented.
 The [output/alternate bodies](spark_output_contract.md) are also implemented;
-optional modules, the ABCB monitor and broad adapters retain explicit boundaries.
+the [monitor and resident controller](spark_controller_contract.md) are now implemented; optional modules retain explicit boundaries.
 
 See the [adaptive spark contract](adaptive_spark_contract.md),
 [factory upstream derivation](../../docs/analysis/FACTORY_UPSTREAM_SPARK_CALCULATIONS.md)

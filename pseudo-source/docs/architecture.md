@@ -98,11 +98,10 @@ and post-limit service edits in order. Both RAM command stores happen even
 when service is inactive; they are not physical output writes. The module gate
 reuses the profiling 0086.6 flag. Callback fixtures establish host state effects,
 not the unknown 1812 machine ABI. See the
-[command contract](../reference/spark_command_contract.md). The broad A466 root,
-ABCB post-output monitor remains unfinished.
+[command contract](../reference/spark_command_contract.md).
 The A466..A5E4 prelude is now callable with an explicit normal-route output.
 It preserves independent fuel/spark run states, first-reference alternate
-admission, word/byte ages and literal CLI. AC51 stays delegated. The timeout
+admission, word/byte ages and literal CLI. AC51 now runs its resident body. The timeout
 commits state and 3060 RMW, then returns TRAP_BOUNDARY before SWI; target trap
 handling is not replaced by a normal C return. See the
 [admission contract](../reference/spark_admission_contract.md).
@@ -116,8 +115,13 @@ The output body now covers AB44..ABCA, with explicit180F argument/result
 transport and four ordered peripheral writes. The two rolling reads and both
 correction samples stay separate; the second correction is latched before the
 3FE6 write. The alternate body shares the pure coordinate helper while retaining
-normal filter state. The broad adapters and following monitor remain unfinished.
-See the [output contract](../reference/spark_output_contract.md).
+normal filter state. See the [output contract](../reference/spark_output_contract.md).
+The ABCB monitor now retains counter qualification, fault latches and the ordered
+3FEC→3FE4 handoff. The resident spark/alternate adapters call implemented code
+directly from the dispatcher. Their old task IDs remain reserved but are unused
+by production. Earlier slice suites alone substitute the alternate adapter at
+link time; the new full-controller and kernel tests use the real code. See the
+[controller contract](../reference/spark_controller_contract.md).
 
 ## Freedom to change algorithms
 

@@ -1,6 +1,6 @@
 #include "spark.h"
 /* Conditional A466..ABCA publication, with an explicit completion result.
- * The ABCB monitor and dispatcher/root integration remain separate work. */
+ * The resident controller adds the monitor after successful normal publication. */
 PcmStatus pcm_spark_publish(Pcm *pcm, bool *published)
 {
     if (published == NULL) return PCM_BAD_CONFIGURATION;

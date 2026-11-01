@@ -2,6 +2,8 @@
 #include "reference_math.h"
 #include "calibration.h"
 #include "hardware.h"
+#include "control.h"
+#include "scheduler.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,7 +46,10 @@ static const Mapping state_map[]={
     F(0x44,0x08,spark.first_reference),F(0x51,0x40,spark.startup_gain_complete),F(0x04,0x08,spark.run_transition),
     B(0x211,spark.fuel_run_count),B(0x210,spark.spark_run_count),B(0x202,spark.missing_reference_count),
     W(0x260,spark.reference_age),W(0x1ea,spark.adaptive_period),W(0x5f,spark.period_basis),B(0x2ce,reference.event_age),
-    F(0x4f,0x01,spark.command_negative),F(0x4b,0x10,spark.output_request),B(0x201,spark.output_latency)
+    F(0x4f,0x01,spark.command_negative),F(0x4b,0x10,spark.output_request),B(0x201,spark.output_latency),
+    F(0x44,0x40,spark.bypass_qualified),F(0x44,0x80,spark.bypass_fault_latched),F(0x19,0x20,spark.est_fault),
+    F(0x04,0x80,spark.bypass_supervision),F(0x44,0x04,runtime.output_override),F(0x391,0x08,spark.service_bypass),
+    W(0x205,spark.bypass_baseline),B(0x22c,spark.bypass_count)
 };
 #undef B
 #undef W
@@ -83,7 +88,8 @@ static const Mapping spark_map[]={
     W(0x4133,spark_run_period_limit),W(0x4135,fuel_run_period_limit),W(0x4962,no_reference_age_limit),
     B(0x4142,spark_run_events),B(0x4143,fuel_run_events),B(0x414e,startup_gain),
     B(0x4e64,map_sample_minimum),B(0x4e65,map_rpm_minimum),B(0x4e66,map_count_limit),
-    B(0x4e67,map_throttle_limit),B(0x4d96,missing_reference_age_cap)
+    B(0x4e67,map_throttle_limit),B(0x4d96,missing_reference_age_cap),
+    B(0x5b03,bypass_options),B(0x4e71,bypass_delta_limit),B(0x4e72,bypass_count_limit)
 };
 #undef B
 #undef A
@@ -226,7 +232,8 @@ static PcmStatus read8(void *context,uint16_t address,uint8_t *value)
 }
 static PcmStatus read16(void *context,uint16_t address,uint16_t *value)
 {
-    Fixture *f=context;CHECK(address==PCM_REFERENCE_PERIOD || address==PCM_SPARK_ROLLING || address==PCM_SPARK_WORD);
+    Fixture *f=context;CHECK(address==PCM_REFERENCE_PERIOD || address==PCM_SPARK_ROLLING || address==PCM_SPARK_WORD ||
+                            address==PCM_EST_COUNTER || address==PCM_EST_FEEDBACK);
     uint16_t sample=word(f->memory,address);
     if (f->read_count) { CHECK(f->read_index<f->read_count);sample=f->periods[f->read_index++]; }
     PcmStatus result=record(f,'R',16,address,sample);
@@ -234,12 +241,19 @@ static PcmStatus read16(void *context,uint16_t address,uint16_t *value)
         *value=sample;
         if (f->action==3) f->pcm->spark.period_correction=0xffff;
         if (f->action==9 && address==PCM_SPARK_WORD) f->pcm->spark.period_correction=0x9abc;
+        if (f->action==10 && address==PCM_EST_COUNTER) {
+            f->pcm->spark.startup_gain_enabled=true;f->pcm->spark.bypass_baseline=0x5678;
+        }
+        if (f->action==11 && address==PCM_EST_FEEDBACK) {
+            f->pcm->spark.output_request=false;f->pcm->reference.consumed=false;
+            f->pcm->spark.first_reference=true;f->pcm->runtime.output_override=false;
+        }
     }
     return result;
 }
 static PcmStatus write8(void *context,uint16_t address,uint8_t value)
 {
-    Fixture *f=context;CHECK(address==PCM_BOARD_3060 || address==PCM_REFERENCE_AGE);
+    Fixture *f=context;CHECK(address==PCM_BOARD_3060 || address==PCM_REFERENCE_AGE || address==PCM_COPRST);
     PcmStatus result=record(f,'W',8,address,value);
     if (result==PCM_OK) f->memory[address]=value;
     return result;
@@ -257,12 +271,16 @@ static PcmStatus alternate(Pcm *pcm,PcmTask task)
 static PcmStatus write16(void *context,uint16_t address,uint16_t value)
 {
     Fixture *f=context;
-    CHECK(address==PCM_SPARK_TIMING_A || address==PCM_SPARK_TIMING_B || address==PCM_SPARK_WORD || address==PCM_SPARK_ROLLING);
+    CHECK(address==PCM_SPARK_TIMING_A || address==PCM_SPARK_TIMING_B || address==PCM_SPARK_WORD ||
+          address==PCM_SPARK_ROLLING || address==PCM_EST_HANDOFF);
     PcmStatus result=record(f,'W',16,address,value);
     if (result==PCM_OK) {
         f->memory[address]=(uint8_t)(value>>8);f->memory[address+1u]=(uint8_t)value;
         if (f->action==7 && address==PCM_SPARK_TIMING_B) f->pcm->spark.period_correction=0x1234;
         if (f->action==8 && address==PCM_SPARK_TIMING_A) f->pcm->spark.period_correction=0x5678;
+        if (f->action==12 && address==PCM_EST_HANDOFF) {
+            f->pcm->spark.bypass_supervision=true;f->pcm->runtime.output_override=false;
+        }
     }
     return result;
 }
@@ -443,6 +461,63 @@ static void output_contracts(void)
     CHECK(pcm.spark.command_negative && pcm.reference.rpm_coordinate==0xc1 && pcm.spark.period_basis==0xff80);
     puts("Output calibration, extension payload, alternate retention, eight failure positions and pre-write latching contracts pass.");
 }
+static PcmStatus other_task(Pcm *pcm,PcmTask task)
+{
+    CHECK(task!=PCM_SPARK_CONTROL && task!=PCM_ALTERNATE_RPM);
+    return record(pcm->platform->context,'T',0,(uint16_t)(0x7800u+task),0);
+}
+static void normal_controller(Fixture *f,Pcm *pcm,PcmCalibration *root,PcmSparkCalibration *spark)
+{
+    init(f,pcm,root,spark);bind(f,pcm);
+    f->platform.task[PCM_SPARK_CONTROL]=f->platform.task[PCM_ALTERNATE_RPM]=NULL;
+    pcm->runtime.spark_running=pcm->runtime.fuel_running=true;
+    pcm->reference.pending=pcm->spark.first_reference=pcm->spark.startup_gain_enabled=true;
+    f->memory[PCM_EST_FEEDBACK]=0x12;f->memory[PCM_EST_FEEDBACK+1]=0x34;
+}
+static void controller_contracts(void)
+{
+    static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
+    init(&f,&pcm,&root,&spark);pcm.calibration=NULL;pcm.reference.consumed=true;
+    pcm.spark.est_fault=pcm.spark.bypass_fault_latched=true;
+    CHECK(pcm_spark_monitor(&pcm)==PCM_OK && pcm.spark.output_request && !pcm.reference.consumed);
+    CHECK(pcm.spark.est_fault && pcm.spark.bypass_fault_latched);
+    pcm.spark.first_reference=true;pcm.reference.consumed=true;
+    CHECK(pcm_spark_monitor(&pcm)==PCM_BAD_CONFIGURATION && pcm.reference.consumed);
+    pcm.reference.consumed=false;CHECK(pcm_spark_monitor(&pcm)==PCM_OK);
+    for (unsigned fail=1;fail<=3;++fail) {
+        init(&f,&pcm,&root,&spark);bind(&f,&pcm);spark.bypass_options=0;
+        pcm.spark.first_reference=pcm.reference.consumed=true;pcm.spark.bypass_count=9;f.fail_at=fail;
+        CHECK(pcm_spark_monitor(&pcm)==PCM_NO_HARDWARE && f.used==fail-1u && pcm.reference.consumed);
+        CHECK(pcm.spark.first_reference==(fail==1));
+        CHECK(pcm.spark.startup_gain_enabled==(fail>1));
+        CHECK(pcm.spark.bypass_count==(fail==1?9:0));
+    }
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.spark.first_reference=pcm.reference.consumed=true;
+    pcm.spark.bypass_count=255;spark.bypass_count_limit=255;f.memory[PCM_EST_COUNTER+1]=1;
+    CHECK(pcm_spark_monitor(&pcm)==PCM_OK && pcm.spark.bypass_count==0 && !pcm.spark.bypass_fault_latched);
+    normal_controller(&f,&pcm,&root,&spark);
+    CHECK(pcm_spark_control(&pcm)==PCM_OK && pcm.unresolved_task==PCM_TASK_COUNT);
+    CHECK(!pcm.spark.first_reference && !pcm.reference.consumed && pcm.spark.output_request);
+    CHECK(word(f.memory,PCM_EST_HANDOFF)==0x1234 && f.used>=11);
+    CHECK(f.events[f.used-3].address==PCM_EST_COUNTER && f.events[f.used-2].address==PCM_EST_FEEDBACK &&
+          f.events[f.used-1].kind=='W' && f.events[f.used-1].address==PCM_EST_HANDOFF);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);f.platform.task[PCM_ALTERNATE_RPM]=NULL;
+    pcm.calibration=NULL;pcm.spark.output_request=pcm.reference.consumed=true;
+    CHECK(pcm_alternate_rpm(&pcm)==PCM_OK && f.used==0 && pcm.spark.period_basis==65535);
+    CHECK(!pcm.spark.output_request && !pcm.reference.consumed && pcm.unresolved_task==PCM_TASK_COUNT);
+    normal_controller(&f,&pcm,&root,&spark);pcm.scheduler.phase=4;
+    for (unsigned i=0;i<PCM_TASK_COUNT;++i) f.platform.task[i]=other_task;
+    f.platform.task[PCM_SPARK_CONTROL]=f.platform.task[PCM_ALTERNATE_RPM]=NULL;
+    CHECK(pcm_dispatch_fast(&pcm)==PCM_OK && word(f.memory,PCM_EST_HANDOFF)==0x1234);
+    CHECK(f.events[0].address==0x7800+PCM_COMMON_IO && f.events[1].address==0x7800+PCM_INPUT_HOUSEKEEPING);
+    CHECK(f.events[f.used-1].address==0x7800+PCM_TRANSMISSION_INPUT);
+    init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.scheduler.phase=1;pcm.runtime.special_fast_group=true;
+    f.platform.task[PCM_ALTERNATE_RPM]=NULL;pcm.spark.output_request=pcm.reference.consumed=true;
+    CHECK(pcm_dispatch_fast(&pcm)==PCM_OK && f.used==2 && pcm.spark.period_basis==65535);
+    CHECK(!pcm.spark.output_request && !pcm.reference.consumed);
+    CHECK(f.events[0].address==PCM_COPRST && f.events[0].value==0xaa && f.events[1].value==0x55);
+    puts("EST monitor prefix failures, retained faults, wrapping count and real controller/alternate dispatch contracts pass.");
+}
 static const uint16_t outputs[]={0x06,0x19,0x3d,0x41,0x50,0x61,0x62,0x6e,0x6f,0xa4,0x15a,
     0x1b2,0x1c0,0x1c1,0x1c2,0x1c9,0x1cc,0x1f4,0x1f5,0x1f8,0x1f9,0x1fa,0x1fb,0x1fc,
     0x1fd,0x1fe,0x20a,0x20b,0x22f,0x278,0x2cb,0x83c,0x841,0x843,0x844};
@@ -460,6 +535,7 @@ static const uint16_t period_extra[]={0x02,0x04,0x18,0x44,0x4f,0x5f,0x60,0x67,0x
     0x202,0x210,0x211,0x229,0x257,0x258,0x260,0x261,0x28c,0x28d,0x28e,0x28f,
     0x2ce,0x2f4,0x82e,0x83d,0x83e,0x83f,0x840,0x3060,0x306f,0x880,0x881};
 static const uint16_t output_extra[]={0x4b,0x201,0x3fdc,0x3fdd,0x3fe6,0x3fe7,0x3fe8,0x3fe9,0x3ff6,0x3ff7};
+static const uint16_t controller_extra[]={0x205,0x206,0x22c,0x391,0x3fe4,0x3fe5};
 static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
 {
     switch (mode) {
@@ -543,6 +619,13 @@ static PcmStatus run(Fixture *f,Pcm *pcm,unsigned mode,uint16_t *value)
     case 45: {
         bool built;PcmStatus status=pcm_spark_build(pcm,&built);*value=built;return status;
     }
+    case 47:return pcm_spark_monitor(pcm);
+    case 48:return pcm_spark_control(pcm);
+    case 49: {
+        PcmStatus status=pcm_spark_auxiliary(pcm);
+        return status==PCM_OK?pcm_spark_control(pcm):status;
+    }
+    case 50:return pcm_alternate_rpm(pcm);
     default:return PCM_BAD_CONFIGURATION;
     }
 }
@@ -554,6 +637,7 @@ int main(int argc,char **argv)
     if (argc==2 && strcmp(argv[1],"--command-contracts")==0) { command_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--period-contracts")==0) { period_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--output-contracts")==0) { output_contracts();return 0; }
+    if (argc==2 && strcmp(argv[1],"--controller-contracts")==0) { controller_contracts();return 0; }
     if (argc==2 && strcmp(argv[1],"--defaults")==0) {
         init(&f,&pcm,&root,&spark);printf("[");bool first=true;
         for (unsigned a=0;a<65536;++a) if (f.present[a]) { printf("%s[%u,%u]",first?"":",",a,f.memory[a]);first=false; }
@@ -561,7 +645,7 @@ int main(int argc,char **argv)
     }
     unsigned mode,count;
     while (scanf("%u %u",&mode,&count)==2) {
-        if (mode>46 || count>2048) return 2;
+        if (mode>50 || count>2048) return 2;
         init(&f,&pcm,&root,&spark);
         for (unsigned i=0;i<count;++i) {
             unsigned a,v;if (scanf("%u %u",&a,&v)!=2 || a>65535 || v>255) return 2;f.memory[a]=(uint8_t)v;
@@ -592,6 +676,7 @@ int main(int argc,char **argv)
         for (size_t i=0;i<size;++i) printf("%s%u",i?",":"",f.memory[selected[i]]);
         if (mode>=28) for (size_t i=0;i<sizeof(period_extra)/sizeof(period_extra[0]);++i) printf(",%u",f.memory[period_extra[i]]);
         if (mode>=38) for (size_t i=0;i<sizeof(output_extra)/sizeof(output_extra[0]);++i) printf(",%u",f.memory[output_extra[i]]);
+        if (mode>=47) for (size_t i=0;i<sizeof(controller_extra)/sizeof(controller_extra[0]);++i) printf(",%u",f.memory[controller_extra[i]]);
         if (mode<20) puts("]}");
         else {
             unsigned unresolved=pcm.unresolved_task==PCM_SPARK_EXTENSION?1u:pcm.unresolved_task==PCM_ALTERNATE_RPM?2u:
