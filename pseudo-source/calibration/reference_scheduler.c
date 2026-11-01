@@ -21,6 +21,7 @@ const PcmCalibration pcm_reference_scheduler_calibration = {
     .mode_d = 0x82, /* 400D; altitude bit2 is clear in stock BMHM */
     .spark = &pcm_reference_spark_calibration,
     .transmission = &pcm_reference_transmission_calibration,
+    .iac = &pcm_reference_iac_calibration,
     .reference = {
         .mode_b = 0x04, /* 400B */
         .mode_c = 0xb7, /* 400C */

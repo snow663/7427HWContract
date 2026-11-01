@@ -14,7 +14,8 @@ override and subsequent limits. It does not implement the complete A466 root.
 | `pcm_spark_composite` | A700..A9DF | Earlier base/environmental terms followed by these modifiers |
 | `pcm_lookup_capped` | F499..F4A3 → F4BD..F4DD | Capped input, zero offset and existing rounded interpolation |
 
-Each public routine has its own file. IAC, filtered RPM, transient-target,
+Each public routine has its own file. The [background IAC](iac_background_contract.md)
+now produces the desired idle speed; remaining IAC, filtered RPM, transient-target,
 fuel-cut and startup producers remain separate interfaces. The larger wrapper
 preserves the original order: base selection samples retained0050.6 before
 this pass's idle correction clears or sets it. Tests cover retained state over
@@ -148,8 +149,8 @@ ROM local frames balance and these scopes make no hardware I/O.
 These witnesses do not establish all interleavings or target C stack/timing.
 
 Both host routes retain these modifier contracts/differential checks and the
-newer command suite, bringing CTest to 28 entries. The C inventory is 141 public routines:
-65 implemented outlines, 41 explicit dependency boundaries and thirty-five algorithms.
+newer command suite, bringing CTest to 30 entries. The C inventory is 150 public routines:
+69 implemented outlines, 40 explicit dependency boundaries and forty-one algorithms.
 The [command path](spark_command_contract.md) now implements resident override,
 signed limits and service edits under an explicit optional 1812 dependency.
 The [admission prelude](spark_admission_contract.md) is also implemented.

@@ -2,8 +2,8 @@
 
 All selected handler instructions and resident callees execute. Arrival times,
 ready/status bits and flat device samples are supplied inputs, not a model of
-the actual timer/ADC/bus. The existing guarded replay rejects partial BRSET
-inputs outside the CPU core's independently usable subset.
+the actual timer/ADC/bus. The historical guarded replay retains its zero/full-mask
+BRSET witness domain; separate CPU tests now verify all selected-bit patterns.
 """
 from __future__ import annotations
 

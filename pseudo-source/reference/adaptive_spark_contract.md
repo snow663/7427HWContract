@@ -24,8 +24,8 @@ stops before learning. Learning tests the full phase after that callback; it
 runs only at06, once per complete 160-phase cycle in ordinary dispatcher fixtures.
 
 Slot7 now calls the complete MAT/PE/knock-gain wrapper at CA6B..CB14 in its
-[verified call order](slot7_contract.md), between named background-IAC and
-shift-lamp dependencies. See the [spark terms contract](spark_terms_contract.md). The earlier C9F7 body also remains part
+[verified call order](slot7_contract.md), after the implemented background IAC
+and before the remaining shift-lamp dependency. See the [spark terms contract](spark_terms_contract.md). The earlier C9F7 body also remains part
 of its existing slot dependency. This step does not replace those boundaries
 with partial gain calls or change their cadence. The [A466 resident controller](spark_controller_contract.md)
 is now implemented. The [command wrapper](spark_command_contract.md) now retains
@@ -150,8 +150,8 @@ the final stock cap in that fixture is23.
 The dedicated learner corpus still checks admitted high/low updates.
 
 Both host verification routes retain these adaptive entries alongside the newer
-spark-terms, modifiers and command suites, bringing CTest to 28 checks. The C inventory is 141 public
-routines: 65 implemented outlines, 41 dependency boundaries and thirty-five algorithms.
+spark-terms, modifiers and command suites, bringing CTest to 30 checks. The C inventory is 150 public
+routines: 69 implemented outlines, 40 dependency boundaries and forty-one algorithms.
 These counts describe source organization, not whole-firmware equivalence. Base/environmental composite
 construction and idle/transient/decel corrections are now implemented.
 Resident overrides and limits/service are also implemented, as is the

@@ -76,12 +76,14 @@ static void test_initialization_and_missing_contracts(void) {
     pcm.knock.retard=0x23; pcm.knock.sensor_fault=true; pcm.knock.sensor_fault_count=0x64;
     pcm.spark.command=0xabcd; pcm.runtime.adc_timeout=true; pcm.runtime.adc_fault=true;
     pcm.transmission.output_shadow=0xff;pcm.transmission.tcc_command=0xabcd;
+    pcm.iac.transfer_flags=0xff;pcm.iac.bank[0].cold=0xabcd;
     CHECK(pcm_reset_sequence(&pcm,&f.platform,&pcm_reference_scheduler_calibration)==PCM_OK);
     CHECK(pcm.scheduler.phase==0x0e && f.masked);
     CHECK(pcm.knock.sample_baseline==0 && pcm.knock.observation_accumulator==0);
     CHECK(pcm.knock.retard==0 && !pcm.knock.sensor_fault && pcm.knock.sensor_fault_count==0);
     CHECK(pcm.spark.command==0 && !pcm.runtime.adc_timeout && !pcm.runtime.adc_fault);
     CHECK(pcm.transmission.output_shadow==0 && pcm.transmission.tcc_command==0);
+    CHECK(pcm.iac.transfer_flags==0 && pcm.iac.bank[0].cold==0);
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
     static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RAM,
@@ -110,7 +112,8 @@ static void test_full_phase_cycle(void) {
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
         CHECK(f.counts[k]==(k==PCM_SLOT_07 || k==PCM_SLOT_0E?0u:10u));
     CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
-    CHECK(f.counts[PCM_IAC_BACKGROUND]==10 && f.counts[PCM_SHIFT_LAMP]==10);
+    CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==10);
+    CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.adc_starts==10); /* Slot8 now runs its real diagnostic, without a task binding. */
     /* The phase6 observation precedes the first slot7 gain publication and
      * arms the low latch. Later slot7 caps let the consumer retain13. */
@@ -162,8 +165,10 @@ static void test_retained_fields_profile_and_boundaries(void) {
         f.memory[PCM_EXTENSION_SIGNATURE]=0x7e;f.memory[PCM_EXTENSION_SIGNATURE+1]=0x18;
         f.memory[PCM_TCNT]=3;f.memory[PCM_TCNT+1]=0xe8;
         f.platform.task[PCM_SLOT_07]=NULL;
+        f.platform.task[PCM_IAC_BACKGROUND]=NULL;pcm.iac.bank[0].no_ac_snapshot=99;
         CHECK(pcm_periodic_irq(&pcm)==PCM_OK && f.counts[PCM_CONNECTION_EXTENSION]==1);
-        CHECK(f.counts[PCM_IAC_BACKGROUND]==1 && f.counts[PCM_SHIFT_LAMP]==1 && f.signature_reads==1);
+        CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==1 && f.signature_reads==1);
+        CHECK(pcm.iac.selected_snapshot==99);
         CHECK(pcm.scheduler.profiling_enabled==(action==1));
         CHECK(pcm.scheduler.peak_counts[7]==(action==1?1000:123));
     }

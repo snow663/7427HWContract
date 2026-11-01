@@ -8,15 +8,16 @@ Actual instructions implement the following five calls and return at 7B1B..7B2A:
 |---|---|---|---|
 | 1 | C514 | `pcm_transmission_outputs` | Complete resident output builder |
 | 2 | F5DC | `pcm_connection_probe` | Complete signature probe; matching 180C module remains a dependency |
-| 3 | 9E99 | `pcm_iac_background` | Explicit `PCM_IAC_BACKGROUND` dependency |
+| 3 | 9E99 | `pcm_iac_background` | Complete resident background IAC; see [IAC contract](iac_background_contract.md) |
 | 4 | CA6B | `pcm_spark_auxiliary` | Existing complete MAT/PE/knock-gain producer, now called directly |
 | 5 | ACA7 | `pcm_shift_lamp` | Explicit `PCM_SHIFT_LAMP` dependency |
 
 Each public routine has its own file. `pcm_slot_07` now preserves this sequence
 and stops at the first failed prefix. It no longer calls `PCM_SLOT_07`; that
 enum value is retained without renumbering existing task IDs. A platform using
-the former whole-slot binding must supply the two named resident dependencies
-and, if its signature matches, `PCM_CONNECTION_EXTENSION`. Missing bindings
+the former whole-slot binding must supply the remaining `PCM_SHIFT_LAMP`
+dependency and, if its signature matches, `PCM_CONNECTION_EXTENSION`. The former
+`PCM_IAC_BACKGROUND` ID is also reserved and unused by production. Missing bindings
 return UNIMPLEMENTED and identify the missing task. Tests alone supply successful
 returns and selected state effects for the unfinished bodies.
 
@@ -103,8 +104,8 @@ remain unsupplied. The C task signature only defines the new source interface.
 
 The kernel fixture verifies both late activation and deactivation in a real
 phase7 periodic pass. The same pass's existing profiling tail sees the new
-flag value and retains previous peaks when disabled. Idle and shift-lamp tasks
-are admitted in order around the real CA6B calculations. No missing body is
+flag value and retains previous peaks when disabled. The real background IAC and the
+shift-lamp dependency run in order around the real CA6B calculations. No missing body is
 silently treated as success in production.
 
 ## Verification and remaining work
@@ -119,15 +120,18 @@ admissions, mask state, missing-task identity and completed local ROM frames.
 The histories explicitly supply a subsequent normal spark call at phase8 after
 slot7. They check retained producer/consumer effects under chosen intervening
 inputs; they do not implement the intervening input pipeline or change factory
-cadence.9E99/ACA7 and180C returns are fixtures, as are any subsequently enabled
-180F/1812 hooks. The kernel's existing full 160-phase regression now executes the
-real slot7 wrapper and verifies its ten admissions, with the former whole-slot
-binding absent in the activation tests.
+cadence. This original slot7 suite alone links a test-only9E99 boundary; ACA7
+and180C returns remain fixtures, as do subsequently enabled180F/1812 hooks. The
+new [IAC suite](iac_background_contract.md) executes the real9E99 body within
+slot7 and its following normal call. The kernel's full160-phase regression also
+runs the real background body, verifies changed target/kicker state and admits
+the shift-lamp dependency ten times, with the former whole-slot and IAC bindings
+absent in activation tests.
 
-The inventory is 141 public routines: 65 implemented outlines, 41 dependency
-boundaries and 35 algorithms. Both host verification routes include 28 CTest
-entries. Next are the 9E99 background IAC path and its learning/stopped-engine
-tails, followed by ACA7's shift-lamp body. Other producers, target assembly,
+The inventory is 150 public routines: 69 implemented outlines, 40 dependency
+boundaries and 41 algorithms. Both host verification routes include 30 CTest
+entries. The9E99 background path is now implemented. Next are slow/main IAC
+and its step driver, alongside ACA7's shift-lamp body. Other producers, target assembly,
 native ABI, memory/stack fit and physical peripheral timing remain separate work.
 
 See the [spark terms](spark_terms_contract.md),

@@ -22,7 +22,7 @@ controller bodies and physical hardware backend remain to be implemented.
 | `src/drivers/` | Explicit byte/word transactions, timer arm, watchdog and board-bit toggle |
 | `src/fuel/` | Base calculation, REF crank/running/decay logic and asynchronous delivery |
 | `src/math/` | Rounded 1D/2D lookup, word gain and signed-floor filter arithmetic |
-| `src/spark/`, `src/idle/` | Knock/adaptive gains, learning, corrections and remaining spark/IAC boundaries |
+| `src/spark/`, `src/idle/` | Knock/adaptive gains, background IAC, learning, corrections and remaining boundaries |
 | `src/sensors/` | Knock sensor diagnostic and remaining acquisition/housekeeping boundaries |
 | `src/serial/` | Serial-service boundary |
 | `src/transmission/`, `src/emissions/` | Existing scheduling dependencies retained visibly for later feature selection |
@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 141 public routines: 65 implemented outlines, 41 dependency
-boundaries and thirty-five implemented algorithms. Reset CPU/chip-select/board
+The tree contains 150 public routines: 69 implemented outlines, 40 dependency
+boundaries and forty-one implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -75,7 +75,8 @@ first-observation, timer-expiry and rounding behavior.
 Base, coolant, altitude, EGR, MAT and PE terms now have separate routines.
 The complete CA6B auxiliary producer and contiguous A700..A84D composite body
 are callable C wrappers. Slot7 now calls the auxiliary producer directly in its
-verified five-call order, between named background-IAC and shift-lamp dependencies.
+verified five-call order, after the implemented background IAC and before the
+remaining shift-lamp dependency.
 See the [spark terms contract](reference/spark_terms_contract.md) for 753,561
 additional comparisons, bounded matrix views and exact rounding/retention rules.
 
@@ -117,10 +118,19 @@ monitor retains wrapped counter deltas, qualification/fault latches and ordered
 3FEC→3FE4 handoff; upstream inputs and physical EST semantics remain explicit.
 
 The [slot7 wrapper](reference/slot7_contract.md) now executes the output builder,
-signature-qualified connection probe and spark auxiliary body. Background IAC
-and shift-lamp work use named dependencies. The probe can change profiling for
+signature-qualified connection probe, background IAC and spark auxiliary body.
+Shift-lamp work retains its named dependency. The probe can change profiling for
 the same pass. The output builder preserves the shared shadow and literal
 7Fxx command publication, including failed prefixes.
+
+The [background IAC](reference/iac_background_contract.md) now runs desired RPM,
+movement/DFCO decay, kicker qualification, cold bounds, queued gear/AC transfers
+and snapshot publication. The stopped path publishes without aging holds. Its
+shared0036 state preserves spark override ownership, and source profiles retain
+137 distinct stock bytes. Main/slow IAC and the step driver remain separate.
+The new partial-mask witnesses also exposed a simulator BRSET error; the CPU
+now checks all selected bits, with exhaustive direct/X/Y branch tests and the
+prior C regressions retained.
 
 The kernel models the160-phase counter,16-slot dispatch, ordered fast groups,
 pre-busy fast service, one-bit pending coalescing and catch-up. Timer recurrence
@@ -167,7 +177,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are twenty-eight CTest entries; the Python route runs the same contract/differential checks.
+are thirty CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -185,15 +195,19 @@ The monitor/controller suite adds 468,978 comparisons across all 50 monitor/clea
 instruction starts and three new calibration bytes; all 1,197 expanded fixture
 bytes match the recorded image. Slot7 adds400,081 comparisons across43 scoped
 instructions, with a separately checked256-byte raw-index backing view and
-shared400F option.
+shared400F option. Background IAC adds 1,645,037 comparisons across559
+instruction starts and137 new source-profile bytes, including full slot7 and
+subsequent normal-spark witnesses. The original slot7 suite alone substitutes a
+test-only IAC boundary; production and the new suite use the resident body.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
-Next port the9E99 background IAC path, its learning/stopped-engine tails and
-ACA7 shift-lamp work. C9F7 environmental precomputation is separate slot4 work.
+Next port the slow-IAC A2B0 body and its9CFD follower, then connect the main
+IAC controller and step driver. ACA7 shift-lamp work and C9F7 environmental
+precomputation remain separate scheduled producers.
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified
 driver ordering and fault exits. Continue the remaining injector, spark and IAC drivers

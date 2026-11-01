@@ -663,7 +663,7 @@ class HC11CPU:
         mask = self._fetch8()
         rel = s8(self._fetch8())
         value = self.mem.read8(direct)
-        if value & mask:
+        if (value & mask) == mask:
             self.s.pc = (self.s.pc + rel) & 0xFFFF
 
     def _op_brclr(self) -> None:
@@ -818,7 +818,7 @@ class HC11CPU:
                 name = "BCLR"
             else:
                 relative = s8(self._fetch8())
-                take = (value & mask) != 0 if opcode == 0x1E else (value & mask) == 0
+                take = (value & mask) == mask if opcode == 0x1E else (value & mask) == 0
                 if take:
                     self.s.pc = u16(self.s.pc + relative)
                 name = "BRSET" if opcode == 0x1E else "BRCLR"

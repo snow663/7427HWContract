@@ -22,7 +22,8 @@ AB44 and physical output transactions are not implemented by this step.
 
 Each public routine has its own source file. The [A466 resident controller](spark_controller_contract.md)
 is now implemented; the [slot7 wrapper](slot7_contract.md) connects the auxiliary
-producer while retaining its named unfinished IAC/shift-lamp callees.
+producer and [background IAC](iac_background_contract.md) while retaining the
+unfinished shift-lamp callee.
 Auxiliary→calculate sequences in tests supply a chosen producer/consumer order;
 they do not replace the factory dispatcher or assert a new cadence.
 
@@ -158,9 +159,9 @@ corpora. This is not an exhaustive product of all states or interrupt
 interleavings; target C stack costs, compiler ABI and timing remain separate.
 
 Both host verification routes retain this command suite and the newer admission
-contracts/differential checks, bringing CTest to 28 entries. The source inventory
-is 141 public routines: 65 implemented outlines, 41 explicit dependency boundaries
-and 35 implemented algorithms. These counts are not whole-firmware equivalence.
+contracts/differential checks, bringing CTest to 30 entries. The source inventory
+is 150 public routines: 69 implemented outlines, 40 explicit dependency boundaries
+and 41 implemented algorithms. These counts are not whole-firmware equivalence.
 The [A466..A5E4 admission prelude](spark_admission_contract.md) is now callable.
 The [normal period/RPM preparation](spark_period_contract.md) is also implemented.
 The [output/alternate bodies](spark_output_contract.md) are also implemented.
