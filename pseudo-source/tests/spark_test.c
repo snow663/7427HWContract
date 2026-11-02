@@ -104,7 +104,7 @@ static const TableMapping curves[]={T(0x44f0,8,idle_negative_speed),T(0x44f8,10,
 typedef struct { char kind;uint8_t width;uint16_t address,value;bool masked; } Event;
 typedef struct {
     uint8_t memory[65536],present[65536],data[6][527],curve_data[5][17];
-    Event events[32];unsigned used,attempts,fail_at,action;bool masked;
+    Event events[64];unsigned used,attempts,fail_at,action;bool masked;
     uint16_t periods[16],partial;unsigned read_count,read_index;Pcm *pcm;
     bool real_alternate;uint8_t coordinate_low,coordinate_rounded;
     PcmPlatform platform;
@@ -192,7 +192,8 @@ static void load_cal(Fixture *f,PcmCalibration *root,PcmSparkCalibration *spark)
 static PcmStatus record(Fixture *f,char kind,uint8_t width,uint16_t address,uint16_t value)
 {
     if (++f->attempts==f->fail_at) return PCM_NO_HARDWARE;
-    CHECK(f->used<32);f->events[f->used++]=(Event){kind,width,address,value,f->masked};return PCM_OK;
+    CHECK(f->used<sizeof(f->events)/sizeof(f->events[0]));
+    f->events[f->used++]=(Event){kind,width,address,value,f->masked};return PCM_OK;
 }
 static PcmStatus mask(void *context,bool masked)
 {
@@ -225,7 +226,7 @@ static PcmStatus extension(Pcm *pcm,PcmTask task)
 }
 static PcmStatus read8(void *context,uint16_t address,uint8_t *value)
 {
-    Fixture *f=context;CHECK(address==PCM_BOARD_3060);
+    Fixture *f=context;CHECK(address==PCM_BOARD_3060 || address==PCM_BOARD_3064);
     uint8_t sample=f->memory[address];PcmStatus result=record(f,'R',8,address,sample);
     if (result==PCM_OK) *value=sample;
     return result;
@@ -233,7 +234,8 @@ static PcmStatus read8(void *context,uint16_t address,uint8_t *value)
 static PcmStatus read16(void *context,uint16_t address,uint16_t *value)
 {
     Fixture *f=context;CHECK(address==PCM_REFERENCE_PERIOD || address==PCM_SPARK_ROLLING || address==PCM_SPARK_WORD ||
-                            address==PCM_EST_COUNTER || address==PCM_EST_FEEDBACK);
+                            address==PCM_EST_COUNTER || address==PCM_EST_FEEDBACK || address==PCM_BOARD_CONTROL ||
+                            address==PCM_REFERENCE_STATUS || address==PCM_VSS_TIMESTAMP);
     uint16_t sample=word(f->memory,address);
     if (f->read_count) { CHECK(f->read_index<f->read_count);sample=f->periods[f->read_index++]; }
     PcmStatus result=record(f,'R',16,address,sample);
@@ -253,7 +255,8 @@ static PcmStatus read16(void *context,uint16_t address,uint16_t *value)
 }
 static PcmStatus write8(void *context,uint16_t address,uint8_t value)
 {
-    Fixture *f=context;CHECK(address==PCM_BOARD_3060 || address==PCM_REFERENCE_AGE || address==PCM_COPRST);
+    Fixture *f=context;CHECK(address==PCM_BOARD_3060 || address==PCM_BOARD_3062 || address==PCM_BOARD_3067 ||
+                            address==PCM_REFERENCE_AGE || address==PCM_COPRST);
     PcmStatus result=record(f,'W',8,address,value);
     if (result==PCM_OK) f->memory[address]=value;
     return result;
@@ -272,7 +275,7 @@ static PcmStatus write16(void *context,uint16_t address,uint16_t value)
 {
     Fixture *f=context;
     CHECK(address==PCM_SPARK_TIMING_A || address==PCM_SPARK_TIMING_B || address==PCM_SPARK_WORD ||
-          address==PCM_SPARK_ROLLING || address==PCM_EST_HANDOFF);
+          address==PCM_SPARK_ROLLING || address==PCM_EST_HANDOFF || address==PCM_BOARD_CONTROL);
     PcmStatus result=record(f,'W',16,address,value);
     if (result==PCM_OK) {
         f->memory[address]=(uint8_t)(value>>8);f->memory[address+1u]=(uint8_t)value;
@@ -466,6 +469,11 @@ static PcmStatus other_task(Pcm *pcm,PcmTask task)
     CHECK(task!=PCM_SPARK_CONTROL && task!=PCM_ALTERNATE_RPM);
     return record(pcm->platform->context,'T',0,(uint16_t)(0x7800u+task),0);
 }
+static PcmStatus dispatch_board_delay(void *context,uint16_t cycles)
+{
+    CHECK(cycles==11);
+    return record(context,'D',0,0,cycles);
+}
 static void normal_controller(Fixture *f,Pcm *pcm,PcmCalibration *root,PcmSparkCalibration *spark)
 {
     init(f,pcm,root,spark);bind(f,pcm);
@@ -508,8 +516,13 @@ static void controller_contracts(void)
     normal_controller(&f,&pcm,&root,&spark);pcm.scheduler.phase=4;
     for (unsigned i=0;i<PCM_TASK_COUNT;++i) f.platform.task[i]=other_task;
     f.platform.task[PCM_SPARK_CONTROL]=f.platform.task[PCM_ALTERNATE_RPM]=NULL;
+    f.platform.task[PCM_COMMON_IO]=f.platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
+    f.platform.delay_cycles=dispatch_board_delay;
     CHECK(pcm_dispatch_fast(&pcm)==PCM_OK && word(f.memory,PCM_EST_HANDOFF)==0x1234);
-    CHECK(f.events[0].address==0x7800+PCM_COMMON_IO && f.events[1].address==0x7800+PCM_INPUT_HOUSEKEEPING);
+    CHECK(f.events[0].kind=='M' && f.events[0].value==1 && f.events[1].kind=='R' &&
+          f.events[1].width==16 && f.events[1].address==PCM_BOARD_CONTROL);
+    CHECK(f.events[6].kind=='W' && f.events[6].address==PCM_BOARD_3062 && f.events[6].masked);
+    CHECK(f.events[13].kind=='W' && f.events[13].address==PCM_COPRST && f.events[13].value==0xaa);
     CHECK(f.events[f.used-1].address==0x7800+PCM_TRANSMISSION_INPUT);
     init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.scheduler.phase=1;pcm.runtime.special_fast_group=true;
     f.platform.task[PCM_ALTERNATE_RPM]=NULL;pcm.spark.output_request=pcm.reference.consumed=true;
