@@ -28,6 +28,7 @@ const PcmCalibration pcm_reference_scheduler_calibration = {
     .fuel = &pcm_reference_fuel_calibration,
     .air = &pcm_reference_air_calibration,
     .mixture = &pcm_reference_mixture_calibration,
+    .feedback = &pcm_reference_feedback_calibration,
     .reference = {
         .mode_b = 0x04, /* 400B */
         .mode_c = 0xb7, /* 400C */

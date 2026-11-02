@@ -1,6 +1,6 @@
 # Crank admission, startup/AE and commanded AFR/PE
 
-This batch adds22 public routines. The source now has220 routines:106 implemented
+At introduction this batch added22 public routines, bringing the source to220:106 implemented
 outlines,83 implemented algorithms and31 dependency boundaries. Each public
 routine owns one source file. These are callable slices of the recorded BMHM
 image, not a target image or a completed scheduled fuel controller.
@@ -110,9 +110,10 @@ coverage with explicit invariants:8996 cannot overflow a rounded filter approach
 an increasing byte target;8BB8 cannot underflow `part-round(ratio*part/256)` for
 byte inputs. Both guards remain represented by the C saturating helpers.
 
-Both host routes contain46 checks:23 quick contracts/provenance checks and23 ROM
+At introduction both host routes contained46 checks:23 quick contracts/provenance checks and23 ROM
 suites. Broader fuel/slot1/4/D/F roots remain boundaries until their full prefixes
-and successors are implemented. BLM/O2 feedback and learning8C73 onward, remaining
-pulse corrections, AE accumulation/delivery, EGR producers, ignition/STOP handling,
+and successors are implemented. O2/BLM and selected corrections are now covered by the
+[feedback contract](fuel_feedback_contract.md). Cut/decel/AE-reservoir and delivery
+accounting, EGR producers, ignition/STOP handling,
 and852C cleanup remain unfinished. Optional1800 code, target ABI, physical bus
 behavior and delivered fuel are separate validation obligations.
