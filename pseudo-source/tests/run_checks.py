@@ -33,6 +33,7 @@ TARGETS=[
  ('inputs','inputs_test',[],[['--contracts']],['inputs_rom']),
  ('fuel_output','fuel_output_test',[],[['--contracts']],['fuel_output_rom']),
  ('fuel_air','fuel_air_test',[],[['--contracts']],['fuel_air_rom']),
+ ('fuel_mixture','fuel_mixture_test',[],[['--contracts']],['fuel_mixture_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',

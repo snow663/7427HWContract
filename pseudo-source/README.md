@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 198 public routines: 96 implemented outlines, 31 dependency
-boundaries and seventy-one implemented algorithms. Reset CPU/chip-select/board
+The tree contains 220 public routines: 106 implemented outlines, 31 dependency
+boundaries and eighty-three implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -228,6 +228,10 @@ history calls; the kernel now runs resident ADC feedback without its old task.
 The fuel-air suite contains1,015,696 comparisons across336 scoped instruction
 starts,930 distinct profile bytes and1,581 expanded fixture bytes, including
 1,953 selected failure prefixes and1,024 retained input/VE/air-rate histories.
+The mixture suite adds476,821 comparisons across742 reachable instruction starts,
+with two defensive guards bounded by arithmetic invariants,540 distinct profile
+bytes,3,087 expanded fixture bytes,553 selected failure prefixes and1,024 retained
+startup/AE/AFR/PE/REF history calls.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
@@ -247,8 +251,11 @@ Callable TPS zero/normalization, coolant/MAT/BARO acquisition and diagnostics,
 density, charge temperature, VE and the contiguous VE/base publisher now have
 checked C bodies. See the [fuel-air contract](reference/fuel_air_contract.md).
 Their wider fuel/slot1/4/D/F and transmission callers remain boundaries.
-The next batch covers fuel-mode admission, commanded AFR/PE/startup and
-enrichment; remaining EGR producers stay explicit until their consumers need them.
+Callable crank/running authorization, crank preparation/delivery, O2 filtering,
+MAP/TPS AE, startup seeding/decay and contiguous commanded AFR/PE now have checked
+C bodies. See the [mixture contract](reference/fuel_mixture_contract.md).
+The next batch covers BLM/O2 feedback/learning, remaining pulse corrections and
+AE delivery, followed by complete admission/tail wiring and required EGR producers.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
 resident bodies directly; broad fuel and slot4 work stays explicit. See the
