@@ -138,7 +138,10 @@ static void io_contracts(void)
     puts("Board word/byte order,11-cycle delay, split owners, capped-before-offset MAP, VSS latch/REF flag and input COP prefix pass.");
 }
 
-int main(int argc,char **argv)
+#ifndef IO_FIXTURE_ENTRY
+#define IO_FIXTURE_ENTRY main
+#endif
+int IO_FIXTURE_ENTRY(int argc,char **argv)
 {
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
     PcmTransmissionCalibration transmission;PcmIacCalibration cal;PcmIoCalibration io;uint8_t patterns[256],baro[256],mat[256],ae[256],rpm[256],bias[8];

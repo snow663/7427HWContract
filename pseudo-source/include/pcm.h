@@ -127,6 +127,9 @@ typedef struct {
 typedef struct {
     uint16_t gear_pattern_length;
     const uint8_t *gear_patterns;      /* B319 + raw byte gear index */
+    uint8_t shift_ratio[4], shift_rpm[4], shift_throttle_gain[4]; /* 5113..511E */
+    uint8_t shift_coolant, shift_throttle[2], shift_rpm_max, shift_reload[2]; /* 511F..5124 */
+    uint8_t shift_curves[55];          /* 5125..515B: four overlapping RPM views and baro knots */
 } PcmTransmissionCalibration;
 
 typedef struct {
@@ -177,7 +180,21 @@ typedef struct {
     uint8_t map_default, map_throttle_gain, map_normal_gain, map_transient_gain;
     PcmCappedCurve map_bias; /* Cap RPM>>1 before subtracting fixed offset16. */
     uint8_t brake_delay;
+    uint8_t map_hold_reload, map_rpm_delta_limit, vss_gain; /* 4139/3A,4E8E */
 } PcmIoCalibration;
+
+typedef struct {
+    uint8_t throttle_limit[2], entry_delay, exit_delay, throttle_delay; /* 4010..4014 */
+    uint8_t rpm_count_limit, rpm_release_delay, rpm_limit[2], running_rpm_limit; /* 4015..4019 */
+    uint8_t coolant_limit[2], speed_limit[2], throttle_release[2]; /* 401A..401F */
+    uint16_t throttle_count_limit, runtime_minimum; /* 4020,4022 */
+} PcmAcCalibration;
+
+typedef struct {
+    uint8_t coolant_trim[17], coolant_factor[9], coolant_load[14], coolant_idle[17];
+    uint8_t low_coolant_limit, low_coolant_subtract; /* 48E3,48E8 */
+    PcmCappedCurve density;            /* 475F header; cap before fixed80 subtraction */
+} PcmEnvironmentCalibration;
 
 typedef struct {
     uint16_t format_version;
@@ -195,6 +212,8 @@ typedef struct {
     const PcmTransmissionCalibration *transmission;
     const PcmIacCalibration *iac;
     const PcmIoCalibration *io;
+    const PcmAcCalibration *ac;
+    const PcmEnvironmentCalibration *environment;
 } PcmCalibration;
 
 typedef struct {
@@ -232,7 +251,7 @@ typedef struct {
     volatile bool adc_timeout;         /* RAM001A.1; cleared before each F25F conversion */
     volatile bool adc_fault;           /* RAM003A.0; timeout sets, success retains */
     volatile bool power_enrichment;    /* RAM003D.5 */
-    volatile bool diagnostic_switch;   /* RAM0050.4, produced by CB15 input boundary */
+    volatile bool diagnostic_switch;   /* RAM0050.4, produced by resident CB15 inputs */
     volatile bool deceleration_fuel_cut; /* RAM0046.3 */
 } PcmRuntime;
 
@@ -327,6 +346,9 @@ typedef struct {
     volatile uint8_t current_service_enable, current_service_value; /* 039A,039B, bit6 */
     volatile uint8_t tcc_flags, tcc_state; /* 008A,008B */
     volatile uint16_t tcc_command, tcc_lower_limit; /* 0126,012B */
+    volatile uint8_t range_context, shift_gear, shift_hold, shift_ratio; /* 0089,0845/46/4B */
+    volatile bool shift_lamp, shift_service_enable, shift_service_value; /* 0053.2,038F.0,0390.0 */
+    volatile uint16_t shift_counter, shift_delta; /* 0847,0849 */
 } PcmTransmission;
 
 typedef struct {
@@ -369,6 +391,15 @@ typedef struct {
     volatile bool map_transient, ac_mirror, brake_active; /* 0047.0,0041.4,009C.0 */
     volatile uint8_t vss_changes, brake_count; /* 080C,00FB */
     volatile uint16_t vss_timestamp; /* 080D */
+    volatile uint8_t map_context, map_hold, map_previous_rpm, coolant_context; /* 0047 bitsFE,01C5,0065,003E bitsFB */
+    volatile uint16_t vss_previous, vss_raw; /* 080F,0812 */
+    volatile uint8_t vss_age, vehicle_speed_fraction; /* 0811,0285; high byte remains spark owner */
+    volatile uint8_t diagnostic_sample; /* 082F */
+    volatile bool diagnostic_warm, ac_rpm_inhibit; /* 0050.3,0052.4 */
+    volatile uint8_t ac_entry, ac_exit, ac_rpm_count, ac_release_count, ac_throttle_delay; /* 0830..33,0836 */
+    volatile uint16_t ac_throttle_count; /* 0834 */
+    volatile uint8_t environmental_trim, environmental_factor, environmental_load;
+    volatile uint8_t environmental_idle, environmental_density; /* 01E5,0243,0272,01CB,01BB */
 } PcmIo;
 
 typedef struct Pcm {

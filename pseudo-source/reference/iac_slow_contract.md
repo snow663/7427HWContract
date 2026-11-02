@@ -18,12 +18,13 @@ has its own file; `include/iac.h` declares the IAC functions.
 | A3FA..A406 | `pcm_iac_reset_request` | Software homing state, target0 and position255 |
 | F4B6..F4BB → F4C5..F4DD | `pcm_lookup_scaled` | Scaled coordinate and rounded interpolation |
 
-Slot9 now calls the real slow IAC between named `PCM_EGR_DEMAND` and
-`PCM_VSS_FILTER` dependencies. Their CF16..D03D and D4DA..D4EA implementations
-remain unfinished. The former whole-slot9 task ID is reserved and unused.
-Missing bindings return UNIMPLEMENTED with the dependency identity; a failure
-retains the completed prefix and stops the later calls. These are the actual
-three factory admissions, not partial work injected into an otherwise opaque slot.
+Slot9 calls the real slow IAC between the remaining `PCM_EGR_DEMAND` dependency
+and the now-resident VSS filter. CF16..D03D remains unfinished; D4DA..D4EA is
+implemented by the [scheduled input batch](scheduled_inputs_contract.md). The
+former whole-slot9 task ID is reserved and unused. This historical slow-IAC suite
+retains an explicit VSS return fixture; the current kernel and combined input
+suite execute the real VSS body. Missing EGR bindings and failed calls retain
+the completed prefix and stop later calls without reordering the three admissions.
 
 The root returns immediately when004F.7 is clear, requiring no profile and
 changing no IAC state. Running work preserves follower → decays → drive cap →
@@ -172,10 +173,10 @@ full160-phase kernel regression uses the real slow body and verifies ten EGR/VSS
 admissions and the absence of a whole-slot9 binding; the main port now also
 updates shared qualification/error state during the full cycle.
 
-Both host routes now have38 CTest entries. CI runs independent suites two at a
+Both host routes now have40 CTest entries. CI runs independent suites two at a
 time; they do not share mutable fixture state or generated artifacts. The source
-inventory is177 public routines:81 implemented outlines,37 dependency boundaries
-and59 algorithms. Target ABI, interrupt entry, coherent word access, linker/RAM/
+inventory is180 public routines:82 implemented outlines,34 dependency boundaries
+and64 algorithms. Target ABI, interrupt entry, coherent word access, linker/RAM/
 stack fit and physical peripheral/motor timing remain separate validation.
 
 The main93D0 IAC controller and service/reset/learning consumers are now

@@ -6,4 +6,6 @@ extern const PcmSparkCalibration pcm_reference_spark_calibration;
 extern const PcmTransmissionCalibration pcm_reference_transmission_calibration;
 extern const PcmIacCalibration pcm_reference_iac_calibration;
 extern const PcmIoCalibration pcm_reference_io_calibration;
+extern const PcmAcCalibration pcm_reference_ac_calibration;
+extern const PcmEnvironmentCalibration pcm_reference_environment_calibration;
 #endif

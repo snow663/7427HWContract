@@ -6,4 +6,7 @@ PcmStatus pcm_board_ports(Pcm *);
 PcmStatus pcm_map_input(Pcm *);
 PcmStatus pcm_vss_sample(Pcm *);
 PcmStatus pcm_brake_filter(Pcm *);
+PcmStatus pcm_map_transient(Pcm *);
+PcmStatus pcm_vss_calculate(Pcm *);
+PcmStatus pcm_environment_inputs(Pcm *);
 #endif

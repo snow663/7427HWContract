@@ -135,7 +135,7 @@ every ratio/old-high/sign combination, integral/cold admission and allocation,
 P selection/hysteresis, wrapped gear/AC transitions, all service selectors,
 reset/position pairs, retained histories, and failed dependency/I/O prefixes.
 The corpus exercises all919 scoped instruction starts. Both host routes
-include38 CTest entries.
+include40 CTest entries.
 
 A passing host comparison establishes the supplied witness domain. It does not
 establish target ABI, interrupt entry, RAM/stack fit, coherent word access,

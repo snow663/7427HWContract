@@ -84,11 +84,12 @@ static void init(Fixture *f, Pcm *pcm) {
     for (unsigned k=0;k<PCM_TASK_COUNT;++k) f->platform.task[k]=task;
     f->platform.task[PCM_IAC_CONTROL]=NULL;
     f->platform.task[PCM_IAC_STEP]=NULL;
+    f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
-    pcm->reference.map_sample=135;pcm->io.map_filter=0x8700;
+    pcm->io.diagnostic_sample=100;pcm->reference.map_sample=135;pcm->io.map_filter=0x8700;
 }
 static void test_initialization_and_missing_contracts(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
@@ -134,16 +135,16 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
+        CHECK(f.counts[k]==(k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
     CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
-    CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==10);
+    CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
-    CHECK(f.counts[PCM_EGR_DEMAND]==10 && f.counts[PCM_VSS_FILTER]==10);
+    CHECK(f.counts[PCM_EGR_DEMAND]==10 && f.counts[PCM_VSS_FILTER]==0);
     CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
     CHECK(f.adc_starts==10); /* Slot8 now runs its real diagnostic, without a task binding. */
     /* The phase6 observation precedes the first slot7 gain publication and
      * arms the low latch. Later slot7 caps let the consumer retain13. */
-    CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==10 && pcm.knock.activity==7);
+    CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==0 && pcm.knock.activity==7);
     CHECK(pcm.knock.learning_low && !pcm.knock.learning_high && pcm.knock.retard==13 && pcm.knock.retard_limit==23);
     CHECK(pcm.runtime.refresh_requested && pcm.runtime.refresh_late);
     uint16_t compare; CHECK(read16(&f,PCM_TOC3,&compare)==PCM_OK);
@@ -210,7 +211,7 @@ static void test_retained_fields_profile_and_boundaries(void) {
         f.platform.task[PCM_SLOT_07]=NULL;
         f.platform.task[PCM_IAC_BACKGROUND]=NULL;pcm.iac.bank[0].no_ac_snapshot=99;
         CHECK(pcm_periodic_irq(&pcm)==PCM_OK && f.counts[PCM_CONNECTION_EXTENSION]==1);
-        CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==1 && f.signature_reads==1);
+        CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0 && f.signature_reads==1);
         CHECK(pcm.iac.selected_snapshot==99);
         CHECK(pcm.scheduler.profiling_enabled==(action==1));
         CHECK(pcm.scheduler.peak_counts[7]==(action==1?1000:123));

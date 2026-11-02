@@ -21,5 +21,7 @@ jobs:
         run: cmake -S pseudo-source -B pseudo-source/build -DBUILD_TESTING=ON
       - name: Compile separate routine files
         run: cmake --build pseudo-source/build --parallel 2
-      - name: Test source contracts and provenance
-        run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2
+      - name: Test fast source contracts and provenance
+        run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2 --stop-on-failure -E rom_differential
+      - name: Compare source with stock ROM
+        run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2 --stop-on-failure -R rom_differential
