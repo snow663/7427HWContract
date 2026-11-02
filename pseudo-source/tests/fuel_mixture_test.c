@@ -116,7 +116,10 @@ static void mixture_contracts(void)
 #undef INIT
     puts("Crank admission, AE histories, startup mask/failure prefixes, AFR service/extension boundaries and source-view contracts pass.");
 }
-int main(int argc,char **argv)
+#ifndef PCM_MIXTURE_TEST_MAIN
+#define PCM_MIXTURE_TEST_MAIN main
+#endif
+int PCM_MIXTURE_TEST_MAIN(int argc,char **argv)
 {
     if (argc==2 && strcmp(argv[1],"--contracts")==0) { mixture_contracts();return 0; }
     static Fixture f;Pcm pcm;PcmCalibration root;PcmFuelCalibration fuel;PcmIacCalibration iac;

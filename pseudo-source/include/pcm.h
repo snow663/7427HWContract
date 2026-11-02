@@ -242,6 +242,22 @@ typedef struct {
 } PcmMixtureCalibration;
 
 typedef struct {
+    uint8_t activity[8], airflow_gain, idle_thresholds[2], idle_center, alternate_interval, direction_band;
+    uint8_t activity_age_limit, starting_coolant[2], warmup_time[3], closed_coolant, warmup_afr;
+    uint8_t learning_coolant, stoich, learning_vacuum, learning_load[2], learning_rpm;
+    uint8_t control_load, control_rpm_lower, control_rpm_upper, control_speed;
+    uint8_t positive_error_gain, idle_error_gain, oxygen[4][10], error_curve[14];
+    uint8_t idle_base_delay, idle_coefficient[3], idle_interval[2], base_delay[17], error_delay[14], interval_gain[14];
+    uint8_t integrator_deadband, integrator_minimum, integrator_maximum, proportional_cap, window_width;
+    uint8_t rpm_bins[3], load_bins[3], rpm_margin, load_margin, special_cells, idle_throttle, idle_speed;
+    uint8_t blm_minimum[2], blm_maximum, boot_maximum, boot_minimum, learning_error[2];
+    uint8_t transition_positive, transition_negative, transition_integrator_low, transition_integrator_high;
+    uint8_t learning_delay, learning_step, derivative_load, derivative_throttle, derivative_speed, derivative_coolant;
+    uint8_t derivative_bounds[2], battery[17];
+    PcmTable2D proportional, baro;
+} PcmFeedbackCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -262,6 +278,7 @@ typedef struct {
     const PcmFuelCalibration *fuel;
     const PcmAirCalibration *air;
     const PcmMixtureCalibration *mixture;
+    const PcmFeedbackCalibration *feedback;
 } PcmCalibration;
 
 typedef struct {
@@ -482,6 +499,22 @@ typedef struct {
     /* 0263,01E0,01E1,01E2,01DB */
     volatile uint8_t pe_gain_count, pe_target_count, pe_exit_count, service_afr; /* 0277,0269,0276,0397 */
     volatile uint16_t pe_vehicle_change; /* 0818; BLM tail produces this retained magnitude. */
+    volatile bool oxygen_activity, oxygen_warmed, warmup_control, closed_seen; /* 0004.0/.1,0052.7,0046.7 */
+    volatile bool oxygen_changed, oxygen_error_positive, oxygen_notification; /* 0043.4,0046.1,0071.2 */
+    volatile bool fuel_activity, enrichment_entry, asynchronous_active; /* 0044.1,006E.3,006E.0 */
+    volatile bool blm_transition, blm_cell_changed, blm_invalid, blm_closed_throttle, decel_enleanment;
+    /* 003D.2/.3,0046.6,0052.2,003D.4 */
+    volatile bool oxygen_fault_a, oxygen_fault_b, oxygen_idle_fault, alternate_interval;
+    /* 0019.2/.3,0018.5,0070.2; MAP fault0018.4 remains spark.map_fault. */
+    volatile bool oxygen_service, oxygen_service_value; /* 0391.0,0392.0 */
+    volatile uint8_t module_state, oxygen_age, previous_oxygen, oxygen_changes, oxygen_direction_age;
+    /* 0801,0241,01D4,0275,027C */
+    volatile uint8_t oxygen_interval, oxygen_center, oxygen_upper, oxygen_lower; /* 026B..026E */
+    volatile uint8_t proportional, feedback_encoded, oxygen_error, interval_snapshot, idle_oxygen_interval, integrator_delay;
+    /* 027A,026F,0280,0281,0262,025F */
+    volatile uint8_t blm_previous, blm_learning_count, blm_interval_count, blm_cells[21]; /* 0249,0273/74,02B3..02C7 */
+    volatile uint16_t previous_vehicle_speed, egr_subtract; /* 081A,0252 */
+    volatile uint8_t egr_fraction_low; /* 01B3; high remains spark.egr_fraction_high. */
     /* Async-route bit003E.4 remains in io.coolant_context, not duplicated. */
 } PcmFuel;
 

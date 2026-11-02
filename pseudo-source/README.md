@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 220 public routines: 106 implemented outlines, 31 dependency
-boundaries and eighty-three implemented algorithms. Reset CPU/chip-select/board
+The tree contains 245 public routines: 112 implemented outlines, 31 dependency
+boundaries and 102 implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -232,6 +232,9 @@ The mixture suite adds476,821 comparisons across742 reachable instruction starts
 with two defensive guards bounded by arithmetic invariants,540 distinct profile
 bytes,3,087 expanded fixture bytes,553 selected failure prefixes and1,024 retained
 startup/AE/AFR/PE/REF history calls.
+The feedback suite adds927,344 comparisons across all750 scoped instruction
+starts,312 distinct profile bytes,1,054 expanded fixture bytes,377 selected
+failure prefixes and1,024 retained O2/BLM/correction/REF history calls.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
@@ -254,8 +257,12 @@ Their wider fuel/slot1/4/D/F and transmission callers remain boundaries.
 Callable crank/running authorization, crank preparation/delivery, O2 filtering,
 MAP/TPS AE, startup seeding/decay and contiguous commanded AFR/PE now have checked
 C bodies. See the [mixture contract](reference/fuel_mixture_contract.md).
-The next batch covers BLM/O2 feedback/learning, remaining pulse corrections and
-AE delivery, followed by complete admission/tail wiring and required EGR producers.
+The O2 controller, closed-loop admission, complete BLM selection/learning tail,
+retained-cell helpers and callable EGR/BLM, derivative, BARO/battery and signed
+INT/P/MAP corrections now have checked C bodies. See the
+[feedback contract](reference/fuel_feedback_contract.md).
+Next are cut/decel/recovery, AE reservoirs and sync/async accounting, then complete
+admission/tail wiring and the EGR producers those stages require.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
 resident bodies directly; broad fuel and slot4 work stays explicit. See the

@@ -63,6 +63,12 @@ existing owners;1800 is an explicit optional dependency. BLM/corrections, the
 common tail and broader scheduling admissions remain unfinished. See the
 [mixture contract](../reference/fuel_mixture_contract.md).
 
+The resident O2/BLM stages now preserve activity, admission, sign/direction,
+INT/P timing,21 retained learning cells and the complete AFR/BLM tail. Callable
+EGR/BLM and post-decel pulse corrections reuse their existing state owners.
+The broad fuel root retains cut/decel/AE-reservoir, sync/async accounting and
+admission/tail work. See the [feedback contract](../reference/fuel_feedback_contract.md).
+
 ## Hardware and unfinished code
 
 The four read/write entry points preserve transaction width. A word callback

@@ -35,4 +35,31 @@ PcmStatus pcm_fuel_afr_bias(Pcm *pcm, uint8_t value);
 PcmStatus pcm_fuel_pe(Pcm *pcm);
 PcmStatus pcm_fuel_afr_finish(Pcm *pcm);
 PcmStatus pcm_fuel_afr(Pcm *pcm);
+
+/* O2/BLM and callable pulse-correction stages. */
+PcmStatus pcm_oxygen_activity(Pcm *pcm);
+PcmStatus pcm_closed_loop_admit(Pcm *pcm);
+PcmStatus pcm_oxygen_thresholds(Pcm *pcm);
+PcmStatus pcm_oxygen_direction(Pcm *pcm);
+PcmStatus pcm_oxygen_neutral(Pcm *pcm);
+PcmStatus pcm_oxygen_admit(Pcm *pcm, bool *control);
+PcmStatus pcm_oxygen_proportional(Pcm *pcm, uint8_t *window);
+PcmStatus pcm_oxygen_integrator(Pcm *pcm);
+PcmStatus pcm_oxygen_window(Pcm *pcm, uint8_t window);
+PcmStatus pcm_oxygen_combine(Pcm *pcm);
+PcmStatus pcm_oxygen_control(Pcm *pcm);
+PcmStatus pcm_blm_reset(Pcm *pcm);
+PcmStatus pcm_blm_boot_clamp(Pcm *pcm);
+PcmStatus pcm_blm_select(Pcm *pcm);
+PcmStatus pcm_blm_transition(Pcm *pcm);
+PcmStatus pcm_blm_learn(Pcm *pcm);
+PcmStatus pcm_blm_control(Pcm *pcm);
+PcmStatus pcm_fuel_afr_learning(Pcm *pcm);
+PcmStatus pcm_fuel_pulse_scale(Pcm *pcm, uint8_t gain);
+PcmStatus pcm_fuel_blm_scale(Pcm *pcm, uint8_t gain);
+PcmStatus pcm_fuel_egr_blm(Pcm *pcm);
+PcmStatus pcm_fuel_derivative_correction(Pcm *pcm);
+PcmStatus pcm_fuel_baro_battery(Pcm *pcm);
+PcmStatus pcm_fuel_feedback_apply(Pcm *pcm);
+PcmStatus pcm_fuel_post_corrections(Pcm *pcm);
 #endif
