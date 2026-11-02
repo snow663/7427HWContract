@@ -5,4 +5,5 @@ extern const PcmCalibration pcm_reference_scheduler_calibration;
 extern const PcmSparkCalibration pcm_reference_spark_calibration;
 extern const PcmTransmissionCalibration pcm_reference_transmission_calibration;
 extern const PcmIacCalibration pcm_reference_iac_calibration;
+extern const PcmIoCalibration pcm_reference_io_calibration;
 #endif

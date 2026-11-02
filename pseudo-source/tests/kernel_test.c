@@ -16,6 +16,7 @@ typedef struct {
     uint8_t step_positions[256], observed_shadows[256];
     unsigned step_observations, shadow_observations;
     bool masked, inject, injected, guard_fails, feed_reference;
+    Pcm *pcm;
     PcmPlatform platform;
 } Fixture;
 static PcmStatus read8(void *v, uint16_t a, uint8_t *out) { *out=((Fixture *)v)->memory[a]; return PCM_OK; }
@@ -29,7 +30,14 @@ static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     Fixture *f=v; f->memory[a]=value;
     if (a==PCM_ADCTL) ++f->adc_starts;
     if (a==PCM_COPRST) {
-        CHECK(value==((f->watchdog_writes&1u)?0x55:0xaa)); ++f->watchdog_writes;
+        CHECK(value==0xaa || value==0x55); ++f->watchdog_writes;
+        if (value==0xaa && f->feed_reference) {
+            f->pcm->reference.pending=true;f->pcm->knock.retard=13;
+        }
+    }
+    if (a==PCM_REFERENCE_STROBE) {
+        CHECK(f->shadow_observations<256 && f->masked);
+        f->observed_shadows[f->shadow_observations++]=value;
     }
     return PCM_OK;
 }
@@ -41,7 +49,15 @@ static PcmStatus write16(void *v, uint16_t a, uint16_t value) {
     if (a==PCM_TCC_COMMAND) ++f->transmission_writes;
     return PCM_OK;
 }
-static PcmStatus mask_irq(void *v, bool value) { ((Fixture *)v)->masked=value; return PCM_OK; }
+static PcmStatus mask_irq(void *v, bool value) {
+    Fixture *f=v;f->masked=value;
+    if (!value && f->inject && !f->injected && f->shadow_observations!=0) {
+        f->injected=true;
+        for (unsigned k=0;k<3;++k) CHECK(pcm_periodic_irq(f->pcm)==PCM_OK);
+    }
+    return PCM_OK;
+}
+static PcmStatus delay_cycles(void *v,uint16_t cycles) { (void)v;CHECK(cycles==11 || cycles==33);return PCM_OK; }
 static PcmStatus guard(void *v, bool busy) {
     Fixture *f=v; (void)busy; return f->guard_fails?PCM_STACK_BOUNDARY:PCM_OK;
 }
@@ -54,20 +70,9 @@ static PcmStatus task(Pcm *pcm, PcmTask id) {
         CHECK(!f->masked && f->step_observations<256);
         f->step_positions[f->step_observations++]=pcm->iac.position;
     }
-    if (id==PCM_COMMON_IO) {
-        CHECK(f->shadow_observations<256);
-        f->observed_shadows[f->shadow_observations++]=pcm->transmission.output_shadow;
-    }
     if (id==PCM_CURRENT_CONTROL) pcm->runtime.current_output=0x42;
     if (id==PCM_CONNECTION_EXTENSION && f->connection_action)
         pcm->scheduler.profiling_enabled=f->connection_action==1;
-    if (id==PCM_INPUT_HOUSEKEEPING && f->feed_reference) {
-        pcm->reference.pending=true;pcm->spark.map_filtered=135;pcm->knock.retard=13;
-    }
-    if (id==PCM_COMMON_IO && f->inject && !f->injected) {
-        f->injected=true;
-        for (unsigned k=0;k<3;++k) CHECK(pcm_periodic_irq(pcm)==PCM_OK);
-    }
     return PCM_OK;
 }
 static void init(Fixture *f, Pcm *pcm) {
@@ -75,12 +80,15 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.context=f; f->platform.read8=read8; f->platform.read16=read16;
     f->platform.write8=write8; f->platform.write16=write16; f->platform.mask_irq=mask_irq;
     f->platform.check_stack=guard;
+    f->platform.delay_cycles=delay_cycles;f->pcm=pcm;
     for (unsigned k=0;k<PCM_TASK_COUNT;++k) f->platform.task[k]=task;
     f->platform.task[PCM_IAC_CONTROL]=NULL;
     f->platform.task[PCM_IAC_STEP]=NULL;
+    f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
+    pcm->reference.map_sample=135;pcm->io.map_filter=0x8700;
 }
 static void test_initialization_and_missing_contracts(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
@@ -90,6 +98,7 @@ static void test_initialization_and_missing_contracts(void) {
     pcm.spark.command=0xabcd; pcm.runtime.adc_timeout=true; pcm.runtime.adc_fault=true;
     pcm.transmission.output_shadow=0xff;pcm.transmission.tcc_command=0xabcd;
     pcm.iac.transfer_flags=0xff;pcm.iac.bank[0].cold=0xabcd;
+    pcm.io.map_filter=0xabcd;pcm.io.auxiliary_output=0xff;
     CHECK(pcm_reset_sequence(&pcm,&f.platform,&pcm_reference_scheduler_calibration)==PCM_OK);
     CHECK(pcm.scheduler.phase==0x0e && f.masked);
     CHECK(pcm.knock.sample_baseline==0 && pcm.knock.observation_accumulator==0);
@@ -97,15 +106,15 @@ static void test_initialization_and_missing_contracts(void) {
     CHECK(pcm.spark.command==0 && !pcm.runtime.adc_timeout && !pcm.runtime.adc_fault);
     CHECK(pcm.transmission.output_shadow==0 && pcm.transmission.tcc_command==0);
     CHECK(pcm.iac.transfer_flags==0 && pcm.iac.bank[0].cold==0);
+    CHECK(pcm.io.map_filter==0 && pcm.io.auxiliary_output==0);
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
     static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RAM,
         PCM_RESET_SENSORS,PCM_RESET_RETAINED,PCM_RESET_CONTROLLERS,PCM_RESET_SERIAL};
     CHECK(f.used==sizeof(expected)/sizeof(expected[0]));
     CHECK(memcmp(f.trace,expected,sizeof(expected))==0);
-    init(&f,&pcm); f.platform.task[PCM_COMMON_IO]=NULL;
-    CHECK(pcm_main_pass(&pcm)==PCM_UNIMPLEMENTED);
-    CHECK(pcm.unresolved_task==PCM_COMMON_IO && f.counts[PCM_FUEL_CONTROL]==0);
+    init(&f,&pcm); f.platform.delay_cycles=NULL;
+    CHECK(pcm_main_pass(&pcm)==PCM_NO_HARDWARE && f.counts[PCM_FUEL_CONTROL]==0);
     pcm.platform=NULL; CHECK(pcm_watchdog_service(&pcm)==PCM_NO_HARDWARE);
 }
 static void test_full_phase_cycle(void) {
@@ -118,7 +127,8 @@ static void test_full_phase_cycle(void) {
         CHECK(pcm.scheduler.phase==k && !pcm.scheduler.busy);
     }
     CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==160 && f.current_writes==160);
-    CHECK(f.counts[PCM_COMMON_IO]==160 && f.counts[PCM_INPUT_HOUSEKEEPING]==80);
+    CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_INPUT_HOUSEKEEPING]==0 && f.shadow_observations==160);
+    CHECK(f.watchdog_writes==80); /* The real housekeeping supplies oneAA per even pass. */
     CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==80);
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==40 && f.counts[PCM_PRESSURE_TCC]==40);
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
@@ -144,7 +154,7 @@ static void test_busy_coalescing_and_call_order(void) {
     pcm.iac.target=255;
     CHECK(pcm_periodic_irq(&pcm)==PCM_OK);
     CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==4 && f.counts[PCM_CURRENT_CONTROL]==4);
-    CHECK(f.counts[PCM_COMMON_IO]==2 && pcm.scheduler.phase==2);
+    CHECK(f.counts[PCM_COMMON_IO]==0 && f.shadow_observations==2 && pcm.scheduler.phase==2);
     CHECK(pcm.scheduler.busy_phase==1 && !pcm.scheduler.pending && !pcm.scheduler.busy);
     CHECK(f.trace[0]==PCM_ADC_FEEDBACK && f.trace[1]==PCM_CURRENT_CONTROL);
     for (unsigned k=0;k<4;++k) CHECK(f.step_positions[k]==k+1);
