@@ -90,7 +90,9 @@ static const Mapping fuel_state_map[] = {
  B(0x14e,fuel.measured_current), W(0x205,spark.bypass_baseline),
  W(0x24e,fuel.corrected_pulse), W(0x5f,spark.period_basis),
  B(7,iac.position),B(8,iac.target),B(9,iac.state_flags),B(10,iac.step_control),
- B(0x4c,transmission.output_shadow)
+ B(0x4c,transmission.output_shadow),
+ B(0x82d,io.raw_coolant),B(0x1a1,io.auxiliary_sample),B(0xa5,io.auxiliary_reference),
+ B(0x82f,io.diagnostic_sample)
 };
 #undef B
 #undef W

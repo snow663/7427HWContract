@@ -91,6 +91,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_CONTROL]=NULL;
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
+    f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
@@ -143,13 +144,13 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
+        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
     CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.counts[PCM_EGR_DEMAND]==10 && f.counts[PCM_VSS_FILTER]==0);
     CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
-    CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==330); /* Two per fast service plus10 slot8 conversions. */
+    CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==370); /*320 feedback +10 slot8 +10 slot0 +30 slot2. */
     /* The phase6 observation precedes the first slot7 gain publication and
      * arms the low latch. Later slot7 caps let the consumer retain13. */
     CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==0 && pcm.knock.activity==7);
@@ -191,7 +192,7 @@ static void test_special_mode_and_slot_state(void) {
     CHECK(f.counts[PCM_ALTERNATE_RPM]==0 && f.period_reads==80 && f.watchdog_writes==160);
     CHECK(!pcm.spark.output_request && !pcm.reference.consumed);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_FUEL_CONTROL]==0);
-    CHECK(f.counts[PCM_SLOT_00]==10 && f.counts[PCM_SLOT_0F]==10);
+    CHECK(f.counts[PCM_SLOT_00]==0 && f.counts[PCM_SLOT_0F]==10);
 }
 static void test_retained_fields_profile_and_boundaries(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);

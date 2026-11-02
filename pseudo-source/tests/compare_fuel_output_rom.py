@@ -63,6 +63,11 @@ class Memory(FixtureMemory):
     def read8(self,a):
         value=super().read8(a)
         if not self.in_word and 0x3000<=a<0x4000:
+            if self.mem[0x90a]:
+                mux=(self.mem[0x3008]>>3)&7
+                if a==0x3034 and mux in (7,6,1):value=self.mem[0x90b if mux==7 else 0x90c if mux==6 else 0x90d]
+                if self.control==0x11 and a==0x3032:value=self.mem[0x90e]
+                if self.control==0x11 and a==0x3033:value=self.mem[0x90f]
             if a==0x3030:
                 limit=self.mem[0x900 if self.control==7 else 0x901 if self.control==0x14 else 0x902]
                 value=(value&127)|(128 if self.polls>=limit else 0)
@@ -127,7 +132,8 @@ def execute(item):
              [(0x84bc,0x852c)],[(0x84f5,0x852c,True)],[(0x8548,0x7000,True)],
              [(0xc56f,),(0x8613,),(0xe2fb,0xe306),(0x84bc,0x852c)],
              [(0xe2fb,0xe306),(0x84bc,0x852c),(0x751b,0x77c6)],
-             [(0xf245,),(0x751b,0x77c6),(0xf245,)],[(0x7b6d,0x7b9b)]]
+             [(0xf245,),(0x751b,0x77c6),(0xf245,)],[(0x7b6d,0x7b9b)],
+             [(0xf20d,)],[(0x7aa6,)],[(0x7ab7,)],[(0x7ab7,),(0x8613,),(0xe2fb,0xe306),(0x84bc,0x852c)]]
     try:
         for entry in entries[mode]:invoke(*entry)
     except Failure:status=2
@@ -156,12 +162,13 @@ def compare(items,label):
     print(f'{count:,} {label} match.',flush=True);return count
 
 counts={};rng=random.Random(0x3184bc)
-counts['direct']=compare((case(mode) for mode in range(12)),'direct slices and joined entries')
+counts['direct']=compare((case(mode) for mode in range(16)),'direct slices and joined entries')
 variants=[]
 for i in range(2048):
     edits={a:rng.randrange(256) for a in sorted(RAM|ALL_CAL)}
     edits.update({0x907:0,0x908:i%7,0x909:i&1,0x900:i%16,0x901:i%15,0x902:i%15})
-    variants.append(case(i%12,edits))
+    edits.update({a:rng.randrange(256) for a in range(0x90a,0x910)});edits[0x90a]=1
+    variants.append(case(i%16,edits))
 counts['random']=compare(variants,'random state/profile, ADC readiness and callback cases')
 if '--quick' in sys.argv:
     print('Preliminary comparison complete.');sys.exit(0)
@@ -184,14 +191,18 @@ counts['battery']=compare((case(3,{0xa7:sample,0x44:flags,0x50:old,0x400c:mode})
     for sample,flags,old,mode in product(range(256),[0xa5,0xb5],[0xa4,0xa5],[0,1])),
     'battery thresholds, capture admission and retained unrelated flag bits')
 counts['adc']=compare((case(mode,{0x900:ready7,0x901:ready,0x902:ready,0x50:gate,0x908:action,0x909:masked})
-    for mode,ready7,ready,gate,action,masked in product([0,1,2,8,10,11],[0,15],[0,1,11,12,13],[0,1],range(7),[0,1])),
+    for mode,ready7,ready,gate,action,masked in product([0,1,2,8,10,11,12,13,14,15],[0,15],[0,1,11,12,13],[0,1],range(7),[0,1])),
     'ADC completion/timeout, mask, MAP gating and callback order')
 counts['averages']=compare((case(1,{0x3031:a,0x3032:b,0x3033:(a+b)&255,0x3034:a^b})
     for a,b in product(range(256),repeat=2)), 'all first/second ADC pairs with carry/rounding across four samples')
 counts['offset']=compare((case(4,{0xa7:sample}|{a:(a*17+sample)&255 for a in range(0x4b05,0x4b16)})
     for sample in range(256)), 'every battery offset coordinate and rising/falling knots')
+counts['auxiliary']=compare((case(mode,{0x90a:1,0x90b:sample,0x90c:sample^255,0x90d:sample,
+    0x90e:sample^128,0x90f:sample^64,0x902:ready,0x3008:port,0x44:0x10})
+    for mode,sample,ready,port in product([12,13,14,15],range(256),[0,11,12,13],[0,255])),
+    'auxiliary mux samples, slot0/2 admissions and raw-battery producer/consumer joins')
 joined=[]
-for mode,action,sample,gate,pulse in product([8,9,10,11],range(7),[0,39,40,89,90,255],[0,1],[0,1,255,256,32767,65535]):
+for mode,action,sample,gate,pulse in product([8,9,10,11,12,13,14,15],range(7),[0,39,40,89,90,255],[0,1],[0,1,255,256,32767,65535]):
     joined.append(case(mode,{0xa7:sample,0x908:action,0x50:gate,0x44:0x10,0x400b:0x10,
         0x400c:4,0x400e:16,0x4f:0,0x2cd:3,0x2ce:24}|word(0x24e,pulse)|word(0x2cf,pulse)))
 counts['joined']=compare(joined,'ADC/battery/finalizer/REF joins with retained packet state')
@@ -209,8 +220,8 @@ for i in range(1024):
     edits.update(dict(zip(OUTPUTS,execute(item)['state'])))
 counts['history']=compare(history,'retained ADC/ignition/pulse/REF histories')
 required=set()
-for start,end in [(0x7b70,0x7b9b),(0xf245,0xf280),(0xc56f,0xc583),(0x8613,0x863d),
-                  (0xe2fb,0xe306),(0x84bc,0x852c),(0x8548,0x858b)]:
+for start,end in [(0x7b70,0x7b9b),(0xf20d,0xf280),(0xc56f,0xc583),(0x8613,0x863d),
+                  (0xe2fb,0xe306),(0x84bc,0x852c),(0x8548,0x858b),(0x7aa6,0x7aad),(0x7ab7,0x7abd),(0xcf15,0xcf16)]:
     pc=start
     while pc<end:required.add(pc);pc=decode(rom.read,pc).next_pc
 assert required<=coverage,','.join(f'{a:04X}' for a in sorted(required-coverage))

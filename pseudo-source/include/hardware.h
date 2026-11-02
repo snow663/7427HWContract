@@ -53,6 +53,7 @@ PcmStatus pcm_update8(Pcm *, uint16_t address, uint8_t clear, uint8_t set);
 PcmStatus pcm_adc_mux(Pcm *, uint8_t selector);
 PcmStatus pcm_adc_convert(Pcm *, uint8_t control);
 PcmStatus pcm_adc_inputs(Pcm *);
+PcmStatus pcm_adc_auxiliary(Pcm *);
 PcmStatus pcm_battery_input(Pcm *);
 PcmStatus pcm_oc1_irq(Pcm *);
 PcmStatus pcm_sci_irq(Pcm *);

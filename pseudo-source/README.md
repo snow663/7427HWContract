@@ -38,7 +38,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 186 public routines: 89 implemented outlines, 33 dependency
+The tree contains 187 public routines: 92 implemented outlines, 31 dependency
 boundaries and sixty-four implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -222,8 +222,8 @@ AC/P-N mirrors. Their old task bindings are unused. See the
 [board/input contract](reference/board_io_contract.md).
 The combined scheduled-input suite adds1,603,654 comparisons across384 scoped
 instruction starts, with185 checked profile bytes and selected slot6/7/9 joins.
-The fuel input/output suite adds357,761 comparisons across149 scoped instruction
-starts,22 new profile bytes,1,265 selected failure prefixes and1,024 retained
+The fuel input/output suite adds370,428 comparisons across181 scoped instruction
+starts,22 new profile bytes,2,600 selected failure prefixes and1,024 retained
 history calls; the kernel now runs resident ADC feedback without its old task.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
@@ -236,7 +236,8 @@ implemented, as are91A3 step service and common board I/O/input housekeeping.
 The active milestone is the complete fuel calculation and injector-control path,
 with supporting hardware inputs ordered by dependency in
 [working state](../docs/WORKING_STATE.md). Its first batch now implements resident
-ADC feedback, callable TPS/MAP/O2 and battery acquisition/state, injector offset,
+ADC feedback, TPS/MAP/O2 acquisition, resident slot0 battery and slot2 auxiliary
+acquisition, callable ignition/capture state and injector offset,
 and synchronous shaping/publication. See the
 [fuel input/output contract](reference/fuel_input_output_contract.md).
 The next batch closes air-charge and required input producers, including EGR

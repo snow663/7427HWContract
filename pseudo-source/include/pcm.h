@@ -406,6 +406,7 @@ typedef struct {
     volatile uint16_t ac_throttle_count; /* 0834 */
     volatile uint8_t environmental_trim, environmental_factor, environmental_load;
     volatile uint8_t environmental_idle, environmental_density; /* 01E5,0243,0272,01CB,01BB */
+    volatile uint8_t raw_coolant, auxiliary_sample, auxiliary_reference; /* 082D,01A1,00A5 */
 } PcmIo;
 
 typedef struct {

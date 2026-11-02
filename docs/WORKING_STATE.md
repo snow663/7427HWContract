@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 186 public routines: 89 implemented outlines,
-33 explicit dependency boundaries and sixty-four implemented algorithms.
+The source currently has 187 public routines: 92 implemented outlines,
+31 explicit dependency boundaries and sixty-four implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -104,7 +104,8 @@ now have callable checked bodies; their broader fuel/slot4 wrappers stay explici
 Slot6 AC inputs, slot7 shift-lamp logic and slot9 VSS filtering run resident C.
 See the [scheduled input contract](../pseudo-source/reference/scheduled_inputs_contract.md).
 The first fuel-milestone batch now implements resident ADC feedback and callable
-TPS/MAP/O2 acquisition, battery acquisition/state, injector offset and synchronous
+TPS/MAP/O2 acquisition, slot0 battery and slot2 auxiliary acquisition, battery
+state, injector offset and synchronous
 finalization/publication. Shared REF/EST/MAP owners, literal masks, short-PW flags
 and wrapped offset arithmetic remain explicit. The broad fuel controller and
 remaining producer/caller admissions stay unfinished. See the
@@ -129,7 +130,7 @@ the REF crank/running/decay/common routines, crank event gain, asynchronous outp
 at 8548..858A, and their timer helpers. MAP filtering/transient selection, RPM/load,
 VSS and environmental slices also have checked bodies. These are building blocks:
 `pcm_fuel_control` at 7D4B remains an explicit task boundary. The first
-fuel batch replaced `pcm_adc_feedback` with resident C. The upstream equations
+fuel batch replaced `pcm_adc_feedback` and slot0/2 task boundaries with resident C. The upstream equations
 and closed-loop/learning contracts are documented factory behavior, not completed
 C implementations.
 
@@ -286,8 +287,8 @@ The six-group scheduled input batch adds1,603,654 comparisons across384 scoped
 instruction starts,185 checked profile bytes,678 selected failure prefixes and
 1,024 retained histories. Earlier slice suites retain explicitly isolated historical
 input/lamp/VSS fixtures; the current kernel and combined suite link resident bodies.
-The fuel input/output batch adds357,761 comparisons across all149 scoped
-instruction starts,22 new profile bytes,1,265 selected failure prefixes and1,024
+The fuel input/output batch adds370,428 comparisons across all181 scoped
+instruction starts,22 new profile bytes,2,600 selected failure prefixes and1,024
 retained history calls. Resident ADC feedback also runs in the kernel phase and
 busy/catch-up witnesses without its former task binding.
 CI gates on the 21 quick contracts/provenance tests before the 21 ROM suites.

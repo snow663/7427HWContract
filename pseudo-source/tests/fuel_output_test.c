@@ -1,5 +1,6 @@
 #include "fuel.h"
 #include "control.h"
+#include "scheduler.h"
 #include "fuel_output_fixture_map.h"
 
 #define CHECK(x) do { if (!(x)) { fprintf(stderr,"Fuel fixture check %d: %s\n",__LINE__,#x);exit(1); } } while (0)
@@ -18,6 +19,12 @@ static PcmStatus record(Fixture *f,char kind,unsigned width,uint16_t address,uin
 static PcmStatus read8(void *v,uint16_t a,uint8_t *out)
 {
     Fixture *f=v;uint8_t sample=f->memory[a];
+    if (f->memory[0x90a]) {
+        unsigned mux=(f->memory[PCM_PORTD]>>3)&7u;
+        if (a==PCM_ADR4 && (mux==7 || mux==6 || mux==1)) sample=f->memory[mux==7?0x90b:mux==6?0x90c:0x90d];
+        if (f->control==0x11 && a==PCM_ADR2) sample=f->memory[0x90e];
+        if (f->control==0x11 && a==PCM_ADR3) sample=f->memory[0x90f];
+    }
     if (a==PCM_ADCTL) {
         unsigned limit=f->memory[f->control==7?0x900:f->control==0x14?0x901:0x902];
         sample=(uint8_t)((sample&0x7f)|(f->polls>=limit?0x80:0));
@@ -110,6 +117,10 @@ static PcmStatus execute(unsigned mode,Pcm *pcm)
     case 9:RUN(pcm_injector_offset(pcm));RUN(pcm_fuel_finalize(pcm));return pcm_reference_event(pcm);
     case 10:RUN(pcm_adc_inputs(pcm));RUN(pcm_reference_event(pcm));return pcm_adc_inputs(pcm);
     case 11:RUN(pcm_iac_step(pcm));return pcm_adc_feedback(pcm);
+    case 12:return pcm_adc_auxiliary(pcm);
+    case 13:return pcm_slot_00(pcm);
+    case 14:return pcm_slot_02(pcm);
+    case 15:RUN(pcm_slot_02(pcm));RUN(pcm_fuel_battery_state(pcm));RUN(pcm_injector_offset(pcm));return pcm_fuel_finalize(pcm);
     default:return PCM_BAD_CONFIGURATION;
     }
 #undef RUN
@@ -140,6 +151,13 @@ static void contracts(void)
     CHECK(pcm_battery_input(&pcm)==PCM_NO_HARDWARE && pcm.reference.battery==99);
     INIT();root.fuel=NULL;pcm.reference.additive_offset=77;
     CHECK(pcm_injector_offset(&pcm)==PCM_BAD_CONFIGURATION && pcm.reference.additive_offset==77);
+    INIT();f.memory[0x90a]=1;f.memory[0x90b]=12;f.memory[0x90c]=34;f.memory[0x90d]=130;
+    f.memory[0x90e]=56;f.memory[0x90f]=78;pcm.reference.latch_inhibited=true;
+    CHECK(execute(15,&pcm)==PCM_OK && !f.masked && pcm.io.raw_coolant==12 &&
+          pcm.io.auxiliary_sample==34 && pcm.io.diagnostic_sample==56 && pcm.io.auxiliary_reference==78 &&
+          pcm.spark.battery_sample==130 && !pcm.reference.latch_inhibited && pcm.reference.sample_map);
+    INIT();f.memory[0x902]=12;
+    CHECK(pcm_slot_02(&pcm)==PCM_OK && !f.masked && pcm.runtime.adc_fault && pcm.runtime.adc_timeout);
 #undef INIT
     puts("ADC waits/timeouts, shared MAP gate, battery publication, async bypass, zero-pulse flag, wrapped offset and failed-prefix contracts pass.");
 }
@@ -170,7 +188,7 @@ int main(int argc,char **argv)
     }
     unsigned mode,count;
     while (scanf("%u %u",&mode,&count)==2) {
-        CHECK(mode<12 && count<2048);init(&f,&pcm,&root,&fuel,&iac);
+        CHECK(mode<16 && count<2048);init(&f,&pcm,&root,&fuel,&iac);
         for (unsigned i=0;i<count;++i) { unsigned a,v;CHECK(scanf("%u %u",&a,&v)==2 && a<65536 && v<256);f.memory[a]=(uint8_t)v; }
         state_transfer(&pcm,&f,true);
         transfer(&root,f.memory,reference_cal_map,SIZE(reference_cal_map),true);

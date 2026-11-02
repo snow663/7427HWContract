@@ -3,15 +3,17 @@
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 This is the first implementation batch of the complete fuel milestone recorded
-in [working state](../../docs/WORKING_STATE.md). It adds six public routines and
-replaces the ADC feedback boundary: 186 routines now comprise 89 implemented
-outlines, 64 algorithms and 33 explicit dependency boundaries.
+in [working state](../../docs/WORKING_STATE.md). It adds seven public routines and
+replaces the ADC feedback and slot0/2 boundaries: 187 routines now comprise 92 implemented
+outlines, 64 algorithms and 31 explicit dependency boundaries.
 
 | Scope | C routine | Current connection |
 |---|---|---|
 | 7B70..7B9A | `pcm_adc_feedback` | Resident fast service after the IAC step and before current control |
 | F245..F25E | `pcm_adc_inputs` | Called by feedback; callable startup acquisition slice |
-| C56F..C582 | `pcm_battery_input` | Callable battery acquisition; broader callers retain unfinished work |
+| C56F..C582 | `pcm_battery_input` | Resident slot0 acquisition; other callers retain unfinished work |
+| F20D..F244 ->F25E | `pcm_adc_auxiliary` | Resident slot2 scan; boot initialization remains separate |
+| 7AA6..7AAC / 7AB7..7ABC | `pcm_slot_00` / `pcm_slot_02` | Complete resident battery/auxiliary acquisition wrappers |
 | 8613..863C | `pcm_fuel_battery_state` | Callable fuel-tail ignition/capture slice |
 | E2FB..E305 | `pcm_injector_offset` | Callable slot-F slice before its remaining phase-gated work |
 | 84BC..84F4 | `pcm_fuel_finalize` | Callable running-fuel shaping and async bypass |
@@ -35,7 +37,15 @@ The F245 helper itself does not change the interrupt mask.
 Battery acquisition selects mux2 outside SEI, retaining both PORTD reads, then
 uses F25F with ADCTL1 under SEI. Read ADR4, perform CLI, then publish the latched
 sample to0055. A failed CLI therefore retains the old0055. This acquisition does
-not supply raw battery00A7, whose remaining producer stays explicit.
+not supply raw battery00A7. The separate auxiliary scan below owns that sample.
+
+The F20D scan selects mux7, converts ADCTL1 and stores ADR4 at082D; selects
+mux6, converts ADCTL1 and stores ADR4 at01A1; then selects mux1 and converts
+ADCTL11. It stores ADR2 at082F, ADR3 at00A5 and ADR4 at00A7, in that order.
+All three bounded conversions still sample after timeout. Slot2 wraps this
+complete scan in literal SEI/CLI. Slot0 calls battery acquisition and then CF15,
+which is a literal RTS in the verified image. Both old whole-slot task bindings
+are unused. Initialization's separate call to F20D remains unfinished.
 
 The8613 helper consumes that separate raw00A7. Below40 it sets0044.4 and clears
 0050.0;40..89 retain both. At90 or above, an old0044.4 causes one3FCA word read
@@ -77,11 +87,11 @@ implemented by these callable slices.
 
 ## Verification and remaining work
 
-The new suite passes357,761 compiled-C/ROM comparisons, including1,265 selected
+The new suite passes370,428 compiled-C/ROM comparisons, including2,600 selected
 failure prefixes and1,024 retained history calls. It executes actual ROM instructions
 and compares mapped
 state, ordered typed bus transactions, literal mask assignments and successful
-slice frame balance. Its149 scoped instruction starts include the acquisition,
+slice frame balance. Its181 scoped instruction starts include the acquisition,
 offset, finalizer and existing async helper. Selected joins include the real REF
 event body and the IAC-step/feedback prefix. Supplied ADC readiness and callbacks
 are host bus fixtures, not a peripheral electrical model.
@@ -90,10 +100,12 @@ Coverage includes complete pulse-word sweeps, short-PW/minimum/offset boundaries
 delay overflow, battery hysteresis, ADC timeout and MAP gate changes, multi-sample
 rounding, selected transaction failures and retained producer/consumer histories.
 The current kernel tests use resident feedback with its old task binding absent,
-including160-phase and busy/catch-up sequences. Both host routes now have42 tests:
+including160-phase and busy/catch-up sequences. Slot0/2 run their resident bodies
+without whole-slot bindings; the new suite joins raw battery acquisition through
+ignition state, offset and final publication, with distinct mux-specific samples. Both host routes now have42 tests:
 21 quick contracts/provenance checks followed by21 ROM suites.
 
-The7D4B fuel controller, upstream fuel producers, raw00A7 producer, broader
+The7D4B fuel controller, upstream fuel producers, remaining
 battery/slot-F callers, initialization and full fuel-tail integration remain
 unfinished. The next batch closes air-charge/input producers and their actual
 admissions. Target reset/interrupt assembly, backend, memory/ABI fit, ADC timing,
