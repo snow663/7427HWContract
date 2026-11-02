@@ -50,8 +50,8 @@ src/math/lookup2d.c,pcm_lookup2d,implemented_algorithm,"F4DE..F54F: offsets, byt
 src/math/lookup_capped.c,pcm_lookup_capped,implemented_algorithm,F499..F4A3 ->F4BD..F4DD: capped zero-offset interpolation.,Retain C/ROM checks; scheduled producers and target execution remain separate
 src/sensors/ac_switch_inputs.c,pcm_ac_switch_inputs,dependency_boundary,CB15..CC34: AC and diagnostic-switch input owner.,Implement the named body and compare observable state/transactions
 src/sensors/adc_feedback.c,pcm_adc_feedback,dependency_boundary,7B6D: Intervening ADC acquisition F245 and averaged014E publication.,Implement the named body and compare observable state/transactions
-src/sensors/common_io.c,pcm_common_io,dependency_boundary,7BA7: Board flush MAP filtering and speed input sampling.,Implement the named body and compare observable state/transactions
-src/sensors/input_housekeeping.c,pcm_input_housekeeping,dependency_boundary,9167: AC and park/neutral input housekeeping.,Implement the named body and compare observable state/transactions
+src/sensors/common_io.c,pcm_common_io,implemented_outline,"7BA7..7C12: ordered board flush, MAP filter, VSS poll and brake owner.",Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation
+src/sensors/input_housekeeping.c,pcm_input_housekeeping,implemented_outline,9167..91A2: COP AA prefix and AC/P-N mirrors.,Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation
 src/sensors/knock_sensor.c,pcm_knock_sensor,implemented_outline,CEDB..CF15: mux0/ADCTL01/ADR4 sensor diagnostic and literal masking.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/serial/serial_poll.c,pcm_serial_poll,dependency_boundary,F5E8: Serial polling and optional broadcast schedule.,Implement the named body and compare observable state/transactions
 src/slots/slot_00.c,pcm_slot_00,dependency_boundary,"7AA6, table word 7A85.",Implement the named body and compare observable state/transactions
@@ -171,3 +171,8 @@ src/idle/iac_seed_cells.c,pcm_iac_seed_cells,implemented_algorithm,92A4..92F0: h
 src/idle/iac_service.c,pcm_iac_service,implemented_outline,A407..A465: service selection and nonlocal controller exits.,"Retain ROM comparisons; target ABI, coherence and physical timing remain separate validation"
 src/idle/iac_start.c,pcm_iac_start,implemented_outline,9411..9536: stopped initialization and common conversion tail.,"Retain ROM comparisons; target ABI, coherence and physical timing remain separate validation"
 src/math/lookup_offset.c,pcm_lookup_offset,implemented_algorithm,F4A4..F4B4 -> F4B8: offset/cap and bounded scaled lookup.,"Retain ROM comparisons; target ABI, coherence and physical timing remain separate validation"
+src/drivers/board_latch.c,pcm_board_latch,implemented_outline,F3EE..F3FF ->F400: masked word RMW and11-cycle JSR/RTS gap.,Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation
+src/drivers/board_ports.c,pcm_board_ports,implemented_outline,F400..F41F: ordered shared byte output/input service and literal CLI.,Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation
+src/sensors/map_input.c,pcm_map_input,implemented_algorithm,7BAA..7BF4: default MAP construction and lag/rounding.,Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation
+src/sensors/vss_sample.c,pcm_vss_sample,implemented_outline,7BF5..7C0E: shared status latch and observed timestamp changes.,Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation
+src/sensors/brake_filter.c,pcm_brake_filter,implemented_algorithm,7D21..7D4A: inverse input qualification with retained byte count.,Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation

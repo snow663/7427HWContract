@@ -22,6 +22,7 @@ const PcmCalibration pcm_reference_scheduler_calibration = {
     .spark = &pcm_reference_spark_calibration,
     .transmission = &pcm_reference_transmission_calibration,
     .iac = &pcm_reference_iac_calibration,
+    .io = &pcm_reference_io_calibration,
     .reference = {
         .mode_b = 0x04, /* 400B */
         .mode_c = 0xb7, /* 400C */
