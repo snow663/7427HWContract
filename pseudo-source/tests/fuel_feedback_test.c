@@ -91,7 +91,10 @@ static void feedback_contracts(void)
 #undef INIT
     puts("O2 neutral fraction, literal-mask prefixes, BLM reset/boot/index bounds, saturated multiply, signed addition and extension-stop contracts pass.");
 }
-int main(int argc,char **argv)
+#ifndef PCM_FEEDBACK_TEST_MAIN
+#define PCM_FEEDBACK_TEST_MAIN main
+#endif
+int PCM_FEEDBACK_TEST_MAIN(int argc,char **argv)
 {
     if (argc==2 && strcmp(argv[1],"--contracts")==0) { feedback_contracts();return 0; }
     static Fixture f;Pcm pcm;PcmCalibration root;PcmFuelCalibration fuel;PcmIacCalibration iac;

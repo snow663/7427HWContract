@@ -1,6 +1,6 @@
 # O2 feedback, BLM learning and pulse corrections
 
-This batch adds25 public routines, bringing the source to245:112 implemented
+At introduction this batch added25 public routines, bringing the source to245:112 implemented
 outlines,102 implemented algorithms and31 dependency boundaries. Every public
 routine has its own file. These callable stages preserve the factory state and
 integer operations; the full running-fuel root remains unfinished.
@@ -112,14 +112,15 @@ correction ranges. Explicit joins cover AFR/PE/BLM, input/filter/control, startu
 admission and selected correction/finalizer/REF calls.
 
 Those joins are test compositions rather than a new broad fuel admission.
-8058..82EC cut/decel/recovery and AE-reservoir work,83B1..84BB sync/async accounting,
-ignition/STOP handling and the852C tail still need resident C implementations.
+The cut/decel/reservoir and sync/async stages are now connected through852B by
+the [delivery contract](fuel_delivery_contract.md). Ignition/STOP handling and
+the852C tail still need resident C implementations.
 Required EGR producers and broader fuel/slot1/4/D/F admissions stay explicit.
 The optional1800 extension still stops the joined AFR/BLM body when absent or
 failed. Physical mixture response, target ABI, interrupt timing and backend
 hardware behavior remain separate validation.
 
-Both host routes now contain48 checks:24 quick contracts/provenance checks and24
+At introduction both host routes contained48 checks:24 quick contracts/provenance checks and24
 ROM suites. After local verification, publish the batch and report GitHub CI as
 pending. Check its completed results before a later merge; do not wait for Actions
 in the implementation turn.

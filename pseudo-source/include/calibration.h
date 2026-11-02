@@ -12,4 +12,5 @@ extern const PcmFuelCalibration pcm_reference_fuel_calibration;
 extern const PcmAirCalibration pcm_reference_air_calibration;
 extern const PcmMixtureCalibration pcm_reference_mixture_calibration;
 extern const PcmFeedbackCalibration pcm_reference_feedback_calibration;
+extern const PcmDeliveryCalibration pcm_reference_delivery_calibration;
 #endif

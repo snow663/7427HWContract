@@ -258,6 +258,22 @@ typedef struct {
 } PcmFeedbackCalibration;
 
 typedef struct {
+    uint8_t qualification_reload, qualification_speed, qualification_throttle, qualification_rpm[2];
+    uint8_t cut_delay, cut_minimum_rpm, cut_rpm[4], cut_speed[2];
+    uint8_t transition_enrichment, ac_enrichment, acceleration_hold;
+    uint8_t decel_coolant, decel_rpm_change, decel_map_change, decel_rpm_adder;
+    uint8_t decel_load_entry, decel_load_retained, decel_speed[2], decel_delay, decel_active_reload, reduction_step;
+    uint16_t recovery_fuel;
+    PcmCappedCurve decel_throttle;
+    uint8_t throttle_drop_minimum, load_drop_minimum, slow_enleanment_gain, enleanment_speed;
+    uint8_t enleanment_load[12], enleanment_throttle[17];
+    uint16_t sync_threshold[2]; /* entry492C, retained492A */
+    uint8_t sync_load[2], sync_rpm[2]; /*4930/492E,4931/492F */
+    uint8_t cpi_delay;
+    uint16_t packet_maximum, packet_minimum;
+} PcmDeliveryCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -279,6 +295,7 @@ typedef struct {
     const PcmAirCalibration *air;
     const PcmMixtureCalibration *mixture;
     const PcmFeedbackCalibration *feedback;
+    const PcmDeliveryCalibration *delivery;
 } PcmCalibration;
 
 typedef struct {
@@ -515,6 +532,14 @@ typedef struct {
     volatile uint8_t blm_previous, blm_learning_count, blm_interval_count, blm_cells[21]; /* 0249,0273/74,02B3..02C7 */
     volatile uint16_t previous_vehicle_speed, egr_subtract; /* 081A,0252 */
     volatile uint8_t egr_fraction_low; /* 01B3; high remains spark.egr_fraction_high. */
+    volatile bool qualification_latch, cut_active, acceleration_active, async_pending;
+    /* 0053.3,0046.4,003D.6/.7 */
+    volatile bool ac_enrichment_seen, decel_throttle_latch, async_suppressed; /*0041.3,0053.1,0046.0 */
+    volatile uint8_t qualification_count, cut_count, acceleration_hold; /*084D,026A,081D */
+    volatile uint8_t reduction_factor, decel_timer, decel_delay, throttle_drop; /*0244..46,082B */
+    volatile uint16_t acceleration_reservoir, async_quotient; /*023A,025C/5D */
+    volatile uint8_t async_accumulator_high, async_remainder; /*0259,025E */
+    volatile uint16_t async_accumulator_fraction; /*025A/5B; word0259 spans high + fraction high. */
     /* Async-route bit003E.4 remains in io.coolant_context, not duplicated. */
 } PcmFuel;
 
