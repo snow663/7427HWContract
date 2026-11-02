@@ -1,6 +1,7 @@
 #define IAC_STEP_FIXTURE_ENTRY inherited_step_fixture_main
 #include "iac_step_test.c"
 #include "board_io.h"
+#include "reference_math.h"
 #include "io_fixture_map.h"
 
 static void io_state_transfer(Pcm *pcm,Fixture *f,bool load)
