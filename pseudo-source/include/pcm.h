@@ -197,6 +197,11 @@ typedef struct {
 } PcmEnvironmentCalibration;
 
 typedef struct {
+    uint16_t synchronous_minimum, synchronous_replacement; /* 496D,496F */
+    uint8_t injection_delay_gain, offset[17]; /* 4973,4B05..4B15 */
+} PcmFuelCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -214,6 +219,7 @@ typedef struct {
     const PcmIoCalibration *io;
     const PcmAcCalibration *ac;
     const PcmEnvironmentCalibration *environment;
+    const PcmFuelCalibration *fuel;
 } PcmCalibration;
 
 typedef struct {
@@ -402,6 +408,13 @@ typedef struct {
     volatile uint8_t environmental_idle, environmental_density; /* 01E5,0243,0272,01CB,01BB */
 } PcmIo;
 
+typedef struct {
+    volatile uint16_t corrected_pulse; /* RAM024E, before delivery shaping */
+    volatile bool short_pulse;        /* RAM003F.7; extra_guard owns bit4 */
+    volatile uint8_t raw_throttle, raw_oxygen, measured_current; /* 00A6,01D5,014E */
+    /* Async-route bit003E.4 remains in io.coolant_context, not duplicated. */
+} PcmFuel;
+
 typedef struct Pcm {
     const PcmPlatform *platform; /* immutable bindings can live in ROM */
     const PcmCalibration *calibration;
@@ -413,6 +426,7 @@ typedef struct Pcm {
     PcmTransmission transmission;
     PcmIac iac;
     PcmIo io;
+    PcmFuel fuel;
     PcmTask unresolved_task;
     void *application;                 /* tests/strategy-owned explicit state */
 } Pcm;

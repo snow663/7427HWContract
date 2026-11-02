@@ -19,7 +19,11 @@ typedef struct {
     Pcm *pcm;
     PcmPlatform platform;
 } Fixture;
-static PcmStatus read8(void *v, uint16_t a, uint8_t *out) { *out=((Fixture *)v)->memory[a]; return PCM_OK; }
+static PcmStatus read8(void *v, uint16_t a, uint8_t *out) {
+    *out=((Fixture *)v)->memory[a];
+    if (a==PCM_ADCTL) *out|=0x80; /* Explicit ready peripheral fixture. */
+    return PCM_OK;
+}
 static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
     Fixture *f=v;
     if (a==PCM_REFERENCE_PERIOD) ++f->period_reads;
@@ -28,7 +32,13 @@ static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
 }
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     Fixture *f=v; f->memory[a]=value;
-    if (a==PCM_ADCTL) ++f->adc_starts;
+    if (a==PCM_ADCTL) {
+        ++f->adc_starts;
+        if (value==7) {
+            CHECK(f->masked && f->step_observations<256);
+            f->step_positions[f->step_observations++]=f->pcm->iac.position;
+        }
+    }
     if (a==PCM_COPRST) {
         CHECK(value==0xaa || value==0x55); ++f->watchdog_writes;
         if (value==0xaa && f->feed_reference) {
@@ -66,10 +76,6 @@ static PcmStatus task(Pcm *pcm, PcmTask id) {
     CHECK(f->used<sizeof(f->trace)/sizeof(f->trace[0]));
     f->trace[f->used++]=id; ++f->counts[id];
     if (id==PCM_SLOT_02) CHECK(f->masked);
-    if (id==PCM_ADC_FEEDBACK) {
-        CHECK(!f->masked && f->step_observations<256);
-        f->step_positions[f->step_observations++]=pcm->iac.position;
-    }
     if (id==PCM_CURRENT_CONTROL) pcm->runtime.current_output=0x42;
     if (id==PCM_CONNECTION_EXTENSION && f->connection_action)
         pcm->scheduler.profiling_enabled=f->connection_action==1;
@@ -84,12 +90,14 @@ static void init(Fixture *f, Pcm *pcm) {
     for (unsigned k=0;k<PCM_TASK_COUNT;++k) f->platform.task[k]=task;
     f->platform.task[PCM_IAC_CONTROL]=NULL;
     f->platform.task[PCM_IAC_STEP]=NULL;
+    f->platform.task[PCM_ADC_FEEDBACK]=NULL;
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
     pcm->io.diagnostic_sample=100;pcm->reference.map_sample=135;pcm->io.map_filter=0x8700;
+    f->memory[PCM_ADR2]=135;
 }
 static void test_initialization_and_missing_contracts(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
@@ -141,7 +149,7 @@ static void test_full_phase_cycle(void) {
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.counts[PCM_EGR_DEMAND]==10 && f.counts[PCM_VSS_FILTER]==0);
     CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
-    CHECK(f.adc_starts==10); /* Slot8 now runs its real diagnostic, without a task binding. */
+    CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==330); /* Two per fast service plus10 slot8 conversions. */
     /* The phase6 observation precedes the first slot7 gain publication and
      * arms the low latch. Later slot7 caps let the consumer retain13. */
     CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==0 && pcm.knock.activity==7);
@@ -157,7 +165,7 @@ static void test_busy_coalescing_and_call_order(void) {
     CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==4 && f.counts[PCM_CURRENT_CONTROL]==4);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.shadow_observations==2 && pcm.scheduler.phase==2);
     CHECK(pcm.scheduler.busy_phase==1 && !pcm.scheduler.pending && !pcm.scheduler.busy);
-    CHECK(f.trace[0]==PCM_ADC_FEEDBACK && f.trace[1]==PCM_CURRENT_CONTROL);
+    CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.trace[0]==PCM_CURRENT_CONTROL);
     for (unsigned k=0;k<4;++k) CHECK(f.step_positions[k]==k+1);
     CHECK(pcm.iac.position==4 && f.observed_shadows[0]==0x14 && f.observed_shadows[1]==0x10);
     CHECK(f.current_writes==4 && f.timer_writes==4);

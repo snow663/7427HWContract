@@ -38,7 +38,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 180 public routines: 82 implemented outlines, 34 dependency
+The tree contains 186 public routines: 89 implemented outlines, 33 dependency
 boundaries and sixty-four implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -147,8 +147,9 @@ refresh check and slotF's refresh request are explicit. Literal watchdog and
 
 `pcm_fuel_base()` implements stock7FD8..802F integer arithmetic, preserving
 intermediate saturation and truncation. Its inputs retain the documented fixed
-point representations. It does not yet implement fuel corrections, delivery
-sequencing or a complete running engine controller.
+point representations. The callable finalizer/publication and existing REF/async bodies now cover named
+output slices. Fuel corrections, upstream producers and the complete scheduled
+running-fuel controller remain unfinished.
 
 An unfinished body delegates through `pcm_run_task()`. An absent binding returns
 `PCM_UNIMPLEMENTED` and identifies the task; absent hardware returns
@@ -184,7 +185,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are forty CTest entries; the Python route runs the same contract/differential checks.
+are forty-two CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -221,6 +222,9 @@ AC/P-N mirrors. Their old task bindings are unused. See the
 [board/input contract](reference/board_io_contract.md).
 The combined scheduled-input suite adds1,603,654 comparisons across384 scoped
 instruction starts, with185 checked profile bytes and selected slot6/7/9 joins.
+The fuel input/output suite adds357,761 comparisons across149 scoped instruction
+starts,22 new profile bytes,1,265 selected failure prefixes and1,024 retained
+history calls; the kernel now runs resident ADC feedback without its old task.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
@@ -229,7 +233,14 @@ or whole-program equivalence. The dedicated GitHub workflow runs the CMake route
 Implement the remaining reset stages and target early-reset/interrupt backend.
 The main93D0 IAC controller and its service/reset/learning consumers are now
 implemented, as are91A3 step service and common board I/O/input housekeeping.
-The next batch covers ADC acquisition and the EGR producer/controller chain.
+The active milestone is the complete fuel calculation and injector-control path,
+with supporting hardware inputs ordered by dependency in
+[working state](../docs/WORKING_STATE.md). Its first batch now implements resident
+ADC feedback, callable TPS/MAP/O2 and battery acquisition/state, injector offset,
+and synchronous shaping/publication. See the
+[fuel input/output contract](reference/fuel_input_output_contract.md).
+The next batch closes air-charge and required input producers, including EGR
+where the fuel path requires its state.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
 resident bodies directly; broad fuel and slot4 work stays explicit. See the
