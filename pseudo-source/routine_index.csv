@@ -49,14 +49,14 @@ src/math/lookup16.c,pcm_lookup16,implemented_algorithm,F4C1..F4DD: rounded 16-se
 src/math/lookup2d.c,pcm_lookup2d,implemented_algorithm,"F4DE..F54F: offsets, byte row-product wrap and successive rounded interpolation.","Retain C/ROM checks; scheduled producers, target ABI and timing remain separate work"
 src/math/lookup_capped.c,pcm_lookup_capped,implemented_algorithm,F499..F4A3 ->F4BD..F4DD: capped zero-offset interpolation.,Retain C/ROM checks; scheduled producers and target execution remain separate
 src/sensors/ac_switch_inputs.c,pcm_ac_switch_inputs,implemented_outline,CB15..CC34: diagnostic prefix and feature-gated AC timers.,Retain ROM comparisons and shared owners; target execution remains separate validation
-src/sensors/adc_feedback.c,pcm_adc_feedback,dependency_boundary,7B6D: Intervening ADC acquisition F245 and averaged014E publication.,Implement the named body and compare observable state/transactions
+src/sensors/adc_feedback.c,pcm_adc_feedback,implemented_outline,"7B70..7B9A: current ADC averaging, F245 acquisition and literal SEI/CLI.",Retain ROM comparisons; target ADC readiness and interrupt latency remain explicit
 src/sensors/common_io.c,pcm_common_io,implemented_outline,"7BA7..7C12: ordered board flush, MAP filter, VSS poll and brake owner.",Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation
 src/sensors/input_housekeeping.c,pcm_input_housekeeping,implemented_outline,9167..91A2: COP AA prefix and AC/P-N mirrors.,Retain ROM/state/transaction checks; target ABI and physical timing remain separate validation
 src/sensors/knock_sensor.c,pcm_knock_sensor,implemented_outline,CEDB..CF15: mux0/ADCTL01/ADR4 sensor diagnostic and literal masking.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/serial/serial_poll.c,pcm_serial_poll,dependency_boundary,F5E8: Serial polling and optional broadcast schedule.,Implement the named body and compare observable state/transactions
-src/slots/slot_00.c,pcm_slot_00,dependency_boundary,"7AA6, table word 7A85.",Implement the named body and compare observable state/transactions
+src/slots/slot_00.c,pcm_slot_00,implemented_outline,7AA6..7AAC: resident battery acquisition and literal CF15 return.,Retain ROM comparisons and actual scheduled producer ordering
 src/slots/slot_01.c,pcm_slot_01,dependency_boundary,"7AAD, table word 7A87.",Implement the named body and compare observable state/transactions
-src/slots/slot_02.c,pcm_slot_02,dependency_boundary,"7AB7, table word 7A89.",Implement the named body and compare observable state/transactions
+src/slots/slot_02.c,pcm_slot_02,implemented_outline,7AB7..7ABC: resident auxiliary ADC scan under literal SEI/CLI.,Retain ROM comparisons and actual scheduled producer ordering
 src/slots/slot_03.c,pcm_slot_03,dependency_boundary,"7ABD, table word 7A8B.",Implement the named body and compare observable state/transactions
 src/slots/slot_04.c,pcm_slot_04,dependency_boundary,"7AC7, table word 7A8D.",Implement the named body and compare observable state/transactions
 src/slots/slot_05.c,pcm_slot_05,dependency_boundary,"7B03, table word 7A8F.",Implement the named body and compare observable state/transactions
@@ -179,3 +179,10 @@ src/sensors/brake_filter.c,pcm_brake_filter,implemented_algorithm,7D21..7D4A: in
 src/sensors/environment_inputs.c,pcm_environment_inputs,implemented_algorithm,"C9F7..CA6A ->CB14: environmental lookups, cap-before-offset density and burst-gain tail.",Retain ROM comparisons; remaining scheduled acquisition and target execution stay explicit
 src/sensors/map_transient.c,pcm_map_transient,implemented_algorithm,7DB6..7DF0: context/RPM/idle qualification and transient MAP hold.,Retain ROM comparisons; remaining scheduled acquisition and target execution stay explicit
 src/sensors/vss_calculate.c,pcm_vss_calculate,implemented_algorithm,"D4A3..D4D9: VSS observation age, timestamp quotient and wrapped numerator.",Retain ROM comparisons; remaining scheduled acquisition and target execution stay explicit
+src/sensors/adc_inputs.c,pcm_adc_inputs,implemented_outline,"F245..F25E: TPS/MAP/O2 sampling after bounded conversion, with shared MAP gate.",Retain ROM comparisons; remaining fuel controller and physical output validation stay explicit
+src/sensors/battery_input.c,pcm_battery_input,implemented_outline,C56F..C582: mux2 battery acquisition with post-CLI publication.,Retain ROM comparisons; remaining fuel controller and physical output validation stay explicit
+src/fuel/fuel_battery_state.c,pcm_fuel_battery_state,implemented_outline,"8613..863C: raw battery thresholds, capture baseline and shared ignition/MAP state.",Retain ROM comparisons; remaining fuel controller and physical output validation stay explicit
+src/fuel/injector_offset.c,pcm_injector_offset,implemented_outline,E2FB..E305: raw battery offset lookup before the remaining slot-F work.,Retain ROM comparisons; remaining fuel controller and physical output validation stay explicit
+src/fuel/fuel_publish.c,pcm_fuel_publish,implemented_outline,"84F5..852B: wrapped offset, pulse limit and TBI/CPI publication.",Retain ROM comparisons; remaining fuel controller and physical output validation stay explicit
+src/fuel/fuel_finalize.c,pcm_fuel_finalize,implemented_outline,84BC..84F4: sync shaping and async bypass into the checked publisher.,Retain ROM comparisons; remaining fuel controller and physical output validation stay explicit
+src/sensors/adc_auxiliary.c,pcm_adc_auxiliary,implemented_outline,F20D..F244 ->F25E: mux7/6/1 scan and raw coolant/diagnostic/battery publication.,Retain ROM comparisons; initialization and physical ADC timing remain separate

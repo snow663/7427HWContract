@@ -39,6 +39,15 @@ boundary. The platform model supplies transactions and explicit task returns.
 It does not simulate HC11 arbitration, CLI delay, stack frames or physical time.
 See the [factory timing contract](../../docs/analysis/FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md).
 
+Resident fast service now calls the actual ADC feedback body after IAC stepping.
+It retains the unbounded channel7 readiness wait, four-result averaging, bounded
+F245 conversion, shared REF/MAP sampling gate and literal SEI/CLI. Callable battery
+and injector-finalization slices preserve captured samples, failed prefixes and
+wrapped offset arithmetic. Slot0 and slot2 now run their complete battery and
+auxiliary ADC bodies, including raw00A7 publication. Broader fuel/slot-F callers
+remain unfinished.
+See the [fuel input/output contract](../reference/fuel_input_output_contract.md).
+
 ## Hardware and unfinished code
 
 The four read/write entry points preserve transaction width. A word callback

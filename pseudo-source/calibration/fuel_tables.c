@@ -1,0 +1,7 @@
+#include "calibration.h"
+/* Stock BMHM source profile; no serialized/target pointer layout is implied. */
+const PcmFuelCalibration pcm_reference_fuel_calibration = {
+    .synchronous_minimum = 0x0020, .synchronous_replacement = 0x0020,
+    .injection_delay_gain = 0,
+    .offset = {0xff,0xff,0xff,0x83,0x51,0x3e,0x32,0x27,0x20,0x1a,0x16,0x10,0x0d,0x0a,0x07,0x03,0x00}
+};
