@@ -202,6 +202,21 @@ typedef struct {
 } PcmFuelCalibration;
 
 typedef struct {
+    uint8_t throttle_gain, throttle_default, throttle_zero_minimum, throttle_zero_gain;
+    uint16_t coolant_runtime_limit, mat_runtime_limit;
+    uint8_t coolant_default_late, coolant_default_early, coolant_table[2][256];
+    uint8_t mat_options, mat_low_threshold, mat_low_delay, mat_high_threshold, mat_high_delay;
+    uint8_t mat_speed_limit, mat_default, mat_curve[17];
+    uint8_t baro_options, baro_rpm_upper, baro_rpm_lower, baro_throttle_minimum;
+    uint8_t baro_throttle_delta, baro_gain, baro_coolant_minimum;
+    PcmTable2D baro_correction, ve_open, ve_idle;
+    uint8_t baro_ae[4], baro_pe_throttle[4], baro_pe_rpm[4], baro_load[4];
+    uint8_t charge_weight[17], charge_curve[17], ve_speed_limit, ve_integrator_limit;
+    uint16_t injector_flow;
+    uint8_t cylinder_volume;
+} PcmAirCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -220,6 +235,7 @@ typedef struct {
     const PcmAcCalibration *ac;
     const PcmEnvironmentCalibration *environment;
     const PcmFuelCalibration *fuel;
+    const PcmAirCalibration *air;
 } PcmCalibration;
 
 typedef struct {
@@ -407,12 +423,23 @@ typedef struct {
     volatile uint8_t environmental_trim, environmental_factor, environmental_load;
     volatile uint8_t environmental_idle, environmental_density; /* 01E5,0243,0272,01CB,01BB */
     volatile uint8_t raw_coolant, auxiliary_sample, auxiliary_reference; /* 082D,01A1,00A5 */
+    volatile uint8_t coolant_conversion, mat_raw, mat_display; /* 00A8,0230,0855 */
+    volatile uint8_t mat_low_count, mat_high_count; /* 021D,021E */
+    volatile bool mat_low_fault, mat_high_fault; /* 0017.6,0017.4; IAC owns0017.7 */
+    volatile uint8_t barometric_sample, barometric_fraction; /* 02F3,02F5; high remains spark owner */
+    volatile uint8_t tps_ae_factor, pe_throttle_threshold, pe_rpm_threshold; /* 01E4,01E3,01CD */
 } PcmIo;
 
 typedef struct {
     volatile uint16_t corrected_pulse; /* RAM024E, before delivery shaping */
     volatile bool short_pulse;        /* RAM003F.7; extra_guard owns bit4 */
     volatile uint8_t raw_throttle, raw_oxygen, measured_current; /* 00A6,01D5,014E */
+    volatile uint8_t normalized_throttle, integrator, volumetric_efficiency, commanded_afr;
+    /* 01A6,020F,0231,024A */
+    volatile bool throttle_fault, open_ve, ve_reset_request; /* 0098.0,004F.3,004F.5 */
+    volatile uint16_t throttle_decel_filter; /* 01DE/DF; independent of previous TPS01DA */
+    volatile uint16_t charge_temperature, displaced, air_charge; /* 0236,0238,0234 */
+    volatile uint8_t air_rate_fraction; /* 0233; high byte remains iac.runtime_high0232 */
     /* Async-route bit003E.4 remains in io.coolant_context, not duplicated. */
 } PcmFuel;
 
