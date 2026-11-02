@@ -149,8 +149,8 @@ ROM local frames balance and these scopes make no hardware I/O.
 These witnesses do not establish all interleavings or target C stack/timing.
 
 Both host routes retain these modifier contracts/differential checks and the
-newer command suite, bringing CTest to 30 entries. The C inventory is 150 public routines:
-69 implemented outlines, 40 explicit dependency boundaries and forty-one algorithms.
+newer command suite, bringing CTest to 32 entries. The C inventory is 161 public routines:
+73 implemented outlines, 41 explicit dependency boundaries and forty-seven algorithms.
 The [command path](spark_command_contract.md) now implements resident override,
 signed limits and service edits under an explicit optional 1812 dependency.
 The [admission prelude](spark_admission_contract.md) is also implemented.

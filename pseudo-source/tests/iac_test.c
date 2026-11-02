@@ -95,7 +95,10 @@ static void iac_contracts(void)
 #undef INIT
     puts("Background IAC stopped/override retention, shared-byte fields, high-byte TPS update, stock closed gate and prefix contracts pass.");
 }
-int main(int argc,char **argv)
+#ifndef IAC_FIXTURE_ENTRY
+#define IAC_FIXTURE_ENTRY main
+#endif
+int IAC_FIXTURE_ENTRY(int argc,char **argv)
 {
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
     PcmTransmissionCalibration transmission;PcmIacCalibration cal;uint8_t patterns[256];

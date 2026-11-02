@@ -27,7 +27,8 @@ typedef enum {
     PCM_RESET_ENTRY, PCM_RESET_RAM,
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
-    PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP, PCM_TASK_COUNT
+    PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
+    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -87,6 +88,12 @@ typedef struct {
 } PcmCappedCurve;
 
 typedef struct {
+    uint16_t length;
+    uint8_t scale;
+    const uint8_t *values;
+} PcmScaledCurve;
+
+typedef struct {
     PcmTable2D base_normal, base_idle, coolant, altitude, mat, egr;
     uint8_t coolant_mode, mat_mode, egr_mode, egr_gain;
     uint8_t base_bias, coolant_bias, altitude_bias, egr_bias, mat_bias;
@@ -129,6 +136,16 @@ typedef struct {
     uint8_t kicker_coolant_minimum, kicker_speed_limit, kicker_throttle_limit, kicker_cold_reload;
     uint8_t kicker_baro_entry, kicker_baro_exit, kicker_integral_limit, kicker_flow_limit;
     uint8_t kicker_error_limit[2], kicker_on_reload, kicker_tps_adder, kicker_off_match;
+    PcmScaledCurve follower_rpm;
+    uint8_t follower_coolant[17], follower_cap[2], follower_park_gain;
+    uint8_t follower_drive_hold[12], follower_drive_gain[12], follower_minimum[17];
+    uint8_t follower_change_limit, follower_load_limit, follower_low_load_gain, follower_age_limit;
+    uint8_t hotstart_coolant_minimum, hotstart_coolant_maximum;
+    uint16_t hotstart_runtime_limit;
+    uint8_t follower_extended_gain[2], follower_start_minimum_gain, follower_start_flow_gain;
+    uint8_t switch_decay_amount, switch_decay_reload, startup_flow_reload, startup_rpm_reload;
+    uint8_t drive_snapshot_delta[2], fault_options, kicker_baseline_limit;
+    uint8_t learning_error_limit, learning_count_limit, reset_speed;
 } PcmIacCalibration;
 
 typedef struct {
@@ -297,6 +314,12 @@ typedef struct {
     volatile uint8_t switch_offset, switch_delay, hold[2], stall_threshold, selected_snapshot; /* 0860,0861,0866/67,0868,086A */
     volatile uint8_t cold_delay, ac_adder, ac_hold, ac_divider; /* 0875..0878 */
     volatile uint8_t dfco_adder, dfco_divider, kicker_timer; /* 0887,0888,088D */
+    volatile uint16_t follower, follower_filtered; /* 0880,0882 */
+    volatile uint8_t follower_hold, follower_closed_threshold, follower_age; /* 0884..0886 */
+    volatile uint8_t starting_coolant, switch_adder, switch_hold; /* 0282,087B,087C */
+    volatile uint8_t startup_flow, startup_flow_divider, startup_rpm_divider, startup_rpm_hold; /* 086B/6C,085D/5E */
+    volatile uint8_t learning_count, position, target; /* 088E,0007,0008 */
+    volatile bool startup_cancel, kicker_fault, input_fault; /* 003F.6,0018.2,0017.7 */
 } PcmIac;
 
 typedef struct Pcm {

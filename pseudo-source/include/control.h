@@ -24,6 +24,8 @@ PcmStatus pcm_transmission_outputs(Pcm *);
 PcmStatus pcm_connection_probe(Pcm *);
 PcmStatus pcm_iac_background(Pcm *);
 PcmStatus pcm_shift_lamp(Pcm *);
+PcmStatus pcm_egr_demand(Pcm *);
+PcmStatus pcm_vss_filter(Pcm *);
 
 /* A first real algorithm slice. Inputs retain the factory fixed-point
  * representations; they are not yet RPM/kPa/microsecond engineering units. */

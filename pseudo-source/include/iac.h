@@ -11,4 +11,12 @@ PcmStatus pcm_iac_transition_decay(Pcm *);
 PcmStatus pcm_iac_transfer(Pcm *);
 PcmStatus pcm_iac_publish(Pcm *, bool age_holds);
 PcmStatus pcm_iac_background(Pcm *);
+PcmStatus pcm_iac_follower(Pcm *);
+PcmStatus pcm_iac_slow_decays(Pcm *);
+PcmStatus pcm_iac_drive_limit(Pcm *);
+PcmStatus pcm_iac_kicker_diagnostic(Pcm *);
+PcmStatus pcm_iac_learning_diagnostic(Pcm *);
+PcmStatus pcm_iac_reset_admit(Pcm *);
+PcmStatus pcm_iac_reset_request(Pcm *);
+PcmStatus pcm_iac_slow(Pcm *);
 #endif
