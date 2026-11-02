@@ -132,10 +132,10 @@ at/above4EB7. The common helper sets0009.0, clears0036 bits1C, writes0008=0,
 then0007=255. It retains unrelated IAC bits and the separate spark override.
 Direct helper admission needs no profile.
 
-Those are software homing requests. Main93D0 must still drive the target/reset
-process and establish its completion, and91A3 must still implement phase/count
-service. The software value255 does not establish a physical pintle position.
-The service controller's nonlocal exits also remain part of the next main-IAC port.
+Those are software homing requests. The [resident main93D0 controller](iac_main_contract.md) now consumes the
+target/reset process and establishes software completion.91A3 phase/count
+service remains unfinished. The software value255 does not establish a physical pintle position.
+The main port preserves the service controller's nonlocal exits.
 
 ## Source profiles and verification
 
@@ -165,16 +165,18 @@ flag/gate witnesses;2,048 profile/state variants;4,346 joined/callback witnesses
 
 Joined calls explicitly supply background/slow admissions and subsequent normal
 spark calls. History inputs supply intervening hold changes. They do not infer
-the missing acquisition pipeline, main-IAC hold aging or new physical cadence.
+the acquisition pipeline, intervening main-IAC admissions or physical cadence.
+The [main IAC suite](iac_main_contract.md) separately checks hold aging.
 EGR/VSS and any enabled180F/1812 modules retain explicit return fixtures. The
 full160-phase kernel regression uses the real slow body and verifies ten EGR/VSS
-admissions, changed follower state and the absence of a whole-slot9 binding.
+admissions and the absence of a whole-slot9 binding; the main port now also
+updates shared qualification/error state during the full cycle.
 
-Both host routes now have32 CTest entries. CI runs independent suites two at a
+Both host routes now have34 CTest entries. CI runs independent suites two at a
 time; they do not share mutable fixture state or generated artifacts. The source
-inventory is161 public routines:73 implemented outlines,41 dependency boundaries
-and47 algorithms. Target ABI, interrupt entry, coherent word access, linker/RAM/
+inventory is172 public routines:76 implemented outlines,40 dependency boundaries
+and56 algorithms. Target ABI, interrupt entry, coherent word access, linker/RAM/
 stack fit and physical peripheral/motor timing remain separate validation.
 
-Next are the main93D0 IAC controller, its service/reset/learning consumers and
-the91A3 step driver. Other scheduled producers remain explicit.
+The main93D0 IAC controller and service/reset/learning consumers are now
+implemented; next is the91A3 step driver. Other scheduled producers remain explicit.

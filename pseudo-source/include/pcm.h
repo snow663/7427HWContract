@@ -28,7 +28,7 @@ typedef enum {
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
     PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
-    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_TASK_COUNT
+    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -94,6 +94,11 @@ typedef struct {
 } PcmScaledCurve;
 
 typedef struct {
+    uint8_t offset, limit;
+    PcmScaledCurve curve;
+} PcmOffsetCurve;
+
+typedef struct {
     PcmTable2D base_normal, base_idle, coolant, altitude, mat, egr;
     uint8_t coolant_mode, mat_mode, egr_mode, egr_gain;
     uint8_t base_bias, coolant_bias, altitude_bias, egr_bias, mat_bias;
@@ -146,6 +151,25 @@ typedef struct {
     uint8_t switch_decay_amount, switch_decay_reload, startup_flow_reload, startup_rpm_reload;
     uint8_t drive_snapshot_delta[2], fault_options, kicker_baseline_limit;
     uint8_t learning_error_limit, learning_count_limit, reset_speed;
+    uint8_t output_options, prestart_coolant_minimum, park_target;
+    uint8_t default_integral[2], default_ac_warm, default_ac_cold, default_coolant, default_baseline;
+    uint8_t start_hold_curve[2][17], start_cold_curve[2][17], start_rpm_curve[17];
+    uint8_t start_flow, start_rpm_hold;
+    uint8_t gear_flow[2], gear_hold[2], gear_delay[2], gear_coolant;
+    uint8_t gear_cold_hold[2], gear_cold_delay[2];
+    uint8_t ac_transition_gain[2], ac_transition_minimum[2], ac_transition_maximum[2];
+    uint8_t ac_transition_hold[2], ac_transition_delay[2];
+    PcmOffsetCurve ac_temperature, baro;
+    uint8_t steering_flow, steering_delay, error_gain, error_deadband[4];
+    uint8_t closed_throttle, closed_speed, closed_delay, stall_flow[4], stall_hold[2];
+    uint8_t integral_curve[4][12], proportional_curve[10][12], derivative_curve[17];
+    uint8_t proportional_speed_entry, proportional_speed_exit, proportional_error_limit;
+    uint8_t derivative_fast_gain, derivative_slow_gain;
+    uint8_t reconcile_coolant, reconcile_flow[2], reconcile_error, reconcile_phase;
+    PcmScaledCurve enrichment_curve;
+    uint8_t enrichment_throttle, enrichment_flow, dfco_bias, dfco_curve[17];
+    uint16_t pe_flow_limit;
+    uint8_t kicker_flow_subtract, kicker_flow_gain, position_curve[18];
 } PcmIacCalibration;
 
 typedef struct {
@@ -320,6 +344,12 @@ typedef struct {
     volatile uint8_t startup_flow, startup_flow_divider, startup_rpm_divider, startup_rpm_hold; /* 086B/6C,085D/5E */
     volatile uint8_t learning_count, position, target; /* 088E,0007,0008 */
     volatile bool startup_cancel, kicker_fault, input_fault; /* 003F.6,0018.2,0017.7 */
+    volatile bool park_neutral, ac_request, service_reset, service_kicker_value; /* 0041.5,0052.5,0391.5,0390.6 */
+    volatile uint8_t gear_status, input_shadow, service_value; /* 00A2,004D,0396 */
+    volatile uint8_t qualification_delay, stall_hold, proportional, derivative; /* 0864,0869,086D,0870 */
+    volatile uint8_t gear_adder, gear_hold, enrichment; /* 0879,087A,087F */
+    volatile uint16_t selected_integral, selected_cold, selected_bound, derivative_filtered; /* 0862,0871,0873,086E */
+    volatile uint16_t composite_flow, pre_baro_flow, airflow; /* 087D,0889,088B */
 } PcmIac;
 
 typedef struct Pcm {

@@ -88,7 +88,10 @@ static void slow_contracts(void)
 #undef INIT
     puts("Slow IAC stopped/phase retention, expiry calls, two-observation faults, shared reset gate and ordered slot9 dependencies pass.");
 }
-int main(int argc,char **argv)
+#ifndef IAC_SLOW_FIXTURE_ENTRY
+#define IAC_SLOW_FIXTURE_ENTRY main
+#endif
+int IAC_SLOW_FIXTURE_ENTRY(int argc,char **argv)
 {
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
     PcmTransmissionCalibration transmission;PcmIacCalibration cal;uint8_t patterns[256],knots[256];

@@ -66,6 +66,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.write8=write8; f->platform.write16=write16; f->platform.mask_irq=mask_irq;
     f->platform.check_stack=guard;
     for (unsigned k=0;k<PCM_TASK_COUNT;++k) f->platform.task[k]=task;
+    f->platform.task[PCM_IAC_CONTROL]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
 }
@@ -108,14 +109,15 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_COMMON_IO]==160 && f.counts[PCM_INPUT_HOUSEKEEPING]==80);
     CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==80);
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==40 && f.counts[PCM_PRESSURE_TCC]==40);
-    CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==40);
+    CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
+    CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
         CHECK(f.counts[k]==(k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
     CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==10);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.counts[PCM_EGR_DEMAND]==10 && f.counts[PCM_VSS_FILTER]==10);
-    CHECK(pcm.iac.follower!=0 && (pcm.iac.kicker_flags&1u));
+    CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
     CHECK(f.adc_starts==10); /* Slot8 now runs its real diagnostic, without a task binding. */
     /* The phase6 observation precedes the first slot7 gain publication and
      * arms the low latch. Later slot7 caps let the consumer retain13. */
