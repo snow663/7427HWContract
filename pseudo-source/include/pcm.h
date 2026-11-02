@@ -28,7 +28,7 @@ typedef enum {
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
     PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
-    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_TASK_COUNT
+    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -217,6 +217,31 @@ typedef struct {
 } PcmAirCalibration;
 
 typedef struct {
+    uint16_t authorization_minimum, authorization_maximum, crank_base;
+    uint8_t oxygen_minimum, oxygen_maximum, oxygen_idle_gain, oxygen_gain[17];
+    uint8_t map_threshold[2], map_closed_throttle, map_double_throttle;
+    uint8_t tps_threshold, tps_speed_gain, tps_speed_limit, history_reload, history_gain;
+    PcmScaledCurve ae_map, ae_base, startup_spark, startup_spark_delay, startup_spark_gain, crank_tps;
+    PcmCappedCurve ae_rpm, pe_upper, pe_exit, pe_entry;
+    uint8_t tps_curve[17], ae_coolant[17], ae_mat[17], ae_map_gain[17];
+    uint8_t startup_afr[17], startup_interval[17], startup_air[5], startup_ref[17], startup_decrement[17], spark_air[5];
+    uint8_t startup_hold, startup_afr_gain, startup_rpm_delta, startup_effort;
+    uint8_t startup_coolant_limit, startup_afr_limit, startup_park_hold;
+    uint8_t crank_age, period_scale, crank_coolant[17], crank_normal[9], crank_hot[9], crank_baro[11], crank_battery[17];
+    PcmTable2D open_afr;
+    uint8_t open_mode, stoich, open_coolant, afr_filter_gain, idle_speed, idle_throttle;
+    uint8_t idle_entry_delay, idle_apply_delay, idle_coolant, idle_integrator_limit;
+    uint16_t idle_runtime;
+    uint8_t hotstart_subtract, warm_coolant[2], warm_duration, warm_drive_subtract, warm_park_subtract;
+    uint8_t afr_maximum, afr_alternate_maximum, enrichment_age, enrichment_coolant;
+    uint8_t pe_permission_speed, pe_permission_throttle, pe_permission_delay;
+    uint8_t pe_rpm_delta, pe_coolant[2], pe_hysteresis, pe_rpm, pe_exit_delay, pe_gain_delay, pe_gain_step;
+    uint8_t pe_cold_coolant, pe_time, pe_warm_coolant, pe_cold_rpm, pe_cold_speed, pe_cold_subtract, pe_part_throttle;
+    uint16_t pe_vehicle_change;
+    uint8_t pe_target[17], output_rich_limit[17];
+} PcmMixtureCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -236,6 +261,7 @@ typedef struct {
     const PcmEnvironmentCalibration *environment;
     const PcmFuelCalibration *fuel;
     const PcmAirCalibration *air;
+    const PcmMixtureCalibration *mixture;
 } PcmCalibration;
 
 typedef struct {
@@ -440,6 +466,22 @@ typedef struct {
     volatile uint16_t throttle_decel_filter; /* 01DE/DF; independent of previous TPS01DA */
     volatile uint16_t charge_temperature, displaced, air_charge; /* 0236,0238,0234 */
     volatile uint8_t air_rate_fraction; /* 0233; high byte remains iac.runtime_high0232 */
+    volatile bool authorized, map_acceleration, tps_acceleration, pe_permission, pe_full_gain;
+    /* 003D.1,0005.7,0005.6,003D.0,003F.5; PE active remains runtime owner. */
+    volatile bool idle_afr_ready, alternate_afr_limit, output_rich_cap; /* 0050.1,0072.6,0052.6 */
+    volatile uint8_t startup_context, startup_previous_rpm; /* 003F low nibble,0066 */
+    volatile uint16_t authorization_capture, oxygen_filtered, map_history, tps_history; /* 0851,01D2,01C7,01DC */
+    volatile uint8_t oxygen_coordinate, map_delta, map_ae, tps_ae, base_ae_gain, tps_ae_gain, map_ae_gain;
+    /* 027B,01CA,023E,023F,0242,023C,023D */
+    volatile uint8_t history_count, startup_afr, startup_hold, startup_spark_delay, startup_spark_gain;
+    /* 0240,02C8,02CA,02CC,01FF; spark startup adder and REF enrichment remain existing owners. */
+    volatile uint8_t startup_park_hold, startup_interval, startup_spark_interval; /* 027D,0270,0200 */
+    volatile uint16_t afr_filtered; /* 0264 */
+    volatile uint8_t afr_filter_count, idle_afr_count, warm_afr_count, published_afr; /* 0266,0271,082C,024B */
+    volatile uint8_t pe_permission_count, pe_upper_throttle, pe_exit_step, pe_entry_throttle, pe_previous_throttle;
+    /* 0263,01E0,01E1,01E2,01DB */
+    volatile uint8_t pe_gain_count, pe_target_count, pe_exit_count, service_afr; /* 0277,0269,0276,0397 */
+    volatile uint16_t pe_vehicle_change; /* 0818; BLM tail produces this retained magnitude. */
     /* Async-route bit003E.4 remains in io.coolant_context, not duplicated. */
 } PcmFuel;
 

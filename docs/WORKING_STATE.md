@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 198 public routines: 96 implemented outlines,
-31 explicit dependency boundaries and seventy-one implemented algorithms.
+The source currently has 220 public routines: 106 implemented outlines,
+31 explicit dependency boundaries and eighty-three implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -70,7 +70,7 @@ is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md
 Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
 state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
 The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
-new source-profile bytes. Both host routes now have44 CTest entries. See the
+new source-profile bytes. Both host routes now have46 CTest entries. See the
 [background IAC contract](../pseudo-source/reference/iac_background_contract.md).
 Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
 Direct and both indexed forms now use all-selected-bit semantics;393,216
@@ -115,9 +115,12 @@ coolant/MAT/BARO acquisition and diagnostics, density, charge temperature, VE
 and contiguous VE/base-fuel publication. Shared0232/02F4/02F6 owners and lookup
 neighbors remain explicit. See the
 [fuel-air contract](../pseudo-source/reference/fuel_air_contract.md).
-Broader fuel and slot1/4/D/F admissions remain unfinished. Next is fuel-mode
-admission, commanded AFR/PE/startup and enrichment, with remaining EGR dependencies
-closed as the corrections need them.
+Callable crank/running authorization, crank preparation/delivery, O2 filtering,
+MAP/TPS AE, startup seeding/decay and contiguous commanded AFR/PE now have checked
+C bodies. See the [mixture contract](../pseudo-source/reference/fuel_mixture_contract.md).
+Broader fuel/slot1/4/D/F roots remain boundaries. Next are BLM/O2 feedback/learning,
+remaining pulse corrections and AE delivery, then admission/tail wiring and EGR
+producers required by those corrections.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -302,7 +305,11 @@ The fuel-air suite contains1,015,696 comparisons across336 scoped instruction
 starts,930 distinct checked profile bytes and1,581 expanded fixture-view bytes.
 It includes1,953 selected failure prefixes,1,024 retained histories and explicit
 BARO/counter-wrap admissions in addition to the complete arithmetic sweeps.
-CI gates on the 22 quick contracts/provenance tests before the 22 ROM suites.
+The mixture suite adds476,821 comparisons across742 reachable instruction starts,
+with two defensive guards bounded by arithmetic invariants,540 distinct profile
+bytes,3,087 expanded fixture bytes,553 selected failure prefixes and1,024 retained
+startup/AE/AFR/PE/REF history calls.
+CI gates on the 23 quick contracts/provenance tests before the 23 ROM suites.
 Independent comparisons run two at a time, with the longest suites scheduled first.
 The simulator has 18 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.

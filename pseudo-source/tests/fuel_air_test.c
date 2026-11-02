@@ -103,7 +103,11 @@ static void air_contracts(void)
 #undef INIT
     puts("TPS fractional zero, coolant ranges, MAT prefix/retention, BARO view bounds, VE flag prefixes and live fuel publication contracts pass.");
 }
-int main(int argc,char **argv)
+/* Allow the mixture fixture to reuse the complete air-source adapter. */
+#ifndef PCM_AIR_TEST_MAIN
+#define PCM_AIR_TEST_MAIN main
+#endif
+int PCM_AIR_TEST_MAIN(int argc,char **argv)
 {
     if (argc==2 && strcmp(argv[1],"--contracts")==0) { air_contracts();return 0; }
     static Fixture f;Pcm pcm;PcmCalibration root;PcmFuelCalibration fuel;PcmIacCalibration iac;

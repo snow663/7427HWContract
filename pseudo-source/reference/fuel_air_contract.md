@@ -2,7 +2,7 @@
 
 Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
-This batch adds eleven public routines, bringing the source to198:96 implemented
+At introduction this batch added eleven public routines, bringing the source to198:96 implemented
 outlines,71 algorithms and31 explicit dependency boundaries. The existing
 [input/output batch](fuel_input_output_contract.md) supplies raw acquisition and
 injector finalization. These new bodies connect normalized inputs through VE and
@@ -117,9 +117,10 @@ likewise depends on an earlier air-rate result. Required broad fuel/slot prefixe
 and their other work remain unimplemented rather than being skipped to call a
 new slice. Slot1 BARO, slot4 coolant, slotD MAT and slotF temperature wrappers
 therefore remain boundaries, as do the retained/initialization and wider
-transmission TPS callers. Running-fuel admission, commanded AFR/PE/startup, AE,
-O2/BLM and remaining EGR dependencies are the next milestone work.
+transmission TPS callers. Callable crank/running admission, commanded AFR/PE/startup and AE are now covered
+by the [mixture contract](fuel_mixture_contract.md). O2/BLM and remaining EGR
+dependencies continue in the fuel milestone.
 
-Both host routes have44 checks:22 quick contracts/provenance checks and22 ROM
+At introduction both host routes had44 checks:22 quick contracts/provenance checks and22 ROM
 suites. Hardware ADC readiness, target interrupt/frame ABI, cycle/stack budgets,
 memory layout, ASIC response and delivered fuel remain separate validation.

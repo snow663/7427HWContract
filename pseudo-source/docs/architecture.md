@@ -56,6 +56,13 @@ neighbors; a failed lookup retains its completed flag/state prefix. Wider
 scheduled callers remain explicit boundaries. See the
 [fuel-air contract](../reference/fuel_air_contract.md).
 
+The callable mixture path now owns crank/running authorization, crank pulse and
+conditional main delivery, O2 filtering, MAP/TPS AE, startup context/decay and
+contiguous commanded AFR/PE through8C72. Shared REF/spark/IAC state stays in its
+existing owners;1800 is an explicit optional dependency. BLM/corrections, the
+common tail and broader scheduling admissions remain unfinished. See the
+[mixture contract](../reference/fuel_mixture_contract.md).
+
 ## Hardware and unfinished code
 
 The four read/write entry points preserve transaction width. A word callback
