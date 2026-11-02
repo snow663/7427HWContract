@@ -95,6 +95,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
     f->platform.task[PCM_SERIAL_POLL]=f->platform.task[PCM_SCI_BODY]=f->platform.task[PCM_RESET_SERIAL]=NULL;
+    f->platform.task[PCM_TRANSMISSION_INPUT]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
@@ -143,7 +144,7 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SERIAL_POLL]==0);
     CHECK(f.watchdog_writes==80); /* The real housekeeping supplies oneAA per even pass. */
     CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==80);
-    CHECK(f.counts[PCM_TRANSMISSION_INPUT]==40 && f.counts[PCM_PRESSURE_TCC]==40);
+    CHECK(f.counts[PCM_TRANSMISSION_INPUT]==0 && f.counts[PCM_TRANSMISSION_INPUT_PREFIX]==40 && f.counts[PCM_PRESSURE_TCC]==40);
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)

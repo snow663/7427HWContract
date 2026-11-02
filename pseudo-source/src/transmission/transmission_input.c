@@ -1,7 +1,8 @@
 #include "control.h"
-/* Reference AE85: Input wrapper ending in F781 then F64E.
- * Contract boundary: body not ported. An explicit platform binding is required. */
+#include "service.h"
+/*AE85..AEA3. Earlier input/control work remains an explicit prefix dependency. */
 PcmStatus pcm_transmission_input(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_TRANSMISSION_INPUT);
+    PcmStatus result=pcm_transmission_input_prefix(pcm);if (result!=PCM_OK) return result;
+    return pcm_serial_service_poll(pcm);
 }

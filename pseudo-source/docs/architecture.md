@@ -82,8 +82,16 @@ retained receive state; logical-address helpers resolve those canonical fields.
 Other RAM, ROM and device addresses require a coherent platform address-space
 provider. This is an explicit interface, not a native struct-placement claim.
 Accepted service bytes reach existing controller owners through that provider.
-Session expiry is callable; the broader AE85/F64E service lifecycle remains a
-boundary. The post-controller boot stage now seeds phase/BLM/counter/COP/shadow
+The resident service lifecycle now follows session expiry in the AE85 scheduled
+wrapper. The eight earlier transmission callees remain one explicit prefix
+dependency; its failure stops the wrapper before idle/service work. The old
+whole-input task ID is unused, and the new prefix ID is appended. Diagnostic
+clears update their distinct keep-mask/counter footprints through the coherent
+provider and reuse existing controller owners. New service output/status bytes
+have named transmission fields. Clear edges run before final engine cleanup;
+payload suffixes remain retained. See the
+[service lifecycle contract](../reference/service_lifecycle_contract.md).
+The post-controller boot stage now seeds phase/BLM/counter/COP/shadow
 state, and a separate callable slice clears0360..03FE while retaining03FF.
 See the [SCI/system contract](../reference/serial_system_contract.md).
 

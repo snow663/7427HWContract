@@ -108,6 +108,10 @@ if(BUILD_TESTING)
   target_link_libraries(pcm_serial_tests PRIVATE pcm_pseudo_source)
   add_test(NAME serial_contracts COMMAND pcm_serial_tests --contracts)
   add_test(NAME serial_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_serial_rom.py $<TARGET_FILE:pcm_serial_tests>)
+  add_executable(pcm_service_tests tests/service_test.c)
+  target_link_libraries(pcm_service_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME service_contracts COMMAND pcm_service_tests --contracts)
+  add_test(NAME service_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_service_rom.py $<TARGET_FILE:pcm_service_tests>)
   # Long independent ROM suites start first on fresh CI runners. These relative
   # costs affect scheduling only; every selected test still runs.
   set_tests_properties(scheduled_input_rom_differential PROPERTIES COST 1200)
@@ -119,6 +123,7 @@ if(BUILD_TESTING)
   set_tests_properties(iac_main_rom_differential PROPERTIES COST 450)
   set_tests_properties(fuel_output_rom_differential PROPERTIES COST 400)
   set_tests_properties(serial_rom_differential PROPERTIES COST 500)
+  set_tests_properties(service_rom_differential PROPERTIES COST 350)
   set_tests_properties(board_io_rom_differential iac_slow_rom_differential PROPERTIES COST 240)
 
 endif()

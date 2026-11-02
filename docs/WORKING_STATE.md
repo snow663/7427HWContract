@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 277 public routines: 141 implemented outlines,
-28 explicit dependency boundaries and 108 implemented algorithms.
+The source currently has 288 public routines: 151 implemented outlines,
+28 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -70,7 +70,7 @@ is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md
 Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
 state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
 The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
-new source-profile bytes. Both host routes now have52 CTest entries. See the
+new source-profile bytes. Both host routes now have54 CTest entries. See the
 [background IAC contract](../pseudo-source/reference/iac_background_contract.md).
 Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
 Direct and both indexed forms now use all-selected-bit semantics;393,216
@@ -143,12 +143,17 @@ A callable boot slice clears0360..03FE; the post-controller stage seeds phase,
 BLM, startup counter, COP and the output shadow. See the
 [SCI/system contract](../pseudo-source/reference/serial_system_contract.md).
 
-Next implement F64E..F780 retained/controller service processing and its ordered
-AE85 input/idle/service wrapper. Preserve clear-request edges, retained raw
-outputs, output-enable cleanup, expiry ordering and existing controller owners.
-Then extend the factory-test and remaining reset/system paths using their ROM
-contracts. Target logical-address binding, startup/interrupt assembly, stack/
-cycle bounds and physical SCI behavior remain explicit interfaces.
+The retained service batch now implements F64E..F780, the distinct F333/F380
+diagnostic clears, retained checksum F326 and the ordered F781→F64E tail. AE85
+runs that tail after a new explicit dependency for its eight earlier transmission
+callees. Accepted commands now reach service admission, BLM/diagnostic edge
+processing and cleanup while retaining payload suffixes and existing owners.
+See the [service lifecycle contract](../pseudo-source/reference/service_lifecycle_contract.md).
+
+Next extend factory-test admission/recurring execution and the remaining retained
+boot/system stages using their ROM contracts. Keep the eight earlier AE85 callees
+explicit until their bodies are implemented. Target logical-address binding,
+startup/interrupt assembly, stack/cycle bounds and physical SCI behavior remain explicit interfaces.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -346,7 +351,12 @@ histories. Its full logical-address sweep includes130,667 normal/factory
 selections outside private HC11 call-stack bytes. A coherent test provider binds
 canonical state; the real address-space/backend and F64E service lifecycle remain
 explicit work. Final duration sampling has24 callback and1,440 boundary checks.
-CI gates on the 26 quick contracts/provenance tests before the 26 ROM suites.
+The retained service suite adds80,142 comparisons across all198 scoped starts,
+1,434 selected failure prefixes and256 retained histories. Packet/service/spark
+joins, nonzero prior-output cleanup and all solenoid enable/value pairs are
+included. Expanded data tracing also restored the second TX descriptor-format
+read;432 mutation cases and44,799 transport regressions pass.
+CI gates on the 27 quick contracts/provenance tests before the 27 ROM suites.
 Independent comparisons run two at a time, with the longest suites scheduled first.
 The simulator has 18 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
