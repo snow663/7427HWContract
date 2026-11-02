@@ -28,3 +28,10 @@ A target build needs a selected HC11 toolchain, startup assembly, vector
 emission, linker assertions and a checked stack/cycle budget. Host sizes and
 pointer widths are not target RAM-use measurements. No binary image or memory
 fit is claimed by the present CMake host library.
+
+ALDL descriptors carry16-bit logical CPU addresses. The serial access helpers
+bind their own canonical fields directly; the platform provider must coherently
+bind other named RAM owners and supply ROM/device semantics. A host fixture's
+64KB byte view is test infrastructure, not an allocation proposal. No general
+RAM window or native struct placement is inferred from it. See the
+[SCI/system contract](../reference/serial_system_contract.md).

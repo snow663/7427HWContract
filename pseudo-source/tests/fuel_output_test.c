@@ -6,7 +6,7 @@
 #define CHECK(x) do { if (!(x)) { fprintf(stderr,"Fuel fixture check %d: %s\n",__LINE__,#x);exit(1); } } while (0)
 typedef struct { char kind; unsigned width; uint16_t address,value; bool masked; } Event;
 typedef struct {
-    uint8_t memory[65536]; Event events[192];
+    uint8_t memory[65536]; Event events[4096];
     unsigned used,attempts,fail_at,polls,control,action;
     bool masked; Pcm *pcm; PcmPlatform platform;
 } Fixture;

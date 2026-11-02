@@ -75,6 +75,18 @@ finalizer. Routing preserves its live period, fractional accumulator, mask and
 failed-operation prefixes. Broad ignition/input and scheduled-tail wiring remain
 explicit. See the [delivery contract](../reference/fuel_delivery_contract.md).
 
+## SCI and logical-address service
+
+The SCI body and broadcast poll now call resident C. `PcmSerial` owns its
+retained receive state; logical-address helpers resolve those canonical fields.
+Other RAM, ROM and device addresses require a coherent platform address-space
+provider. This is an explicit interface, not a native struct-placement claim.
+Accepted service bytes reach existing controller owners through that provider.
+Session expiry is callable; the broader AE85/F64E service lifecycle remains a
+boundary. The post-controller boot stage now seeds phase/BLM/counter/COP/shadow
+state, and a separate callable slice clears0360..03FE while retaining03FF.
+See the [SCI/system contract](../reference/serial_system_contract.md).
+
 ## Hardware and unfinished code
 
 The four read/write entry points preserve transaction width. A word callback

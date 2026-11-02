@@ -233,7 +233,10 @@ static PcmStatus read8(void *context,uint16_t address,uint8_t *value)
 }
 static PcmStatus read16(void *context,uint16_t address,uint16_t *value)
 {
-    Fixture *f=context;CHECK(address==PCM_REFERENCE_PERIOD || address==PCM_SPARK_ROLLING || address==PCM_SPARK_WORD ||
+    Fixture *f=context;
+    /* Inert stock ALDL schedule for the full fast-dispatch contract. */
+    if (address>=0x518f && address<=0x51ae) { *value=word(f->memory,address);return PCM_OK; }
+    CHECK(address==PCM_REFERENCE_PERIOD || address==PCM_SPARK_ROLLING || address==PCM_SPARK_WORD ||
                             address==PCM_EST_COUNTER || address==PCM_EST_FEEDBACK || address==PCM_BOARD_CONTROL ||
                             address==PCM_REFERENCE_STATUS || address==PCM_VSS_TIMESTAMP);
     uint16_t sample=word(f->memory,address);
@@ -517,6 +520,7 @@ static void controller_contracts(void)
     for (unsigned i=0;i<PCM_TASK_COUNT;++i) f.platform.task[i]=other_task;
     f.platform.task[PCM_SPARK_CONTROL]=f.platform.task[PCM_ALTERNATE_RPM]=NULL;
     f.platform.task[PCM_COMMON_IO]=f.platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
+    f.platform.task[PCM_SERIAL_POLL]=NULL;
     f.platform.delay_cycles=dispatch_board_delay;
     CHECK(pcm_dispatch_fast(&pcm)==PCM_OK && word(f.memory,PCM_EST_HANDOFF)==0x1234);
     CHECK(f.events[0].kind=='M' && f.events[0].value==1 && f.events[1].kind=='R' &&
