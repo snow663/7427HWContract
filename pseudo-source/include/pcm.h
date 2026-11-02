@@ -177,6 +177,7 @@ typedef struct {
     uint8_t map_default, map_throttle_gain, map_normal_gain, map_transient_gain;
     PcmCappedCurve map_bias; /* Cap RPM>>1 before subtracting fixed offset16. */
     uint8_t brake_delay;
+    uint8_t vss_filter_gain; /* stock 4E8E */
 } PcmIoCalibration;
 
 typedef struct {
@@ -369,6 +370,7 @@ typedef struct {
     volatile bool map_transient, ac_mirror, brake_active; /* 0047.0,0041.4,009C.0 */
     volatile uint8_t vss_changes, brake_count; /* 080C,00FB */
     volatile uint16_t vss_timestamp; /* 080D */
+    volatile uint16_t vss_raw, vss_filtered; /* 0812, 0284 */
 } PcmIo;
 
 typedef struct Pcm {
