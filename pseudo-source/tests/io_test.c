@@ -1,6 +1,7 @@
 #define IAC_STEP_FIXTURE_ENTRY inherited_step_fixture_main
 #include "iac_step_test.c"
 #include "board_io.h"
+#include "reference_math.h"
 #include "io_fixture_map.h"
 
 static void io_state_transfer(Pcm *pcm,Fixture *f,bool load)
@@ -127,6 +128,13 @@ static void io_contracts(void)
     pcm.reference.rpm_coordinate=255;io.map_bias.limit=255;io.map_bias.length=1;pcm.io.map_filter=0x1234;pcm.spark.map_filtered=77;
     CHECK(pcm_map_input(&pcm)==PCM_BAD_CONFIGURATION && pcm.io.map_filter==0x1234 && pcm.spark.map_filtered==77);
     pcm.spark.load_status=0;CHECK(pcm_map_input(&pcm)==PCM_OK);
+    INIT();pcm.io.vss_raw=0x4567;pcm.io.vss_filtered=0x1234;
+    CHECK(pcm_vss_filter(&pcm)==PCM_OK);
+    CHECK(pcm.io.vss_filtered==pcm_lag16(0x4567,0x1234,io.vss_filter_gain,NULL));
+    INIT();pcm.io.vss_raw=0xffff;pcm.io.vss_filtered=0;
+    io.vss_filter_gain=0;CHECK(pcm_vss_filter(&pcm)==PCM_OK && pcm.io.vss_filtered==0);
+    io.vss_filter_gain=255;CHECK(pcm_vss_filter(&pcm)==PCM_OK && pcm.io.vss_filtered==pcm_lag16(0xffff,0,255,NULL));
+    root.io=NULL;CHECK(pcm_vss_filter(&pcm)==PCM_BAD_CONFIGURATION);
     INIT();pcm.calibration=NULL;CHECK(pcm_input_housekeeping(&pcm)==PCM_BAD_CONFIGURATION && f.used==1 && f.events[0].value==0xaa);
     INIT();f.action=40;root.mode_f=0x44;
     CHECK(pcm_input_housekeeping(&pcm)==PCM_OK && pcm.iac.ac_request && pcm.io.ac_mirror && pcm.iac.park_neutral && f.used==1);
