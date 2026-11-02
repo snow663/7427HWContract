@@ -6,6 +6,7 @@ static const uint8_t main_baro_knots[11] = {0xb2, 0xaa, 0xa3, 0x9d, 0x97, 0x92, 
 static const uint8_t main_ac_temperature_knots[2] = {0x00, 0x00};
 static const uint8_t main_enrichment_curve_knots[5] = {0x04, 0x05, 0x06, 0x07, 0x0a};
 const PcmIacCalibration pcm_reference_iac_calibration = {
+    .step_battery_minimum = 0x69, /* 4EB6 */
     .options = 0x0e, /* 4E8F */
     .startup_rpm_gain = 0x80, /* 4EBC */
     .cold_decay_gain = 0xfa, /* 4EBD */

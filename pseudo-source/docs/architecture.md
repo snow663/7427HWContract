@@ -166,6 +166,13 @@ state/local owners, retaining the actual high-byte-only stores and wrapped
 position interpolation. Count reconciliation is separate from ring stepping.
 See the [main IAC contract](../reference/iac_main_contract.md).
 
+The91A3 step service now runs directly from fast service before the busy test.
+It retains the old phase gate during reset and does not run again in catch-up
+main passes. The count/control byte commit precedes literal SEI; the shared004C
+shadow is sampled after masking and merged with the latched command before
+literal CLI. The step routine writes no board latch. The old step task ID is
+reserved and unused. See the [step contract](../reference/iac_step_contract.md).
+
 ## Freedom to change algorithms
 
 Fuel calculation, injector scheduling, spark calculation, spark scheduling and
