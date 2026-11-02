@@ -96,8 +96,10 @@ retains the masked word/byte transaction sequence, status/REF shared ownership,
 MAP fallback/filter rounding, VSS timestamp polling, brake qualification and the
 single-AA watchdog prefix. Real3062 latch writes are included in the kernel
 busy/catch-up witness. See the [board/input contract](../pseudo-source/reference/board_io_contract.md).
-The next batch implements the remaining ADC acquisition and EGR producer/controller
-chain. MAP transient selection, raw VSS conversion and environmental precomputation
+The next substantial milestone is the complete fuel calculation and injector-control
+path, with remaining hardware inputs closed as their fuel dependencies are implemented.
+The implementation sequence and completion gates are recorded below.
+MAP transient selection, raw VSS conversion and environmental precomputation
 now have callable checked bodies; their broader fuel/slot4 wrappers stay explicit.
 Slot6 AC inputs, slot7 shift-lamp logic and slot9 VSS filtering run resident C.
 See the [scheduled input contract](../pseudo-source/reference/scheduled_inputs_contract.md).
@@ -106,6 +108,62 @@ evidence supports a deliberate change. No actuator authority is granted by a hos
 
 Truck tuning and continued stock-ROM analysis remain supported workstreams.
 They use the same evidence with separate calibration/image identities.
+
+## Next milestone: complete fuel calculation and injector control
+
+The goal is a connected, ROM-checked C fuel path from acquired inputs and retained
+state through pulse construction, synchronous/asynchronous arbitration and ordered
+injector-command writes. Complete the fuel-dependent acquisition and producer work
+alongside it. Batch related routines per PR and merge each batch after its checks
+pass. This is the active implementation priority.
+
+The current implementation already includes the base equation at 7FD8..802F,
+the REF crank/running/decay/common routines, crank event gain, asynchronous output
+at 8548..858A, and their timer helpers. MAP filtering/transient selection, RPM/load,
+VSS and environmental slices also have checked bodies. These are building blocks:
+`pcm_fuel_control` at 7D4B and `pcm_adc_feedback` at 7B6D still delegate to explicit
+task boundaries. The upstream equations and closed-loop/learning contracts are
+documented factory behavior, not completed C implementations.
+
+| Batch | Related implementation work | Joined evidence required |
+|---|---|---|
+| Acquisition and injector finalization | Remaining ADC/averaging path at 7B6D/F245; battery acquisition and 8613 ignition-state handling; E2FB..E303 injector offset; 84BC..852B final synchronous shaping/output; join the existing async helper | Real input/output transactions, timeout and failed prefixes, short-PW boundary, wrapped offset addition, final limit, zero output and retained state on async bypass |
+| Air charge and fuel input producers | TPS acquisition/zero normalization, BARO, CTS/MAT, density/charge temperature, VE selection; connect existing base arithmetic and environmental/RPM/VSS producers | Producer/consumer state age, lookup neighbors, diagnostic substitutions, scaling, rounding and old-state feedback; complete fuel-required EGR demand/feedback/control/flow/output dependencies as encountered |
+| Fuel modes, commanded AFR and enrichment | Startup and crank equation; open-loop/idle AFR, PE and transitions; MAP/TPS/IAC-related AE gains, histories and reservoirs | Cold/hot crank through REF delivery, startup-to-running changes, OL idle and PE admission/exit, retained histories and phase-gated updates |
+| Running corrections and closed-loop learning | 8032..83AE EGR/BLM, cut/decel/recovery, RPM/BARO/battery, signed INT/P and MAP AE; O2 filtering/activity/I/P at 863D..891D, AFR/BLM at 891E..8EB3, and slot-F admission producers | BLM saturated doubling versus signed additive INT/P; cut/recovery priority; learning/cell reset/persistence; O2 activity and distinct admission/learning gates |
+| Delivery accounting and controller integration | 83B1..84BB sync/async routing, packet/reservoir accounting and shared-state joins; replace the 7D4B fuel task binding; connect fuel-required scheduled producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
+
+The batches describe dependency groups, not a claim that each fits one PR. Move
+supporting producers forward when a consumer needs them; preserve one public
+routine per source file. Use the actual stock BMHM bytes and the existing
+[upstream fuel](analysis/FACTORY_UPSTREAM_FUEL_CALCULATIONS.md),
+[closed-loop/learning](analysis/FACTORY_CLOSED_LOOP_AND_LEARNING.md),
+[integer handoff](analysis/FACTORY_FUEL_INTEGER_HANDOFF.md) and
+[REF delivery](../pseudo-source/reference/ref_event_contract.md) contracts.
+Existing factory documentation does not replace compiled-C/ROM comparisons.
+
+Completion requires all of the following:
+
+- Resident C fuel bodies and required input producers run without substituted fuel
+  task bindings. Keep unfinished unrelated slot work explicit while connecting the
+  fuel producers at their actual admissions; do not skip a required caller prefix.
+- Compare the complete running calculation through command publication with the ROM,
+  then join it with the crank/running REF paths. Preserve saturation, wrapping,
+  fractions, mask ordering, shared owners and each failed transaction's committed prefix.
+- Exercise cold/hot crank, startup, warm OL idle, CL cruise/learning, PE, transient
+  sync/async fuel, short pulses, cut/decel/recovery, ignition-off and sensor faults.
+  Include retained multi-call histories, scheduler phase/state age and selected REF
+  interleavings, in addition to direct arithmetic boundary sweeps.
+- Keep all existing quick contracts and ROM suites passing. Record new instruction,
+  calibration and joined-call coverage with its limits rather than treating test
+  counts as whole-firmware equivalence.
+
+The host milestone establishes software calculation and command ordering. Target
+startup/interrupt assembly, backend, ABI/memory fit, cycle/stack bounds and physical
+injector/ASIC timing and delivered fuel require their own validation. Guarded
+optional-module calls remain explicit dependencies when admitted. Truck calibration
+changes require the exact current image and matching logs; stock BMHM comparisons
+do not establish the current tune's calibration values.
 
 ## Current truck image
 
