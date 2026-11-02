@@ -11,4 +11,5 @@ uint16_t pcm_lag8(uint8_t target, uint16_t old, uint8_t gain);
 uint16_t pcm_lag16(uint16_t target, uint16_t old, uint8_t gain, uint16_t *intermediate);
 PcmStatus pcm_lookup_capped(uint8_t input, const PcmCappedCurve *, uint8_t *result);
 PcmStatus pcm_lookup_scaled(uint8_t input, const PcmScaledCurve *, uint8_t *result);
+PcmStatus pcm_lookup_offset(uint8_t input, const PcmOffsetCurve *, uint8_t *result);
 #endif

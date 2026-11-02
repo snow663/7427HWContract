@@ -19,4 +19,14 @@ PcmStatus pcm_iac_learning_diagnostic(Pcm *);
 PcmStatus pcm_iac_reset_admit(Pcm *);
 PcmStatus pcm_iac_reset_request(Pcm *);
 PcmStatus pcm_iac_slow(Pcm *);
+PcmStatus pcm_iac_service(Pcm *, bool *exited);
+PcmStatus pcm_iac_seed_cells(Pcm *);
+PcmStatus pcm_iac_start(Pcm *);
+PcmStatus pcm_iac_context(Pcm *);
+PcmStatus pcm_iac_error(Pcm *);
+PcmStatus pcm_iac_integral(Pcm *);
+PcmStatus pcm_iac_proportional(Pcm *);
+PcmStatus pcm_iac_derivative(Pcm *);
+PcmStatus pcm_iac_compose(Pcm *);
+PcmStatus pcm_iac_convert(Pcm *, uint16_t flow);
 #endif

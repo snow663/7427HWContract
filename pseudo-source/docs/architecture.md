@@ -157,6 +157,15 @@ The scaled lookup has an immutable descriptor and explicit backing length;
 production keeps nine stock knots, while exhaustive scale tests supply a larger
 ROM-checked fixture view. See the [slow IAC contract](../reference/iac_slow_contract.md).
 
+Main93D0 now calls the resident service, reset/seed, stopped or running controller
+sequence. Service carries an explicit whole-controller exit result; it never
+falls through after a discarded factory return frame. The optional1803 call
+precedes resident writes and retains a named dependency. The old main-IAC task
+ID is reserved and unused. Working words and the integral frame have named
+state/local owners, retaining the actual high-byte-only stores and wrapped
+position interpolation. Count reconciliation is separate from ring stepping.
+See the [main IAC contract](../reference/iac_main_contract.md).
+
 ## Freedom to change algorithms
 
 Fuel calculation, injector scheduling, spark calculation, spark scheduling and
