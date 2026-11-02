@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 245 public routines: 112 implemented outlines,
-31 explicit dependency boundaries and 102 implemented algorithms.
+The source currently has 261 public routines: 122 implemented outlines,
+31 explicit dependency boundaries and 108 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -70,7 +70,7 @@ is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md
 Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
 state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
 The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
-new source-profile bytes. Both host routes now have48 CTest entries. See the
+new source-profile bytes. Both host routes now have50 CTest entries. See the
 [background IAC contract](../pseudo-source/reference/iac_background_contract.md).
 Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
 Direct and both indexed forms now use all-selected-bit semantics;393,216
@@ -122,8 +122,12 @@ The O2 controller, closed-loop admission, complete BLM selection/learning tail,
 retained-cell helpers and callable EGR/BLM, derivative, BARO/battery and signed
 INT/P/MAP corrections now have checked C bodies. See the
 [feedback contract](../pseudo-source/reference/fuel_feedback_contract.md).
-Broader fuel/slot1/4/D/F roots remain boundaries. Next are cut/decel/recovery,
-AE-reservoir and sync/async accounting, then admission/tail wiring and EGR producers.
+Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
+admitted7E4F crank/running calculation through852B command publication. See the
+[delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
+Broader fuel/slot1/4/D/F roots remain boundaries. Next are the7D4B ignition/input
+prefix and852C scheduled tail, required EGR producers and their slow-slot
+admissions/initialization.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -145,16 +149,16 @@ at 8548..858A, and their timer helpers. MAP filtering/transient selection, RPM/l
 VSS and environmental slices also have checked bodies. These are building blocks:
 `pcm_fuel_control` at 7D4B remains an explicit task boundary. The first
 fuel batch replaced `pcm_adc_feedback` and slot0/2 task boundaries with resident C. The documented upstream and closed-loop/learning contracts now also have the
-callable C stages listed above. Cut/decel/AE-reservoir and sync/async accounting,
-plus full caller admissions, remain implementation work.
+callable C stages listed above. Cut/decel/AE-reservoir and sync/async accounting now also have connected C bodies.
+Full caller admissions, scheduled tail and required producer wiring remain work.
 
 | Batch | Related implementation work | Joined evidence required |
 |---|---|---|
 | Acquisition and injector finalization (implemented slices) | Resident ADC/averaging path at 7B6D/F245; battery acquisition and 8613 ignition-state handling; E2FB..E303 injector offset; 84BC..852B final synchronous shaping/output; join the existing async helper | Real input/output transactions, timeout and failed prefixes, short-PW boundary, wrapped offset addition, final limit, zero output and retained state on async bypass |
 | Air charge and fuel input producers (implemented normalization/air slices) | TPS acquisition/zero normalization, BARO, CTS/MAT, density/charge temperature, VE selection; connect existing base arithmetic and environmental/RPM/VSS producers | Producer/consumer state age, lookup neighbors, diagnostic substitutions, scaling, rounding and old-state feedback; complete fuel-required EGR demand/feedback/control/flow/output dependencies as encountered |
-| Fuel modes, commanded AFR and enrichment (AFR/startup/AE slices implemented; reservoirs pending) | Startup and crank equation; open-loop/idle AFR, PE and transitions; MAP/TPS/IAC-related AE gains, histories and reservoirs | Cold/hot crank through REF delivery, startup-to-running changes, OL idle and PE admission/exit, retained histories and phase-gated updates |
-| Running corrections and closed-loop learning (O2/BLM and post-decel correction slices implemented) | 8032..83AE EGR/BLM, cut/decel/recovery, RPM/BARO/battery, signed INT/P and MAP AE; O2 filtering/activity/I/P at 863D..891D, AFR/BLM at 891E..8EB3, and slot-F admission producers | BLM saturated doubling versus signed additive INT/P; cut/recovery priority; learning/cell reset/persistence; O2 activity and distinct admission/learning gates |
-| Delivery accounting and controller integration | 83B1..84BB sync/async routing, packet/reservoir accounting and shared-state joins; replace the 7D4B fuel task binding; connect fuel-required scheduled producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
+| Fuel modes, commanded AFR and enrichment (callable calculation/reservoir slices implemented) | Startup and crank equation; open-loop/idle AFR, PE and transitions; MAP/TPS/IAC-related AE gains, histories and reservoirs | Cold/hot crank through REF delivery, startup-to-running changes, OL idle and PE admission/exit, retained histories and phase-gated updates |
+| Running corrections and closed-loop learning (callable correction/learning slices implemented) | 8032..83AE EGR/BLM, cut/decel/recovery, RPM/BARO/battery, signed INT/P and MAP AE; O2 filtering/activity/I/P at 863D..891D, AFR/BLM at 891E..8EB3, and slot-F admission producers | BLM saturated doubling versus signed additive INT/P; cut/recovery priority; learning/cell reset/persistence; O2 activity and distinct admission/learning gates |
+| Delivery accounting and controller integration (accounting and7E4F..852B implemented; broad callers pending) | 83B1..84BB sync/async routing, packet/reservoir accounting and shared-state joins; replace the 7D4B fuel task binding; connect fuel-required scheduled producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
 
 The batches describe dependency groups, not a claim that each fits one PR. Move
 supporting producers forward when a consumer needs them; preserve one public
@@ -316,7 +320,11 @@ startup/AE/AFR/PE/REF history calls.
 The feedback suite adds927,344 comparisons across all750 scoped instruction
 starts,312 distinct profile bytes,1,054 expanded fixture bytes,377 selected
 failure prefixes and1,024 retained O2/BLM/correction/REF history calls.
-CI gates on the 24 quick contracts/provenance tests before the 24 ROM suites.
+The delivery suite adds665,548 comparisons across368 reachable scoped starts
+with one arithmetic-bounded guard,85 distinct profile bytes,17 expanded curve
+bytes,1,343 selected failure prefixes and1,024 retained calculation/delivery/REF
+history calls.
+CI gates on the 25 quick contracts/provenance tests before the 25 ROM suites.
 Independent comparisons run two at a time, with the longest suites scheduled first.
 The simulator has 18 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.

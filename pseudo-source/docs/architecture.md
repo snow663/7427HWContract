@@ -69,6 +69,12 @@ EGR/BLM and post-decel pulse corrections reuse their existing state owners.
 The broad fuel root retains cut/decel/AE-reservoir, sync/async accounting and
 admission/tail work. See the [feedback contract](../reference/fuel_feedback_contract.md).
 
+The admitted fuel calculation now runs continuously from7E4F through852B,
+including cut/decel, AE reservoirs, sync/async packet accounting and the existing
+finalizer. Routing preserves its live period, fractional accumulator, mask and
+failed-operation prefixes. Broad ignition/input and scheduled-tail wiring remain
+explicit. See the [delivery contract](../reference/fuel_delivery_contract.md).
+
 ## Hardware and unfinished code
 
 The four read/write entry points preserve transaction width. A word callback

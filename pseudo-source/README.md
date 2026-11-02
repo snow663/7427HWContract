@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 245 public routines: 112 implemented outlines, 31 dependency
-boundaries and 102 implemented algorithms. Reset CPU/chip-select/board
+The tree contains 261 public routines: 122 implemented outlines, 31 dependency
+boundaries and 108 implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -235,6 +235,10 @@ startup/AE/AFR/PE/REF history calls.
 The feedback suite adds927,344 comparisons across all750 scoped instruction
 starts,312 distinct profile bytes,1,054 expanded fixture bytes,377 selected
 failure prefixes and1,024 retained O2/BLM/correction/REF history calls.
+The delivery suite adds665,548 comparisons across368 reachable scoped starts
+with one arithmetic-bounded guard,85 distinct profile bytes,17 expanded curve
+bytes,1,343 selected failure prefixes and1,024 retained calculation/delivery/REF
+history calls.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
@@ -261,8 +265,11 @@ The O2 controller, closed-loop admission, complete BLM selection/learning tail,
 retained-cell helpers and callable EGR/BLM, derivative, BARO/battery and signed
 INT/P/MAP corrections now have checked C bodies. See the
 [feedback contract](reference/fuel_feedback_contract.md).
-Next are cut/decel/recovery, AE reservoirs and sync/async accounting, then complete
-admission/tail wiring and the EGR producers those stages require.
+Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
+admitted7E4F crank/running calculation through852B command publication. See the
+[delivery contract](reference/fuel_delivery_contract.md).
+Next are the broad ignition/input prefix and scheduled tail, required EGR
+producers and their slow-slot admissions/initialization.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
 resident bodies directly; broad fuel and slot4 work stays explicit. See the

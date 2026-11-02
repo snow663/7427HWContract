@@ -62,4 +62,22 @@ PcmStatus pcm_fuel_derivative_correction(Pcm *pcm);
 PcmStatus pcm_fuel_baro_battery(Pcm *pcm);
 PcmStatus pcm_fuel_feedback_apply(Pcm *pcm);
 PcmStatus pcm_fuel_post_corrections(Pcm *pcm);
+
+/* Cut/decel, reservoirs and admitted running delivery. */
+PcmStatus pcm_fuel_cut_gate(Pcm *pcm, bool *reduce);
+PcmStatus pcm_fuel_acceleration_reservoir(Pcm *pcm);
+PcmStatus pcm_fuel_decel_gate(Pcm *pcm, bool *reduce);
+PcmStatus pcm_fuel_reduction(Pcm *pcm);
+PcmStatus pcm_fuel_enleanment(Pcm *pcm);
+PcmStatus pcm_fuel_cut_decel(Pcm *pcm);
+PcmStatus pcm_fuel_cpi_prepare(Pcm *pcm);
+PcmStatus pcm_fuel_async_accumulate(Pcm *pcm);
+PcmStatus pcm_fuel_packet_select(Pcm *pcm, uint16_t *packet, bool *emit);
+PcmStatus pcm_fuel_packet_emit(Pcm *pcm, uint16_t packet);
+PcmStatus pcm_fuel_packet(Pcm *pcm);
+PcmStatus pcm_fuel_route(Pcm *pcm, bool *packet);
+PcmStatus pcm_fuel_deliver(Pcm *pcm);
+PcmStatus pcm_fuel_construct(Pcm *pcm);
+PcmStatus pcm_fuel_running(Pcm *pcm);
+PcmStatus pcm_fuel_calculate(Pcm *pcm);
 #endif
