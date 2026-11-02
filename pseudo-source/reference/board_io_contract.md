@@ -4,8 +4,8 @@ Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 Actual bytes supply the C routines below. The old whole-common-I/O and input
 housekeeping task IDs remain reserved and unused. Each public routine has its
-own source file; the inventory is177 routines:81 implemented outlines,
-37 dependency boundaries and59 algorithms.
+own source file; the inventory is180 routines:82 implemented outlines,
+34 dependency boundaries and64 algorithms.
 
 | Stock scope | C routine | Responsibility |
 |---|---|---|
@@ -130,9 +130,11 @@ The busy witness injects three arrivals at the real board CLI after the first
 latch write. Four count advances produce only two latch writes,14 then10 hex;
 catch-up adds no step. Special fast-group and busy-return paths still bypass
 board flush. Target peripheral response and physical motor edges are not inferred.
-Both host routes now have38 CTest entries and six kernel contract groups.
+Both host routes now have40 CTest entries and six kernel contract groups.
 
-Next connect MAP transient-gain selection and the raw/filtered VSS producers.
+The [scheduled input batch](scheduled_inputs_contract.md) now implements MAP
+transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
+environmental precomputation. Next connect the ADC/EGR producer/controller chain.
 Upstream acquisition, other scheduled controllers, optional modules, target
 reset/interrupt entry, ABI/RAM/linker/stack fit and actual peripheral/board/timing
 validation remain separate work. This port supplies source behavior and backend

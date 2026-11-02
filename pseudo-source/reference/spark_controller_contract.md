@@ -128,7 +128,7 @@ prefixes and repeated reference/startup/monitor histories. New C contracts and
 the full 160-phase kernel fixtures also exercise ordinary and special dispatcher
 calls with the production task bindings absent. The source inventory is now
 161 public routines: 73 implemented outlines, 41 explicit boundaries and 47
-algorithms. Both host verification routes include 38 CTest entries.
+algorithms. Both host verification routes include 40 CTest entries.
 
 This establishes the resident controller's implemented source path under its
 named inputs and explicit external boundaries. Upstream acquisition, slot7's
@@ -136,9 +136,9 @@ other producers, remaining engine controllers, reset/interrupt assembly, native
 ABI, linker/RAM/stack fit and physical peripheral/timing validation remain.
 The [slot7 wrapper](slot7_contract.md) now connects the real scheduled CA6B
 producer and the [background IAC](iac_background_contract.md) in its five-call
-order. Shift-lamp remains a dependency; C9F7 environmental precomputation belongs
-to slot4. Inputs retain their
-factory producer cadence.
+order, now including the [resident shift lamp](scheduled_inputs_contract.md).
+C9F7 environmental precomputation has a checked callable body; its wider slot4
+wrapper remains unfinished. Inputs retain their factory producer cadence.
 
 See the [output contract](spark_output_contract.md),
 [admission contract](spark_admission_contract.md),

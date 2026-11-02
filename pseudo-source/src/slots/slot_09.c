@@ -3,7 +3,7 @@
 #include "iac.h"
 /* Reference 7B2F, table word 7A97.
  * Stock body: 7B2F:CF16;7B32:A2B0;7B35:D4DA
- * Keep EGR and VSS producers explicit around the resident slow IAC. */
+ * EGR demand stays explicit; resident slow IAC precedes resident VSS filtering. */
 PcmStatus pcm_slot_09(Pcm *pcm)
 {
     PcmStatus result = pcm_egr_demand(pcm);

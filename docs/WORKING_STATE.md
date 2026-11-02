@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 177 public routines: 81 implemented outlines,
-37 explicit dependency boundaries and fifty-nine implemented algorithms.
+The source currently has 180 public routines: 82 implemented outlines,
+34 explicit dependency boundaries and sixty-four implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -70,7 +70,7 @@ is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md
 Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
 state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
 The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
-new source-profile bytes. Both host routes now have38 CTest entries. See the
+new source-profile bytes. Both host routes now have40 CTest entries. See the
 [background IAC contract](../pseudo-source/reference/iac_background_contract.md).
 Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
 Direct and both indexed forms now use all-selected-bit semantics;393,216
@@ -96,8 +96,11 @@ retains the masked word/byte transaction sequence, status/REF shared ownership,
 MAP fallback/filter rounding, VSS timestamp polling, brake qualification and the
 single-AA watchdog prefix. Real3062 latch writes are included in the kernel
 busy/catch-up witness. See the [board/input contract](../pseudo-source/reference/board_io_contract.md).
-Next connect the MAP transient-gain selector and raw/filtered VSS producers,
-alongside remaining scheduled work and reset/backend validation.
+The next batch implements the remaining ADC acquisition and EGR producer/controller
+chain. MAP transient selection, raw VSS conversion and environmental precomputation
+now have callable checked bodies; their broader fuel/slot4 wrappers stay explicit.
+Slot6 AC inputs, slot7 shift-lamp logic and slot9 VSS filtering run resident C.
+See the [scheduled input contract](../pseudo-source/reference/scheduled_inputs_contract.md).
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -183,7 +186,7 @@ failure prefixes and selected producer/consumer histories. All 121 scoped
 instruction starts execute; 24 new calibration bytes and the shared diagnostic
 enable match stock. Adaptive spark adds 480,560 comparisons and covers all 201
 scoped instruction starts plus 83 new calibration bytes. The source check suite
-now has thirty-eight CTest entries. Base/environmental spark adds 753,561 comparisons,
+now has forty CTest entries. Base/environmental spark adds 753,561 comparisons,
 all 336 scoped instruction starts and 1,035 new distinct calibration bytes.
 Modifiers add 225,622 comparisons, all 234 scoped instruction starts and 38 new
 calibration bytes, with 43 prior/shared bytes checked again. Command construction
@@ -213,7 +216,12 @@ Slow IAC adds 749,466 comparisons across348 scoped instruction starts and
 376,456 comparisons across 48 instruction starts. Board/input service adds
 803,504 comparisons across 141 instruction starts, 7,971 selected failure
 prefixes, 1,024 retained history calls and 11 checked source-profile bytes.
-CI runs the 38 independent CTest entries two at a time.
+The six-group scheduled input batch adds1,603,654 comparisons across384 scoped
+instruction starts,185 checked profile bytes,678 selected failure prefixes and
+1,024 retained histories. Earlier slice suites retain explicitly isolated historical
+input/lamp/VSS fixtures; the current kernel and combined suite link resident bodies.
+CI gates on the 20 quick contracts/provenance tests before the 20 ROM suites.
+Independent comparisons run two at a time, with the longest suites scheduled first.
 The simulator has 18 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
 
@@ -223,7 +231,9 @@ We can continue the C source while preserving those explicit interfaces.
 
 ## Delivery workflow
 
-Complete each implementation step, run its required checks, publish its PR and
+Batch several related routine groups into each implementation PR so a full CI
+run covers more progress. Retain one public routine per source file and run the
+quick contracts before the ROM differential suites. Complete each batch, publish its PR and
 merge after CI passes. The user authorized merging each completed step; another
 confirmation is not required. Work in progress stays on its implementation branch.
 

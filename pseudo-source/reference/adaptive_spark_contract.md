@@ -11,23 +11,24 @@ actual instructions. No target compiler ABI or physical spark scaling is implied
 |---|---|---|
 | `pcm_knock_gains` | CAD5..CB14 | Low-octane RPM factor, event gain and PE/non-PE cap; callable suffix of CA6B |
 | `pcm_burst_gain` | CA4C..CA6A → CB14 | Callable tail of the scheduled C9F7 producer |
-| `pcm_low_octane_learn` | CE10..CE7B | Called directly after the input dependency in slot6 |
+| `pcm_low_octane_learn` | CE10..CE7B | Called directly after resident inputs in slot6 |
 | `pcm_low_octane_retard` | A77A..A791 | Callable slice of the broader A466 spark controller |
 | `pcm_knock_burst` | AA33..AA80 | Optional burst latch/countdown and command subtraction |
 | `pcm_knock_corrections` | AA33..AADB | Burst followed by the previously implemented normal-KR consumer |
-| `pcm_ac_switch_inputs` | CB15..CC34 | Explicit unported AC/diagnostic-switch input boundary |
+| `pcm_ac_switch_inputs` | CB15..CC34 | Resident AC/diagnostic inputs; see [input contract](scheduled_inputs_contract.md) |
 
 Slot6 preserves the stock order at 7B14..7B1A: CB15 input work, then CE10 learning.
-The former `PCM_SLOT_06` whole-slot binding is replaced by
-`PCM_AC_SWITCH_INPUTS`, which owns only CB15. A missing or failed input binding
-stops before learning. Learning tests the full phase after that callback; it
-runs only at06, once per complete 160-phase cycle in ordinary dispatcher fixtures.
+The former whole-slot6 and AC input task bindings are unused by the current
+kernel. Learning samples the full phase after resident inputs; it runs only at06
+in ordinary dispatcher fixtures. This historical adaptive suite retains its
+narrow input fixture, while the new combined suite executes both resident bodies.
 
 Slot7 now calls the complete MAT/PE/knock-gain wrapper at CA6B..CB14 in its
 [verified call order](slot7_contract.md), after the implemented background IAC
-and before the remaining shift-lamp dependency. See the [spark terms contract](spark_terms_contract.md). The earlier C9F7 body also remains part
-of its existing slot dependency. This step does not replace those boundaries
-with partial gain calls or change their cadence. The [A466 resident controller](spark_controller_contract.md)
+and before the resident shift lamp. See the [spark terms contract](spark_terms_contract.md).
+The [scheduled input batch](scheduled_inputs_contract.md) now supplies C9F7
+environmental precomputation; its broader slot4 wrapper remains unfinished.
+Callable bodies do not skip other scheduled work or change their cadence. The [A466 resident controller](spark_controller_contract.md)
 is now implemented. The [command wrapper](spark_command_contract.md) now retains
 command preparation and the upper limit before AA33, followed by the lower
 limit and service edits after AA81's normal-KR slice. Output conversion and

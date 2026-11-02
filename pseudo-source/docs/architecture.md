@@ -76,9 +76,9 @@ callback failures preserve the current prefix and mask. See the
 [OC1 contract](../reference/oc1_knock_contract.md) and
 [knock control contract](../reference/knock_control_contract.md).
 Burst, low-octane learning/scaling and gain/cap production now have checked C
-routines. Slot6 preserves the CB15 input dependency before the learner, which
-samples the full phase after that dependency returns. The prior whole-slot6
-binding is replaced by the narrower AC/switch owner. Other broad roots retain
+routines. Slot6 runs the resident CB15 input service before the learner, which
+samples the full phase after that service returns. The prior whole-slot6 and
+AC/switch bindings are unused by the current kernel. Other broad roots retain
 their unfinished work; callable slices do not silently replace their remaining
 callees. See the [adaptive spark contract](../reference/adaptive_spark_contract.md).
 The new A700..A84D body now constructs the base/environmental composite word,
@@ -180,6 +180,13 @@ only004B bits6F and0073/74 bitsBFFF; output request/kicker and REF.extra_request
 retain their existing owners. The reset outline clears the group; target reset
 seeding and retained-state initialization remain separate. See the
 [board/input contract](../reference/board_io_contract.md).
+
+The six-part [scheduled input batch](../reference/scheduled_inputs_contract.md)
+connects resident AC qualification before slot6 learning, shift-lamp work at the
+end of slot7 and VSS filtering after slot9 slow IAC. MAP transient selection,
+raw VSS conversion and environmental precomputation have callable checked bodies;
+their broader fuel/slot4 wrappers retain unfinished work. The shared0284 high byte
+and AC/diagnostic flags retain their existing owners.
 
 ## Freedom to change algorithms
 

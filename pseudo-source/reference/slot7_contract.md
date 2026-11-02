@@ -10,7 +10,7 @@ Actual instructions implement the following five calls and return at 7B1B..7B2A:
 | 2 | F5DC | `pcm_connection_probe` | Complete signature probe; matching 180C module remains a dependency |
 | 3 | 9E99 | `pcm_iac_background` | Complete resident background IAC; see [IAC contract](iac_background_contract.md) |
 | 4 | CA6B | `pcm_spark_auxiliary` | Existing complete MAT/PE/knock-gain producer, now called directly |
-| 5 | ACA7 | `pcm_shift_lamp` | Explicit `PCM_SHIFT_LAMP` dependency |
+| 5 | ACA7 | `pcm_shift_lamp` | Resident shift-lamp body; see [input contract](scheduled_inputs_contract.md) |
 
 Each public routine has its own file. `pcm_slot_07` now preserves this sequence
 and stops at the first failed prefix. It no longer calls `PCM_SLOT_07`; that
@@ -125,14 +125,16 @@ and180C returns remain fixtures, as do subsequently enabled180F/1812 hooks. The
 new [IAC suite](iac_background_contract.md) executes the real9E99 body within
 slot7 and its following normal call. The kernel's full160-phase regression also
 runs the real background body, verifies changed target/kicker state and admits
-the shift-lamp dependency ten times, with the former whole-slot and IAC bindings
-absent in activation tests.
+the resident shift-lamp body with its stock disabled feature. The former whole-slot,
+IAC and lamp bindings are absent in the current kernel; the new combined input
+suite also checks enabled lamp behavior.
 
-The inventory is 161 public routines: 73 implemented outlines, 41 dependency
-boundaries and 47 algorithms. Both host verification routes include 32 CTest
-entries. The9E99 background path is now implemented. The [slow IAC](iac_slow_contract.md) now runs in slot9. Next are main IAC
-and its step driver, alongside ACA7's shift-lamp body. Other producers, target assembly,
-native ABI, memory/stack fit and physical peripheral timing remain separate work.
+The inventory is 180 public routines: 82 implemented outlines, 34 dependency
+boundaries and 64 algorithms. Both host routes have40 CTest-equivalent entries.
+Background, main and slow IAC, stepping and the shift-lamp body are implemented.
+The [scheduled input batch](scheduled_inputs_contract.md) adds real AC/VSS and
+environmental producers. Remaining acquisition, broader scheduled roots, target
+assembly, native memory/ABI fit and physical timing remain separate work.
 
 See the [spark terms](spark_terms_contract.md),
 [adaptive spark](adaptive_spark_contract.md),
