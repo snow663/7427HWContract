@@ -94,6 +94,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
+    f->platform.task[PCM_SERIAL_POLL]=f->platform.task[PCM_SCI_BODY]=f->platform.task[PCM_RESET_SERIAL]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
@@ -114,13 +115,14 @@ static void test_initialization_and_missing_contracts(void) {
     CHECK(pcm.knock.sample_baseline==0 && pcm.knock.observation_accumulator==0);
     CHECK(pcm.knock.retard==0 && !pcm.knock.sensor_fault && pcm.knock.sensor_fault_count==0);
     CHECK(pcm.spark.command==0 && !pcm.runtime.adc_timeout && !pcm.runtime.adc_fault);
-    CHECK(pcm.transmission.output_shadow==0 && pcm.transmission.tcc_command==0);
+    CHECK(pcm.transmission.output_shadow==0x40 && pcm.transmission.tcc_command==0);
     CHECK(pcm.iac.transfer_flags==0 && pcm.iac.bank[0].cold==0);
     CHECK(pcm.io.map_filter==0 && pcm.io.auxiliary_output==0);
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
+    CHECK(pcm.system.startup_counter==20 && pcm.iac.blm_value==128 && f.counts[PCM_RESET_SERIAL]==0);
     static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RAM,
-        PCM_RESET_SENSORS,PCM_RESET_RETAINED,PCM_RESET_CONTROLLERS,PCM_RESET_SERIAL};
+        PCM_RESET_SENSORS,PCM_RESET_RETAINED,PCM_RESET_CONTROLLERS};
     CHECK(f.used==sizeof(expected)/sizeof(expected[0]));
     CHECK(memcmp(f.trace,expected,sizeof(expected))==0);
     init(&f,&pcm); f.platform.delay_cycles=NULL;
@@ -138,6 +140,7 @@ static void test_full_phase_cycle(void) {
     }
     CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==160 && f.current_writes==160);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_INPUT_HOUSEKEEPING]==0 && f.shadow_observations==160);
+    CHECK(f.counts[PCM_SERIAL_POLL]==0);
     CHECK(f.watchdog_writes==80); /* The real housekeeping supplies oneAA per even pass. */
     CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==80);
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==40 && f.counts[PCM_PRESSURE_TCC]==40);

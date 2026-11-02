@@ -36,6 +36,9 @@ typedef PcmStatus (*PcmRoutine)(struct Pcm *);
 typedef PcmStatus (*PcmDependency)(struct Pcm *, PcmTask);
 typedef struct {
     void *context;
+    /* ALDL also uses the logical CPU address space. Providers must bind
+     * non-serial RAM to its named Pcm owners, and supply ROM/device semantics;
+     * these callbacks never imply that native C layout equals factory RAM. */
     PcmStatus (*read8)(void *, uint16_t address, uint8_t *);
     PcmStatus (*read16)(void *, uint16_t address, uint16_t *);
     PcmStatus (*write8)(void *, uint16_t address, uint8_t);
@@ -543,6 +546,18 @@ typedef struct {
     /* Async-route bit003E.4 remains in io.coolant_context, not duplicated. */
 } PcmFuel;
 
+typedef struct {
+    volatile uint8_t sessions, clear_edges; /*0042,0045; preserve unrelated bits. */
+    volatile bool clear_engine, clear_transmission, deferred, busy, companion_pending; /*003B.1/.0/.5/.6/.7 */
+    volatile uint8_t count, checksum, last_id, length, companion, receive_age; /*0360/61,0364..67 */
+    volatile uint16_t descriptor, service_age, service_expiry; /*0362,0368,036A */
+    volatile uint8_t receive[34], engine_command, transmission_command; /*036C..038D,038E,0399 */
+} PcmSerial;
+
+typedef struct {
+    volatile uint8_t startup_counter; /*0049, reset seed20 */
+} PcmSystem;
+
 typedef struct Pcm {
     const PcmPlatform *platform; /* immutable bindings can live in ROM */
     const PcmCalibration *calibration;
@@ -555,6 +570,8 @@ typedef struct Pcm {
     PcmIac iac;
     PcmIo io;
     PcmFuel fuel;
+    PcmSerial serial;
+    PcmSystem system;
     PcmTask unresolved_task;
     void *application;                 /* tests/strategy-owned explicit state */
 } Pcm;

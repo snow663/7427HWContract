@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 261 public routines: 122 implemented outlines,
-31 explicit dependency boundaries and 108 implemented algorithms.
+The source currently has 277 public routines: 141 implemented outlines,
+28 explicit dependency boundaries and 108 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -70,7 +70,7 @@ is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md
 Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
 state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
 The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
-new source-profile bytes. Both host routes now have50 CTest entries. See the
+new source-profile bytes. Both host routes now have52 CTest entries. See the
 [background IAC contract](../pseudo-source/reference/iac_background_contract.md).
 Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
 Direct and both indexed forms now use all-selected-bit semantics;393,216
@@ -96,9 +96,8 @@ retains the masked word/byte transaction sequence, status/REF shared ownership,
 MAP fallback/filter rounding, VSS timestamp polling, brake qualification and the
 single-AA watchdog prefix. Real3062 latch writes are included in the kernel
 busy/catch-up witness. See the [board/input contract](../pseudo-source/reference/board_io_contract.md).
-The next substantial milestone is the complete fuel calculation and injector-control
-path, with remaining hardware inputs closed as their fuel dependencies are implemented.
-The implementation sequence and completion gates are recorded below.
+The current priority is ALDL and system code. The fuel calculation and injector-control
+milestone remains tracked below, with its remaining dependency work explicit.
 MAP transient selection, raw VSS conversion and environmental precomputation
 now have callable checked bodies; their broader fuel/slot4 wrappers stay explicit.
 Slot6 AC inputs, slot7 shift-lamp logic and slot9 VSS filtering run resident C.
@@ -125,7 +124,7 @@ INT/P/MAP corrections now have checked C bodies. See the
 Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
-Broader fuel/slot1/4/D/F roots remain boundaries. Next are the7D4B ignition/input
+Broader fuel/slot1/4/D/F roots remain boundaries. Fuel follow-up includes the7D4B ignition/input
 prefix and852C scheduled tail, required EGR producers and their slow-slot
 admissions/initialization.
 Known access widths/order and timing premises remain binding until better
@@ -134,14 +133,31 @@ evidence supports a deliberate change. No actuator authority is granted by a hos
 Truck tuning and continued stock-ROM analysis remain supported workstreams.
 They use the same evidence with separate calibration/image identities.
 
-## Next milestone: complete fuel calculation and injector control
+## Current milestone: ALDL and system code
+
+The SCI transport/system batch adds16 routines and replaces the serial poll,
+SCI IRQ body and post-controller boot boundaries with resident C. It covers
+normal/factory framing, descriptor/command/page selection, raw/live/requested
+replies, broadcasts, driver handoff and session/service-duration timing.
+A callable boot slice clears0360..03FE; the post-controller stage seeds phase,
+BLM, startup counter, COP and the output shadow. See the
+[SCI/system contract](../pseudo-source/reference/serial_system_contract.md).
+
+Next implement F64E..F780 retained/controller service processing and its ordered
+AE85 input/idle/service wrapper. Preserve clear-request edges, retained raw
+outputs, output-enable cleanup, expiry ordering and existing controller owners.
+Then extend the factory-test and remaining reset/system paths using their ROM
+contracts. Target logical-address binding, startup/interrupt assembly, stack/
+cycle bounds and physical SCI behavior remain explicit interfaces.
+
+## Tracked milestone: complete fuel calculation and injector control
 
 The goal is a connected, ROM-checked C fuel path from acquired inputs and retained
 state through pulse construction, synchronous/asynchronous arbitration and ordered
 injector-command writes. Complete the fuel-dependent acquisition and producer work
 alongside it. Batch related routines per PR. Publish after local verification;
 report GitHub CI as pending and check its results before a later merge. This is
-the active implementation priority.
+a tracked milestone; ALDL and system code are the current implementation priority.
 
 The current implementation already includes the base equation at 7FD8..802F,
 the REF crank/running/decay/common routines, crank event gain, asynchronous output
@@ -324,7 +340,13 @@ The delivery suite adds665,548 comparisons across368 reachable scoped starts
 with one arithmetic-bounded guard,85 distinct profile bytes,17 expanded curve
 bytes,1,343 selected failure prefixes and1,024 retained calculation/delivery/REF
 history calls.
-CI gates on the 25 quick contracts/provenance tests before the 25 ROM suites.
+The SCI/system suite adds309,610 comparisons across all385 scoped instruction
+starts (target RTI excluded),431 selected failure prefixes and256 retained
+histories. Its full logical-address sweep includes130,667 normal/factory
+selections outside private HC11 call-stack bytes. A coherent test provider binds
+canonical state; the real address-space/backend and F64E service lifecycle remain
+explicit work. Final duration sampling has24 callback and1,440 boundary checks.
+CI gates on the 26 quick contracts/provenance tests before the 26 ROM suites.
 Independent comparisons run two at a time, with the longest suites scheduled first.
 The simulator has 18 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.
