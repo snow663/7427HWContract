@@ -9,4 +9,5 @@ extern const PcmIoCalibration pcm_reference_io_calibration;
 extern const PcmAcCalibration pcm_reference_ac_calibration;
 extern const PcmEnvironmentCalibration pcm_reference_environment_calibration;
 extern const PcmFuelCalibration pcm_reference_fuel_calibration;
+extern const PcmAirCalibration pcm_reference_air_calibration;
 #endif

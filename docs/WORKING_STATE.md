@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 187 public routines: 92 implemented outlines,
-31 explicit dependency boundaries and sixty-four implemented algorithms.
+The source currently has 198 public routines: 96 implemented outlines,
+31 explicit dependency boundaries and seventy-one implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -70,7 +70,7 @@ is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md
 Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
 state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
 The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
-new source-profile bytes. Both host routes now have42 CTest entries. See the
+new source-profile bytes. Both host routes now have44 CTest entries. See the
 [background IAC contract](../pseudo-source/reference/iac_background_contract.md).
 Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
 Direct and both indexed forms now use all-selected-bit semantics;393,216
@@ -110,7 +110,14 @@ finalization/publication. Shared REF/EST/MAP owners, literal masks, short-PW fla
 and wrapped offset arithmetic remain explicit. The broad fuel controller and
 remaining producer/caller admissions stay unfinished. See the
 [fuel input/output contract](../pseudo-source/reference/fuel_input_output_contract.md).
-The next fuel batch closes air-charge and required input producers.
+The air/normalization batch now provides callable TPS zero/normalization,
+coolant/MAT/BARO acquisition and diagnostics, density, charge temperature, VE
+and contiguous VE/base-fuel publication. Shared0232/02F4/02F6 owners and lookup
+neighbors remain explicit. See the
+[fuel-air contract](../pseudo-source/reference/fuel_air_contract.md).
+Broader fuel and slot1/4/D/F admissions remain unfinished. Next is fuel-mode
+admission, commanded AFR/PE/startup and enrichment, with remaining EGR dependencies
+closed as the corrections need them.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -137,7 +144,7 @@ C implementations.
 | Batch | Related implementation work | Joined evidence required |
 |---|---|---|
 | Acquisition and injector finalization (implemented slices) | Resident ADC/averaging path at 7B6D/F245; battery acquisition and 8613 ignition-state handling; E2FB..E303 injector offset; 84BC..852B final synchronous shaping/output; join the existing async helper | Real input/output transactions, timeout and failed prefixes, short-PW boundary, wrapped offset addition, final limit, zero output and retained state on async bypass |
-| Air charge and fuel input producers | TPS acquisition/zero normalization, BARO, CTS/MAT, density/charge temperature, VE selection; connect existing base arithmetic and environmental/RPM/VSS producers | Producer/consumer state age, lookup neighbors, diagnostic substitutions, scaling, rounding and old-state feedback; complete fuel-required EGR demand/feedback/control/flow/output dependencies as encountered |
+| Air charge and fuel input producers (implemented normalization/air slices) | TPS acquisition/zero normalization, BARO, CTS/MAT, density/charge temperature, VE selection; connect existing base arithmetic and environmental/RPM/VSS producers | Producer/consumer state age, lookup neighbors, diagnostic substitutions, scaling, rounding and old-state feedback; complete fuel-required EGR demand/feedback/control/flow/output dependencies as encountered |
 | Fuel modes, commanded AFR and enrichment | Startup and crank equation; open-loop/idle AFR, PE and transitions; MAP/TPS/IAC-related AE gains, histories and reservoirs | Cold/hot crank through REF delivery, startup-to-running changes, OL idle and PE admission/exit, retained histories and phase-gated updates |
 | Running corrections and closed-loop learning | 8032..83AE EGR/BLM, cut/decel/recovery, RPM/BARO/battery, signed INT/P and MAP AE; O2 filtering/activity/I/P at 863D..891D, AFR/BLM at 891E..8EB3, and slot-F admission producers | BLM saturated doubling versus signed additive INT/P; cut/recovery priority; learning/cell reset/persistence; O2 activity and distinct admission/learning gates |
 | Delivery accounting and controller integration | 83B1..84BB sync/async routing, packet/reservoir accounting and shared-state joins; replace the 7D4B fuel task binding; connect fuel-required scheduled producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
@@ -253,7 +260,7 @@ failure prefixes and selected producer/consumer histories. All 121 scoped
 instruction starts execute; 24 new calibration bytes and the shared diagnostic
 enable match stock. Adaptive spark adds 480,560 comparisons and covers all 201
 scoped instruction starts plus 83 new calibration bytes. The source check suite
-now has forty-two CTest entries. Base/environmental spark adds 753,561 comparisons,
+now has forty-four CTest entries. Base/environmental spark adds 753,561 comparisons,
 all 336 scoped instruction starts and 1,035 new distinct calibration bytes.
 Modifiers add 225,622 comparisons, all 234 scoped instruction starts and 38 new
 calibration bytes, with 43 prior/shared bytes checked again. Command construction
@@ -291,7 +298,11 @@ The fuel input/output batch adds370,428 comparisons across all181 scoped
 instruction starts,22 new profile bytes,2,600 selected failure prefixes and1,024
 retained history calls. Resident ADC feedback also runs in the kernel phase and
 busy/catch-up witnesses without its former task binding.
-CI gates on the 21 quick contracts/provenance tests before the 21 ROM suites.
+The fuel-air suite contains1,015,696 comparisons across336 scoped instruction
+starts,930 distinct checked profile bytes and1,581 expanded fixture-view bytes.
+It includes1,953 selected failure prefixes,1,024 retained histories and explicit
+BARO/counter-wrap admissions in addition to the complete arithmetic sweeps.
+CI gates on the 22 quick contracts/provenance tests before the 22 ROM suites.
 Independent comparisons run two at a time, with the longest suites scheduled first.
 The simulator has 18 CPU/GUI/real-ROM tests and its
 CI matrix on Python3.10/3.11/3.12.

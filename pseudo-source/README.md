@@ -38,8 +38,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 187 public routines: 92 implemented outlines, 31 dependency
-boundaries and sixty-four implemented algorithms. Reset CPU/chip-select/board
+The tree contains 198 public routines: 96 implemented outlines, 31 dependency
+boundaries and seventy-one implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -185,7 +185,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are forty-two CTest entries; the Python route runs the same contract/differential checks.
+are forty-four CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -225,6 +225,9 @@ instruction starts, with185 checked profile bytes and selected slot6/7/9 joins.
 The fuel input/output suite adds370,428 comparisons across181 scoped instruction
 starts,22 new profile bytes,2,600 selected failure prefixes and1,024 retained
 history calls; the kernel now runs resident ADC feedback without its old task.
+The fuel-air suite contains1,015,696 comparisons across336 scoped instruction
+starts,930 distinct profile bytes and1,581 expanded fixture bytes, including
+1,953 selected failure prefixes and1,024 retained input/VE/air-rate histories.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
@@ -240,8 +243,12 @@ ADC feedback, TPS/MAP/O2 acquisition, resident slot0 battery and slot2 auxiliary
 acquisition, callable ignition/capture state and injector offset,
 and synchronous shaping/publication. See the
 [fuel input/output contract](reference/fuel_input_output_contract.md).
-The next batch closes air-charge and required input producers, including EGR
-where the fuel path requires its state.
+Callable TPS zero/normalization, coolant/MAT/BARO acquisition and diagnostics,
+density, charge temperature, VE and the contiguous VE/base publisher now have
+checked C bodies. See the [fuel-air contract](reference/fuel_air_contract.md).
+Their wider fuel/slot1/4/D/F and transmission callers remain boundaries.
+The next batch covers fuel-mode admission, commanded AFR/PE/startup and
+enrichment; remaining EGR producers stay explicit until their consumers need them.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
 resident bodies directly; broad fuel and slot4 work stays explicit. See the

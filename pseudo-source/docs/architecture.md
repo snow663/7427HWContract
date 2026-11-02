@@ -48,6 +48,14 @@ auxiliary ADC bodies, including raw00A7 publication. Broader fuel/slot-F callers
 remain unfinished.
 See the [fuel input/output contract](../reference/fuel_input_output_contract.md).
 
+The callable air path now includes shared TPS-zero filtering/normalization,
+CTS/MAT/BARO production and diagnostics, density, charge temperature, VE and a
+contiguous VE/base-fuel wrapper. It publishes into the existing0232,02F4 and02F6
+owners plus named new fractions. Read-view bounds retain zero-weight endpoint
+neighbors; a failed lookup retains its completed flag/state prefix. Wider
+scheduled callers remain explicit boundaries. See the
+[fuel-air contract](../reference/fuel_air_contract.md).
+
 ## Hardware and unfinished code
 
 The four read/write entry points preserve transaction width. A word callback
