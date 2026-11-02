@@ -42,7 +42,7 @@ typedef struct {
     PcmStatus (*write16)(void *, uint16_t address, uint16_t);
     /* Literal mask assignment, not save/restore critical-section nesting. */
     PcmStatus (*mask_irq)(void *, bool masked);
-    /* Minimum nominal E-cycle delay for REF ADC sampling. Preserve the
+    /* Minimum nominal E-cycle delay for ADC/board sequences. Preserve the
      * caller's IRQ mask; target call overhead is budgeted separately. */
     PcmStatus (*delay_cycles)(void *, uint16_t cycles);
     /* Must establish the documented entry-stack precondition. Target stack
@@ -174,6 +174,12 @@ typedef struct {
 } PcmIacCalibration;
 
 typedef struct {
+    uint8_t map_default, map_throttle_gain, map_normal_gain, map_transient_gain;
+    PcmCappedCurve map_bias; /* Cap RPM>>1 before subtracting fixed offset16. */
+    uint8_t brake_delay;
+} PcmIoCalibration;
+
+typedef struct {
     uint16_t format_version;
     uint16_t recurring_compare_counts;
     uint16_t first_compare_counts;
@@ -188,6 +194,7 @@ typedef struct {
     const PcmSparkCalibration *spark;   /* immutable source profile, not a serialized pointer */
     const PcmTransmissionCalibration *transmission;
     const PcmIacCalibration *iac;
+    const PcmIoCalibration *io;
 } PcmCalibration;
 
 typedef struct {
@@ -354,6 +361,16 @@ typedef struct {
     volatile uint8_t step_control; /* 000A: direction0, ring0C, enable10; other bits retained. */
 } PcmIac;
 
+typedef struct {
+    volatile uint8_t output_context; /* 004B bits6F;10/80 belong to spark/IAC. */
+    volatile uint8_t auxiliary_output; /* 004E */
+    volatile uint16_t status_context; /* 0073/74 bitsBFFF;4000 belongs to REF.extra_request. */
+    volatile uint16_t map_filter; /* 01C3/4 */
+    volatile bool map_transient, ac_mirror, brake_active; /* 0047.0,0041.4,009C.0 */
+    volatile uint8_t vss_changes, brake_count; /* 080C,00FB */
+    volatile uint16_t vss_timestamp; /* 080D */
+} PcmIo;
+
 typedef struct Pcm {
     const PcmPlatform *platform; /* immutable bindings can live in ROM */
     const PcmCalibration *calibration;
@@ -364,6 +381,7 @@ typedef struct Pcm {
     PcmSpark spark;
     PcmTransmission transmission;
     PcmIac iac;
+    PcmIo io;
     PcmTask unresolved_task;
     void *application;                 /* tests/strategy-owned explicit state */
 } Pcm;

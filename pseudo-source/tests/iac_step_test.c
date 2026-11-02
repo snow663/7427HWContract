@@ -66,7 +66,10 @@ static void step_contracts(void)
 #undef INIT
     puts("IAC step voltage gates, reversal pause, four-state ring, reset admission and literal-mask failure prefixes pass.");
 }
-int main(int argc,char **argv)
+#ifndef IAC_STEP_FIXTURE_ENTRY
+#define IAC_STEP_FIXTURE_ENTRY main
+#endif
+int IAC_STEP_FIXTURE_ENTRY(int argc,char **argv)
 {
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
     PcmTransmissionCalibration transmission;PcmIacCalibration cal;uint8_t patterns[256],baro[256],mat[256],ae[256],rpm[256];

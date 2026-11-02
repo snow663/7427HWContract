@@ -172,10 +172,10 @@ full160-phase kernel regression uses the real slow body and verifies ten EGR/VSS
 admissions and the absence of a whole-slot9 binding; the main port now also
 updates shared qualification/error state during the full cycle.
 
-Both host routes now have36 CTest entries. CI runs independent suites two at a
+Both host routes now have38 CTest entries. CI runs independent suites two at a
 time; they do not share mutable fixture state or generated artifacts. The source
-inventory is172 public routines:76 implemented outlines,39 dependency boundaries
-and57 algorithms. Target ABI, interrupt entry, coherent word access, linker/RAM/
+inventory is177 public routines:81 implemented outlines,37 dependency boundaries
+and59 algorithms. Target ABI, interrupt entry, coherent word access, linker/RAM/
 stack fit and physical peripheral/motor timing remain separate validation.
 
 The main93D0 IAC controller and service/reset/learning consumers are now

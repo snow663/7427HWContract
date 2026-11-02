@@ -4,8 +4,8 @@ Authority is stock BMHM SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`.
 `pcm_iac_step` implements all48 instruction starts at91A3..920D. Its old
 `PCM_IAC_STEP` task ID remains reserved and unused. No public routine is added;
-the inventory is172 routines:76 implemented outlines,39 dependency boundaries
-and57 implemented algorithms.
+the inventory is177 routines:81 implemented outlines,37 dependency boundaries
+and59 implemented algorithms.
 
 ## State and admission
 
@@ -77,8 +77,8 @@ Both sequential call orders are compared across all256 raw indices. This does
 not make the unmasked gear writer commute with an interrupting IAC update.
 The already documented preemption limit in
 [the shared-output contract](../../docs/analysis/FACTORY_STACK_AND_SHARED_OUTPUT_CONTRACT.md)
-remains in force. Common board I/O must still consume the shadow and sample the
-input mirror; no physical phase polarity, direction or step rate is established.
+remains in force. The [resident board service](board_io_contract.md) now consumes the shadow
+and samples the input mirror; no physical phase polarity, direction or step rate is established.
 
 ## Scheduling and verification
 
@@ -90,8 +90,8 @@ bindings are absent from the kernel regression.
 A busy-entry160-phase fixture supplies each old phase once with no intervening
 main-controller target changes. It observes160 normal count updates or120 reset
 updates. A separate injected-busy fixture observes four count advances across
-one owner plus three busy entries, with only two common-I/O admissions. Their
-observed shadows are14 then10 hex; the catch-up pass adds no step. These are
+one owner plus three busy entries, with only two common-I/O admissions. The board port now verifies real3062
+writes14 then10 hex; the catch-up pass adds no step. These are
 software admission/observation counts, not measured latch edges or motor rates.
 
 The new corpus passes376,456 compiled-C/ROM comparisons:
@@ -109,9 +109,9 @@ Every scoped instruction start executes. The test rejects unexpected non-stack
 RAM writes, checks completed ROM frame balance and compares mapped state, final
 mask and ordered transactions/dependencies. The new source byte matches stock;
 the inherited profiles/backings keep their existing stock checks. The full
-CMake route now has36 entries, and the kernel has six contract groups.
+CMake route now has38 entries, and the kernel has six contract groups.
 
-Next connect common board I/O and input housekeeping while retaining their
-remaining MAP/VSS/acquisition dependencies. Reset/interrupt assembly, the target
+Common board I/O and input housekeeping are now implemented. MAP gain
+selection, raw/filtered VSS and remaining acquisition producers stay explicit. Reset/interrupt assembly, the target
 ABI, RAM/linker/stack fit, actual latch/backend behavior and physical motor
 timing remain separate work. This is a host C implementation, not a target BIN.

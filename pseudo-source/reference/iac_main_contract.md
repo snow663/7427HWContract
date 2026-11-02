@@ -135,10 +135,10 @@ every ratio/old-high/sign combination, integral/cold admission and allocation,
 P selection/hysteresis, wrapped gear/AC transitions, all service selectors,
 reset/position pairs, retained histories, and failed dependency/I/O prefixes.
 The corpus exercises all919 scoped instruction starts. Both host routes
-include36 CTest entries.
+include38 CTest entries.
 
 A passing host comparison establishes the supplied witness domain. It does not
 establish target ABI, interrupt entry, RAM/stack fit, coherent word access,
 preemption behavior, HC11 deadlines or physical pintle direction/cadence.
-The91A3 count/phase service is now implemented. Next connect board I/O and
-input housekeeping, then remaining scheduled producers and reset/backend work. Optional module implementations remain explicit dependencies.
+The91A3 count/phase service is now implemented. Board I/O and input housekeeping are now implemented. MAP/VSS and remaining
+scheduled producers and reset/backend work stay explicit. Optional module implementations remain explicit dependencies.

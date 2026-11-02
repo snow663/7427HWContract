@@ -173,6 +173,14 @@ shadow is sampled after masking and merged with the latched command before
 literal CLI. The step routine writes no board latch. The old step task ID is
 reserved and unused. See the [step contract](../reference/iac_step_contract.md).
 
+Common I/O now runs board flush -> MAP filter -> VSS status/timestamp poll ->
+brake filter. Housekeeping writes the literal watchdogAA before its feature/input
+gates. Both former task IDs remain reserved and unused. The new I/O group owns
+only004B bits6F and0073/74 bitsBFFF; output request/kicker and REF.extra_request
+retain their existing owners. The reset outline clears the group; target reset
+seeding and retained-state initialization remain separate. See the
+[board/input contract](../reference/board_io_contract.md).
+
 ## Freedom to change algorithms
 
 Fuel calculation, injector scheduling, spark calculation, spark scheduling and
