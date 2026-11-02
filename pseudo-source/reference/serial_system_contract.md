@@ -105,11 +105,12 @@ is already in the earlier CPU/output stages. The new0360..03FE clear routine
 is callable but does not replace the broader working/retained reset boundary.
 Neither slice supplies startup assembly, stack setup or retained-memory policy.
 
-The F64E..F780 retained/controller service lifecycle, AE85 input wrapper and its
-ordered F781→F64E join remain the next implementation layer. Service requests
-are accepted/stored here; clear-edge execution, output-enable cleanup and their
-complete scheduled consumers remain separate. Manufacturing admission/upload/
-callback execution and factory periodic mode also remain explicit boundaries.
+The follow-up [service lifecycle batch](service_lifecycle_contract.md) now
+implements F64E..F780 and the ordered F781→F64E scheduled tail. The eight earlier
+AE85 transmission callees remain an explicit prefix dependency. This transport
+batch supplies packet acceptance/storage; the follow-up covers clear edges,
+service output fields and cleanup. Manufacturing admission/upload/callback
+execution and factory periodic mode remain explicit boundaries.
 See the [factory serial closure](../../docs/analysis/FACTORY_SERIAL_SERVICE_CLOSURE.md)
 for the documented source behavior. Full boot, trap/stack/watchdog handling,
 target memory fit and physical8192-baud/electrical behavior require their own work.

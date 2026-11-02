@@ -157,7 +157,10 @@ static void serial_contracts(void)
 #undef INIT
     puts("SCI prefix failures, partial abort retention, idle expiry, serial RAM ownership,03FF retention and SCI/fuel driver-bit isolation pass.");
 }
-int main(int argc,char **argv)
+#ifndef PCM_SERIAL_TEST_MAIN
+#define PCM_SERIAL_TEST_MAIN main
+#endif
+int PCM_SERIAL_TEST_MAIN(int argc,char **argv)
 {
     if (argc==2 && strcmp(argv[1],"--contracts")==0) { serial_contracts();return 0; }
     static Fixture f;Pcm pcm;PcmCalibration root;PcmFuelCalibration fuel;PcmIacCalibration iac;

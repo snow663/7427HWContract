@@ -37,6 +37,7 @@ TARGETS=[
  ('fuel_feedback','fuel_feedback_test',[],[['--contracts']],['fuel_feedback_rom']),
  ('fuel_delivery','fuel_delivery_test',[],[['--contracts']],['fuel_delivery_rom']),
  ('serial','serial_test',[],[['--contracts']],['serial_rom']),
+ ('service','service_test',[],[['--contracts']],['service_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',

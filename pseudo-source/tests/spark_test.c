@@ -226,7 +226,9 @@ static PcmStatus extension(Pcm *pcm,PcmTask task)
 }
 static PcmStatus read8(void *context,uint16_t address,uint8_t *value)
 {
-    Fixture *f=context;CHECK(address==PCM_BOARD_3060 || address==PCM_BOARD_3064);
+    Fixture *f=context;
+    if (address>=0x89 && address<=0x93) { *value=f->memory[address];return PCM_OK; }
+    CHECK(address==PCM_BOARD_3060 || address==PCM_BOARD_3064);
     uint8_t sample=f->memory[address];PcmStatus result=record(f,'R',8,address,sample);
     if (result==PCM_OK) *value=sample;
     return result;
@@ -258,7 +260,8 @@ static PcmStatus read16(void *context,uint16_t address,uint16_t *value)
 }
 static PcmStatus write8(void *context,uint16_t address,uint8_t value)
 {
-    Fixture *f=context;CHECK(address==PCM_BOARD_3060 || address==PCM_BOARD_3062 || address==PCM_BOARD_3067 ||
+    Fixture *f=context;
+    CHECK(address==PCM_BOARD_3060 || address==PCM_BOARD_3062 || address==PCM_BOARD_3067 ||
                             address==PCM_REFERENCE_AGE || address==PCM_COPRST);
     PcmStatus result=record(f,'W',8,address,value);
     if (result==PCM_OK) f->memory[address]=value;
@@ -520,14 +523,15 @@ static void controller_contracts(void)
     for (unsigned i=0;i<PCM_TASK_COUNT;++i) f.platform.task[i]=other_task;
     f.platform.task[PCM_SPARK_CONTROL]=f.platform.task[PCM_ALTERNATE_RPM]=NULL;
     f.platform.task[PCM_COMMON_IO]=f.platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
-    f.platform.task[PCM_SERIAL_POLL]=NULL;
+    f.platform.task[PCM_SERIAL_POLL]=f.platform.task[PCM_TRANSMISSION_INPUT]=NULL;
     f.platform.delay_cycles=dispatch_board_delay;
     CHECK(pcm_dispatch_fast(&pcm)==PCM_OK && word(f.memory,PCM_EST_HANDOFF)==0x1234);
     CHECK(f.events[0].kind=='M' && f.events[0].value==1 && f.events[1].kind=='R' &&
           f.events[1].width==16 && f.events[1].address==PCM_BOARD_CONTROL);
     CHECK(f.events[6].kind=='W' && f.events[6].address==PCM_BOARD_3062 && f.events[6].masked);
     CHECK(f.events[13].kind=='W' && f.events[13].address==PCM_COPRST && f.events[13].value==0xaa);
-    CHECK(f.events[f.used-1].address==0x7800+PCM_TRANSMISSION_INPUT);
+    CHECK(f.events[f.used-3].address==0x7800+PCM_TRANSMISSION_INPUT_PREFIX);
+    CHECK(f.events[f.used-2].kind=='M' && f.events[f.used-2].value==1 && f.events[f.used-1].kind=='M' && f.events[f.used-1].value==0);
     init(&f,&pcm,&root,&spark);bind(&f,&pcm);pcm.scheduler.phase=1;pcm.runtime.special_fast_group=true;
     f.platform.task[PCM_ALTERNATE_RPM]=NULL;pcm.spark.output_request=pcm.reference.consumed=true;
     CHECK(pcm_dispatch_fast(&pcm)==PCM_OK && f.used==2 && pcm.spark.period_basis==65535);
