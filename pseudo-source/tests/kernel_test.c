@@ -13,6 +13,8 @@ typedef struct {
     PcmTask trace[2048]; unsigned used;
     unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
     unsigned connection_action, signature_reads, transmission_writes;
+    uint8_t step_positions[256], observed_shadows[256];
+    unsigned step_observations, shadow_observations;
     bool masked, inject, injected, guard_fails, feed_reference;
     PcmPlatform platform;
 } Fixture;
@@ -48,6 +50,14 @@ static PcmStatus task(Pcm *pcm, PcmTask id) {
     CHECK(f->used<sizeof(f->trace)/sizeof(f->trace[0]));
     f->trace[f->used++]=id; ++f->counts[id];
     if (id==PCM_SLOT_02) CHECK(f->masked);
+    if (id==PCM_ADC_FEEDBACK) {
+        CHECK(!f->masked && f->step_observations<256);
+        f->step_positions[f->step_observations++]=pcm->iac.position;
+    }
+    if (id==PCM_COMMON_IO) {
+        CHECK(f->shadow_observations<256);
+        f->observed_shadows[f->shadow_observations++]=pcm->transmission.output_shadow;
+    }
     if (id==PCM_CURRENT_CONTROL) pcm->runtime.current_output=0x42;
     if (id==PCM_CONNECTION_EXTENSION && f->connection_action)
         pcm->scheduler.profiling_enabled=f->connection_action==1;
@@ -67,8 +77,10 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.check_stack=guard;
     for (unsigned k=0;k<PCM_TASK_COUNT;++k) f->platform.task[k]=task;
     f->platform.task[PCM_IAC_CONTROL]=NULL;
+    f->platform.task[PCM_IAC_STEP]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
+    pcm->spark.battery_sample=130;
 }
 static void test_initialization_and_missing_contracts(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
@@ -105,7 +117,7 @@ static void test_full_phase_cycle(void) {
         CHECK(pcm_periodic_irq(&pcm)==PCM_OK);
         CHECK(pcm.scheduler.phase==k && !pcm.scheduler.busy);
     }
-    CHECK(f.counts[PCM_IAC_STEP]==160 && f.current_writes==160);
+    CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==160 && f.current_writes==160);
     CHECK(f.counts[PCM_COMMON_IO]==160 && f.counts[PCM_INPUT_HOUSEKEEPING]==80);
     CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==80);
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==40 && f.counts[PCM_PRESSURE_TCC]==40);
@@ -129,12 +141,29 @@ static void test_full_phase_cycle(void) {
 }
 static void test_busy_coalescing_and_call_order(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm); f.inject=true; pcm.scheduler.phase=0;
+    pcm.iac.target=255;
     CHECK(pcm_periodic_irq(&pcm)==PCM_OK);
-    CHECK(f.counts[PCM_IAC_STEP]==4 && f.counts[PCM_CURRENT_CONTROL]==4);
+    CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==4 && f.counts[PCM_CURRENT_CONTROL]==4);
     CHECK(f.counts[PCM_COMMON_IO]==2 && pcm.scheduler.phase==2);
     CHECK(pcm.scheduler.busy_phase==1 && !pcm.scheduler.pending && !pcm.scheduler.busy);
-    CHECK(f.trace[0]==PCM_IAC_STEP && f.trace[1]==PCM_ADC_FEEDBACK && f.trace[2]==PCM_CURRENT_CONTROL);
+    CHECK(f.trace[0]==PCM_ADC_FEEDBACK && f.trace[1]==PCM_CURRENT_CONTROL);
+    for (unsigned k=0;k<4;++k) CHECK(f.step_positions[k]==k+1);
+    CHECK(pcm.iac.position==4 && f.observed_shadows[0]==0x14 && f.observed_shadows[1]==0x10);
     CHECK(f.current_writes==4 && f.timer_writes==4);
+}
+static void test_step_reset_cadence_and_busy_hold(void) {
+    static Fixture f; Pcm pcm;
+    for (unsigned reset=0;reset<2;++reset) {
+        init(&f,&pcm);pcm.scheduler.busy=true;pcm.iac.position=255;
+        pcm.iac.target=0;pcm.iac.step_control=1;pcm.iac.state_flags=(uint8_t)reset;
+        for (unsigned phase=0;phase<160;++phase) {
+            pcm.scheduler.phase=(uint8_t)phase;
+            CHECK(pcm_periodic_irq(&pcm)==PCM_OK && pcm.scheduler.phase==phase);
+        }
+        CHECK(pcm.iac.position==(reset?135:95) && f.step_observations==160);
+        CHECK(f.counts[PCM_COMMON_IO]==0 && f.shadow_observations==0);
+        CHECK(pcm.scheduler.pending && pcm.scheduler.busy_phase==159);
+    }
 }
 static void test_special_mode_and_slot_state(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm); pcm.scheduler.phase=0x9f; pcm.runtime.special_fast_group=true;
@@ -195,6 +224,7 @@ int main(int argc, char **argv) {
     test_initialization_and_missing_contracts(); test_full_phase_cycle();
     test_busy_coalescing_and_call_order(); test_special_mode_and_slot_state();
     test_retained_fields_profile_and_boundaries();
-    puts("Five kernel contract groups passed, including resident spark/alternate calls; other controller dependencies remain explicit.");
+    test_step_reset_cadence_and_busy_hold();
+    puts("Six kernel contract groups pass, including resident IAC steps before busy checks and no extra steps on catch-up.");
     return 0;
 }

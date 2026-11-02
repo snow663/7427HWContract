@@ -150,7 +150,7 @@ cases, 196,608 handoff cases, 69,632 alternate cases, 4,236 joined witnesses,
 1,174 failure prefixes and 256 history calls. These are not whole-program or
 physical equivalence claims.
 
-Both host routes contain 34 CTest entries. The source inventory is 161 public
+Both host routes contain 36 CTest entries. The source inventory is 161 public
 routines: 73 implemented outlines, 41 explicit boundaries and 47 algorithms.
 The [monitor and resident controller](spark_controller_contract.md) are now implemented. Startup/vector
 assembly, native ABI, memory/stack fit and physical timing/backend checks remain.

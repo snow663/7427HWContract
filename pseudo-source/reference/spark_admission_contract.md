@@ -148,7 +148,7 @@ fresh period samples, unrelated flag bits, and selected callback-time input
 changes. These are not every state combination or interrupt interleaving.
 Coherent fixture period words do not prove physical counter coherency.
 
-Both host routes now contain 34 CTest entries. The inventory is 161 public
+Both host routes now contain 36 CTest entries. The inventory is 161 public
 routines: 73 implemented outlines, 41 explicit boundaries and 47 algorithms.
 The [normal period/RPM preparation](spark_period_contract.md) is now implemented.
 The [output/alternate bodies](spark_output_contract.md) are now implemented.

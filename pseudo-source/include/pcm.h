@@ -170,6 +170,7 @@ typedef struct {
     uint8_t enrichment_throttle, enrichment_flow, dfco_bias, dfco_curve[17];
     uint16_t pe_flow_limit;
     uint8_t kicker_flow_subtract, kicker_flow_gain, position_curve[18];
+    uint8_t step_battery_minimum; /* 4EB6; comparison is strictly greater. */
 } PcmIacCalibration;
 
 typedef struct {
@@ -350,6 +351,7 @@ typedef struct {
     volatile uint8_t gear_adder, gear_hold, enrichment; /* 0879,087A,087F */
     volatile uint16_t selected_integral, selected_cold, selected_bound, derivative_filtered; /* 0862,0871,0873,086E */
     volatile uint16_t composite_flow, pre_baro_flow, airflow; /* 087D,0889,088B */
+    volatile uint8_t step_control; /* 000A: direction0, ring0C, enable10; other bits retained. */
 } PcmIac;
 
 typedef struct Pcm {

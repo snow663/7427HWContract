@@ -82,7 +82,10 @@ static void main_contracts(void)
 #undef INIT
     puts("Main IAC service escapes, reset/seed fractions, startup byte stores, missing module and checked conversion prefixes pass.");
 }
-int main(int argc,char **argv)
+#ifndef IAC_MAIN_FIXTURE_ENTRY
+#define IAC_MAIN_FIXTURE_ENTRY main
+#endif
+int IAC_MAIN_FIXTURE_ENTRY(int argc,char **argv)
 {
     static Fixture f;Pcm pcm;PcmCalibration root;PcmSparkCalibration spark;
     PcmTransmissionCalibration transmission;PcmIacCalibration cal;uint8_t patterns[256],baro[256],mat[256],ae[256],rpm[256];

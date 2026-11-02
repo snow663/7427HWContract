@@ -12,7 +12,7 @@ and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
 The source currently has 172 public routines: 76 implemented outlines,
-40 explicit dependency boundaries and fifty-six implemented algorithms.
+39 explicit dependency boundaries and fifty-seven implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -70,7 +70,7 @@ is unused. See the [slot7 contract](../pseudo-source/reference/slot7_contract.md
 Background IAC now includes desired RPM, movement/DFCO and AC decay, kicker
 state, cold bounds, queued gear/AC transfers and stopped/running snapshot tails.
 The new suite matches1,645,037 C/ROM calls across559 instruction starts and137
-new source-profile bytes. Both host routes now have34 CTest entries. See the
+new source-profile bytes. Both host routes now have36 CTest entries. See the
 [background IAC contract](../pseudo-source/reference/iac_background_contract.md).
 Partial-mask witnesses also found the simulator's any-bit BRSET implementation.
 Direct and both indexed forms now use all-selected-bit semantics;393,216
@@ -86,8 +86,13 @@ The main93D0 IAC controller now calls separate service/reset/startup, context,
 error, integral/P/D, composition and conversion routines. Nonlocal service exits,
 retained fractions and software count reconciliation match the stock witnesses.
 See the [main IAC contract](../pseudo-source/reference/iac_main_contract.md).
-Next is91A3 step service, alongside remaining scheduled producers and
-reset/backend work.
+The91A3 IAC step service now runs directly before each busy check, including
+busy reentry. It preserves voltage gates, direction reversal, reset phase
+admission, ring state and the ordered SEI/shared-shadow/CLI sequence. Catch-up
+passes do not add step admissions. See the
+[step contract](../pseudo-source/reference/iac_step_contract.md).
+Next connect common board I/O and input housekeeping, alongside remaining
+scheduled producers and reset/backend work.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -158,7 +163,7 @@ are not a whole-firmware completion percentage.
 
 ## Verification and remaining work
 
-The current factory suite has 190 tests. The C source checks cover five kernel
+The current factory suite has 190 tests. The C source checks cover six kernel
 contract groups, one-public-routine-per-file provenance, and 532 compiled-C
 base-fuel cases against actual stock instructions. Another 128 startup and 4,112
 REF cases compare ordered C/ROM transactions and pending state; 64 injected I/O
@@ -173,7 +178,7 @@ failure prefixes and selected producer/consumer histories. All 121 scoped
 instruction starts execute; 24 new calibration bytes and the shared diagnostic
 enable match stock. Adaptive spark adds 480,560 comparisons and covers all 201
 scoped instruction starts plus 83 new calibration bytes. The source check suite
-now has thirty-four CTest entries. Base/environmental spark adds 753,561 comparisons,
+now has thirty-six CTest entries. Base/environmental spark adds 753,561 comparisons,
 all 336 scoped instruction starts and 1,035 new distinct calibration bytes.
 Modifiers add 225,622 comparisons, all 234 scoped instruction starts and 38 new
 calibration bytes, with 43 prior/shared bytes checked again. Command construction

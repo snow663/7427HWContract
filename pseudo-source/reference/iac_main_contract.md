@@ -90,7 +90,8 @@ All exits publish the selected integral, cold and bound words in stock order.
 
 The software-position reconciliation paths change0007 without a ring transition.
 They retain their service/mode/error/phase gates and byte wrapping. They do not
-supply a physical position observation. The step driver91A3 remains unfinished.
+supply a physical position observation. The [resident step service](iac_step_contract.md) now handles91A3 count/phase
+updates; physical output service remains separate.
 
 P uses the verified pointer selection and drive-overspeed speed hysteresis.
 D retains its fractional word, sign and magnitude when the lookup target equals
@@ -134,10 +135,10 @@ every ratio/old-high/sign combination, integral/cold admission and allocation,
 P selection/hysteresis, wrapped gear/AC transitions, all service selectors,
 reset/position pairs, retained histories, and failed dependency/I/O prefixes.
 The corpus exercises all919 scoped instruction starts. Both host routes
-include34 CTest entries.
+include36 CTest entries.
 
 A passing host comparison establishes the supplied witness domain. It does not
 establish target ABI, interrupt entry, RAM/stack fit, coherent word access,
 preemption behavior, HC11 deadlines or physical pintle direction/cadence.
-Next port91A3 count/phase service, then remaining scheduled input producers and
-reset/backend work. Optional module implementations remain explicit dependencies.
+The91A3 count/phase service is now implemented. Next connect board I/O and
+input housekeeping, then remaining scheduled producers and reset/backend work. Optional module implementations remain explicit dependencies.
