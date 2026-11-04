@@ -9,6 +9,7 @@ from urllib.parse import parse_qs, urlsplit
 from .analysis import Image, Analyzer, COND, CALLS, END
 from .graph import routine_graph, global_graph
 from .mathtrace import math_traces
+from .autoreason import analyze as hc11_reason
 
 ROOT=Path(__file__).resolve().parents[1]
 STATIC=ROOT/'static'
@@ -90,6 +91,13 @@ class Workspace:
             specs=[f'{hexaddr(d["address"])}:{int(d["count"])}' for d in self.meta['dispatch_tables']]
             self.an=Analyzer(Image(raw,load),entries,True,specs).scan()
             self.summary_cache=None
+            self.auto_reason_cache=None
+    def auto_reason(self):
+        """Lazy static HC11 interpretation; never updates user metadata automatically."""
+        if getattr(self,'auto_reason_cache',None) is None:
+            self.auto_reason_cache=hc11_reason(self.an)
+        return self.auto_reason_cache
+
     def zones(self):
         base=json.loads(PROFILE_FILE.read_text())['zones'] if self.meta['profile']=='gm_7427_31' else []
         return base+self.meta.get('zones',[])
@@ -348,6 +356,12 @@ class Handler(BaseHTTPRequestHandler):
             if path=='/api/address':return self.respond(self.ws.address_info(query['address']))
             if path=='/api/accesses':return self.respond(self.ws.access_list(query))
             if path=='/api/rom-reads':return self.respond(self.ws.rom_references())
+            if path=='/api/auto-reason':
+                findings=self.ws.auto_reason()
+                pc=query.get('pc')
+                if pc is not None:
+                    return self.respond({'instruction':findings['instructions'].get(hexaddr(pc))})
+                return self.respond({k:v for k,v in findings.items() if k not in ('instructions','memory_references')})
             if path=='/api/table':return self.respond(self.ws.table_preview(query['id']))
             if path=='/api/save-project':
                 filename='ROMFlow_'+self.ws.sha[:12]+'.romflow'
