@@ -1,0 +1,2090 @@
+%PDF-1.4
+%---- ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R /F3 5 0 R /F4 8 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/Contents 19 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+5 0 obj
+<<
+/BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+>>
+endobj
+6 0 obj
+<<
+/Contents 20 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+7 0 obj
+<<
+/Contents 21 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+8 0 obj
+<<
+/BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
+>>
+endobj
+9 0 obj
+<<
+/Contents 22 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+10 0 obj
+<<
+/Contents 23 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+11 0 obj
+<<
+/Contents 24 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+12 0 obj
+<<
+/Contents 25 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+13 0 obj
+<<
+/Contents 26 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+14 0 obj
+<<
+/Contents 27 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+15 0 obj
+<<
+/Contents 28 0 R /MediaBox [ 0 0 612 792 ] /Parent 18 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+16 0 obj
+<<
+/PageMode /UseNone /Pages 18 0 R /Type /Catalog
+>>
+endobj
+17 0 obj
+<<
+/Author (ROMFlow Studio Project) /CreationDate (D:20261104023420+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20261104023420+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (68HC11 ROM reverse-engineering workbench user guide) /Title (ROMFlow Studio User Manual v0.2) /Trapped /False
+>>
+endobj
+18 0 obj
+<<
+/Count 10 /Kids [ 4 0 R 6 0 R 7 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 15 0 R ] /Type /Pages
+>>
+endobj
+19 0 obj
+<<
+/Length 3841
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (1) Tj T* ET
+Q
+q
+1 0 0 1 60 721 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (ROM REVERSE-ENGINEERING WORKBENCH) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 636 cm
+q
+BT 1 0 0 1 0 40 Tm 35 TL /F2 30 Tf .062745 .117647 .196078 rg (ROMFlow Studio) Tj  T* (User Manual) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 572 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 29 Tm /F1 15 Tf 22 TL (Interactive 68HC11 disassembly, program-flow maps, calibration) Tj T* (discovery and portable project snapshots.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 537.6 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (Version:) Tj /F1 9.6 Tf ( 0.2  ) Tj (  ) Tj /F2 9.6 Tf (Date:) Tj /F1 9.6 Tf ( November 2026  ) Tj (  ) Tj /F2 9.6 Tf (Project:) Tj /F1 9.6 Tf ( snow663/7427HWContract) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 514.6 cm
+Q
+q
+1 0 0 1 60 487.6 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (PURPOSE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 437.4 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 33.6 Tm /F1 9.6 Tf 14.4 TL (ROMFlow Studio is a local browser workbench backed by a Python decoder. Use it to navigate decoded ROM) Tj T* (instruction paths, annotate probable function boundaries, visualize links, examine memory/IO accesses, and define) Tj T* (human-readable calibration tables. The program does not patch or execute the input ROM.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 410.4 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (READ THIS FIRST) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 360.2 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 33.6 Tm /F1 9.6 Tf 14.4 TL -0.055579 Tw (A decoded instruction or graph edge is not proof that the hardware actually executes it. Some ROM data happens to) Tj T* 0 Tw (look like legal opcodes, and some indirect transfers cannot be proven statically. Keep byte-derived evidence,) Tj T* (imported hints and personal hypotheses distinct.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 321.2 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (Contents) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 299.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (1. Installation and first launch) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 281.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (2. Open a ROM and select an analysis profile) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 263.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (3. Tour of the interface) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 245.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (4. Routine tree and interactive program-flow graphs) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 227.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (5. Labels, definitions, colors and organization) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 209.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (6. Code/data regions and calibration tables) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 191.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (7. ROM/RAM, registers, stacks and SCI access tracing) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 173.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (8. Save, reopen and transfer a .romflow project) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 155.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (9. Practical reverse-engineering workflows) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 137.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (10. Keyboard shortcuts and tips) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 119.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (11. Troubleshooting, safety and known limits) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 101.2 cm
+q
+.282353 .333333 .4 rg
+BT 1 0 0 1 0 4 Tm /F1 8 Tf 12 TL (12. Reference: files, evidence and terminology) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+20 0 obj
+<<
+/Length 5290
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (2) Tj T* ET
+Q
+q
+1 0 0 1 60 714 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (1. Installation and first launch) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 689.6 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Requirement:) Tj /F1 9.6 Tf ( Python 3.10 or newer. No extra pip packages are needed for the bundled application.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 670.2 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Windows:) Tj /F1 9.6 Tf ( open the repository folder ) Tj /F2 9.6 Tf (ROMFlow_Studio) Tj /F1 9.6 Tf ( and double-click ) Tj /F2 9.6 Tf (Launch_ROMFlow_Studio.cmd) Tj /F1 9.6 Tf (.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 650.8 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Linux/macOS:) Tj /F1 9.6 Tf ( run ) Tj /F2 9.6 Tf (./Launch_ROMFlow_Studio.sh) Tj /F1 9.6 Tf (, or launch from the directory with ) Tj /F2 9.6 Tf (python -m studio.server) Tj /F1 9.6 Tf (.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 617 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Open ) Tj /F2 9.6 Tf (http://127.0.0.1:8765/) Tj /F1 9.6 Tf ( in a browser if it is not opened automatically. The server listens on the local) Tj T* 10 0 Td (computer; it is not hosted publicly.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 583.2 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 19.2 Tm /F1 9.6 Tf 14.4 TL (Keep the terminal or launcher running while using the application. Closing the browser does not remove saved) Tj T* (workspace metadata; closing the backend ends the live session until it is restarted.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 556.2 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (First-run checklist) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 534.8 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Confirm ROMFlow Studio loads and the Explorer and graph area appear.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 515.4 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Select Generic HC11 for an unknown controller.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 496 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Click Open ROM and select a raw .bin, .rom or .img file.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 476.6 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Find the reset/interrupt roots and review uncertain regions.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 457.2 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Save an explicit .romflow snapshot before making substantial manual classifications.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 418.2 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (2. Open a ROM and select an analysis profile) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 365 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Click ) Tj /F2 9.6 Tf (Open ROM...) Tj /F1 9.6 Tf ( and choose the ROM binary. ROMFlow accepts images up to 64 KiB. A full 64-KiB dump maps) Tj T* (to address $0000; a smaller dump is normally top-aligned in the 64-KiB CPU space \(for example, 32 KiB at $8000\).) Tj T* (Confirm the load address for your image before trusting vector or instruction addresses.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 313.8 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (The ) Tj /F2 9.6 Tf (Generic HC11) Tj /F1 9.6 Tf ( profile avoids assuming GM-specific RAM and I/O locations. The ) Tj /F2 9.6 Tf (GM 7427 / $31) Tj /F1 9.6 Tf ( profile supplies) Tj T* (memory-domain labels and optional calibration candidates. It is an ) Tj /F3 9.6 Tf (annotation profile) Tj /F1 9.6 Tf (, not a different opcode) Tj T* (decoder. Do not apply $31 assumptions as verified facts to other controller families.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 286.8 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (What to validate immediately) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 251 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Check the ROM hash and image size in the header. Different calibration revisions deserve different saved) Tj T* 10 0 Td (projects.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 231.6 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Inspect the vector entries, reset landing and recognizable initialization instructions.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 197.8 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Distinguish blank fill, unmapped windows and genuine executable bytes; an 0xFF byte can itself be a legal) Tj T* 10 0 Td (opcode at an instruction boundary.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 164 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 If the ROM includes banked code, treat the visible image and CPU address mapping as a hypothesis until the) Tj T* 10 0 Td (bank-select logic is understood.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+21 0 obj
+<<
+/Length 5738
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (3) Tj T* ET
+Q
+q
+1 0 0 1 60 714 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (3. Tour of the interface) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 465.5 cm
+q
+.062745 .117647 .196078 rg
+n 0 238.5 497 -27.5 re f*
+1 1 1 rg
+n 0 211 497 -39 re f*
+.941176 .960784 .972549 rg
+n 0 172 497 -39 re f*
+1 1 1 rg
+n 0 133 497 -39 re f*
+.941176 .960784 .972549 rg
+n 0 94 497 -27.5 re f*
+1 1 1 rg
+n 0 66.5 497 -39 re f*
+.941176 .960784 .972549 rg
+n 0 27.5 497 -27.5 re f*
+1 1 1 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 219 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Area) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123 219 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Purpose) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 8 191.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Top bar) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123 180 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 14.5 Tm /F1 8.5 Tf 11.5 TL (ROM name, hash, selected hardware profile, calibration hints, Recent, Reports, Save project,) Tj T* (Open project and Open ROM.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 152.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Explorer - left) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123 141 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 14.5 Tm /F1 8.5 Tf 11.5 TL (Expandable groups for routines, vectors, dispatch edges, memory zones, annotated code/data) Tj T* (regions and calibration tables.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 102 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 14.5 Tm /F1 8.5 Tf 11.5 TL (Control-flow canvas -) Tj T* (center) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123 102 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 14.5 Tm /F1 8.5 Tf 11.5 TL (Routine or Program graph. Inspect branch and call relationships; zoom, pan and move flow) Tj T* (nodes.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 74.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Bottom tabs) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123 74.5 cm
+q
+BT 1 0 0 1 0 3 Tm 11.5 TL /F1 8.5 Tf .062745 .117647 .196078 rg (Disassembly, Memory & I/O, ROM Hex, Calibration and ROM Reads.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 47 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Inspector - right) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 14.5 Tm /F1 8.5 Tf 11.5 TL (Edit selected routine, instruction or address labels; define flags, semantic notes and interpreted) Tj T* (math; view cross-references.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Status bar) Tj T* ET
+Q
+Q
+q
+1 0 0 1 123 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Current analysis status and local/offline indication.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.031373 .498039 .568627 RG
+.8 w
+n 0 211 m 497 211 l S
+Q
+Q
+Q
+q
+1 0 0 1 60 455.5 cm
+Q
+q
+1 0 0 1 60 416.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (4. Routine tree and interactive flow maps) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 377.7 cm
+q
+BT 1 0 0 1 0 19.2 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Use the Explorer caret to expand or collapse categories. The search field filters routines, addresses and labels.) Tj T* /F2 9.6 Tf (Expand) Tj /F1 9.6 Tf ( and ) Tj /F2 9.6 Tf (Collapse) Tj /F1 9.6 Tf ( act on the tree. Click a routine to open its graph and disassembly.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 350.7 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Routine mode versus Program mode) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 329.3 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Routine:) Tj /F1 9.6 Tf ( focuses on blocks, local exits, conditional paths and calls associated with the selected entry point.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 295.5 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Program:) Tj /F1 9.6 Tf ( navigates relationships among discovered routines and dispatch landing entries; use this to find) Tj T* 10 0 Td (high-level structure.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 261.7 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Click a node or edge to open supporting information in the Inspector. On a selected edge, use Inspect call site or) Tj T* 10 0 Td (Inspect target to navigate.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 227.9 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Drag nodes to make a readable layout; drag the background to pan; scroll or use +/- to zoom; Fit resets framing.) Tj T* 10 0 Td (Positions and transforms are preserved in project metadata.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 194.1 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 19.2 Tm /F1 9.6 Tf 14.4 TL (The graph legend distinguishes ordinary flow, calls, conditional edges and unresolved transfers. An automatically) Tj T* (inferred dispatch edge is not proof of runtime selection; verify pointer bytes and control paths independently.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 167.1 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Adding a missing entry point) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 116.9 cm
+q
+BT 1 0 0 1 0 33.6 Tm -0.042133 Tw 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Click ) Tj /F2 9.6 Tf (+ Entry) Tj /F1 9.6 Tf (. Supply a hex address for an additional root. You may also specify a suspected dispatch-table location) Tj T* 0 Tw (and slot count. This triggers a fresh code scan, but a declared table is ) Tj /F2 9.6 Tf (user evidence) Tj /F1 9.6 Tf (, not proof that bytes are) Tj T* (executable pointers.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+22 0 obj
+<<
+/Length 5477
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (4) Tj T* ET
+Q
+q
+1 0 0 1 60 714 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (5. Labels, definitions, colors and organization) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 660.8 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Click a routine, instruction, or memory address. In the Inspector, edit Symbol/Label, Function group, Color,) Tj T* (Category/semantics, Definition/notes, Flag bits, and Derived math/interpretation; click ) Tj /F2 9.6 Tf (Save annotation) Tj /F1 9.6 Tf (. Existing) Tj T* (names are an overlay and never rewrite the underlying ROM.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 633.8 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Recommended naming scheme) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 571.8 cm
+%PreformattedPara
+.062745 .117647 .196078 rg
+BT 1 0 0 1 8 46.8 Tm /F4 8.2 Tf 11 TL (R_7A4F_major_dispatch) Tj T* (R_77C7_timer_compare_housekeeping) Tj T* (RAM_0250_injector_pw_candidate) Tj T* (ASIC_3FCE_fuel_handoff_candidate) Tj T* (CAL_4A00_VE_candidate) Tj T* ET
+Q
+q
+1 0 0 1 60 518.6 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Use functional groups such as ) Tj /F2 9.6 Tf (Boot, Timer/ISR, Dispatcher, Fuel, Spark, Idle/IAC, ALDL/SCI, Diagnostics,) Tj T* (Calibration, Unknown) Tj /F1 9.6 Tf (. Keep provisional labels explicitly marked ) Tj /F2 9.6 Tf (candidate) Tj /F1 9.6 Tf ( until supported by a byte trace or) Tj T* (hardware observation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 491.6 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Color conventions you can adopt) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 319.6 cm
+q
+.062745 .117647 .196078 rg
+n 0 165 497 -27.5 re f*
+1 1 1 rg
+n 0 137.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 110 497 -27.5 re f*
+1 1 1 rg
+n 0 82.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 55 497 -27.5 re f*
+1 1 1 rg
+n 0 27.5 497 -27.5 re f*
+1 1 1 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Suggested color role) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Use) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 8 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Cyan) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Verified instruction/code region or reviewed control path) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Purple) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Call relationships, reusable math helpers) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Amber) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Conditional path, speculative table, undecided semantics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Red) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Unresolved indirect control flow or a review blocker) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Muted/gray) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Unknown, data not yet classified) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.031373 .498039 .568627 RG
+.8 w
+n 0 137.5 m 497 137.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 60 309.6 cm
+Q
+q
+1 0 0 1 60 280.8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 19.2 Tm /F1 9.6 Tf 14.4 TL (These are suggested labeling conventions; the actual interface palette is editable. Colors organize the investigation,) Tj T* (not the confidence calculation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 241.8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (6. Code/data regions and calibration tables) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 214.8 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Mark code, data or embedded pointer regions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 164.6 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Click ) Tj /F2 9.6 Tf (+ Region) Tj /F1 9.6 Tf (. Enter the first and last addresses, classification, label, group and notes. Such regions mark your) Tj T* (interpretation of bytes: the UI does not modify them. A mistaken region definition should be corrected rather than) Tj T* (taken as decoder truth.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 137.6 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Define a table) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 87.4 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Click ) Tj /F2 9.6 Tf (+ Table) Tj /F1 9.6 Tf ( or choose ) Tj /F2 9.6 Tf (Define table) Tj /F1 9.6 Tf ( at a memory address. Provide starting address, rows, columns, element width) Tj T* (\(bytes\), signedness, endianness, scale, bias/offset, engineering units, row and column captions, flag-bit definitions) Tj T* (and notes. The Calibration tab displays a read-only interpretation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 68.4 cm
+%PreformattedPara
+.062745 .117647 .196078 rg
+BT 1 0 0 1 8 2.8 Tm /F4 8.2 Tf 11 TL (Engineering value = raw_value * scale + offset) Tj T* ET
+Q
+ 
+endstream
+endobj
+23 0 obj
+<<
+/Length 6064
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (5) Tj T* ET
+Q
+q
+1 0 0 1 60 714 cm
+%PreformattedPara
+.062745 .117647 .196078 rg
+BT 1 0 0 1 8 13.8 Tm /F4 8.2 Tf 11 TL (Example: raw = 128, scale = 0.390625, offset = 0) Tj T* (         result = 50.0 percent) Tj T* ET
+Q
+q
+1 0 0 1 60 660.8 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (That example is a mathematical conversion only; it is ) Tj /F2 9.6 Tf (not) Tj /F1 9.6 Tf ( proof that a particular calibration uses that encoding. For) Tj T* (flags, document the bit position and condition separately, such as ) Tj /F2 9.6 Tf (7=Output enabled) Tj /F1 9.6 Tf (, only after the containing) Tj T* (register or variable has been verified.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 633.8 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Table-discovery tips) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 598 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 First locate code references to the suspected ROM table. Determine whether instructions read bytes or words,) Tj T* 10 0 Td (and whether indexed addresses are bounded.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 578.6 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Inspect nearby table headers, dimensions and strides before setting rows and columns.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 544.8 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Check big-endian versus little-endian values, signedness and fixed-point scaling against known observed) Tj T* 10 0 Td (quantities.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 511 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 If a pointer table is inside a code-containing ROM range, annotate it as embedded data and verify all landing) Tj T* 10 0 Td (targets individually.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 477.2 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Use ) Tj /F2 9.6 Tf (Calibration hints) Tj /F1 9.6 Tf ( only with the $31 profile; imported tables are candidates and must be compared to the) Tj T* 10 0 Td (loaded ROM revision.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 438.2 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (7. Memory, registers, stack and SCI tracing) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 385 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Select ) Tj /F2 9.6 Tf (Memory & I/O) Tj /F1 9.6 Tf ( to view resolved memory accesses and their addresses, types and classifications. The ) Tj /F2 9.6 Tf (ROM) Tj T* (Reads) Tj /F1 9.6 Tf ( tab aggregates code-origin reads of ROM addresses. Clicking an address opens read/write cross-references) Tj T* (in the Inspector. ROM Hex shows the raw bytes surrounding an address.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 358 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (What access evidence means) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 186 cm
+q
+.062745 .117647 .196078 rg
+n 0 165 497 -27.5 re f*
+1 1 1 rg
+n 0 137.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 110 497 -27.5 re f*
+1 1 1 rg
+n 0 82.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 55 497 -27.5 re f*
+1 1 1 rg
+n 0 27.5 497 -27.5 re f*
+1 1 1 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Indicator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 128 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Interpretation) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 8 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (R) Tj T* ET
+Q
+Q
+q
+1 0 0 1 128 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Instruction explicitly reads an address or a conservatively resolved indexed target.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (W) Tj T* ET
+Q
+Q
+q
+1 0 0 1 128 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Instruction stores or writes a target.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (RW) Tj T* ET
+Q
+Q
+q
+1 0 0 1 128 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Read-modify-write instruction; may touch individual bits.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Unresolved indexed) Tj T* ET
+Q
+Q
+q
+1 0 0 1 128 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Register-base or path uncertainty prevents a trustworthy effective address.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Control reference) Tj T* ET
+Q
+Q
+q
+1 0 0 1 128 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Branch/call/pointer relationship, not a normal RAM data access.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.031373 .498039 .568627 RG
+.8 w
+n 0 137.5 m 497 137.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 60 176 cm
+Q
+q
+1 0 0 1 60 147.2 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 19.2 Tm /F1 9.6 Tf 14.4 TL (Do not force an effective address from a stale preceding LDX/LDY in another path. If a register is reloaded, used as) Tj T* (a stack pointer, modified by ABX or affected by a call, resolution may be incomplete.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 120.2 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (SCI / ALDL workflow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 98.8 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Create an ) Tj /F2 9.6 Tf (ALDL/SCI) Tj /F1 9.6 Tf ( group and annotate the SCI control/data registers for the correct HC11 INIT mapping.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 79.4 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Use the memory address Inspector to collect all reads of status/data and writes to transmit/control registers.) Tj T* 10 0 Td ET
+Q
+Q
+ 
+endstream
+endobj
+24 0 obj
+<<
+/Length 4954
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (6) Tj T* ET
+Q
+q
+1 0 0 1 60 707.2 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Inspect caller routines and interrupt sources; separately mark the RX entry, TX queue, framing state and error) Tj T* 10 0 Td (path.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 673.4 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Note that physical serial side effects, data-register read-to-clear order and interrupt timing require) Tj T* 10 0 Td (hardware-specific validation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 646.4 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Stack and register caution) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 581.8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 48 Tm /F1 9.6 Tf 14.4 TL (The application decodes explicit memory operands and shows local derived math. It does not yet offer a complete) Tj T* (stack-frame reconstruction or a proven SSA data-flow engine. PSHA/PULX, JSR/RTS, SWI/RTI and SP-relative) Tj T* (effects may require tracing beyond the memory-access inventory. Record suspected stack effects in the Inspector) Tj T* (until independently checked.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 542.8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (8. Saving, reopening and moving a project) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 515.8 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Automatic workspace \(same computer\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 465.6 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (ROMFlow automatically persists ROM-specific metadata under ) Tj /F2 9.6 Tf (workspace/projects/) Tj (<) Tj (ROM SHA) Tj T* (prefix) Tj (>) Tj (/annotations.json) Tj /F1 9.6 Tf (. Use ) Tj /F2 9.6 Tf (Recent) Tj /F1 9.6 Tf ( to reopen a cached ROM. This is a convenience cache, not a portable) Tj T* (backup and not a Git-tracked research record.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 438.6 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Portable snapshot \(.romflow\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 402.8 cm
+q
+BT 1 0 0 1 0 19.2 Tm 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (Press ) Tj /F2 9.6 Tf (Save project) Tj /F1 9.6 Tf ( or ) Tj /F2 9.6 Tf (Ctrl+S) Tj /F1 9.6 Tf ( to download a self-contained ) Tj /F2 9.6 Tf (.romflow) Tj /F1 9.6 Tf ( file. Move it to another computer and choose) Tj T* /F2 9.6 Tf (Open project...) Tj /F1 9.6 Tf ( or ) Tj /F2 9.6 Tf (Ctrl+O) Tj /F1 9.6 Tf (. The source ROM is embedded, so you do not need to locate the original BIN again.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 339.8 cm
+%PreformattedPara
+.062745 .117647 .196078 rg
+BT 1 0 0 1 8 46.8 Tm /F4 8.2 Tf 11 TL (Example: BMHM_31_fuel_spark_review_2026-11-03.romflow) Tj T* (Archive members:) Tj T* (  manifest.json  format, ROM name, size, SHA-256, load address) Tj T* (  rom.bin        exact original input bytes) Tj T* (  metadata.json  annotations, graph layout, regions and tables) Tj T* ET
+Q
+q
+1 0 0 1 60 301 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 19.2 Tm /F1 9.6 Tf 14.4 TL (The loader verifies the ROM size, SHA-256 digest and project schema before replacing the active workspace. Static) Tj T* (analysis is recalculated when the project is opened; annotation and view state are reapplied.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 274 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Saving versus exporting reports) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 223.8 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (Reports) Tj /F1 9.6 Tf ( \(Ctrl+E\) exports analysis artifacts for inspection and sharing. These are not equivalent to a reopenable) Tj T* (project snapshot. For full preservation, save a ) Tj /F2 9.6 Tf (.romflow) Tj /F1 9.6 Tf ( file. For a human-readable investigation record, save the) Tj T* (report bundle as well.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 187 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 19.2 Tm /F1 9.6 Tf 14.4 TL (For reliable versions, keep milestone snapshots outside the workspace cache, such as 01_initial_rom,) Tj T* (02_vectors_reviewed, 03_dispatch_verified, and 04_fuel_path_traced.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 148 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (9. Practical workflows) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 121 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Workflow A - Find the reset path on a new PCM) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 99.6 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (1.) Tj /F1 9.6 Tf ( Open a ROM under Generic HC11 and check its address mapping.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 77.2 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (2.) Tj /F1 9.6 Tf ( Follow reset and other vector targets; inspect immediate initialization writes.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+25 0 obj
+<<
+/Length 4207
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (7) Tj T* ET
+Q
+q
+1 0 0 1 60 721.6 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (3.) Tj /F1 9.6 Tf ( Mark expected register relocation and timer setup as candidate code.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 699.2 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (4.) Tj /F1 9.6 Tf ( Name each reviewed routine and tag the execution-context evidence.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 676.8 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (5.) Tj /F1 9.6 Tf ( Export reports and preserve a .romflow snapshot.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 649.8 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Workflow B - Reconstruct a dispatch scheduler) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 628.4 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (1.) Tj /F1 9.6 Tf ( Locate computed JMP/JSR instructions or pointer-table consumers.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 606 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (2.) Tj /F1 9.6 Tf ( Inspect the index calculation and word/byte offsets.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 583.6 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (3.) Tj /F1 9.6 Tf ( Define the candidate dispatch table with the correct width and count.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 561.2 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (4.) Tj /F1 9.6 Tf ( Compare each landing target to actual ROM instructions and the graph.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 538.8 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (5.) Tj /F1 9.6 Tf ( Annotate the call site, table and each slot; keep unproven edges marked inferred.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 511.8 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Workflow C - Follow fuel, spark or IAC output ownership) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 490.4 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (1.) Tj /F1 9.6 Tf ( Select a suspected timer or ASIC handoff address in Memory & I/O.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 468 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (2.) Tj /F1 9.6 Tf ( Inspect every decoded writer, reader and relevant bit-modifying instruction.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 445.6 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (3.) Tj /F1 9.6 Tf ( Follow upstream calculations to RAM variables and calibration reads.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 423.2 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (4.) Tj /F1 9.6 Tf ( Record math, integer width, sign, carry conditions and units in each routine.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 400.8 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (5.) Tj /F1 9.6 Tf ( Check write order and physical effects separately against real logs or bench traces.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 373.8 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Workflow D - Compare a similar GM PCM) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 352.4 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (1.) Tj /F1 9.6 Tf ( Save the completed reference project; open the second PCM separately.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 330 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (2.) Tj /F1 9.6 Tf ( Start Generic HC11; do not transplant the first PCM memory layout.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 307.6 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (3.) Tj /F1 9.6 Tf ( Find equivalent vectors, timer patterns, call structure and table consumers.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 285.2 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (4.) Tj /F1 9.6 Tf ( Use groups and labels to document matched, changed and missing behavior.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 262.8 cm
+q
+BT 1 0 0 1 0 4.8 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (5.) Tj /F1 9.6 Tf ( Treat hardware-address differences as new contract evidence, not just relocation.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+26 0 obj
+<<
+/Length 4974
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (8) Tj T* ET
+Q
+q
+1 0 0 1 60 714 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (10. Shortcuts and tips) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 429 cm
+q
+.062745 .117647 .196078 rg
+n 0 275 497 -27.5 re f*
+1 1 1 rg
+n 0 247.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 220 497 -27.5 re f*
+1 1 1 rg
+n 0 192.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 165 497 -27.5 re f*
+1 1 1 rg
+n 0 137.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 110 497 -27.5 re f*
+1 1 1 rg
+n 0 82.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 55 497 -27.5 re f*
+1 1 1 rg
+n 0 27.5 497 -27.5 re f*
+1 1 1 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 255.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Action) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 255.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Shortcut / control) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 8 228 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Save portable project) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 228 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Ctrl+S \(Cmd+S on supported browsers\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 200.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Open portable project) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 200.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Ctrl+O \(Cmd+O on supported browsers\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 173 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Open a raw ROM) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 173 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Ctrl+Shift+O) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Export reports) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Ctrl+E) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Close Inspector overlay) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Esc) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Fit flow graph) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Fit button) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Zoom graph) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Mouse wheel over graph or + / - buttons) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Move graph) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Drag background to pan; drag nodes to arrange) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Expand / collapse explorer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 228 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Buttons at top of Explorer) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.031373 .498039 .568627 RG
+.8 w
+n 0 247.5 m 497 247.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 60 419 cm
+Q
+q
+1 0 0 1 60 392 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Tricks for large investigations) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 370.6 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Work from high-confidence roots outward; avoid a linear 64-KiB disassembly as the primary evidence source.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 351.2 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Use distinctive names for routine entry, code address, and RAM/ASIC symbol to avoid conflating the concepts.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 331.8 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Document all exit conditions, not only the normal return. Interrupts and tail jumps can share instruction bodies.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 298 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Save graph layouts after reorganizing major subgraphs; restoring a snapshot also restores your visual) Tj T* 10 0 Td (arrangement.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 278.6 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 Give uncertainty its own group so unresolved branches or suspicious tables remain visible.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 244.8 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 If the global graph is crowded, switch to Routine mode; the renderer limits very large global views for) Tj T* 10 0 Td (responsiveness.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+27 0 obj
+<<
+/Length 4577
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 560.552 29 Tm (9) Tj T* ET
+Q
+q
+1 0 0 1 60 714 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (11. Troubleshooting and current limitations) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 445 cm
+q
+.062745 .117647 .196078 rg
+n 0 259 497 -27.5 re f*
+1 1 1 rg
+n 0 231.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 204 497 -39 re f*
+1 1 1 rg
+n 0 165 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 137.5 497 -27.5 re f*
+1 1 1 rg
+n 0 110 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 82.5 497 -27.5 re f*
+1 1 1 rg
+n 0 55 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 27.5 497 -27.5 re f*
+1 1 1 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 239.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Symptom) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 239.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Check / remedy) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 8 212 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (No page at localhost) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 212 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Confirm Python 3.10+, launcher remains running and port 8765 is reachable locally.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 184.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Wrong addresses or no reset roots) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 173 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 14.5 Tm /F1 8.5 Tf 11.5 TL (Verify ROM length, CPU mapping/load address, vectors and whether data is) Tj T* (banked.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Routine missing) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Add a verified root using + Entry; record why this address is a valid entry.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Unexpected calibration values) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Review width, byte order, signedness, rows/columns, scale and offset.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Flow line unresolved) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Indirect branch, table consumer or register base may require explicit evidence.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Lost work after switching machines) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Use Save project; automatic workspace cache stays with the original computer.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Project rejected as corrupt) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Check that it is an unmodified .romflow archive with ROM hash and manifest intact.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Huge graph too slow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 173 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Use a single routine instead of the full Program graph.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.031373 .498039 .568627 RG
+.8 w
+n 0 231.5 m 497 231.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 60 435 cm
+Q
+q
+1 0 0 1 60 377.4 cm
+q
+BT 1 0 0 1 0 48 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (Known limits in v0.2:) Tj /F1 9.6 Tf ( static control-flow is conservative; code/data boundaries can remain disputed; dynamic bank) Tj T* (mapping, complete hardware effect semantics and detailed global symbolic execution are not proven. Tables are) Tj T* (views rather than active editors, and the tool does not write a modified ROM. Synthetic regression fixtures are not) Tj T* (substitutes for a verified real factory-ROM comparison.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 326.2 cm
+q
+BT 1 0 0 1 0 33.6 Tm 14.4 TL /F2 9.6 Tf .062745 .117647 .196078 rg (Engine-control caution:) Tj /F1 9.6 Tf ( before modifying ignition or injector output software, independently validate timing,) Tj T* (watchdog behavior, interrupt ownership, write ordering, fail-safe states and ASIC latch semantics. This GUI is a) Tj T* (research instrument, not proof of safe engine operation.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+28 0 obj
+<<
+/Length 4788
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.862745 .901961 .929412 RG
+n 47 42 m 565 42 l S
+BT /F1 8 Tf 9.6 TL ET
+.282353 .333333 .4 rg
+BT 1 0 0 1 47 29 Tm (ROMFLOW STUDIO  /  USER MANUAL v0.2  /  68HC11) Tj T* ET
+BT 1 0 0 1 556.104 29 Tm (10) Tj T* ET
+Q
+q
+1 0 0 1 60 714 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 5 Tm /F2 17 Tf 22 TL (12. File and terminology reference) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 484 cm
+q
+.062745 .117647 .196078 rg
+n 0 220 497 -27.5 re f*
+1 1 1 rg
+n 0 192.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 165 497 -27.5 re f*
+1 1 1 rg
+n 0 137.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 110 497 -27.5 re f*
+1 1 1 rg
+n 0 82.5 497 -27.5 re f*
+.941176 .960784 .972549 rg
+n 0 55 497 -27.5 re f*
+1 1 1 rg
+n 0 27.5 497 -27.5 re f*
+1 1 1 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 200.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Path) Tj T* ET
+Q
+Q
+q
+1 0 0 1 148 200.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Contents) Tj T* ET
+Q
+Q
+0 0 0 rg
+q
+1 0 0 1 8 173 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (studio/) Tj T* ET
+Q
+Q
+q
+1 0 0 1 148 173 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (HC11 decoding, ROM analysis, graph and math-trace support, local HTTP server.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (static/) Tj T* ET
+Q
+Q
+q
+1 0 0 1 148 145.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Browser UI assets \(HTML, CSS, JavaScript\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (profiles/) Tj T* ET
+Q
+Q
+q
+1 0 0 1 148 118 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Optional GM memory/annotation hints.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (examples/) Tj T* ET
+Q
+Q
+q
+1 0 0 1 148 90.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Synthetic ROM fixtures for regression tests.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (tests/) Tj T* ET
+Q
+Q
+q
+1 0 0 1 148 63 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Unit tests covering graphs, tables and project round trips.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (workspace/) Tj T* ET
+Q
+Q
+q
+1 0 0 1 148 35.5 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (Local autosave cache; excluded from Git.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (docs/) Tj T* ET
+Q
+Q
+q
+1 0 0 1 148 8 cm
+q
+.062745 .117647 .196078 rg
+BT 1 0 0 1 0 3 Tm /F1 8.5 Tf 11.5 TL (This user manual and future reference documentation.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.031373 .498039 .568627 RG
+.8 w
+n 0 192.5 m 497 192.5 l S
+Q
+Q
+Q
+q
+1 0 0 1 60 474 cm
+Q
+q
+1 0 0 1 60 447 cm
+q
+.031373 .498039 .568627 rg
+BT 1 0 0 1 0 4 Tm /F2 11 Tf 15 TL (Evidence terminology) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 425.6 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Rooted decode:) Tj /F1 9.6 Tf ( instruction stream followed from a known/provided entry and branch/call successors.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 406.2 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Direct edge:) Tj /F1 9.6 Tf ( control transfer target encoded by the instruction bytes.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 386.8 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Inferred dispatch:) Tj /F1 9.6 Tf ( possible target reconstructed from code/table interpretation; runtime selection not proven.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 367.4 cm
+q
+BT 1 0 0 1 16 4.8 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (Annotation:) Tj /F1 9.6 Tf ( user-entered meaning, function group, register name, calibration interpretation or hypothesis.) Tj T* 10 0 Td ET
+Q
+Q
+q
+1 0 0 1 60 333.6 cm
+q
+BT 1 0 0 1 16 19.2 Tm -10 0 Td 14.4 TL /F1 9.6 Tf .062745 .117647 .196078 rg (\177 ) Tj /F2 9.6 Tf (ROM fingerprint/hash:) Tj /F1 9.6 Tf ( SHA-256 of exact source bytes, used to associate analysis and verify portable project) Tj T* 10 0 Td (integrity.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 60 304.6 cm
+q
+BT 1 0 0 1 0 16 Tm 12 TL /F1 8 Tf .282353 .333333 .4 rg (For developers: run ) Tj /F2 8 Tf (python -m unittest discover -s tests -v) Tj /F1 8 Tf ( from the ROMFlow_Studio root. Review failures before updating the main) Tj T* (branch. This manual documents the current v0.2 interface and is not a promise that every future analysis feature is already implemented.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+xref
+0 29
+0000000000 65535 f 
+0000000061 00000 n 
+0000000122 00000 n 
+0000000229 00000 n 
+0000000341 00000 n 
+0000000536 00000 n 
+0000000651 00000 n 
+0000000846 00000 n 
+0000001041 00000 n 
+0000001146 00000 n 
+0000001341 00000 n 
+0000001537 00000 n 
+0000001733 00000 n 
+0000001929 00000 n 
+0000002125 00000 n 
+0000002321 00000 n 
+0000002517 00000 n 
+0000002587 00000 n 
+0000002931 00000 n 
+0000003052 00000 n 
+0000006945 00000 n 
+0000012287 00000 n 
+0000018077 00000 n 
+0000023606 00000 n 
+0000029722 00000 n 
+0000034728 00000 n 
+0000038987 00000 n 
+0000044013 00000 n 
+0000048642 00000 n 
+trailer
+<<
+/ID 
+[<ee72d1af672a7ec55e9be5a30f41a2c2><ee72d1af672a7ec55e9be5a30f41a2c2>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 17 0 R
+/Root 16 0 R
+/Size 29
+>>
+startxref
+53482
+%%EOF

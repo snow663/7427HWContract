@@ -58,3 +58,7 @@ ROMFlow_Studio/
 ├── examples/         Synthetic fixture images
 └── workspace/        Local autosave, excluded from Git
 ```
+
+## User manual
+
+The 10-page [ROMFlow Studio User Manual (PDF)](docs/ROMFlow_Studio_User_Manual_v0.2.pdf) covers first launch, navigation, interactive flow graphs, annotation conventions, calibration definitions, memory and SCI tracing, portable `.romflow` save/reopen, practical workflows, troubleshooting and shortcuts.
