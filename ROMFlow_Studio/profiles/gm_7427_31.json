@@ -1,0 +1,21 @@
+{
+  "name": "GM 16197427 / $31 — optional evidence profile",
+  "warning": "This is an annotation template, not an assumption used by the CPU decoder. Cal table dimensions are source hints for review, not independently discovered geometry.",
+  "zones": [
+    {"start":"0000","end":"0FFF","name":"RAM / working state (7427 profile)"},
+    {"start":"3000","end":"305F","name":"HC11 internal registers (relocated $3000)"},
+    {"start":"3060","end":"30FF","name":"GM external I/O or ASIC (profile)"},
+    {"start":"3F00","end":"3FFF","name":"GM external ASIC block (profile)"},
+    {"start":"4000","end":"70FF","name":"Calibration ROM window ($31 profile)"},
+    {"start":"7100","end":"FFFF","name":"ROM program / mixed data ($31 profile)"}
+  ],
+  "table_hints": [
+    {"id":"CAL_4166","start":"4166","label":"Open throttle spark vs MAP × RPM (source hint)","rows":17,"columns":17,"width":1,"endian":"big","signed":false,"scale":0.3515625,"offset":0,"units":"degrees (check bias)","group":"Spark","source":"$31 HAC calibration annotation","notes":"Source describes 17×17 spark; verify table headers, bias and address boundaries against target ROM."},
+    {"id":"CAL_428A","start":"428A","label":"Closed throttle spark (source hint)","rows":17,"columns":17,"width":1,"endian":"big","signed":false,"scale":0.3515625,"offset":0,"units":"degrees","group":"Spark","source":"$31 HAC calibration annotation","notes":"Source mentions 17×17; check header occupancy and actual ROM bytes."},
+    {"id":"CAL_49D5","start":"49D5","label":"Open throttle VE (source hint)","rows":16,"columns":11,"width":1,"endian":"big","signed":false,"scale":0.390625,"offset":0,"units":"%VE","group":"Fuel","source":"$31 HAC calibration annotation","notes":"Source mentions 11×16=176 data values; confirm precise table-body offset and headers."},
+    {"id":"CAL_4A88","start":"4A88","label":"Closed throttle VE (source hint)","rows":8,"columns":11,"width":1,"endian":"big","signed":false,"scale":0.390625,"offset":0,"units":"%VE","group":"Fuel","source":"$31 HAC calibration annotation","notes":"Source mentions 11×8=88 data values."},
+    {"id":"CAL_4B05","start":"4B05","label":"Injector offset vs battery (source hint)","rows":1,"columns":17,"width":1,"endian":"big","signed":false,"scale":15.258789,"offset":0,"units":"microseconds","group":"Fuel","source":"$31 HAC calibration annotation","notes":"HAC: microseconds = value / .065536; source reports 17 data bytes and possibly a header."},
+    {"id":"CAL_4C6E","start":"4C6E","label":"WOT AFR vs RPM (source hint)","rows":1,"columns":17,"width":1,"endian":"big","signed":false,"scale":0.1,"offset":0,"units":"AFR","group":"Fuel","source":"$31 HAC calibration annotation","notes":"Header may be part of 18-byte source region; verify."},
+    {"id":"CAL_4F32","start":"4F32","label":"Park/neutral idle speed vs coolant (source hint)","rows":1,"columns":15,"width":1,"endian":"big","signed":false,"scale":12.5,"offset":0,"units":"RPM","group":"IAC","source":"$31 HAC calibration annotation","notes":"RPM table has 15 values; check $31 calibration selection."}
+  ]
+}
