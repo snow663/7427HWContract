@@ -94,16 +94,79 @@ function renderGraph(){const g=LOCAL.graph;if(!g)return;LOCAL.renderedKey=graphK
  if(n.lines?.length){n.lines.slice(0,8).forEach((line,k)=>{let t=svgEl('text',{class:'node-line',x:15,y:53+k*17});t.textContent=line.length>39?line.slice(0,38)+'…':line;group.append(t)});if(n.length>8){const t=svgEl('text',{class:'node-sub',x:15,y:geo.h-8});t.textContent=`+ ${n.length-8} more opcodes`;group.append(t)}}
  const title=svgEl('title');title.textContent=n.label+' / '+n.subtitle;group.append(title);group.addEventListener('pointerdown',ev=>{
  if(ev.button!==0)return;ev.stopPropagation();LOCAL.drag={type:'node',id:n.id,origin:{x:geo.x,y:geo.y},px:ev.clientX,py:ev.clientY,moved:false};$('#graphCanvas').setPointerCapture(ev.pointerId)
- });group.addEventListener('click',ev=>{ev.stopPropagation();if(LOCAL.drag?.moved)return;selectGraphNode(n)});layer.append(group)}refreshEdges();fitGraph();const view=LOCAL.graphTransforms[graphKey()];if(view&&Number.isFinite(view.scale)&&Number.isFinite(view.x)&&Number.isFinite(view.y)){LOCAL.scale=view.scale;LOCAL.offset={x:view.x,y:view.y};applyTransform()}if(g.nodes.length>800)toast('Graph shows first 800 nodes; use routine mode to inspect full detail')}
+ });layer.append(group)}refreshEdges();fitGraph();const view=LOCAL.graphTransforms[graphKey()];if(view&&Number.isFinite(view.scale)&&Number.isFinite(view.x)&&Number.isFinite(view.y)){LOCAL.scale=view.scale;LOCAL.offset={x:view.x,y:view.y};applyTransform()}if(g.nodes.length>800)toast('Graph shows first 800 nodes; use routine mode to inspect full detail')}
 function applyTransform(){const {x,y}=LOCAL.offset;$('#graphWorld').setAttribute('transform',`translate(${x},${y}) scale(${LOCAL.scale})`);txt('#zoomValue',Math.round(LOCAL.scale*100)+'%')}
 function fitGraph(){if(!LOCAL.graphGeom.size)return;const all=[...LOCAL.graphGeom.values()];const xmin=Math.min(...all.map(x=>x.x)),ymin=Math.min(...all.map(x=>x.y)),xmax=Math.max(...all.map(x=>x.x+x.w)),ymax=Math.max(...all.map(x=>x.y+x.h));const r=$('#graphCanvas').getBoundingClientRect();const ww=Math.max(1,xmax-xmin),hh=Math.max(1,ymax-ymin);LOCAL.scale=Math.max(.07,Math.min(1.45,(r.width-80)/ww,(r.height-65)/hh));LOCAL.offset={x:(r.width-ww*LOCAL.scale)/2-xmin*LOCAL.scale,y:(r.height-hh*LOCAL.scale)/2-ymin*LOCAL.scale};applyTransform()}
 function zoom(factor,p){const r=$('#graphCanvas').getBoundingClientRect();const cx=p?p.x-r.left:r.width/2,cy=p?p.y-r.top:r.height/2;const before=LOCAL.scale;LOCAL.scale=Math.max(.05,Math.min(3.5,LOCAL.scale*factor));LOCAL.offset={x:cx-(cx-LOCAL.offset.x)*LOCAL.scale/before,y:cy-(cy-LOCAL.offset.y)*LOCAL.scale/before};applyTransform()}
-function selectGraphNode(n){LOCAL.selectedNode=n.id;$$('.flow-node').forEach(x=>x.classList.toggle('selected',x.dataset.id===n.id));if(n.kind==='routine'||n.kind==='call'&&n.address!=='?'){selectRoutine(n.address)}else if(n.kind==='dispatch')selectTableByAddress(n.address);else if(n.address!=='?'&&n.address){if(n.kind==='block'){const g=LOCAL.graphGeom.get(n.id);if(g){};selectInstruction(n.address)}else selectAddress(n.address)}}
+function explainOpcode(ins){
+ const op=ins.op, arg=ins.operand||'', dst=op.endsWith('A')?'accumulator A':op.endsWith('B')?'accumulator B':op.endsWith('D')?'16-bit D (A:B)':op.endsWith('X')?'index X':op.endsWith('Y')?'index Y':'register';
+ const place=arg.startsWith('#')?'the constant '+arg:arg.includes(',X')?'the address X + '+arg.split(',')[0]:arg.includes(',Y')?'the address Y + '+arg.split(',')[0]:arg?'memory '+arg:'the current register value';
+ const branch={BRA:'Always jump',BRN:'Never take the jump',BNE:'Jump if the zero flag is clear (not equal)',BEQ:'Jump if the zero flag is set (equal)',BCC:'Jump if the carry flag is clear',BCS:'Jump if the carry flag is set',BHI:'Jump if unsigned higher',BLS:'Jump if unsigned lower or same',BPL:'Jump if negative flag is clear',BMI:'Jump if negative flag is set',BVC:'Jump if overflow is clear',BVS:'Jump if overflow is set',BGE:'Jump if signed greater or equal',BLT:'Jump if signed less',BGT:'Jump if signed greater',BLE:'Jump if signed less or equal',BRSET:'Jump when selected bits are set',BRCLR:'Jump when selected bits are clear'};
+ if(branch[op])return branch[op]+'; target '+(ins.operand||'?')+'. The branch checks condition-code flags from earlier instructions.';
+ if(op==='JMP')return 'Jump to '+place+' without saving a return address.';
+ if(op==='JSR'||op==='BSR')return 'Call a subroutine at '+place+'; the CPU pushes its return address onto the stack.';
+ if(op==='RTS')return 'Return from this subroutine by retrieving the saved return address from the stack.';
+ if(op==='RTI')return 'Restore CPU registers and flags from the interrupt stack frame, then resume interrupted execution.';
+ if(op==='SWI')return 'Software interrupt: transfer execution through the SWI vector.';
+ if(op==='WAI')return 'Wait for an interrupt; execution pauses until an interrupt event.';
+ if(op==='STOP')return 'Stop the CPU until an allowed wakeup event.';
+ if(op==='NOP')return 'Do nothing except advance the program counter.';
+ if(['LDAA','LDAB','LDD','LDX','LDY','LDS'].includes(op))return 'Load '+(op==='LDS'?'stack pointer':dst)+' from '+place+'.';
+ if(['STAA','STAB','STD','STX','STY','STS'].includes(op))return 'Write '+(op==='STS'?'stack pointer':dst)+' to '+place+'.';
+ if(op==='ABX'||op==='ABY')return 'Add unsigned accumulator B to index register '+op.slice(-1)+'.';
+ if(op==='TSX'||op==='TSY')return 'Copy stack-pointer-relative address into '+op.slice(-1)+'.';
+ if(op==='TXS'||op==='TYS')return 'Update the stack pointer from index '+op[1]+'.';
+ if(op==='PSHA'||op==='PSHB'||op==='PSHX'||op==='PSHY')return 'Push '+dst+' onto the stack; stack pointer decreases.';
+ if(op==='PULA'||op==='PULB'||op==='PULX'||op==='PULY')return 'Pull a saved value from stack into '+dst+'; stack pointer increases.';
+ if(op==='INS')return 'Increment stack pointer by one byte (discard one stack byte).';
+ if(op==='DES')return 'Decrement stack pointer by one byte (reserve one stack byte).';
+ if(op==='MUL')return 'Multiply unsigned A × B; store the 16-bit product in D.';
+ if(op==='IDIV')return 'Divide unsigned D by X; quotient goes into X and remainder into D.';
+ if(op==='FDIV')return 'Fractional division using D and X; affects D and X.';
+ if(op==='BSET'||op==='BCLR')return (op==='BSET'?'Set':'Clear')+' the selected flag bits in '+place+'.';
+ if(op.startsWith('CMP')||op.startsWith('CP')||op==='CBA')return 'Compare register with '+place+' and update CPU condition flags without saving the subtraction result.';
+ if(op.startsWith('BIT'))return 'Test selected bits from '+place+'; update flags without modifying the value.';
+ if(op.startsWith('ADD')||op.startsWith('ADC')||op==='ABA')return 'Add '+place+' to '+dst+'; result wraps at the register width. Flags are updated.';
+ if(op.startsWith('SUB')||op.startsWith('SBC')||op==='SBA')return 'Subtract '+place+' from '+dst+'; flags record carry/borrow, zero, sign and overflow.';
+ if(op.startsWith('AND')||op.startsWith('ORA')||op.startsWith('EOR'))return 'Perform a bitwise logic operation using '+place+' and '+dst+'.';
+ if(op.startsWith('INC')||op.startsWith('DEC'))return (op.startsWith('INC')?'Increase':'Decrease')+' the addressed register or memory value by one.';
+ if(op==='CLI'||op==='SEI')return (op==='CLI'?'Enable':'Mask')+' normal maskable interrupts.';
+ if(op==='CLC'||op==='SEC')return (op==='CLC'?'Clear':'Set')+' the carry flag.';
+ if(op==='TAP')return 'Copy accumulator A into the condition-code register.';
+ if(op==='TPA')return 'Copy condition-code flags into accumulator A.';
+ if(op==='XGDX'||op==='XGDY')return 'Exchange D with index register '+op.slice(-1)+'.';
+ if(op==='TAB'||op==='TBA')return 'Transfer one 8-bit accumulator into the other.';
+ if(op.startsWith('LSR')||op.startsWith('ASL')||op.startsWith('ASR')||op.startsWith('ROL')||op.startsWith('ROR'))return 'Shift or rotate bits; carry and other condition flags can change.';
+ return op+' '+arg+' — 68HC11 instruction; inspect its math/effects and register state for exact context.';
+}
+function explainEdge(e){
+ const names={taken:'Branch condition true; execution jumps to the target block',not_taken:'Condition false; execution continues down the other path',fallthrough:'Normal execution continues with the next instruction',return_path:'Execution resumes here after the called subroutine returns',jump:'Unconditional transfer of execution',call:'Push return address and enter a subroutine',vector:'Interrupt/reset vector enters this routine',indirect_jump:'Jump destination depends on a register at runtime'};
+ return names[e.kind]||(/slot/.test(e.kind)?'A possible table-selected routine; actual selection depends on the runtime index':/dispatch/.test(e.kind)?'Possible computed dispatcher relation':e.kind);
+}
+async function inspectFlowBlock(n){
+ const key=LOCAL.entry;let r=LOCAL.routine;
+ if(!r||r.entry!==key){try{r=await api('/api/routine',{entry:key})}catch(e){toast(e.message,true);return}}
+ const start=parseInt(n.address,16),all=r.instructions,at=all.findIndex(i=>parseInt(i.pc,16)===start);
+ if(at<0){selectAddress(n.address);return}
+ let current=[];for(let k=at;k<all.length;k++){const i=all[k];if(k>at&&parseInt(i.pc,16)!==parseInt(all[k-1].pc,16)+all[k-1].bytes.split(' ').length)break;current.push(i);if(['BRA','JMP','RTS','RTI','STOP','JSR','BSR'].includes(i.op)||['BNE','BEQ','BCC','BCS','BHI','BLS','BMI','BPL','BGE','BLT','BGT','BLE','BVC','BVS','BRSET','BRCLR'].includes(i.op))break;if(current.length>=n.length)break}
+ const outgoing=(LOCAL.graph?.edges||[]).filter(e=>e.source===n.id);
+ const meanings=current.map(i=>'<div class="info-item"><button type="button" class="flow-ins" data-pc="'+esc(i.pc)+'">$'+esc(i.pc)+'</button> <strong>'+esc(i.op+' '+i.operand)+'</strong><div>'+esc(explainOpcode(i))+'</div>'+(i.math?'<div class="muted">Computed effect: '+esc(i.math)+'</div>':'')+'</div>').join('');
+ $('#inspect').innerHTML='<div class="eyebrow">EXECUTION BLOCK · ENGLISH EXPLANATION</div><div class="inspect-addr">$'+esc(n.address)+'</div><p class="inspect-subtitle">'+current.length+' decoded instructions · '+esc(r.label)+'</p><div class="notice">This block executes sequentially until its last instruction redirects execution or reaches another block. Descriptions summarize HC11 semantics; actual branch decisions depend on live register and flag values.</div><div class="subheading">What the CPU does</div>'+meanings+'<div class="subheading">Where execution goes</div>'+(outgoing.map(e=>'<div class="info-item"><strong>'+esc(e.kind)+'</strong> → '+esc(e.target)+'<div>'+esc(explainEdge(e))+'</div></div>').join('')||'<div class="info-item">No outgoing edge decoded; return, stop, or unresolved control flow.</div>');
+ $$('#inspect .flow-ins').forEach(b=>b.onclick=()=>selectInstruction(b.dataset.pc));showInspector();
+}
+function selectGraphNode(n){
+ LOCAL.selectedNode=n.id;$$('.flow-node').forEach(x=>x.classList.toggle('selected',x.dataset.id===n.id));
+ if(n.kind==='block')return inspectFlowBlock(n);
+ if(n.kind==='routine'||n.kind==='call'&&n.address!=='?')return selectRoutine(n.address);
+ if(n.kind==='dispatch')return selectTableByAddress(n.address);
+ if(n.address&&n.address!=='?')return selectAddress(n.address);
+ $('#inspect').innerHTML='<div class="eyebrow">UNRESOLVED CONTROL FLOW</div><h2>'+esc(n.label)+'</h2><div class="notice">This jump or call has no static destination. A register or dispatcher selects the destination during execution. Inspect the incoming edge to see the calling opcode.</div>';showInspector();
+}
 const SVG=$('#graphCanvas');SVG.addEventListener('wheel',ev=>{ev.preventDefault();zoom(Math.exp(-ev.deltaY*.001),{x:ev.clientX,y:ev.clientY});queueViewSave()},{passive:false});
 SVG.addEventListener('pointerdown',ev=>{if(ev.button!==0||LOCAL.drag)return;LOCAL.drag={type:'pan',px:ev.clientX,py:ev.clientY,ox:LOCAL.offset.x,oy:LOCAL.offset.y};SVG.setPointerCapture(ev.pointerId)});
 SVG.addEventListener('pointermove',ev=>{if(!LOCAL.drag)return;let d=LOCAL.drag;if(d.type==='pan'){LOCAL.offset={x:d.ox+ev.clientX-d.px,y:d.oy+ev.clientY-d.py};applyTransform()}
  else{const g=LOCAL.graphGeom.get(d.id);if(!g)return;g.x=d.origin.x+(ev.clientX-d.px)/LOCAL.scale;g.y=d.origin.y+(ev.clientY-d.py)/LOCAL.scale;if(Math.hypot(ev.clientX-d.px,ev.clientY-d.py)>4)d.moved=true;const el=$(`#nodeLayer g[data-id="${d.id}"]`);if(el)el.setAttribute('transform',`translate(${g.x},${g.y})`);refreshEdges()}});
-SVG.addEventListener('pointerup',ev=>{if(LOCAL.drag){LOCAL.drag=null;try{SVG.releasePointerCapture(ev.pointerId)}catch(e){};queueViewSave()}});
+SVG.addEventListener('pointerup',ev=>{if(LOCAL.drag){const d=LOCAL.drag;LOCAL.drag=null;try{SVG.releasePointerCapture(ev.pointerId)}catch(e){};if(d.type==='node'&&!d.moved){const node=LOCAL.graph?.nodes.find(n=>n.id===d.id);if(node)selectGraphNode(node)}queueViewSave()}});
 function inspectEdge(e){LOCAL.inspectKind='edge';LOCAL.inspectData=e;$('#inspect').innerHTML=`<div class="eyebrow">CONTROL CONNECTION</div><h2 class="inspect-addr">${esc(e.kind)}</h2><p class="inspect-subtitle">$${esc(e.site)} · ${e.proven?'Resolved relationship':'Inferred / not proven'}</p><hr class="inspect-divider"><div class="info-item"><strong>From</strong> ${esc(e.source)}</div><div class="info-item"><strong>To</strong> ${esc(e.target)}</div><div class="notice">Control-flow edges are decoded from actual instructions. An inferred dispatch link does not prove that runtime execution selects that slot.</div><div class="inspect-actions"><button class="btn" id="edgeSite">Inspect call site</button><button class="btn" id="edgeTarget">Inspect target</button></div>`;
  $('#edgeSite').onclick=()=>selectInstruction(e.site);$('#edgeTarget').onclick=()=>{const tgt=e.target.replace(/^R|^X_|^T/,'');if(/^[0-9A-F]{4}$/.test(tgt))selectAddress(tgt)};showInspector();}
 function showInspector(){$('.inspector').classList.add('visible')}

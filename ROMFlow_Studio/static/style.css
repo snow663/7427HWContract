@@ -6,3 +6,7 @@
 /* Portable ROMFlow project and recent-project controls. */
 .recent-list{display:grid;gap:8px;margin:10px 0}.recent-choice{display:flex;justify-content:space-between;gap:15px;text-align:left;width:100%}.recent-choice:hover{border-color:var(--cyan)}
 @media(max-width:1150px){.top-actions{gap:4px}.top-actions .btn{font-size:11px;padding:7px 8px}}
+
+/* Explorer scrolling: explicitly constrain the flex child and keep wheel scrolling in the tree. */
+.sidebar{min-height:0;overflow:hidden}.sidebar .tree{flex:1 1 0;height:0;min-height:0;overflow-y:scroll;overflow-x:hidden;overscroll-behavior-y:contain;scrollbar-gutter:stable}.sidebar .sidebar-top,.sidebar .search-wrap,.sidebar .tree-toolbar,.sidebar .sidebar-footer{flex-shrink:0}
+.flow-ins{background:transparent;color:var(--cyan);font:inherit;padding:0 5px 0 0;text-decoration:underline;cursor:pointer}.flow-ins:hover{color:var(--text)}
