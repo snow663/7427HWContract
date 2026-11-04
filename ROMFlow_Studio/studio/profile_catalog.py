@@ -12,6 +12,8 @@ PROFILE_IDS = (
     "generic",
     "gm_7427_31",
     "gm_7427_0e",
+    "gm_7427_0d",
+    "gm_7427_e6",
     "gm_7427_bhdc",
     "gm_7060_85",
     "gm_7060_d8_bamw",

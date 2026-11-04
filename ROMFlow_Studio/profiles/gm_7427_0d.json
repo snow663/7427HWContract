@@ -1,0 +1,53 @@
+{
+  "id": "gm_7427_0d",
+  "name": "GM 16197427 / $0D — compatible hardware family",
+  "pcm": "16197427",
+  "mask": "$0D",
+  "calibration": "multiple (not asserted)",
+  "source_class": "hardware_compatibility_user_confirmed",
+  "warning": "Hardware compatible with 16197427. ROM layout and calibration definitions remain mask-specific and unverified.",
+  "execution_regions": [
+    [
+      "4000",
+      "FFFF"
+    ]
+  ],
+  "calibration_regions": [],
+  "zones": [
+    {
+      "start": "0000",
+      "end": "03FF",
+      "name": "RAM / working state (F1-style, subject to active memory decode)"
+    },
+    {
+      "start": "1000",
+      "end": "1FFF",
+      "name": "Possible external extension / RAM window (7427 map, verify hardware)"
+    },
+    {
+      "start": "3000",
+      "end": "305F",
+      "name": "HC11F1 internal register block, relocated by INIT"
+    },
+    {
+      "start": "3060",
+      "end": "30FF",
+      "name": "GM external I/O / ASIC candidate"
+    },
+    {
+      "start": "3F00",
+      "end": "3FFF",
+      "name": "External ASIC / handshake window"
+    },
+    {
+      "start": "4000",
+      "end": "FFFF",
+      "name": "Potential ROM program/calibration; classification unresolved"
+    }
+  ],
+  "table_hints": [],
+  "notes": [
+    "Compatible 16197427 mask; do not assume BMHM addresses or 7427 $31 calibration geometry.",
+    "Verify actual ROM before promoting execution and table candidates."
+  ]
+}

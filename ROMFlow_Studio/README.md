@@ -80,3 +80,10 @@ Select the correct PCM and mask from the header before interpreting an image. Th
 | 16147060 / $85 | Hardware-family only; not asserted equal to BAMW | $8000–$FFFF (broad, conservative) |
 
 **Important:** The BAMW listing marks byte $8008 as $D8, the SCI vector $FFD6 as $EDB3, and reset vector $FFFE as $F1BA, but these are listing-derived statements until verified against the target BIN. BHDC is a 7427 image, not a 7060. SHA-based identity recommendations are exact and never guessed from filenames alone. Previously saved projects remain compatible; select the appropriate profile manually if they were saved as Generic HC11.
+
+## Hardware/mask compatibility correction
+
+- **16197427:** compatible masks **$0D, $0E, $31, $E6**. BHDC is a 7427 calibration ID, not a PCM hardware model.
+- **16147060:** supports **$85 and $D8** on the same PCM hardware. The uploaded BAMW source describes $D8 specifically.
+
+These profile choices share PCM hardware assumptions while retaining separate ROM/calibration evidence. 7427 $0D and $E6 begin as conservative family-level profiles, without borrowing $31 table locations.

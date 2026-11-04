@@ -5,7 +5,7 @@
   "mask": "$85",
   "calibration": "not specified",
   "source_class": "family_template",
-  "warning": "$85 hardware-family template only; BAMW $D8 calibration contents and its routine addresses are NOT inherited.",
+  "warning": "$85 and $D8 are masks used with the same GM 16147060 PCM hardware; BAMW-specific addresses are not assumed for $85.",
   "execution_regions": [
     [
       "8000",
@@ -52,6 +52,6 @@
   ],
   "table_hints": [],
   "notes": [
-    "Verify register relocation, vector contents, and ROM-code boundaries from the actual $85 image."
+    "$85/$D8 share the 16147060 PCM hardware, but source-level ROM evidence applies to the matching mask only."
   ]
 }
