@@ -10,6 +10,7 @@ from .analysis import Image, Analyzer, COND, CALLS, END
 from .graph import routine_graph, global_graph
 from .mathtrace import math_traces
 from .autoreason import analyze as hc11_reason
+from .profile_catalog import get_profile, exec_ranges, match_rom_sha, PROFILE_IDS
 
 ROOT=Path(__file__).resolve().parents[1]
 STATIC=ROOT/'static'
@@ -38,7 +39,7 @@ def starter_meta(profile='generic'):
 
 def validate_project_meta(meta):
     """Validate saved-state shape before it can affect the active workspace."""
-    if not isinstance(meta,dict) or meta.get('profile','generic') not in ('generic','gm_7427_31'):
+    if not isinstance(meta,dict) or meta.get('profile','generic') not in PROFILE_IDS:
         raise ValueError('Invalid project metadata or hardware profile')
     defaults=starter_meta(meta.get('profile','generic'))
     defaults.update(meta)
@@ -89,7 +90,7 @@ class Workspace:
             if load<0 or load+len(raw)>65536:raise ValueError('ROM mapping exceeds CPU address space')
             entries=[parsehex(x) for x in self.meta['entries']]
             specs=[f'{hexaddr(d["address"])}:{int(d["count"])}' for d in self.meta['dispatch_tables']]
-            self.an=Analyzer(Image(raw,load),entries,True,specs).scan()
+            self.an=Analyzer(Image(raw,load),entries,True,specs,execution_regions=exec_ranges(self.meta['profile'])).scan()
             self.summary_cache=None
             self.auto_reason_cache=None
     def auto_reason(self):
@@ -99,7 +100,7 @@ class Workspace:
         return self.auto_reason_cache
 
     def zones(self):
-        base=json.loads(PROFILE_FILE.read_text())['zones'] if self.meta['profile']=='gm_7427_31' else []
+        base=get_profile(self.meta['profile']).get('zones',[])
         return base+self.meta.get('zones',[])
     def domain(self,addr):
         if addr is None:return 'unresolved'
@@ -130,7 +131,8 @@ class Workspace:
         for addr,r in sorted(a.routines.items()):
             key=f'R:{addr:04X}';ann=self.meta['annotations'].get(key,{})
             routines.append(dict(entry=f'{addr:04X}',label=ann.get('label',f'Routine ${addr:04X}'),group=ann.get('group','Unsorted'),color=ann.get('color',''),category=ann.get('category',''),count=len(r['pcs']),sources=r['sources'],exits=len(r['exits'])))
-        d=dict(rom=self.filename,sha256=self.sha,start=f'{a.img.start:04X}',length=len(self.raw),routines=routines,vectors=a.vectors,dispatch=a.dispatch,dispatch_candidates=a.dispatch_candidates,unknown_spans=a.unknown_spans()[:250],orphan_candidates=a.orphan_candidates(80),counts=dict(instructions=len(a.instructions),routines=len(a.routines),reads=sum(x['access']=='R' for x in a.accesses),writes=sum(x['access']=='W' for x in a.accesses),rmw=sum(x['access']=='RW' for x in a.accesses),dispatch=len(a.dispatch),decode_failures=len(a.failures)),meta=self.meta,zones=self.zones())
+        profile_data=get_profile(self.meta['profile'])
+        d=dict(profile_details={k:profile_data.get(k) for k in ('id','name','pcm','mask','calibration','source_class','warning','scheduler','rom_sha256','notes')},recognized_profile=match_rom_sha(self.sha),rom=self.filename,sha256=self.sha,start=f'{a.img.start:04X}',length=len(self.raw),routines=routines,vectors=a.vectors,dispatch=a.dispatch,dispatch_candidates=a.dispatch_candidates,unknown_spans=a.unknown_spans()[:250],orphan_candidates=a.orphan_candidates(80),counts=dict(instructions=len(a.instructions),routines=len(a.routines),reads=sum(x['access']=='R' for x in a.accesses),writes=sum(x['access']=='W' for x in a.accesses),rmw=sum(x['access']=='RW' for x in a.accesses),dispatch=len(a.dispatch),decode_failures=len(a.failures)),meta=self.meta,zones=self.zones())
         self.summary_cache=d;return d
 
     def set_view(self,view):
@@ -304,7 +306,7 @@ class Workspace:
     def setup(self,change):
         if 'profile' in change:
             p=change['profile'];
-            if p not in ('generic','gm_7427_31'):raise ValueError('Unrecognized profile')
+            if p not in PROFILE_IDS:raise ValueError('Unrecognized profile')
             self.meta['profile']=p
         if 'entries' in change:self.meta['entries']=list(dict.fromkeys(hexaddr(x) for x in change['entries']))[:1024]
         if 'dispatch_tables' in change:
@@ -431,8 +433,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.ws.save_meta();self.ws.summary_cache=None;return self.respond({'ok':True})
             if path=='/api/setup':return self.respond(self.ws.setup(inp))
             if path=='/api/hints':
-                if self.ws.meta['profile']!='gm_7427_31':raise ValueError('Select 7427/$31 profile first')
-                hints=json.loads(PROFILE_FILE.read_text())['table_hints']
+                hints=get_profile(self.ws.meta['profile']).get('table_hints',[])
+                if not hints:raise ValueError('Selected profile has no source-derived calibration hints')
                 existing={t['id'] for t in self.ws.meta['tables']}
                 for t in hints:
                     if t['id'] not in existing:self.ws.upsert_table(t)

@@ -1,0 +1,184 @@
+{
+  "id": "gm_7060_d8_bamw",
+  "name": "GM 16147060 / BAMW — $D8 source-defined",
+  "pcm": "16147060",
+  "mask": "$D8",
+  "calibration": "BAMW",
+  "source_class": "user_supplied_hac_bamw_src_not_rom_verified",
+  "warning": "HAC_BAMW.src is an annotated listing, NOT a ROM-byte proof. Requires comparing the actual BIN.",
+  "execution_regions": [
+    [
+      "A000",
+      "FFFF"
+    ]
+  ],
+  "calibration_regions": [
+    [
+      "8000",
+      "9FFF"
+    ]
+  ],
+  "zones": [
+    {
+      "start": "0000",
+      "end": "03FF",
+      "name": "Low RAM / control-state addresses; verify configured decoding"
+    },
+    {
+      "start": "1000",
+      "end": "105F",
+      "name": "HC11 internal register block (BAMW source $1000)"
+    },
+    {
+      "start": "1060",
+      "end": "1FFF",
+      "name": "Other mapped area (unverified)"
+    },
+    {
+      "start": "3FC0",
+      "end": "3FFF",
+      "name": "GM control/state register window (source examples; hardware semantics not independently proven)"
+    },
+    {
+      "start": "4000",
+      "end": "40FF",
+      "name": "GM external I/O register addresses (BAMW source)"
+    },
+    {
+      "start": "8000",
+      "end": "9FFF",
+      "name": "BAMW calibration and ROM data"
+    },
+    {
+      "start": "A000",
+      "end": "FFFF",
+      "name": "BAMW algorithm/program and vectors"
+    }
+  ],
+  "scheduler": null,
+  "reset": {
+    "vector": "FFFE",
+    "target": "F1BA",
+    "evidence": "HAC_BAMW.src line LFFFE; unverified against BIN"
+  },
+  "sci": {
+    "vector": "FFD6",
+    "target": "EDB3",
+    "base": "1000",
+    "offsets": {
+      "2B": "BAUD",
+      "2C": "SCCR1",
+      "2D": "SCCR2",
+      "2E": "SCSR",
+      "2F": "SCDR"
+    },
+    "evidence": "HAC_BAMW.src source comments and LFFD6"
+  },
+  "table_hints": [
+    {
+      "id": "BAMW_8000_ID",
+      "start": "8000",
+      "label": "EPROM ID ($13ED), source-only",
+      "rows": 1,
+      "columns": 1,
+      "width": 2,
+      "endian": "big",
+      "signed": false,
+      "scale": 1,
+      "offset": 0,
+      "units": "raw",
+      "group": "Identification",
+      "source": "HAC_BAMW.src",
+      "notes": "Source only: FDB $13ED at $8000; check BIN."
+    },
+    {
+      "id": "BAMW_8008_MASK",
+      "start": "8008",
+      "label": "ECM ID byte ($D8), source-only",
+      "rows": 1,
+      "columns": 1,
+      "width": 1,
+      "endian": "big",
+      "signed": false,
+      "scale": 1,
+      "offset": 0,
+      "units": "raw",
+      "group": "Identification",
+      "source": "HAC_BAMW.src",
+      "notes": "Source only: FCB $D8 at $8008. This is the firmware's stated mask/ECM ID; verify actual BIN."
+    },
+    {
+      "id": "BAMW_800B_OPTIONS1",
+      "start": "800B",
+      "label": "Option word 1 (bit flags), source-only",
+      "rows": 1,
+      "columns": 1,
+      "width": 1,
+      "endian": "big",
+      "signed": false,
+      "scale": 1,
+      "offset": 0,
+      "units": "raw",
+      "group": "Configuration",
+      "source": "HAC_BAMW.src",
+      "bits": "7=EGR diagnostic pass\n4=Invert EGR duty cycle\n3=32Hz EGR PRR (0=128Hz)\n1=Laptop computer option",
+      "notes": "Bit definitions copied from BAMW source; unlisted bits are reserved/unused there."
+    },
+    {
+      "id": "BAMW_800C_OPTIONS2",
+      "start": "800C",
+      "label": "Option word 2 (bit flags), source-only",
+      "rows": 1,
+      "columns": 1,
+      "width": 1,
+      "endian": "big",
+      "signed": false,
+      "scale": 1,
+      "offset": 0,
+      "units": "raw",
+      "group": "Configuration",
+      "source": "HAC_BAMW.src",
+      "bits": "7=RPM/MAP threshold vs MPH\n5=Reset INT on BLM cell change\n4=Reset INT on acceleration enrichment\n1=Error 44/55 BLM limiting",
+      "notes": "Definitions from source comments."
+    },
+    {
+      "id": "BAMW_800D_MODE",
+      "start": "800D",
+      "label": "Mode word (manual/TCC bit), source-only",
+      "rows": 1,
+      "columns": 1,
+      "width": 1,
+      "endian": "big",
+      "signed": false,
+      "scale": 1,
+      "offset": 0,
+      "units": "raw",
+      "group": "Configuration",
+      "source": "HAC_BAMW.src",
+      "bits": "7=Manual transmission (0=TCC)",
+      "notes": "More bits in source; not exhaustively imported."
+    },
+    {
+      "id": "BAMW_8666_SERIAL_SCHEDULE",
+      "start": "8666",
+      "label": "Remote broadcast message scheduler, source-only",
+      "rows": 1,
+      "columns": 16,
+      "width": 2,
+      "endian": "big",
+      "signed": false,
+      "scale": 1,
+      "offset": 0,
+      "units": "word pointers",
+      "group": "SCI / ALDL",
+      "source": "HAC_BAMW.src",
+      "notes": "16 words at 8666–8685; all declared 0000 in this source; DATA, not executable dispatcher."
+    }
+  ],
+  "notes": [
+    "ORG $8000 begins calibration; 'BEGINING OF ALGO' labels A000 reset init.",
+    "INIT register is written at $103D after setting X=$1000.",
+    "SCI receiver initial SCCR2=26 via indexed store at A036.",
+    "Vector $FFD6: $EDB3 and reset $FFFE: $F1BA are listing assertions until confirmed from ROM."
+  ]
+}

@@ -66,3 +66,17 @@ The 10-page [ROMFlow Studio User Manual (PDF)](docs/ROMFlow_Studio_User_Manual_v
 ## HC11 auto-reasoning (experimental)
 
 The **Auto Insights** tab runs a *conservative abstract interpreter* over established reachable opcodes. It tracks known A/B/D/X/Y/SP values through immediate loads, ROM reads, arithmetic, indexed addressing, ABX, transfers, stack operations, and control-flow joins. Unknown RAM, peripheral I/O, call side effects and conflicting branch values remain unknown. The instruction inspector shows register states **before and after** each opcode, including evidence for inferred indexed addresses. Findings propose routine roles, ROM data references and candidate relocatable HC11 SCI register blocks; they **never silently rewrite the ROM, assert calibration units, or promote unrooted bytes to code**. This is static interpretation, not a cycle-accurate emulator. Treat proposed hardware bases and routine meanings as reviewable hypotheses.
+
+## PCM/mask-specific knowledge packs
+
+Select the correct PCM and mask from the header before interpreting an image. The profile does not rewrite the original BIN or automatically import annotations from another ROM. The analyzer uses profile *executable address ranges* to reject impossible fallthroughs, false dispatchers, and low-address filler decoded as code. Runs of 24 or more bytes of FF padding are not promoted to rooted code; individual FF opcodes remain legal. Unmatched masks use the cautious family template or Generic HC11. Source-provided tables are added only by **Calibration hints**, and must be checked against raw ROM bytes.
+
+| Profile | Evidence and scope | Known execution region |
+|---|---|---|
+| 16197427 / $31 (BMHM) | Hash-verified BMHM ROM, $7100 reset program, $7A85 scheduler and source-hinted tables | $7100–$FFFF |
+| 16197427 / BHDC | User BHDC ROMFlow export SHA d412d163…; $7B85 *candidate*, not force-rooted; mask unverified | $7100–$FFFF (family constraint, verify) |
+| 16197427 / $0E | Hardware-family only; no BMHM table locations imported | $4000–$FFFF (broad, conservative) |
+| 16147060 / $D8 BAMW | User-provided HAC_BAMW.src: calibration $8000, algorithm $A000, SCI at $1000; actual BIN not supplied | $A000–$FFFF |
+| 16147060 / $85 | Hardware-family only; not asserted equal to BAMW | $8000–$FFFF (broad, conservative) |
+
+**Important:** The BAMW listing marks byte $8008 as $D8, the SCI vector $FFD6 as $EDB3, and reset vector $FFFE as $F1BA, but these are listing-derived statements until verified against the target BIN. BHDC is a 7427 image, not a 7060. SHA-based identity recommendations are exact and never guessed from filenames alone. Previously saved projects remain compatible; select the appropriate profile manually if they were saved as Generic HC11.
