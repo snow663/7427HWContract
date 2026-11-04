@@ -17,6 +17,14 @@ class ProfileContractTests(unittest.TestCase):
         self.assertEqual(bhdc["scheduler"]["address"], "7B85")
         self.assertFalse(bhdc["scheduler"]["auto_root_on_hash_match"])
 
+    def test_hardware_compatibility_masks(self):
+        for suffix in ("0d", "0e", "31", "e6"):
+            self.assertEqual(get_profile("gm_7427_" + suffix)["pcm"], "16197427")
+        for suffix in ("85", "d8_bamw"):
+            self.assertEqual(get_profile("gm_7060_" + suffix)["pcm"], "16147060")
+        self.assertEqual(get_profile("gm_7427_0d")["table_hints"], [])
+        self.assertEqual(get_profile("gm_7427_e6")["table_hints"], [])
+
     def test_source_specific_hints_do_not_cross_masks(self):
         self.assertTrue(get_profile("gm_7427_31")["table_hints"])
         self.assertFalse(get_profile("gm_7427_bhdc")["table_hints"])
