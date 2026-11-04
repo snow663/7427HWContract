@@ -62,3 +62,7 @@ ROMFlow_Studio/
 ## User manual
 
 The 10-page [ROMFlow Studio User Manual (PDF)](docs/ROMFlow_Studio_User_Manual_v0.2.pdf) covers first launch, navigation, interactive flow graphs, annotation conventions, calibration definitions, memory and SCI tracing, portable `.romflow` save/reopen, practical workflows, troubleshooting and shortcuts.
+
+## HC11 auto-reasoning (experimental)
+
+The **Auto Insights** tab runs a *conservative abstract interpreter* over established reachable opcodes. It tracks known A/B/D/X/Y/SP values through immediate loads, ROM reads, arithmetic, indexed addressing, ABX, transfers, stack operations, and control-flow joins. Unknown RAM, peripheral I/O, call side effects and conflicting branch values remain unknown. The instruction inspector shows register states **before and after** each opcode, including evidence for inferred indexed addresses. Findings propose routine roles, ROM data references and candidate relocatable HC11 SCI register blocks; they **never silently rewrite the ROM, assert calibration units, or promote unrooted bytes to code**. This is static interpretation, not a cycle-accurate emulator. Treat proposed hardware bases and routine meanings as reviewable hypotheses.
