@@ -33,8 +33,8 @@ class Image:
         b=self.read(a,2);return int.from_bytes(b,'big') if len(b)==2 else None
 
 class Analyzer:
-    def __init__(self,image,entries,vector_scan=True,dispatch_spec=(),max_instructions=60000):
-        self.img=image;self.entries=set(entries);self.entry_sources=defaultdict(set)
+    def __init__(self,image,entries,vector_scan=True,dispatch_spec=(),max_instructions=60000,execution_regions=None):
+        self.img=image;self.execution_regions=execution_regions;self.entries=set(entries);self.entry_sources=defaultdict(set)
         for e in entries:self.entry_sources[e].add('explicit')
         self.vectors=[];self.instructions={};self.failures={};self.overlaps=[];self.dispatch=[];self.dispatch_candidates=[];self.max_instructions=max_instructions
         self.specs=[]
@@ -48,24 +48,30 @@ class Analyzer:
             for va in range(0xFFC0,0x10000,2):
                 if not image.contains(va,2):continue
                 target=image.word(va)
-                if target in {0,0xFFFF} or not image.contains(target):continue
+                if target in {0,0xFFFF} or not self.is_executable(target):continue
                 # A vector is an execution root only when its first opcode decodes.
                 try:ins=decode(image.read,target)
                 except DecodeError:continue
                 source=VECTOR_NAMES.get(va,f'VECTOR_{va:04X}')
                 self.vectors.append({'vector':hx(va),'name':source,'target':hx(target)})
                 self.entries.add(target);self.entry_sources[target].add('vector:'+source)
+    def is_executable(self,pc):
+        return (pc is not None and self.img.contains(pc) and
+                (self.execution_regions is None or any(lo<=pc<=hi for lo,hi in self.execution_regions)))
+
     def scan(self):
         queue=deque(sorted(self.entries));seen_roots=set()
         while queue:
             root=queue.popleft()
             if root in seen_roots:continue
             seen_roots.add(root)
-            if not self.img.contains(root):continue
+            if not self.is_executable(root):continue
             pending=[root];visited=set()
             while pending:
                 pc=pending.pop()
-                if pc in visited or not self.img.contains(pc):continue
+                if pc in visited or not self.is_executable(pc):continue
+                # A >=24-byte erased run is padding despite FF also being a legal opcode.
+                if self.img.read(pc,24)==bytes([0xFF])*24:continue
                 visited.add(pc)
                 if pc not in self.instructions:
                     if len(self.instructions)>=self.max_instructions:raise RuntimeError('instruction limit reached')
@@ -77,7 +83,7 @@ class Analyzer:
                     self.instructions[pc]=ins
                 ins=self.instructions[pc]
                 if ins.op in CALLS:
-                    if ins.target is not None and self.img.contains(ins.target):
+                    if ins.target is not None and self.is_executable(ins.target):
                         self.entries.add(ins.target);self.entry_sources[ins.target].add('call:'+hx(pc));queue.append(ins.target)
                     pending.append(ins.next_pc)
                 elif ins.op in END:continue
@@ -90,7 +96,7 @@ class Analyzer:
         self.find_dispatchers()
         # Re-run only if vetted pointer roots add newly found reachable blocks.
         if any(a not in seen_roots for a in self.entries):
-            extras=Analyzer(self.img,self.entries,False,(),self.max_instructions)
+            extras=Analyzer(self.img,self.entries,False,(),self.max_instructions,execution_regions=self.execution_regions)
             extras.entry_sources=self.entry_sources;extras.scan()
             self.instructions.update(extras.instructions);self.failures.update(extras.failures);self.overlaps.extend(extras.overlaps)
         self.routines=self.find_routines()
@@ -122,7 +128,7 @@ class Analyzer:
                         if any(i.op in {'LDX','LDY'} and i.mode==kind for p,i in between if p<pc):
                             nearby_sinks.append(pc)
             def entry_looks_executable(target):
-                if target in {0,0xFFFF} or not self.img.contains(target):return False
+                if target in {0,0xFFFF} or not self.is_executable(target):return False
                 if target in self.instructions:return True
                 pc=target;has_control=False;has_nonfill=False
                 for _ in range(12):
@@ -131,7 +137,7 @@ class Analyzer:
                     if not (ins.op=='STX' and ins.mode=='extended' and ins.value==0xFFFF):has_nonfill=True
                     if ins.op in {'RTS','RTI'}:return has_nonfill
                     if ins.op in {'JMP','BRA'}:
-                        return ins.target is not None and self.img.contains(ins.target) and has_nonfill
+                        return ins.target is not None and self.is_executable(ins.target) and has_nonfill
                     if ins.op in {'SWI','STOP'}:return False
                     if ins.op in COND or ins.op in CALLS:has_control=True
                     pc=ins.next_pc
@@ -140,7 +146,7 @@ class Analyzer:
             for j in range(count if count is not None else 32):
                 v=self.img.word(addr+2*j)
                 if v is None:break
-                if count is None and (v in {0,0xFFFF} or not self.img.contains(v)):break
+                if count is None and (v in {0,0xFFFF} or not self.is_executable(v)):break
                 if count is None and j>=3 and not entry_looks_executable(v):break
                 words.append(v)
             if not words:continue
@@ -149,14 +155,14 @@ class Analyzer:
             plausible=sum(entry_looks_executable(v) for v in words)
             fraction=plausible/max(1,len(words))
             if count is not None:status='manual_confirmed_by_user'
-            elif len(words)>=3 and unique>=3 and rooted>=3 and fraction>=0.75:status='auto_rooted_pointer_array'
+            elif len(words)>=3 and unique>=3 and rooted>=3 and nearby_sinks and fraction>=0.75:status='auto_rooted_pointer_array'
             elif len(words)>=3 and unique>=3 and nearby_sinks and fraction>=0.90:status='auto_pattern_vetted'
             else:status='candidate_only'
             if status!='candidate_only' or nearby_sinks:
                 self.dispatch_candidates.append(dict(table=hx(addr),slots=len(words),plausible=plausible,unique=unique,rooted=rooted,linked_sites=';'.join(hx(s) for s in sorted(set(nearby_sinks))),status=status))
             if status=='candidate_only':continue
             for index,target in enumerate(words):
-                valid=self.img.contains(target)
+                valid=self.is_executable(target)
                 self.dispatch.append(dict(table=hx(addr),slot=index,target=hx(target),source=status,status='rooted' if target in self.instructions else 'inferred_entry' if valid else 'out_of_image',load_sites=';'.join(hx(x) for x in sites)))
                 if valid:
                     self.entries.add(target);self.entry_sources[target].add(f'dispatch:{hx(addr)}[{index}]')
@@ -259,10 +265,10 @@ class Analyzer:
             padding[match.start():match.end()]=b'\x01'*(match.end()-match.start())
         candidates=[];last_end=-1
         for pc in range(self.img.start,self.img.start+len(self.img.raw)-10):
-            if padding[pc-self.img.start] or pc in claimed or pc<last_end:continue
+            if padding[pc-self.img.start] or pc in claimed or pc<last_end or not self.is_executable(pc):continue
             cur=pc;decoded=[];terminated=False
             for step in range(24):
-                if cur in claimed or not self.img.contains(cur) or any(cur+j in claimed for j in range(3)):
+                if cur in claimed or not self.is_executable(cur) or any(cur+j in claimed for j in range(3)):
                     break
                 try:i=decode(self.img.read,cur)
                 except DecodeError:break

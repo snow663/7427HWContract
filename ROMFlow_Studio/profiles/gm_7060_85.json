@@ -1,0 +1,57 @@
+{
+  "id": "gm_7060_85",
+  "name": "GM 16147060 / $85 — cautious family template",
+  "pcm": "16147060",
+  "mask": "$85",
+  "calibration": "not specified",
+  "source_class": "family_template",
+  "warning": "$85 hardware-family template only; BAMW $D8 calibration contents and its routine addresses are NOT inherited.",
+  "execution_regions": [
+    [
+      "8000",
+      "FFFF"
+    ]
+  ],
+  "calibration_regions": [],
+  "zones": [
+    {
+      "start": "0000",
+      "end": "03FF",
+      "name": "Low RAM / control-state addresses; verify configured decoding"
+    },
+    {
+      "start": "1000",
+      "end": "105F",
+      "name": "HC11 internal register block (Potential source $1000)"
+    },
+    {
+      "start": "1060",
+      "end": "1FFF",
+      "name": "Other mapped area (unverified)"
+    },
+    {
+      "start": "3FC0",
+      "end": "3FFF",
+      "name": "GM control/state register window (source examples; hardware semantics not independently proven)"
+    },
+    {
+      "start": "4000",
+      "end": "40FF",
+      "name": "GM external I/O register addresses (Potential source)"
+    },
+    {
+      "start": "8000",
+      "end": "9FFF",
+      "name": "Potential calibration and ROM data"
+    },
+    {
+      "start": "A000",
+      "end": "FFFF",
+      "name": "Potential algorithm/program and vectors"
+    }
+  ],
+  "table_hints": [],
+  "notes": [
+    "Verify register relocation, vector contents, and ROM-code boundaries from the actual $85 image."
+  ]
+}

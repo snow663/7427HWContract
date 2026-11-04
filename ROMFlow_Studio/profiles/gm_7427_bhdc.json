@@ -1,0 +1,71 @@
+{
+  "id": "gm_7427_bhdc",
+  "name": "GM 16197427 / BHDC — ROM-report identity",
+  "pcm": "16197427",
+  "mask": "unverified",
+  "calibration": "BHDC 1994 7.4L TBI 5-speed",
+  "source_class": "uploaded_romflow_report",
+  "rom_sha256": "d412d1636469432616ae2944218a198e8768fe04a311dff8dff5b3fef4ec9c9b",
+  "warning": "Report-derived metadata from BHDC, NOT proven by complete original image. $7B85 dispatcher is an unconfirmed candidate and will not be force-rooted.",
+  "execution_regions": [
+    [
+      "7100",
+      "FFFF"
+    ]
+  ],
+  "calibration_regions": [
+    [
+      "4000",
+      "70FF"
+    ]
+  ],
+  "zones": [
+    {
+      "start": "0000",
+      "end": "03FF",
+      "name": "RAM / working state (F1-style, subject to active memory decode)"
+    },
+    {
+      "start": "1000",
+      "end": "1FFF",
+      "name": "Possible external extension / RAM window (7427 map, verify hardware)"
+    },
+    {
+      "start": "3000",
+      "end": "305F",
+      "name": "HC11F1 internal register block, relocated by INIT"
+    },
+    {
+      "start": "3060",
+      "end": "30FF",
+      "name": "GM external I/O / ASIC candidate"
+    },
+    {
+      "start": "3F00",
+      "end": "3FFF",
+      "name": "External ASIC / handshake window"
+    },
+    {
+      "start": "4000",
+      "end": "70FF",
+      "name": "Calibration and ROM data region"
+    },
+    {
+      "start": "7100",
+      "end": "FFFF",
+      "name": "Program, vectors and embedded data"
+    }
+  ],
+  "scheduler": {
+    "address": "7B85",
+    "slots": 16,
+    "evidence": "user ROMFlow export candidate; verify runtime dispatcher",
+    "auto_root_on_hash_match": false
+  },
+  "table_hints": [],
+  "notes": [
+    "Source image identified by report SHA; no source bytes supplied in that export.",
+    "Do not import BMHM $31 calibration table offsets without matching checks.",
+    "Low $0000–$3FFF bytes in a full image are NOT proof of resident executable program."
+  ]
+}
