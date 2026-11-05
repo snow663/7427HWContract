@@ -17,11 +17,24 @@ Older investigations and prototype build records retain their original scope.
 | Truck tuning | [Runtime workflow](docs/TRUCK_FIRST_RUNTIME_DECODING.md) | Use the exact current tune and matching logs for calibration-specific conclusions |
 | ROM simulator | [hac31_romsim/](hac31_romsim/README.md) | Existing clickable GUI and instruction/peripheral fixtures |
 
-The user restored the **regular 0.3.12 tune** after the temporary 1800 readback
-probe. Its exact normal-image filename and SHA-256 are not asserted here.
+The maintained address-register snapshot is **0.3.12 engine-only spark/idle
+Rev A**. Its exact image identity is recorded in [AGENTS.md](AGENTS.md).
 The old `2.bin` snapshot is historical and is not the current calibration
 value authority. No old pressure, injector, VSS or table value is promoted to
 current tune fact without checking the current image and observations.
+
+## Address references
+
+- [OEM BMHM register](7427_Address_Register_OEM_BMHM.xlsx): preserved factory
+  address roles.
+- [Non-OEM register](7427_Address_Register_0.3.12.xlsx): ongoing address reference
+  for the modified firmware; update this same workbook as traces and BIN changes
+  establish new uses.
+
+Both have ROM reads, RAM reads and ADC-HW reads tabs. The non-OEM register
+preserves each OEM role and uses its third column for `omitted` or a new use;
+blank means the original role is retained. No byte values are stored in the
+sheets. [Maintenance instructions](AGENTS.md) apply to future tracing work.
 
 ## Evidence authority
 
