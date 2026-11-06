@@ -1,0 +1,129 @@
+{
+  "baseline_sha256": "d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e",
+  "assembly_source_sha256": "f2d1d0d508dbc690935924ecb6f1ef257650554a6cfd37a77cbee86cbde18550",
+  "c_source_sha256": "e171406d444f30ff1b1d4285edaf657367c1e4fef4d29656b0fc001399539301",
+  "recorded_excerpts_match_exact_image": true,
+  "overlay_sha256": "264beb0140e470a8d63a83da74f460fb8864b6027711a26207b308fe9ae2d0b4",
+  "original_file_unchanged": true,
+  "firmware_file_created": false,
+  "baseline_instruction_starts": 7891,
+  "candidate_instruction_starts": 6463,
+  "idle_scope_original_instruction_starts": 1904,
+  "replacement_instruction_starts": 266,
+  "replacement_code_data_bytes": 722,
+  "roots": [
+    "74EA",
+    "7875",
+    "78D9",
+    "793D",
+    "7AA6",
+    "7AAD",
+    "7AB7",
+    "7ABD",
+    "7AC7",
+    "7B03",
+    "7B14",
+    "7B1B",
+    "7B2B",
+    "7B2F",
+    "7B39",
+    "7B3D",
+    "7B44",
+    "7B48",
+    "7B52",
+    "7B5A",
+    "CE7C",
+    "F7EA",
+    "FC04",
+    "FC09",
+    "FC1A",
+    "FC1F",
+    "FC24",
+    "FC29",
+    "FC2F",
+    "FC3A",
+    "FC44"
+  ],
+  "direct_gear_decisions": [],
+  "direct_old_drive_bank_accesses": [],
+  "preservation": [
+    [
+      "4000",
+      "4006"
+    ],
+    [
+      "4008",
+      "92A4"
+    ],
+    [
+      "93C5",
+      "9411"
+    ],
+    [
+      "983D",
+      "989C"
+    ],
+    [
+      "A3FA",
+      "FFC0"
+    ],
+    [
+      "FFC0",
+      "10000"
+    ]
+  ],
+  "incoming_replacement_entries": [
+    {
+      "origin": "7B32",
+      "entry": "A2B0",
+      "candidate_reachable_origin": true,
+      "entry_live_in_candidate": true
+    },
+    {
+      "origin": "7B21",
+      "entry": "9E99",
+      "candidate_reachable_origin": true,
+      "entry_live_in_candidate": true
+    },
+    {
+      "origin": "93F6",
+      "entry": "92A4",
+      "candidate_reachable_origin": true,
+      "entry_live_in_candidate": true
+    },
+    {
+      "origin": "940E",
+      "entry": "9537",
+      "candidate_reachable_origin": true,
+      "entry_live_in_candidate": true
+    },
+    {
+      "origin": "FF24",
+      "entry": "9A05",
+      "candidate_reachable_origin": false,
+      "entry_live_in_candidate": false
+    },
+    {
+      "origin": "FF27",
+      "entry": "99FA",
+      "candidate_reachable_origin": false,
+      "entry_live_in_candidate": true
+    },
+    {
+      "origin": "926F",
+      "entry": "92A4",
+      "candidate_reachable_origin": true,
+      "entry_live_in_candidate": true
+    },
+    {
+      "origin": "9276",
+      "entry": "92F1",
+      "candidate_reachable_origin": true,
+      "entry_live_in_candidate": true
+    }
+  ],
+  "indexed_data_operations": 372,
+  "indexed_data_operations_in_strategy": 0,
+  "execution_frontiers": [],
+  "scope": "Direct CFG from all vectors and 16 dispatcher entries. No retired strategy/data execution. Indexed data and external code are explicit limits, not a complete runtime proof."
+}

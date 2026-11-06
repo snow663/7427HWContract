@@ -1,0 +1,71 @@
+address,OEM role,Proposed use; not installed in Rev A
+$0036.1,IAC Park/Drive context selector,omitted; no transmission context is selected
+$0036.2,IAC closed-throttle/VSS qualification,Single-controller target-relative RPM/TPS capture
+$0036.3,IAC integral admission,Single-controller timed integral admission
+$0036.4,IAC stall recovery,Single-controller target-relative stall status
+$0036.7,IAC error direction,Retained RPM at-or-above-target meaning
+$029D,Park no-A/C learned integral word,Single runtime baseline air integral word
+$029F,Park no-A/C snapshot,omitted
+$02A0,Park A/C learned integral word,Single TPS follower air word
+$02A2,Park A/C snapshot,Startup-air amount byte
+$02A3,Park cold-air word,Startup-air fade divider byte; former word split
+$02A4,Low byte of Park cold-air word,Integral qualification call counter
+$02A5,Park cold bound word,Controller initialized signature byte; former word split
+$02A6,Low byte of Park cold bound word,omitted
+$02A7,Drive no-A/C learned integral word,omitted
+$02A9,Drive no-A/C snapshot,omitted
+$02AA,Drive A/C learned integral word,omitted
+$02AC,Drive A/C snapshot,omitted
+$02AD,Drive cold-air word,omitted
+$02AF,Drive cold-bound word,omitted
+$0857,Desired idle RPM,Shared startup/running RPM request from FF60
+$0858,Absolute IAC RPM error,Retained absolute RPM-error coordinate
+$0859,Filtered IAC error word,Absolute RPM-error coordinate as a Q8.8 word; no lag history
+$085F,Slewed base RPM,Shared startup/running downward-slewed base target
+$0862,Selected bank integral word,Single baseline integral publication
+$0864,IAC qualification delay,Effective RPM error after deadband; arithmetic scratch byte
+$0868,Stall threshold,Target-relative single-controller stall threshold
+$086A,Selected bank snapshot,Current single baseline high-byte publication
+$086B,Startup airflow adder,Arithmetic high-byte scratch
+$086C,Startup airflow decay divider,Current cold feedforward air coordinate
+$086D,Proportional airflow magnitude,Single-controller proportional magnitude high byte
+$086E,Derivative filter word,Proportional air magnitude word
+$0870,Derivative air magnitude,omitted
+$0871,Selected cold-air word,Arithmetic scratch word
+$0873,Selected cold bound word,omitted
+$087D,Pre-follower composite,Single-controller pre-follower composite and AE history
+$087F,IAC-change fuel enrichment,Retained pre-follower air-change enrichment role
+$0880,Throttle follower air word,Single-controller follower publication
+$0889,Pre-BARO airflow,Retained converter input and anti-windup feedback
+$4EB1,Park default integral seed,omitted
+$4EB2,Drive default integral seed,omitted; new seed has its own calibration location
+$4EC2,Park startup cold-air curve,omitted
+$4ECF,Drive startup cold-air curve,omitted
+$4F32,Park startup/base idle RPM curve,omitted
+$4F41,Park A/C base idle RPM curve,omitted
+$4F50,Drive startup/base idle RPM curve,omitted
+$4F5F,Drive A/C base idle RPM curve,omitted
+$4F6E,Startup RPM-adder curve,omitted; existing FF60 schedule supplies startup RPM
+$4FBE,Warm IAC error qualification threshold,Retained fuel-state reader; do not mark this shared address omitted
+$50A2,IAC-change enrichment scale/knots,Retained fuel compensation table
+$9F00,Original IAC kicker-control code,Single coolant-index cold-air feedforward curve
+$9F11,Original IAC kicker-control code,Single baseline seed
+$9F12,Original IAC kicker-control code,Startup-air amount
+$9F13,Original IAC kicker-control code,Startup-air fade divider reload
+$9F14,Original IAC kicker-control code,Capture normalized-TPS ceiling
+$9F15,Original IAC kicker-control code,Release normalized-TPS ceiling
+$9F16,Original IAC kicker-control code,Capture RPM margin above target
+$9F17,Original IAC kicker-control code,Release RPM margin above target
+$9F18,Original IAC kicker-control code,Integral admission delay in main calls
+$9F19,Original IAC kicker-control code,RPM error deadband
+$9F1A,Original IAC kicker-control code,Proportional gain
+$9F1B,Original IAC kicker-control code,Underspeed integral gain
+$9F1C,Original IAC kicker-control code,Overspeed integral gain
+$9F1D,Original IAC kicker-control code,Proportional air limit word
+$9F1F,Original IAC kicker-control code,Baseline integral upper limit word
+$9F21,Original IAC kicker-control code,TPS follower ceiling
+$9F22,Original IAC kicker-control code,TPS follower decay per main call word
+$9F24,Original IAC kicker-control code,Stall margin below target
+$9F25,Original IAC kicker-control code,Stall airflow increment
+$9F26,Original IAC kicker-control code,A/C feedforward airflow
+$FF60,Unused high-ROM space in OEM BMHM,"Retained Rev A RPM schedule, now shared by startup and running"

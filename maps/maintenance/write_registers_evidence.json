@@ -26,7 +26,8 @@
     "docs/analysis/FACTORY_TRANSMISSION_CONTROL.md",
     "Reviewed Rev A reachable instruction listing and exact image",
     "Root OEM and non-OEM read-address registers",
-    "docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md"
+    "docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md",
+    "docs/investigations/MANUAL_IDLE_REPLACEMENT.md"
   ],
   "updated": "2026-11-06",
   "rows": [
@@ -977,6 +978,26 @@
     },
     {
       "sheet": "RAM writes",
+      "address": "$0036.0",
+      "oem_role": "IAC A/C context flag",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$95B9",
+        "$95E2",
+        "$F301"
+      ],
+      "current_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$95B9",
+        "$95E2",
+        "$F301"
+      ]
+    },
+    {
+      "sheet": "RAM writes",
       "address": "$0036.1",
       "oem_role": "IAC context selector: clear selects Park, set selects Drive",
       "current_use": "Forced Drive by the retained $954F writer; automatic range selection omitted",
@@ -989,6 +1010,76 @@
       "current_writer_pcs": [
         "$7492",
         "$954F",
+        "$F301"
+      ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0036.2",
+      "oem_role": "IAC closed-throttle and idle qualification flag",
+      "current_use": "Rev A idle qualification; VSS and first-throttle dependencies omitted",
+      "oem_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$9A00",
+        "$9A05",
+        "$A3FD",
+        "$A436",
+        "$F301"
+      ],
+      "current_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$9A00",
+        "$9A05",
+        "$A3FD",
+        "$A436",
+        "$F301"
+      ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0036.3",
+      "oem_role": "IAC integral-control admission flag",
+      "current_use": "Integral admission within the retained forced Drive controller",
+      "oem_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$9A58",
+        "$9A5E",
+        "$A3FD",
+        "$A436",
+        "$F301"
+      ],
+      "current_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$9A58",
+        "$9A5E",
+        "$A3FD",
+        "$A436",
+        "$F301"
+      ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0036.4",
+      "oem_role": "IAC stall-recovery flag",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$96DE",
+        "$9A74",
+        "$A3FD",
+        "$F301"
+      ],
+      "current_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$96DE",
+        "$9A74",
+        "$A3FD",
         "$F301"
       ]
     },
@@ -1007,6 +1098,26 @@
         "$949D",
         "$96AA",
         "$96BF",
+        "$F301"
+      ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0036.7",
+      "oem_role": "IAC RPM-error direction: set at or above requested idle speed",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$96F5",
+        "$96FB",
+        "$F301"
+      ],
+      "current_writer_pcs": [
+        "$7492",
+        "$949D",
+        "$96F5",
+        "$96FB",
         "$F301"
       ]
     },
