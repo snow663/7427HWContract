@@ -1,0 +1,13 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "instructions": 6449,
+  "executable_bytes": 15272,
+  "functional_groups": 289,
+  "chapters": 13,
+  "indexed_data_operations": 372,
+  "control_frontiers": [],
+  "all_operations_assigned_once": true,
+  "context_sha256": "f26c5d9539762d00f519aa450f93d2c7513d56990523db6413bee13ec96f090d",
+  "relationship_scope": "Static direct calls/transfers and explicit fixed memory operands, width-aware. Indexed/stack/callee/hardware effects are not a complete producer-consumer proof.",
+  "interpretation_scope": "Authored functional context applied to exact surviving instruction groups. Inherited roles and physical meanings retain their limits; not full state/history or truck validation."
+}

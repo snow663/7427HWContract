@@ -75,3 +75,58 @@ Native browser rendering was not exercised in this environment.
 The reproducible reader source is maintained here; generated full-image outputs
 are delivered separately. No new BIN, XDF, calibration or controller behavior
 is introduced by this documentation work.
+
+## Functional context layer
+
+The grouped reader adds 289 authored functional explanations above the same
+6,449 instructions. Every operation belongs to one group. Groups include full
+routines, smaller decision/calculation stages, shared continuations and empty
+retired entries; they are not all independent functions. Their instruction spans
+exclude intervening data, and conditional paths are not a sequential narrative.
+
+```sh
+python tools/explain_revb_functions.py --rom /path/to/0.3.12_engine_only_manual_idle_revB.bin --output /path/to/reader
+python -m unittest discover -s tests -p 'test_revb_*.py' -v
+```
+
+This emits the original reader plus `FUNCTIONAL_GUIDE.html`,
+`FUNCTIONAL_GUIDE.md`, 13 smaller `context_chapters/`, a function-purpose CSV,
+structured groups and a functional coverage manifest. Open the functional HTML
+first: purpose paragraphs stay visible, with exact operations and input/output
+relationships expandable. Search finds any instruction address within its group,
+as well as topics, roles and tuning notes. Internal links reveal their target
+group even after a search or chapter filter.
+
+The authored context is in
+`maps/maintenance/revb_function_context.json`. It combines retained contract
+context with current-image descriptions of patched paths. The reader separately
+records how many instructions in each group match stock bytes; stock caller,
+calibration or hardware equivalence is not inferred from that count. In
+particular, removed gear/speed qualification, EGR corrections, old idle/transient
+spark and dual-bank idle behavior are not narrated as still executing.
+
+The guide distinguishes IAC capture, fuel-idle classification, closed-throttle
+VE selection and optional closed-throttle OL. It also explains P versus integral
+permission, internal air versus IAC steps, pre-follower IAC-change fuel input,
+signed spark floors and shared versus removed diagnostic/board owners.
+Selected tuning connections give current values, equality rules, timebase
+qualifications and a worked internal P-air example. They are explanations of the
+released defaults, not proposed calibration changes or physical tuning results.
+
+Calls, direct branches and normal fall-through/call-return continuations connect
+the groups. Width-aware explicit fixed reads/writes provide shared-address
+reader/writer links. These are static relationships: arbitrary indexed/stack
+effects, implicit register inputs, callees, interrupts and external hardware
+are not a complete def-use or runtime-order proof. Referenced XDF views retain
+inherited-unit qualifications; table bases are not assumed whole footprints.
+
+The compact boundary fixture records the first/last instruction of each group
+and selected calibration excerpts. Tests check valid decoding, authored boundary
+membership, exact custom assembly anchors, fixed-versus-indexed operand scope,
+unique partitioning and wrong-image rejection without requiring a private BIN in
+CI. Whole-image delivery additionally checks every operation byte and group
+assignment, Markdown/HTML links, JavaScript syntax and search behavior in a DOM
+fixture. Native browser rendering remains outside the exercised checks.
+When intentionally changing context boundaries/text, regenerate the compact
+fixture with the grouped reader's `--record-boundaries` option and review its
+diff; ordinary generation leaves repository references untouched.

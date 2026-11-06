@@ -4,19 +4,25 @@ on:
   pull_request:
     paths:
       - "tools/explain_revb_bin.py"
+      - "tools/explain_revb_functions.py"
       - "tools/factory_rom_decode.py"
       - "tools/trace_manual_idle.py"
       - "maps/maintenance/revb_operation_examples.json"
+      - "maps/maintenance/revb_function_*.json"
       - "tests/test_revb_english.py"
+      - "tests/test_revb_functions.py"
       - ".github/workflows/revb-operation-reader.yml"
   push:
     branches: [main]
     paths:
       - "tools/explain_revb_bin.py"
+      - "tools/explain_revb_functions.py"
       - "tools/factory_rom_decode.py"
       - "tools/trace_manual_idle.py"
       - "maps/maintenance/revb_operation_examples.json"
+      - "maps/maintenance/revb_function_*.json"
       - "tests/test_revb_english.py"
+      - "tests/test_revb_functions.py"
 permissions:
   contents: read
 jobs:
@@ -28,4 +34,4 @@ jobs:
         with:
           python-version: "3.11"
       - name: Check English rules and local provenance without a private BIN
-        run: python -m unittest discover -s tests -p test_revb_english.py -v
+        run: python -m unittest discover -s tests -p 'test_revb_*.py' -v

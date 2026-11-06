@@ -1,0 +1,4058 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "context_sha256": "f26c5d9539762d00f519aa450f93d2c7513d56990523db6413bee13ec96f090d",
+  "scope": "First and last instruction of each functional reading group plus selected calibration bytes; not a full executable BIN or all-state semantic proof.",
+  "groups": [
+    {
+      "address": "7100",
+      "instructions": 19,
+      "first": {
+        "address": "7100",
+        "bytes": "8e 03 ff",
+        "operation": "LDS #$03FF"
+      },
+      "last": {
+        "address": "7128",
+        "bytes": "fd 30 6e",
+        "operation": "STD $306E"
+      }
+    },
+    {
+      "address": "712B",
+      "instructions": 23,
+      "first": {
+        "address": "712B",
+        "bytes": "ce b9 3a",
+        "operation": "LDX #$B93A"
+      },
+      "last": {
+        "address": "7162",
+        "bytes": "26 f7",
+        "operation": "BNE $715B"
+      }
+    },
+    {
+      "address": "7164",
+      "instructions": 9,
+      "first": {
+        "address": "7164",
+        "bytes": "ce 00 36",
+        "operation": "LDX #$0036"
+      },
+      "last": {
+        "address": "717C",
+        "bytes": "bd f2 fd",
+        "operation": "JSR $F2FD"
+      }
+    },
+    {
+      "address": "717F",
+      "instructions": 5,
+      "first": {
+        "address": "717F",
+        "bytes": "ce 03 60",
+        "operation": "LDX #$0360"
+      },
+      "last": {
+        "address": "7188",
+        "bytes": "26 f8",
+        "operation": "BNE $7182"
+      }
+    },
+    {
+      "address": "718A",
+      "instructions": 4,
+      "first": {
+        "address": "718A",
+        "bytes": "bd f2 0d",
+        "operation": "JSR $F20D"
+      },
+      "last": {
+        "address": "7193",
+        "bytes": "7e 71 c3",
+        "operation": "JMP $71C3"
+      }
+    },
+    {
+      "address": "71C3",
+      "instructions": 119,
+      "first": {
+        "address": "71C3",
+        "bytes": "15 05 10",
+        "operation": "BCLR $05,#$10"
+      },
+      "last": {
+        "address": "742E",
+        "bytes": "b7 02 4a",
+        "operation": "STAA $024A"
+      }
+    },
+    {
+      "address": "7431",
+      "instructions": 18,
+      "first": {
+        "address": "7431",
+        "bytes": "86 0e",
+        "operation": "LDAA #$0E"
+      },
+      "last": {
+        "address": "745B",
+        "bytes": "b7 30 23",
+        "operation": "STAA $3023"
+      }
+    },
+    {
+      "address": "745E",
+      "instructions": 51,
+      "first": {
+        "address": "745E",
+        "bytes": "fc 30 0e",
+        "operation": "LDD $300E"
+      },
+      "last": {
+        "address": "74D0",
+        "bytes": "3e",
+        "operation": "WAI"
+      }
+    },
+    {
+      "address": "74D3",
+      "instructions": 7,
+      "first": {
+        "address": "74D3",
+        "bytes": "cc d0 00",
+        "operation": "LDD #$D000"
+      },
+      "last": {
+        "address": "74E5",
+        "bytes": "7e 5b d0",
+        "operation": "JMP $5BD0"
+      }
+    },
+    {
+      "address": "74EA",
+      "instructions": 21,
+      "first": {
+        "address": "74EA",
+        "bytes": "13 44 01 03",
+        "operation": "BRCLR $44,#$01,$74F1"
+      },
+      "last": {
+        "address": "7518",
+        "bytes": "f7 30 6f",
+        "operation": "STAB $306F"
+      }
+    },
+    {
+      "address": "751B",
+      "instructions": 11,
+      "first": {
+        "address": "751B",
+        "bytes": "13 50 01 0f",
+        "operation": "BRCLR $50,#$01,$752E"
+      },
+      "last": {
+        "address": "7532",
+        "bytes": "7e 76 50",
+        "operation": "JMP $7650"
+      }
+    },
+    {
+      "address": "7535",
+      "instructions": 30,
+      "first": {
+        "address": "7535",
+        "bytes": "dc 68",
+        "operation": "LDD $68"
+      },
+      "last": {
+        "address": "7584",
+        "bytes": "7e 76 2a",
+        "operation": "JMP $762A"
+      }
+    },
+    {
+      "address": "7587",
+      "instructions": 80,
+      "first": {
+        "address": "7587",
+        "bytes": "fb 02 56",
+        "operation": "ADDB $0256"
+      },
+      "last": {
+        "address": "764D",
+        "bytes": "7e 77 c6",
+        "operation": "JMP $77C6"
+      }
+    },
+    {
+      "address": "7650",
+      "instructions": 30,
+      "first": {
+        "address": "7650",
+        "bytes": "b6 02 c9",
+        "operation": "LDAA $02C9"
+      },
+      "last": {
+        "address": "7693",
+        "bytes": "b7 02 c9",
+        "operation": "STAA $02C9"
+      }
+    },
+    {
+      "address": "7696",
+      "instructions": 76,
+      "first": {
+        "address": "7696",
+        "bytes": "b6 40 0c",
+        "operation": "LDAA $400C"
+      },
+      "last": {
+        "address": "7763",
+        "bytes": "20 d6",
+        "operation": "BRA $773B"
+      }
+    },
+    {
+      "address": "7765",
+      "instructions": 37,
+      "first": {
+        "address": "7765",
+        "bytes": "fc 3f fa",
+        "operation": "LDD $3FFA"
+      },
+      "last": {
+        "address": "77C6",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "77C7",
+      "instructions": 18,
+      "first": {
+        "address": "77C7",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "77F6",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "77F7",
+      "instructions": 18,
+      "first": {
+        "address": "77F7",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "7826",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7827",
+      "instructions": 24,
+      "first": {
+        "address": "7827",
+        "bytes": "37",
+        "operation": "PSHB"
+      },
+      "last": {
+        "address": "7859",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "785A",
+      "instructions": 12,
+      "first": {
+        "address": "785A",
+        "bytes": "b6 5b 03",
+        "operation": "LDAA $5B03"
+      },
+      "last": {
+        "address": "7874",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7875",
+      "instructions": 40,
+      "first": {
+        "address": "7875",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "78D8",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "78D9",
+      "instructions": 40,
+      "first": {
+        "address": "78D9",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "793C",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "793D",
+      "instructions": 28,
+      "first": {
+        "address": "793D",
+        "bytes": "fc 30 1a",
+        "operation": "LDD $301A"
+      },
+      "last": {
+        "address": "7988",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "7989",
+      "instructions": 1,
+      "first": {
+        "address": "7989",
+        "bytes": "14 4f 04",
+        "operation": "BSET $4F,#$04"
+      },
+      "last": {
+        "address": "7989",
+        "bytes": "14 4f 04",
+        "operation": "BSET $4F,#$04"
+      }
+    },
+    {
+      "address": "798C",
+      "instructions": 35,
+      "first": {
+        "address": "798C",
+        "bytes": "13 3b 10 14",
+        "operation": "BRCLR $3B,#$10,$79A4"
+      },
+      "last": {
+        "address": "79D8",
+        "bytes": "0e",
+        "operation": "CLI"
+      }
+    },
+    {
+      "address": "79D9",
+      "instructions": 4,
+      "first": {
+        "address": "79D9",
+        "bytes": "13 1a 20 15",
+        "operation": "BRCLR $1A,#$20,$79F2"
+      },
+      "last": {
+        "address": "79E4",
+        "bytes": "bd ac 51",
+        "operation": "JSR $AC51"
+      }
+    },
+    {
+      "address": "79E7",
+      "instructions": 44,
+      "first": {
+        "address": "79E7",
+        "bytes": "cc aa 55",
+        "operation": "LDD #$AA55"
+      },
+      "last": {
+        "address": "7A43",
+        "bytes": "01",
+        "operation": "NOP"
+      }
+    },
+    {
+      "address": "7A44",
+      "instructions": 9,
+      "first": {
+        "address": "7A44",
+        "bytes": "d6 02",
+        "operation": "LDAB $02"
+      },
+      "last": {
+        "address": "7A52",
+        "bytes": "15 4f 04",
+        "operation": "BCLR $4F,#$04"
+      }
+    },
+    {
+      "address": "7A55",
+      "instructions": 19,
+      "first": {
+        "address": "7A55",
+        "bytes": "13 86 40 20",
+        "operation": "BRCLR $86,#$40,$7A79"
+      },
+      "last": {
+        "address": "7A84",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "7AA6",
+      "instructions": 3,
+      "first": {
+        "address": "7AA6",
+        "bytes": "bd c5 6f",
+        "operation": "JSR $C56F"
+      },
+      "last": {
+        "address": "7AAC",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7AAD",
+      "instructions": 8,
+      "first": {
+        "address": "7AAD",
+        "bytes": "bd c5 83",
+        "operation": "JSR $C583"
+      },
+      "last": {
+        "address": "7AB6",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7AB7",
+      "instructions": 4,
+      "first": {
+        "address": "7AB7",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "7ABC",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7ABD",
+      "instructions": 8,
+      "first": {
+        "address": "7ABD",
+        "bytes": "bd f5 cf",
+        "operation": "JSR $F5CF"
+      },
+      "last": {
+        "address": "7AC6",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7AC7",
+      "instructions": 16,
+      "first": {
+        "address": "7AC7",
+        "bytes": "bd ea 40",
+        "operation": "JSR $EA40"
+      },
+      "last": {
+        "address": "7B02",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B03",
+      "instructions": 10,
+      "first": {
+        "address": "7B03",
+        "bytes": "01",
+        "operation": "NOP"
+      },
+      "last": {
+        "address": "7B13",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B14",
+      "instructions": 3,
+      "first": {
+        "address": "7B14",
+        "bytes": "bd cb 15",
+        "operation": "JSR $CB15"
+      },
+      "last": {
+        "address": "7B1A",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B1B",
+      "instructions": 12,
+      "first": {
+        "address": "7B1B",
+        "bytes": "01",
+        "operation": "NOP"
+      },
+      "last": {
+        "address": "7B2A",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B2B",
+      "instructions": 2,
+      "first": {
+        "address": "7B2B",
+        "bytes": "bd ce bb",
+        "operation": "JSR $CEBB"
+      },
+      "last": {
+        "address": "7B2E",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B2F",
+      "instructions": 8,
+      "first": {
+        "address": "7B2F",
+        "bytes": "01",
+        "operation": "NOP"
+      },
+      "last": {
+        "address": "7B38",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B39",
+      "instructions": 4,
+      "first": {
+        "address": "7B39",
+        "bytes": "01",
+        "operation": "NOP"
+      },
+      "last": {
+        "address": "7B3C",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B3D",
+      "instructions": 7,
+      "first": {
+        "address": "7B3D",
+        "bytes": "01",
+        "operation": "NOP"
+      },
+      "last": {
+        "address": "7B43",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B44",
+      "instructions": 2,
+      "first": {
+        "address": "7B44",
+        "bytes": "bd cc 35",
+        "operation": "JSR $CC35"
+      },
+      "last": {
+        "address": "7B47",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B48",
+      "instructions": 4,
+      "first": {
+        "address": "7B48",
+        "bytes": "bd 5c 8a",
+        "operation": "JSR $5C8A"
+      },
+      "last": {
+        "address": "7B51",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B52",
+      "instructions": 3,
+      "first": {
+        "address": "7B52",
+        "bytes": "13 51 04 03",
+        "operation": "BRCLR $51,#$04,$7B59"
+      },
+      "last": {
+        "address": "7B59",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B5A",
+      "instructions": 15,
+      "first": {
+        "address": "7B5A",
+        "bytes": "01",
+        "operation": "NOP"
+      },
+      "last": {
+        "address": "7B6C",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7B6D",
+      "instructions": 1,
+      "first": {
+        "address": "7B6D",
+        "bytes": "bd 91 a3",
+        "operation": "JSR $91A3"
+      },
+      "last": {
+        "address": "7B6D",
+        "bytes": "bd 91 a3",
+        "operation": "JSR $91A3"
+      }
+    },
+    {
+      "address": "7B70",
+      "instructions": 4,
+      "first": {
+        "address": "7B70",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "7B75",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7BA7",
+      "instructions": 1,
+      "first": {
+        "address": "7BA7",
+        "bytes": "bd f3 ee",
+        "operation": "JSR $F3EE"
+      },
+      "last": {
+        "address": "7BA7",
+        "bytes": "bd f3 ee",
+        "operation": "JSR $F3EE"
+      }
+    },
+    {
+      "address": "7BAA",
+      "instructions": 33,
+      "first": {
+        "address": "7BAA",
+        "bytes": "b6 08 2e",
+        "operation": "LDAA $082E"
+      },
+      "last": {
+        "address": "7BF2",
+        "bytes": "b7 01 c6",
+        "operation": "STAA $01C6"
+      }
+    },
+    {
+      "address": "7BF5",
+      "instructions": 9,
+      "first": {
+        "address": "7BF5",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "7C12",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "7D4B",
+      "instructions": 40,
+      "first": {
+        "address": "7D4B",
+        "bytes": "fe 02 7e",
+        "operation": "LDX $027E"
+      },
+      "last": {
+        "address": "7DB3",
+        "bytes": "b7 30 3a",
+        "operation": "STAA $303A"
+      }
+    },
+    {
+      "address": "7DB6",
+      "instructions": 27,
+      "first": {
+        "address": "7DB6",
+        "bytes": "96 41",
+        "operation": "LDAA $41"
+      },
+      "last": {
+        "address": "7DEF",
+        "bytes": "97 47",
+        "operation": "STAA $47"
+      }
+    },
+    {
+      "address": "7DF1",
+      "instructions": 5,
+      "first": {
+        "address": "7DF1",
+        "bytes": "b6 01 d9",
+        "operation": "LDAA $01D9"
+      },
+      "last": {
+        "address": "7DFD",
+        "bytes": "7e 7e 09",
+        "operation": "JMP $7E09"
+      }
+    },
+    {
+      "address": "7E09",
+      "instructions": 22,
+      "first": {
+        "address": "7E09",
+        "bytes": "f6 48 bd",
+        "operation": "LDAB $48BD"
+      },
+      "last": {
+        "address": "7E3F",
+        "bytes": "01",
+        "operation": "NOP"
+      }
+    },
+    {
+      "address": "7E40",
+      "instructions": 7,
+      "first": {
+        "address": "7E40",
+        "bytes": "f6 01 c6",
+        "operation": "LDAB $01C6"
+      },
+      "last": {
+        "address": "7E4C",
+        "bytes": "fd 02 57",
+        "operation": "STD $0257"
+      }
+    },
+    {
+      "address": "7E4F",
+      "instructions": 1,
+      "first": {
+        "address": "7E4F",
+        "bytes": "12 4f 10 53",
+        "operation": "BRSET $4F,#$10,$7EA6"
+      },
+      "last": {
+        "address": "7E4F",
+        "bytes": "12 4f 10 53",
+        "operation": "BRSET $4F,#$10,$7EA6"
+      }
+    },
+    {
+      "address": "7E53",
+      "instructions": 35,
+      "first": {
+        "address": "7E53",
+        "bytes": "bd ae 5c",
+        "operation": "JSR $AE5C"
+      },
+      "last": {
+        "address": "7EAF",
+        "bytes": "7e 84 f5",
+        "operation": "JMP $84F5"
+      }
+    },
+    {
+      "address": "7EB2",
+      "instructions": 53,
+      "first": {
+        "address": "7EB2",
+        "bytes": "5f",
+        "operation": "CLRB"
+      },
+      "last": {
+        "address": "7F1E",
+        "bytes": "b7 02 3e",
+        "operation": "STAA $023E"
+      }
+    },
+    {
+      "address": "7F21",
+      "instructions": 33,
+      "first": {
+        "address": "7F21",
+        "bytes": "b6 01 d9",
+        "operation": "LDAA $01D9"
+      },
+      "last": {
+        "address": "7F83",
+        "bytes": "fd 01 dc",
+        "operation": "STD $01DC"
+      }
+    },
+    {
+      "address": "7F86",
+      "instructions": 31,
+      "first": {
+        "address": "7F86",
+        "bytes": "f6 01 c0",
+        "operation": "LDAB $01C0"
+      },
+      "last": {
+        "address": "7FD5",
+        "bytes": "b7 02 31",
+        "operation": "STAA $0231"
+      }
+    },
+    {
+      "address": "7FD8",
+      "instructions": 49,
+      "first": {
+        "address": "7FD8",
+        "bytes": "fc 02 57",
+        "operation": "LDD $0257"
+      },
+      "last": {
+        "address": "802F",
+        "bytes": "fd 02 4e",
+        "operation": "STD $024E"
+      }
+    },
+    {
+      "address": "8032",
+      "instructions": 5,
+      "first": {
+        "address": "8032",
+        "bytes": "7e 80 4c",
+        "operation": "JMP $804C"
+      },
+      "last": {
+        "address": "8055",
+        "bytes": "bd 80 ee",
+        "operation": "JSR $80EE"
+      }
+    },
+    {
+      "address": "8058",
+      "instructions": 27,
+      "first": {
+        "address": "8058",
+        "bytes": "7e 80 9c",
+        "operation": "JMP $809C"
+      },
+      "last": {
+        "address": "80EB",
+        "bytes": "7e 82 1d",
+        "operation": "JMP $821D"
+      }
+    },
+    {
+      "address": "80EE",
+      "instructions": 7,
+      "first": {
+        "address": "80EE",
+        "bytes": "36",
+        "operation": "PSHA"
+      },
+      "last": {
+        "address": "80FB",
+        "bytes": "32",
+        "operation": "PULA"
+      }
+    },
+    {
+      "address": "80FC",
+      "instructions": 6,
+      "first": {
+        "address": "80FC",
+        "bytes": "ce 02 4e",
+        "operation": "LDX #$024E"
+      },
+      "last": {
+        "address": "8109",
+        "bytes": "15 46 10",
+        "operation": "BCLR $46,#$10"
+      }
+    },
+    {
+      "address": "810C",
+      "instructions": 40,
+      "first": {
+        "address": "810C",
+        "bytes": "b6 08 7f",
+        "operation": "LDAA $087F"
+      },
+      "last": {
+        "address": "8172",
+        "bytes": "15 44 02",
+        "operation": "BCLR $44,#$02"
+      }
+    },
+    {
+      "address": "8175",
+      "instructions": 69,
+      "first": {
+        "address": "8175",
+        "bytes": "96 06",
+        "operation": "LDAA $06"
+      },
+      "last": {
+        "address": "821B",
+        "bytes": "26 1e",
+        "operation": "BNE $823B"
+      }
+    },
+    {
+      "address": "821D",
+      "instructions": 19,
+      "first": {
+        "address": "821D",
+        "bytes": "14 46 08",
+        "operation": "BSET $46,#$08"
+      },
+      "last": {
+        "address": "824A",
+        "bytes": "7a 02 45",
+        "operation": "DEC $0245"
+      }
+    },
+    {
+      "address": "824D",
+      "instructions": 62,
+      "first": {
+        "address": "824D",
+        "bytes": "15 46 08",
+        "operation": "BCLR $46,#$08"
+      },
+      "last": {
+        "address": "82EA",
+        "bytes": "15 53 02",
+        "operation": "BCLR $53,#$02"
+      }
+    },
+    {
+      "address": "82ED",
+      "instructions": 10,
+      "first": {
+        "address": "82ED",
+        "bytes": "96 67",
+        "operation": "LDAA $67"
+      },
+      "last": {
+        "address": "830F",
+        "bytes": "20 31",
+        "operation": "BRA $8342"
+      }
+    },
+    {
+      "address": "8342",
+      "instructions": 25,
+      "first": {
+        "address": "8342",
+        "bytes": "b6 01 c6",
+        "operation": "LDAA $01C6"
+      },
+      "last": {
+        "address": "837D",
+        "bytes": "fd 02 4e",
+        "operation": "STD $024E"
+      }
+    },
+    {
+      "address": "8380",
+      "instructions": 23,
+      "first": {
+        "address": "8380",
+        "bytes": "4f",
+        "operation": "CLRA"
+      },
+      "last": {
+        "address": "83AE",
+        "bytes": "fd 02 54",
+        "operation": "STD $0254"
+      }
+    },
+    {
+      "address": "83B1",
+      "instructions": 7,
+      "first": {
+        "address": "83B1",
+        "bytes": "13 44 10 08",
+        "operation": "BRCLR $44,#$10,$83BD"
+      },
+      "last": {
+        "address": "83C0",
+        "bytes": "1f 00 01 37",
+        "operation": "BRCLR $00,X,#$01,$83FB"
+      }
+    },
+    {
+      "address": "83C4",
+      "instructions": 42,
+      "first": {
+        "address": "83C4",
+        "bytes": "13 51 01 02",
+        "operation": "BRCLR $51,#$01,$83CA"
+      },
+      "last": {
+        "address": "8429",
+        "bytes": "bd f3 ed",
+        "operation": "JSR $F3ED"
+      }
+    },
+    {
+      "address": "842C",
+      "instructions": 32,
+      "first": {
+        "address": "842C",
+        "bytes": "fc 3f c0",
+        "operation": "LDD $3FC0"
+      },
+      "last": {
+        "address": "8472",
+        "bytes": "13 3d 80 46",
+        "operation": "BRCLR $3D,#$80,$84BC"
+      }
+    },
+    {
+      "address": "8476",
+      "instructions": 19,
+      "first": {
+        "address": "8476",
+        "bytes": "fc 02 59",
+        "operation": "LDD $0259"
+      },
+      "last": {
+        "address": "84A6",
+        "bytes": "fc 49 32",
+        "operation": "LDD $4932"
+      }
+    },
+    {
+      "address": "84A9",
+      "instructions": 8,
+      "first": {
+        "address": "84A9",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "84B9",
+        "bytes": "15 3d 80",
+        "operation": "BCLR $3D,#$80"
+      }
+    },
+    {
+      "address": "84BC",
+      "instructions": 22,
+      "first": {
+        "address": "84BC",
+        "bytes": "fc 02 4e",
+        "operation": "LDD $024E"
+      },
+      "last": {
+        "address": "84F2",
+        "bytes": "fc 49 6f",
+        "operation": "LDD $496F"
+      }
+    },
+    {
+      "address": "84F5",
+      "instructions": 35,
+      "first": {
+        "address": "84F5",
+        "bytes": "fd 02 4c",
+        "operation": "STD $024C"
+      },
+      "last": {
+        "address": "8547",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "8548",
+      "instructions": 29,
+      "first": {
+        "address": "8548",
+        "bytes": "ce 40 0e",
+        "operation": "LDX #$400E"
+      },
+      "last": {
+        "address": "858A",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "858B",
+      "instructions": 22,
+      "first": {
+        "address": "858B",
+        "bytes": "fe 3f c0",
+        "operation": "LDX $3FC0"
+      },
+      "last": {
+        "address": "85B1",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "85B2",
+      "instructions": 45,
+      "first": {
+        "address": "85B2",
+        "bytes": "96 06",
+        "operation": "LDAA $06"
+      },
+      "last": {
+        "address": "8612",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "8613",
+      "instructions": 17,
+      "first": {
+        "address": "8613",
+        "bytes": "96 a7",
+        "operation": "LDAA $A7"
+      },
+      "last": {
+        "address": "863C",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "863D",
+      "instructions": 14,
+      "first": {
+        "address": "863D",
+        "bytes": "13 4f 10 21",
+        "operation": "BRCLR $4F,#$10,$8662"
+      },
+      "last": {
+        "address": "865F",
+        "bytes": "14 04 01",
+        "operation": "BSET $04,#$01"
+      }
+    },
+    {
+      "address": "8662",
+      "instructions": 35,
+      "first": {
+        "address": "8662",
+        "bytes": "b6 02 32",
+        "operation": "LDAA $0232"
+      },
+      "last": {
+        "address": "86AD",
+        "bytes": "b7 02 6b",
+        "operation": "STAA $026B"
+      }
+    },
+    {
+      "address": "86B0",
+      "instructions": 28,
+      "first": {
+        "address": "86B0",
+        "bytes": "d6 3e",
+        "operation": "LDAB $3E"
+      },
+      "last": {
+        "address": "86F0",
+        "bytes": "d7 3e",
+        "operation": "STAB $3E"
+      }
+    },
+    {
+      "address": "86F2",
+      "instructions": 42,
+      "first": {
+        "address": "86F2",
+        "bytes": "13 3b 10 10",
+        "operation": "BRCLR $3B,#$10,$8706"
+      },
+      "last": {
+        "address": "8779",
+        "bytes": "14 6e 01",
+        "operation": "BSET $6E,#$01"
+      }
+    },
+    {
+      "address": "877C",
+      "instructions": 8,
+      "first": {
+        "address": "877C",
+        "bytes": "86 80",
+        "operation": "LDAA #$80"
+      },
+      "last": {
+        "address": "878D",
+        "bytes": "7e 89 11",
+        "operation": "JMP $8911"
+      }
+    },
+    {
+      "address": "8790",
+      "instructions": 96,
+      "first": {
+        "address": "8790",
+        "bytes": "b6 01 d2",
+        "operation": "LDAA $01D2"
+      },
+      "last": {
+        "address": "886C",
+        "bytes": "b7 02 81",
+        "operation": "STAA $0281"
+      }
+    },
+    {
+      "address": "886F",
+      "instructions": 40,
+      "first": {
+        "address": "886F",
+        "bytes": "96 46",
+        "operation": "LDAA $46"
+      },
+      "last": {
+        "address": "88CA",
+        "bytes": "b7 02 0f",
+        "operation": "STAA $020F"
+      }
+    },
+    {
+      "address": "88CD",
+      "instructions": 12,
+      "first": {
+        "address": "88CD",
+        "bytes": "b6 02 7c",
+        "operation": "LDAA $027C"
+      },
+      "last": {
+        "address": "88E6",
+        "bytes": "7f 02 7a",
+        "operation": "CLR $027A"
+      }
+    },
+    {
+      "address": "88E9",
+      "instructions": 14,
+      "first": {
+        "address": "88E9",
+        "bytes": "b6 02 7a",
+        "operation": "LDAA $027A"
+      },
+      "last": {
+        "address": "890F",
+        "bytes": "20 07",
+        "operation": "BRA $8918"
+      }
+    },
+    {
+      "address": "8911",
+      "instructions": 5,
+      "first": {
+        "address": "8911",
+        "bytes": "bb 02 0f",
+        "operation": "ADDA $020F"
+      },
+      "last": {
+        "address": "891D",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "891E",
+      "instructions": 53,
+      "first": {
+        "address": "891E",
+        "bytes": "b6 48 e7",
+        "operation": "LDAA $48E7"
+      },
+      "last": {
+        "address": "8998",
+        "bytes": "b7 02 4a",
+        "operation": "STAA $024A"
+      }
+    },
+    {
+      "address": "899B",
+      "instructions": 50,
+      "first": {
+        "address": "899B",
+        "bytes": "7e fe f8",
+        "operation": "JMP $FEF8"
+      },
+      "last": {
+        "address": "8A1F",
+        "bytes": "b6 02 4a",
+        "operation": "LDAA $024A"
+      }
+    },
+    {
+      "address": "8A22",
+      "instructions": 46,
+      "first": {
+        "address": "8A22",
+        "bytes": "12 3e 80 36",
+        "operation": "BRSET $3E,#$80,$8A5C"
+      },
+      "last": {
+        "address": "8A8F",
+        "bytes": "7e 8c 6d",
+        "operation": "JMP $8C6D"
+      }
+    },
+    {
+      "address": "8A92",
+      "instructions": 166,
+      "first": {
+        "address": "8A92",
+        "bytes": "7e 8a aa",
+        "operation": "JMP $8AAA"
+      },
+      "last": {
+        "address": "8C35",
+        "bytes": "15 3f 20",
+        "operation": "BCLR $3F,#$20"
+      }
+    },
+    {
+      "address": "8C38",
+      "instructions": 16,
+      "first": {
+        "address": "8C38",
+        "bytes": "b6 01 d9",
+        "operation": "LDAA $01D9"
+      },
+      "last": {
+        "address": "8C70",
+        "bytes": "b7 02 4b",
+        "operation": "STAA $024B"
+      }
+    },
+    {
+      "address": "8C73",
+      "instructions": 111,
+      "first": {
+        "address": "8C73",
+        "bytes": "7e 8c 8e",
+        "operation": "JMP $8C8E"
+      },
+      "last": {
+        "address": "8D9B",
+        "bytes": "f7 02 47",
+        "operation": "STAB $0247"
+      }
+    },
+    {
+      "address": "8D9E",
+      "instructions": 30,
+      "first": {
+        "address": "8D9E",
+        "bytes": "ce 40 0c",
+        "operation": "LDX #$400C"
+      },
+      "last": {
+        "address": "8DEC",
+        "bytes": "b7 02 49",
+        "operation": "STAA $0249"
+      }
+    },
+    {
+      "address": "8DEF",
+      "instructions": 16,
+      "first": {
+        "address": "8DEF",
+        "bytes": "b6 02 40",
+        "operation": "LDAA $0240"
+      },
+      "last": {
+        "address": "8E1A",
+        "bytes": "7a 02 40",
+        "operation": "DEC $0240"
+      }
+    },
+    {
+      "address": "8E1D",
+      "instructions": 62,
+      "first": {
+        "address": "8E1D",
+        "bytes": "13 3e 02 47",
+        "operation": "BRCLR $3E,#$02,$8E68"
+      },
+      "last": {
+        "address": "8EB3",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "9167",
+      "instructions": 14,
+      "first": {
+        "address": "9167",
+        "bytes": "c6 aa",
+        "operation": "LDAB #$AA"
+      },
+      "last": {
+        "address": "91A2",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "91A3",
+      "instructions": 48,
+      "first": {
+        "address": "91A3",
+        "bytes": "d6 0a",
+        "operation": "LDAB $0A"
+      },
+      "last": {
+        "address": "920D",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "920E",
+      "instructions": 6,
+      "first": {
+        "address": "920E",
+        "bytes": "15 37 18",
+        "operation": "BCLR $37,#$18"
+      },
+      "last": {
+        "address": "921F",
+        "bytes": "14 36 40",
+        "operation": "BSET $36,#$40"
+      }
+    },
+    {
+      "address": "9222",
+      "instructions": 2,
+      "first": {
+        "address": "9222",
+        "bytes": "14 4b 80",
+        "operation": "BSET $4B,#$80"
+      },
+      "last": {
+        "address": "9225",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "923C",
+      "instructions": 2,
+      "first": {
+        "address": "923C",
+        "bytes": "15 4b 80",
+        "operation": "BCLR $4B,#$80"
+      },
+      "last": {
+        "address": "923F",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "9240",
+      "instructions": 3,
+      "first": {
+        "address": "9240",
+        "bytes": "ce 00 4c",
+        "operation": "LDX #$004C"
+      },
+      "last": {
+        "address": "9246",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "925E",
+      "instructions": 28,
+      "first": {
+        "address": "925E",
+        "bytes": "b6 4e f2",
+        "operation": "LDAA $4EF2"
+      },
+      "last": {
+        "address": "92A3",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "92A4",
+      "instructions": 1,
+      "first": {
+        "address": "92A4",
+        "bytes": "7e 98 9c",
+        "operation": "JMP $989C"
+      },
+      "last": {
+        "address": "92A4",
+        "bytes": "7e 98 9c",
+        "operation": "JMP $989C"
+      }
+    },
+    {
+      "address": "92F1",
+      "instructions": 1,
+      "first": {
+        "address": "92F1",
+        "bytes": "7e 98 9c",
+        "operation": "JMP $989C"
+      },
+      "last": {
+        "address": "92F1",
+        "bytes": "7e 98 9c",
+        "operation": "JMP $989C"
+      }
+    },
+    {
+      "address": "93C5",
+      "instructions": 5,
+      "first": {
+        "address": "93C5",
+        "bytes": "12 09 01 06",
+        "operation": "BRSET $09,#$01,$93CF"
+      },
+      "last": {
+        "address": "93CF",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "93D0",
+      "instructions": 22,
+      "first": {
+        "address": "93D0",
+        "bytes": "13 86 40 03",
+        "operation": "BRCLR $86,#$40,$93D7"
+      },
+      "last": {
+        "address": "940E",
+        "bytes": "7e 95 37",
+        "operation": "JMP $9537"
+      }
+    },
+    {
+      "address": "9411",
+      "instructions": 4,
+      "first": {
+        "address": "9411",
+        "bytes": "bd 98 9c",
+        "operation": "JSR $989C"
+      },
+      "last": {
+        "address": "941A",
+        "bytes": "7e 98 3d",
+        "operation": "JMP $983D"
+      }
+    },
+    {
+      "address": "9537",
+      "instructions": 4,
+      "first": {
+        "address": "9537",
+        "bytes": "b6 02 a5",
+        "operation": "LDAA $02A5"
+      },
+      "last": {
+        "address": "953E",
+        "bytes": "bd 98 9c",
+        "operation": "JSR $989C"
+      }
+    },
+    {
+      "address": "9541",
+      "instructions": 9,
+      "first": {
+        "address": "9541",
+        "bytes": "bd 98 e3",
+        "operation": "JSR $98E3"
+      },
+      "last": {
+        "address": "9557",
+        "bytes": "7a 02 a2",
+        "operation": "DEC $02A2"
+      }
+    },
+    {
+      "address": "955A",
+      "instructions": 14,
+      "first": {
+        "address": "955A",
+        "bytes": "96 36",
+        "operation": "LDAA $36"
+      },
+      "last": {
+        "address": "9578",
+        "bytes": "fd 08 59",
+        "operation": "STD $0859"
+      }
+    },
+    {
+      "address": "957B",
+      "instructions": 10,
+      "first": {
+        "address": "957B",
+        "bytes": "12 36 04 16",
+        "operation": "BRSET $36,#$04,$9595"
+      },
+      "last": {
+        "address": "9593",
+        "bytes": "20 14",
+        "operation": "BRA $95A9"
+      }
+    },
+    {
+      "address": "9595",
+      "instructions": 8,
+      "first": {
+        "address": "9595",
+        "bytes": "b6 01 d9",
+        "operation": "LDAA $01D9"
+      },
+      "last": {
+        "address": "95A7",
+        "bytes": "25 1c",
+        "operation": "BCS $95C5"
+      }
+    },
+    {
+      "address": "95A9",
+      "instructions": 11,
+      "first": {
+        "address": "95A9",
+        "bytes": "14 36 04",
+        "operation": "BSET $36,#$04"
+      },
+      "last": {
+        "address": "95C3",
+        "bytes": "20 06",
+        "operation": "BRA $95CB"
+      }
+    },
+    {
+      "address": "95C5",
+      "instructions": 2,
+      "first": {
+        "address": "95C5",
+        "bytes": "15 36 0c",
+        "operation": "BCLR $36,#$0C"
+      },
+      "last": {
+        "address": "95C8",
+        "bytes": "7f 02 a4",
+        "operation": "CLR $02A4"
+      }
+    },
+    {
+      "address": "95CB",
+      "instructions": 11,
+      "first": {
+        "address": "95CB",
+        "bytes": "13 46 08 06",
+        "operation": "BRCLR $46,#$08,$95D5"
+      },
+      "last": {
+        "address": "95E9",
+        "bytes": "7e 98 3d",
+        "operation": "JMP $983D"
+      }
+    },
+    {
+      "address": "983D",
+      "instructions": 49,
+      "first": {
+        "address": "983D",
+        "bytes": "fd 08 89",
+        "operation": "STD $0889"
+      },
+      "last": {
+        "address": "989B",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "989C",
+      "instructions": 26,
+      "first": {
+        "address": "989C",
+        "bytes": "b6 9f 11",
+        "operation": "LDAA $9F11"
+      },
+      "last": {
+        "address": "98E2",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "98E3",
+      "instructions": 10,
+      "first": {
+        "address": "98E3",
+        "bytes": "12 38 40 19",
+        "operation": "BRSET $38,#$40,$9900"
+      },
+      "last": {
+        "address": "98F9",
+        "bytes": "17",
+        "operation": "TBA"
+      }
+    },
+    {
+      "address": "98FA",
+      "instructions": 10,
+      "first": {
+        "address": "98FA",
+        "bytes": "b7 08 5f",
+        "operation": "STAA $085F"
+      },
+      "last": {
+        "address": "9912",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "9913",
+      "instructions": 7,
+      "first": {
+        "address": "9913",
+        "bytes": "b6 01 d9",
+        "operation": "LDAA $01D9"
+      },
+      "last": {
+        "address": "9921",
+        "bytes": "b6 9f 21",
+        "operation": "LDAA $9F21"
+      }
+    },
+    {
+      "address": "9924",
+      "instructions": 6,
+      "first": {
+        "address": "9924",
+        "bytes": "5f",
+        "operation": "CLRB"
+      },
+      "last": {
+        "address": "9930",
+        "bytes": "20 15",
+        "operation": "BRA $9947"
+      }
+    },
+    {
+      "address": "9932",
+      "instructions": 13,
+      "first": {
+        "address": "9932",
+        "bytes": "fc 02 a0",
+        "operation": "LDD $02A0"
+      },
+      "last": {
+        "address": "9950",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "9951",
+      "instructions": 12,
+      "first": {
+        "address": "9951",
+        "bytes": "4f",
+        "operation": "CLRA"
+      },
+      "last": {
+        "address": "9970",
+        "bytes": "7e 99 f1",
+        "operation": "JMP $99F1"
+      }
+    },
+    {
+      "address": "9973",
+      "instructions": 13,
+      "first": {
+        "address": "9973",
+        "bytes": "b6 08 58",
+        "operation": "LDAA $0858"
+      },
+      "last": {
+        "address": "9992",
+        "bytes": "3d",
+        "operation": "MUL"
+      }
+    },
+    {
+      "address": "9993",
+      "instructions": 24,
+      "first": {
+        "address": "9993",
+        "bytes": "fd 08 6e",
+        "operation": "STD $086E"
+      },
+      "last": {
+        "address": "99D3",
+        "bytes": "20 19",
+        "operation": "BRA $99EE"
+      }
+    },
+    {
+      "address": "99D5",
+      "instructions": 11,
+      "first": {
+        "address": "99D5",
+        "bytes": "fc 08 89",
+        "operation": "LDD $0889"
+      },
+      "last": {
+        "address": "99ED",
+        "bytes": "5f",
+        "operation": "CLRB"
+      }
+    },
+    {
+      "address": "99EE",
+      "instructions": 5,
+      "first": {
+        "address": "99EE",
+        "bytes": "fd 02 9d",
+        "operation": "STD $029D"
+      },
+      "last": {
+        "address": "99FA",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "99FB",
+      "instructions": 15,
+      "first": {
+        "address": "99FB",
+        "bytes": "b6 02 83",
+        "operation": "LDAA $0283"
+      },
+      "last": {
+        "address": "9A21",
+        "bytes": "cc ff ff",
+        "operation": "LDD #$FFFF"
+      }
+    },
+    {
+      "address": "9A24",
+      "instructions": 13,
+      "first": {
+        "address": "9A24",
+        "bytes": "12 36 80 07",
+        "operation": "BRSET $36,#$80,$9A2F"
+      },
+      "last": {
+        "address": "9A41",
+        "bytes": "cc ff ff",
+        "operation": "LDD #$FFFF"
+      }
+    },
+    {
+      "address": "9A44",
+      "instructions": 10,
+      "first": {
+        "address": "9A44",
+        "bytes": "fd 08 71",
+        "operation": "STD $0871"
+      },
+      "last": {
+        "address": "9A5D",
+        "bytes": "25 10",
+        "operation": "BCS $9A6F"
+      }
+    },
+    {
+      "address": "9A5F",
+      "instructions": 9,
+      "first": {
+        "address": "9A5F",
+        "bytes": "05",
+        "operation": "ASLD"
+      },
+      "last": {
+        "address": "9A6F",
+        "bytes": "4f",
+        "operation": "CLRA"
+      }
+    },
+    {
+      "address": "9A70",
+      "instructions": 7,
+      "first": {
+        "address": "9A70",
+        "bytes": "b7 08 7f",
+        "operation": "STAA $087F"
+      },
+      "last": {
+        "address": "9A81",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "9E99",
+      "instructions": 1,
+      "first": {
+        "address": "9E99",
+        "bytes": "7e 98 e3",
+        "operation": "JMP $98E3"
+      },
+      "last": {
+        "address": "9E99",
+        "bytes": "7e 98 e3",
+        "operation": "JMP $98E3"
+      }
+    },
+    {
+      "address": "9F40",
+      "instructions": 16,
+      "first": {
+        "address": "9F40",
+        "bytes": "13 46 08 33",
+        "operation": "BRCLR $46,#$08,$9F77"
+      },
+      "last": {
+        "address": "9F65",
+        "bytes": "16",
+        "operation": "TAB"
+      }
+    },
+    {
+      "address": "9F66",
+      "instructions": 6,
+      "first": {
+        "address": "9F66",
+        "bytes": "f7 02 08",
+        "operation": "STAB $0208"
+      },
+      "last": {
+        "address": "9F74",
+        "bytes": "7e a9 e0",
+        "operation": "JMP $A9E0"
+      }
+    },
+    {
+      "address": "9F77",
+      "instructions": 4,
+      "first": {
+        "address": "9F77",
+        "bytes": "15 51 20",
+        "operation": "BCLR $51,#$20"
+      },
+      "last": {
+        "address": "9F80",
+        "bytes": "7e a9 e0",
+        "operation": "JMP $A9E0"
+      }
+    },
+    {
+      "address": "A2B0",
+      "instructions": 1,
+      "first": {
+        "address": "A2B0",
+        "bytes": "39",
+        "operation": "RTS"
+      },
+      "last": {
+        "address": "A2B0",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "A3FA",
+      "instructions": 7,
+      "first": {
+        "address": "A3FA",
+        "bytes": "14 09 01",
+        "operation": "BSET $09,#$01"
+      },
+      "last": {
+        "address": "A406",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "A407",
+      "instructions": 39,
+      "first": {
+        "address": "A407",
+        "bytes": "12 44 10 5a",
+        "operation": "BRSET $44,#$10,$A465"
+      },
+      "last": {
+        "address": "A465",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "A466",
+      "instructions": 37,
+      "first": {
+        "address": "A466",
+        "bytes": "c6 97",
+        "operation": "LDAB #$97"
+      },
+      "last": {
+        "address": "A4B0",
+        "bytes": "b7 01 cf",
+        "operation": "STAA $01CF"
+      }
+    },
+    {
+      "address": "A4B3",
+      "instructions": 21,
+      "first": {
+        "address": "A4B3",
+        "bytes": "15 18 10",
+        "operation": "BCLR $18,#$10"
+      },
+      "last": {
+        "address": "A4E9",
+        "bytes": "14 6f 08",
+        "operation": "BSET $6F,#$08"
+      }
+    },
+    {
+      "address": "A4EC",
+      "instructions": 57,
+      "first": {
+        "address": "A4EC",
+        "bytes": "13 50 20 4d",
+        "operation": "BRCLR $50,#$20,$A53D"
+      },
+      "last": {
+        "address": "A57F",
+        "bytes": "20 64",
+        "operation": "BRA $A5E5"
+      }
+    },
+    {
+      "address": "A581",
+      "instructions": 11,
+      "first": {
+        "address": "A581",
+        "bytes": "fc 3f c0",
+        "operation": "LDD $3FC0"
+      },
+      "last": {
+        "address": "A59A",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "A59B",
+      "instructions": 19,
+      "first": {
+        "address": "A59B",
+        "bytes": "fe 02 60",
+        "operation": "LDX $0260"
+      },
+      "last": {
+        "address": "A5C4",
+        "bytes": "25 14",
+        "operation": "BCS $A5DA"
+      }
+    },
+    {
+      "address": "A5C6",
+      "instructions": 11,
+      "first": {
+        "address": "A5C6",
+        "bytes": "15 4f 90",
+        "operation": "BCLR $4F,#$90"
+      },
+      "last": {
+        "address": "A5E2",
+        "bytes": "b7 02 02",
+        "operation": "STAA $0202"
+      }
+    },
+    {
+      "address": "A5E5",
+      "instructions": 11,
+      "first": {
+        "address": "A5E5",
+        "bytes": "fc 3f c0",
+        "operation": "LDD $3FC0"
+      },
+      "last": {
+        "address": "A5FC",
+        "bytes": "dd 5f",
+        "operation": "STD $5F"
+      }
+    },
+    {
+      "address": "A5FE",
+      "instructions": 22,
+      "first": {
+        "address": "A5FE",
+        "bytes": "dc 5f",
+        "operation": "LDD $5F"
+      },
+      "last": {
+        "address": "A628",
+        "bytes": "97 62",
+        "operation": "STAA $62"
+      }
+    },
+    {
+      "address": "A62A",
+      "instructions": 39,
+      "first": {
+        "address": "A62A",
+        "bytes": "fe 02 8e",
+        "operation": "LDX $028E"
+      },
+      "last": {
+        "address": "A685",
+        "bytes": "dd 63",
+        "operation": "STD $63"
+      }
+    },
+    {
+      "address": "A687",
+      "instructions": 23,
+      "first": {
+        "address": "A687",
+        "bytes": "86 ff",
+        "operation": "LDAA #$FF"
+      },
+      "last": {
+        "address": "A6BB",
+        "bytes": "fd 01 e6",
+        "operation": "STD $01E6"
+      }
+    },
+    {
+      "address": "A6BE",
+      "instructions": 29,
+      "first": {
+        "address": "A6BE",
+        "bytes": "04",
+        "operation": "LSRD"
+      },
+      "last": {
+        "address": "A6FD",
+        "bytes": "fd 01 ec",
+        "operation": "STD $01EC"
+      }
+    },
+    {
+      "address": "A700",
+      "instructions": 16,
+      "first": {
+        "address": "A700",
+        "bytes": "f6 01 c1",
+        "operation": "LDAB $01C1"
+      },
+      "last": {
+        "address": "A72A",
+        "bytes": "b7 01 f8",
+        "operation": "STAA $01F8"
+      }
+    },
+    {
+      "address": "A72D",
+      "instructions": 25,
+      "first": {
+        "address": "A72D",
+        "bytes": "ce 43 ae",
+        "operation": "LDX #$43AE"
+      },
+      "last": {
+        "address": "A761",
+        "bytes": "b7 01 f9",
+        "operation": "STAA $01F9"
+      }
+    },
+    {
+      "address": "A764",
+      "instructions": 8,
+      "first": {
+        "address": "A764",
+        "bytes": "b6 40 0d",
+        "operation": "LDAA $400D"
+      },
+      "last": {
+        "address": "A777",
+        "bytes": "b7 01 fb",
+        "operation": "STAA $01FB"
+      }
+    },
+    {
+      "address": "A77A",
+      "instructions": 10,
+      "first": {
+        "address": "A77A",
+        "bytes": "f6 08 41",
+        "operation": "LDAB $0841"
+      },
+      "last": {
+        "address": "A78F",
+        "bytes": "b7 02 0b",
+        "operation": "STAA $020B"
+      }
+    },
+    {
+      "address": "A792",
+      "instructions": 3,
+      "first": {
+        "address": "A792",
+        "bytes": "4f",
+        "operation": "CLRA"
+      },
+      "last": {
+        "address": "A794",
+        "bytes": "7e a7 d7",
+        "operation": "JMP $A7D7"
+      }
+    },
+    {
+      "address": "A7D7",
+      "instructions": 43,
+      "first": {
+        "address": "A7D7",
+        "bytes": "c3 00 80",
+        "operation": "ADDD #$0080"
+      },
+      "last": {
+        "address": "A81B",
+        "bytes": "fd 01 fd",
+        "operation": "STD $01FD"
+      }
+    },
+    {
+      "address": "A81E",
+      "instructions": 18,
+      "first": {
+        "address": "A81E",
+        "bytes": "b6 01 c0",
+        "operation": "LDAA $01C0"
+      },
+      "last": {
+        "address": "A84B",
+        "bytes": "ff 01 fd",
+        "operation": "STX $01FD"
+      }
+    },
+    {
+      "address": "A84E",
+      "instructions": 2,
+      "first": {
+        "address": "A84E",
+        "bytes": "15 50 40",
+        "operation": "BCLR $50,#$40"
+      },
+      "last": {
+        "address": "A851",
+        "bytes": "7e a9 7a",
+        "operation": "JMP $A97A"
+      }
+    },
+    {
+      "address": "A97A",
+      "instructions": 1,
+      "first": {
+        "address": "A97A",
+        "bytes": "7e 9f 40",
+        "operation": "JMP $9F40"
+      },
+      "last": {
+        "address": "A97A",
+        "bytes": "7e 9f 40",
+        "operation": "JMP $9F40"
+      }
+    },
+    {
+      "address": "A9E0",
+      "instructions": 4,
+      "first": {
+        "address": "A9E0",
+        "bytes": "13 86 40 03",
+        "operation": "BRCLR $86,#$40,$A9E7"
+      },
+      "last": {
+        "address": "A9E6",
+        "bytes": "01",
+        "operation": "NOP"
+      }
+    },
+    {
+      "address": "A9E7",
+      "instructions": 19,
+      "first": {
+        "address": "A9E7",
+        "bytes": "b6 4e 90",
+        "operation": "LDAA $4E90"
+      },
+      "last": {
+        "address": "AA17",
+        "bytes": "15 53 10",
+        "operation": "BCLR $53,#$10"
+      }
+    },
+    {
+      "address": "AA1A",
+      "instructions": 9,
+      "first": {
+        "address": "AA1A",
+        "bytes": "fc 01 fd",
+        "operation": "LDD $01FD"
+      },
+      "last": {
+        "address": "AA30",
+        "bytes": "fd 01 ee",
+        "operation": "STD $01EE"
+      }
+    },
+    {
+      "address": "AA33",
+      "instructions": 29,
+      "first": {
+        "address": "AA33",
+        "bytes": "b6 40 0f",
+        "operation": "LDAA $400F"
+      },
+      "last": {
+        "address": "AA7E",
+        "bytes": "b7 02 0e",
+        "operation": "STAA $020E"
+      }
+    },
+    {
+      "address": "AA81",
+      "instructions": 33,
+      "first": {
+        "address": "AA81",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "AACE",
+        "bytes": "44",
+        "operation": "LSRA"
+      }
+    },
+    {
+      "address": "AACF",
+      "instructions": 7,
+      "first": {
+        "address": "AACF",
+        "bytes": "36",
+        "operation": "PSHA"
+      },
+      "last": {
+        "address": "AADB",
+        "bytes": "31",
+        "operation": "INS"
+      }
+    },
+    {
+      "address": "AADC",
+      "instructions": 13,
+      "first": {
+        "address": "AADC",
+        "bytes": "7e aa f7",
+        "operation": "JMP $AAF7"
+      },
+      "last": {
+        "address": "AB17",
+        "bytes": "fd 01 ee",
+        "operation": "STD $01EE"
+      }
+    },
+    {
+      "address": "AB1A",
+      "instructions": 15,
+      "first": {
+        "address": "AB1A",
+        "bytes": "fc 01 ee",
+        "operation": "LDD $01EE"
+      },
+      "last": {
+        "address": "AB41",
+        "bytes": "fd 01 f0",
+        "operation": "STD $01F0"
+      }
+    },
+    {
+      "address": "AB44",
+      "instructions": 13,
+      "first": {
+        "address": "AB44",
+        "bytes": "15 4f 01",
+        "operation": "BCLR $4F,#$01"
+      },
+      "last": {
+        "address": "AB61",
+        "bytes": "4c",
+        "operation": "INCA"
+      }
+    },
+    {
+      "address": "AB62",
+      "instructions": 18,
+      "first": {
+        "address": "AB62",
+        "bytes": "13 86 40 03",
+        "operation": "BRCLR $86,#$40,$AB69"
+      },
+      "last": {
+        "address": "AB87",
+        "bytes": "82 00",
+        "operation": "SBCA #$00"
+      }
+    },
+    {
+      "address": "AB89",
+      "instructions": 32,
+      "first": {
+        "address": "AB89",
+        "bytes": "37",
+        "operation": "PSHB"
+      },
+      "last": {
+        "address": "ABC8",
+        "bytes": "fd 3f f6",
+        "operation": "STD $3FF6"
+      }
+    },
+    {
+      "address": "ABCB",
+      "instructions": 47,
+      "first": {
+        "address": "ABCB",
+        "bytes": "13 44 08 62",
+        "operation": "BRCLR $44,#$08,$AC31"
+      },
+      "last": {
+        "address": "AC4F",
+        "bytes": "20 4f",
+        "operation": "BRA $ACA0"
+      }
+    },
+    {
+      "address": "AC51",
+      "instructions": 13,
+      "first": {
+        "address": "AC51",
+        "bytes": "ce ff ff",
+        "operation": "LDX #$FFFF"
+      },
+      "last": {
+        "address": "AC6F",
+        "bytes": "dd 5f",
+        "operation": "STD $5F"
+      }
+    },
+    {
+      "address": "AC71",
+      "instructions": 30,
+      "first": {
+        "address": "AC71",
+        "bytes": "dc 5f",
+        "operation": "LDD $5F"
+      },
+      "last": {
+        "address": "ACA6",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "AE5C",
+      "instructions": 17,
+      "first": {
+        "address": "AE5C",
+        "bytes": "b6 40 0d",
+        "operation": "LDAA $400D"
+      },
+      "last": {
+        "address": "AE84",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "C56F",
+      "instructions": 10,
+      "first": {
+        "address": "C56F",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "C582",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "C583",
+      "instructions": 47,
+      "first": {
+        "address": "C583",
+        "bytes": "7e c5 a6",
+        "operation": "JMP $C5A6"
+      },
+      "last": {
+        "address": "C612",
+        "bytes": "20 0c",
+        "operation": "BRA $C620"
+      }
+    },
+    {
+      "address": "C614",
+      "instructions": 34,
+      "first": {
+        "address": "C614",
+        "bytes": "b6 02 f4",
+        "operation": "LDAA $02F4"
+      },
+      "last": {
+        "address": "C667",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "C96A",
+      "instructions": 37,
+      "first": {
+        "address": "C96A",
+        "bytes": "b6 08 2d",
+        "operation": "LDAA $082D"
+      },
+      "last": {
+        "address": "C9BF",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "C9F7",
+      "instructions": 28,
+      "first": {
+        "address": "C9F7",
+        "bytes": "b6 02 83",
+        "operation": "LDAA $0283"
+      },
+      "last": {
+        "address": "CA3F",
+        "bytes": "7e ca 4c",
+        "operation": "JMP $CA4C"
+      }
+    },
+    {
+      "address": "CA4C",
+      "instructions": 15,
+      "first": {
+        "address": "CA4C",
+        "bytes": "96 06",
+        "operation": "LDAA $06"
+      },
+      "last": {
+        "address": "CA68",
+        "bytes": "7e cb 14",
+        "operation": "JMP $CB14"
+      }
+    },
+    {
+      "address": "CA6B",
+      "instructions": 33,
+      "first": {
+        "address": "CA6B",
+        "bytes": "4f",
+        "operation": "CLRA"
+      },
+      "last": {
+        "address": "CAB1",
+        "bytes": "b7 01 fa",
+        "operation": "STAA $01FA"
+      }
+    },
+    {
+      "address": "CAB4",
+      "instructions": 13,
+      "first": {
+        "address": "CAB4",
+        "bytes": "4f",
+        "operation": "CLRA"
+      },
+      "last": {
+        "address": "CAD2",
+        "bytes": "b7 01 fc",
+        "operation": "STAA $01FC"
+      }
+    },
+    {
+      "address": "CAD5",
+      "instructions": 27,
+      "first": {
+        "address": "CAD5",
+        "bytes": "96 62",
+        "operation": "LDAA $62"
+      },
+      "last": {
+        "address": "CB14",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "CB15",
+      "instructions": 109,
+      "first": {
+        "address": "CB15",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "CC34",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "CC35",
+      "instructions": 27,
+      "first": {
+        "address": "CC35",
+        "bytes": "12 4f 80 0f",
+        "operation": "BRSET $4F,#$80,$CC48"
+      },
+      "last": {
+        "address": "CC79",
+        "bytes": "15 4c 80",
+        "operation": "BCLR $4C,#$80"
+      }
+    },
+    {
+      "address": "CC7C",
+      "instructions": 34,
+      "first": {
+        "address": "CC7C",
+        "bytes": "4f",
+        "operation": "CLRA"
+      },
+      "last": {
+        "address": "CCC0",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "CE10",
+      "instructions": 43,
+      "first": {
+        "address": "CE10",
+        "bytes": "96 02",
+        "operation": "LDAA $02"
+      },
+      "last": {
+        "address": "CE7B",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "CE7C",
+      "instructions": 34,
+      "first": {
+        "address": "CE7C",
+        "bytes": "86 80",
+        "operation": "LDAA #$80"
+      },
+      "last": {
+        "address": "CEBA",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "CEBB",
+      "instructions": 14,
+      "first": {
+        "address": "CEBB",
+        "bytes": "12 02 10 1c",
+        "operation": "BRSET $02,#$10,$CEDB"
+      },
+      "last": {
+        "address": "CED8",
+        "bytes": "b7 02 0c",
+        "operation": "STAA $020C"
+      }
+    },
+    {
+      "address": "CEDB",
+      "instructions": 24,
+      "first": {
+        "address": "CEDB",
+        "bytes": "b6 5b 03",
+        "operation": "LDAA $5B03"
+      },
+      "last": {
+        "address": "CF12",
+        "bytes": "7f 02 07",
+        "operation": "CLR $0207"
+      }
+    },
+    {
+      "address": "CF15",
+      "instructions": 1,
+      "first": {
+        "address": "CF15",
+        "bytes": "39",
+        "operation": "RTS"
+      },
+      "last": {
+        "address": "CF15",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "D472",
+      "instructions": 21,
+      "first": {
+        "address": "D472",
+        "bytes": "ce 40 0e",
+        "operation": "LDX #$400E"
+      },
+      "last": {
+        "address": "D4A2",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "DBFB",
+      "instructions": 62,
+      "first": {
+        "address": "DBFB",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "DC88",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "DC89",
+      "instructions": 49,
+      "first": {
+        "address": "DC89",
+        "bytes": "14 6f 80",
+        "operation": "BSET $6F,#$80"
+      },
+      "last": {
+        "address": "DD11",
+        "bytes": "7e e1 1a",
+        "operation": "JMP $E11A"
+      }
+    },
+    {
+      "address": "DD14",
+      "instructions": 19,
+      "first": {
+        "address": "DD14",
+        "bytes": "12 43 02 28",
+        "operation": "BRSET $43,#$02,$DD40"
+      },
+      "last": {
+        "address": "DD3E",
+        "bytes": "97 15",
+        "operation": "STAA $15"
+      }
+    },
+    {
+      "address": "DD40",
+      "instructions": 56,
+      "first": {
+        "address": "DD40",
+        "bytes": "15 16 80",
+        "operation": "BCLR $16,#$80"
+      },
+      "last": {
+        "address": "DDCC",
+        "bytes": "7e df ca",
+        "operation": "JMP $DFCA"
+      }
+    },
+    {
+      "address": "DFCA",
+      "instructions": 27,
+      "first": {
+        "address": "DFCA",
+        "bytes": "15 18 20",
+        "operation": "BCLR $18,#$20"
+      },
+      "last": {
+        "address": "E00B",
+        "bytes": "d7 6f",
+        "operation": "STAB $6F"
+      }
+    },
+    {
+      "address": "E00D",
+      "instructions": 19,
+      "first": {
+        "address": "E00D",
+        "bytes": "12 44 04 30",
+        "operation": "BRSET $44,#$04,$E041"
+      },
+      "last": {
+        "address": "E03E",
+        "bytes": "ff 02 05",
+        "operation": "STX $0205"
+      }
+    },
+    {
+      "address": "E041",
+      "instructions": 78,
+      "first": {
+        "address": "E041",
+        "bytes": "15 19 08",
+        "operation": "BCLR $19,#$08"
+      },
+      "last": {
+        "address": "E117",
+        "bytes": "14 19 02",
+        "operation": "BSET $19,#$02"
+      }
+    },
+    {
+      "address": "E11A",
+      "instructions": 88,
+      "first": {
+        "address": "E11A",
+        "bytes": "13 43 04 03",
+        "operation": "BRCLR $43,#$04,$E121"
+      },
+      "last": {
+        "address": "E1EB",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "E1EC",
+      "instructions": 64,
+      "first": {
+        "address": "E1EC",
+        "bytes": "13 3c 40 68",
+        "operation": "BRCLR $3C,#$40,$E258"
+      },
+      "last": {
+        "address": "E285",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "E286",
+      "instructions": 24,
+      "first": {
+        "address": "E286",
+        "bytes": "ce 5b 04",
+        "operation": "LDX #$5B04"
+      },
+      "last": {
+        "address": "E2C5",
+        "bytes": "14 1a 04",
+        "operation": "BSET $1A,#$04"
+      }
+    },
+    {
+      "address": "E2C8",
+      "instructions": 22,
+      "first": {
+        "address": "E2C8",
+        "bytes": "96 06",
+        "operation": "LDAA $06"
+      },
+      "last": {
+        "address": "E2F8",
+        "bytes": "fd 02 36",
+        "operation": "STD $0236"
+      }
+    },
+    {
+      "address": "E2FB",
+      "instructions": 4,
+      "first": {
+        "address": "E2FB",
+        "bytes": "96 a7",
+        "operation": "LDAA $A7"
+      },
+      "last": {
+        "address": "E303",
+        "bytes": "b7 02 56",
+        "operation": "STAA $0256"
+      }
+    },
+    {
+      "address": "E306",
+      "instructions": 2,
+      "first": {
+        "address": "E306",
+        "bytes": "13 02 10 01",
+        "operation": "BRCLR $02,#$10,$E30B"
+      },
+      "last": {
+        "address": "E30A",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "E30B",
+      "instructions": 20,
+      "first": {
+        "address": "E30B",
+        "bytes": "96 06",
+        "operation": "LDAA $06"
+      },
+      "last": {
+        "address": "E339",
+        "bytes": "b7 02 3d",
+        "operation": "STAA $023D"
+      }
+    },
+    {
+      "address": "E33C",
+      "instructions": 1,
+      "first": {
+        "address": "E33C",
+        "bytes": "12 4f 10 4f",
+        "operation": "BRSET $4F,#$10,$E38F"
+      },
+      "last": {
+        "address": "E33C",
+        "bytes": "12 4f 10 4f",
+        "operation": "BRSET $4F,#$10,$E38F"
+      }
+    },
+    {
+      "address": "E340",
+      "instructions": 28,
+      "first": {
+        "address": "E340",
+        "bytes": "12 04 08 32",
+        "operation": "BRSET $04,#$08,$E376"
+      },
+      "last": {
+        "address": "E38C",
+        "bytes": "7e e4 77",
+        "operation": "JMP $E477"
+      }
+    },
+    {
+      "address": "E38F",
+      "instructions": 21,
+      "first": {
+        "address": "E38F",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "E3BA",
+        "bytes": "0e",
+        "operation": "CLI"
+      }
+    },
+    {
+      "address": "E3BB",
+      "instructions": 55,
+      "first": {
+        "address": "E3BB",
+        "bytes": "b6 02 ca",
+        "operation": "LDAA $02CA"
+      },
+      "last": {
+        "address": "E439",
+        "bytes": "7a 02 70",
+        "operation": "DEC $0270"
+      }
+    },
+    {
+      "address": "E43C",
+      "instructions": 24,
+      "first": {
+        "address": "E43C",
+        "bytes": "b6 02 cc",
+        "operation": "LDAA $02CC"
+      },
+      "last": {
+        "address": "E474",
+        "bytes": "b7 02 cb",
+        "operation": "STAA $02CB"
+      }
+    },
+    {
+      "address": "E477",
+      "instructions": 87,
+      "first": {
+        "address": "E477",
+        "bytes": "13 4f 10 15",
+        "operation": "BRCLR $4F,#$10,$E490"
+      },
+      "last": {
+        "address": "E561",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "E75F",
+      "instructions": 21,
+      "first": {
+        "address": "E75F",
+        "bytes": "12 3b 04 2f",
+        "operation": "BRSET $3B,#$04,$E792"
+      },
+      "last": {
+        "address": "E792",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "E793",
+      "instructions": 21,
+      "first": {
+        "address": "E793",
+        "bytes": "12 3b 04 2f",
+        "operation": "BRSET $3B,#$04,$E7C6"
+      },
+      "last": {
+        "address": "E7C6",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "E7C7",
+      "instructions": 26,
+      "first": {
+        "address": "E7C7",
+        "bytes": "12 3b 04 3c",
+        "operation": "BRSET $3B,#$04,$E807"
+      },
+      "last": {
+        "address": "E807",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "E808",
+      "instructions": 26,
+      "first": {
+        "address": "E808",
+        "bytes": "12 3b 04 3a",
+        "operation": "BRSET $3B,#$04,$E846"
+      },
+      "last": {
+        "address": "E846",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "EA40",
+      "instructions": 20,
+      "first": {
+        "address": "EA40",
+        "bytes": "12 3b 04 37",
+        "operation": "BRSET $3B,#$04,$EA7B"
+      },
+      "last": {
+        "address": "EA7B",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "EA7C",
+      "instructions": 20,
+      "first": {
+        "address": "EA7C",
+        "bytes": "12 3b 04 30",
+        "operation": "BRSET $3B,#$04,$EAB0"
+      },
+      "last": {
+        "address": "EAB0",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "EB19",
+      "instructions": 21,
+      "first": {
+        "address": "EB19",
+        "bytes": "12 3b 04 2f",
+        "operation": "BRSET $3B,#$04,$EB4C"
+      },
+      "last": {
+        "address": "EB4C",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "EB4D",
+      "instructions": 21,
+      "first": {
+        "address": "EB4D",
+        "bytes": "12 3b 04 2f",
+        "operation": "BRSET $3B,#$04,$EB80"
+      },
+      "last": {
+        "address": "EB80",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F20D",
+      "instructions": 18,
+      "first": {
+        "address": "F20D",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "F243",
+        "bytes": "20 19",
+        "operation": "BRA $F25E"
+      }
+    },
+    {
+      "address": "F245",
+      "instructions": 11,
+      "first": {
+        "address": "F245",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "F25E",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F25F",
+      "instructions": 9,
+      "first": {
+        "address": "F25F",
+        "bytes": "15 1a 02",
+        "operation": "BCLR $1A,#$02"
+      },
+      "last": {
+        "address": "F274",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F275",
+      "instructions": 7,
+      "first": {
+        "address": "F275",
+        "bytes": "1d 08 38",
+        "operation": "BCLR $08,X,#$38"
+      },
+      "last": {
+        "address": "F27F",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F280",
+      "instructions": 7,
+      "first": {
+        "address": "F280",
+        "bytes": "ce 02 b3",
+        "operation": "LDX #$02B3"
+      },
+      "last": {
+        "address": "F28D",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F28E",
+      "instructions": 13,
+      "first": {
+        "address": "F28E",
+        "bytes": "b6 48 fd",
+        "operation": "LDAA $48FD"
+      },
+      "last": {
+        "address": "F2A9",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F2AA",
+      "instructions": 47,
+      "first": {
+        "address": "F2AA",
+        "bytes": "18 ce 00 00",
+        "operation": "LDY #$0000"
+      },
+      "last": {
+        "address": "F2FC",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F2FD",
+      "instructions": 21,
+      "first": {
+        "address": "F2FD",
+        "bytes": "c5 07",
+        "operation": "BITB #$07"
+      },
+      "last": {
+        "address": "F325",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F326",
+      "instructions": 8,
+      "first": {
+        "address": "F326",
+        "bytes": "ce 00 14",
+        "operation": "LDX #$0014"
+      },
+      "last": {
+        "address": "F332",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F333",
+      "instructions": 28,
+      "first": {
+        "address": "F333",
+        "bytes": "ce 00 09",
+        "operation": "LDX #$0009"
+      },
+      "last": {
+        "address": "F376",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F380",
+      "instructions": 41,
+      "first": {
+        "address": "F380",
+        "bytes": "ce 00 09",
+        "operation": "LDX #$0009"
+      },
+      "last": {
+        "address": "F3DA",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F3E4",
+      "instructions": 4,
+      "first": {
+        "address": "F3E4",
+        "bytes": "b6 30 66",
+        "operation": "LDAA $3066"
+      },
+      "last": {
+        "address": "F3EC",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F3ED",
+      "instructions": 1,
+      "first": {
+        "address": "F3ED",
+        "bytes": "39",
+        "operation": "RTS"
+      },
+      "last": {
+        "address": "F3ED",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F3EE",
+      "instructions": 7,
+      "first": {
+        "address": "F3EE",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "F3FD",
+        "bytes": "fd 3f fc",
+        "operation": "STD $3FFC"
+      }
+    },
+    {
+      "address": "F400",
+      "instructions": 15,
+      "first": {
+        "address": "F400",
+        "bytes": "b6 30 60",
+        "operation": "LDAA $3060"
+      },
+      "last": {
+        "address": "F41F",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F436",
+      "instructions": 21,
+      "first": {
+        "address": "F436",
+        "bytes": "3c",
+        "operation": "PSHX"
+      },
+      "last": {
+        "address": "F458",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F459",
+      "instructions": 24,
+      "first": {
+        "address": "F459",
+        "bytes": "37",
+        "operation": "PSHB"
+      },
+      "last": {
+        "address": "F478",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F479",
+      "instructions": 18,
+      "first": {
+        "address": "F479",
+        "bytes": "a3 00",
+        "operation": "SUBD $00,X"
+      },
+      "last": {
+        "address": "F498",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F499",
+      "instructions": 1,
+      "first": {
+        "address": "F499",
+        "bytes": "5f",
+        "operation": "CLRB"
+      },
+      "last": {
+        "address": "F499",
+        "bytes": "5f",
+        "operation": "CLRB"
+      }
+    },
+    {
+      "address": "F49A",
+      "instructions": 6,
+      "first": {
+        "address": "F49A",
+        "bytes": "a1 00",
+        "operation": "CMPA $00,X"
+      },
+      "last": {
+        "address": "F4A3",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F4A4",
+      "instructions": 11,
+      "first": {
+        "address": "F4A4",
+        "bytes": "3c",
+        "operation": "PSHX"
+      },
+      "last": {
+        "address": "F4B4",
+        "bytes": "20 02",
+        "operation": "BRA $F4B8"
+      }
+    },
+    {
+      "address": "F4B6",
+      "instructions": 5,
+      "first": {
+        "address": "F4B6",
+        "bytes": "3c",
+        "operation": "PSHX"
+      },
+      "last": {
+        "address": "F4BB",
+        "bytes": "20 08",
+        "operation": "BRA $F4C5"
+      }
+    },
+    {
+      "address": "F4BD",
+      "instructions": 3,
+      "first": {
+        "address": "F4BD",
+        "bytes": "10",
+        "operation": "SBA"
+      },
+      "last": {
+        "address": "F4C0",
+        "bytes": "4f",
+        "operation": "CLRA"
+      }
+    },
+    {
+      "address": "F4C1",
+      "instructions": 3,
+      "first": {
+        "address": "F4C1",
+        "bytes": "3c",
+        "operation": "PSHX"
+      },
+      "last": {
+        "address": "F4C3",
+        "bytes": "c6 10",
+        "operation": "LDAB #$10"
+      }
+    },
+    {
+      "address": "F4C5",
+      "instructions": 19,
+      "first": {
+        "address": "F4C5",
+        "bytes": "3d",
+        "operation": "MUL"
+      },
+      "last": {
+        "address": "F4DD",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F4DE",
+      "instructions": 75,
+      "first": {
+        "address": "F4DE",
+        "bytes": "18 3c",
+        "operation": "PSHY"
+      },
+      "last": {
+        "address": "F54F",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F550",
+      "instructions": 15,
+      "first": {
+        "address": "F550",
+        "bytes": "36",
+        "operation": "PSHA"
+      },
+      "last": {
+        "address": "F563",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F5CF",
+      "instructions": 7,
+      "first": {
+        "address": "F5CF",
+        "bytes": "13 86 40 03",
+        "operation": "BRCLR $86,#$40,$F5D6"
+      },
+      "last": {
+        "address": "F5DB",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F5E8",
+      "instructions": 47,
+      "first": {
+        "address": "F5E8",
+        "bytes": "96 42",
+        "operation": "LDAA $42"
+      },
+      "last": {
+        "address": "F64D",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F715",
+      "instructions": 37,
+      "first": {
+        "address": "F715",
+        "bytes": "13 42 01 20",
+        "operation": "BRCLR $42,#$01,$F739"
+      },
+      "last": {
+        "address": "F780",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F781",
+      "instructions": 44,
+      "first": {
+        "address": "F781",
+        "bytes": "0f",
+        "operation": "SEI"
+      },
+      "last": {
+        "address": "F7E9",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F7EA",
+      "instructions": 19,
+      "first": {
+        "address": "F7EA",
+        "bytes": "ce 30 00",
+        "operation": "LDX #$3000"
+      },
+      "last": {
+        "address": "F821",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "F822",
+      "instructions": 33,
+      "first": {
+        "address": "F822",
+        "bytes": "fe 03 62",
+        "operation": "LDX $0362"
+      },
+      "last": {
+        "address": "F86C",
+        "bytes": "24 72",
+        "operation": "BCC $F8E0"
+      }
+    },
+    {
+      "address": "F86E",
+      "instructions": 58,
+      "first": {
+        "address": "F86E",
+        "bytes": "12 3b 80 62",
+        "operation": "BRSET $3B,#$80,$F8D4"
+      },
+      "last": {
+        "address": "F8E5",
+        "bytes": "40",
+        "operation": "NEGA"
+      }
+    },
+    {
+      "address": "F8E6",
+      "instructions": 5,
+      "first": {
+        "address": "F8E6",
+        "bytes": "b7 30 2f",
+        "operation": "STAA $302F"
+      },
+      "last": {
+        "address": "F8F2",
+        "bytes": "20 16",
+        "operation": "BRA $F90A"
+      }
+    },
+    {
+      "address": "F8F4",
+      "instructions": 10,
+      "first": {
+        "address": "F8F4",
+        "bytes": "4f",
+        "operation": "CLRA"
+      },
+      "last": {
+        "address": "F90A",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "F90B",
+      "instructions": 11,
+      "first": {
+        "address": "F90B",
+        "bytes": "f6 30 2e",
+        "operation": "LDAB $302E"
+      },
+      "last": {
+        "address": "F925",
+        "bytes": "26 2e",
+        "operation": "BNE $F955"
+      }
+    },
+    {
+      "address": "F927",
+      "instructions": 29,
+      "first": {
+        "address": "F927",
+        "bytes": "ce 51 bf",
+        "operation": "LDX #$51BF"
+      },
+      "last": {
+        "address": "F969",
+        "bytes": "24 4e",
+        "operation": "BCC $F9B9"
+      }
+    },
+    {
+      "address": "F96B",
+      "instructions": 43,
+      "first": {
+        "address": "F96B",
+        "bytes": "5d",
+        "operation": "TSTB"
+      },
+      "last": {
+        "address": "F9BC",
+        "bytes": "26 f8",
+        "operation": "BNE $F9B6"
+      }
+    },
+    {
+      "address": "F9BE",
+      "instructions": 44,
+      "first": {
+        "address": "F9BE",
+        "bytes": "e6 02",
+        "operation": "LDAB $02,X"
+      },
+      "last": {
+        "address": "FA24",
+        "bytes": "1e 04 80 25",
+        "operation": "BRSET $04,X,#$80,$FA4D"
+      }
+    },
+    {
+      "address": "FA28",
+      "instructions": 14,
+      "first": {
+        "address": "FA28",
+        "bytes": "ff 03 62",
+        "operation": "STX $0362"
+      },
+      "last": {
+        "address": "FA4B",
+        "bytes": "20 0d",
+        "operation": "BRA $FA5A"
+      }
+    },
+    {
+      "address": "FA4D",
+      "instructions": 7,
+      "first": {
+        "address": "FA4D",
+        "bytes": "4f",
+        "operation": "CLRA"
+      },
+      "last": {
+        "address": "FA5A",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "FC04",
+      "instructions": 2,
+      "first": {
+        "address": "FC04",
+        "bytes": "14 00 08",
+        "operation": "BSET $00,#$08"
+      },
+      "last": {
+        "address": "FC07",
+        "bytes": "20 fe",
+        "operation": "BRA $FC07"
+      }
+    },
+    {
+      "address": "FC09",
+      "instructions": 5,
+      "first": {
+        "address": "FC09",
+        "bytes": "14 00 04",
+        "operation": "BSET $00,#$04"
+      },
+      "last": {
+        "address": "FC10",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "FC11",
+      "instructions": 4,
+      "first": {
+        "address": "FC11",
+        "bytes": "14 00 02",
+        "operation": "BSET $00,#$02"
+      },
+      "last": {
+        "address": "FC19",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "FC1A",
+      "instructions": 2,
+      "first": {
+        "address": "FC1A",
+        "bytes": "14 00 10",
+        "operation": "BSET $00,#$10"
+      },
+      "last": {
+        "address": "FC1D",
+        "bytes": "20 fe",
+        "operation": "BRA $FC1D"
+      }
+    },
+    {
+      "address": "FC1F",
+      "instructions": 2,
+      "first": {
+        "address": "FC1F",
+        "bytes": "14 00 20",
+        "operation": "BSET $00,#$20"
+      },
+      "last": {
+        "address": "FC22",
+        "bytes": "20 08",
+        "operation": "BRA $FC2C"
+      }
+    },
+    {
+      "address": "FC24",
+      "instructions": 2,
+      "first": {
+        "address": "FC24",
+        "bytes": "14 00 40",
+        "operation": "BSET $00,#$40"
+      },
+      "last": {
+        "address": "FC27",
+        "bytes": "20 fe",
+        "operation": "BRA $FC27"
+      }
+    },
+    {
+      "address": "FC29",
+      "instructions": 2,
+      "first": {
+        "address": "FC29",
+        "bytes": "14 00 80",
+        "operation": "BSET $00,#$80"
+      },
+      "last": {
+        "address": "FC2C",
+        "bytes": "7e 71 00",
+        "operation": "JMP $7100"
+      }
+    },
+    {
+      "address": "FC2F",
+      "instructions": 5,
+      "first": {
+        "address": "FC2F",
+        "bytes": "86 a0",
+        "operation": "LDAA #$A0"
+      },
+      "last": {
+        "address": "FC39",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "FC3A",
+      "instructions": 4,
+      "first": {
+        "address": "FC3A",
+        "bytes": "86 03",
+        "operation": "LDAA #$03"
+      },
+      "last": {
+        "address": "FC41",
+        "bytes": "b7 30 25",
+        "operation": "STAA $3025"
+      }
+    },
+    {
+      "address": "FC44",
+      "instructions": 1,
+      "first": {
+        "address": "FC44",
+        "bytes": "3b",
+        "operation": "RTI"
+      },
+      "last": {
+        "address": "FC44",
+        "bytes": "3b",
+        "operation": "RTI"
+      }
+    },
+    {
+      "address": "FEC0",
+      "instructions": 7,
+      "first": {
+        "address": "FEC0",
+        "bytes": "b6 fe 9f",
+        "operation": "LDAA $FE9F"
+      },
+      "last": {
+        "address": "FECF",
+        "bytes": "7e 80 4f",
+        "operation": "JMP $804F"
+      }
+    },
+    {
+      "address": "FEE0",
+      "instructions": 8,
+      "first": {
+        "address": "FEE0",
+        "bytes": "f6 fe 9f",
+        "operation": "LDAB $FE9F"
+      },
+      "last": {
+        "address": "FEF2",
+        "bytes": "7e 89 1d",
+        "operation": "JMP $891D"
+      }
+    },
+    {
+      "address": "FEF8",
+      "instructions": 16,
+      "first": {
+        "address": "FEF8",
+        "bytes": "b6 01 d9",
+        "operation": "LDAA $01D9"
+      },
+      "last": {
+        "address": "FF1B",
+        "bytes": "7e 8a 0b",
+        "operation": "JMP $8A0B"
+      }
+    },
+    {
+      "address": "FF2E",
+      "instructions": 8,
+      "first": {
+        "address": "FF2E",
+        "bytes": "b6 01 c9",
+        "operation": "LDAA $01C9"
+      },
+      "last": {
+        "address": "FF3D",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "FF40",
+      "instructions": 12,
+      "first": {
+        "address": "FF40",
+        "bytes": "14 46 80",
+        "operation": "BSET $46,#$80"
+      },
+      "last": {
+        "address": "FF5C",
+        "bytes": "7e e5 61",
+        "operation": "JMP $E561"
+      }
+    },
+    {
+      "address": "5BD0",
+      "instructions": 78,
+      "first": {
+        "address": "5BD0",
+        "bytes": "96 0b",
+        "operation": "LDAA $0B"
+      },
+      "last": {
+        "address": "5C89",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "5C8A",
+      "instructions": 6,
+      "first": {
+        "address": "5C8A",
+        "bytes": "fe 01 d0",
+        "operation": "LDX $01D0"
+      },
+      "last": {
+        "address": "5C99",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "5C9A",
+      "instructions": 17,
+      "first": {
+        "address": "5C9A",
+        "bytes": "fc 02 f6",
+        "operation": "LDD $02F6"
+      },
+      "last": {
+        "address": "5CBA",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "5CBB",
+      "instructions": 9,
+      "first": {
+        "address": "5CBB",
+        "bytes": "96 a6",
+        "operation": "LDAA $A6"
+      },
+      "last": {
+        "address": "5CCF",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    },
+    {
+      "address": "5CD0",
+      "instructions": 5,
+      "first": {
+        "address": "5CD0",
+        "bytes": "bd e7 c7",
+        "operation": "JSR $E7C7"
+      },
+      "last": {
+        "address": "5CDC",
+        "bytes": "39",
+        "operation": "RTS"
+      }
+    }
+  ],
+  "calibration_excerpts": {
+    "9F00": "78706450403020140c0400000000000000263c040203081010024004041800b400280080100c05",
+    "50A8": "0a1a",
+    "FF8A": "0203"
+  }
+}

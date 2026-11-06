@@ -204,7 +204,7 @@ For the active step, keep this checkpoint current:
 - Validation: baseline software checks passed; Rev B truck validation pending.
 - Required evidence: matching Rev B truck logs and observations; no Rev B physical run is asserted yet.
 - Supporting verification: [the XDF label trace](investigations/REVB_XDF_LABEL_VERIFICATION.md) replays 87 Rev B and 15 historical AE instruction fixtures, with supplied BIN/XDF bytes preserved. It does not complete truck validation.
-- Reading reference: [the whole-image operation guide](investigations/REVB_OPERATION_GUIDE.md) explains 6,449 statically rooted instructions and accounts for every file byte. This documentation keeps TS00 active and introduces no firmware change.
+- Reading reference: [the whole-image operation guide](investigations/REVB_OPERATION_GUIDE.md) explains 6,449 statically rooted instructions, groups them into 289 functional explanations and accounts for every file byte. This documentation keeps TS00 active and introduces no firmware change.
 - Next action: assess the first Rev B cold/warm-up/hot-idle and return-to-idle recordings, then fine-tune only this revision's change before considering later simplifications.
 
 Each completed step must distinguish implementation, local checks, CI, merge,
