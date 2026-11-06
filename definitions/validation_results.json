@@ -1,0 +1,41 @@
+{
+  "xml_profiles": {
+    "reva": {
+      "filename": "7427_0.3.12_RevA.xdf",
+      "parameters": 522,
+      "custom_entries": 3
+    },
+    "manual_idle_dev": {
+      "filename": "7427_Manual_Idle_DEV.xdf",
+      "parameters": 391,
+      "custom_entries": 23
+    }
+  },
+  "image_tests": [
+    {
+      "profile": "reva",
+      "xdf": "7427_0.3.12_RevA.xdf",
+      "checksum": "6D36",
+      "pristine_reference": true
+    },
+    {
+      "profile": "manual_idle_dev",
+      "xdf": "7427_Manual_Idle_DEV.xdf",
+      "checksum": "40A0",
+      "pristine_reference": true
+    },
+    {
+      "profile": "manual_idle_dev",
+      "xdf": "7427_Manual_Idle_DEV.xdf",
+      "checksum": "4120",
+      "pristine_reference": false
+    }
+  ],
+  "invalid_checksum_rejected": true,
+  "protected_code_edit_rejected": true,
+  "word_edit_roundtrip_value": 24.5,
+  "original_rom_unchanged": true,
+  "binary_written": false,
+  "native_tunerpro_gui_tested": false,
+  "scope": "XML/layout/address checks and byte-level in-memory conversions. Legacy inherited conversions are not a complete new semantic audit."
+}

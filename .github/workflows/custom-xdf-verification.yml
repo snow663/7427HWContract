@@ -1,0 +1,36 @@
+name: Custom ROM XDF Verification
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "definitions/**"
+      - "tools/build_custom_xdf.py"
+      - "tools/verify_custom_xdf.py"
+      - "tests/test_custom_xdf.py"
+      - "7427_Address_Register_0.3.12.xlsx"
+      - "source/manual_idle/**"
+      - ".github/workflows/custom-xdf-verification.yml"
+  push:
+    branches: [main]
+    paths:
+      - "definitions/**"
+      - "tools/build_custom_xdf.py"
+      - "tools/verify_custom_xdf.py"
+      - "tests/test_custom_xdf.py"
+      - "source/manual_idle/**"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Regenerate and compare both definitions
+        run: python tools/build_custom_xdf.py --check
+      - name: Verify layouts, references, dimensions and protected addresses
+        run: python tools/verify_custom_xdf.py
+      - name: Test custom conversion and reversible in-memory edits
+        run: python -m unittest discover -s tests -p test_custom_xdf.py -v
