@@ -6,6 +6,8 @@ on:
       - "definitions/**"
       - "tools/build_custom_xdf.py"
       - "tools/verify_custom_xdf.py"
+      - "tools/verify_revb_xdf_labels.py"
+      - "maps/maintenance/revb_xdf_label_*.json"
       - "tests/test_custom_xdf.py"
       - "7427_Address_Register_0.3.12.xlsx"
       - "source/manual_idle/**"
@@ -16,6 +18,8 @@ on:
       - "definitions/**"
       - "tools/build_custom_xdf.py"
       - "tools/verify_custom_xdf.py"
+      - "tools/verify_revb_xdf_labels.py"
+      - "maps/maintenance/revb_xdf_label_*.json"
       - "tests/test_custom_xdf.py"
       - "source/manual_idle/**"
 permissions:
@@ -34,3 +38,5 @@ jobs:
         run: python tools/verify_custom_xdf.py
       - name: Test custom conversion and reversible in-memory edits
         run: python -m unittest discover -s tests -p test_custom_xdf.py -v
+      - name: Replay actual Rev B label-consumer and historical AE witnesses
+        run: python tools/verify_revb_xdf_labels.py --check-recorded

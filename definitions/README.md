@@ -114,3 +114,11 @@ The Rev A and historical prototype definitions use a pinned Rev A role map.
 Advancing the maintained workbook to Rev B therefore preserves their layouts.
 The Rev B profile retains shared actuator/conversion controls while excluding
 the old low-TPS spark option whose normal request writer was removed.
+
+The supplied Rev B XDF is also pinned to its release-time ROM-role snapshot
+(`source/revb_rom_roles.json`). The maintained read workbook can therefore gain
+verified reader/pointer information without silently changing the supplied XDF.
+[The instruction-level label verification](../docs/investigations/REVB_XDF_LABEL_VERIFICATION.md)
+records confirmed consumer distinctions and corrections to the earlier review.
+No replacement XDF or BIN was produced by that audit; label/unit changes remain
+separate from Rev B truck validation and calibration.

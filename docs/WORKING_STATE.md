@@ -146,6 +146,75 @@ See [the image identity and release trace](investigations/MANUAL_IDLE_REVB_RELEA
 and [definitions](../definitions/README.md). The supplied Rev A remains the last
 running-image reference; no Rev B flash or truck validation is asserted.
 
+## Tuning simplification trajectory
+
+This is the ordered custom-ROM tuning track agreed on 2026-11-06. Keep its
+progress here across conversations. The factory-equivalence ALDL/system and
+complete-fuel milestones below retain their own scope; their implemented stock
+C routines do not mean these custom-ROM simplifications are complete.
+
+**Software baseline merged; TS00 validation remains active:** the Rev B single manual-idle controller,
+idle-approach DFCO spark gate and cold-idle base-spark revision, merged in
+[PR #40](https://github.com/snow663/7427HWContract/pull/40), merge commit
+`c26cab393eaded71e8233e7dccc7294003e0a5d8`. All four PR checks passed.
+The [release trace](investigations/MANUAL_IDLE_REVB_RELEASE.md) records the BIN
+identity, matched XDF, rollback and software evidence. Truck validation remains
+pending; a source merge is not evidence of a flash or physical calibration.
+
+**Active first: TS00 — test and fine-tune the existing Rev B change.**
+The user clarified that this must finish before any later behavior or structural
+changes. Await matching Rev B truck logs, identify remaining behavior in this
+specific controller/spark revision, and tune its parameters one controlled
+change at a time. TS01 and every later step are queued behind this validation;
+none is authorized to start ahead of it. An XDF-label review is documentation
+and does not authorize editing the firmware or silently changing its calibration.
+
+Record cold start, warm-up (especially the previously troublesome 47–62 C
+region), settled hot idle, throttle release/DFCO return and available accessory
+loads. Compare actual/requested RPM, spark, IAC, TPS, MAP, coolant, voltage and
+fuel-state/trim observations using the matching image and logger definitions.
+Keep each tuning revision hash-identified with a matched XDF and rollback.
+Close TS00 with observed results, resolved issues, the final tested calibration
+and any explicit remaining limitations before selecting TS01.
+
+| Order | Status | Work | Completion evidence |
+|---|---|---|---|
+| TS00 | Active; awaiting truck evidence | Test and fine-tune the specific Rev B controller, idle spark and DFCO-spark changes already released. | Matching truck logs across cold/warm/hot and idle-return conditions; controlled tuning revisions; documented stability/transition results and final tested BIN/XDF identity. Software checks alone do not complete this step. |
+| TS01 | Queued behind TS00 | Shared idle and fuel-mode decisions: centralize RPM/TPS thresholds and hysteresis, with distinct closed-throttle and captured-idle meanings. Coordinate idle approach and DFCO consumers without forcing every consumer to use one flag. | Reviewed producer/consumer map; explicit shared controls and remaining intentional differences; boundary/history tests for crank, idle, off-idle and DFCO, including equality and hysteresis; matched firmware/definition/register updates. |
+| TS02 | Queued behind TS00 | Matching ALDL data and ADX: show operating states, requested RPM, baseline air, proportional correction, cold/startup/follower/A/C terms, freeze reasons, fuel enrichment and spark corrections. | Address/width/scaling map for the actual image; paired ADX and any required packet changes; decoded fixture agreement and clear signal names. Record physical capture validation separately. Reuse these channels for later steps. |
+| TS03 | Queued behind TS00 | Single VE surface with useful low-RPM resolution, replacing the current idle/open-throttle table handoff and associated reset logic. | Compare both existing surfaces and transition behavior; document the chosen migration and any changed fuel predictions; test interpolation, bounds and transitions; publish matched BIN/XDF and compare relevant logs. Do not assume copying one table preserves both surfaces. |
+| TS04 | Queued behind TS00 | Explicit commanded AFR/PE selection, with separately identified warm-up and after-start corrections replacing the layered target-selection/filter/ramp stack. | Trace every surviving target writer and its priority; document cranking, after-start, idle, cruise, PE and DFCO behavior; test transitions, faults and service overrides; log selected target and each correction. |
+| TS05 | Queued behind TS00 | Clear injector pulse model across synchronous/asynchronous delivery: voltage offset, short-PW correction, minimum/replacement pulse handling and command limits. Correct inherited short-PW curve/bias labels that misleadingly say Async although the synchronous path also reads them. | Document units, order and actual delivery-path consumers; correct XDF descriptions; test zero/cut, short-PW boundaries, voltage correction, limits and delivery handoffs. Use measured injector evidence for physical correction changes rather than absorbing pulse-model errors into VE. |
+| TS06 | Queued behind TS00 | Clear transient-fuel accounting for TPS, MAP, IAC-change and other surviving additions, reservoir accumulation, decay and sync/async delivery. | Explicit ownership, units and timebase for each contribution; bounded accumulation/decay and no double delivery; retained-history tests and separately logged terms; compare tip-in, lift-off and restart behavior. |
+| TS07 | Queued behind TS00 | Readable spark-correction accounting: base, coolant, startup, MAT, PE, knock, DFCO and final limits, using the TS02 logging channels. | Reconcile base-to-command timing in fixtures/logs; label signs, units and neutral values; identify the active limit. Simplify only after proving each term's consumers and purpose; preserve knock response and required temperature/command protections. |
+
+Work one trajectory step at a time. Move the selected row to in progress when
+implementation starts; leave later rows queued. A step may require several PRs,
+but publish a separate matched BIN/XDF checkpoint for each firmware release so
+behavior changes can be assessed individually. Before advancing, update this
+section with the finished scope, PR/merge, image identity, evidence, remaining
+truck checks and the next concrete action. A blocker keeps its step and reason
+visible; do not silently skip, renumber or mark it complete.
+
+For the active step, keep this checkpoint current:
+
+- Step/status: TS00, physical testing and fine-tuning active; awaiting matching logs.
+- Branch/PR: Rev B source merged in PR #40; trajectory corrections are documentation in PR #41. No later firmware step is in progress.
+- Starting image: Rev B, identified in the release trace above.
+- Validation: baseline software checks passed; Rev B truck validation pending.
+- Required evidence: matching Rev B truck logs and observations; no Rev B physical run is asserted yet.
+- Supporting verification: [the XDF label trace](investigations/REVB_XDF_LABEL_VERIFICATION.md) replays 87 Rev B and 15 historical AE instruction fixtures, with supplied BIN/XDF bytes preserved. It does not complete truck validation.
+- Next action: assess the first Rev B cold/warm-up/hot-idle and return-to-idle recordings, then fine-tune only this revision's change before considering later simplifications.
+
+Each completed step must distinguish implementation, local checks, CI, merge,
+packaging and physical validation. Keep relevant tests and matching XDF/ADX,
+maintained non-OEM address/write registers and writer evidence aligned with the
+actual released image. Preserve OEM references and the prior rollback pair.
+Fuel work must retain the established distinction: BLM is multiplicative;
+INT/P contributes a signed additive pulse-width correction. New air/mixture
+calibration conclusions require current matching observations; an imposed-RPM
+simulation does not establish engine-response stability.
+
 ## Current milestone: ALDL and system code
 
 The SCI transport/system batch adds16 routines and replaces the serial poll,

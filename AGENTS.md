@@ -83,3 +83,13 @@ the definition identity contract; regenerate with `tools/build_custom_xdf.py`
 and run its verifier/tests. Keep the uploaded source XDF attribution and the
 preserved compressed source unchanged. Do not expose new executable bytes as
 tuning parameters, or invent enable switches for code without one.
+
+For custom-ROM tuning simplifications, follow the ordered
+[trajectory and active checkpoint](docs/WORKING_STATE.md#tuning-simplification-trajectory).
+Keep one step active and update its status, PR/image evidence, remaining
+validation and next action before advancing. Preserve queued work across turns;
+the separate factory-equivalence milestones do not imply custom-ROM completion.
+
+The current first step is TS00: truck testing and fine-tuning of the released
+Rev B change. Later structural/behavior changes remain queued until that
+validation checkpoint is closed. A label audit does not authorize a new BIN.
