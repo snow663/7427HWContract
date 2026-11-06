@@ -199,11 +199,12 @@ visible; do not silently skip, renumber or mark it complete.
 For the active step, keep this checkpoint current:
 
 - Step/status: TS00, physical testing and fine-tuning active; awaiting matching logs.
-- Branch/PR: Rev B source merged in PR #40; trajectory corrections are documentation in PR #41. No later firmware step is in progress.
+- Branch/PR: Rev B source merged in PR #40; trajectory and label-verification documentation merged in PR #41. The operation reader is documentation only. No later firmware step is in progress.
 - Starting image: Rev B, identified in the release trace above.
 - Validation: baseline software checks passed; Rev B truck validation pending.
 - Required evidence: matching Rev B truck logs and observations; no Rev B physical run is asserted yet.
 - Supporting verification: [the XDF label trace](investigations/REVB_XDF_LABEL_VERIFICATION.md) replays 87 Rev B and 15 historical AE instruction fixtures, with supplied BIN/XDF bytes preserved. It does not complete truck validation.
+- Reading reference: [the whole-image operation guide](investigations/REVB_OPERATION_GUIDE.md) explains 6,449 statically rooted instructions and accounts for every file byte. This documentation keeps TS00 active and introduces no firmware change.
 - Next action: assess the first Rev B cold/warm-up/hot-idle and return-to-idle recordings, then fine-tune only this revision's change before considering later simplifications.
 
 Each completed step must distinguish implementation, local checks, CI, merge,

@@ -1,0 +1,454 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "scope": "One exact Rev B instruction example per present mnemonic; not a full ROM or dynamic execution proof.",
+  "examples": {
+    "LDAA": {
+      "address": "5BD0",
+      "bytes": "96 0b"
+    },
+    "ANDA": {
+      "address": "5BD2",
+      "bytes": "84 e1"
+    },
+    "STAA": {
+      "address": "5BD4",
+      "bytes": "97 0b"
+    },
+    "CLR": {
+      "address": "5BEE",
+      "bytes": "7f 00 11"
+    },
+    "JSR": {
+      "address": "5C45",
+      "bytes": "bd f3 26"
+    },
+    "BCLR": {
+      "address": "5C4A",
+      "bytes": "15 4c 23"
+    },
+    "LDD": {
+      "address": "5C5F",
+      "bytes": "cc 06 00"
+    },
+    "STD": {
+      "address": "5C62",
+      "bytes": "fd 30 68"
+    },
+    "RTS": {
+      "address": "5C89",
+      "bytes": "39"
+    },
+    "LDX": {
+      "address": "5C8A",
+      "bytes": "fe 01 d0"
+    },
+    "LDAB": {
+      "address": "5C8D",
+      "bytes": "f6 4e 89"
+    },
+    "ADDD": {
+      "address": "5C9D",
+      "bytes": "c3 00 80"
+    },
+    "TAB": {
+      "address": "5CA0",
+      "bytes": "16"
+    },
+    "SBA": {
+      "address": "5CA3",
+      "bytes": "10"
+    },
+    "BCC": {
+      "address": "5CA4",
+      "bytes": "24 01"
+    },
+    "CLRA": {
+      "address": "5CA6",
+      "bytes": "4f"
+    },
+    "MUL": {
+      "address": "5CAA",
+      "bytes": "3d"
+    },
+    "ASLD": {
+      "address": "5CAE",
+      "bytes": "05"
+    },
+    "BCS": {
+      "address": "5CAF",
+      "bytes": "25 03"
+    },
+    "CMPA": {
+      "address": "5CBD",
+      "bytes": "b1 5b 24"
+    },
+    "BHI": {
+      "address": "5CC0",
+      "bytes": "22 0d"
+    },
+    "BRCLR": {
+      "address": "5CC2",
+      "bytes": "13 4f 80 05"
+    },
+    "CLRB": {
+      "address": "5CCB",
+      "bytes": "5f"
+    },
+    "LDS": {
+      "address": "7100",
+      "bytes": "8e 03 ff"
+    },
+    "LDY": {
+      "address": "712E",
+      "bytes": "18 ce 40 0b"
+    },
+    "STX": {
+      "address": "713A",
+      "bytes": "ff 3f fc"
+    },
+    "ANDB": {
+      "address": "7146",
+      "bytes": "c4 fb"
+    },
+    "ORAB": {
+      "address": "7148",
+      "bytes": "ca 08"
+    },
+    "STAB": {
+      "address": "7154",
+      "bytes": "e7 2d"
+    },
+    "INX": {
+      "address": "715D",
+      "bytes": "08"
+    },
+    "CPX": {
+      "address": "715F",
+      "bytes": "8c 3f fa"
+    },
+    "BNE": {
+      "address": "7162",
+      "bytes": "26 f7"
+    },
+    "JMP": {
+      "address": "7193",
+      "bytes": "7e 71 c3"
+    },
+    "BEQ": {
+      "address": "71CB",
+      "bytes": "27 05"
+    },
+    "BSET": {
+      "address": "71CD",
+      "bytes": "14 3a 04"
+    },
+    "BRA": {
+      "address": "71D0",
+      "bytes": "20 1a"
+    },
+    "CPY": {
+      "address": "71DB",
+      "bytes": "18 bc 40 06"
+    },
+    "DECA": {
+      "address": "727B",
+      "bytes": "4a"
+    },
+    "SUBA": {
+      "address": "739C",
+      "bytes": "80 1a"
+    },
+    "PSHA": {
+      "address": "73BE",
+      "bytes": "36"
+    },
+    "PULB": {
+      "address": "73CD",
+      "bytes": "33"
+    },
+    "CMPB": {
+      "address": "73CE",
+      "bytes": "f1 49 5a"
+    },
+    "NOP": {
+      "address": "73ED",
+      "bytes": "01"
+    },
+    "SEI": {
+      "address": "7483",
+      "bytes": "0f"
+    },
+    "ABX": {
+      "address": "74A6",
+      "bytes": "3a"
+    },
+    "CLI": {
+      "address": "74AA",
+      "bytes": "0e"
+    },
+    "WAI": {
+      "address": "74D0",
+      "bytes": "3e"
+    },
+    "PSHB": {
+      "address": "74F4",
+      "bytes": "37"
+    },
+    "LSRB": {
+      "address": "74F8",
+      "bytes": "54"
+    },
+    "PULA": {
+      "address": "74FF",
+      "bytes": "32"
+    },
+    "BRSET": {
+      "address": "750F",
+      "bytes": "12 44 10 03"
+    },
+    "INCB": {
+      "address": "7540",
+      "bytes": "5c"
+    },
+    "LSRD": {
+      "address": "7580",
+      "bytes": "04"
+    },
+    "ADDB": {
+      "address": "7587",
+      "bytes": "fb 02 56"
+    },
+    "ADCA": {
+      "address": "758A",
+      "bytes": "89 00"
+    },
+    "BPL": {
+      "address": "758C",
+      "bytes": "2a 03"
+    },
+    "PSHX": {
+      "address": "75AB",
+      "bytes": "3c"
+    },
+    "PULX": {
+      "address": "75B5",
+      "bytes": "38"
+    },
+    "INCA": {
+      "address": "75C7",
+      "bytes": "4c"
+    },
+    "CPD": {
+      "address": "75EA",
+      "bytes": "1a b3 08 25"
+    },
+    "BLS": {
+      "address": "7645",
+      "bytes": "23 06"
+    },
+    "ASLA": {
+      "address": "766D",
+      "bytes": "48"
+    },
+    "INC": {
+      "address": "767C",
+      "bytes": "7c 08 1e"
+    },
+    "BITA": {
+      "address": "7699",
+      "bytes": "85 08"
+    },
+    "ORAA": {
+      "address": "7768",
+      "bytes": "9a 73"
+    },
+    "RTI": {
+      "address": "77C6",
+      "bytes": "3b"
+    },
+    "TSX": {
+      "address": "784E",
+      "bytes": "30"
+    },
+    "BITB": {
+      "address": "7993",
+      "bytes": "c5 04"
+    },
+    "EORB": {
+      "address": "79AD",
+      "bytes": "c8 20"
+    },
+    "ASLB": {
+      "address": "7A4B",
+      "bytes": "58"
+    },
+    "SUBD": {
+      "address": "7A65",
+      "bytes": "b3 30 1a"
+    },
+    "LSRA": {
+      "address": "7BC7",
+      "bytes": "44"
+    },
+    "ABA": {
+      "address": "7BD1",
+      "bytes": "1b"
+    },
+    "TAP": {
+      "address": "7D8C",
+      "bytes": "06"
+    },
+    "STOP": {
+      "address": "7D8D",
+      "bytes": "cf"
+    },
+    "TST": {
+      "address": "7DBA",
+      "bytes": "7d 40 0f"
+    },
+    "BMI": {
+      "address": "7DBD",
+      "bytes": "2b 05"
+    },
+    "CBA": {
+      "address": "7DC8",
+      "bytes": "11"
+    },
+    "SUBB": {
+      "address": "7DCD",
+      "bytes": "d0 65"
+    },
+    "NEGB": {
+      "address": "7DD1",
+      "bytes": "50"
+    },
+    "DECB": {
+      "address": "7DE4",
+      "bytes": "5a"
+    },
+    "FDIV": {
+      "address": "7E47",
+      "bytes": "03"
+    },
+    "XGDX": {
+      "address": "7E48",
+      "bytes": "8f"
+    },
+    "TSTA": {
+      "address": "7F0C",
+      "bytes": "4d"
+    },
+    "TBA": {
+      "address": "7F11",
+      "bytes": "17"
+    },
+    "ADCB": {
+      "address": "7F8E",
+      "bytes": "c9 00"
+    },
+    "IDIV": {
+      "address": "7FFA",
+      "bytes": "02"
+    },
+    "INY": {
+      "address": "80B3",
+      "bytes": "18 08"
+    },
+    "ADDA": {
+      "address": "8116",
+      "bytes": "bb 48 c6"
+    },
+    "DEC": {
+      "address": "824A",
+      "bytes": "7a 02 45"
+    },
+    "NEGA": {
+      "address": "82D1",
+      "bytes": "40"
+    },
+    "SBCA": {
+      "address": "839A",
+      "bytes": "82 00"
+    },
+    "TSTB": {
+      "address": "869D",
+      "bytes": "5d"
+    },
+    "EORA": {
+      "address": "87E1",
+      "bytes": "88 05"
+    },
+    "DEX": {
+      "address": "8CD8",
+      "bytes": "09"
+    },
+    "COMA": {
+      "address": "A501",
+      "bytes": "43"
+    },
+    "COMB": {
+      "address": "A502",
+      "bytes": "53"
+    },
+    "SWI": {
+      "address": "A5D7",
+      "bytes": "3f"
+    },
+    "BGT": {
+      "address": "AA2B",
+      "bytes": "2e 06"
+    },
+    "INS": {
+      "address": "AADB",
+      "bytes": "31"
+    },
+    "BLT": {
+      "address": "AB0A",
+      "bytes": "2d 0e"
+    },
+    "DEY": {
+      "address": "E14C",
+      "bytes": "18 09"
+    },
+    "ABY": {
+      "address": "E246",
+      "bytes": "18 3a"
+    },
+    "ASL": {
+      "address": "E253",
+      "bytes": "78 02 17"
+    },
+    "STY": {
+      "address": "EA77",
+      "bytes": "18 ff 01 69"
+    },
+    "BSR": {
+      "address": "F230",
+      "bytes": "8d 43"
+    },
+    "XGDY": {
+      "address": "F2C5",
+      "bytes": "18 8f"
+    },
+    "PSHY": {
+      "address": "F4DE",
+      "bytes": "18 3c"
+    },
+    "PULY": {
+      "address": "F4ED",
+      "bytes": "18 38"
+    },
+    "TSY": {
+      "address": "F507",
+      "bytes": "18 30"
+    },
+    "ASRA": {
+      "address": "F848",
+      "bytes": "47"
+    },
+    "SEC": {
+      "address": "FF3C",
+      "bytes": "0d"
+    }
+  }
+}
