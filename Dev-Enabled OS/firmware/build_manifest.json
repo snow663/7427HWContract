@@ -1,0 +1,29 @@
+{
+  "project": "Dev-Enabled OS",
+  "version": "0.0.0-prebuild",
+  "status": "design_only_no_dev_firmware_generated",
+  "parent": {
+    "name": "0.3.12_engine_only_manual_idle_revB.bin",
+    "sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+    "size_bytes": 65536,
+    "checksum_word_at_0x4006": "4E78",
+    "xdf": "definitions/7427_0.3.12_Manual_Idle_RevB.xdf"
+  },
+  "planned_protocol": {
+    "message_id": "F5",
+    "magic": "D6",
+    "major": 1,
+    "first_release_opcodes": [
+      "01",
+      "10",
+      "11",
+      "7F"
+    ]
+  },
+  "outputs": {
+    "bin": null,
+    "xdf": null,
+    "sha256": null,
+    "tests": null
+  }
+}
