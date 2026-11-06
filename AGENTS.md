@@ -89,3 +89,7 @@ For custom-ROM tuning simplifications, follow the ordered
 Keep one step active and update its status, PR/image evidence, remaining
 validation and next action before advancing. Preserve queued work across turns;
 the separate factory-equivalence milestones do not imply custom-ROM completion.
+
+The current first step is TS00: truck testing and fine-tuning of the released
+Rev B change. Later structural/behavior changes remain queued until that
+validation checkpoint is closed. A label audit does not authorize a new BIN.
