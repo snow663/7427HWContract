@@ -48,6 +48,10 @@ original subsystem is removed. The separate
 [write evidence index](maps/maintenance/write_registers_evidence.json) records
 writer addresses and scope without adding byte values to the spreadsheets.
 
+[Rev A Park/Drive trace](docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md)
+records the forced Drive idle context, retained Park-bank dependencies and the
+surviving startup use of the old Drive idle-speed curve.
+
 ## Evidence authority
 
 Stock BMHM SHA-256:

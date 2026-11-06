@@ -1,0 +1,428 @@
+{
+  "image": "0.3.12_engine_only_spark_idle_revA.bin",
+  "sha256": "d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e",
+  "cases": [
+    {
+      "group": "selector",
+      "old_context": 0,
+      "park_input": false,
+      "range_status": 0,
+      "final_context": 2,
+      "gear_adder": 8,
+      "gear_hold": 20,
+      "qualification_delay": 80,
+      "selector_path": [
+        "$9537",
+        "$9539",
+        "$953A",
+        "$954F",
+        "$9552",
+        "$9554",
+        "$9556"
+      ]
+    },
+    {
+      "group": "selector",
+      "old_context": 0,
+      "park_input": false,
+      "range_status": 80,
+      "final_context": 2,
+      "gear_adder": 8,
+      "gear_hold": 20,
+      "qualification_delay": 80,
+      "selector_path": [
+        "$9537",
+        "$9539",
+        "$953A",
+        "$954F",
+        "$9552",
+        "$9554",
+        "$9556"
+      ]
+    },
+    {
+      "group": "selector",
+      "old_context": 0,
+      "park_input": true,
+      "range_status": 0,
+      "final_context": 2,
+      "gear_adder": 8,
+      "gear_hold": 20,
+      "qualification_delay": 80,
+      "selector_path": [
+        "$9537",
+        "$9539",
+        "$953A",
+        "$954F",
+        "$9552",
+        "$9554",
+        "$9556"
+      ]
+    },
+    {
+      "group": "selector",
+      "old_context": 0,
+      "park_input": true,
+      "range_status": 80,
+      "final_context": 2,
+      "gear_adder": 8,
+      "gear_hold": 20,
+      "qualification_delay": 80,
+      "selector_path": [
+        "$9537",
+        "$9539",
+        "$953A",
+        "$954F",
+        "$9552",
+        "$9554",
+        "$9556"
+      ]
+    },
+    {
+      "group": "selector",
+      "old_context": 2,
+      "park_input": false,
+      "range_status": 0,
+      "final_context": 2,
+      "gear_adder": 0,
+      "gear_hold": 0,
+      "qualification_delay": 0,
+      "selector_path": [
+        "$9537",
+        "$9539",
+        "$953A",
+        "$954F",
+        "$9552",
+        "$9554"
+      ]
+    },
+    {
+      "group": "selector",
+      "old_context": 2,
+      "park_input": false,
+      "range_status": 80,
+      "final_context": 2,
+      "gear_adder": 0,
+      "gear_hold": 0,
+      "qualification_delay": 0,
+      "selector_path": [
+        "$9537",
+        "$9539",
+        "$953A",
+        "$954F",
+        "$9552",
+        "$9554"
+      ]
+    },
+    {
+      "group": "selector",
+      "old_context": 2,
+      "park_input": true,
+      "range_status": 0,
+      "final_context": 2,
+      "gear_adder": 0,
+      "gear_hold": 0,
+      "qualification_delay": 0,
+      "selector_path": [
+        "$9537",
+        "$9539",
+        "$953A",
+        "$954F",
+        "$9552",
+        "$9554"
+      ]
+    },
+    {
+      "group": "selector",
+      "old_context": 2,
+      "park_input": true,
+      "range_status": 80,
+      "final_context": 2,
+      "gear_adder": 0,
+      "gear_hold": 0,
+      "qualification_delay": 0,
+      "selector_path": [
+        "$9537",
+        "$9539",
+        "$953A",
+        "$954F",
+        "$9552",
+        "$9554"
+      ]
+    },
+    {
+      "group": "startup_target",
+      "coolant_coordinate": 64,
+      "target": 80,
+      "target_rpm": 1000.0,
+      "selected_curve": "$4F50",
+      "selector_path": [
+        "$9442",
+        "$9445",
+        "$9448",
+        "$944A",
+        "$944C",
+        "$944F"
+      ]
+    },
+    {
+      "group": "startup_target",
+      "coolant_coordinate": 87,
+      "target": 74,
+      "target_rpm": 925.0,
+      "selected_curve": "$4F50",
+      "selector_path": [
+        "$9442",
+        "$9445",
+        "$9448",
+        "$944A",
+        "$944C",
+        "$944F"
+      ]
+    },
+    {
+      "group": "startup_target",
+      "coolant_coordinate": 128,
+      "target": 72,
+      "target_rpm": 900.0,
+      "selected_curve": "$4F50",
+      "selector_path": [
+        "$9442",
+        "$9445",
+        "$9448",
+        "$944A",
+        "$944C",
+        "$944F"
+      ]
+    },
+    {
+      "group": "startup_target",
+      "coolant_coordinate": 160,
+      "target": 72,
+      "target_rpm": 900.0,
+      "selected_curve": "$4F50",
+      "selector_path": [
+        "$9442",
+        "$9445",
+        "$9448",
+        "$944A",
+        "$944C",
+        "$944F"
+      ]
+    },
+    {
+      "group": "startup_target",
+      "coolant_coordinate": 169,
+      "target": 72,
+      "target_rpm": 900.0,
+      "selected_curve": "$4F50",
+      "selector_path": [
+        "$9442",
+        "$9445",
+        "$9448",
+        "$944A",
+        "$944C",
+        "$944F"
+      ]
+    },
+    {
+      "group": "startup_target",
+      "coolant_coordinate": 200,
+      "target": 67,
+      "target_rpm": 837.5,
+      "selected_curve": "$4F50",
+      "selector_path": [
+        "$9442",
+        "$9445",
+        "$9448",
+        "$944A",
+        "$944C",
+        "$944F"
+      ]
+    },
+    {
+      "group": "normal_target",
+      "forced_consumer_context": "Park",
+      "blm_adder_admitted": false,
+      "target": 68,
+      "target_rpm": 850.0,
+      "stall_threshold": 51
+    },
+    {
+      "group": "normal_target",
+      "forced_consumer_context": "Drive",
+      "blm_adder_admitted": false,
+      "target": 68,
+      "target_rpm": 850.0,
+      "stall_threshold": 57
+    },
+    {
+      "group": "normal_target",
+      "forced_consumer_context": "Park",
+      "blm_adder_admitted": true,
+      "target": 72,
+      "target_rpm": 900.0,
+      "stall_threshold": 54
+    },
+    {
+      "group": "normal_target",
+      "forced_consumer_context": "Drive",
+      "blm_adder_admitted": true,
+      "target": 70,
+      "target_rpm": 875.0,
+      "stall_threshold": 59
+    },
+    {
+      "group": "proportional",
+      "forced_consumer_context": "Park",
+      "qualified": false,
+      "overspeed": false,
+      "rpm_error_coordinate": 8,
+      "correction": 7
+    },
+    {
+      "group": "proportional",
+      "forced_consumer_context": "Drive",
+      "qualified": false,
+      "overspeed": false,
+      "rpm_error_coordinate": 8,
+      "correction": 5
+    },
+    {
+      "group": "proportional",
+      "forced_consumer_context": "Park",
+      "qualified": false,
+      "overspeed": true,
+      "rpm_error_coordinate": 8,
+      "correction": 7
+    },
+    {
+      "group": "proportional",
+      "forced_consumer_context": "Drive",
+      "qualified": false,
+      "overspeed": true,
+      "rpm_error_coordinate": 8,
+      "correction": 0
+    },
+    {
+      "group": "proportional",
+      "forced_consumer_context": "Park",
+      "qualified": true,
+      "overspeed": false,
+      "rpm_error_coordinate": 8,
+      "correction": 7
+    },
+    {
+      "group": "proportional",
+      "forced_consumer_context": "Drive",
+      "qualified": true,
+      "overspeed": false,
+      "rpm_error_coordinate": 8,
+      "correction": 5
+    },
+    {
+      "group": "proportional",
+      "forced_consumer_context": "Park",
+      "qualified": true,
+      "overspeed": true,
+      "rpm_error_coordinate": 8,
+      "correction": 7
+    },
+    {
+      "group": "proportional",
+      "forced_consumer_context": "Drive",
+      "qualified": true,
+      "overspeed": true,
+      "rpm_error_coordinate": 8,
+      "correction": 0
+    },
+    {
+      "group": "integral",
+      "forced_consumer_context": "Park",
+      "overspeed": false,
+      "rpm_error_coordinate": 8,
+      "selected_word": 7240,
+      "park_word": 7240,
+      "drive_word": 9728
+    },
+    {
+      "group": "integral",
+      "forced_consumer_context": "Drive",
+      "overspeed": false,
+      "rpm_error_coordinate": 8,
+      "selected_word": 9888,
+      "park_word": 7168,
+      "drive_word": 9888
+    },
+    {
+      "group": "integral",
+      "forced_consumer_context": "Park",
+      "overspeed": true,
+      "rpm_error_coordinate": 8,
+      "selected_word": 7112,
+      "park_word": 7112,
+      "drive_word": 9728
+    },
+    {
+      "group": "integral",
+      "forced_consumer_context": "Drive",
+      "overspeed": true,
+      "rpm_error_coordinate": 8,
+      "selected_word": 9680,
+      "park_word": 7168,
+      "drive_word": 9680
+    },
+    {
+      "group": "follower",
+      "forced_consumer_context": "Park",
+      "throttle_opening": false,
+      "filtered_word": 11264,
+      "hold": 0,
+      "air_term": 6336
+    },
+    {
+      "group": "follower",
+      "forced_consumer_context": "Drive",
+      "throttle_opening": false,
+      "filtered_word": 13184,
+      "hold": 0,
+      "air_term": 7416
+    },
+    {
+      "group": "follower",
+      "forced_consumer_context": "Park",
+      "throttle_opening": true,
+      "filtered_word": 8192,
+      "hold": 0,
+      "air_term": 4608
+    },
+    {
+      "group": "follower",
+      "forced_consumer_context": "Drive",
+      "throttle_opening": true,
+      "filtered_word": 8192,
+      "hold": 0,
+      "air_term": 4608
+    },
+    {
+      "group": "park_bound_dependency",
+      "drive_selected": true,
+      "park_bound": 0,
+      "drive_bound": 0,
+      "drive_snapshot": 38,
+      "drive_warm_flag": true,
+      "cold_delay": 1
+    },
+    {
+      "group": "park_bound_dependency",
+      "drive_selected": true,
+      "park_bound": 256,
+      "drive_bound": 0,
+      "drive_snapshot": 0,
+      "drive_warm_flag": false,
+      "cold_delay": 0
+    }
+  ],
+  "case_count": 36,
+  "limits": "Bounded HC11 memory fixtures, no interrupts or physical I/O. Park context is injected only at consumer entry; ordinary selection is forced Drive. No BIN modifications."
+}
