@@ -80,3 +80,11 @@ BIN exists. Keep the maintained workbooks' snapshot on Rev A. Newly traced
 existing $0036 bit fields belong in those books, but future omissions/reuse in
 the [proposed address map](maps/maintenance/manual_idle_address_plan.csv) must
 not be applied until an actual image release. The OEM books stay unchanged.
+
+Maintain the two [custom XDFs](definitions/README.md) with their corresponding
+program layouts. The development definition is not valid on Rev A. A change to
+the manual-idle source/layout requires review of its calibration mapping and
+the definition identity contract; regenerate with `tools/build_custom_xdf.py`
+and run its verifier/tests. Keep the uploaded source XDF attribution and the
+preserved compressed source unchanged. Do not expose new executable bytes as
+tuning parameters, or invent enable switches for code without one.
