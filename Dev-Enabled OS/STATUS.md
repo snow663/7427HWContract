@@ -1,6 +1,6 @@
 # Dev-Enabled OS — active status
 
-**2026-11-06.** Repository workstream bootstrapped. Phase 0: source-backed integration design and host protocol fixture.
+**2026-11-06.** Repository workstream bootstrapped. Phase 0: source-backed integration design, host protocol fixture, and [gated firmware implementation plan](firmware/IMPLEMENTATION_PLAN.md). Next execution checkpoint is M0+M1 baseline/allocation/serial ownership audit; no target firmware modification yet.
 
 ## Completed
 
@@ -8,6 +8,7 @@
 - [x] Preserve Rev B parent identity and existing firmware/release work.
 - [x] Import v0.2 design, Python binary frame reference, and deterministic test vectors.
 - [x] Define firmware, protocol, Android and documentation locations.
+- [x] Publish firmware implementation milestones M0–M8, memory/interrupt ownership gates and acceptance matrix.
 
 ## Next gates (not yet complete)
 
