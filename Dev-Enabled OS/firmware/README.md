@@ -11,6 +11,8 @@ This folder owns all developer-console firmware modifications and generated rele
 - Rev B checksum (unmodified): `4E78` at ROM $4006.
 - Matching parent XDF: `definitions/7427_0.3.12_Manual_Idle_RevB.xdf`.
 
+**Implementation roadmap:** [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) — M0 through M8, concrete ROM/ALDL hooks, memory gates, test matrix, and reproducible BIN/XDF release rules.
+
 ## Planned files
 
 - `src/`: HC11 modules for staged $F5 receive, command validation, bounded dispatcher, and prepared-response TX.

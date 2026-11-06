@@ -36,5 +36,6 @@ The repo-wide [working state](../docs/WORKING_STATE.md) still governs active cal
 1. [Developer console design v0.2](docs/RevB_ALDL_Developer_Console_Design_v0.2.md)
 2. [Implementation ledger](docs/IMPLEMENTATION_LEDGER.md)
 3. [Python protocol test/reference](protocol/revb_console_v1_protocol_reference.py)
-4. [Firmware allocation/release rules](firmware/README.md)
-5. [Android application workstream](android-app/README.md)
+4. [Firmware implementation plan](firmware/IMPLEMENTATION_PLAN.md)
+5. [Firmware allocation/release rules](firmware/README.md)
+6. [Android application workstream](android-app/README.md)
