@@ -73,6 +73,7 @@ BUILDER_INVOCATION_MANIFEST: dict[str, list[str]] = {
 
 
 COMMON_REQUIRED_ARG_MARKERS = (
+    "--output",  # e.g. exact-input BIN builds; no canonical private ROM in CI
     "--out-md",
     "--out-csv",
     "--name",

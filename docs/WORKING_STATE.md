@@ -133,6 +133,19 @@ evidence supports a deliberate change. No actuator authority is granted by a hos
 Truck tuning and continued stock-ROM analysis remain supported workstreams.
 They use the same evidence with separate calibration/image identities.
 
+## Current tuning candidate
+
+The single manual-idle **Rev B development BIN** is built from the exact supplied
+spark/idle Rev A. It integrates the replacement Park/Drive controller,
+idle-approach DFCO spark release, removal of the post-fuel spark recovery tail
+and an extended cold-idle base-spark shelf. Both maintained non-OEM address
+registers now describe Rev B; OEM references remain unchanged. The release
+contains separate Rev A rollback and Rev B BIN/XDF pairs. The historical DEV
+XDF remains a source-prototype reference, not the new release definition.
+See [the image identity and release trace](investigations/MANUAL_IDLE_REVB_RELEASE.md)
+and [definitions](../definitions/README.md). The supplied Rev A remains the last
+running-image reference; no Rev B flash or truck validation is asserted.
+
 ## Current milestone: ALDL and system code
 
 The SCI transport/system batch adds16 routines and replaces the serial poll,
@@ -210,10 +223,11 @@ do not establish the current tune's calibration values.
 
 ## Current truck image
 
-The user reports restoring the regular **0.3.12** tune after the temporary
-serial readback test. The exact normal-image basename and SHA-256 have not
-been established here. The probe-image identity is recorded with its test,
-not substituted for the normal image.
+The last supplied running reference is **0.3.12 engine-only spark/idle Rev A**,
+SHA-256 `d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e`.
+The earlier serial probe has a separate identity. Rev B is now the prepared
+candidate, with no flash asserted. The maintained registers follow that
+candidate; use the Rev A rollback pair when analyzing the earlier logs.
 
 The older `2.bin`, SHA-256
 `2387d708c8d4cc82b78fabda579e48b7daef79f331543a54b669b70b6262877e`,

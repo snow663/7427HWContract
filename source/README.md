@@ -23,17 +23,20 @@ candidate metadata rather than verified engineering units.
 
 ## Current truck calibration
 
-The user reports restoring the regular 0.3.12 tune. Its exact normal-image
-filename and SHA-256 are not asserted here. The old `2.bin` snapshot and its
-hash are historical. Use[WORKING_STATE.md](../docs/WORKING_STATE.md) and the
-exact current image for byte-specific tuning facts.
+The last supplied running reference is 0.3.12 engine-only spark/idle Rev A.
+The new Rev B single-idle image is a prepared development candidate; no flash
+is asserted. The old `2.bin` snapshot and its hash are historical.
+Use [WORKING_STATE.md](../docs/WORKING_STATE.md) for the current image identities
+and paired definitions.
 
 ## Retained prototypes
 
 The [manual-only idle strategy](manual_idle/README.md) is a separate, executable
 C/HC11 integration candidate for the exact 0.3.12 Rev A image. It replaces both
-transmission-dependent idle strategies in simulator memory only. It does not
-change the OEM pseudo-source or release a BIN.
+transmission-dependent idle strategies. It is now integrated in the
+[Rev B development BIN](../docs/investigations/MANUAL_IDLE_REVB_RELEASE.md),
+with paired XDF and Rev A rollback. The OEM pseudo-source remains separate;
+software verification does not establish physical engine stability.
 
 [replacement_os/](replacement_os/README.md) and
 [minimal_os/](minimal_os/README.md) preserve earlier assembly and output-slice

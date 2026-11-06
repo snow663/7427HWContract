@@ -22,11 +22,15 @@ ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / 'definitions'
 CONTRACT = DEST / 'source/custom_rom_xdf_contract.json'
 BASE = DEST / 'source/Advanced_31_TP5_v251.xdf.gz'
-PROFILES = {'reva':'7427_0.3.12_RevA.xdf', 'manual_idle_dev':'7427_Manual_Idle_DEV.xdf'}
+PROFILES = {'reva':'7427_0.3.12_RevA.xdf', 'manual_idle_dev':'7427_Manual_Idle_DEV.xdf', 'manual_idle_revb':'7427_0.3.12_Manual_Idle_RevB.xdf'}
 NS = {'m':'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 REMOVED_CATEGORIES = {0x15, 0x40, 0x41, 0x42, 0x43, 0x44, 0x49, 0x4b, 0x4e} | set(range(0x4f, 0x64))
 IDLE_CATEGORIES = set(range(0x32, 0x40))
 PRESERVED_IDLE_DATA = {0x4e92, 0x4ea3, 0x4ea5, 0x4eb0, 0x4eb6, 0x4fbe, 0x50a2, 0x50a8, 0x50a9}
+
+
+def is_manual(profile):
+    return profile in ('manual_idle_dev', 'manual_idle_revb')
 
 
 def read_roles():
@@ -137,9 +141,16 @@ def excluded(item, profile, roles, contract):
                 return 'Option bit is omitted in the current address register'
     # Exact named starts avoid inventing roles for unrelated aliases or bytes.
     if roles.get(f'${a:04X}', ('',''))[1] == 'omitted': return 'Original role omitted in current address register'
-    if profile == 'manual_idle_dev' and (categories(item) & IDLE_CATEGORIES or 0x4e8f <= a <= 0x50d4):
-        if a not in PRESERVED_IDLE_DATA: return 'Replaced Park/Drive idle strategy; new controls have separate definitions'
-        if item.tag == 'XDFFLAG': return 'Old idle-strategy option does not control the replacement'
+    if profile=='manual_idle_revb' and a==0x4ef2:
+        return 'Initialization-only follower threshold has no replacement-controller consumer'
+    if profile=='manual_idle_revb' and a==0x4e90 and item.tag=='XDFFLAG' and int(item.findtext('mask','0'),0)==2:
+        return 'Resident option is still tested but its normal request writer was removed'
+    if profile=='manual_idle_revb' and a in (0x414f,0x4150,0x4151):
+        return 'Post-fuel decel spark recovery removed in Rev B'
+    if is_manual(profile) and (categories(item) & IDLE_CATEGORIES or 0x4e8f <= a <= 0x50d4):
+        preserved=PRESERVED_IDLE_DATA | ({0x4e8f,0x4ea4,0x50c7,0x50c8,0x50c9,0x50ce} if profile=='manual_idle_revb' else set())
+        if a not in preserved: return 'Replaced Park/Drive idle strategy; new controls have separate definitions'
+        if item.tag == 'XDFFLAG' and not (profile=='manual_idle_revb' and (a,int(item.findtext('mask','0'),0)) in ((0x4e8f,4),)): return 'Old idle-strategy option does not control the replacement'
     # Individual removed-feature flags can share live configuration/fault bytes.
     title = item.findtext('title','').lower()
     removed_terms = ('egr', 'purge', 'canister', 'ccp', 'vss', 'vehicle speed', 'tcc',
@@ -151,7 +162,7 @@ def excluded(item, profile, roles, contract):
     if ' mph' in title or title.startswith('mph '): return 'Road-speed control has been removed'
     if item.tag=='XDFFLAG' and a==0x48f6 and int(item.findtext('mask','0'),0)&4:
         return 'P/N BLM-cell offset code is bypassed'
-    if profile=='manual_idle_dev' and title.startswith(('code 35 ', 'code 36 ')):
+    if is_manual(profile) and title.startswith(('code 35 ', 'code 36 ')):
         return 'Original IAC learning/kicker diagnostic removed by the replacement strategy'
     return None
 
@@ -159,7 +170,7 @@ def excluded(item, profile, roles, contract):
 def customize_existing(item, profile, roles):
     a = start(item)
     current = roles.get(f'${a:04X}', ('',''))[1]
-    if current: tag(item,'description',item.findtext('description','').strip() + '\n\nCurrent Rev A role: ' + current)
+    if current: tag(item,'description',item.findtext('description','').strip() + ('\n\nCurrent Rev B role: ' if profile=='manual_idle_revb' else '\n\nCurrent Rev A role: ') + current)
     if not item.findall('CATEGORYMEM'): category(item)
     if a == 0x4169 and item.tag == 'XDFTABLE':
         tag(item,'title','Single base spark table - RPM vs load')
@@ -188,10 +199,14 @@ def customize_existing(item, profile, roles):
             'This table does not select the normal running idle target, and is omitted in the manual-idle replacement.')
     if a == 0x4f32 and item.tag=='XDFTABLE':
         tag(item,'title','Startup RPM alternative - legacy Park curve (Rev A only)')
-    if a == 0x4fbe and profile=='manual_idle_dev':
+    if a == 0x4fbe and is_manual(profile):
         tag(item,'title','Fuel-state RPM-error threshold (retained)')
         tag(item,'description','Retained reader at 0xE3AB still uses this threshold to publish fuel state. '
             'The old warm IAC snapshot/learning routine is removed. This shared scalar is not omitted.')
+    if profile=='manual_idle_revb' and a in (0x4e8f,0x50c7,0x50c8,0x50c9,0x50ce):
+        titles={0x4e8f:'Retained auxiliary IAC output enable',0x50c7:'Auxiliary IAC output coolant threshold',0x50c8:'Retained air converter auxiliary subtraction',0x50c9:'Retained air converter auxiliary multiplier',0x50ce:'Auxiliary IAC output BARO threshold'}
+        tag(item,'title',titles[a])
+        tag(item,'description','Retained motor/converter or resident spark path, separate from the replaced Park/Drive strategy. See the Rev B trace and address register. Original conversion retained.')
     if a==0x4eb0:
         tag(item,'title','IAC ignition-off parking target (motor position)')
     if profile=='reva' and a in (0x4f23,0x4f24,0x4f25):
@@ -218,7 +233,7 @@ def customize_existing(item, profile, roles):
 
 def custom_items(profile):
     common = [curve(0xe000, 'Base idle RPM - coolant index',0xff60,'12.5 * X','RPM',
-        ('Shared startup/running target in the manual-idle replacement. ' if profile=='manual_idle_dev'
+        ('Shared startup/running target in the manual-idle replacement. ' if is_manual(profile)
          else 'Normal background base target in Rev A; startup separately reads 0x4F50. ') +
         'Seventeen byte knots at indices 0,16,...,256 of RAM 0x0283. The axis is the native lookup index, not degrees C. '
         'The final knot is the interpolation endpoint; maximum byte input is 255.'),
@@ -226,7 +241,7 @@ def custom_items(profile):
             'The retained fuel classifier uses requested RPM +100/+200 RPM hysteresis. Keep paired IAC thresholds aligned.'),
         constant(0xe002,'Fuel idle-retention / OL TPS threshold',0xff8b,description='Normalized TPS ceiling for retained fuel idle, '
             'also used by the closed-throttle OL hook. This is a shared control, not volts or percent.')]
-    if profile != 'manual_idle_dev': return common
+    if not is_manual(profile): return common
     symbols=assemble(SOURCE).symbols
     common.append(curve(0xe010,'Cold idle-air feedforward - coolant index',symbols['cal_cold_air'],'X','air units',
         'Single-controller cold-air feedforward, not RPM and not motor steps. Native RAM 0x0283 index, '
@@ -252,11 +267,16 @@ def custom_items(profile):
         ('cal_stall_air','Stall recovery extra air',8,'X','air units',0,'Added while captured and below the target-relative stall threshold.'),
         ('cal_ac_air','A/C request extra air',8,'X','air units',0,'Simple feedforward addition while existing request RAM 0x0052 bit5 is set; no separate learned A/C bank.')]
     for uid,(symbol,title,bits,equation,units,dp,desc) in enumerate(specs,0xe020):
+        if profile=='manual_idle_revb' and symbol=='cal_rpm_exit':
+            title='IAC and DFCO spark release margin above idle target'
+            desc='Shared margin: releases IAC capture above this RPM offset and removes DFCO spark retard at or below target plus this offset. Fuel classification stays fixed at +100/+200 RPM. Raising it releases decel spark retard earlier on approach to idle.'
         common.append(constant(uid,title,symbols[symbol],bits,equation,units,dp,desc,cat=0x32))
     return common
 
 
 def build(profile, contract, roles):
+    if profile in ('reva','manual_idle_dev'):
+        roles=json.loads((DEST/'source/reva_rom_roles.json').read_text())
     raw=gzip.decompress(BASE.read_bytes())
     if hashlib.sha256(raw).hexdigest()!=contract['base_xdf_sha256']: raise ValueError('Source XDF identity changed')
     root=ET.fromstring(raw); header=root.find('XDFHEADER'); kept=[]; report=[]
@@ -270,7 +290,7 @@ def build(profile, contract, roles):
         if not reason:
             customize_existing(item,profile,roles); kept.append(item)
     tag(header,'fileversion','7427-custom-1.0')
-    tag(header,'deftitle','7427 0.3.12 Rev A - engine only' if profile=='reva' else '7427 MANUAL IDLE DEVELOPMENT - not Rev A')
+    tag(header,'deftitle',{'reva':'7427 0.3.12 Rev A - engine only','manual_idle_dev':'7427 MANUAL IDLE DEVELOPMENT - not Rev A','manual_idle_revb':'7427 0.3.12 Rev B - single manual idle'}[profile])
     tag(header,'author',contract['base_xdf_author']+'; custom 7427 project adaptation')
     identity=contract['profiles'][profile]
     tag(header,'description',
@@ -282,8 +302,10 @@ def build(profile, contract, roles):
         'Custom air is internal controller air units, not motor steps or measured percent flow. '
         'Inherited checksum metadata is preserved. Validate image layout and checksum with tools/verify_custom_xdf.py. '
         + ('Rev A retains Drive-selected idle banks and a separate startup curve. ' if profile=='reva' else 'One runtime learned value resets on restart. New gains/cold-air defaults remain development calibration. '))
+    if profile=='manual_idle_revb':
+        tag(header,'description',f'64 KiB full-address image; base offset zero. Rev B single manual-idle controller with target-relative DFCO spark release and no post-fuel retard recovery. Reference SHA-256: {identity["pristine_sha256"]}. Development calibration; not truck validated. Original XDF: Advanced $31 TP5 v251, author 93V8S10. Inherited engine conversions retain their original provenance. Runtime learning resets on restart. Air units are internal units, not motor steps. Use only with the Rev B program layout; 9F00 controls are executable code in Rev A. Checksum metadata retained; verify layout and checksum with tools/verify_custom_xdf.py.')
     header.find("CATEGORY[@index='0x0']").set('name','Custom ROM controls - reviewed')
-    if profile=='manual_idle_dev': header.find("CATEGORY[@index='0x32']").set('name','Manual idle controller - reviewed')
+    if is_manual(profile): header.find("CATEGORY[@index='0x32']").set('name','Manual idle controller - reviewed')
     for c in custom_items(profile): root.append(c)
     for k in kept: root.append(k)
     used={index for item in root if item.tag!='XDFHEADER' for index in categories(item)}
@@ -308,7 +330,7 @@ def program_fingerprint(image, profile):
     # Protect resident program/high-ROM data and the low-ROM engine helpers;
     # exclude only reviewed writable high-ROM calibration locations.
     calibration={0xfe9f,0xff8a,0xff8b}|set(range(0xff60,0xff71))
-    if profile=='manual_idle_dev': calibration |= set(range(0x9f00,0x9f27))
+    if is_manual(profile): calibration |= set(range(0x9f00,0x9f27))
     return hashlib.sha256(bytes(image[a] for a in list(range(0x5bd0,0x5cdd))+list(range(0x7100,0x10000)) if a not in calibration)).hexdigest()
 
 
@@ -317,8 +339,11 @@ def record_identities(contract, rom):
     if hashlib.sha256(image).hexdigest()!=EXPECTED_SHA: raise ValueError('Identity recording requires the exact original Rev A')
     manual,_,_=overlay(image)
     contract['manual_idle_assembly_sha256']=hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+    from build_manual_idle_release import build as release_build
+    released,_,_=release_build(image)
+    contract['gate_assembly_sha256']=hashlib.sha256((ROOT/'source/manual_idle/decel_spark_gate.asm').read_bytes()).hexdigest()
     contract['profiles']={name:dict(pristine_sha256=hashlib.sha256(b).hexdigest(),program_fingerprint=program_fingerprint(b,name))
-                          for name,b in [('reva',image),('manual_idle_dev',manual)]}
+                          for name,b in [('reva',image),('manual_idle_dev',manual),('manual_idle_revb',released)]}
     CONTRACT.write_text(json.dumps(contract,indent=2)+'\n')
 
 
@@ -330,6 +355,9 @@ if __name__=='__main__':
     if args.record_identities: record_identities(contract,args.record_identities)
     if contract.get('manual_idle_assembly_sha256')!=hashlib.sha256(SOURCE.read_bytes()).hexdigest():
         raise SystemExit('Manual idle source changed: review the definition/layout and update its image contract')
+    gate=ROOT/'source/manual_idle/decel_spark_gate.asm'
+    if contract.get('gate_assembly_sha256')!=hashlib.sha256(gate.read_bytes()).hexdigest():
+        raise SystemExit('Decel gate source changed: review and update the image identity contract')
     roles=read_roles(); manifest={}
     for profile,filename in PROFILES.items():
         data,items=build(profile,contract,roles); path=DEST/filename

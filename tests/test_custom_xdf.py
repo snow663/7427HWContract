@@ -63,6 +63,17 @@ class CustomXdf(unittest.TestCase):
         self.assertIn(0x4f50,self.items('reva'));self.assertNotIn(0x4f50,self.items('manual_idle_dev'))
         self.assertNotIn(0x9f00,self.items('reva'));self.assertIn(0x9f00,self.items('manual_idle_dev'))
 
+    def test_release_shared_margin_and_surviving_driver_controls(self):
+        items=self.items('manual_idle_revb')
+        for address in (0x414f,0x4150,0x4151,0x4f50):self.assertNotIn(address,items)
+        self.assertIn('DFCO',items[0x9f17].findtext('title'))
+        for address in (0x50c7,0x50c8,0x50c9,0x50ce):self.assertIn(address,items)
+        self.assertNotIn(0x4ef2,items)
+        memory=sparse_fixture()
+        self.assertEqual(decode_scalar(items[0x9f17],memory),200)
+        encode_scalar(items[0x9f17],memory,212.5)
+        self.assertEqual(memory[0x9f17],17)
+
     def test_legacy_transition_definitions_are_corrected(self):
         items=self.items('reva'); m=sparse_fixture()
         for address in (0x4f23,0x4f24,0x4f25):
@@ -79,7 +90,7 @@ class CustomXdf(unittest.TestCase):
         for profile,filename in PROFILES.items():
             flags=[p.findtext('title','').lower() for p in ET.parse(DEST/filename).getroot().findall('XDFFLAG')]
             self.assertFalse(any(t.startswith(('code 16 ','code 77 ')) for t in flags))
-            if profile=='manual_idle_dev':
+            if profile in ('manual_idle_dev','manual_idle_revb'):
                 self.assertFalse(any(t.startswith(('code 35 ','code 36 ')) for t in flags))
 
 

@@ -63,25 +63,20 @@ Initial snapshots (2026-11-05):
   entries, including named bit fields, qualified indexed destinations and reset
   writes. Their reviewed image identities match the snapshots above.
 
-The pending deceleration-spark change is not part of this snapshot. Do not
-record proposed changes as implemented.
+The Rev A Park/Drive trace and source-only manual-idle reports remain historical
+evidence. The maintained non-OEM snapshot now advances to the actual Rev B
+candidate, `0.3.12_engine_only_manual_idle_revB.bin`, SHA-256:
+`e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1`.
+See [the release trace](docs/investigations/MANUAL_IDLE_REVB_RELEASE.md).
+The single controller, idle-approach deceleration-spark gate and cold-idle
+base-table changes are implemented in that image. It is a software-validated
+development candidate, not a truck-validated calibration. Preserve the original
+Rev A BIN/XDF as a separate rollback pair and leave both OEM books unchanged.
+The proposed map remains a historical design document; the maintained books
+and new image trace govern actual addresses. Retained shared reads and explicit
+cleanup writes must not be confused with removed operational roles.
 
-The [2026-11-06 Park/Drive trace](docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md)
-corrects the former non-OEM `omitted` label at $4F50: the curve still supplies
-the startup base target. Normal background target selection uses $FF60. Running
-IAC context $0036.1 is forced Drive, while Park cold-state housekeeping remains
-and can gate Drive warm snapshots. The maintained books include these findings;
-the OEM books remain unchanged. Do not equate a removed normal consumer with a
-location having no surviving startup/initialization consumer.
-
-The [manual-idle replacement](docs/investigations/MANUAL_IDLE_REPLACEMENT.md)
-is executable C/HC11 source tested only as an in-memory Rev A overlay. No new
-BIN exists. Keep the maintained workbooks' snapshot on Rev A. Newly traced
-existing $0036 bit fields belong in those books, but future omissions/reuse in
-the [proposed address map](maps/maintenance/manual_idle_address_plan.csv) must
-not be applied until an actual image release. The OEM books stay unchanged.
-
-Maintain the two [custom XDFs](definitions/README.md) with their corresponding
+Maintain the image-specific [custom XDFs](definitions/README.md) with their corresponding
 program layouts. The development definition is not valid on Rev A. A change to
 the manual-idle source/layout requires review of its calibration mapping and
 the definition identity contract; regenerate with `tools/build_custom_xdf.py`
