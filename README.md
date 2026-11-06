@@ -36,6 +36,18 @@ preserves each OEM role and uses its third column for `omitted` or a new use;
 blank means the original role is retained. No byte values are stored in the
 sheets. [Maintenance instructions](AGENTS.md) apply to future tracing work.
 
+The matching write references also live in the root:
+
+- [OEM write register](7427_Write_Register_OEM_BMHM.xlsx).
+- [Non-OEM write register](7427_Write_Register_0.3.12.xlsx), maintained as writers
+  are removed or reused.
+
+Each has RAM writes and Register writes tabs, using the same two/three-column
+format. Explicit output-off and cleanup writes remain identified even where the
+original subsystem is removed. The separate
+[write evidence index](maps/maintenance/write_registers_evidence.json) records
+writer addresses and scope without adding byte values to the spreadsheets.
+
 ## Evidence authority
 
 Stock BMHM SHA-256:
