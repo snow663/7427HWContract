@@ -275,8 +275,9 @@ def custom_items(profile):
 
 
 def build(profile, contract, roles):
-    if profile in ('reva','manual_idle_dev'):
-        roles=json.loads((DEST/'source/reva_rom_roles.json').read_text())
+    # Keep released definitions reproducible while read-reference traces advance.
+    snapshot='revb_rom_roles.json' if profile=='manual_idle_revb' else 'reva_rom_roles.json'
+    roles=json.loads((DEST/'source'/snapshot).read_text())
     raw=gzip.decompress(BASE.read_bytes())
     if hashlib.sha256(raw).hexdigest()!=contract['base_xdf_sha256']: raise ValueError('Source XDF identity changed')
     root=ET.fromstring(raw); header=root.find('XDFHEADER'); kept=[]; report=[]

@@ -203,6 +203,7 @@ For the active step, keep this checkpoint current:
 - Starting image: Rev B, identified in the release trace above.
 - Validation: baseline software checks passed; Rev B truck validation pending.
 - Required evidence: matching Rev B truck logs and observations; no Rev B physical run is asserted yet.
+- Supporting verification: [the XDF label trace](investigations/REVB_XDF_LABEL_VERIFICATION.md) replays 87 Rev B and 15 historical AE instruction fixtures, with supplied BIN/XDF bytes preserved. It does not complete truck validation.
 - Next action: assess the first Rev B cold/warm-up/hot-idle and return-to-idle recordings, then fine-tune only this revision's change before considering later simplifications.
 
 Each completed step must distinguish implementation, local checks, CI, merge,
