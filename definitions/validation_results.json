@@ -9,6 +9,11 @@
       "filename": "7427_Manual_Idle_DEV.xdf",
       "parameters": 391,
       "custom_entries": 23
+    },
+    "manual_idle_revb": {
+      "filename": "7427_0.3.12_Manual_Idle_RevB.xdf",
+      "parameters": 393,
+      "custom_entries": 23
     }
   },
   "image_tests": [
@@ -25,17 +30,23 @@
       "pristine_reference": true
     },
     {
-      "profile": "manual_idle_dev",
-      "xdf": "7427_Manual_Idle_DEV.xdf",
-      "checksum": "4120",
+      "profile": "manual_idle_revb",
+      "xdf": "7427_0.3.12_Manual_Idle_RevB.xdf",
+      "checksum": "4E78",
+      "pristine_reference": true
+    },
+    {
+      "profile": "manual_idle_revb",
+      "xdf": "7427_0.3.12_Manual_Idle_RevB.xdf",
+      "checksum": "4EF8",
       "pristine_reference": false
     }
   ],
   "invalid_checksum_rejected": true,
-  "protected_code_edit_rejected": true,
+  "protected_gate_and_hook_edits_rejected": true,
   "word_edit_roundtrip_value": 24.5,
   "original_rom_unchanged": true,
-  "binary_written": false,
+  "revb_binary_created": true,
   "native_tunerpro_gui_tested": false,
-  "scope": "XML/layout/address checks and byte-level in-memory conversions. Legacy inherited conversions are not a complete new semantic audit."
+  "scope": "Layout/math/address checks plus full-image program/checksum identification. Physical calibration and all inherited conversions are not established."
 }

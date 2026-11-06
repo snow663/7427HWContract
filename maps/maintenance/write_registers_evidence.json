@@ -1,8 +1,8 @@
 {
   "oem_image": "OEM BMHM $31",
   "oem_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
-  "current_image": "0.3.12_engine_only_spark_idle_revA.bin",
-  "current_sha256": "d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e",
+  "current_image": "0.3.12_engine_only_manual_idle_revB.bin",
+  "current_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
   "scope": "Named write destinations and bit fields, including qualified indexed owners, reset/cleanup writes and read-modify-writes. No raw byte values. No claim of all runtime writes.",
   "limitations": [
     "Inherited indexed writer footprints retain the OEM caller/state assumptions and are not new runtime proofs.",
@@ -27,7 +27,9 @@
     "Reviewed Rev A reachable instruction listing and exact image",
     "Root OEM and non-OEM read-address registers",
     "docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md",
-    "docs/investigations/MANUAL_IDLE_REPLACEMENT.md"
+    "docs/investigations/MANUAL_IDLE_REPLACEMENT.md",
+    "source/manual_idle/decel_spark_gate.asm",
+    "docs/investigations/MANUAL_IDLE_REVB_RELEASE.md"
   ],
   "updated": "2026-11-06",
   "rows": [
@@ -238,8 +240,6 @@
         "$7492",
         "$91E6",
         "$926D",
-        "$9B10",
-        "$9BD6",
         "$A404",
         "$F31B"
       ]
@@ -290,16 +290,9 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$930C",
-        "$932A",
         "$93F0",
         "$93F3",
-        "$9B06",
-        "$9BCC",
-        "$A11F",
-        "$A12A",
-        "$A385",
-        "$A392",
+        "$98CB",
         "$A3FA",
         "$F31E"
       ]
@@ -347,8 +340,6 @@
       ],
       "current_writer_pcs": [
         "$93F3",
-        "$9B06",
-        "$9BCC",
         "$F31E"
       ]
     },
@@ -604,11 +595,7 @@
       "current_writer_pcs": [
         "$5C07",
         "$7496",
-        "$A0FA",
-        "$A38A",
-        "$A38F",
-        "$A3DB",
-        "$A3E3",
+        "$98CE",
         "$A4B3",
         "$A4E6",
         "$DDC0",
@@ -623,7 +610,7 @@
       "sheet": "RAM writes",
       "address": "$0018.2",
       "oem_role": "IAC kicker fault",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$A38A",
         "$A38F",
@@ -632,8 +619,6 @@
       ],
       "current_writer_pcs": [
         "$5C07",
-        "$A38A",
-        "$A38F",
         "$F318",
         "$F346"
       ]
@@ -642,7 +627,7 @@
       "sheet": "RAM writes",
       "address": "$0018.3",
       "oem_role": "IAC learning fault",
-      "current_use": "",
+      "current_use": "Retired learning-fault bit explicitly cleared by replacement initialization",
       "oem_writer_pcs": [
         "$A0FA",
         "$A3DB",
@@ -652,9 +637,7 @@
       ],
       "current_writer_pcs": [
         "$5C07",
-        "$A0FA",
-        "$A3DB",
-        "$A3E3",
+        "$98CE",
         "$F318",
         "$F346"
       ]
@@ -931,7 +914,7 @@
       "sheet": "RAM writes",
       "address": "$0036",
       "oem_role": "IAC context and spark-override request flags",
-      "current_use": "",
+      "current_use": "Single idle-controller status; resident motor and service bits retained",
       "oem_writer_pcs": [
         "$7492",
         "$921F",
@@ -957,20 +940,15 @@
       "current_writer_pcs": [
         "$7492",
         "$921F",
-        "$949D",
-        "$954F",
-        "$95B9",
-        "$95E2",
-        "$96AA",
-        "$96BF",
-        "$96DE",
-        "$96F5",
-        "$96FB",
-        "$9A00",
-        "$9A05",
-        "$9A58",
-        "$9A5E",
-        "$9A74",
+        "$955E",
+        "$9564",
+        "$956E",
+        "$95A9",
+        "$95C0",
+        "$95C5",
+        "$95CF",
+        "$95E0",
+        "$98C8",
         "$A3FD",
         "$A436",
         "$F301"
@@ -990,9 +968,9 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$949D",
-        "$95B9",
-        "$95E2",
+        "$955E",
+        "$9564",
+        "$98C8",
         "$F301"
       ]
     },
@@ -1000,7 +978,7 @@
       "sheet": "RAM writes",
       "address": "$0036.1",
       "oem_role": "IAC context selector: clear selects Park, set selects Drive",
-      "current_use": "Forced Drive by the retained $954F writer; automatic range selection omitted",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$954F",
@@ -1009,15 +987,17 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$954F",
+        "$955E",
+        "$98C8",
         "$F301"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0036.2",
       "oem_role": "IAC closed-throttle and idle qualification flag",
-      "current_use": "Rev A idle qualification; VSS and first-throttle dependencies omitted",
+      "current_use": "Single-controller target-relative RPM/TPS capture",
       "oem_writer_pcs": [
         "$7492",
         "$949D",
@@ -1029,19 +1009,21 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$949D",
-        "$9A00",
-        "$9A05",
+        "$955E",
+        "$95A9",
+        "$95C5",
+        "$98C8",
         "$A3FD",
         "$A436",
         "$F301"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0036.3",
       "oem_role": "IAC integral-control admission flag",
-      "current_use": "Integral admission within the retained forced Drive controller",
+      "current_use": "Single-controller timed integral admission",
       "oem_writer_pcs": [
         "$7492",
         "$949D",
@@ -1053,19 +1035,22 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$949D",
-        "$9A58",
-        "$9A5E",
+        "$955E",
+        "$95C0",
+        "$95C5",
+        "$95CF",
+        "$98C8",
         "$A3FD",
         "$A436",
         "$F301"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0036.4",
       "oem_role": "IAC stall-recovery flag",
-      "current_use": "",
+      "current_use": "Single-controller target-relative stall status",
       "oem_writer_pcs": [
         "$7492",
         "$949D",
@@ -1076,18 +1061,19 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$949D",
-        "$96DE",
-        "$9A74",
+        "$955E",
+        "$95E0",
+        "$98C8",
         "$A3FD",
         "$F301"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0036.5",
       "oem_role": "Resident spark-override request flag",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$949D",
         "$96AA",
@@ -1095,9 +1081,7 @@
         "$F301"
       ],
       "current_writer_pcs": [
-        "$949D",
-        "$96AA",
-        "$96BF",
+        "$955E",
         "$F301"
       ]
     },
@@ -1105,7 +1089,7 @@
       "sheet": "RAM writes",
       "address": "$0036.7",
       "oem_role": "IAC RPM-error direction: set at or above requested idle speed",
-      "current_use": "",
+      "current_use": "Retained RPM at-or-above-target meaning",
       "oem_writer_pcs": [
         "$7492",
         "$949D",
@@ -1115,17 +1099,18 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$949D",
-        "$96F5",
-        "$96FB",
+        "$955E",
+        "$956E",
+        "$98C8",
         "$F301"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0037",
       "oem_role": "IAC kicker and transition flags",
-      "current_use": "",
+      "current_use": "Retained auxiliary actuator/converter flags; former Park/Drive transitions omitted",
       "oem_writer_pcs": [
         "$7492",
         "$920E",
@@ -1150,17 +1135,8 @@
         "$7492",
         "$920E",
         "$9218",
-        "$9239",
         "$9294",
-        "$94A0",
         "$9865",
-        "$9C5F",
-        "$9CED",
-        "$9CF2",
-        "$9D8A",
-        "$9DD6",
-        "$9DE3",
-        "$9F58",
         "$A456",
         "$A45F",
         "$F301"
@@ -1170,7 +1146,7 @@
       "sheet": "RAM writes",
       "address": "$0038",
       "oem_role": "IAC transfer and cold-control flags",
-      "current_use": "",
+      "current_use": "Retained service override; former bank/cold-state flags omitted",
       "oem_writer_pcs": [
         "$7496",
         "$93D7",
@@ -1205,31 +1181,6 @@
       "current_writer_pcs": [
         "$7496",
         "$93D7",
-        "$94A3",
-        "$94A6",
-        "$9698",
-        "$969B",
-        "$9806",
-        "$980B",
-        "$9EE4",
-        "$A0CE",
-        "$A0D3",
-        "$A1C3",
-        "$A1C8",
-        "$A1D1",
-        "$A1D6",
-        "$A1E3",
-        "$A1E8",
-        "$A1F1",
-        "$A1F6",
-        "$A252",
-        "$A257",
-        "$A260",
-        "$A265",
-        "$A272",
-        "$A277",
-        "$A280",
-        "$A285",
         "$A446",
         "$F315"
       ]
@@ -1238,7 +1189,7 @@
       "sheet": "RAM writes",
       "address": "$0039",
       "oem_role": "IAC learning and qualification flags",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7496",
         "$94A9",
@@ -1253,14 +1204,6 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$94A9",
-        "$99EA",
-        "$99EF",
-        "$9DA5",
-        "$9E85",
-        "$9F13",
-        "$9F9C",
-        "$A395",
         "$F315"
       ]
     },
@@ -2882,7 +2825,7 @@
       "sheet": "RAM writes",
       "address": "$0051",
       "oem_role": "Spark startup/deceleration-recovery and fuel-packet flags",
-      "current_use": "",
+      "current_use": "Shared startup/fuel flags and active DFCO spark qualification; recovery tail omitted",
       "oem_writer_pcs": [
         "$7486",
         "$74B0",
@@ -2915,10 +2858,10 @@
         "$7D72",
         "$7D94",
         "$83E7",
+        "$9F51",
+        "$9F77",
         "$A538",
         "$A577",
-        "$A981",
-        "$A9C7",
         "$F315"
       ]
     },
@@ -2944,17 +2887,18 @@
       "sheet": "RAM writes",
       "address": "$0051.5",
       "oem_role": "Deceleration-spark recovery latch; keeps subtracting retard after fuel resumes",
-      "current_use": "",
+      "current_use": "DFCO spark/minimum-limit qualification; cleared when fuel resumes or at the idle approach threshold",
       "oem_writer_pcs": [
         "$A981",
         "$A9C7",
         "$F315"
       ],
       "current_writer_pcs": [
-        "$A981",
-        "$A9C7",
+        "$9F51",
+        "$9F77",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
@@ -6660,7 +6604,7 @@
       "sheet": "RAM writes",
       "address": "$01F2",
       "oem_role": "Shared spark startup/deceleration-recovery filter state (word)",
-      "current_use": "",
+      "current_use": "Startup state retained; reset by admitted DFCO subtraction, without recovery-tail updates",
       "oem_writer_pcs": [
         "$748A",
         "$A533",
@@ -6671,10 +6615,9 @@
       ],
       "current_writer_pcs": [
         "$748A",
+        "$9F56",
         "$A533",
         "$A57C",
-        "$A986",
-        "$A9C2",
         "$F31B"
       ]
     },
@@ -6791,10 +6734,10 @@
       ],
       "current_writer_pcs": [
         "$749E",
+        "$9F71",
         "$A81B",
         "$A841",
         "$A84B",
-        "$A9DD",
         "$AA0F",
         "$F315"
       ]
@@ -6929,7 +6872,7 @@
       "sheet": "RAM writes",
       "address": "$0208",
       "oem_role": "Saved deceleration spark-retard amount",
-      "current_use": "",
+      "current_use": "Active high-RPM DFCO retard; explicitly cleared outside the spark gate",
       "oem_writer_pcs": [
         "$7496",
         "$A996",
@@ -6937,9 +6880,11 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$A996",
+        "$9F66",
+        "$9F7A",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
@@ -8988,7 +8933,7 @@
       "sheet": "RAM writes",
       "address": "$029D",
       "oem_role": "IAC park bank no A/C (word)",
-      "current_use": "Retained Park-side comparison/transfer state; normal integral uses the Drive bank",
+      "current_use": "Single runtime baseline air integral word",
       "oem_writer_pcs": [
         "$749E",
         "$92CD",
@@ -8999,18 +8944,17 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$92CD",
-        "$9337",
-        "$9648",
-        "$9C04",
+        "$98A0",
+        "$99EE",
         "$F301"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$029F",
       "oem_role": "IAC park bank no A/C snapshot",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$74A2",
         "$92D0",
@@ -9019,16 +8963,15 @@
       ],
       "current_writer_pcs": [
         "$74A2",
-        "$92D0",
-        "$A108",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02A0",
       "oem_role": "IAC park bank A/C (word)",
-      "current_use": "Retained Park-side comparison/transfer state; normal integral uses the Drive bank",
+      "current_use": "Single TPS follower air word",
       "oem_writer_pcs": [
         "$7486",
         "$92E4",
@@ -9040,19 +8983,18 @@
       ],
       "current_writer_pcs": [
         "$7486",
-        "$92E4",
-        "$9364",
-        "$93BB",
-        "$9654",
-        "$9C00",
+        "$98AA",
+        "$993C",
+        "$9947",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02A2",
       "oem_role": "IAC park bank A/C snapshot",
-      "current_use": "",
+      "current_use": "Startup-air amount byte",
       "oem_writer_pcs": [
         "$748A",
         "$92E7",
@@ -9062,17 +9004,17 @@
       ],
       "current_writer_pcs": [
         "$748A",
-        "$92E7",
-        "$937B",
-        "$A110",
+        "$9557",
+        "$98D4",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02A3",
       "oem_role": "IAC park bank cold (word)",
-      "current_use": "Park cold-air state still initialized and decayed",
+      "current_use": "Startup-air fade divider byte; former word split",
       "oem_writer_pcs": [
         "$748A",
         "$94CF",
@@ -9084,18 +9026,32 @@
       ],
       "current_writer_pcs": [
         "$748A",
-        "$94CF",
-        "$968D",
-        "$9C09",
-        "$A016",
+        "$954C",
+        "$9554",
+        "$98DA",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02A4",
+      "oem_role": "Low byte of Park cold-air word",
+      "current_use": "Integral qualification call counter",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$95B5",
+        "$95C8",
+        "$95D2",
+        "$98BC"
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02A5",
       "oem_role": "IAC park bank bound (word)",
-      "current_use": "Park cold bound retained; participates in shared warm-snapshot admission",
+      "current_use": "Controller initialized signature byte; former word split",
       "oem_writer_pcs": [
         "$748E",
         "$94D2",
@@ -9104,16 +9060,25 @@
       ],
       "current_writer_pcs": [
         "$748E",
-        "$94D2",
-        "$9FFF",
+        "$98DF",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02A6",
+      "oem_role": "Low byte of Park cold bound word",
+      "current_use": "omitted",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02A7",
       "oem_role": "IAC drive bank no A/C (word)",
-      "current_use": "Selected no-A/C integral bank in the forced Drive context",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$92AD",
@@ -9126,20 +9091,15 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$92AD",
-        "$9309",
-        "$933D",
-        "$9664",
-        "$9C04",
-        "$A346",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02A9",
       "oem_role": "IAC drive bank no A/C snapshot",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7496",
         "$92B0",
@@ -9149,17 +9109,15 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$92B0",
-        "$9301",
-        "$A11C",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02AA",
       "oem_role": "IAC drive bank A/C (word)",
-      "current_use": "Selected A/C integral bank in the forced Drive context",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749A",
         "$92C4",
@@ -9173,21 +9131,15 @@
       ],
       "current_writer_pcs": [
         "$749A",
-        "$92C4",
-        "$9327",
-        "$9395",
-        "$93C1",
-        "$9670",
-        "$9C00",
-        "$A359",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02AC",
       "oem_role": "IAC drive bank A/C snapshot",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749E",
         "$92C7",
@@ -9198,18 +9150,15 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$92C7",
-        "$931F",
-        "$93AC",
-        "$A127",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02AD",
       "oem_role": "IAC drive bank cold (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749E",
         "$94BF",
@@ -9221,18 +9170,15 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$94BF",
-        "$9695",
-        "$9C09",
-        "$A03E",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02AF",
       "oem_role": "IAC drive bank bound (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$74A2",
         "$94C2",
@@ -9241,16 +9187,15 @@
       ],
       "current_writer_pcs": [
         "$74A2",
-        "$94C2",
-        "$A027",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$02B1",
       "oem_role": "IAC baseline on",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7486",
         "$92ED",
@@ -9259,8 +9204,6 @@
       ],
       "current_writer_pcs": [
         "$7486",
-        "$92ED",
-        "$9F10",
         "$F318"
       ]
     },
@@ -9268,7 +9211,7 @@
       "sheet": "RAM writes",
       "address": "$02B2",
       "oem_role": "IAC baseline off",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$748A",
         "$9F99",
@@ -9276,7 +9219,6 @@
       ],
       "current_writer_pcs": [
         "$748A",
-        "$9F99",
         "$F31B"
       ]
     },
@@ -10999,7 +10941,7 @@
       "sheet": "RAM writes",
       "address": "$0857",
       "oem_role": "Requested idle-speed coordinate",
-      "current_use": "Unified normal base plus retained adders; startup first uses $4F50",
+      "current_use": "Shared startup/running RPM request from FF60",
       "oem_writer_pcs": [
         "$7492",
         "$9470",
@@ -11009,17 +10951,17 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$9470",
-        "$99A8",
+        "$98FD",
         "$A443",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0858",
       "oem_role": "IAC RPM error",
-      "current_use": "",
+      "current_use": "Retained absolute RPM-error coordinate",
       "oem_writer_pcs": [
         "$7496",
         "$96FE",
@@ -11027,15 +10969,16 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$96FE",
+        "$9574",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0859",
       "oem_role": "Filtered IAC RPM-error magnitude (word)",
-      "current_use": "",
+      "current_use": "Absolute RPM-error coordinate as a Q8.8 word; no lag history",
       "oem_writer_pcs": [
         "$7496",
         "$94AF",
@@ -11044,16 +10987,16 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$94AF",
-        "$9746",
+        "$9578",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$085B",
       "oem_role": "IAC BLM count",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749A",
         "$990A",
@@ -11062,16 +11005,15 @@
       ],
       "current_writer_pcs": [
         "$749A",
-        "$990A",
-        "$991D",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$085C",
       "oem_role": "Startup idle-RPM adder",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749E",
         "$945B",
@@ -11080,16 +11022,15 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$945B",
-        "$A327",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$085D",
       "oem_role": "IAC startup RPM divider",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749E",
         "$9476",
@@ -11099,17 +11040,15 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$9476",
-        "$A31B",
-        "$A323",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$085E",
       "oem_role": "IAC startup RPM hold",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$74A2",
         "$947C",
@@ -11118,16 +11057,15 @@
       ],
       "current_writer_pcs": [
         "$74A2",
-        "$947C",
-        "$A311",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$085F",
       "oem_role": "Slewed base idle-speed request",
-      "current_use": "",
+      "current_use": "Shared startup/running downward-slewed base target",
       "oem_writer_pcs": [
         "$74A2",
         "$9959",
@@ -11135,15 +11073,17 @@
       ],
       "current_writer_pcs": [
         "$74A2",
-        "$9959",
+        "$98C2",
+        "$98FA",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0860",
       "oem_role": "IAC switch offset",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7486",
         "$999F",
@@ -11151,15 +11091,15 @@
       ],
       "current_writer_pcs": [
         "$7486",
-        "$999F",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0861",
       "oem_role": "IAC switch delay",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7486",
         "$99A5",
@@ -11167,15 +11107,15 @@
       ],
       "current_writer_pcs": [
         "$7486",
-        "$99A5",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0862",
       "oem_role": "IAC selected integral (word)",
-      "current_use": "",
+      "current_use": "Single baseline integral publication",
       "oem_writer_pcs": [
         "$748A",
         "$950B",
@@ -11184,16 +11124,17 @@
       ],
       "current_writer_pcs": [
         "$748A",
-        "$950B",
-        "$9C16",
+        "$98A3",
+        "$99F4",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0864",
       "oem_role": "IAC closed-throttle qualification delay",
-      "current_use": "IAC qualification delay, including the first forced-Drive transition",
+      "current_use": "Effective RPM error after deadband; arithmetic scratch byte",
       "oem_writer_pcs": [
         "$748E",
         "$9495",
@@ -11206,20 +11147,16 @@
       ],
       "current_writer_pcs": [
         "$748E",
-        "$9495",
-        "$959E",
-        "$9629",
-        "$96BC",
-        "$99FD",
-        "$9A16",
+        "$997B",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0866",
       "oem_role": "IAC hold index 0",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$941A",
@@ -11228,16 +11165,15 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$941A",
-        "$A28E",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0867",
       "oem_role": "IAC hold index 1",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$9426",
@@ -11246,16 +11182,15 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$9426",
-        "$A297",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0868",
       "oem_role": "Stall-saver RPM threshold",
-      "current_use": "Stall threshold calculated using the forced Drive factor entry",
+      "current_use": "Target-relative single-controller stall threshold",
       "oem_writer_pcs": [
         "$7496",
         "$99C1",
@@ -11263,15 +11198,16 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$99C1",
+        "$9909",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0869",
       "oem_role": "Stall-saver hold state",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7496",
         "$96E4",
@@ -11280,16 +11216,15 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$96E4",
-        "$9A8D",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$086A",
       "oem_role": "IAC selected snapshot",
-      "current_use": "",
+      "current_use": "Current single baseline high-byte publication",
       "oem_writer_pcs": [
         "$749A",
         "$A2AC",
@@ -11297,15 +11232,18 @@
       ],
       "current_writer_pcs": [
         "$749A",
-        "$A2AC",
+        "$98A6",
+        "$990F",
+        "$99F7",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$086B",
       "oem_role": "IAC startup flow",
-      "current_use": "",
+      "current_use": "Arithmetic high-byte scratch",
       "oem_writer_pcs": [
         "$749A",
         "$942C",
@@ -11315,17 +11253,16 @@
       ],
       "current_writer_pcs": [
         "$749A",
-        "$942C",
-        "$9B79",
-        "$A2F7",
+        "$9A4C",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$086C",
       "oem_role": "IAC startup flow divider",
-      "current_use": "",
+      "current_use": "Current cold feedforward air coordinate",
       "oem_writer_pcs": [
         "$749E",
         "$9432",
@@ -11335,17 +11272,16 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$9432",
-        "$A2EB",
-        "$A2F3",
+        "$9A04",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$086D",
       "oem_role": "IAC proportional correction",
-      "current_use": "",
+      "current_use": "Single-controller proportional magnitude high byte",
       "oem_writer_pcs": [
         "$749E",
         "$9480",
@@ -11354,16 +11290,18 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$9480",
-        "$9C92",
+        "$98C5",
+        "$9956",
+        "$9996",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$086E",
       "oem_role": "IAC derivative filter state (word)",
-      "current_use": "",
+      "current_use": "Proportional air magnitude word",
       "oem_writer_pcs": [
         "$74A2",
         "$949A",
@@ -11372,16 +11310,18 @@
       ],
       "current_writer_pcs": [
         "$74A2",
-        "$949A",
-        "$9CE5",
+        "$98AD",
+        "$9953",
+        "$9993",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0870",
       "oem_role": "IAC derivative correction",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7486",
         "$9CF9",
@@ -11389,15 +11329,15 @@
       ],
       "current_writer_pcs": [
         "$7486",
-        "$9CF9",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0871",
       "oem_role": "IAC selected cold (word)",
-      "current_use": "",
+      "current_use": "Arithmetic scratch word",
       "oem_writer_pcs": [
         "$7486",
         "$950E",
@@ -11406,16 +11346,19 @@
       ],
       "current_writer_pcs": [
         "$7486",
-        "$950E",
-        "$9C0B",
+        "$9925",
+        "$99C3",
+        "$99E1",
+        "$9A44",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0873",
       "oem_role": "IAC selected bound (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$748A",
         "$9C10",
@@ -11423,15 +11366,15 @@
       ],
       "current_writer_pcs": [
         "$748A",
-        "$9C10",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0875",
       "oem_role": "IAC cold delay",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$748E",
         "$94DE",
@@ -11440,16 +11383,15 @@
       ],
       "current_writer_pcs": [
         "$748E",
-        "$94DE",
-        "$A069",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0876",
       "oem_role": "IAC A/C adder",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$9489",
@@ -11459,17 +11401,15 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$9489",
-        "$961C",
-        "$A151",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0877",
       "oem_role": "IAC A/C hold",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$948C",
@@ -11479,17 +11419,15 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$948C",
-        "$961F",
-        "$96D6",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0878",
       "oem_role": "IAC A/C divider",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7496",
         "$95EC",
@@ -11499,17 +11437,15 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$95EC",
-        "$A140",
-        "$A148",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0879",
       "oem_role": "IAC gear adder",
-      "current_use": "Drive-entry idle-air adder; can initialize on first context establishment",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7496",
         "$9483",
@@ -11519,17 +11455,15 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$9483",
-        "$9596",
-        "$96C7",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$087A",
       "oem_role": "IAC gear hold",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749A",
         "$9486",
@@ -11539,17 +11473,15 @@
       ],
       "current_writer_pcs": [
         "$749A",
-        "$9486",
-        "$9591",
-        "$96CD",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$087B",
       "oem_role": "IAC switch adder",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749A",
         "$9492",
@@ -11560,18 +11492,15 @@
       ],
       "current_writer_pcs": [
         "$749A",
-        "$9492",
-        "$96B0",
-        "$9B61",
-        "$A2CF",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$087C",
       "oem_role": "IAC switch hold",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749E",
         "$96B6",
@@ -11581,17 +11510,15 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$96B6",
-        "$A2C4",
-        "$A2D7",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$087D",
       "oem_role": "Composite idle-airflow demand (word)",
-      "current_use": "",
+      "current_use": "Single-controller pre-follower composite and AE history",
       "oem_writer_pcs": [
         "$749E",
         "$9514",
@@ -11600,16 +11527,17 @@
       ],
       "current_writer_pcs": [
         "$749E",
-        "$9514",
-        "$97B9",
+        "$98B9",
+        "$9A76",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$087F",
       "oem_role": "IAC enrichment contribution",
-      "current_use": "",
+      "current_use": "Retained pre-follower air-change enrichment role",
       "oem_writer_pcs": [
         "$74A2",
         "$97E3",
@@ -11617,15 +11545,17 @@
       ],
       "current_writer_pcs": [
         "$74A2",
-        "$97E3",
+        "$98BF",
+        "$9A70",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0880",
       "oem_role": "IAC follower (word)",
-      "current_use": "",
+      "current_use": "Single-controller follower publication",
       "oem_writer_pcs": [
         "$7486",
         "$9E95",
@@ -11633,15 +11563,17 @@
       ],
       "current_writer_pcs": [
         "$7486",
-        "$9E95",
+        "$98B0",
+        "$994D",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0882",
       "oem_role": "IAC follower filtered (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$748A",
         "$9DEE",
@@ -11649,15 +11581,15 @@
       ],
       "current_writer_pcs": [
         "$748A",
-        "$9DEE",
         "$F318"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0884",
       "oem_role": "IAC follower hold",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$748E",
         "$96ED",
@@ -11666,16 +11598,15 @@
       ],
       "current_writer_pcs": [
         "$748E",
-        "$96ED",
-        "$9D25",
         "$F31B"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0885",
       "oem_role": "IAC follower closed threshold",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$748E",
         "$9263",
@@ -11691,7 +11622,7 @@
       "sheet": "RAM writes",
       "address": "$0886",
       "oem_role": "IAC follower age",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$9DE9",
@@ -11699,15 +11630,15 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$9DE9",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0887",
       "oem_role": "IAC deceleration airflow adder",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$948F",
@@ -11717,17 +11648,15 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$948F",
-        "$980F",
-        "$9EE7",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0888",
       "oem_role": "IAC deceleration-adder decay divider",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7496",
         "$9815",
@@ -11737,17 +11666,15 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$9815",
-        "$9ED3",
-        "$9EDB",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$0889",
       "oem_role": "IAC pre barometric flow (word)",
-      "current_use": "",
+      "current_use": "Retained converter input and anti-windup feedback",
       "oem_writer_pcs": [
         "$7496",
         "$983D",
@@ -11756,8 +11683,10 @@
       "current_writer_pcs": [
         "$7496",
         "$983D",
+        "$98B3",
         "$F315"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
@@ -11779,7 +11708,7 @@
       "sheet": "RAM writes",
       "address": "$088D",
       "oem_role": "IAC kicker timer",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$749E",
         "$9215",
@@ -11792,10 +11721,6 @@
       "current_writer_pcs": [
         "$749E",
         "$9215",
-        "$9236",
-        "$9F24",
-        "$9F84",
-        "$9FAE",
         "$F31B"
       ]
     },
@@ -11803,7 +11728,7 @@
       "sheet": "RAM writes",
       "address": "$088E",
       "oem_role": "IAC learning count",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$74A2",
         "$A3D6",
@@ -11812,16 +11737,15 @@
       ],
       "current_writer_pcs": [
         "$74A2",
-        "$A3D6",
-        "$A3E0",
         "$F31E"
-      ]
+      ],
+      "current_writer_scope": "Reachable fixed direct writers (word starts cover both bytes), plus previously qualified surviving indexed/reset writers. Generic reset clearing is not a retained operational role."
     },
     {
       "sheet": "RAM writes",
       "address": "$088F",
       "oem_role": "IAC proposed index 0 index 0 (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$74A2",
         "$A198",
@@ -11831,9 +11755,6 @@
       ],
       "current_writer_pcs": [
         "$74A2",
-        "$A198",
-        "$A1B6",
-        "$A245",
         "$F31E"
       ]
     },
@@ -11841,7 +11762,7 @@
       "sheet": "RAM writes",
       "address": "$0891",
       "oem_role": "IAC proposed index 0 index 1 (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7486",
         "$A198",
@@ -11851,9 +11772,6 @@
       ],
       "current_writer_pcs": [
         "$7486",
-        "$A198",
-        "$A1B6",
-        "$A239",
         "$F315"
       ]
     },
@@ -11861,7 +11779,7 @@
       "sheet": "RAM writes",
       "address": "$0893",
       "oem_role": "IAC cold proposed index 0 (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$748A",
         "$A0CB",
@@ -11869,7 +11787,6 @@
       ],
       "current_writer_pcs": [
         "$748A",
-        "$A0CB",
         "$F318"
       ]
     },
@@ -11877,7 +11794,7 @@
       "sheet": "RAM writes",
       "address": "$0895",
       "oem_role": "IAC proposed index 1 index 0 (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$748E",
         "$A18E",
@@ -11887,9 +11804,6 @@
       ],
       "current_writer_pcs": [
         "$748E",
-        "$A18E",
-        "$A1AC",
-        "$A245",
         "$F31B"
       ]
     },
@@ -11897,7 +11811,7 @@
       "sheet": "RAM writes",
       "address": "$0897",
       "oem_role": "IAC proposed index 1 index 1 (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7492",
         "$A18E",
@@ -11907,9 +11821,6 @@
       ],
       "current_writer_pcs": [
         "$7492",
-        "$A18E",
-        "$A1AC",
-        "$A239",
         "$F31E"
       ]
     },
@@ -11917,7 +11828,7 @@
       "sheet": "RAM writes",
       "address": "$0899",
       "oem_role": "IAC cold proposed index 1 (word)",
-      "current_use": "",
+      "current_use": "omitted",
       "oem_writer_pcs": [
         "$7496",
         "$A09B",
@@ -11925,7 +11836,6 @@
       ],
       "current_writer_pcs": [
         "$7496",
-        "$A09B",
         "$F315"
       ]
     },

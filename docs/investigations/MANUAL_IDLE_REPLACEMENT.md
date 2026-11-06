@@ -1,5 +1,10 @@
 # Manual-only idle replacement: trace and source implementation
 
+This document records the original source/in-memory development stage. The
+controller is now integrated in [the Rev B candidate](MANUAL_IDLE_REVB_RELEASE.md),
+which adds the decel spark gate and cold-idle table revision. Historical
+no-BIN and Rev A snapshot statements below describe the earlier stage.
+
 The implementation removes both Park and Drive idle-air strategies in a
 simulation overlay of the exact Rev A image. It is not a selector flip or a
 copy of Drive tables into Park. No BIN has been released or changed. The

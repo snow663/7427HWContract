@@ -12,7 +12,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 from build_custom_xdf import (ROOT, DEST, CONTRACT, PROFILES, footprint, data_element,
-    program_fingerprint, custom_items, categories)
+    program_fingerprint, custom_items, categories, is_manual)
 from manual_idle_asm import assemble
 from manual_idle_overlay import SOURCE
 
@@ -70,7 +70,7 @@ def verify():
         ids=[p.get('uniqueid') for p in root if p.tag!='XDFHEADER']; assert len(set(ids))==len(ids)
         cat_ids={int(c.get('index'),0) for c in root.findall('XDFHEADER/CATEGORY')}
         high={0xfe9f,0xff8a,0xff8b}|set(range(0xff60,0xff71))
-        if profile=='manual_idle_dev': high|=set(range(0x9f00,0x9f27))
+        if is_manual(profile): high|=set(range(0x9f00,0x9f27))
         for p in root:
             if p.tag in ('XDFHEADER','XDFCHECKSUM'): continue
             addresses=footprint(p); assert addresses, p.findtext('title')
@@ -86,7 +86,7 @@ def verify():
                 z=data_element(p)
                 assert int(z.get('mmedrowcount','1'))==int(p.findtext("XDFAXIS[@id='y']/indexcount",'1'))
                 assert int(z.get('mmedcolcount','1'))==int(p.findtext("XDFAXIS[@id='x']/indexcount",'1'))
-        if profile=='manual_idle_dev':
+        if is_manual(profile):
             covered=Counter(a for p in root if p.tag not in ('XDFHEADER','XDFCHECKSUM')
                             for a in footprint(p) if 0x9f00<=a<0x9f27)
             assert set(covered)==set(range(0x9f00,0x9f27)) and set(covered.values())=={1}
@@ -94,6 +94,8 @@ def verify():
             for p in custom_items(profile):
                 e=data_element(p); a=int(e.get('mmedaddress'),0)
                 if a>=0x9f00 and a<0x9f27: assert a in {v for k,v in syms.items() if k.startswith('cal_')}
+        if profile=='manual_idle_revb':
+            assert not any(footprint(p)&{0x414f,0x4150,0x4151} for p in root if p.tag not in ('XDFHEADER','XDFCHECKSUM'))
         summaries[profile]=dict(filename=filename,parameters=len(ids)-1,custom_entries=manifest[profile]['custom_entries'])
     return summaries
 

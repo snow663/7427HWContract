@@ -17,8 +17,8 @@ Older investigations and prototype build records retain their original scope.
 | Truck tuning | [Runtime workflow](docs/TRUCK_FIRST_RUNTIME_DECODING.md) | Use the exact current tune and matching logs for calibration-specific conclusions |
 | ROM simulator | [hac31_romsim/](hac31_romsim/README.md) | Existing clickable GUI and instruction/peripheral fixtures |
 
-The maintained address-register snapshot is **0.3.12 engine-only spark/idle
-Rev A**. Its exact image identity is recorded in [AGENTS.md](AGENTS.md).
+The maintained address-register snapshot is the **0.3.12 single manual-idle
+Rev B development candidate**. Its exact image identity is recorded in [AGENTS.md](AGENTS.md).
 The old `2.bin` snapshot is historical and is not the current calibration
 value authority. No old pressure, injector, VSS or table value is promoted to
 current tune fact without checking the current image and observations.
@@ -50,7 +50,11 @@ writer addresses and scope without adding byte values to the spreadsheets.
 
 [Rev A Park/Drive trace](docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md)
 records the forced Drive idle context, retained Park-bank dependencies and the
-surviving startup use of the old Drive idle-speed curve.
+surviving startup use of the old Drive idle-speed curve in the baseline.
+The [Rev B release trace](docs/investigations/MANUAL_IDLE_REVB_RELEASE.md)
+records the replacement, cold-idle spark changes, software checks and rollback
+pair. [Matching definitions](definitions/README.md) are image specific. The
+last supplied running reference remains Rev A; no Rev B flash is asserted.
 
 ## Evidence authority
 

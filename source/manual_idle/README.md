@@ -2,10 +2,12 @@
 
 This is a new strategy for the **exact 0.3.12 spark/idle Rev A** image, SHA-256
 `d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e`.
-It replaces both transmission-dependent idle strategies in an **in-memory
-simulation overlay**. No flashable BIN is produced. The truck's image and the
-registers' image identity remain Rev A. The pending deceleration-spark and
-cold-idle spark-table changes are separate and are not implemented here.
+It replaces both transmission-dependent idle strategies. The source overlay
+was first verified in memory; the controller is now integrated into the
+Rev B development BIN together with the deceleration-spark gate and cold-idle
+base-table revision. [The release trace](../../docs/investigations/MANUAL_IDLE_REVB_RELEASE.md)
+records the exact image identity, paired definition and validation. The truck
+has not been flashed here. Maintained non-OEM registers now describe Rev B.
 
 [The complete trace and integration notes](../../docs/investigations/MANUAL_IDLE_REPLACEMENT.md)
 describe the original paths, shared consumers, removals and limits.
@@ -17,6 +19,7 @@ describe the original paths, shared consumers, removals and limits.
 - [manual_idle.c](manual_idle.c): independently written native-C reference using
   a CPU-memory view. It is not a compiler-generated HC11 binary or a new
   hardware abstraction layer.
+- [decel_spark_gate.asm](decel_spark_gate.asm): Rev B target-relative DFCO spark gate, separate from the idle controller and its C comparison.
 - [manual_idle_layout.h](manual_idle_layout.h): generated addresses for the C
   comparison. The original OEM pseudo-source is preserved separately.
 
@@ -60,7 +63,7 @@ Cold-air feedforward is a single monotonic 17-knot table. Its coordinate is
 **RAM `$0283`**, not effective coolant byte `$0006` and not degrees Celsius.
 The existing producer subtracts/limits its coordinate before publication.
 The proposal reaches zero extra air at index160. It needs measurement against
-actual cold-start airflow before a release. All air values above are internal
+actual cold-start airflow during physical calibration. All air values above are internal
 controller coordinates, **not IAC motor steps**.
 
 Integral action freezes outside capture, before qualification, during startup
@@ -102,4 +105,4 @@ This is a software implementation and integration candidate. The simulator
 imposes RPM; it does not predict the engine's reaction to new air commands.
 Passing tests therefore establishes neither stable warm-up nor the correct
 mixture, gains, cold airflow, physical IAC behavior or worst-case interrupt
-deadlines. The retained spark slope can still interact with the new controller.
+deadlines. Rev B extends the flat base-spark shelf through the cold-idle range; retained spark corrections can still interact with the controller.

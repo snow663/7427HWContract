@@ -109,7 +109,7 @@
     "5BD0",
     "5CDD"
   ],
-  "source_notes": "Derived from the reviewed engine-only v2 and spark/idle Rev A patch manifests. No BIN is generated. The OEM baseline, uploaded XDF and current Rev A image remain unchanged.",
+  "source_notes": "Reviewed engine-only v2/Rev A provenance, pinned historical Rev A role snapshot, and source-rebuilt Rev B candidate. Original uploaded XDF and Rev A input are preserved.",
   "manual_idle_assembly_sha256": "f2d1d0d508dbc690935924ecb6f1ef257650554a6cfd37a77cbee86cbde18550",
   "profiles": {
     "reva": {
@@ -119,6 +119,11 @@
     "manual_idle_dev": {
       "pristine_sha256": "264beb0140e470a8d63a83da74f460fb8864b6027711a26207b308fe9ae2d0b4",
       "program_fingerprint": "8b71f410793ea5d71058281509346b60ef3f085f82dbb1050dedeaa7444344de"
+    },
+    "manual_idle_revb": {
+      "pristine_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+      "program_fingerprint": "f255e8c0c6ec209573cab86926ac480f9ce3fb5fe1f4a43b31090df152e28537"
     }
-  }
+  },
+  "gate_assembly_sha256": "60f80dc03072403c8348d1be5c9d55bcd1a6a659230ae0638b43274692c1d26e"
 }

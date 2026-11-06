@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Regenerate and compare both definitions
+      - name: Regenerate and compare all definitions
         run: python tools/build_custom_xdf.py --check
       - name: Verify layouts, references, dimensions and protected addresses
         run: python tools/verify_custom_xdf.py

@@ -7,10 +7,14 @@ in the compressed source archive with their SHA-256 in the source contract.
 
 | Definition | Matching program |
 |---|---|
-| [7427_0.3.12_RevA.xdf](7427_0.3.12_RevA.xdf) | The current engine-only spark/idle Rev A image, SHA-256 `d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e` |
+| [7427_0.3.12_RevA.xdf](7427_0.3.12_RevA.xdf) | The preserved Rev A rollback image, SHA-256 `d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e` |
+| [7427_0.3.12_Manual_Idle_RevB.xdf](7427_0.3.12_Manual_Idle_RevB.xdf) | Current single-controller Rev B candidate, SHA-256 `e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1`; checksum `4E78` |
 | [7427_Manual_Idle_DEV.xdf](7427_Manual_Idle_DEV.xdf) | The single-controller manual-idle development overlay, SHA-256 `264beb0140e470a8d63a83da74f460fb8864b6027711a26207b308fe9ae2d0b4`; no matching BIN has been released |
 
-**Use the Rev A definition with the current Rev A BIN.** The development XDF's
+**Use each definition only with its matching program layout.** The download
+bundle pairs the current Rev B candidate and exact Rev A rollback with their
+respective definitions in separate folders. The historical DEV definition is
+not part of that flashable pair bundle. The development XDF's
 `$9F00..$9F26` controls are data only in the replacement layout. Those addresses
 contain executable code in Rev A. TunerPro does not enforce the documented
 image identity simply because it is written in an XDF description.
@@ -37,9 +41,12 @@ excluded. It does not independently audit every low-ROM calibration edit.
   corrections and command limits still apply after the base table.
 - `$4152` is correctly labeled **base DFCO spark retard**. Its comment explains
   why setting it to zero is not a universal disable. Slow/fast recovery gains
-  and the normalized-TPS selector are named by their traced functions.
+  and the normalized-TPS selector remain in the historical Rev A/prototype
+  profiles. Rev B removes the post-fuel recovery body and those three controls.
+  Its retard is limited to active DFCO above idle target plus the shared IAC
+  release margin, now explicitly labeled at 9F17.
 - `$FF60` exposes all 17 knots of the custom idle target, scaled by 12.5 RPM per
-  byte count. Rev A still has a separate `$4F50` startup curve; the development
+  byte count. Rev A still has a separate `$4F50` startup curve; the replacement
   controller uses FF60 for both startup and running.
 - The custom fuel-policy flags at FE9F and the fuel idle/OL TPS thresholds at
   FF8A/FF8B are included. The global OL flag also neutralizes BLM and the
@@ -47,7 +54,7 @@ excluded. It does not independently audit every low-ROM calibration edit.
 - The supplied XDF misidentified 4F23 as an A/C decay period and 4F24 as air.
   Rev A now correctly shows extra air at 4F23, its hold at 4F24, and qualification
   delay at 4F25. The replacement removes those controls.
-- The development XDF adds the complete 39-byte single-controller calibration:
+- The replacement XDFs add the complete 39-byte single-controller calibration:
   one cold-air curve and 19 scalar controls for baseline, startup, capture,
   P/I, limits, follower, stall and A/C. The three fractional air words are
   unsigned big-endian Q8.8. Internal air units are **not motor steps or measured
@@ -62,7 +69,7 @@ knot is an interpolation endpoint; maximum byte input is 255. Existing legacy
 engine tables retain their supplied axis labels and conversions unless a
 correction is specifically listed here.
 
-The development IAC capture/release thresholds and the retained fuel idle
+The replacement IAC capture/release thresholds and the retained fuel idle
 classifier are separate consumers. Defaults match, but the fuel classifier's
 RPM margins remain fixed at +100/+200 RPM. Keep both consumers aligned when
 changing the IAC thresholds; this definition does not install code changes.
@@ -70,14 +77,15 @@ changing the IAC thresholds; this definition does not install code changes.
 ## Checksum and validation
 
 The supplied checksum entry is preserved: additive sum of bytes 4008..FFFF,
-modulo 65536, stored big-endian at 4006. The original Rev A checksum is 6D36.
+modulo 65536, stored big-endian at 4006. The original Rev A checksum is 6D36; the new Rev B reference is 4E78.
 The checksum scalar is documented as a stored result, not a tuning control.
-The verifier checks the stored result after a TunerPro save. No ROM is written,
-repaired or exported by these tools.
+The verifier checks the stored result after a TunerPro save. The definition tools are read-only with respect to ROM files. The separate
+`tools/build_manual_idle_release.py` produces the exact-baseline-locked Rev B
+BIN described in [the release trace](../docs/investigations/MANUAL_IDLE_REVB_RELEASE.md).
 
-The commands below run from a repository checkout. A download bundle contains
-the two definitions, this guide and the validation report; it does not contain
-a ROM image or the full repository/tool dependencies.
+The commands below run from a repository checkout. The current download bundle contains
+two paired BIN/XDF folders, rollback instructions, checksums and release/test
+reports. Repository tooling and source provide reproducibility separately.
 
 ```sh
 python tools/build_custom_xdf.py --check
@@ -88,16 +96,21 @@ python -m unittest discover -s tests -p test_custom_xdf.py -v
 Checks cover XML parsing, contiguous edit extents, row/column dimensions,
 unique IDs, math links, category references, removed allocations, complete
 manual calibration coverage, custom conversions and in-memory edit round trips.
-Image-specific tests additionally check the exact Rev A and development
-layout, code-edit rejection and checksum behavior. The definitions have not
+Image-specific tests additionally check the exact Rev A, prototype and Rev B
+layouts, code-edit rejection and checksum behavior. The definitions have not
 been opened in a native TunerPro GUI here. Remaining inherited engine
 conversions are carried forward from the supplied XDF, not newly proved by
 these structural checks.
 
 [custom_xdf_manifest.json](custom_xdf_manifest.json) records retained/omitted
 source items, profile identity and generated-file hashes. The builder checks
-the manual-idle assembly identity to prevent silently reusing a definition
+the manual-idle and decel-gate assembly identities to prevent silently reusing a definition
 after that layout changes. To update its reference identities, supply the
 exact reviewed Rev A image to `build_custom_xdf.py --record-identities`; this
 creates an overlay in memory only. Rebuild and rerun the checks together with
 future firmware changes.
+
+The Rev A and historical prototype definitions use a pinned Rev A role map.
+Advancing the maintained workbook to Rev B therefore preserves their layouts.
+The Rev B profile retains shared actuator/conversion controls while excluding
+the old low-TPS spark option whose normal request writer was removed.

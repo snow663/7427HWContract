@@ -8,7 +8,9 @@ on:
       - "tools/trace_manual_idle.py"
       - "tools/verify_manual_idle_runtime.py"
       - "tools/verify_manual_idle.py"
-      - "tests/test_manual_idle.py"
+      - "tools/build_manual_idle_release.py"
+      - "tools/verify_manual_idle_release.py"
+      - "tests/test_manual_idle*.py"
       - "maps/maintenance/manual_idle_*.json"
       - ".github/workflows/manual-idle-verification.yml"
   push:
@@ -17,7 +19,9 @@ on:
       - "source/manual_idle/**"
       - "tools/manual_idle_*.py"
       - "tools/verify_manual_idle.py"
-      - "tests/test_manual_idle.py"
+      - "tools/build_manual_idle_release.py"
+      - "tools/verify_manual_idle_release.py"
+      - "tests/test_manual_idle*.py"
 permissions:
   contents: read
 jobs:
@@ -32,3 +36,5 @@ jobs:
         run: python tools/manual_idle_overlay.py
       - name: Compare native C and assembled HC11, reset and service contracts
         run: python tools/verify_manual_idle.py --check-recorded
+      - name: Test actual HC11 decel gate and startup-state preservation
+        run: python -m unittest discover -s tests -p test_manual_idle_release.py -v
