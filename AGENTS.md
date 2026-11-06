@@ -73,3 +73,10 @@ IAC context $0036.1 is forced Drive, while Park cold-state housekeeping remains
 and can gate Drive warm snapshots. The maintained books include these findings;
 the OEM books remain unchanged. Do not equate a removed normal consumer with a
 location having no surviving startup/initialization consumer.
+
+The [manual-idle replacement](docs/investigations/MANUAL_IDLE_REPLACEMENT.md)
+is executable C/HC11 source tested only as an in-memory Rev A overlay. No new
+BIN exists. Keep the maintained workbooks' snapshot on Rev A. Newly traced
+existing $0036 bit fields belong in those books, but future omissions/reuse in
+the [proposed address map](maps/maintenance/manual_idle_address_plan.csv) must
+not be applied until an actual image release. The OEM books stay unchanged.

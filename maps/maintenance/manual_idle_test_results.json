@@ -1,0 +1,11 @@
+{
+  "assembly_source_sha256": "f2d1d0d508dbc690935924ecb6f1ef257650554a6cfd37a77cbee86cbde18550",
+  "c_source_sha256": "e171406d444f30ff1b1d4285edaf657367c1e4fef4d29656b0fc001399539301",
+  "differential_cases": 2943,
+  "replacement_instructions_exercised": 266,
+  "replacement_instructions": 266,
+  "maximum_observed_bounded_cycles": 803,
+  "minimum_observed_bounded_sp": "03F5",
+  "tests": 11,
+  "scope": "Native C versus exact emitted HC11, with independent admission/sign/decay/rail properties. Excerpt fixtures have no interrupts, physical I/O, or engine dynamics. Cycle maxima describe exercised fixtures, not WCET."
+}

@@ -30,6 +30,11 @@ exact current image for byte-specific tuning facts.
 
 ## Retained prototypes
 
+The [manual-only idle strategy](manual_idle/README.md) is a separate, executable
+C/HC11 integration candidate for the exact 0.3.12 Rev A image. It replaces both
+transmission-dependent idle strategies in simulator memory only. It does not
+change the OEM pseudo-source or release a BIN.
+
 [replacement_os/](replacement_os/README.md) and
 [minimal_os/](minimal_os/README.md) preserve earlier assembly and output-slice
 proofs. They are separate implementations with their own build/bench scope.
