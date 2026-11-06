@@ -25,7 +25,8 @@
     "docs/analysis/FACTORY_EMISSIONS_CONTROL.md",
     "docs/analysis/FACTORY_TRANSMISSION_CONTROL.md",
     "Reviewed Rev A reachable instruction listing and exact image",
-    "Root OEM and non-OEM read-address registers"
+    "Root OEM and non-OEM read-address registers",
+    "docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md"
   ],
   "updated": "2026-11-06",
   "rows": [
@@ -976,6 +977,23 @@
     },
     {
       "sheet": "RAM writes",
+      "address": "$0036.1",
+      "oem_role": "IAC context selector: clear selects Park, set selects Drive",
+      "current_use": "Forced Drive by the retained $954F writer; automatic range selection omitted",
+      "oem_writer_pcs": [
+        "$7492",
+        "$954F",
+        "$9571",
+        "$F301"
+      ],
+      "current_writer_pcs": [
+        "$7492",
+        "$954F",
+        "$F301"
+      ]
+    },
+    {
+      "sheet": "RAM writes",
       "address": "$0036.5",
       "oem_role": "Resident spark-override request flag",
       "current_use": "",
@@ -1798,7 +1816,7 @@
       "sheet": "RAM writes",
       "address": "$0041.5",
       "oem_role": "IAC park neutral",
-      "current_use": "",
+      "current_use": "Forced clear; automatic P/N decoding and engine P/N branch tests omitted",
       "oem_writer_pcs": [
         "$9185",
         "$919F",
@@ -8859,7 +8877,7 @@
       "sheet": "RAM writes",
       "address": "$029D",
       "oem_role": "IAC park bank no A/C (word)",
-      "current_use": "",
+      "current_use": "Retained Park-side comparison/transfer state; normal integral uses the Drive bank",
       "oem_writer_pcs": [
         "$749E",
         "$92CD",
@@ -8899,7 +8917,7 @@
       "sheet": "RAM writes",
       "address": "$02A0",
       "oem_role": "IAC park bank A/C (word)",
-      "current_use": "",
+      "current_use": "Retained Park-side comparison/transfer state; normal integral uses the Drive bank",
       "oem_writer_pcs": [
         "$7486",
         "$92E4",
@@ -8943,7 +8961,7 @@
       "sheet": "RAM writes",
       "address": "$02A3",
       "oem_role": "IAC park bank cold (word)",
-      "current_use": "",
+      "current_use": "Park cold-air state still initialized and decayed",
       "oem_writer_pcs": [
         "$748A",
         "$94CF",
@@ -8966,7 +8984,7 @@
       "sheet": "RAM writes",
       "address": "$02A5",
       "oem_role": "IAC park bank bound (word)",
-      "current_use": "",
+      "current_use": "Park cold bound retained; participates in shared warm-snapshot admission",
       "oem_writer_pcs": [
         "$748E",
         "$94D2",
@@ -8984,7 +9002,7 @@
       "sheet": "RAM writes",
       "address": "$02A7",
       "oem_role": "IAC drive bank no A/C (word)",
-      "current_use": "",
+      "current_use": "Selected no-A/C integral bank in the forced Drive context",
       "oem_writer_pcs": [
         "$7492",
         "$92AD",
@@ -9030,7 +9048,7 @@
       "sheet": "RAM writes",
       "address": "$02AA",
       "oem_role": "IAC drive bank A/C (word)",
-      "current_use": "",
+      "current_use": "Selected A/C integral bank in the forced Drive context",
       "oem_writer_pcs": [
         "$749A",
         "$92C4",
@@ -10870,7 +10888,7 @@
       "sheet": "RAM writes",
       "address": "$0857",
       "oem_role": "Requested idle-speed coordinate",
-      "current_use": "Unified coolant-based idle target plus retained engine idle compensations",
+      "current_use": "Unified normal base plus retained adders; startup first uses $4F50",
       "oem_writer_pcs": [
         "$7492",
         "$9470",
@@ -11064,7 +11082,7 @@
       "sheet": "RAM writes",
       "address": "$0864",
       "oem_role": "IAC closed-throttle qualification delay",
-      "current_use": "",
+      "current_use": "IAC qualification delay, including the first forced-Drive transition",
       "oem_writer_pcs": [
         "$748E",
         "$9495",
@@ -11126,7 +11144,7 @@
       "sheet": "RAM writes",
       "address": "$0868",
       "oem_role": "Stall-saver RPM threshold",
-      "current_use": "",
+      "current_use": "Stall threshold calculated using the forced Drive factor entry",
       "oem_writer_pcs": [
         "$7496",
         "$99C1",
@@ -11380,7 +11398,7 @@
       "sheet": "RAM writes",
       "address": "$0879",
       "oem_role": "IAC gear adder",
-      "current_use": "",
+      "current_use": "Drive-entry idle-air adder; can initialize on first context establishment",
       "oem_writer_pcs": [
         "$7496",
         "$9483",

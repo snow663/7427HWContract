@@ -65,3 +65,11 @@ Initial snapshots (2026-11-05):
 
 The pending deceleration-spark change is not part of this snapshot. Do not
 record proposed changes as implemented.
+
+The [2026-11-06 Park/Drive trace](docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md)
+corrects the former non-OEM `omitted` label at $4F50: the curve still supplies
+the startup base target. Normal background target selection uses $FF60. Running
+IAC context $0036.1 is forced Drive, while Park cold-state housekeeping remains
+and can gate Drive warm snapshots. The maintained books include these findings;
+the OEM books remain unchanged. Do not equate a removed normal consumer with a
+location having no surviving startup/initialization consumer.
