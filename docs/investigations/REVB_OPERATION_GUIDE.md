@@ -76,6 +76,10 @@ The reproducible reader source is maintained here; generated full-image outputs
 are delivered separately. No new BIN, XDF, calibration or controller behavior
 is introduced by this documentation work.
 
+For hardware-address context, use the [CS/EN and resource guide](REVB_CS_EN_ADDRESS_MAP.md).
+It explains nominal selects versus the conditional internal-resource partition,
+IRV bus visibility, software output shadows and the ALDL address transform.
+
 ## Functional context layer
 
 The grouped reader adds 289 authored functional explanations above the same

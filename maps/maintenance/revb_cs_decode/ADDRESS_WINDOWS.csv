@@ -1,0 +1,10 @@
+resource,start,end,size_bytes,enable,scope
+Internal RAM,0000,03FF,1024,INIT.RAM=0,F1-compatible internal resource
+Internal CPU registers,3000,305F,96,INIT.REG=3,Moved from1000..105F; not duplicated
+CSGEN nominal,0000,1FFF,8192,CSGSIZ.GSIZE=3,External selection; internal resources can override; fitted backing unknown
+CSIO1,3060,37FF,1952,CSCTL.IO1EN=1,External I/O selection
+CSIO2,3800,3FFF,2048,CSCTL.IO2EN=1,External I/O selection
+CSPROG nominal,0000,FFFF,65536,CSCTL.PCSEN=1 PSIZ=0,Selection before internal/IO/general precedence; not proof of64K fitted ROM
+Expected internal EEPROM overlay,0E00,0FFF,512,Only if CONFIG live value0B and standard F1 EEPROM implemented,Firmware compares against0B; it does not program CONFIG or capture its actual response in this BIN
+Program selection remainder1,2000,2FFF,4096,From above decode and expected internal map,Bus-select inference; backing response unknown
+Program selection remainder2,4000,FFFF,49152,From above decode and expected internal map,Supplied ROM code/calibration address region; physical chip wiring separate

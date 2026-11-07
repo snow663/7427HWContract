@@ -1,0 +1,110 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "image_bytes": 65536,
+  "rooted_instructions": 6449,
+  "control_frontiers": [],
+  "register_writes": [
+    {
+      "pc": "7108",
+      "bytes": "a7 3d",
+      "operation": "STAA $3D,X",
+      "address": "103D",
+      "value": "03",
+      "register": "INIT",
+      "meaning": "RAM page 0; CPU-register page 3",
+      "context": "X=1000 from7103; A=03 from7106"
+    },
+    {
+      "pc": "CC89",
+      "bytes": "a7 5c",
+      "operation": "STAA $5C,X",
+      "address": "305C",
+      "value": "00",
+      "register": "CSSTRH",
+      "meaning": "All four programmed stretch fields zero",
+      "context": "Caller711C establishes X=3000; straight-line immediate A"
+    },
+    {
+      "pc": "CCA3",
+      "bytes": "a7 3c",
+      "operation": "STAA $3C,X",
+      "address": "303C",
+      "value": "15",
+      "register": "HPRIO",
+      "meaning": "IRV bit4 set; write mode bits have normal-mode restrictions",
+      "context": "Caller711C establishes X=3000; straight-line immediate A"
+    },
+    {
+      "pc": "CCA7",
+      "bytes": "a7 5d",
+      "operation": "STAA $5D,X",
+      "address": "305D",
+      "value": "AC",
+      "register": "CSCTL",
+      "meaning": "IO1/IO2/program enabled; GEN priority; program size64K",
+      "context": "Caller711C establishes X=3000; straight-line immediate A"
+    },
+    {
+      "pc": "CCAB",
+      "bytes": "a7 5f",
+      "operation": "STAA $5F,X",
+      "address": "305F",
+      "value": "CB",
+      "register": "CSGSIZ",
+      "meaning": "GEN8K; active-low/address-valid; IO1/IO2 address-valid",
+      "context": "Caller711C establishes X=3000; straight-line immediate A"
+    },
+    {
+      "pc": "CCAF",
+      "bytes": "a7 5e",
+      "operation": "STAA $5E,X",
+      "address": "305E",
+      "value": "00",
+      "register": "CSGADR",
+      "meaning": "General-select base0000",
+      "context": "Caller711C establishes X=3000; straight-line immediate A"
+    }
+  ],
+  "config_compare": {
+    "read_pc": "71C6",
+    "address": "303F",
+    "compare_pc": "71C9",
+    "expected": "0B",
+    "actual_live_value": "Not present in BIN; compared at runtime"
+  },
+  "spans": [
+    {
+      "start": "7100",
+      "end_exclusive": "712B",
+      "bytes": "8e 03 ff ce 10 00 86 03 a7 3d ce 30 00 86 b8 a7 39 86 03 a7 24 1d 38 20 86 1b a7 35 bd cc 7c 4f a7 00 a7 08 86 7f c6 ff fd 30 6e"
+    },
+    {
+      "start": "71C3",
+      "end_exclusive": "71D2",
+      "bytes": "15 05 10 b6 30 3f 81 0b 27 05 14 3a 04 20 1a"
+    },
+    {
+      "start": "CC7C",
+      "end_exclusive": "CCC1",
+      "bytes": "4f a7 0c a7 0d a7 2c a7 0b a7 28 a7 3e a7 5c a7 03 86 26 a7 21 86 40 a7 26 86 38 a7 01 86 38 a7 09 86 04 a7 2b 86 15 a7 3c 86 ac a7 5d 86 cb a7 5f 86 00 a7 5e 86 90 b7 30 61 86 ff b7 30 63 86 00 b7 30 65 39"
+    },
+    {
+      "start": "F3ED",
+      "end_exclusive": "F420",
+      "bytes": "39 0f fc 3f fc bd f3 ed ca 08 13 72 80 02 c4 f7 fd 3f fc b6 30 60 84 6f d6 4b c4 90 f7 30 60 1b 97 4b 96 4c b7 30 62 b6 30 64 97 4d 96 4e b7 30 67 0e 39"
+    },
+    {
+      "start": "F8B8",
+      "end_exclusive": "F8DE",
+      "bytes": "8c 10 00 25 1f 8c 3f ff 22 1a 8f 12 50 08 02 84 cf 8f ec 00 f7 03 66 14 3b 80 20 12 15 3b 80 b6 03 66 20 0a a6 00"
+    },
+    {
+      "start": "F5CF",
+      "end_exclusive": "F5DC",
+      "bytes": "13 86 40 03 01 01 01 86 f7 b7 0f 00 39"
+    }
+  ],
+  "source": "Exact Rev B image; NXP MC68HC11F1 technical data sections4.2/4.3/4.5 for conditional decode interpretation",
+  "reference": "https://www.nxp.com/docs/en/data-sheet/MC68HC11F1.pdf",
+  "scope": "CPU decode and instruction/software-shadow extraction; board-level aliases/device population not inferred."
+}

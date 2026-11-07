@@ -7,8 +7,13 @@ on:
       - "tools/explain_revb_functions.py"
       - "tools/factory_rom_decode.py"
       - "tools/trace_manual_idle.py"
+      - "tools/*revb_cs*.py"
+      - "tools/factory_state_flow.py"
+      - "tools/verify_revb_xdf_labels.py"
+      - "hac31_romsim/romsim/**"
       - "maps/maintenance/revb_operation_examples.json"
       - "maps/maintenance/revb_function_*.json"
+      - "maps/maintenance/revb_cs_decode/**"
       - "tests/test_revb_english.py"
       - "tests/test_revb_functions.py"
       - ".github/workflows/revb-operation-reader.yml"
@@ -19,8 +24,13 @@ on:
       - "tools/explain_revb_functions.py"
       - "tools/factory_rom_decode.py"
       - "tools/trace_manual_idle.py"
+      - "tools/*revb_cs*.py"
+      - "tools/factory_state_flow.py"
+      - "tools/verify_revb_xdf_labels.py"
+      - "hac31_romsim/romsim/**"
       - "maps/maintenance/revb_operation_examples.json"
       - "maps/maintenance/revb_function_*.json"
+      - "maps/maintenance/revb_cs_decode/**"
       - "tests/test_revb_english.py"
       - "tests/test_revb_functions.py"
 permissions:
@@ -35,3 +45,5 @@ jobs:
           python-version: "3.11"
       - name: Check English rules and local provenance without a private BIN
         run: python -m unittest discover -s tests -p 'test_revb_*.py' -v
+      - name: Replay chip-select, shadow and ALDL-address evidence
+        run: python tools/verify_revb_cs_decode.py --check-recorded

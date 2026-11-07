@@ -1,0 +1,341 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "init": {
+    "entry": "7100",
+    "stop": "710A",
+    "writes": [
+      {
+        "address": "103D",
+        "value": "03"
+      }
+    ]
+  },
+  "cpu_setup": {
+    "entry": "CC7C",
+    "X": "3000",
+    "stop": "CCC0",
+    "writes": [
+      {
+        "address": "300C",
+        "value": "00"
+      },
+      {
+        "address": "300D",
+        "value": "00"
+      },
+      {
+        "address": "302C",
+        "value": "00"
+      },
+      {
+        "address": "300B",
+        "value": "00"
+      },
+      {
+        "address": "3028",
+        "value": "00"
+      },
+      {
+        "address": "303E",
+        "value": "00"
+      },
+      {
+        "address": "305C",
+        "value": "00"
+      },
+      {
+        "address": "3003",
+        "value": "00"
+      },
+      {
+        "address": "3021",
+        "value": "26"
+      },
+      {
+        "address": "3026",
+        "value": "40"
+      },
+      {
+        "address": "3001",
+        "value": "38"
+      },
+      {
+        "address": "3009",
+        "value": "38"
+      },
+      {
+        "address": "302B",
+        "value": "04"
+      },
+      {
+        "address": "303C",
+        "value": "15"
+      },
+      {
+        "address": "305D",
+        "value": "AC"
+      },
+      {
+        "address": "305F",
+        "value": "CB"
+      },
+      {
+        "address": "305E",
+        "value": "00"
+      },
+      {
+        "address": "3061",
+        "value": "90"
+      },
+      {
+        "address": "3063",
+        "value": "FF"
+      },
+      {
+        "address": "3065",
+        "value": "00"
+      }
+    ]
+  },
+  "aldl_address_cases": [
+    {
+      "encoded": "0FFF",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0FFF",
+      "word_source": false
+    },
+    {
+      "encoded": "1000",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0000",
+      "word_source": true
+    },
+    {
+      "encoded": "1001",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0001",
+      "word_source": true
+    },
+    {
+      "encoded": "17FF",
+      "RAM0050_3": false,
+      "actual_cpu_address": "07FF",
+      "word_source": true
+    },
+    {
+      "encoded": "1800",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0800",
+      "word_source": true
+    },
+    {
+      "encoded": "1FFF",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0FFF",
+      "word_source": true
+    },
+    {
+      "encoded": "2000",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0000",
+      "word_source": true
+    },
+    {
+      "encoded": "2FFF",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0FFF",
+      "word_source": true
+    },
+    {
+      "encoded": "3000",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0000",
+      "word_source": true
+    },
+    {
+      "encoded": "305F",
+      "RAM0050_3": false,
+      "actual_cpu_address": "005F",
+      "word_source": true
+    },
+    {
+      "encoded": "3060",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0060",
+      "word_source": true
+    },
+    {
+      "encoded": "37FF",
+      "RAM0050_3": false,
+      "actual_cpu_address": "07FF",
+      "word_source": true
+    },
+    {
+      "encoded": "3800",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0800",
+      "word_source": true
+    },
+    {
+      "encoded": "3FC0",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0FC0",
+      "word_source": true
+    },
+    {
+      "encoded": "3FFF",
+      "RAM0050_3": false,
+      "actual_cpu_address": "0FFF",
+      "word_source": true
+    },
+    {
+      "encoded": "4000",
+      "RAM0050_3": false,
+      "actual_cpu_address": "4000",
+      "word_source": false
+    },
+    {
+      "encoded": "FFFF",
+      "RAM0050_3": false,
+      "actual_cpu_address": "FFFF",
+      "word_source": false
+    },
+    {
+      "encoded": "0FFF",
+      "RAM0050_3": true,
+      "actual_cpu_address": "0FFF",
+      "word_source": false
+    },
+    {
+      "encoded": "1000",
+      "RAM0050_3": true,
+      "actual_cpu_address": "1000",
+      "word_source": true
+    },
+    {
+      "encoded": "1001",
+      "RAM0050_3": true,
+      "actual_cpu_address": "1001",
+      "word_source": true
+    },
+    {
+      "encoded": "17FF",
+      "RAM0050_3": true,
+      "actual_cpu_address": "17FF",
+      "word_source": true
+    },
+    {
+      "encoded": "1800",
+      "RAM0050_3": true,
+      "actual_cpu_address": "1800",
+      "word_source": true
+    },
+    {
+      "encoded": "1FFF",
+      "RAM0050_3": true,
+      "actual_cpu_address": "1FFF",
+      "word_source": true
+    },
+    {
+      "encoded": "2000",
+      "RAM0050_3": true,
+      "actual_cpu_address": "2000",
+      "word_source": true
+    },
+    {
+      "encoded": "2FFF",
+      "RAM0050_3": true,
+      "actual_cpu_address": "2FFF",
+      "word_source": true
+    },
+    {
+      "encoded": "3000",
+      "RAM0050_3": true,
+      "actual_cpu_address": "3000",
+      "word_source": true
+    },
+    {
+      "encoded": "305F",
+      "RAM0050_3": true,
+      "actual_cpu_address": "305F",
+      "word_source": true
+    },
+    {
+      "encoded": "3060",
+      "RAM0050_3": true,
+      "actual_cpu_address": "3060",
+      "word_source": true
+    },
+    {
+      "encoded": "37FF",
+      "RAM0050_3": true,
+      "actual_cpu_address": "37FF",
+      "word_source": true
+    },
+    {
+      "encoded": "3800",
+      "RAM0050_3": true,
+      "actual_cpu_address": "3800",
+      "word_source": true
+    },
+    {
+      "encoded": "3FC0",
+      "RAM0050_3": true,
+      "actual_cpu_address": "3FC0",
+      "word_source": true
+    },
+    {
+      "encoded": "3FFF",
+      "RAM0050_3": true,
+      "actual_cpu_address": "3FFF",
+      "word_source": true
+    },
+    {
+      "encoded": "4000",
+      "RAM0050_3": true,
+      "actual_cpu_address": "4000",
+      "word_source": false
+    },
+    {
+      "encoded": "FFFF",
+      "RAM0050_3": true,
+      "actual_cpu_address": "FFFF",
+      "word_source": false
+    }
+  ],
+  "shadow_flush": {
+    "entry": "F400",
+    "stop": "F41F",
+    "board_writes": [
+      {
+        "address": "3060",
+        "value": "90"
+      },
+      {
+        "address": "3062",
+        "value": "1C"
+      },
+      {
+        "address": "3067",
+        "value": "A5"
+      }
+    ],
+    "final_ram": {
+      "004B": "F5",
+      "004D": "26"
+    }
+  },
+  "shared_word_bit_cases": [
+    {
+      "RAM0072": "00",
+      "initial_word": "A55A",
+      "result_word": "A55A"
+    },
+    {
+      "RAM0072": "80",
+      "initial_word": "A55A",
+      "result_word": "A552"
+    }
+  ],
+  "scope": "Executes actual emitted HC11 instructions against a controlled byte-memory fixture. Does not model physical INIT relocation, chip-select pins, EEPROM, peripheral response or board aliases."
+}
