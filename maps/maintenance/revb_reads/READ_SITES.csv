@@ -1,19 +1,19 @@
 pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ranges,resolution,context_rows,nonfinite_context_rows,expected_resources,operand_role,group,group_function
-5BD0,96 0b,LDAA $0B,R,8,000B,000B,000B,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
-5BD6,96 0c,LDAA $0C,R,8,000C,000C,000C,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
-5BDC,96 0d,LDAA $0D,R,8,000D,000D,000D,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
-5BE2,96 0e,LDAA $0E,R,8,000E,000E,000E,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
-5BE8,96 10,LDAA $10,R,8,0010,0010,0010,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
+5BD0,96 0b,LDAA $0B,R,8,000B,000B,000B,fixed operand,0,0,Internal RAM,Retained diagnostic log bank 1. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
+5BD6,96 0c,LDAA $0C,R,8,000C,000C,000C,fixed operand,0,0,Internal RAM,Retained diagnostic log bank 2. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
+5BDC,96 0d,LDAA $0D,R,8,000D,000D,000D,fixed operand,0,0,Internal RAM,Retained diagnostic log bank 3. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
+5BE2,96 0e,LDAA $0E,R,8,000E,000E,000E,fixed operand,0,0,Internal RAM,Retained diagnostic log bank 4. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
+5BE8,96 10,LDAA $10,R,8,0010,0010,0010,fixed operand,0,0,Internal RAM,Retained diagnostic log bank 6. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
 5BF7,96 16,LDAA $16,R,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,5BD0,Initialize the retained engine and output state
 5BFD,96 17,LDAA $17,R,8,0017,0017,0017,fixed operand,0,0,Internal RAM,Secondary sensor fault flags,5BD0,Initialize the retained engine and output state
 5C03,96 18,LDAA $18,R,8,0018,0018,0018,fixed operand,0,0,Internal RAM,Engine plausibility and IAC fault flags,5BD0,Initialize the retained engine and output state
 5C09,96 19,LDAA $19,R,8,0019,0019,0019,fixed operand,0,0,Internal RAM,"Knock-sensor, EST and injector-bank fault flags",5BD0,Initialize the retained engine and output state
 5C0F,96 1b,LDAA $1B,R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,5BD0,Initialize the retained engine and output state
-5C1E,96 56,LDAA $56,R,8,0056,0056,0056,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
-5C24,96 57,LDAA $57,R,8,0057,0057,0057,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
-5C2A,96 58,LDAA $58,R,8,0058,0058,0058,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
-5C30,96 59,LDAA $59,R,8,0059,0059,0059,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
-5C36,96 5b,LDAA $5B,R,8,005B,005B,005B,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
+5C1E,96 56,LDAA $56,R,8,0056,0056,0056,fixed operand,0,0,Internal RAM,Diagnostic persistence-candidate bank 1. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
+5C24,96 57,LDAA $57,R,8,0057,0057,0057,fixed operand,0,0,Internal RAM,Diagnostic persistence-candidate bank 2. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
+5C2A,96 58,LDAA $58,R,8,0058,0058,0058,fixed operand,0,0,Internal RAM,Diagnostic persistence-candidate bank 3. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
+5C30,96 59,LDAA $59,R,8,0059,0059,0059,fixed operand,0,0,Internal RAM,Diagnostic persistence-candidate bank 4. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
+5C36,96 5b,LDAA $5B,R,8,005B,005B,005B,fixed operand,0,0,Internal RAM,Diagnostic persistence-candidate bank 6. Removed subsystem bits cleared.,5BD0,Initialize the retained engine and output state
 5C4A,15 4c 23,"BCLR $4C,#$23",RW,8,004C,004C,004C,fixed operand,0,0,Internal RAM,shared IAC/output shadow; former transmission role removed,5BD0,Initialize the retained engine and output state
 5C4D,15 41 20,"BCLR $41,#$20",RW,8,0041,0041,0041,fixed operand,0,0,Internal RAM,"Engine input, mixture and output-context flags",5BD0,Initialize the retained engine and output state
 5C50,15 46 04,"BCLR $46,#$04",RW,8,0046,0046,0046,fixed operand,0,0,Internal RAM,Fuel-cut and asynchronous-delivery state flags,5BD0,Initialize the retained engine and output state
@@ -37,22 +37,22 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 7150,ec 2e,"LDD $2E,X",R,16,,302E,302E..302F,finite abstract contexts,3,0,Internal CPU registers,caller/local pointer context required,712B,Establish the initial output states
 71C3,15 05 10,"BCLR $05,#$10",RW,8,0005,0005,0005,fixed operand,0,0,Internal RAM,,71C3,Validate the image and recover retained state
 71C6,b6 30 3f,LDAA $303F,R,8,303F,303F,303F,fixed operand,0,0,Internal CPU registers,CONFIG: HC11 operating-configuration register,71C3,Validate the image and recover retained state
-71CD,14 3a 04,"BSET $3A,#$04",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,71C3,Validate the image and recover retained state
+71CD,14 3a 04,"BSET $3A,#$04",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",71C3,Validate the image and recover retained state
 71D8,b6 40 08,LDAA $4008,R,8,4008,4008,4008,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Program mask/family identifier,71C3,Validate the image and recover retained state
 71DB,18 bc 40 06,CPY $4006,R,16,4006,4006,4006..4007,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Stored ROM checksum word,71C3,Validate the image and recover retained state
-71E9,14 3a 02,"BSET $3A,#$02",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,71C3,Validate the image and recover retained state
+71E9,14 3a 02,"BSET $3A,#$02",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",71C3,Validate the image and recover retained state
 71EC,14 05 10,"BSET $05,#$10",RW,8,0005,0005,0005,fixed operand,0,0,Internal RAM,,71C3,Validate the image and recover retained state
 71EF,fc 3f fc,LDD $3FFC,R,16,3FFC,3FFC,3FFC..3FFD,fixed operand,0,0,External IO2 selection,External board output-latch state used by engine/serial control,71C3,Validate the image and recover retained state
-71FA,14 1a 20,"BSET $1A,#$20",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,71C3,Validate the image and recover retained state
-71FD,14 0f 20,"BSET $0F,#$20",RW,8,000F,000F,000F,fixed operand,0,0,Internal RAM,,71C3,Validate the image and recover retained state
+71FA,14 1a 20,"BSET $1A,#$20",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,71C3,Validate the image and recover retained state
+71FD,14 0f 20,"BSET $0F,#$20",RW,8,000F,000F,000F,fixed operand,0,0,Internal RAM,Retained diagnostic log bank 5,71C3,Validate the image and recover retained state
 7205,b6 08 2f,LDAA $082F,R,8,082F,082F,082F,fixed operand,0,0,External GEN selection; backing unknown,Input/output diagnostic sample,71C3,Validate the image and recover retained state
 720F,91 15,CMPA $15,R,8,0015,0015,0015,fixed operand,0,0,Internal RAM,Retained checksum,71C3,Validate the image and recover retained state
 722E,b6 5b 24,LDAA $5B24,R,8,5B24,5B24,5B24,fixed operand,0,0,Program selection; supplied code/calibration/vector region,TPS-zero tracking upper raw-input limit,71C3,Validate the image and recover retained state
 7239,14 46 40,"BSET $46,#$40",RW,8,0046,0046,0046,fixed operand,0,0,Internal RAM,Fuel-cut and asynchronous-delivery state flags,71C3,Validate the image and recover retained state
 723C,14 86 08,"BSET $86,#$08",RW,8,0086,0086,0086,fixed operand,0,0,Internal RAM,Scheduler profiling and optional extension-service flags,71C3,Validate the image and recover retained state
-7272,96 1f,LDAA $1F,R,8,001F,001F,001F,fixed operand,0,0,Internal RAM,,71C3,Validate the image and recover retained state
+7272,96 1f,LDAA $1F,R,8,001F,001F,001F,fixed operand,0,0,Internal RAM,DTC21 retained recovery-budget counter,71C3,Validate the image and recover retained state
 7276,b1 5b 1e,CMPA $5B1E,R,8,5B1E,5B1E,5B1E,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,71C3,Validate the image and recover retained state
-727E,96 20,LDAA $20,R,8,0020,0020,0020,fixed operand,0,0,Internal RAM,,71C3,Validate the image and recover retained state
+727E,96 20,LDAA $20,R,8,0020,0020,0020,fixed operand,0,0,Internal RAM,DTC22 retained recovery-budget counter,71C3,Validate the image and recover retained state
 7282,b1 5b 21,CMPA $5B21,R,8,5B21,5B21,5B21,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,71C3,Validate the image and recover retained state
 7368,15 19 04,"BCLR $19,#$04",RW,8,0019,0019,0019,fixed operand,0,0,Internal RAM,"Knock-sensor, EST and injector-bank fault flags",71C3,Validate the image and recover retained state
 736B,15 19 02,"BCLR $19,#$02",RW,8,0019,0019,0019,fixed operand,0,0,Internal RAM,"Knock-sensor, EST and injector-bank fault flags",71C3,Validate the image and recover retained state
@@ -76,7 +76,7 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 7453,b6 4d 96,LDAA $4D96,R,8,4D96,4D96,4D96,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Spark missing reference age cap,7431,Finish the boot seeds
 745E,fc 30 0e,LDD $300E,R,16,300E,300E,300E..300F,fixed operand,0,0,Internal CPU registers,TCNT: free-running timer counter,745E,Arm timer service and enter normal execution
 746C,13 51 04 43,"BRCLR $51,#$04,$74B3",R,8,0051,0051,0051,fixed operand,0,0,Internal RAM,Shared startup/fuel flags and active DFCO spark qualification; recovery tail omitted,745E,Arm timer service and enter normal execution
-7470,fe 02 9b,LDX $029B,R,16,029B,029B,029B..029C,fixed operand,0,0,Internal RAM,,745E,Arm timer service and enter normal execution
+7470,fe 02 9b,LDX $029B,R,16,029B,029B,029B..029C,fixed operand,0,0,Internal RAM,RAM-refresh scan cursor (word),745E,Arm timer service and enter normal execution
 7484,ec 00,"LDD $00,X",R,16,,,,nonfinite contexts only,3,3,,caller/local pointer context required,745E,Arm timer service and enter normal execution
 7488,ec 02,"LDD $02,X",R,16,,,,nonfinite contexts only,3,3,,caller/local pointer context required,745E,Arm timer service and enter normal execution
 748C,ec 04,"LDD $04,X",R,16,,,,nonfinite contexts only,3,3,,caller/local pointer context required,745E,Arm timer service and enter normal execution
@@ -87,8 +87,8 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 74A0,ec 0e,"LDD $0E,X",R,16,,,,nonfinite contexts only,3,3,,caller/local pointer context required,745E,Arm timer service and enter normal execution
 74B0,15 51 04,"BCLR $51,#$04",RW,8,0051,0051,0051,fixed operand,0,0,Internal RAM,Shared startup/fuel flags and active DFCO spark qualification; recovery tail omitted,745E,Arm timer service and enter normal execution
 74B7,a6 00,"LDAA $00,X",R,8,,,,nonfinite contexts only,3,3,,caller/local pointer context required,745E,Arm timer service and enter normal execution
-74C3,fc 02 d1,LDD $02D1,R,16,02D1,02D1,02D1..02D2,fixed operand,0,0,Internal RAM,,745E,Arm timer service and enter normal execution
-74C8,bc 02 d1,CPX $02D1,R,16,02D1,02D1,02D1..02D2,fixed operand,0,0,Internal RAM,,745E,Arm timer service and enter normal execution
+74C3,fc 02 d1,LDD $02D1,R,16,02D1,02D1,02D1..02D2,fixed operand,0,0,Internal RAM,Minimum observed stack-fill scan boundary (word),745E,Arm timer service and enter normal execution
+74C8,bc 02 d1,CPX $02D1,R,16,02D1,02D1,02D1..02D2,fixed operand,0,0,Internal RAM,Minimum observed stack-fill scan boundary (word),745E,Arm timer service and enter normal execution
 74EA,13 44 01 03,"BRCLR $44,#$01,$74F1",R,8,0044,0044,0044,fixed operand,0,0,Internal RAM,"Ignition, reference-event and EST-supervision flags",74EA,Service an engine-reference interrupt
 74F1,fc 30 0e,LDD $300E,R,16,300E,300E,300E..300F,fixed operand,0,0,Internal CPU registers,TCNT: free-running timer counter,74EA,Service an engine-reference interrupt
 74F6,d6 62,LDAB $62,R,8,0062,0062,0062,fixed operand,0,0,Internal RAM,Rounded engine-speed coordinate,74EA,Service an engine-reference interrupt
@@ -259,11 +259,11 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 793D,fc 30 1a,LDD $301A,R,16,301A,301A,301A..301B,fixed operand,0,0,Internal CPU registers,TOC3: recurring dispatcher compare timing,793D,Admit or defer a periodic engine-work pass
 794B,14 00 01,"BSET $00,#$01",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,793D,Admit or defer a periodic engine-work pass
 795C,12 4f 04 07,"BRSET $4F,#$04,$7967",R,8,004F,004F,004F,fixed operand,0,0,Internal RAM,"Engine-running, startup-gain and fuel-model state flags",793D,Admit or defer a periodic engine-work pass
-7971,14 3a 08,"BSET $3A,#$08",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,793D,Admit or defer a periodic engine-work pass
+7971,14 3a 08,"BSET $3A,#$08",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",793D,Admit or defer a periodic engine-work pass
 7974,15 4f 04,"BCLR $4F,#$04",RW,8,004F,004F,004F,fixed operand,0,0,Internal RAM,"Engine-running, startup-gain and fuel-model state flags",793D,Admit or defer a periodic engine-work pass
 797D,13 4f 04 08,"BRCLR $4F,#$04,$7989",R,8,004F,004F,004F,fixed operand,0,0,Internal RAM,"Engine-running, startup-gain and fuel-model state flags",793D,Admit or defer a periodic engine-work pass
 7981,96 02,LDAA $02,R,8,0002,0002,0002,fixed operand,0,0,Internal RAM,Dispatcher phase and scheduling counter,793D,Admit or defer a periodic engine-work pass
-7985,14 3a 20,"BSET $3A,#$20",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,793D,Admit or defer a periodic engine-work pass
+7985,14 3a 20,"BSET $3A,#$20",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",793D,Admit or defer a periodic engine-work pass
 7989,14 4f 04,"BSET $4F,#$04",RW,8,004F,004F,004F,fixed operand,0,0,Internal RAM,"Engine-running, startup-gain and fuel-model state flags",7989,Enter an admitted foreground pass
 798C,13 3b 10 14,"BRCLR $3B,#$10,$79A4",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,798C,Advance admitted-pass time and controller permissions
 7990,f6 03 8f,LDAB $038F,R,8,038F,038F,038F,fixed operand,0,0,Internal RAM,Engine masks or factory destination low byte,798C,Advance admitted-pass time and controller permissions
@@ -278,7 +278,7 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 79C1,15 04 10,"BCLR $04,#$10",RW,8,0004,0004,0004,fixed operand,0,0,Internal RAM,,798C,Advance admitted-pass time and controller permissions
 79C8,96 3b,LDAA $3B,R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,798C,Advance admitted-pass time and controller permissions
 79CC,12 51 08 04,"BRSET $51,#$08,$79D4",R,8,0051,0051,0051,fixed operand,0,0,Internal RAM,Shared startup/fuel flags and active DFCO spark qualification; recovery tail omitted,798C,Advance admitted-pass time and controller permissions
-79D9,13 1a 20 15,"BRCLR $1A,#$20,$79F2",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,79D9,Choose this pass's fast work
+79D9,13 1a 20 15,"BRCLR $1A,#$20,$79F2",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,79D9,Choose this pass's fast work
 79DD,13 02 01 63,"BRCLR $02,#$01,$7A44",R,8,0002,0002,0002,fixed operand,0,0,Internal RAM,Dispatcher phase and scheduling counter,79D9,Choose this pass's fast work
 79E1,14 43 80,"BSET $43,#$80",RW,8,0043,0043,0043,fixed operand,0,0,Internal RAM,Diagnostic switch state,79D9,Choose this pass's fast work
 79F5,12 02 01 20,"BRSET $02,#$01,$7A19",R,8,0002,0002,0002,fixed operand,0,0,Internal RAM,Dispatcher phase and scheduling counter,79E7,Run the retained fast engine services
@@ -295,10 +295,10 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 7A59,d6 02,LDAB $02,R,8,0002,0002,0002,fixed operand,0,0,Internal RAM,Dispatcher phase and scheduling counter,7A55,Finish timing bookkeeping and handle catch-up
 7A62,fc 30 0e,LDD $300E,R,16,300E,300E,300E..300F,fixed operand,0,0,Internal CPU registers,TCNT: free-running timer counter,7A55,Finish timing bookkeeping and handle catch-up
 7A65,b3 30 1a,SUBD $301A,R,16,301A,301A,301A..301B,fixed operand,0,0,Internal CPU registers,TOC3: recurring dispatcher compare timing,7A55,Finish timing bookkeeping and handle catch-up
-7A6B,13 3a 20 03,"BRCLR $3A,#$20,$7A72",R,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,7A55,Finish timing bookkeeping and handle catch-up
+7A6B,13 3a 20 03,"BRCLR $3A,#$20,$7A72",R,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",7A55,Finish timing bookkeeping and handle catch-up
 7A72,1a a3 00,"CPD $00,X",R,16,,02D3;02D5;02D7;02D9;02DB;02DD;02DF;02E1;02E3;02E5;02E7;02E9;02EB;02ED;02EF;02F1,02D3..02F2,finite abstract contexts,1,0,Internal RAM,caller/local pointer context required,7A55,Finish timing bookkeeping and handle catch-up
-7A79,13 3a 20 07,"BRCLR $3A,#$20,$7A84",R,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,7A55,Finish timing bookkeeping and handle catch-up
-7A7D,15 3a 20,"BCLR $3A,#$20",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,7A55,Finish timing bookkeeping and handle catch-up
+7A79,13 3a 20 07,"BRCLR $3A,#$20,$7A84",R,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",7A55,Finish timing bookkeeping and handle catch-up
+7A7D,15 3a 20,"BCLR $3A,#$20",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",7A55,Finish timing bookkeeping and handle catch-up
 7AD3,12 02 10 1a,"BRSET $02,#$10,$7AF1",R,8,0002,0002,0002,fixed operand,0,0,Internal RAM,Dispatcher phase and scheduling counter,7AC7,Run retained battery/BARO/coolant diagnostics and preparation
 7AF1,15 6f 24,"BCLR $6F,#$24",RW,8,006F,006F,006F,fixed operand,0,0,Internal RAM,"Load, sensor-validity and operating-context flags",7AC7,Run retained battery/BARO/coolant diagnostics and preparation
 7AF4,13 16 01 03,"BRCLR $16,#$01,$7AFB",R,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,7AC7,Run retained battery/BARO/coolant diagnostics and preparation
@@ -322,7 +322,7 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 7BE3,f6 41 37,LDAB $4137,R,8,4137,4137,4137,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Input/output MAP normal gain,7BAA,"Produce filtered MAP, including its fault substitute"
 7BE6,fe 01 c3,LDX $01C3,R,16,01C3,01C3,01C3..01C4,fixed operand,0,0,Internal RAM,MAP filter state (word),7BAA,"Produce filtered MAP, including its fault substitute"
 7BF6,fc 3f fa,LDD $3FFA,R,16,3FFA,3FFA,3FFA..3FFB,fixed operand,0,0,External IO2 selection,Packed board/reference-status sample (word); physical bit meanings remain under review,7BF5,Preserve shared board status while bypassing VSS counting
-7D4B,fe 02 7e,LDX $027E,R,16,027E,027E,027E..027F,fixed operand,0,0,Internal RAM,,7D4B,Coordinate one admitted fuel calculation
+7D4B,fe 02 7e,LDX $027E,R,16,027E,027E,027E..027F,fixed operand,0,0,Internal RAM,Ignition-off fuel-pass counter (word),7D4B,Coordinate one admitted fuel calculation
 7D4E,13 44 10 3e,"BRCLR $44,#$10,$7D90",R,8,0044,0044,0044,fixed operand,0,0,Internal RAM,"Ignition, reference-event and EST-supervision flags",7D4B,Coordinate one admitted fuel calculation
 7D57,15 04 83,"BCLR $04,#$83",RW,8,0004,0004,0004,fixed operand,0,0,Internal RAM,,7D4B,Coordinate one admitted fuel calculation
 7D5A,15 19 40,"BCLR $19,#$40",RW,8,0019,0019,0019,fixed operand,0,0,Internal RAM,"Knock-sensor, EST and injector-bank fault flags",7D4B,Coordinate one admitted fuel calculation
@@ -1483,7 +1483,7 @@ CC35,12 4f 80 0f,"BRSET $4F,#$80,$CC48",R,8,004F,004F,004F,fixed operand,0,0,Int
 CC39,96 06,LDAA $06,R,8,0006,0006,0006,fixed operand,0,0,Internal RAM,Effective coolant-temperature coordinate,CC35,Refresh startup input seeds and the shared control latch
 CC3F,b6 48 be,LDAA $48BE,R,8,48BE,48BE,48BE,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,CC35,Refresh startup input seeds and the shared control latch
 CC4B,b6 03 b0,LDAA $03B0,R,8,03B0,03B0,03B0,fixed operand,0,0,Internal RAM,,CC35,Refresh startup input seeds and the shared control latch
-CC50,14 3a 10,"BSET $3A,#$10",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,CC35,Refresh startup input seeds and the shared control latch
+CC50,14 3a 10,"BSET $3A,#$10",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",CC35,Refresh startup input seeds and the shared control latch
 CC56,1c 22 a0,"BSET $22,X,#$A0",RW,8,,3022,3022,finite abstract contexts,3,0,Internal CPU registers,caller/local pointer context required,CC35,Refresh startup input seeds and the shared control latch
 CC5A,fc 3f fc,LDD $3FFC,R,16,3FFC,3FFC,3FFC..3FFD,fixed operand,0,0,External IO2 selection,External board output-latch state used by engine/serial control,CC35,Refresh startup input seeds and the shared control latch
 CC63,18 1e 00 01 06,"BRSET $00,Y,#$01,$CC6E",R,8,,400B,400B,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,CC35,Refresh startup input seeds and the shared control latch
@@ -1585,7 +1585,7 @@ DCDE,12 72 80 05,"BRSET $72,#$80,$DCE7",R,8,0072,0072,0072,fixed operand,0,0,Int
 DCE2,14 72 80,"BSET $72,#$80",RW,8,0072,0072,0072,fixed operand,0,0,Internal RAM,EGR/O2/lamp flags,DC89,Select diagnostic mode and prepare flash/lamp state
 DCE7,15 72 80,"BCLR $72,#$80",RW,8,0072,0072,0072,fixed operand,0,0,Internal RAM,EGR/O2/lamp flags,DC89,Select diagnostic mode and prepare flash/lamp state
 DCF0,14 43 04,"BSET $43,#$04",RW,8,0043,0043,0043,fixed operand,0,0,Internal RAM,Diagnostic switch state,DC89,Select diagnostic mode and prepare flash/lamp state
-DCFB,13 1a 20 03,"BRCLR $1A,#$20,$DD02",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,DC89,Select diagnostic mode and prepare flash/lamp state
+DCFB,13 1a 20 03,"BRCLR $1A,#$20,$DD02",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,DC89,Select diagnostic mode and prepare flash/lamp state
 DD02,12 4f 80 0e,"BRSET $4F,#$80,$DD14",R,8,004F,004F,004F,fixed operand,0,0,Internal RAM,"Engine-running, startup-gain and fuel-model state flags",DC89,Select diagnostic mode and prepare flash/lamp state
 DD14,12 43 02 28,"BRSET $43,#$02,$DD40",R,8,0043,0043,0043,fixed operand,0,0,Internal RAM,Diagnostic switch state,DD14,Age and maintain retained diagnostic memory
 DD18,d6 fe,LDAB $FE,R,8,00FE,00FE,00FE,fixed operand,0,0,Internal RAM,,DD14,Age and maintain retained diagnostic memory
@@ -1600,10 +1600,10 @@ DD49,12 71 40 0b,"BRSET $71,#$40,$DD58",R,8,0071,0071,0071,fixed operand,0,0,Int
 DD4D,dc fd,LDD $FD,R,16,00FD,00FD,00FD..00FE,fixed operand,0,0,Internal RAM,Engine-running admission counter (word),DD40,Qualify O2 inactivity under surviving conditions
 DD50,f1 4e 32,CMPB $4E32,R,8,4E32,4E32,4E32,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,DD40,Qualify O2 inactivity under surviving conditions
 DD55,14 71 40,"BSET $71,#$40",RW,8,0071,0071,0071,fixed operand,0,0,Internal RAM,Logging/lamp/diagnostic flags,DD40,Qualify O2 inactivity under surviving conditions
-DD58,b6 01 5f,LDAA $015F,R,8,015F,015F,015F,fixed operand,0,0,Internal RAM,,DD40,Qualify O2 inactivity under surviving conditions
+DD58,b6 01 5f,LDAA $015F,R,8,015F,015F,015F,fixed operand,0,0,Internal RAM,DFCO exposure and recovery counter for the O2 activity diagnostic,DD40,Qualify O2 inactivity under surviving conditions
 DD5B,13 46 08 0a,"BRCLR $46,#$08,$DD69",R,8,0046,0046,0046,fixed operand,0,0,Internal RAM,Fuel-cut and asynchronous-delivery state flags,DD40,Qualify O2 inactivity under surviving conditions
 DD5F,b1 4e 33,CMPA $4E33,R,8,4E33,4E33,4E33,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,DD40,Qualify O2 inactivity under surviving conditions
-DD64,7c 01 5f,INC $015F,RW,8,015F,015F,015F,fixed operand,0,0,Internal RAM,,DD40,Qualify O2 inactivity under surviving conditions
+DD64,7c 01 5f,INC $015F,RW,8,015F,015F,015F,fixed operand,0,0,Internal RAM,DFCO exposure and recovery counter for the O2 activity diagnostic,DD40,Qualify O2 inactivity under surviving conditions
 DD70,b1 4e 34,CMPA $4E34,R,8,4E34,4E34,4E34,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,DD40,Qualify O2 inactivity under surviving conditions
 DD75,f6 01 d5,LDAB $01D5,R,8,01D5,01D5,01D5,fixed operand,0,0,Internal RAM,Sampled engine oxygen-sensor input,DD40,Qualify O2 inactivity under surviving conditions
 DD78,f1 4e 36,CMPB $4E36,R,8,4E36,4E36,4E36,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,DD40,Qualify O2 inactivity under surviving conditions
@@ -1692,7 +1692,7 @@ E0EF,13 72 40 03,"BRCLR $72,#$40,$E0F6",R,8,0072,0072,0072,fixed operand,0,0,Int
 E0F6,b6 5b 03,LDAA $5B03,R,8,5B03,5B03,5B03,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Reference-event diagnostic options,E041,Qualify retained lean/rich O2 fault conditions
 E0FD,96 a7,LDAA $A7,R,8,00A7,00A7,00A7,fixed operand,0,0,Internal RAM,Battery sample used by spark and idle calculations,E041,Qualify retained lean/rich O2 fault conditions
 E103,12 3d 02 13,"BRSET $3D,#$02,$E11A",R,8,003D,003D,003D,fixed operand,0,0,Internal RAM,"Fuel enrichment, deceleration and asynchronous-delivery flags",E041,Qualify retained lean/rich O2 fault conditions
-E107,b6 08 56,LDAA $0856,R,8,0856,0856,0856,fixed operand,0,0,External GEN selection; backing unknown,,E041,Qualify retained lean/rich O2 fault conditions
+E107,b6 08 56,LDAA $0856,R,8,0856,0856,0856,fixed operand,0,0,External GEN selection; backing unknown,"VATS authorization-failure qualification counter, DTC46",E041,Qualify retained lean/rich O2 fault conditions
 E10A,b1 4e 84,CMPA $4E84,R,8,4E84,4E84,4E84,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,E041,Qualify retained lean/rich O2 fault conditions
 E117,14 19 02,"BSET $19,#$02",RW,8,0019,0019,0019,fixed operand,0,0,Internal RAM,"Knock-sensor, EST and injector-bank fault flags",E041,Qualify retained lean/rich O2 fault conditions
 E11A,13 43 04 03,"BRCLR $43,#$04,$E121",R,8,0043,0043,0043,fixed operand,0,0,Internal RAM,Diagnostic switch state,E11A,"Merge fault candidates, maintain retained history and choose the lamp"
@@ -1753,7 +1753,7 @@ E279,12 71 01 05,"BRSET $71,#$01,$E282",R,8,0071,0071,0071,fixed operand,0,0,Int
 E27D,15 72 80,"BCLR $72,#$80",RW,8,0072,0072,0072,fixed operand,0,0,Internal RAM,EGR/O2/lamp flags,E1EC,Generate stored-fault flash-code timing
 E282,14 72 80,"BSET $72,#$80",RW,8,0072,0072,0072,fixed operand,0,0,Internal RAM,EGR/O2/lamp flags,E1EC,Generate stored-fault flash-code timing
 E289,1f 00 04 3b,"BRCLR $00,X,#$04,$E2C8",R,8,,5B04,5B04,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E286,Qualify the retained pump/voltage fault state
-E28D,15 1a 04,"BCLR $1A,#$04",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,E286,Qualify the retained pump/voltage fault state
+E28D,15 1a 04,"BCLR $1A,#$04",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,E286,Qualify the retained pump/voltage fault state
 E290,12 72 01 31,"BRSET $72,#$01,$E2C5",R,8,0072,0072,0072,fixed operand,0,0,Internal RAM,EGR/O2/lamp flags,E286,Qualify the retained pump/voltage fault state
 E294,d6 a7,LDAB $A7,R,8,00A7,00A7,00A7,fixed operand,0,0,Internal RAM,Battery sample used by spark and idle calculations,E286,Qualify the retained pump/voltage fault state
 E296,f1 4e 88,CMPB $4E88,R,8,4E88,4E88,4E88,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,E286,Qualify the retained pump/voltage fault state
@@ -1766,7 +1766,7 @@ E2B3,f1 4e 85,CMPB $4E85,R,8,4E85,4E85,4E85,fixed operand,0,0,Program selection;
 E2B8,b1 4e 86,CMPA $4E86,R,8,4E86,4E86,4E86,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,E286,Qualify the retained pump/voltage fault state
 E2BD,14 72 02,"BSET $72,#$02",RW,8,0072,0072,0072,fixed operand,0,0,Internal RAM,EGR/O2/lamp flags,E286,Qualify the retained pump/voltage fault state
 E2C2,14 72 01,"BSET $72,#$01",RW,8,0072,0072,0072,fixed operand,0,0,Internal RAM,EGR/O2/lamp flags,E286,Qualify the retained pump/voltage fault state
-E2C5,14 1a 04,"BSET $1A,#$04",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,E286,Qualify the retained pump/voltage fault state
+E2C5,14 1a 04,"BSET $1A,#$04",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,E286,Qualify the retained pump/voltage fault state
 E2C8,96 06,LDAA $06,R,8,0006,0006,0006,fixed operand,0,0,Internal RAM,Effective coolant-temperature coordinate,E2C8,Build the effective charge-temperature term
 E2CD,1f 00 40 1c,"BRCLR $00,X,#$40,$E2ED",R,8,,400B,400B,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E2C8,Build the effective charge-temperature term
 E2D1,b6 02 32,LDAA $0232,R,8,0232,0232,0232,fixed operand,0,0,Internal RAM,IAC runtime high,E2C8,Build the effective charge-temperature term
@@ -1878,7 +1878,7 @@ E559,14 3e 02,"BSET $3E,#$02",RW,8,003E,003E,003E,fixed operand,0,0,Internal RAM
 E55E,15 3e 02,"BCLR $3E,#$02",RW,8,003E,003E,003E,fixed operand,0,0,Internal RAM,"Coolant, low-battery and mixture context flags",E477,Maintain closed-loop and learning permissions
 E75F,12 3b 04 2f,"BRSET $3B,#$04,$E792",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,E75F,Debounce one coolant ADC fault direction
 E766,1f 00 40 24,"BRCLR $00,X,#$40,$E78E",R,8,,5B00,5B00,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E75F,Debounce one coolant ADC fault direction
-E76A,b6 01 60,LDAA $0160,R,8,0160,0160,0160,fixed operand,0,0,Internal RAM,,E75F,Debounce one coolant ADC fault direction
+E76A,b6 01 60,LDAA $0160,R,8,0160,0160,0160,fixed operand,0,0,Internal RAM,DTC14 low coolant-ADC qualification counter,E75F,Debounce one coolant ADC fault direction
 E76D,f6 08 2d,LDAB $082D,R,8,082D,082D,082D,fixed operand,0,0,External GEN selection; backing unknown,Raw coolant ADC sample awaiting conversion,E75F,Debounce one coolant ADC fault direction
 E770,e1 13,"CMPB $13,X",R,8,,5B13,5B13,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E75F,Debounce one coolant ADC fault direction
 E774,13 16 40 16,"BRCLR $16,#$40,$E78E",R,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,E75F,Debounce one coolant ADC fault direction
@@ -1889,7 +1889,7 @@ E787,a1 14,"CMPA $14,X",R,8,,5B14,5B14,finite abstract contexts,3,0,Program sele
 E78B,14 16 40,"BSET $16,#$40",RW,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,E75F,Debounce one coolant ADC fault direction
 E793,12 3b 04 2f,"BRSET $3B,#$04,$E7C6",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,E793,Debounce the opposite coolant ADC fault direction
 E79A,1f 00 20 24,"BRCLR $00,X,#$20,$E7C2",R,8,,5B00,5B00,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E793,Debounce the opposite coolant ADC fault direction
-E79E,b6 01 61,LDAA $0161,R,8,0161,0161,0161,fixed operand,0,0,Internal RAM,,E793,Debounce the opposite coolant ADC fault direction
+E79E,b6 01 61,LDAA $0161,R,8,0161,0161,0161,fixed operand,0,0,Internal RAM,DTC15 high coolant-ADC qualification counter,E793,Debounce the opposite coolant ADC fault direction
 E7A1,f6 08 2d,LDAB $082D,R,8,082D,082D,082D,fixed operand,0,0,External GEN selection; backing unknown,Raw coolant ADC sample awaiting conversion,E793,Debounce the opposite coolant ADC fault direction
 E7A4,e1 15,"CMPB $15,X",R,8,,5B15,5B15,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E793,Debounce the opposite coolant ADC fault direction
 E7A8,13 16 20 16,"BRCLR $16,#$20,$E7C2",R,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,E793,Debounce the opposite coolant ADC fault direction
@@ -1900,13 +1900,13 @@ E7BB,a1 16,"CMPA $16,X",R,8,,5B16,5B16,finite abstract contexts,3,0,Program sele
 E7BF,14 16 20,"BSET $16,#$20",RW,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,E793,Debounce the opposite coolant ADC fault direction
 E7C7,12 3b 04 3c,"BRSET $3B,#$04,$E807",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,E7C7,Qualify the high raw-TPS fault and recovery
 E7CE,1f 00 01 31,"BRCLR $00,X,#$01,$E803",R,8,,5B00,5B00,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E7C7,Qualify the high raw-TPS fault and recovery
-E7D2,b6 01 62,LDAA $0162,R,8,0162,0162,0162,fixed operand,0,0,Internal RAM,,E7C7,Qualify the high raw-TPS fault and recovery
+E7D2,b6 01 62,LDAA $0162,R,8,0162,0162,0162,fixed operand,0,0,Internal RAM,DTC21 high raw-TPS qualification counter,E7C7,Qualify the high raw-TPS fault and recovery
 E7D5,d6 a6,LDAB $A6,R,8,00A6,00A6,00A6,fixed operand,0,0,Internal RAM,Sampled raw throttle input,E7C7,Qualify the high raw-TPS fault and recovery
 E7D7,e1 1c,"CMPB $1C,X",R,8,,5B1C,5B1C,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E7C7,Qualify the high raw-TPS fault and recovery
 E7DB,12 94 01 24,"BRSET $94,#$01,$E803",R,8,0094,0094,0094,fixed operand,0,0,Internal RAM,Diagnostic recovery observations,E7C7,Qualify the high raw-TPS fault and recovery
 E7DF,14 94 01,"BSET $94,#$01",RW,8,0094,0094,0094,fixed operand,0,0,Internal RAM,Diagnostic recovery observations,E7C7,Qualify the high raw-TPS fault and recovery
 E7E2,13 16 01 1d,"BRCLR $16,#$01,$E803",R,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,E7C7,Qualify the high raw-TPS fault and recovery
-E7E6,d6 1f,LDAB $1F,R,8,001F,001F,001F,fixed operand,0,0,Internal RAM,,E7C7,Qualify the high raw-TPS fault and recovery
+E7E6,d6 1f,LDAB $1F,R,8,001F,001F,001F,fixed operand,0,0,Internal RAM,DTC21 retained recovery-budget counter,E7C7,Qualify the high raw-TPS fault and recovery
 E7E8,f1 5b 1e,CMPB $5B1E,R,8,5B1E,5B1E,5B1E,fixed operand,0,0,Program selection; supplied code/calibration/vector region,,E7C7,Qualify the high raw-TPS fault and recovery
 E7F1,15 16 01,"BCLR $16,#$01",RW,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,E7C7,Qualify the high raw-TPS fault and recovery
 E7F6,12 16 01 09,"BRSET $16,#$01,$E803",R,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,E7C7,Qualify the high raw-TPS fault and recovery
@@ -1914,13 +1914,13 @@ E7FB,b1 5b 1d,CMPA $5B1D,R,8,5B1D,5B1D,5B1D,fixed operand,0,0,Program selection;
 E800,14 16 01,"BSET $16,#$01",RW,8,0016,0016,0016,fixed operand,0,0,Internal RAM,Primary engine and sensor fault flags,E7C7,Qualify the high raw-TPS fault and recovery
 E808,12 3b 04 3a,"BRSET $3B,#$04,$E846",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,E808,Qualify the low raw-TPS fault and recovery
 E80F,1f 01 80 2f,"BRCLR $01,X,#$80,$E842",R,8,,5B01,5B01,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E808,Qualify the low raw-TPS fault and recovery
-E813,b6 01 63,LDAA $0163,R,8,0163,0163,0163,fixed operand,0,0,Internal RAM,,E808,Qualify the low raw-TPS fault and recovery
+E813,b6 01 63,LDAA $0163,R,8,0163,0163,0163,fixed operand,0,0,Internal RAM,DTC22 low raw-TPS qualification counter,E808,Qualify the low raw-TPS fault and recovery
 E816,d6 a6,LDAB $A6,R,8,00A6,00A6,00A6,fixed operand,0,0,Internal RAM,Sampled raw throttle input,E808,Qualify the low raw-TPS fault and recovery
 E818,e1 1f,"CMPB $1F,X",R,8,,5B1F,5B1F,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E808,Qualify the low raw-TPS fault and recovery
 E81C,12 94 02 22,"BRSET $94,#$02,$E842",R,8,0094,0094,0094,fixed operand,0,0,Internal RAM,Diagnostic recovery observations,E808,Qualify the low raw-TPS fault and recovery
 E820,14 94 02,"BSET $94,#$02",RW,8,0094,0094,0094,fixed operand,0,0,Internal RAM,Diagnostic recovery observations,E808,Qualify the low raw-TPS fault and recovery
 E823,13 17 80 1b,"BRCLR $17,#$80,$E842",R,8,0017,0017,0017,fixed operand,0,0,Internal RAM,Secondary sensor fault flags,E808,Qualify the low raw-TPS fault and recovery
-E827,d6 20,LDAB $20,R,8,0020,0020,0020,fixed operand,0,0,Internal RAM,,E808,Qualify the low raw-TPS fault and recovery
+E827,d6 20,LDAB $20,R,8,0020,0020,0020,fixed operand,0,0,Internal RAM,DTC22 retained recovery-budget counter,E808,Qualify the low raw-TPS fault and recovery
 E829,e1 21,"CMPB $21,X",R,8,,5B21,5B21,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,E808,Qualify the low raw-TPS fault and recovery
 E831,15 17 80,"BCLR $17,#$80",RW,8,0017,0017,0017,fixed operand,0,0,Internal RAM,Secondary sensor fault flags,E808,Qualify the low raw-TPS fault and recovery
 E836,12 17 80 08,"BRSET $17,#$80,$E842",R,8,0017,0017,0017,fixed operand,0,0,Internal RAM,Secondary sensor fault flags,E808,Qualify the low raw-TPS fault and recovery
@@ -1928,28 +1928,28 @@ E83B,a1 20,"CMPA $20,X",R,8,,5B20,5B20,finite abstract contexts,3,0,Program sele
 E83F,14 17 80,"BSET $17,#$80",RW,8,0017,0017,0017,fixed operand,0,0,Internal RAM,Secondary sensor fault flags,E808,Qualify the low raw-TPS fault and recovery
 EA40,12 3b 04 37,"BRSET $3B,#$04,$EA7B",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,EA40,Qualify one battery-voltage fault condition
 EA47,1f 04 10 28,"BRCLR $04,X,#$10,$EA73",R,8,,5B04,5B04,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EA40,Qualify one battery-voltage fault condition
-EA4B,18 fe 01 69,LDY $0169,R,16,0169,0169,0169..016A,fixed operand,0,0,Internal RAM,,EA40,Qualify one battery-voltage fault condition
+EA4B,18 fe 01 69,LDY $0169,R,16,0169,0169,0169..016A,fixed operand,0,0,Internal RAM,DTC52 high battery-sample qualification counter (word),EA40,Qualify one battery-voltage fault condition
 EA4F,d6 a7,LDAB $A7,R,8,00A7,00A7,00A7,fixed operand,0,0,Internal RAM,Battery sample used by spark and idle calculations,EA40,Qualify one battery-voltage fault condition
 EA51,e1 63,"CMPB $63,X",R,8,,5B63,5B63,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EA40,Qualify one battery-voltage fault condition
 EA55,12 97 01 1a,"BRSET $97,#$01,$EA73",R,8,0097,0097,0097,fixed operand,0,0,Internal RAM,Diagnostic recovery observations 4,EA40,Qualify one battery-voltage fault condition
 EA59,14 97 01,"BSET $97,#$01",RW,8,0097,0097,0097,fixed operand,0,0,Internal RAM,Diagnostic recovery observations 4,EA40,Qualify one battery-voltage fault condition
-EA5C,13 1a 10 13,"BRCLR $1A,#$10,$EA73",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA40,Qualify one battery-voltage fault condition
-EA60,15 1a 10,"BCLR $1A,#$10",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA40,Qualify one battery-voltage fault condition
-EA65,12 1a 10 0a,"BRSET $1A,#$10,$EA73",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA40,Qualify one battery-voltage fault condition
+EA5C,13 1a 10 13,"BRCLR $1A,#$10,$EA73",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,EA40,Qualify one battery-voltage fault condition
+EA60,15 1a 10,"BCLR $1A,#$10",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,EA40,Qualify one battery-voltage fault condition
+EA65,12 1a 10 0a,"BRSET $1A,#$10,$EA73",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,EA40,Qualify one battery-voltage fault condition
 EA6B,1a ac 64,"CPY $64,X",R,16,,5B64,5B64..5B65,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EA40,Qualify one battery-voltage fault condition
-EA70,14 1a 10,"BSET $1A,#$10",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA40,Qualify one battery-voltage fault condition
+EA70,14 1a 10,"BSET $1A,#$10",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,EA40,Qualify one battery-voltage fault condition
 EA7C,12 3b 04 30,"BRSET $3B,#$04,$EAB0",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,EA7C,Qualify the companion battery-voltage fault condition
 EA83,1f 04 08 25,"BRCLR $04,X,#$08,$EAAC",R,8,,5B04,5B04,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EA7C,Qualify the companion battery-voltage fault condition
-EA87,b6 01 6b,LDAA $016B,R,8,016B,016B,016B,fixed operand,0,0,Internal RAM,,EA7C,Qualify the companion battery-voltage fault condition
+EA87,b6 01 6b,LDAA $016B,R,8,016B,016B,016B,fixed operand,0,0,Internal RAM,DTC53 battery-threshold qualification counter (literal high-side test),EA7C,Qualify the companion battery-voltage fault condition
 EA8A,d6 a7,LDAB $A7,R,8,00A7,00A7,00A7,fixed operand,0,0,Internal RAM,Battery sample used by spark and idle calculations,EA7C,Qualify the companion battery-voltage fault condition
 EA8C,e1 66,"CMPB $66,X",R,8,,5B66,5B66,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EA7C,Qualify the companion battery-voltage fault condition
 EA90,12 95 02 18,"BRSET $95,#$02,$EAAC",R,8,0095,0095,0095,fixed operand,0,0,Internal RAM,Diagnostic recovery observations 2,EA7C,Qualify the companion battery-voltage fault condition
 EA94,14 95 02,"BSET $95,#$02",RW,8,0095,0095,0095,fixed operand,0,0,Internal RAM,Diagnostic recovery observations 2,EA7C,Qualify the companion battery-voltage fault condition
-EA97,13 1a 08 11,"BRCLR $1A,#$08,$EAAC",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA7C,Qualify the companion battery-voltage fault condition
-EA9B,15 1a 08,"BCLR $1A,#$08",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA7C,Qualify the companion battery-voltage fault condition
-EAA0,12 1a 08 08,"BRSET $1A,#$08,$EAAC",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA7C,Qualify the companion battery-voltage fault condition
+EA97,13 1a 08 11,"BRCLR $1A,#$08,$EAAC",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,EA7C,Qualify the companion battery-voltage fault condition
+EA9B,15 1a 08,"BCLR $1A,#$08",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,EA7C,Qualify the companion battery-voltage fault condition
+EAA0,12 1a 08 08,"BRSET $1A,#$08,$EAAC",R,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,EA7C,Qualify the companion battery-voltage fault condition
 EAA5,a1 67,"CMPA $67,X",R,8,,5B67,5B67,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EA7C,Qualify the companion battery-voltage fault condition
-EAA9,14 1a 08,"BSET $1A,#$08",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA7C,Qualify the companion battery-voltage fault condition
+EAA9,14 1a 08,"BSET $1A,#$08",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,EA7C,Qualify the companion battery-voltage fault condition
 EB19,12 3b 04 2f,"BRSET $3B,#$04,$EB4C",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,EB19,Debounce the high BARO estimate fault
 EB20,1f 05 04 24,"BRCLR $05,X,#$04,$EB48",R,8,,5B05,5B05,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB19,Debounce the high BARO estimate fault
 EB24,b6 01 6e,LDAA $016E,R,8,016E,016E,016E,fixed operand,0,0,Internal RAM,BARO-estimate high-limit qualification counter,EB19,Debounce the high BARO estimate fault
@@ -1979,10 +1979,10 @@ F24C,a6 31,"LDAA $31,X",R,8,,3031,3031,finite abstract contexts,6,0,Internal CPU
 F250,12 50 01 05,"BRSET $50,#$01,$F259",R,8,0050,0050,0050,fixed operand,0,0,Internal RAM,"Idle, reference-event and diagnostic state flags",F245,Read the retained engine ADC channels
 F254,a6 32,"LDAA $32,X",R,8,,3032,3032,finite abstract contexts,6,0,Internal CPU registers,caller/local pointer context required,F245,Read the retained engine ADC channels
 F259,a6 33,"LDAA $33,X",R,8,,3033,3033,finite abstract contexts,6,0,Internal CPU registers,caller/local pointer context required,F245,Read the retained engine ADC channels
-F25F,15 1a 02,"BCLR $1A,#$02",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,F25F,Perform one ADC conversion transaction
+F25F,15 1a 02,"BCLR $1A,#$02",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,F25F,Perform one ADC conversion transaction
 F267,1e 30 80 09,"BRSET $30,X,#$80,$F274",R,8,,3030,3030,finite contexts plus nonfinite contexts,25,1,Internal CPU registers,caller/local pointer context required,F25F,Perform one ADC conversion transaction
-F26E,14 3a 01,"BSET $3A,#$01",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,F25F,Perform one ADC conversion transaction
-F271,14 1a 02,"BSET $1A,#$02",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,F25F,Perform one ADC conversion transaction
+F26E,14 3a 01,"BSET $3A,#$01",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,"Boot, stack and dispatcher diagnostic latches",F25F,Perform one ADC conversion transaction
+F271,14 1a 02,"BSET $1A,#$02",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,Live diagnostic fault bank 5,F25F,Perform one ADC conversion transaction
 F275,1d 08 38,"BCLR $08,X,#$38",RW,8,,3008,3008,finite contexts plus nonfinite contexts,19,1,Internal CPU registers,caller/local pointer context required,F275,Set the retained external ADC mux state
 F27B,aa 08,"ORAA $08,X",R,8,,3008,3008,finite contexts plus nonfinite contexts,19,1,Internal CPU registers,caller/local pointer context required,F275,Set the retained external ADC mux state
 F28E,b6 48 fd,LDAA $48FD,R,8,48FD,48FD,48FD,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Fuel feedback boot maximum,F28E,Bound retained BLM cells at boot

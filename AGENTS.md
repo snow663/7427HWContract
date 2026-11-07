@@ -112,3 +112,12 @@ this later reference snapshot; earlier update journals remain historical.
 The complete rooted write-site audit is separate from named register coverage.
 Simulator-resource corrections and cleanup candidates remain pending; TS00 is
 still first. No new BIN or simulator behavior is introduced by this audit.
+
+The [missing-role follow-up](docs/investigations/REVB_MISSING_WRITE_ROLES.md)
+names all 92 prior unmatched writer sites and adds 86 RAM entries per maintained
+book. Current RAM counts are 583 read and 724 write (83 register writes).
+`maps/maintenance/revb_write_roles/REGISTER_UPDATES.json` chains to the previous
+audit journal. Keep stack-local EST/lag words and descriptor-selected serial
+staging as site roles, not invented absolute variables. Legacy recovery slots
+A/B have a counter/clear role but no proved monitor number. The empty current
+broadcast schedule does not imply requested ALDL replies are disabled.

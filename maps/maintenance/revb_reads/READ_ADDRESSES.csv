@@ -8,32 +8,32 @@ address,resource,role,read_sites,finite_writer_sites
 0008,Internal RAM,Requested IAC position count,91C4,929E;93E5;9899;A401;F31B
 0009,Internal RAM,"IAC reset, validity and retained-state flags",91CC;93C5;93E1;93F0;93F3;93FD;98CB;A3FA;A40B,93F0;93F3;98CB;A3FA;F31E
 000A,Internal RAM,"IAC step direction, phase-ring and enable state",91A3;91D8;91E1;91E8;91EC;93C9,9200;93CD;F31E
-000B,Internal RAM,unnamed byte or word companion,5BD0;E19B;F33A;F387,5BD4;DD32;E19F;F301;F33F;F38C
-000C,Internal RAM,unnamed byte or word companion,5BD6;E19B;F33A;F387,5BDA;DD32;E19F;F301;F33F;F38C
-000D,Internal RAM,unnamed byte or word companion,5BDC;E19B;F33A;F387,5BE0;DD32;E19F;F301;F33F;F38C
-000E,Internal RAM,unnamed byte or word companion,5BE2;E19B;F33A;F387,5BE6;DD32;E19F;F315;F33F;F38C
-000F,Internal RAM,unnamed byte or word companion,71FD;E19B;F33A;F387,71FD;DD32;E19F;F315;F33F;F38C
-0010,Internal RAM,unnamed byte or word companion,5BE8;E19B;F33A;F387,5BEC;DD32;E19F;F318;F33F;F38C
-0011,Internal RAM,unnamed byte or word companion,E19B;F33A;F387,5BEE;DD32;E19F;F318;F33F;F38C
-0012,Internal RAM,unnamed byte or word companion,E19B;F33A;F387,5BF1;DD32;E19F;F31B;F33F;F38C
-0013,Internal RAM,unnamed byte or word companion,E19B;F33A;F387,5BF4;DD32;E19F;F31B;F33F;F38C
+000B,Internal RAM,Retained diagnostic log bank 1. Removed subsystem bits cleared.,5BD0;E19B;F33A;F387,5BD4;DD32;E19F;F301;F33F;F38C
+000C,Internal RAM,Retained diagnostic log bank 2. Removed subsystem bits cleared.,5BD6;E19B;F33A;F387,5BDA;DD32;E19F;F301;F33F;F38C
+000D,Internal RAM,Retained diagnostic log bank 3. Removed subsystem bits cleared.,5BDC;E19B;F33A;F387,5BE0;DD32;E19F;F301;F33F;F38C
+000E,Internal RAM,Retained diagnostic log bank 4. Removed subsystem bits cleared.,5BE2;E19B;F33A;F387,5BE6;DD32;E19F;F315;F33F;F38C
+000F,Internal RAM,Retained diagnostic log bank 5,71FD;E19B;F33A;F387,71FD;DD32;E19F;F315;F33F;F38C
+0010,Internal RAM,Retained diagnostic log bank 6. Removed subsystem bits cleared.,5BE8;E19B;F33A;F387,5BEC;DD32;E19F;F318;F33F;F38C
+0011,Internal RAM,Retained diagnostic log bank 7. Removed subsystem bits cleared.,E19B;F33A;F387,5BEE;DD32;E19F;F318;F33F;F38C
+0012,Internal RAM,Retained diagnostic log bank 8. Removed subsystem bits cleared.,E19B;F33A;F387,5BF1;DD32;E19F;F31B;F33F;F38C
+0013,Internal RAM,Retained diagnostic log bank 9. Removed subsystem bits cleared.,E19B;F33A;F387,5BF4;DD32;E19F;F31B;F33F;F38C
 0014,Internal RAM,Retained diagnostic age,DD21;DD27,DD21;DD37;E1A8;F31E
 0015,Internal RAM,Retained checksum,720F;DD24,5C48;7203;DD24;DD3E;E1AD;F31E;F374;F3D8
 0016,Internal RAM,Primary engine and sensor fault flags,5BF7;7AF4;AA8D;C991;DD40;DDB7;DDBA;E148;E164;E1B6;E774;E77D;E782;E78B;E7A8;E7B1;E7B6;E7BF;E7E2;E7F1;E7F6;E800;F341;F38E,5BFB;DD40;DDB7;DDBA;E77D;E78B;E7B1;E7BF;E7F1;E800;F315;F346;F393
 0017,Internal RAM,Secondary sensor fault flags,5BFD;7375;7AFB;DC24;DC43;DC4D;DC6F;DC7E;DDBD;E148;E164;E1B6;E823;E831;E836;E83F;F341;F38E,5C01;7375;DC24;DC43;DC4D;DC6F;DDBD;E831;E83F;F315;F346;F393
 0018,Internal RAM,Engine plausibility and IAC fault flags,5C03;98CE;A4B3;A4E6;DDC0;DFCA;E006;E148;E164;E1B6;E485;F341;F38E,5C07;98CE;A4B3;A4E6;DDC0;DFCA;E006;F318;F346;F393
 0019,Internal RAM,"Knock-sensor, EST and injector-bank fault flags",5C09;7368;736B;757C;769D;77A0;7871;7D5A;7D5D;AAAC;AC16;AC3C;CABC;CE19;CF0A;CF0F;E041;E081;E08B;E0DE;E0EB;E117;E148;E164;E1B6;E47B;F341;F38E,5C0D;7368;736B;7871;7D5A;7D5D;AC16;AC3C;CF0A;CF0F;E041;E081;E08B;E0DE;E117;F318;F346;F393
-001A,Internal RAM,unnamed byte or word companion,71FA;79D9;DCFB;E148;E164;E1B6;E28D;E2C5;EA5C;EA60;EA65;EA70;EA97;EA9B;EAA0;EAA9;F25F;F271;F341;F38E,71FA;E28D;E2C5;EA60;EA70;EA9B;EAA9;F25F;F271;F31B;F346;F393
+001A,Internal RAM,Live diagnostic fault bank 5,71FA;79D9;DCFB;E148;E164;E1B6;E28D;E2C5;EA5C;EA60;EA65;EA70;EA97;EA9B;EAA0;EAA9;F25F;F271;F341;F38E,71FA;E28D;E2C5;EA60;EA70;EA9B;EAA9;F25F;F271;F31B;F346;F393
 001B,Internal RAM,Diagnostic fault-flag byte,5C0F;E148;E164;E1B6;EB2E;EB37;EB3C;EB45;EB62;EB6B;EB70;EB79;F341;F38E,5C13;EB37;EB45;EB6B;EB79;F31B;F346;F393
 001C,Internal RAM,Transmission fault flags primary (retired operational role; reset/shared access may remain),E148;E164;E1B6;F341;F38E,5C15;F31E;F346;F393
 001D,Internal RAM,Transmission fault flags secondary (retired operational role; reset/shared access may remain),E148;E164;E1B6;F341;F38E,5C18;F31E;F346;F393
-001E,Internal RAM,unnamed byte or word companion,E148;E164;E1B6;F341;F38E,5C1B;F315;F346;F393
-001F,Internal RAM,unnamed byte or word companion,7272;E7E6,727C;E7EF;F315;F364;F3A1
-0020,Internal RAM,unnamed byte or word companion,727E;E827,7288;E82F;F318;F366;F3A3
+001E,Internal RAM,Live diagnostic fault bank 9. Removed monitor bits cleared.,E148;E164;E1B6;F341;F38E,5C1B;F315;F346;F393
+001F,Internal RAM,DTC21 retained recovery-budget counter,7272;E7E6,727C;E7EF;F315;F364;F3A1
+0020,Internal RAM,DTC22 retained recovery-budget counter,727E;E827,7288;E82F;F318;F366;F3A3
 0036,Internal RAM,Single idle-controller status; resident motor and service bits retained,921B;921F;955A;9564;956E;957B;95A9;95C0;95C5;95CF;95D5;95E0;98C8;9959;9965;9999;99AB;9A24;9A36;A3FD;A436;A9EE;CB74;E3B2,921F;955E;9564;956E;95A9;95C0;95C5;95CF;95E0;98C8;A3FD;A436;F301
 0037,Internal RAM,Retained auxiliary actuator/converter flags; former Park/Drive transitions omitted,920E;9211;9218;9294;985C;9865;A456;A45F,920E;9218;9294;9865;A456;A45F;F301
 0038,Internal RAM,Retained service override; former bank/cold-state flags omitted,93D7;98E3;A446,93D7;A446;F315
-003A,Internal RAM,unnamed byte or word companion,71CD;71E9;7971;7985;7A6B;7A79;7A7D;CC50;F26E,71CD;71E9;7971;7985;7A7D;CC50;F26E;F318
+003A,Internal RAM,"Boot, stack and dispatcher diagnostic latches",71CD;71E9;7971;7985;7A6B;7A79;7A7D;CC50;F26E,71CD;71E9;7971;7985;7A7D;CC50;F26E;F318
 003B,Internal RAM,ALDL service and diagnostic-control flags,798C;79C8;7A1F;86F2;8C53;93DA;AB1D;AC41;E493;E75F;E793;E7C7;E808;EA40;EA7C;EB19;EB4D;F5FE;F602;F64A;F720;F739;F73D;F757;F76A;F777;F79F;F7BB;F81E;F86E;F8CF;F8D4;F8F6;F9D6;F9FC;FA01,79D6;F318;F720;F777;F79F;F81E;F8CF;F8D4;F8F6;F9D6;F9FC;FA01
 003C,Internal RAM,Flash reporting state,E1EC;E1FE;E211;E215;E21C;E21F;E223;E232;E258;E270,DCEB;DCF6;DD39;E215;E21C;E223;E232;E258;E270;F31B
 003D,Internal RAM,"Fuel enrichment, deceleration and asynchronous-delivery flags",7EA9;8051;814C;8153;8164;81FA;8226;82D4;82E7;8472;84AE;84B9;8712;8735;8742;8AB6;8ADD;8B2D;8B34;8B5A;8C12;8C32;8C8E;8D73;8DE6;8E21;8EA6;AE63;AE81;CAC0;CAEC;E103,8153;8164;81FA;8226;82D4;82E7;84AE;84B9;8AB6;8B5A;8C12;8C32;8C8E;8D73;8DE6;8EA6;AE81;F31B
@@ -56,15 +56,15 @@ address,resource,role,read_sites,finite_writer_sites
 0052,Internal RAM,Knock-learning and A/C state flags,5C53;870A;88AA;88E2;8DAD;8DB1;8DB6;8DBA;9177;917F;9560;9A18;CB91;CBA7;CBB2;CC1D;CC24;CE43;CE47;CE4A;CE58;CE5C;CE5F;CE78;D47E;D49A;D49F;E4E7;E50B;E516,5C53;8DB1;8DBA;9177;917F;CB91;CBA7;CBB2;CC24;CE47;CE4A;CE5C;CE5F;CE78;D49A;D49F;E4E7;E50B;E516;F318
 0053,Internal RAM,Spark and fuel transition latches,75A2;75A7;7604;76A5;76A9;76D4;76FF;8270;827C;82EA;A9FC;AA12;AA17,75A2;7604;76A9;76D4;76FF;827C;82EA;AA12;AA17;F318
 0055,Internal RAM,Battery sample used by reference-event fuel timing,763B;7E75;836F;E29B,C580;F31B
-0056,Internal RAM,unnamed byte or word companion,5C1E;E13A;E166;E16D;E19D;F348,5C22;E14A;E16B;E1A1;F31E;F34D
-0057,Internal RAM,unnamed byte or word companion,5C24;E13A;E166;E16D;E19D;F348,5C28;E14A;E16B;E1A1;F31E;F34D
-0058,Internal RAM,unnamed byte or word companion,5C2A;E13A;E166;E16D;E19D;F348,5C2E;E14A;E16B;E1A1;F315;F34D
-0059,Internal RAM,unnamed byte or word companion,5C30;E13A;E166;E16D;E19D;F348,5C34;E14A;E16B;E1A1;F315;F34D
-005A,Internal RAM,unnamed byte or word companion,E13A;E166;E16D;E19D;F348,E14A;E16B;E1A1;F318;F34D
-005B,Internal RAM,unnamed byte or word companion,5C36;E13A;E166;E16D;E19D;F348,5C3A;E14A;E16B;E1A1;F318;F34D
-005C,Internal RAM,unnamed byte or word companion,E13A;E166;E16D;E19D;F348,5C3C;E14A;E16B;E1A1;F31B;F34D
-005D,Internal RAM,unnamed byte or word companion,E13A;E166;E16D;E19D;F348,5C3F;E14A;E16B;E1A1;F31B;F34D
-005E,Internal RAM,unnamed byte or word companion,E13A;E166;E16D;E19D;F348,5C42;E14A;E16B;E1A1;F31E;F34D
+0056,Internal RAM,Diagnostic persistence-candidate bank 1. Removed subsystem bits cleared.,5C1E;E13A;E166;E16D;E19D;F348,5C22;E14A;E16B;E1A1;F31E;F34D
+0057,Internal RAM,Diagnostic persistence-candidate bank 2. Removed subsystem bits cleared.,5C24;E13A;E166;E16D;E19D;F348,5C28;E14A;E16B;E1A1;F31E;F34D
+0058,Internal RAM,Diagnostic persistence-candidate bank 3. Removed subsystem bits cleared.,5C2A;E13A;E166;E16D;E19D;F348,5C2E;E14A;E16B;E1A1;F315;F34D
+0059,Internal RAM,Diagnostic persistence-candidate bank 4. Removed subsystem bits cleared.,5C30;E13A;E166;E16D;E19D;F348,5C34;E14A;E16B;E1A1;F315;F34D
+005A,Internal RAM,Diagnostic persistence-candidate bank 5,E13A;E166;E16D;E19D;F348,E14A;E16B;E1A1;F318;F34D
+005B,Internal RAM,Diagnostic persistence-candidate bank 6. Removed subsystem bits cleared.,5C36;E13A;E166;E16D;E19D;F348,5C3A;E14A;E16B;E1A1;F318;F34D
+005C,Internal RAM,Diagnostic persistence-candidate bank 7. Removed subsystem bits cleared.,E13A;E166;E16D;E19D;F348,5C3C;E14A;E16B;E1A1;F31B;F34D
+005D,Internal RAM,Diagnostic persistence-candidate bank 8. Removed subsystem bits cleared.,E13A;E166;E16D;E19D;F348,5C3F;E14A;E16B;E1A1;F31B;F34D
+005E,Internal RAM,Diagnostic persistence-candidate bank 9. Removed subsystem bits cleared.,E13A;E166;E16D;E19D;F348,5C42;E14A;E16B;E1A1;F31E;F34D
 005F,Internal RAM,Scaled reference-period basis (word),A5FE;AC71;F558,A5CF;A5E8;AC5B;AC9E;F31E
 0060,Internal RAM,unnamed byte or word companion,A5FE;AC71;F551,A5CF;A5E8;AC5B;AC9E;F315
 0061,Internal RAM,"Low-range, piecewise RPM lookup coordinate",A4CD;A719;C5C2;DFF5;E021,A61E;AC90;F315
@@ -95,14 +95,14 @@ address,resource,role,read_sites,finite_writer_sites
 00A8,Internal RAM,Converted coolant sample before fault substitution,C9A6;D482,C97F;F315
 00FD,Internal RAM,Engine-running admission counter (word),79B5;8A0B;C998;CB3B;DC10;DD4D;E4C1,79BA;7D62;F31B
 00FE,Internal RAM,unnamed byte or word companion,79B5;8A0B;C998;CB3B;DC10;DD18;DD4D;DD90;E058;E4C1,79BA;7D62;F31E
-015F,Internal RAM,unnamed byte or word companion,DD58;DD64,DD64;DD6D;F318
-0160,Internal RAM,unnamed byte or word companion,E76A,E78F;F318
-0161,Internal RAM,unnamed byte or word companion,E79E,E7C3;F31B
-0162,Internal RAM,unnamed byte or word companion,E7D2,E804;F31B
-0163,Internal RAM,unnamed byte or word companion,E813,E843;F31E
-0169,Internal RAM,unnamed byte or word companion,EA4B,EA77;F31B
+015F,Internal RAM,DFCO exposure and recovery counter for the O2 activity diagnostic,DD58;DD64,DD64;DD6D;F318
+0160,Internal RAM,DTC14 low coolant-ADC qualification counter,E76A,E78F;F318
+0161,Internal RAM,DTC15 high coolant-ADC qualification counter,E79E,E7C3;F31B
+0162,Internal RAM,DTC21 high raw-TPS qualification counter,E7D2,E804;F31B
+0163,Internal RAM,DTC22 low raw-TPS qualification counter,E813,E843;F31E
+0169,Internal RAM,DTC52 high battery-sample qualification counter (word),EA4B,EA77;F31B
 016A,Internal RAM,unnamed byte or word companion,EA4B,EA77;F31B
-016B,Internal RAM,unnamed byte or word companion,EA87,EAAD;F31E
+016B,Internal RAM,DTC53 battery-threshold qualification counter (literal high-side test),EA87,EAAD;F31E
 016E,Internal RAM,BARO-estimate high-limit qualification counter,EB24,EB49;F315
 016F,Internal RAM,BARO-estimate low-limit qualification counter,EB58,EB7D;F318
 01C0,Internal RAM,MAP-derived load coordinate used by the main spark table,7E57;7EB3;7F86;81C4;8288;841B;8751;8825;8942;8D18;8D32;8D5B;8E0F;A689;A706;A716;A737;A77D;A81E;AA5E;CE24,73AA;A496;F318
@@ -267,7 +267,7 @@ address,resource,role,read_sites,finite_writer_sites
 027B,Internal RAM,Fuel oxygen coordinate,7E10;8693;8813,8675;F31E
 027C,Internal RAM,Fuel oxygen direction age,86E7;88CD,86ED;F31E
 027D,Internal RAM,Fuel startup park hold,E3C8,7DA4;E3DE;E42C;F315
-027E,Internal RAM,unnamed byte or word companion,7D4B,7DAE;F315
+027E,Internal RAM,Ignition-off fuel-pass counter (word),7D4B,7DAE;F315
 027F,Internal RAM,unnamed byte or word companion,7D4B,7DAE;F318
 0280,Internal RAM,Fuel oxygen error,883F;8850;887F,87BE;F318
 0282,Internal RAM,Starting coolant coordinate,E4C4,73CA;CC3B;F31B
@@ -275,7 +275,7 @@ address,resource,role,read_sites,finite_writer_sites
 028C,Internal RAM,Previous filtered RPM monitor sample,A642,A648;F31E
 028E,Internal RAM,RPM monitor filter state (word),A62A,A633;F315
 028F,Internal RAM,unnamed byte or word companion,A62A,A633;F318
-029B,Internal RAM,unnamed byte or word companion,7470,747B;74A7;74AD;F31E
+029B,Internal RAM,RAM-refresh scan cursor (word),7470,747B;74A7;74AD;F31E
 029C,Internal RAM,unnamed byte or word companion,7470,747B;74A7;F31E
 029D,Internal RAM,Single runtime baseline air integral word,990C;99BE;99E4;99F1;9A08,98A0;99EE;F301
 029E,Internal RAM,unnamed byte or word companion,99BE;99E4;99F1;9A08,98A0;99EE;F315
@@ -315,39 +315,39 @@ address,resource,role,read_sites,finite_writer_sites
 02CE,Internal RAM,Reference-event age used by fuel scheduling,75BF;7630;766A;7829;85C2;A5B6,7456;75C8;7638;764A;7D6C;A5BB;F315
 02CF,Internal RAM,Base/cranking pulse-width seed (word),7566;7E9D;F558,7E6F;7E83;F315
 02D0,Internal RAM,unnamed byte or word companion,7566;7E9D;F551,7E6F;7E83;F318
-02D1,Internal RAM,unnamed byte or word companion,74C3;74C8,74CD;F318
+02D1,Internal RAM,Minimum observed stack-fill scan boundary (word),74C3;74C8,74CD;F318
 02D2,Internal RAM,unnamed byte or word companion,74C3;74C8,74CD;F31B
-02D3,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02D3,Internal RAM,Dispatcher slot 0 maximum observed elapsed timer count (word),7A72,7A77;F31B
 02D4,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
-02D5,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02D5,Internal RAM,Dispatcher slot 1 maximum observed elapsed timer count (word),7A72,7A77;F31E
 02D6,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
-02D7,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02D7,Internal RAM,Dispatcher slot 2 maximum observed elapsed timer count (word),7A72,7A77;F315
 02D8,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
-02D9,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02D9,Internal RAM,Dispatcher slot 3 maximum observed elapsed timer count (word),7A72,7A77;F318
 02DA,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
-02DB,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02DB,Internal RAM,Dispatcher slot 4 maximum observed elapsed timer count (word),7A72,7A77;F31B
 02DC,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
-02DD,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02DD,Internal RAM,Dispatcher slot 5 maximum observed elapsed timer count (word),7A72,7A77;F31E
 02DE,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
-02DF,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02DF,Internal RAM,Dispatcher slot 6 maximum observed elapsed timer count (word),7A72,7A77;F315
 02E0,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
-02E1,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02E1,Internal RAM,Dispatcher slot 7 maximum observed elapsed timer count (word),7A72,7A77;F318
 02E2,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
-02E3,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02E3,Internal RAM,Dispatcher slot 8 maximum observed elapsed timer count (word),7A72,7A77;F31B
 02E4,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
-02E5,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02E5,Internal RAM,Dispatcher slot 9 maximum observed elapsed timer count (word),7A72,7A77;F31E
 02E6,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
-02E7,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02E7,Internal RAM,Dispatcher slot 10 maximum observed elapsed timer count (word),7A72,7A77;F315
 02E8,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
-02E9,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02E9,Internal RAM,Dispatcher slot 11 maximum observed elapsed timer count (word),7A72,7A77;F318
 02EA,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
-02EB,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02EB,Internal RAM,Dispatcher slot 12 maximum observed elapsed timer count (word),7A72,7A77;F31B
 02EC,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
-02ED,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02ED,Internal RAM,Dispatcher slot 13 maximum observed elapsed timer count (word),7A72,7A77;F31E
 02EE,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
-02EF,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02EF,Internal RAM,Dispatcher slot 14 maximum observed elapsed timer count (word),7A72,7A77;F315
 02F0,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
-02F1,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02F1,Internal RAM,Dispatcher slot 15 maximum observed elapsed timer count (word),7A72,7A77;F318
 02F2,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
 02F3,Internal RAM,BARO estimate from MAP plus lookup correction or fallback. No direct ADC sample.,EB27;EB5B,C606;C61D;F31B
 02F4,Internal RAM,Barometric filter high byte,9285;A468;C5AE;C60C;C614;DFD8;DFDD,C620;F31E
@@ -420,7 +420,7 @@ address,resource,role,read_sites,finite_writer_sites
 084E,External GEN selection; backing unknown,Reference-event bank guard count,7861,75FB;7733;7869;F31E
 0851,External GEN selection; backing unknown,Fuel authorization capture (word),AE6D,7428;AE72;F315
 0852,External GEN selection; backing unknown,unnamed byte or word companion,AE6D,7428;AE72;F318
-0856,External GEN selection; backing unknown,unnamed byte or word companion,E107,E112;F31E
+0856,External GEN selection; backing unknown,"VATS authorization-failure qualification counter, DTC46",E107,E112;F31E
 0857,External GEN selection; backing unknown,Shared startup/running RPM request from FF60,9569;9587;959D;9900;9F44;FF0F,98FD;A443;F31E
 0858,External GEN selection; backing unknown,Retained absolute RPM-error coordinate,9973;E3A8,9574;F315
 085F,External GEN selection; backing unknown,Shared startup/running downward-slewed base target,98F0,98C2;98FA;F31E

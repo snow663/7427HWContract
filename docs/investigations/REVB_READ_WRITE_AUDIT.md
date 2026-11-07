@@ -7,6 +7,11 @@ TS00 truck testing/fine-tuning remains active. This audit corrects references,
 records evidence gaps and queues follow-up work; it does not start another
 firmware simplification.
 
+The [role-naming follow-up](REVB_MISSING_WRITE_ROLES.md) now assigns functions
+to all 92 sites left without named rows by this initial audit. The original gap
+counts below remain historical; the current inventory separates three dynamic
+operands from global address rows and reports no writer without a named role.
+
 ## Findings and disposition
 
 | ID | Finding | Disposition |

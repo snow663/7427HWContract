@@ -10,6 +10,7 @@ on:
       - "tools/*revb_cs*.py"
       - "tools/revb_access_flow.py"
       - "tools/audit_revb_rw.py"
+      - "tools/verify_revb_write_roles.py"
       - "maps/maintenance/write_registers_evidence.json"
       - "tools/trace_revb_reads.py"
       - "tools/revb_read_witnesses.py"
@@ -24,6 +25,7 @@ on:
       - "maps/maintenance/revb_cs_decode/**"
       - "maps/maintenance/revb_reads/**"
       - "maps/maintenance/revb_rw_audit/**"
+      - "maps/maintenance/revb_write_roles/**"
       - "tests/test_revb_english.py"
       - "tests/test_revb_functions.py"
       - ".github/workflows/revb-operation-reader.yml"
@@ -37,6 +39,7 @@ on:
       - "tools/*revb_cs*.py"
       - "tools/revb_access_flow.py"
       - "tools/audit_revb_rw.py"
+      - "tools/verify_revb_write_roles.py"
       - "maps/maintenance/write_registers_evidence.json"
       - "tools/trace_revb_reads.py"
       - "tools/revb_read_witnesses.py"
@@ -51,6 +54,7 @@ on:
       - "maps/maintenance/revb_cs_decode/**"
       - "maps/maintenance/revb_reads/**"
       - "maps/maintenance/revb_rw_audit/**"
+      - "maps/maintenance/revb_write_roles/**"
       - "tests/test_revb_english.py"
       - "tests/test_revb_functions.py"
 permissions:
@@ -71,3 +75,5 @@ jobs:
         run: python tools/trace_revb_reads.py --check-recorded
       - name: Audit write associations and replay cross-reference findings
         run: python tools/audit_revb_rw.py --check-recorded
+      - name: Verify formerly unnamed writer roles and dynamic owners
+        run: python tools/verify_revb_write_roles.py --check-recorded

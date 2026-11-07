@@ -177,6 +177,8 @@ def build(image):
                 results["inherited_indexed_qualification_not_resolved"] += 1
             associations[pc].append(row["address"])
     rows = []
+    role_file = ROOT / "maps/maintenance/revb_write_roles/SITE_ROLES.json"
+    site_roles = {int(r["pc"],16):r for r in json.loads(role_file.read_text())} if role_file.exists() else {}
     for pc,i in sorted(instructions.items()):
         a = i.access()
         if a and "W" in a["access"]:
@@ -184,7 +186,9 @@ def build(image):
                 access=a["access"],width_bits=a["width_bits"],
                 fixed_address=f"{a['address']:04X}" if a["address"] is not None else "",
                 finite_byte_ranges=span_text(targets[pc]),abstract_contexts=" | ".join(sorted(contexts[pc])),
-                named_evidence_rows=";".join(sorted(associations[pc]))))
+                named_evidence_rows=";".join(sorted(associations[pc])),
+                traced_site_role=site_roles.get(pc,{}).get("role",""),
+                role_kind=site_roles.get(pc,{}).get("kind","named address reference" if associations[pc] else "unassigned")))
     with (ROOT / "maps/maintenance/revb_reads/READ_SITES.csv").open(newline="") as stream:
         readers = list(csv.DictReader(stream))
     for row in readers:
@@ -200,6 +204,8 @@ def build(image):
         explicit_write_sites=len(rows),fixed_write_sites=sum(bool(r["fixed_address"]) for r in rows),
         named_write_rows=len(evidence["rows"]),named_writer_associations=sum(results.values()),
         association_results=dict(results),write_sites_without_named_evidence=sum(not r["named_evidence_rows"] for r in rows),
+        additional_site_roles=len(site_roles),
+        write_sites_without_role=sum(not r["named_evidence_rows"] and not r["traced_site_role"] for r in rows),
         witness_cases=witness["count"],scope=__doc__.strip())
     selected = dict(image_sha256=SHA,spans=[dict(start=f"{a:04X}",bytes=image[a:z].hex(" ")) for a,z in SPANS])
     return {"WRITE_SITES.csv":csv_text(rows),"QUALIFIED_REFRESH.csv":csv_text(refresh),
@@ -245,12 +251,25 @@ def check_recorded():
     assert len(current["rows"]) == meta["named_write_rows"]
     assert witness["count"] == meta["witness_cases"]
     journal = json.loads((DATA / "REGISTER_UPDATES.json").read_text())
+    successor = ROOT / "maps/maintenance/revb_write_roles/REGISTER_UPDATES.json"
+    if successor.exists():
+        later = json.loads(successor.read_text())
+        assert later["previous_update"] == "maps/maintenance/revb_rw_audit/REGISTER_UPDATES.json"
+        assert later["write_evidence_before_sha256"] == journal["write_evidence_after_sha256"]
+        prior_books = {r["workbook"]:r["after_sha256"] for r in journal["workbooks"]}
+        assert all(r["before_sha256"] == prior_books[r["workbook"]] for r in later["workbooks"])
+        journal = later
     assert hashlib.sha256(WRITE_EVIDENCE.read_bytes()).hexdigest() == journal["write_evidence_after_sha256"]
     for record in journal["workbooks"]:
         assert hashlib.sha256((ROOT/record["workbook"]).read_bytes()).hexdigest() == record["after_sha256"]
     actual = {(sheet,a):(b,c) for sheet,rs in read_workbook(ROOT/"7427_Write_Register_0.3.12.xlsx").items() for a,b,c in rs}
     assert actual == {(r["sheet"],r["address"]):(r["oem_role"],r["current_use"]) for r in current["rows"]}
     assert csv_text([r for r in rows if not r["named_evidence_rows"]]) == (DATA / "WRITERS_WITHOUT_NAMED_ROWS.csv").read_text()
+    role_file = ROOT / "maps/maintenance/revb_write_roles/SITE_ROLES.json"
+    site_roles = {r["pc"]:r for r in json.loads(role_file.read_text())} if role_file.exists() else {}
+    for row in rows:
+        assert row["traced_site_role"] == site_roles.get(row["pc"],{}).get("role","")
+    assert sum(not r["named_evidence_rows"] and not r["traced_site_role"] for r in rows) == meta["write_sites_without_role"]
     return meta
 
 

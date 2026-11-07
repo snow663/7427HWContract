@@ -1,0 +1,451 @@
+{
+  "count": 47,
+  "cases": [
+    {
+      "name": "Candidate seed",
+      "retained": [
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128
+      ],
+      "candidate": [
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51
+      ],
+      "live": [
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51
+      ]
+    },
+    {
+      "name": "Candidate intersection",
+      "retained": [
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128
+      ],
+      "candidate": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "live": [
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51
+      ]
+    },
+    {
+      "name": "Retained log union and candidate clear",
+      "retained": [
+        143,
+        143,
+        143,
+        143,
+        143,
+        143,
+        143,
+        143,
+        143
+      ],
+      "candidate": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "live": [
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51
+      ]
+    },
+    {
+      "name": "Expired retained log clear",
+      "retained": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "candidate": [
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15
+      ],
+      "live": [
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51,
+        51
+      ]
+    },
+    {
+      "name": "Masked log/live/candidate clear",
+      "retained": [
+        0,
+        0,
+        0,
+        128,
+        128,
+        128,
+        128,
+        128,
+        128
+      ],
+      "candidate": [
+        14,
+        15,
+        3,
+        1,
+        9,
+        15,
+        15,
+        15,
+        15
+      ],
+      "live": [
+        2,
+        3,
+        3,
+        1,
+        17,
+        51,
+        51,
+        51,
+        51
+      ]
+    },
+    {
+      "name": "Masked log/live clear",
+      "retained": [
+        128,
+        0,
+        128,
+        0,
+        128,
+        128,
+        0,
+        0,
+        128
+      ],
+      "candidate": [
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15
+      ],
+      "live": [
+        18,
+        17,
+        48,
+        51,
+        35,
+        17,
+        0,
+        16,
+        3
+      ]
+    },
+    {
+      "name": "Per-slot elapsed maximum",
+      "slot": 0,
+      "old": 0,
+      "result": 563,
+      "address": "02D3"
+    },
+    {
+      "name": "Per-slot elapsed maximum",
+      "slot": 0,
+      "old": 1024,
+      "result": 1024,
+      "address": "02D3"
+    },
+    {
+      "name": "Per-slot elapsed maximum",
+      "slot": 15,
+      "old": 0,
+      "result": 563,
+      "address": "02F1"
+    },
+    {
+      "name": "Per-slot elapsed maximum",
+      "slot": 15,
+      "old": 1024,
+      "result": 1024,
+      "address": "02F1"
+    },
+    {
+      "name": "EST candidate is frame-relative",
+      "entry_SP": "03FF",
+      "written": [
+        "03FC",
+        "03FD"
+      ]
+    },
+    {
+      "name": "Lag state is frame-relative",
+      "entry_SP": "03FF",
+      "written": [
+        "03FC",
+        "03FD"
+      ]
+    },
+    {
+      "name": "EST candidate is frame-relative",
+      "entry_SP": "03DF",
+      "written": [
+        "03DC",
+        "03DD"
+      ]
+    },
+    {
+      "name": "Lag state is frame-relative",
+      "entry_SP": "03DF",
+      "written": [
+        "03DC",
+        "03DD"
+      ]
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 0,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 1,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 2,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 3,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 4,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 5,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 6,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 7,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 8,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 9,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 10,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 11,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 12,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 13,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 14,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 15,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 16,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 17,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 18,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 19,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 20,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 21,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 22,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 23,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 24,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 25,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 26,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 27,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 28,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 29,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 30,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Released broadcast schedule is null",
+      "byte_offset": 31,
+      "descriptor": "0000"
+    },
+    {
+      "name": "Synthetic descriptor staging template",
+      "destination": "0220..0221",
+      "data": [
+        18,
+        52
+      ],
+      "scope": "Controlled descriptor only; not an admitted released-schedule transaction"
+    }
+  ],
+  "scope": "Verify the 92 formerly unnamed Rev B writer roles without inventing globals.\n\nFull-image checks use exact Rev B bytes/rooting. Recorded checks use selected\nexcerpts and controlled CPU witnesses, not a reconstructed full ROM or hardware."
+}

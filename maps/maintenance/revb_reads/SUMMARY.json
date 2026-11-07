@@ -19,11 +19,11 @@
   "reference_inputs": [
     {
       "path": "7427_Address_Register_0.3.12.xlsx",
-      "sha256": "42017a65b4d1a04039cbba9a9b2bb54fec44dd56d0a68306e06e95bdfcbb2c10"
+      "sha256": "f5d2b940cef51b10a20d2615f6fa6f67e685313094ae3f3145f8aeeb85f57b4d"
     },
     {
       "path": "7427_Write_Register_0.3.12.xlsx",
-      "sha256": "d473ee3f37655b308cfdb4bed152b033c6dbff3d6986722bbd0d84e3b549e585"
+      "sha256": "439f0ab483abba53ac78866e2770a21f807d63493b900f366c624cbb89f2c5eb"
     }
   ],
   "scope": "Explicit operand reads including RMW; static normal-return may-effects. Unknown/formal contexts remain separate. Instruction fetch, vector fetch and implicit stack reads have separate inventories. No physical aliases or dummy bus cycles inferred."

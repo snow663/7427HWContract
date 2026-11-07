@@ -6,7 +6,7 @@ for interpretations, corrections, qualified observations and remaining work.
 | File | Contents |
 |---|---|
 | `WRITE_SITES.csv` | All 1,120 rooted explicit write sites, exact bytes, widths, fixed operands, finite abstract footprints and named-row associations. Includes RMW; excludes implicit stack writes. |
-| `WRITERS_WITHOUT_NAMED_ROWS.csv` | Remaining 92 sites without a named write-evidence row, including unknown or generic destinations. Not a dead-code list. |
+| `WRITERS_WITHOUT_NAMED_ROWS.csv` | Current sites without global address rows: two stack-local writes and one descriptor-selected copy, each with a traced routine role. The historical 92-site list is preserved in ../revb_write_roles/SEED_SITES.csv. |
 | `PREAUDIT_UNINDEXED_WRITERS.csv` | Historical 108 sites missing before this audit; linked to the prior write-evidence SHA in the update journal. |
 | `QUALIFIED_REFRESH.csv` | Eight read/write pairs across two admitted RAM-refresh intervals, each word start/stride/count separately qualified. |
 | `EVIDENCE.json` | Exact selected Rev B excerpts; not a full BIN. |
