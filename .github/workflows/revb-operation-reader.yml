@@ -9,6 +9,8 @@ on:
       - "tools/trace_manual_idle.py"
       - "tools/*revb_cs*.py"
       - "tools/revb_access_flow.py"
+      - "tools/audit_revb_rw.py"
+      - "maps/maintenance/write_registers_evidence.json"
       - "tools/trace_revb_reads.py"
       - "tools/revb_read_witnesses.py"
       - "7427_Address_Register_0.3.12.xlsx"
@@ -21,6 +23,7 @@ on:
       - "maps/maintenance/revb_function_*.json"
       - "maps/maintenance/revb_cs_decode/**"
       - "maps/maintenance/revb_reads/**"
+      - "maps/maintenance/revb_rw_audit/**"
       - "tests/test_revb_english.py"
       - "tests/test_revb_functions.py"
       - ".github/workflows/revb-operation-reader.yml"
@@ -33,6 +36,8 @@ on:
       - "tools/trace_manual_idle.py"
       - "tools/*revb_cs*.py"
       - "tools/revb_access_flow.py"
+      - "tools/audit_revb_rw.py"
+      - "maps/maintenance/write_registers_evidence.json"
       - "tools/trace_revb_reads.py"
       - "tools/revb_read_witnesses.py"
       - "7427_Address_Register_0.3.12.xlsx"
@@ -45,6 +50,7 @@ on:
       - "maps/maintenance/revb_function_*.json"
       - "maps/maintenance/revb_cs_decode/**"
       - "maps/maintenance/revb_reads/**"
+      - "maps/maintenance/revb_rw_audit/**"
       - "tests/test_revb_english.py"
       - "tests/test_revb_functions.py"
 permissions:
@@ -63,3 +69,5 @@ jobs:
         run: python tools/verify_revb_cs_decode.py --check-recorded
       - name: Replay reads, ADC publications and qualified checksum footprint
         run: python tools/trace_revb_reads.py --check-recorded
+      - name: Audit write associations and replay cross-reference findings
+        run: python tools/audit_revb_rw.py --check-recorded

@@ -1,0 +1,150 @@
+{
+  "cases": [
+    {
+      "name": "Qualified RAM refresh",
+      "read_bytes": 1280,
+      "write_bytes": 1280,
+      "word_reads": 640,
+      "word_writes": 640,
+      "identical_read_write_pairs": true,
+      "stop": "74B3"
+    },
+    {
+      "name": "Discarded DFCO speed loads",
+      "fuel_cut_flag": 0,
+      "synthetic_threshold": 0,
+      "A": 3,
+      "CCR": 208,
+      "reads": [
+        "493B",
+        "0046",
+        "0246"
+      ],
+      "scope": "Only8209..821A; caller and later DFCO behavior are not proved by this slice"
+    },
+    {
+      "name": "Discarded DFCO speed loads",
+      "fuel_cut_flag": 0,
+      "synthetic_threshold": 127,
+      "A": 3,
+      "CCR": 208,
+      "reads": [
+        "493B",
+        "0046",
+        "0246"
+      ],
+      "scope": "Only8209..821A; caller and later DFCO behavior are not proved by this slice"
+    },
+    {
+      "name": "Discarded DFCO speed loads",
+      "fuel_cut_flag": 0,
+      "synthetic_threshold": 255,
+      "A": 3,
+      "CCR": 208,
+      "reads": [
+        "493B",
+        "0046",
+        "0246"
+      ],
+      "scope": "Only8209..821A; caller and later DFCO behavior are not proved by this slice"
+    },
+    {
+      "name": "Discarded DFCO speed loads",
+      "fuel_cut_flag": 8,
+      "synthetic_threshold": 0,
+      "A": 3,
+      "CCR": 208,
+      "reads": [
+        "493B",
+        "0046",
+        "493C",
+        "0246"
+      ],
+      "scope": "Only8209..821A; caller and later DFCO behavior are not proved by this slice"
+    },
+    {
+      "name": "Discarded DFCO speed loads",
+      "fuel_cut_flag": 8,
+      "synthetic_threshold": 127,
+      "A": 3,
+      "CCR": 208,
+      "reads": [
+        "493B",
+        "0046",
+        "493C",
+        "0246"
+      ],
+      "scope": "Only8209..821A; caller and later DFCO behavior are not proved by this slice"
+    },
+    {
+      "name": "Discarded DFCO speed loads",
+      "fuel_cut_flag": 8,
+      "synthetic_threshold": 255,
+      "A": 3,
+      "CCR": 208,
+      "reads": [
+        "493B",
+        "0046",
+        "493C",
+        "0246"
+      ],
+      "scope": "Only8209..821A; caller and later DFCO behavior are not proved by this slice"
+    },
+    {
+      "name": "ADC timeout still publishes result slots",
+      "polls": 12,
+      "fault_bits": [
+        "001A.1",
+        "003A.0"
+      ],
+      "published": [
+        "00A6",
+        "082E",
+        "01D5"
+      ],
+      "scope": "Forced COCO-clear controlled storage; not a physical ADC timing/failure model"
+    },
+    {
+      "name": "Retained IAC shadow producer and publication",
+      "producer": "9203..920A",
+      "shadow": "004C",
+      "publication": "F40F/F411",
+      "destination": "3062",
+      "scope": "Controlled phase bits; board electrical response not modeled"
+    },
+    {
+      "name": "BARO candidate construction",
+      "filtered_MAP": 96,
+      "supplied_correction": 16,
+      "candidate": 112,
+      "scope": "Caller-supplied lookup output; proves addition/saturation, not physical scaling or lookup interpolation"
+    },
+    {
+      "name": "BARO candidate construction",
+      "filtered_MAP": 240,
+      "supplied_correction": 32,
+      "candidate": 255,
+      "scope": "Caller-supplied lookup output; proves addition/saturation, not physical scaling or lookup interpolation"
+    },
+    {
+      "name": "BARO fallback publication",
+      "synthetic_fallback": 82,
+      "destinations": [
+        "02F3",
+        "02F4..02F5"
+      ],
+      "scope": "Controlled fallback path, not a direct ADC sample"
+    },
+    {
+      "name": "Existing simulator resource boundary observation",
+      "internal_ram_bytes": 512,
+      "internal_register_bytes": 64,
+      "internal_0200": false,
+      "internal_305c": false,
+      "default_CONFIG": "03",
+      "scope": "Implementation observation, not an assertion of correct F1 or GM hardware behavior"
+    }
+  ],
+  "count": 13,
+  "scope": "Audit Rev B read/write evidence and replay bounded cross-reference findings.\n\nFull-image mode checks rooted writers and recorded readers against actual bytes.\nRecorded mode replays selected code in controlled byte storage; it cannot prove\nwhole-image reachability, interrupt histories, electrical behavior or aliases."
+}

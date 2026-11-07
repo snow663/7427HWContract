@@ -1,0 +1,17 @@
+read_pc,write_pc,first_word,last_word,stride,width_bits,word_transactions,qualification
+7484,7486,0000,03F0,16,16,64,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7484,7486,0800,08F0,16,16,16,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7488,748A,0002,03F2,16,16,64,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7488,748A,0802,08F2,16,16,16,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+748C,748E,0004,03F4,16,16,64,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+748C,748E,0804,08F4,16,16,16,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7490,7492,0006,03F6,16,16,64,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7490,7492,0806,08F6,16,16,16,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7494,7496,0008,03F8,16,16,64,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7494,7496,0808,08F8,16,16,16,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7498,749A,000A,03FA,16,16,64,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+7498,749A,080A,08FA,16,16,16,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+749C,749E,000C,03FC,16,16,64,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+749C,749E,080C,08FC,16,16,16,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+74A0,74A2,000E,03FE,16,16,64,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk
+74A0,74A2,080E,08FE,16,16,16,Entry746C with0051.2 set and029B=0000; valid uninterrupted cursor walk

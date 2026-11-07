@@ -8,7 +8,7 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 5BFD,96 17,LDAA $17,R,8,0017,0017,0017,fixed operand,0,0,Internal RAM,Secondary sensor fault flags,5BD0,Initialize the retained engine and output state
 5C03,96 18,LDAA $18,R,8,0018,0018,0018,fixed operand,0,0,Internal RAM,Engine plausibility and IAC fault flags,5BD0,Initialize the retained engine and output state
 5C09,96 19,LDAA $19,R,8,0019,0019,0019,fixed operand,0,0,Internal RAM,"Knock-sensor, EST and injector-bank fault flags",5BD0,Initialize the retained engine and output state
-5C0F,96 1b,LDAA $1B,R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
+5C0F,96 1b,LDAA $1B,R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,5BD0,Initialize the retained engine and output state
 5C1E,96 56,LDAA $56,R,8,0056,0056,0056,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
 5C24,96 57,LDAA $57,R,8,0057,0057,0057,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
 5C2A,96 58,LDAA $58,R,8,0058,0058,0058,fixed operand,0,0,Internal RAM,,5BD0,Initialize the retained engine and output state
@@ -257,7 +257,7 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 7931,1a b3 08 23,CPD $0823,R,16,0823,0823,0823..0824,fixed operand,0,0,External GEN selection; backing unknown,Reference-event compare b (word),78D9,Service the companion timer-output channel
 7937,fc 08 23,LDD $0823,R,16,0823,0823,0823..0824,fixed operand,0,0,External GEN selection; backing unknown,Reference-event compare b (word),78D9,Service the companion timer-output channel
 793D,fc 30 1a,LDD $301A,R,16,301A,301A,301A..301B,fixed operand,0,0,Internal CPU registers,TOC3: recurring dispatcher compare timing,793D,Admit or defer a periodic engine-work pass
-794B,14 00 01,"BSET $00,#$01",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,,793D,Admit or defer a periodic engine-work pass
+794B,14 00 01,"BSET $00,#$01",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,793D,Admit or defer a periodic engine-work pass
 795C,12 4f 04 07,"BRSET $4F,#$04,$7967",R,8,004F,004F,004F,fixed operand,0,0,Internal RAM,"Engine-running, startup-gain and fuel-model state flags",793D,Admit or defer a periodic engine-work pass
 7971,14 3a 08,"BSET $3A,#$08",RW,8,003A,003A,003A,fixed operand,0,0,Internal RAM,,793D,Admit or defer a periodic engine-work pass
 7974,15 4f 04,"BCLR $4F,#$04",RW,8,004F,004F,004F,fixed operand,0,0,Internal RAM,"Engine-running, startup-gain and fuel-model state flags",793D,Admit or defer a periodic engine-work pass
@@ -922,7 +922,7 @@ pc,bytes,operation,access,width_bits,fixed_address,finite_starts,finite_byte_ran
 8EA9,96 63,LDAA $63,R,8,0063,0063,0063,fixed operand,0,0,Internal RAM,Filtered engine-speed high byte,8E1D,Update the selected learned fuel cell
 8EAD,b6 01 d5,LDAA $01D5,R,8,01D5,01D5,01D5,fixed operand,0,0,Internal RAM,Sampled engine oxygen-sensor input,8E1D,Update the selected learned fuel cell
 916C,b6 40 0f,LDAA $400F,R,8,400F,400F,400F,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Configuration option byte F,9167,Refresh retained switch context and watchdog state
-9173,12 4d 01 08,"BRSET $4D,#$01,$917F",R,8,004D,004D,004D,fixed operand,0,0,Internal RAM,IAC input shadow,9167,Refresh retained switch context and watchdog state
+9173,12 4d 01 08,"BRSET $4D,#$01,$917F",R,8,004D,004D,004D,fixed operand,0,0,Internal RAM,Board digital-input sample mirrored from $3064. Surviving engine/IAC consumers.,9167,Refresh retained switch context and watchdog state
 9177,15 52 20,"BCLR $52,#$20",RW,8,0052,0052,0052,fixed operand,0,0,Internal RAM,Knock-learning and A/C state flags,9167,Refresh retained switch context and watchdog state
 917A,15 41 10,"BCLR $41,#$10",RW,8,0041,0041,0041,fixed operand,0,0,Internal RAM,"Engine input, mixture and output-context flags",9167,Refresh retained switch context and watchdog state
 917F,14 52 20,"BSET $52,#$20",RW,8,0052,0052,0052,fixed operand,0,0,Internal RAM,Knock-learning and A/C state flags,9167,Refresh retained switch context and watchdog state
@@ -1433,7 +1433,7 @@ CB2D,14 50 10,"BSET $50,#$10",RW,8,0050,0050,0050,fixed operand,0,0,Internal RAM
 CB34,1e 00 04 03,"BRSET $00,X,#$04,$CB3B",R,8,,400F,400F,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,CB15,Qualify A/C request and related switch context
 CB3B,dc fd,LDD $FD,R,16,00FD,00FD,00FD..00FE,fixed operand,0,0,Internal RAM,Engine-running admission counter (word),CB15,Qualify A/C request and related switch context
 CB3D,1a b3 40 22,CPD $4022,R,16,4022,4022,4022..4023,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Engine state minimum (word),CB15,Qualify A/C request and related switch context
-CB43,12 4d 01 0e,"BRSET $4D,#$01,$CB55",R,8,004D,004D,004D,fixed operand,0,0,Internal RAM,IAC input shadow,CB15,Qualify A/C request and related switch context
+CB43,12 4d 01 0e,"BRSET $4D,#$01,$CB55",R,8,004D,004D,004D,fixed operand,0,0,Internal RAM,Board digital-input sample mirrored from $3064. Surviving engine/IAC consumers.,CB15,Qualify A/C request and related switch context
 CB47,b6 40 12,LDAA $4012,R,8,4012,4012,4012,fixed operand,0,0,Program selection; supplied code/calibration/vector region,A/C entry delay,CB15,Qualify A/C request and related switch context
 CB4D,b6 40 13,LDAA $4013,R,8,4013,4013,4013,fixed operand,0,0,Program selection; supplied code/calibration/vector region,A/C exit delay,CB15,Qualify A/C request and related switch context
 CB55,b6 08 30,LDAA $0830,R,8,0830,0830,0830,fixed operand,0,0,External GEN selection; backing unknown,Input/output A/C entry,CB15,Qualify A/C request and related switch context
@@ -1952,26 +1952,26 @@ EAA5,a1 67,"CMPA $67,X",R,8,,5B67,5B67,finite abstract contexts,3,0,Program sele
 EAA9,14 1a 08,"BSET $1A,#$08",RW,8,001A,001A,001A,fixed operand,0,0,Internal RAM,,EA7C,Qualify the companion battery-voltage fault condition
 EB19,12 3b 04 2f,"BRSET $3B,#$04,$EB4C",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,EB19,Debounce the high BARO estimate fault
 EB20,1f 05 04 24,"BRCLR $05,X,#$04,$EB48",R,8,,5B05,5B05,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB19,Debounce the high BARO estimate fault
-EB24,b6 01 6e,LDAA $016E,R,8,016E,016E,016E,fixed operand,0,0,Internal RAM,,EB19,Debounce the high BARO estimate fault
-EB27,f6 02 f3,LDAB $02F3,R,8,02F3,02F3,02F3,fixed operand,0,0,Internal RAM,Sampled barometric-pressure input,EB19,Debounce the high BARO estimate fault
+EB24,b6 01 6e,LDAA $016E,R,8,016E,016E,016E,fixed operand,0,0,Internal RAM,BARO-estimate high-limit qualification counter,EB19,Debounce the high BARO estimate fault
+EB27,f6 02 f3,LDAB $02F3,R,8,02F3,02F3,02F3,fixed operand,0,0,Internal RAM,BARO estimate from MAP plus lookup correction or fallback. No direct ADC sample.,EB19,Debounce the high BARO estimate fault
 EB2A,e1 6d,"CMPB $6D,X",R,8,,5B6D,5B6D,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB19,Debounce the high BARO estimate fault
-EB2E,13 1b 04 16,"BRCLR $1B,#$04,$EB48",R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,EB19,Debounce the high BARO estimate fault
+EB2E,13 1b 04 16,"BRCLR $1B,#$04,$EB48",R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,EB19,Debounce the high BARO estimate fault
 EB33,a1 6e,"CMPA $6E,X",R,8,,5B6E,5B6E,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB19,Debounce the high BARO estimate fault
-EB37,15 1b 04,"BCLR $1B,#$04",RW,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,EB19,Debounce the high BARO estimate fault
-EB3C,12 1b 04 08,"BRSET $1B,#$04,$EB48",R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,EB19,Debounce the high BARO estimate fault
+EB37,15 1b 04,"BCLR $1B,#$04",RW,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,EB19,Debounce the high BARO estimate fault
+EB3C,12 1b 04 08,"BRSET $1B,#$04,$EB48",R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,EB19,Debounce the high BARO estimate fault
 EB41,a1 6e,"CMPA $6E,X",R,8,,5B6E,5B6E,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB19,Debounce the high BARO estimate fault
-EB45,14 1b 04,"BSET $1B,#$04",RW,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,EB19,Debounce the high BARO estimate fault
+EB45,14 1b 04,"BSET $1B,#$04",RW,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,EB19,Debounce the high BARO estimate fault
 EB4D,12 3b 04 2f,"BRSET $3B,#$04,$EB80",R,8,003B,003B,003B,fixed operand,0,0,Internal RAM,ALDL service and diagnostic-control flags,EB4D,Debounce the low BARO estimate fault
 EB54,1f 05 02 24,"BRCLR $05,X,#$02,$EB7C",R,8,,5B05,5B05,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB4D,Debounce the low BARO estimate fault
-EB58,b6 01 6f,LDAA $016F,R,8,016F,016F,016F,fixed operand,0,0,Internal RAM,,EB4D,Debounce the low BARO estimate fault
-EB5B,f6 02 f3,LDAB $02F3,R,8,02F3,02F3,02F3,fixed operand,0,0,Internal RAM,Sampled barometric-pressure input,EB4D,Debounce the low BARO estimate fault
+EB58,b6 01 6f,LDAA $016F,R,8,016F,016F,016F,fixed operand,0,0,Internal RAM,BARO-estimate low-limit qualification counter,EB4D,Debounce the low BARO estimate fault
+EB5B,f6 02 f3,LDAB $02F3,R,8,02F3,02F3,02F3,fixed operand,0,0,Internal RAM,BARO estimate from MAP plus lookup correction or fallback. No direct ADC sample.,EB4D,Debounce the low BARO estimate fault
 EB5E,e1 71,"CMPB $71,X",R,8,,5B71,5B71,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB4D,Debounce the low BARO estimate fault
-EB62,13 1b 02 16,"BRCLR $1B,#$02,$EB7C",R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,EB4D,Debounce the low BARO estimate fault
+EB62,13 1b 02 16,"BRCLR $1B,#$02,$EB7C",R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,EB4D,Debounce the low BARO estimate fault
 EB67,a1 72,"CMPA $72,X",R,8,,5B72,5B72,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB4D,Debounce the low BARO estimate fault
-EB6B,15 1b 02,"BCLR $1B,#$02",RW,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,EB4D,Debounce the low BARO estimate fault
-EB70,12 1b 02 08,"BRSET $1B,#$02,$EB7C",R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,EB4D,Debounce the low BARO estimate fault
+EB6B,15 1b 02,"BCLR $1B,#$02",RW,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,EB4D,Debounce the low BARO estimate fault
+EB70,12 1b 02 08,"BRSET $1B,#$02,$EB7C",R,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,EB4D,Debounce the low BARO estimate fault
 EB75,a1 72,"CMPA $72,X",R,8,,5B72,5B72,finite abstract contexts,3,0,Program selection; supplied code/calibration/vector region,caller/local pointer context required,EB4D,Debounce the low BARO estimate fault
-EB79,14 1b 02,"BSET $1B,#$02",RW,8,001B,001B,001B,fixed operand,0,0,Internal RAM,,EB4D,Debounce the low BARO estimate fault
+EB79,14 1b 02,"BSET $1B,#$02",RW,8,001B,001B,001B,fixed operand,0,0,Internal RAM,Diagnostic fault-flag byte,EB4D,Debounce the low BARO estimate fault
 F21A,a6 34,"LDAA $34,X",R,8,,3034,3034,finite abstract contexts,6,0,Internal CPU registers,caller/local pointer context required,F20D,Acquire a selected auxiliary/test input
 F236,a6 32,"LDAA $32,X",R,8,,3032,3032,finite abstract contexts,6,0,Internal CPU registers,caller/local pointer context required,F20D,Acquire a selected auxiliary/test input
 F23F,a6 34,"LDAA $34,X",R,8,,3034,3034,finite abstract contexts,6,0,Internal CPU registers,caller/local pointer context required,F20D,Acquire a selected auxiliary/test input
@@ -2196,13 +2196,13 @@ FA24,1e 04 80 25,"BRSET $04,X,#$80,$FA4D",R,8,,,,nonfinite contexts only,2,2,,ca
 FA2B,f6 30 2e,LDAB $302E,R,8,302E,302E,302E,fixed operand,0,0,Internal CPU registers,SCSR: SCI transmit/receive status,FA28,Launch an addressed reply
 FA2E,a6 02,"LDAA $02,X",R,8,,,,nonfinite contexts only,2,2,,caller/local pointer context required,FA28,Launch an addressed reply
 FA3B,fc 3f fc,LDD $3FFC,R,16,3FFC,3FFC,3FFC..3FFD,fixed operand,0,0,External IO2 selection,External board output-latch state used by engine/serial control,FA28,Launch an addressed reply
-FC04,14 00 08,"BSET $00,#$08",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,,FC04,Latch one exceptional-entry flag and stop locally
-FC09,14 00 04,"BSET $00,#$04",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,,FC09,Latch an exception and alter its saved return mask
-FC11,14 00 02,"BSET $00,#$02",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,,FC11,Handle the retained timer-flag exception entry
-FC1A,14 00 10,"BSET $00,#$10",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,,FC1A,Latch another exceptional-entry flag and stop locally
-FC1F,14 00 20,"BSET $00,#$20",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,,FC1F,Record an exception before rebooting
-FC24,14 00 40,"BSET $00,#$40",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,,FC24,Record an exceptional condition and wait locally
-FC29,14 00 80,"BSET $00,#$80",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,,FC29,Record the high exception flag and reboot
+FC04,14 00 08,"BSET $00,#$08",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,FC04,Latch one exceptional-entry flag and stop locally
+FC09,14 00 04,"BSET $00,#$04",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,FC09,Latch an exception and alter its saved return mask
+FC11,14 00 02,"BSET $00,#$02",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,FC11,Handle the retained timer-flag exception entry
+FC1A,14 00 10,"BSET $00,#$10",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,FC1A,Latch another exceptional-entry flag and stop locally
+FC1F,14 00 20,"BSET $00,#$20",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,FC1F,Record an exception before rebooting
+FC24,14 00 40,"BSET $00,#$40",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,FC24,Record an exceptional condition and wait locally
+FC29,14 00 80,"BSET $00,#$80",RW,8,0000,0000,0000,fixed operand,0,0,Internal RAM,Interrupt and trap cause latch,FC29,Record the high exception flag and reboot
 FEC0,b6 fe 9f,LDAA $FE9F,R,8,FE9F,FE9F,FE9F,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Custom closed-throttle and global open-loop fuel-policy flags,FEC0,Bypass learned BLM under global open-loop policy
 FECC,b6 02 48,LDAA $0248,R,8,0248,0248,0248,fixed operand,0,0,Internal RAM,Selected block-learn multiplier; multiplicative fuel correction,FEC0,Bypass learned BLM under global open-loop policy
 FEE0,f6 fe 9f,LDAB $FE9F,R,8,FE9F,FE9F,FE9F,fixed operand,0,0,Program selection; supplied code/calibration/vector region,Custom closed-throttle and global open-loop fuel-policy flags,FEE0,Neutralize additive INT/P under global open-loop policy

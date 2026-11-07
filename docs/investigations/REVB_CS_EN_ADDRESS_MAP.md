@@ -8,7 +8,9 @@ The firmware establishes separate CPU, general-memory and I/O windows. Software 
 
 The [read companion](REVB_READ_RESOURCES.md) maps operand reads to these
 resources, including ADC caller context, board input mirrors, shared words and
-the separately qualified boot-checksum footprint.
+the separately qualified boot-checksum footprint. The [read/write audit](REVB_READ_WRITE_AUDIT.md)
+adds the admitted RAM-refresh walk and distinguishes the simulator resource
+implementation from this conditional F1 interpretation.
 
 ## 1. Actual relocation, CS/EN and visibility writes
 

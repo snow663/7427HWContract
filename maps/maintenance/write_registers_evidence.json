@@ -10,7 +10,8 @@
     "Reset writes to ASIC status windows do not establish physical write behavior or an inactive output.",
     "Named word starts represent the full word; independently named byte/bit owners remain separate.",
     "Unknown register identities remain explicit. Blank current use means retained write role, not byte-identical calibration or identical writer set.",
-    "Omitted describes the removed write role. Initialization, refresh or safe-off writes may remain and are identified separately."
+    "Omitted describes the removed write role. Initialization, refresh or safe-off writes may remain and are identified separately.",
+    "The 2026-11-07 audit completes fixed-writer associations for named row starts. Separate full write-site inventory includes unnamed operands; this does not resolve inherited indexed/reset scopes or prove bit-level operational liveness."
   ],
   "sources": [
     "maps/structure/factory_global_instructions.csv",
@@ -29,10 +30,38 @@
     "docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md",
     "docs/investigations/MANUAL_IDLE_REPLACEMENT.md",
     "source/manual_idle/decel_spark_gate.asm",
-    "docs/investigations/MANUAL_IDLE_REVB_RELEASE.md"
+    "docs/investigations/MANUAL_IDLE_REVB_RELEASE.md",
+    "docs/investigations/REVB_READ_WRITE_AUDIT.md"
   ],
-  "updated": "2026-11-06",
+  "updated": "2026-11-07",
   "rows": [
+    {
+      "sheet": "RAM writes",
+      "address": "$0000",
+      "oem_role": "Interrupt and trap cause latch",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$794B",
+        "$FC04",
+        "$FC09",
+        "$FC11",
+        "$FC1A",
+        "$FC1F",
+        "$FC24",
+        "$FC29"
+      ],
+      "current_writer_pcs": [
+        "$794B",
+        "$FC04",
+        "$FC09",
+        "$FC11",
+        "$FC1A",
+        "$FC1F",
+        "$FC24",
+        "$FC29"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
     {
       "sheet": "RAM writes",
       "address": "$0001",
@@ -847,6 +876,62 @@
         "$F31B",
         "$F346"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001B",
+      "oem_role": "Diagnostic fault-flag byte",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EACE",
+        "$EADC",
+        "$EB01",
+        "$EB0F",
+        "$EB37",
+        "$EB45",
+        "$EB6B",
+        "$EB79"
+      ],
+      "current_writer_pcs": [
+        "$5C13",
+        "$EB37",
+        "$EB45",
+        "$EB6B",
+        "$EB79"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001B.1",
+      "oem_role": "BARO-estimate low-limit diagnostic flag",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EB6B",
+        "$EB79"
+      ],
+      "current_writer_pcs": [
+        "$5C13",
+        "$EB6B",
+        "$EB79"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001B.2",
+      "oem_role": "BARO-estimate high-limit diagnostic flag",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EB37",
+        "$EB45"
+      ],
+      "current_writer_pcs": [
+        "$5C13",
+        "$EB37",
+        "$EB45"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
     },
     {
       "sheet": "RAM writes",
@@ -2439,7 +2524,7 @@
       "sheet": "RAM writes",
       "address": "$004C",
       "oem_role": "Shared board-output shadow, including engine I/O and factory transmission bits",
-      "current_use": "Engine-only cleanup clears removed subsystem state",
+      "current_use": "Shared IAC phase/enable and board-output shadow. Transmission fields cleared.",
       "oem_writer_pcs": [
         "$744D",
         "$749E",
@@ -2465,7 +2550,7 @@
       "sheet": "RAM writes",
       "address": "$004D",
       "oem_role": "IAC input shadow",
-      "current_use": "",
+      "current_use": "Board digital-input sample mirrored from $3064. Surviving engine/IAC consumers.",
       "oem_writer_pcs": [
         "$749E",
         "$F31B",
@@ -5681,6 +5766,32 @@
         "$749A",
         "$F31E"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$016E",
+      "oem_role": "BARO-estimate high-limit qualification counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EB49"
+      ],
+      "current_writer_pcs": [
+        "$EB49"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$016F",
+      "oem_role": "BARO-estimate low-limit qualification counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EB7D"
+      ],
+      "current_writer_pcs": [
+        "$EB7D"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
     },
     {
       "sheet": "RAM writes",
@@ -9400,7 +9511,7 @@
       "sheet": "RAM writes",
       "address": "$02F3",
       "oem_role": "Sampled barometric-pressure input",
-      "current_use": "",
+      "current_use": "BARO estimate from MAP plus lookup correction or fallback. No direct ADC sample.",
       "oem_writer_pcs": [
         "$748A",
         "$C59B",
@@ -11692,7 +11803,7 @@
       "sheet": "RAM writes",
       "address": "$088B",
       "oem_role": "Converted IAC airflow demand (word)",
-      "current_use": "",
+      "current_use": "Converted air-command snapshot before the IAC position lookup. No fixed/finite read identified.",
       "oem_writer_pcs": [
         "$749A",
         "$9880",
@@ -11838,6 +11949,19 @@
         "$7496",
         "$F315"
       ]
+    },
+    {
+      "sheet": "Register writes",
+      "address": "$0F00",
+      "oem_role": "Conditional EEPROM-window destination. Purpose and physical backing unresolved.",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$F5D8"
+      ],
+      "current_writer_pcs": [
+        "$F5D8"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
     },
     {
       "sheet": "Register writes",

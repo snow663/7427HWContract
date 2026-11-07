@@ -5,6 +5,10 @@ It traces the exact `0.3.12_engine_only_manual_idle_revB.bin`, SHA-256
 `e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1`.
 The BIN, XDF and calibration are unchanged. TS00 truck testing and fine-tuning
 remain the active checkpoint.
+The [subsequent read/write audit](REVB_READ_WRITE_AUDIT.md) corrects the shared
+shadow labels, adds the qualified RAM-refresh footprint and documents timeout,
+discarded-load and simulator-resource findings. The ordinary finite counts
+below remain separate from that admitted refresh walk.
 
 The extraction finds **2,221 explicit operand-read sites** in the 6,449 rooted
 instructions: 1,927 fixed-address sites and 294 indexed sites. Of these, 425
@@ -213,10 +217,11 @@ sample publications, serial status/data ordering, board mirrors, shared/period
 words, ALDL address selection, ROM descriptors/lookups, the checksum address
 walk and RTI frame restoration.
 
-The maintained non-OEM read workbook adds `$300B` and `$3066`; their original
-roles were already recorded in the write reference. All prior address/role/use
-values and the other two tabs are preserved. The hardware read tab now has
-44 entries. Both OEM books and the write workbook remain unchanged.
+The initial read extraction added `$300B` and `$3066`; their original
+roles were already recorded in the write reference. That update preserved prior address/role/use
+values and the other two tabs. The hardware read tab has 44 entries. The later
+read/write audit updates both maintained books separately; both OEM books stay
+unchanged.
 [REGISTER_UPDATES.json](../../maps/maintenance/revb_reads/REGISTER_UPDATES.json)
 records the before/after workbook identities and supporting PCs outside the
 clean address/role columns.

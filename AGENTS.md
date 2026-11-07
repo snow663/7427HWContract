@@ -101,3 +101,14 @@ See [the read-resource guide](docs/investigations/REVB_READ_RESOURCES.md) and
 [maps/maintenance/revb_reads/REGISTER_UPDATES.json](maps/maintenance/revb_reads/REGISTER_UPDATES.json)
 for exact workbook identities and read-PC evidence. This is a reference update,
 not a new firmware revision or advancement beyond TS00.
+
+The subsequent [Rev B read/write audit](docs/investigations/REVB_READ_WRITE_AUDIT.md)
+corrects the shared `$004C/$004D` and constructed BARO `$02F3` Current use fields,
+clarifies the `$088B` write,
+and adds cause/barometric-diagnostic locations plus the qualified `$0F00` write.
+The maintained read RAM tab has 497 entries; write RAM/register tabs have
+638/83 entries. `maps/maintenance/revb_rw_audit/REGISTER_UPDATES.json` records
+this later reference snapshot; earlier update journals remain historical.
+The complete rooted write-site audit is separate from named register coverage.
+Simulator-resource corrections and cleanup candidates remain pending; TS00 is
+still first. No new BIN or simulator behavior is introduced by this audit.
