@@ -1,0 +1,10 @@
+start,end,resource,fixed_read_sites,indexed_sites_with_finite_context,distinct_finite_bytes,qualified_checksum_sites,qualified_checksum_bytes,qualification
+0000,03FF,Internal RAM,1422,37,382,0,0,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+0400,0DFF,External GEN selection; backing unknown,87,2,55,0,0,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+0E00,0FFF,Conditional internal EEPROM,0,0,0,0,0,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+1000,1FFF,External GEN selection; backing unknown,0,0,0,0,0,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+2000,2FFF,Program selection; backing unknown,0,0,0,0,0,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+3000,305F,Internal CPU registers,15,59,26,0,0,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+3060,37FF,External IO1 selection,3,3,4,0,0,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+3800,3FFF,External IO2 selection,28,0,16,0,0,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+4000,FFFF,Program selection; supplied code/calibration/vector region,372,111,523,8,49144,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory

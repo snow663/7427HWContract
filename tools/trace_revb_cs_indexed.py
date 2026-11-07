@@ -4,45 +4,19 @@ from pathlib import Path
 from collections import defaultdict
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
-from explain_revb_bin import sweep,SHA
-from factory_rom_decode import successors
-from factory_state_flow import analyze
-from build_factory_state_flow import clear_override,target_bytes
+from explain_revb_bin import SHA
+from build_factory_state_flow import target_bytes
 parser=argparse.ArgumentParser(description='Trace normal-return indexed write contexts in exact Rev B; run from the repository root.')
 parser.add_argument('--rom',type=Path,required=True)
 parser.add_argument('--output',type=Path,required=True)
 args=parser.parse_args()
 im=args.rom.read_bytes()
 assert len(im)==65536 and hashlib.sha256(im).hexdigest()==SHA, 'Requires exact released Rev B'
-class ROM:
- def read(self,a,n):
-  assert 0x4000<=a and a+n<=65536,(a,n)
-  return im[a:a+n]
- def word(self,a):return int.from_bytes(self.read(a,2),'big')
-rom=ROM();ins,frontiers,roots=sweep(im);table=[rom.word(0x7a85+2*i)for i in range(16)]
-entries=set(roots)|{0x7100}|{i.target for i in ins.values()if i.op in ('JSR','BSR')and i.target in ins}
-functions={}
-for entry in sorted(entries):
- pending=[entry];local={}
- while pending:
-  pc=pending.pop()
-  if pc in local:continue
-  local[pc]=ins[pc];pending.extend(t for t,_ in successors(ins[pc])if t in ins)
- functions[entry]=local
-graph={e:{i.target for i in f.values()if i.op in ('JSR','BSR')and i.target in entries}for e,f in functions.items()}
-for e,f in functions.items():
- if 0x7a4f in f:graph[e].update(table)
-order=[];active=set();done=set()
-def visit(e):
- if e in active:raise ValueError(f'Recursion {e:04X}')
- if e in done:return
- active.add(e)
- for x in sorted(graph[e]):visit(x)
- active.remove(e);done.add(e);order.append(e)
-for e in sorted(entries):visit(e)
-summaries={};effects=defaultdict(list);calls=[]
-for e in order:
- s=analyze(rom,e,functions[e],summaries,table,clear_override);summaries[e]=s
+from revb_access_flow import analyze_image
+flow=analyze_image(im)
+ins=flow['instructions'];functions=flow['functions'];summaries=flow['summaries']
+effects=defaultdict(list);calls=[]
+for e,s in summaries.items():
  for effect in s.effects.values():
   if 'W' not in effect.access:continue
   resolved=target_bytes(effect)

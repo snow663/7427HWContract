@@ -1,0 +1,1007 @@
+address,resource,role,read_sites,finite_writer_sites
+0000,Internal RAM,unnamed byte or word companion,794B;FC04;FC09;FC11;FC1A;FC1F;FC24;FC29,794B;F301;FC04;FC09;FC11;FC1A;FC1F;FC24;FC29
+0002,Internal RAM,Dispatcher phase and scheduling counter,7981;79A4;79DD;79F5;7A08;7A35;7A44;7A59;7AD3;7F73;823B;852C;853B;89F6;8B6E;8C29;91D0;A639;CE10;CEBB;DC8C;DD8A;E015;E306;E441;F5F1,7433;79C5;F301
+0004,Internal RAM,unnamed byte or word companion,73B9;73D8;744F;783A;79C1;7B56;7D57;7D7E;85D0;865F;8A26;9272;A574;AC34;E038;E1CF;E340;E4B2;E4B5;E4BD;E4E4;F354,73B9;73D8;79C1;7B56;7D57;7D7E;865F;A574;E038;E4B2;E4E4;F315;F354
+0005,Internal RAM,unnamed byte or word companion,71C3;71EC;7F12;7F1B;7F31;7F67;7F6D;8139,71C3;71EC;7F12;7F1B;7F67;7F6D;F318
+0006,Internal RAM,Effective coolant-temperature coordinate,73BC;73C8;7552;7661;7841;7E8D;8175;85B2;8931;8947;89B6;8A30;8A72;8B05;8B7E;8BC1;928D;A73C;A752;A9F2;AA3E;AA93;C5CE;C9AD;CA13;CA22;CA4C;CAB5;CBC4;CC39;CE1D;DD94;E2C8;E2DA;E30B;E316;E331;E344;E352;E35D;E368;E379;E384;E3D2;E3EE;E422;E4EA;E524,C9A2;C9A8;F318
+0007,Internal RAM,Reported IAC position count,91C2;929C;93E8,91E6;926D;A404;F31B
+0008,Internal RAM,Requested IAC position count,91C4,929E;93E5;9899;A401;F31B
+0009,Internal RAM,"IAC reset, validity and retained-state flags",91CC;93C5;93E1;93F0;93F3;93FD;98CB;A3FA;A40B,93F0;93F3;98CB;A3FA;F31E
+000A,Internal RAM,"IAC step direction, phase-ring and enable state",91A3;91D8;91E1;91E8;91EC;93C9,9200;93CD;F31E
+000B,Internal RAM,unnamed byte or word companion,5BD0;E19B;F33A;F387,5BD4;DD32;E19F;F301;F33F;F38C
+000C,Internal RAM,unnamed byte or word companion,5BD6;E19B;F33A;F387,5BDA;DD32;E19F;F301;F33F;F38C
+000D,Internal RAM,unnamed byte or word companion,5BDC;E19B;F33A;F387,5BE0;DD32;E19F;F301;F33F;F38C
+000E,Internal RAM,unnamed byte or word companion,5BE2;E19B;F33A;F387,5BE6;DD32;E19F;F315;F33F;F38C
+000F,Internal RAM,unnamed byte or word companion,71FD;E19B;F33A;F387,71FD;DD32;E19F;F315;F33F;F38C
+0010,Internal RAM,unnamed byte or word companion,5BE8;E19B;F33A;F387,5BEC;DD32;E19F;F318;F33F;F38C
+0011,Internal RAM,unnamed byte or word companion,E19B;F33A;F387,5BEE;DD32;E19F;F318;F33F;F38C
+0012,Internal RAM,unnamed byte or word companion,E19B;F33A;F387,5BF1;DD32;E19F;F31B;F33F;F38C
+0013,Internal RAM,unnamed byte or word companion,E19B;F33A;F387,5BF4;DD32;E19F;F31B;F33F;F38C
+0014,Internal RAM,Retained diagnostic age,DD21;DD27,DD21;DD37;E1A8;F31E
+0015,Internal RAM,Retained checksum,720F;DD24,5C48;7203;DD24;DD3E;E1AD;F31E;F374;F3D8
+0016,Internal RAM,Primary engine and sensor fault flags,5BF7;7AF4;AA8D;C991;DD40;DDB7;DDBA;E148;E164;E1B6;E774;E77D;E782;E78B;E7A8;E7B1;E7B6;E7BF;E7E2;E7F1;E7F6;E800;F341;F38E,5BFB;DD40;DDB7;DDBA;E77D;E78B;E7B1;E7BF;E7F1;E800;F315;F346;F393
+0017,Internal RAM,Secondary sensor fault flags,5BFD;7375;7AFB;DC24;DC43;DC4D;DC6F;DC7E;DDBD;E148;E164;E1B6;E823;E831;E836;E83F;F341;F38E,5C01;7375;DC24;DC43;DC4D;DC6F;DDBD;E831;E83F;F315;F346;F393
+0018,Internal RAM,Engine plausibility and IAC fault flags,5C03;98CE;A4B3;A4E6;DDC0;DFCA;E006;E148;E164;E1B6;E485;F341;F38E,5C07;98CE;A4B3;A4E6;DDC0;DFCA;E006;F318;F346;F393
+0019,Internal RAM,"Knock-sensor, EST and injector-bank fault flags",5C09;7368;736B;757C;769D;77A0;7871;7D5A;7D5D;AAAC;AC16;AC3C;CABC;CE19;CF0A;CF0F;E041;E081;E08B;E0DE;E0EB;E117;E148;E164;E1B6;E47B;F341;F38E,5C0D;7368;736B;7871;7D5A;7D5D;AC16;AC3C;CF0A;CF0F;E041;E081;E08B;E0DE;E117;F318;F346;F393
+001A,Internal RAM,unnamed byte or word companion,71FA;79D9;DCFB;E148;E164;E1B6;E28D;E2C5;EA5C;EA60;EA65;EA70;EA97;EA9B;EAA0;EAA9;F25F;F271;F341;F38E,71FA;E28D;E2C5;EA60;EA70;EA9B;EAA9;F25F;F271;F31B;F346;F393
+001B,Internal RAM,unnamed byte or word companion,5C0F;E148;E164;E1B6;EB2E;EB37;EB3C;EB45;EB62;EB6B;EB70;EB79;F341;F38E,5C13;EB37;EB45;EB6B;EB79;F31B;F346;F393
+001C,Internal RAM,Transmission fault flags primary (retired operational role; reset/shared access may remain),E148;E164;E1B6;F341;F38E,5C15;F31E;F346;F393
+001D,Internal RAM,Transmission fault flags secondary (retired operational role; reset/shared access may remain),E148;E164;E1B6;F341;F38E,5C18;F31E;F346;F393
+001E,Internal RAM,unnamed byte or word companion,E148;E164;E1B6;F341;F38E,5C1B;F315;F346;F393
+001F,Internal RAM,unnamed byte or word companion,7272;E7E6,727C;E7EF;F315;F364;F3A1
+0020,Internal RAM,unnamed byte or word companion,727E;E827,7288;E82F;F318;F366;F3A3
+0036,Internal RAM,Single idle-controller status; resident motor and service bits retained,921B;921F;955A;9564;956E;957B;95A9;95C0;95C5;95CF;95D5;95E0;98C8;9959;9965;9999;99AB;9A24;9A36;A3FD;A436;A9EE;CB74;E3B2,921F;955E;9564;956E;95A9;95C0;95C5;95CF;95E0;98C8;A3FD;A436;F301
+0037,Internal RAM,Retained auxiliary actuator/converter flags; former Park/Drive transitions omitted,920E;9211;9218;9294;985C;9865;A456;A45F,920E;9218;9294;9865;A456;A45F;F301
+0038,Internal RAM,Retained service override; former bank/cold-state flags omitted,93D7;98E3;A446,93D7;A446;F315
+003A,Internal RAM,unnamed byte or word companion,71CD;71E9;7971;7985;7A6B;7A79;7A7D;CC50;F26E,71CD;71E9;7971;7985;7A7D;CC50;F26E;F318
+003B,Internal RAM,ALDL service and diagnostic-control flags,798C;79C8;7A1F;86F2;8C53;93DA;AB1D;AC41;E493;E75F;E793;E7C7;E808;EA40;EA7C;EB19;EB4D;F5FE;F602;F64A;F720;F739;F73D;F757;F76A;F777;F79F;F7BB;F81E;F86E;F8CF;F8D4;F8F6;F9D6;F9FC;FA01,79D6;F318;F720;F777;F79F;F81E;F8CF;F8D4;F8F6;F9D6;F9FC;FA01
+003C,Internal RAM,Flash reporting state,E1EC;E1FE;E211;E215;E21C;E21F;E223;E232;E258;E270,DCEB;DCF6;DD39;E215;E21C;E223;E232;E258;E270;F31B
+003D,Internal RAM,"Fuel enrichment, deceleration and asynchronous-delivery flags",7EA9;8051;814C;8153;8164;81FA;8226;82D4;82E7;8472;84AE;84B9;8712;8735;8742;8AB6;8ADD;8B2D;8B34;8B5A;8C12;8C32;8C8E;8D73;8DE6;8E21;8EA6;AE63;AE81;CAC0;CAEC;E103,8153;8164;81FA;8226;82D4;82E7;84AE;84B9;8AB6;8B5A;8C12;8C32;8C8E;8D73;8DE6;8EA6;AE81;F31B
+003E,Internal RAM,"Coolant, low-battery and mixture context flags",7D9D;7DDB;810F;8113;819C;8409;840F;8469;84BF;864B;86B0;86DA;8706;8746;87DA;87FE;8873;88EC;8921;8A22;8E1D;8E62;8E70;8E7A;91B8;91BD;999D;DCB0;DCCD;E068;E0B4;E3E3;E419;E4FF;E506;E519;E559;E55E;FF59,7D9D;8113;819C;840F;8469;86F0;91B8;91BD;E3E3;E4FF;E506;E519;E559;E55E;F31E;FF59
+003F,Internal RAM,unnamed byte or word companion,77A8;77B8;77C3;83EA;84C6;84E6;84EF;87DF;87E6;87EA;88C5;8A13;8AEF;8AFF;8B4E;8C35;CA1E;E390;FF39,77B8;77C3;83EA;84C6;84E6;84EF;87E3;8A13;8AFF;8B4E;8C35;E3B8;F31E;FF39
+0041,Internal RAM,"Engine input, mixture and output-context flags",5C4D;7DB6;811B;811F;8124;8128;8CAE;917A;9182;9185;A824;A835;CAA8;CAAD;CB62;CBB5;CBBD;CBCB;CBDE;CBFF;CC31,5C4D;811F;8128;917A;9182;9185;CAA8;CAAD;CBB5;CC31;F315
+0042,Internal RAM,ALDL serial sessions,F5E8;F715;F76E;F782;F799;F82D;F855;F881;F93F;F948;F96E;F984;F9EB,F318;F799;F93F;F948;F9ED
+0043,Internal RAM,Diagnostic switch state,73B6;79AB;79E1;7A2D;86E1;C970;C9AA;DC9A;DCAA;DCB4;DCC2;DCCA;DCD7;DCDB;DCF0;DD14;DD1E;E11A,73B6;79AF;79E1;7A2D;86E1;C9AA;DC9A;DCAA;DCBA;DCCA;DCDB;DCF0;DD1E;F318
+0044,Internal RAM,"Ignition, reference-event and EST-supervision flags",74EA;750F;7539;7A2A;7D4E;7D9A;8159;8172;83B1;861D;8625;862F;88BC;88F7;91AF;93F9;A407;A540;A544;A5C9;ABCB;ABE6;ABF5;ABF9;AC0A;AC13;AC25;AC38;AC4C;AC54;C5A7;CB24;E00D;E099;E0AC;E12B;F357;F77D,7A2A;7D9A;8159;8172;861D;862F;A544;A5C9;ABF9;AC0A;AC13;AC25;AC4C;E0AC;F31B;F357;F77D
+0045,Internal RAM,ALDL serial clear edges,F72A;F731;F736;F748;F74F;F754;F75B;F762;F767;F79C,F31B;F731;F736;F74F;F754;F762;F767;F79C
+0046,Internal RAM,Fuel-cut and asynchronous-delivery state flags,5C50;7239;7886;78A2;78EA;7906;7D97;80AE;80E2;8109;8198;81CC;81D8;820C;821D;824D;84B1;84B6;870E;87A1;87AD;886F;88A1;8D92;9266;95CB;996C;9F40;DD5B;FF40,5C50;7239;78A2;7906;7D97;80E2;8109;821D;824D;84B1;84B6;87A1;87AD;8D92;F31E;FF40
+0047,Internal RAM,Input/output MAP context,7BDF;7DC4,7DEF;F31E
+004B,Internal RAM,Input/output output context,9222;923C;AC31;ACA0;F405,9222;923C;AC31;ACA0;F318;F40D
+004C,Internal RAM,shared IAC/output shadow; former transmission role removed,5C4A;9203;9243;CC79;F40F,5C4A;744D;920A;9243;CC79;F31B
+004D,Internal RAM,IAC input shadow,9173;CB43,F31B;F417
+004E,Internal RAM,Input/output auxiliary output,73B3;C974;C989;C98E;F419,73B3;C989;C98E;F31E
+004F,Internal RAM,"Engine-running, startup-gain and fuel-model state flags",5CC2;752E;795C;7974;797D;7989;79B1;7A52;7BB3;7D78;7D7B;7E4F;7FAD;7FC3;7FCF;7FD2;863D;8739;873D;8A8B;940A;A510;A514;A51B;A54A;A56E;A593;A5C6;A5DA;AB44;AB4C;AB7C;ABE2;AC1C;CB86;CC35;DCA6;DD02;E019;E1C7;E1CB;E1D3;E1D8;E2A1;E33C;E477,7974;7989;7A52;7D78;7D7B;7FAD;7FCF;7FD2;873D;A56E;A593;A5C6;AB44;AB4C;AC1C;E1D3;E1D8;F31E
+0050,Internal RAM,"Idle, reference-event and diagnostic state flags",7513;751B;7DD7;7E0C;7EC4;8402;8620;8639;8644;867A;87B0;87CB;885E;8958;89AB;89CD;8A01;8A06;8A16;8A19;8C98;A4EC;A4F0;A4F3;A74E;A84E;AA3A;ABCF;ACA3;CB16;CB28;CB2D;DC93;E011;E1DB;E489;E4B9;E502;F250;F8C3;F9CA;FEFB,7513;8620;8639;89AB;8A01;8A06;8A16;8A19;A4F0;A4F3;A84E;ACA3;CB16;CB28;CB2D;F315
+0051,Internal RAM,Shared startup/fuel flags and active DFCO spark qualification; recovery tail omitted,746C;74B0;76A1;7712;7725;773E;7742;7757;775B;77A4;77B5;79CC;7B52;7B69;7D72;7D90;7D94;83C4;83E7;8CBD;9F51;9F77;A51F;A538;A577;AAF7;AB51,74B0;7712;7725;7742;775B;77B5;7B69;7D72;7D94;83E7;9F51;9F77;A538;A577;F315
+0052,Internal RAM,Knock-learning and A/C state flags,5C53;870A;88AA;88E2;8DAD;8DB1;8DB6;8DBA;9177;917F;9560;9A18;CB91;CBA7;CBB2;CC1D;CC24;CE43;CE47;CE4A;CE58;CE5C;CE5F;CE78;D47E;D49A;D49F;E4E7;E50B;E516,5C53;8DB1;8DBA;9177;917F;CB91;CBA7;CBB2;CC24;CE47;CE4A;CE5C;CE5F;CE78;D49A;D49F;E4E7;E50B;E516;F318
+0053,Internal RAM,Spark and fuel transition latches,75A2;75A7;7604;76A5;76A9;76D4;76FF;8270;827C;82EA;A9FC;AA12;AA17,75A2;7604;76A9;76D4;76FF;827C;82EA;AA12;AA17;F318
+0055,Internal RAM,Battery sample used by reference-event fuel timing,763B;7E75;836F;E29B,C580;F31B
+0056,Internal RAM,unnamed byte or word companion,5C1E;E13A;E166;E16D;E19D;F348,5C22;E14A;E16B;E1A1;F31E;F34D
+0057,Internal RAM,unnamed byte or word companion,5C24;E13A;E166;E16D;E19D;F348,5C28;E14A;E16B;E1A1;F31E;F34D
+0058,Internal RAM,unnamed byte or word companion,5C2A;E13A;E166;E16D;E19D;F348,5C2E;E14A;E16B;E1A1;F315;F34D
+0059,Internal RAM,unnamed byte or word companion,5C30;E13A;E166;E16D;E19D;F348,5C34;E14A;E16B;E1A1;F315;F34D
+005A,Internal RAM,unnamed byte or word companion,E13A;E166;E16D;E19D;F348,E14A;E16B;E1A1;F318;F34D
+005B,Internal RAM,unnamed byte or word companion,5C36;E13A;E166;E16D;E19D;F348,5C3A;E14A;E16B;E1A1;F318;F34D
+005C,Internal RAM,unnamed byte or word companion,E13A;E166;E16D;E19D;F348,5C3C;E14A;E16B;E1A1;F31B;F34D
+005D,Internal RAM,unnamed byte or word companion,E13A;E166;E16D;E19D;F348,5C3F;E14A;E16B;E1A1;F31B;F34D
+005E,Internal RAM,unnamed byte or word companion,E13A;E166;E16D;E19D;F348,5C42;E14A;E16B;E1A1;F31E;F34D
+005F,Internal RAM,Scaled reference-period basis (word),A5FE;AC71;F558,A5CF;A5E8;AC5B;AC9E;F31E
+0060,Internal RAM,unnamed byte or word companion,A5FE;AC71;F551,A5CF;A5E8;AC5B;AC9E;F315
+0061,Internal RAM,"Low-range, piecewise RPM lookup coordinate",A4CD;A719;C5C2;DFF5;E021,A61E;AC90;F315
+0062,Internal RAM,Rounded engine-speed coordinate,74F6;7BC5;7EF2;7FA2;7FA8;80BF;818B;81E3;8420;8759;881D;8ABE;8AC9;8AD4;8B14;8B29;8B60;8B77;8BC8;8CE3;8CF2;8D3D;A71F;AB6A;C5E8;CA8C;CAC7;CAD5;CAE4;CAF3;CB8A;CC06;CE96;CEA2;CEC2;D489;E552;FF14,7D67;A628;AC9A;F318
+0063,Internal RAM,Filtered engine-speed high byte,7DCB;7FB5;81A3;8AF3;8EA9;9567;958F;95A5;95D9;9F4C;A67A;AAA5;E396;E3A4,A685;F318
+0064,Internal RAM,Filtered engine-speed fractional byte,A67A,A685;F31B
+0065,Internal RAM,Input/output MAP previous RPM,7DCD;81A1;8AF5,8EAB;F31B
+0066,Internal RAM,Fuel startup previous RPM,E394,E3A6;F31E
+0067,Internal RAM,Higher-resolution RPM-derived lookup coordinate,7771;82ED,A65B;F31E
+0068,Internal RAM,Filtered higher-resolution RPM coordinate (word),7535;7780;778E;A65E;F479;F488;F494,A66C;F315;F48A
+0069,Internal RAM,unnamed byte or word companion,7535;7780;778E;A65E;F479;F488;F491,A66C;F315;F48A
+006A,Internal RAM,Reference-event load/event filter state (word),F479;F488;F494,7537;7790;F318;F48A
+006B,Internal RAM,unnamed byte or word companion,F479;F488;F491,7537;7790;F318;F48A
+006E,Internal RAM,Knock-burst and EGR state flags,5C56;8150;8156;8721;8725;8779;8D76;AA45;AA4E;AA78;AA89,5C56;8150;8156;8725;8779;8D76;AA4E;AA78;F31E
+006F,Internal RAM,"Load, sensor-validity and operating-context flags",7AF1;7AF8;7AFF;7BAD;80A3;8183;81AC;A4B6;A4B9;A4E9;C5B3;C5B7;CAFF;DC89;DC90;DCC6;DCD3;DD43;DDC3;DFCD;E070;E0C9;E51E;F35D,7AF1;7AF8;7AFF;A4B6;A4E9;DC89;DC90;DDC3;E00B;F31E;F35D
+0070,Internal RAM,EGR diagnostic phase,5C59;DDC6;F360,5C59;DDC6;F315;F360
+0071,Internal RAM,Logging/lamp/diagnostic flags,8776;DC97;DCA0;DD49;DD55;E06C;E0B8;E0E1;E121;E15B;E17A;E1C4;E1DF;E1F7;E207;E276;E279,8776;DC97;DCA0;DD55;E0E1;E15B;E1C4;E207;E276;F315
+0072,Internal RAM,EGR/O2/lamp flags,5C5C;7997;79A1;8A5F;DCDE;DCE2;DCE7;DDC9;E04F;E063;E079;E0EF;E1E3;E1E8;E27D;E282;E290;E29D;E2BD;E2C2;E481;F35A;F3F7,5C5C;7997;79A1;DCE2;DCE7;DDC9;E063;E079;E1E3;E1E8;E27D;E282;E2BD;E2C2;F318;F35A
+0073,Internal RAM,Input/output status context,7768;776A,776A;7BF9;F318
+0086,Internal RAM,Scheduler profiling and optional extension-service flags,723C;7A55;7D75;7DA7;8C66;93D0;A9E0;AB62;E4F1;F5CF,723C;7D75;7DA7;F31E
+0089,Internal RAM,Transmission range context (retired operational role; reset/shared access may remain),7DBF,F315
+008E,Internal RAM,Transmission output fault flags (retired operational role; reset/shared access may remain),F39D,F31E;F39D
+0094,Internal RAM,Diagnostic recovery observations,E7DB;E7DF;E81C;E820;F39A,E7DF;E820;F31B;F39A
+0095,Internal RAM,Diagnostic recovery observations 2,EA90;EA94,EA94;F31B
+0097,Internal RAM,Diagnostic recovery observations 4,EA55;EA59,EA59;F31E
+00A6,Internal RAM,Sampled raw throttle input,5CA1;5CBB;E7D5;E816,F24E;F31E
+00A7,Internal RAM,Battery sample used by spark and idle calculations,8613;91A5;A6DE;E0FD;E294;E2FB;EA4F;EA8A,F241;F31E
+00A8,Internal RAM,Converted coolant sample before fault substitution,C9A6;D482,C97F;F315
+00FD,Internal RAM,Engine-running admission counter (word),79B5;8A0B;C998;CB3B;DC10;DD4D;E4C1,79BA;7D62;F31B
+00FE,Internal RAM,unnamed byte or word companion,79B5;8A0B;C998;CB3B;DC10;DD18;DD4D;DD90;E058;E4C1,79BA;7D62;F31E
+015F,Internal RAM,unnamed byte or word companion,DD58;DD64,DD64;DD6D;F318
+0160,Internal RAM,unnamed byte or word companion,E76A,E78F;F318
+0161,Internal RAM,unnamed byte or word companion,E79E,E7C3;F31B
+0162,Internal RAM,unnamed byte or word companion,E7D2,E804;F31B
+0163,Internal RAM,unnamed byte or word companion,E813,E843;F31E
+0169,Internal RAM,unnamed byte or word companion,EA4B,EA77;F31B
+016A,Internal RAM,unnamed byte or word companion,EA4B,EA77;F31B
+016B,Internal RAM,unnamed byte or word companion,EA87,EAAD;F31E
+016E,Internal RAM,unnamed byte or word companion,EB24,EB49;F315
+016F,Internal RAM,unnamed byte or word companion,EB58,EB7D;F318
+01C0,Internal RAM,MAP-derived load coordinate used by the main spark table,7E57;7EB3;7F86;81C4;8288;841B;8751;8825;8942;8D18;8D32;8D5B;8E0F;A689;A706;A716;A737;A77D;A81E;AA5E;CE24,73AA;A496;F318
+01C1,Internal RAM,Previous-pass spark load coordinate,A700,A709;F31B
+01C2,Internal RAM,Older spark load-history coordinate,A68C;CE2C,A703;F31B
+01C3,Internal RAM,MAP filter state (word),7BE6,7399;7BEC;F31E
+01C4,Internal RAM,unnamed byte or word companion,7BE6,7BEC;F31E
+01C5,Internal RAM,Input/output MAP hold,7DDF,7DEA;F315
+01C6,Internal RAM,Filtered MAP sample,7E40;8342;A46B;A482;C5AB;C5FF;E545,7396;7BF2;F315
+01C7,Internal RAM,Fuel MAP history (word),7EB6;827F;8E0C,73AD;7E5A;8E15;F318
+01C8,Internal RAM,unnamed byte or word companion,7EB6;827F;8E0C,7E5A;8E15;F318
+01C9,Internal RAM,Encoded manifold-vacuum coordinate,893B;A730;A76E;CA96;CB05;E533;FF2E,A47D;F31B
+01CA,Internal RAM,MAP-change magnitude used by deceleration admission,7ED8;81B2,7EBE;7F17;F31B
+01CB,Internal RAM,Input/output environmental idle,8E09,CA3C;F31E
+01CC,Internal RAM,Barometric-pressure sample,8351;85E1;9843;A76B;C63D;C64B;C659,C62F;F31E
+01CD,Internal RAM,Input/output PE RPM threshold,8B26,C656;F315
+01CE,Internal RAM,Load-normalization divisor,A499,C664;F315
+01CF,Internal RAM,Normalized effective-load coordinate,81BA;8D10;8D28;8D51;E53B,A4B0;F318
+01D0,Internal RAM,Oxygen filter state produced by the independent engine-only O₂ helper (word),5C8A;E047;E08E,5C96;73E4;CC42;F318
+01D1,Internal RAM,unnamed byte or word companion,5C8A,5C96;CC42;F31B
+01D2,Internal RAM,Fuel oxygen filtered (word),7E2D;8790,73E7;7E33;8783;F31B
+01D3,Internal RAM,unnamed byte or word companion,7E2D,7E33;F31E
+01D4,Internal RAM,Fuel previous oxygen,86CF,8EB0;F31E
+01D5,Internal RAM,Sampled engine oxygen-sensor input,5C90;7E1D;7E25;7E2A;8651;86BA;86C7;86CC;8EAD;DD75,73E1;CC45;F25B;F315
+01D9,Internal RAM,"Measured normalized TPS published directly, without the factory transmission substitute",73F0;7778;7BBA;7DF1;7E5D;7ECB;7EE4;7F21;7F7A;7F92;8193;825E;82F4;85FB;8B1B;8B8A;8C18;8C38;8DA5;8E00;957F;9595;9913;995D;9A4F;A4D4;A9F9;AA66;AAFB;C5D5;C5F5;CB69;CBEB;D493;DD9B;DFED;E0BC;FEF8;FF35;FF4E,7DFA;F31B
+01DA,Internal RAM,Previous throttle position,AA6E,73F6;7DF4;F31B
+01DB,Internal RAM,Fuel PE previous throttle,8B1E,73F9;8C3B;F31E
+01DC,Internal RAM,Fuel TPS history (word),7F24;7F7D,73F3;7E63;7F83;F31E
+01DD,Internal RAM,unnamed byte or word companion,7F29;7F7D,7E63;7F83;F315
+01DE,Internal RAM,Fuel throttle decel filter (word),8255;8DFD;C5DD,73FC;7E60;8E06;F315
+01DF,Internal RAM,unnamed byte or word companion,8255;8DFD,7E60;8E06;F318
+01E0,Internal RAM,Fuel PE upper throttle,8B8D;8B9B;8C1B,8AC3;F318
+01E1,Internal RAM,Fuel PE exit step,8C20,8ACE;F31B
+01E2,Internal RAM,Fuel PE entry throttle,8B92;8B9E,8AD9;F31B
+01E3,Internal RAM,Input/output PE throttle threshold,8B18,C648;F31E
+01E4,Internal RAM,Input/output TPS AE factor,7F5A,C63A;F31E
+01E5,Internal RAM,Input/output environmental trim,7F77,CA00;F315
+01E6,Internal RAM,Spark previous period (word),A695,A6BB;F315
+01E7,Internal RAM,unnamed byte or word companion,A695,A6BB;F318
+01E8,Internal RAM,Spark period (word),7FF7;7FFC;A698;A6A7;A6B8,A5EA;AC5D;F318
+01E9,Internal RAM,unnamed byte or word companion,7FF7;7FFC;A698;A6A7;A6B8,A5EA;AC5D;F31B
+01EA,Internal RAM,Spark adaptive period (word),A4FB;A503;A69C;A6A1;A6AD;A6B2;A6E9,A50A;A6A4;A6B5;F31B
+01EB,Internal RAM,unnamed byte or word companion,A4FB;A503;A69C;A6A1;A6AD;A6B2;A6E9,A50A;A6A4;A6B5;F31E
+01EC,Internal RAM,Spark period correction (word),A6F5;A6FA;ABB3;ABB7,A6EC;A6FD;F31E
+01ED,Internal RAM,unnamed byte or word companion,A6F5;A6FA;ABB3;ABB7,A6EC;A6FD;F315
+01EE,Internal RAM,Limited spark command before final output conversion (word),AA28;AA2D;AA51;AAD1;AB06;AB11;AB1A;AB47,AA22;AA30;AA59;AAD8;AB17;AB3E;F315
+01EF,Internal RAM,unnamed byte or word companion,AA28;AA2D;AA51;AAD1;AB06;AB11;AB1A;AB47,AA22;AA30;AA59;AAD8;AB17;AB3E;F318
+01F2,Internal RAM,"Startup state retained; reset by admitted DFCO subtraction, without recovery-tail updates",A526;AB55,9F56;A533;A57C;F31B
+01F3,Internal RAM,unnamed byte or word companion,A526;AB5B,9F56;A533;A57C;F31E
+01F8,Internal RAM,Main base-spark table lookup result,A7E3,A72A;F318
+01F9,Internal RAM,Coolant-dependent spark lookup result before bias subtraction,9F5C;A7EB,A761;F31B
+01FA,Internal RAM,Intake-air-temperature spark correction magnitude,A82E,CAB1;F31B
+01FB,Internal RAM,Altitude spark term retained by its producer,A7DF,A777;F31E
+01FC,Internal RAM,Power-enrichment spark term,A7E7,CAD2;F31E
+01FD,Internal RAM,Composite spark-demand accumulator (word),9F69;9F7D;A839;A847;AA1A,9F71;A81B;A841;A84B;AA0F;F315
+01FE,Internal RAM,unnamed byte or word companion,9F69;9F7D;A839;A847;AA1A,9F71;A81B;A841;A84B;AA0F;F315
+01FF,Internal RAM,Fuel startup spark gain,E470,E389;F318
+0200,Internal RAM,Fuel startup spark interval,E451;E456,E456;E46A;F318
+0201,Internal RAM,Spark-output latency lookup result,AB84,AB72;F31B
+0202,Internal RAM,Missing-reference observation counter,A5BF,A50D;A5E2;F31B
+0203,Internal RAM,Previous hardware knock-counter sample (word),CE86,CE8F;F31E
+0204,Internal RAM,unnamed byte or word companion,CE86,CE8F;F31E
+0205,Internal RAM,Spark bypass baseline (word),ABEA;E028,7422;862C;AC0D;AC22;E03E;F315
+0206,Internal RAM,unnamed byte or word companion,ABEA;E028,7422;862C;AC0D;AC22;E03E;F315
+0207,Internal RAM,Knock sensor fault count,CEFD;CF05,CF05;CF12;F318
+0208,Internal RAM,Active high-RPM DFCO retard; explicitly cleared outside the spark gate,9F6C,9F66;9F7A;F318
+0209,Internal RAM,Filtered knock activity,CE16,CE6A;F31B
+020A,Internal RAM,Scaled adaptive-knock activity,A789,CE73;F31B
+020B,Internal RAM,Calculated adaptive/low-octane spark retard,A811,A78F;F31E
+020C,Internal RAM,Retained normal knock-retard state,AABC;CE36;CEC7;CED2,AACB;CED8;F31E
+020D,Internal RAM,Pending knock observations consumed by the spark routine,AA82;CEB0,AA85;CEB7;F315
+020E,Internal RAM,Burst-knock countdown state,AA49,AA49;AA7E;F315
+020F,Internal RAM,Oxygen-feedback integrator state; contributes additive injector pulse-width correction,7FC7;874A;889E;8906;8911;89E8;8DCE;8DDE;8E25,877E;88CA;F318
+0210,Internal RAM,Spark spark run count,A560;A563,A55A;A560;A571;F318
+0211,Internal RAM,Spark fuel run count,A58A,A597;F31B
+0214,Internal RAM,Flash digits word,E203,E203;E26B;F31E
+0215,Internal RAM,unnamed byte or word companion,E203,E203;E26B;F315
+0216,Internal RAM,Flash code scan cursor,E228;E250;E25B,DCED;DCF8;E22F;E250;F315
+0217,Internal RAM,Flash pending bits,E253,E24D;E253;F318
+0218,Internal RAM,Flash time,E1F0,E1F0;E20C;E273;F318
+0219,Internal RAM,Lean O2 timer,E04C;E074,DD0B;E074;E07C;F31B
+021A,Internal RAM,Rich O2 timer word,E096;E0CD,DD0E;E0D1;E0D9;F31B
+021B,Internal RAM,unnamed byte or word companion,E096;E0CD,DD0E;E0D1;E0D9;F31E
+021C,Internal RAM,O2 inactivity timer,DD82;DDA3;DDA8;DDAD,DDA8;DDAD;DDB2;F31E;F36B
+021D,Internal RAM,Input/output MAT low count,DC2C;DC39,DC39;DC3E;F315
+021E,Internal RAM,Input/output MAT high count,DC58;DC65,DC65;DC6A;F315
+0228,Internal RAM,High MAP timer,DFE5;DFFC,DD08;DFFC;E001;F318
+0229,Internal RAM,Spark MAP fault count,A4C5;A4DC,A4DC;A4E1;F31B
+022A,Internal RAM,Pump diagnostic timer,E2AC,E2B0;F31B
+022B,Internal RAM,DTC candidate persistence timer,E151;E156;E174;E186,DCA3;E156;E174;E18B;E194;F31E
+022C,Internal RAM,Spark bypass count,ABFE;E02D,AC07;AC1F;E03B;F31E
+022F,Internal RAM,Spark MAT sample,CA73;E09D;E2DC;E2E6;E31F,DC85;F318
+0230,Internal RAM,Input/output MAT raw,DC1A;DC50;DC72,DC0D;F318
+0231,Internal RAM,Volumetric-efficiency lookup result,7FEB,7FD5;F31B
+0232,Internal RAM,IAC runtime high,8662;E2D1;E3F9;E45B,800D;F31B
+0234,Internal RAM,Calculated air-charge quantity (word),8010,7FF4;F31E
+0235,Internal RAM,unnamed byte or word companion,8010,7FF4;F315
+0236,Internal RAM,Calculated charge-temperature state (word),7FDB,E2F8;F315
+0237,Internal RAM,unnamed byte or word companion,7FDB,E2F8;F318
+0238,Internal RAM,Fuel displaced (word),F558,7FE8;F318
+0239,Internal RAM,unnamed byte or word companion,F551,7FE8;F31B
+023A,Internal RAM,Acceleration-enrichment fuel reservoir (word),788D;78F1;8146;81EC;8479;849B;F558,789F;7903;8149;81F7;82DE;848B;849E;F31B
+023B,Internal RAM,unnamed byte or word companion,788D;78F1;8146;81EC;8479;849B;F551,789F;7903;8149;81F7;82DE;848B;849E;F31E
+023C,Internal RAM,Fuel TPS AE gain,813F,E32E;F31E
+023D,Internal RAM,Fuel MAP AE gain,7F03,E339;F315
+023E,Internal RAM,Fuel MAP AE,83A0,7F1E;F315
+023F,Internal RAM,Fuel TPS AE,8130,7F70;F318
+0240,Internal RAM,Fuel history count,8DEF;8E1A,8DF7;8E1A;F318
+0241,Internal RAM,Fuel oxygen age,E4A4,865C;E48D;E4AD;F31B
+0242,Internal RAM,Fuel base AE gain,82AD,E313;F31B
+0243,Internal RAM,Coolant-indexed RPM threshold for deceleration fuel cut-off,81D5,CA0D;F31E
+0244,Internal RAM,Deceleration fuel-reduction factor,8229,8232;8252;F31E
+0245,Internal RAM,Deceleration-active/recovery timer,81E7;8245;824A,81FD;8223;824A;F315
+0246,Internal RAM,Deceleration fuel-cut admission delay,8218,8242;F315
+0247,Internal RAM,Selected block-learn cell,8CC3;8CCB;8CF6;8D37;8E50,8D9B;F318
+0248,Internal RAM,Selected block-learn multiplier; multiplicative fuel correction,8DC2;8DE9;FECC,7437;8D98;8E9C;F318
+0249,Internal RAM,Fuel BLM previous,8DBF,8DEC;F31B
+024A,Internal RAM,Commanded air/fuel-ratio coordinate,8013;89B1;8A1F;8BDD;8BEA;8C6D;E50E;E52B,742E;8927;8998;8A88;8BEE;8C61;F31B
+024C,Internal RAM,Reference-event delivered pulse-width state (word),762A,756C;7581;7D64;84C3;84F5;F31E
+024D,Internal RAM,unnamed byte or word companion,762A,756C;7581;7D64;84C3;84F5;F315
+024E,Internal RAM,Working synchronous injector pulse width (word),80EF;8386;8391;83A3;83ED;8416;8436;84BC;84DE;F558,802F;80E8;80F8;8102;836C;837D;839C;83AB;83B7;83F6;F315
+024F,Internal RAM,unnamed byte or word companion,80EF;8386;8391;83A3;83ED;8416;8436;84BC;84DE;F551,802F;80E8;80F8;8102;836C;837D;839C;83AB;83B7;83F6;F318
+0250,Internal RAM,Timer-path injector pulse width (word),75D4;7607;788A;78A7;78EE;790B;F558,7591;75BC;770F;8508;F318
+0251,Internal RAM,unnamed byte or word companion,75D4;7607;788A;78A7;78EE;790B;F551,7591;75BC;770F;8508;F31B
+0254,Internal RAM,Running/asynchronous fuel packet width (word),76AC;76C4;76E3;7702;77AC;83D5,76B5;83AE;F31E
+0255,Internal RAM,unnamed byte or word companion,76AC;76C4;76E3;7702;77AC;83D5,76B5;83AE;F315
+0256,Internal RAM,Additive injector pulse-width offset/bias,7587;7705;84FA;856C,E303;F315
+0257,Internal RAM,Air-density quantity used by fuel and normalized-load calculations (word),7FD8;A49D,7E4C;F318
+0258,Internal RAM,unnamed byte or word companion,7FD8;A49D,7E4C;F318
+0259,Internal RAM,Fuel asynchronous accumulator high,845E;8476;8493,8464;846F;848E;84A3;F31B
+025A,Internal RAM,Fuel asynchronous accumulator fraction (word),8455;8476;8493,845B;846F;848E;84A3;F31B
+025B,Internal RAM,unnamed byte or word companion,8455,845B;F31E
+025C,Internal RAM,Fuel asynchronous quotient (word),8461,8452;F31E
+025D,Internal RAM,unnamed byte or word companion,8458,8452;F315
+025E,Internal RAM,Fuel asynchronous remainder,8458,8449;F315
+025F,Internal RAM,Fuel integrator delay,888D,8787;8888;8899;F318
+0260,Internal RAM,Reference-event age counter (word),A59B,A4F8;A5A4;F318
+0261,Internal RAM,unnamed byte or word companion,A59B,A4F8;A5A4;F31B
+0262,Internal RAM,Fuel idle oxygen interval,8862,87F1;87FB;F31B
+0263,Internal RAM,Fuel PE permission count,8AAA,8AB3;F31E
+0264,Internal RAM,Fuel AFR filtered (word),8978;897D,896A;8989;898E;F31E
+0265,Internal RAM,unnamed byte or word companion,897D,896A;8989;898E;F315
+0266,Internal RAM,Fuel AFR filter count,896F,8966;8975;F315
+0267,Internal RAM,Reference-event enrichment decrement,768D,E37E;F318
+0268,Internal RAM,Reference-event enrichment age,7655;7677;8A6A,765B;7D6F;F318
+0269,Internal RAM,Fuel PE target count,8B66;8B74,8B74;8C08;F31B
+026B,Internal RAM,Fuel oxygen interval,885A;8890;8E36,86AD;8869;F31E
+026C,Internal RAM,Fuel oxygen center,86B2;86BF,8687;86A1;F31E
+026D,Internal RAM,Fuel oxygen upper,8793;87A6,8681;86A1;F315
+026E,Internal RAM,Fuel oxygen lower,8798,8681;86A1;F315
+026F,Internal RAM,Fuel feedback encoded,8381,F318;FEE9;FEEF
+0270,Internal RAM,Fuel startup interval,E3E6;E406;E439,E3F3;E40F;E439;F318
+0271,Internal RAM,Fuel idle AFR count,89D1;89E1;89FC,89FC;8A1C;F31B
+0272,Internal RAM,Input/output environmental load,895C;8961;89AE;89D9,CA30;F31B
+0273,Internal RAM,Fuel BLM learning count,8E3B,8E41;8EA3;F31E
+0274,Internal RAM,Fuel BLM interval count,8E2C,8E32;8EA0;F31E
+0275,Internal RAM,Fuel oxygen changes,86DE,86DE;F315
+0276,Internal RAM,Fuel PE exit count,8BFC;8C0D,8C2F;F315
+0277,Internal RAM,Fuel PE gain count,8B3B,8B57;F318
+0278,Internal RAM,Power-enrichment fraction used by the spark auxiliary calculation,8B44;8BE3;CACC,8B53;8C05;F318
+027A,Internal RAM,Fuel proportional,8805;882F;88E9;88FE;8909,878A;87C8;883C;88DD;88E6;8903;F31B
+027B,Internal RAM,Fuel oxygen coordinate,7E10;8693;8813,8675;F31E
+027C,Internal RAM,Fuel oxygen direction age,86E7;88CD,86ED;F31E
+027D,Internal RAM,Fuel startup park hold,E3C8,7DA4;E3DE;E42C;F315
+027E,Internal RAM,unnamed byte or word companion,7D4B,7DAE;F315
+027F,Internal RAM,unnamed byte or word companion,7D4B,7DAE;F318
+0280,Internal RAM,Fuel oxygen error,883F;8850;887F,87BE;F318
+0282,Internal RAM,Starting coolant coordinate,E4C4,73CA;CC3B;F31B
+0283,Internal RAM,Coolant lookup index used by idle and related curves,98E7;99FB;C9F7;CA03;CA36,C9BC;F31E
+028C,Internal RAM,Previous filtered RPM monitor sample,A642,A648;F31E
+028E,Internal RAM,RPM monitor filter state (word),A62A,A633;F315
+028F,Internal RAM,unnamed byte or word companion,A62A,A633;F318
+029B,Internal RAM,unnamed byte or word companion,7470,747B;74A7;74AD;F31E
+029C,Internal RAM,unnamed byte or word companion,7470,747B;74A7;F31E
+029D,Internal RAM,Single runtime baseline air integral word,990C;99BE;99E4;99F1;9A08,98A0;99EE;F301
+029E,Internal RAM,unnamed byte or word companion,99BE;99E4;99F1;9A08,98A0;99EE;F315
+02A0,Internal RAM,Single TPS follower air word,9928;9932;994A;99A6;9A79,98AA;993C;9947;F318
+02A1,Internal RAM,unnamed byte or word companion,9928;9932;994A;99A6;9A79,98AA;993C;9947;F318
+02A2,Internal RAM,Startup-air amount byte,9547;9557;99A1;9A10,9557;98D4;F31B
+02A3,Internal RAM,Startup-air fade divider byte; former word split,954C,954C;9554;98DA;F31B
+02A4,Internal RAM,Integral qualification call counter,95AC;95B8,95B5;95C8;95D2;98BC;F31E
+02A5,Internal RAM,Controller initialized signature byte; former word split,9537,98DF;F31E
+02B3,Internal RAM,Fuel BLM cells buffer,F297;F29D,F285;F29B;F2A1;F31B
+02B4,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31E
+02B5,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31E
+02B6,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F315
+02B7,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F315
+02B8,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F318
+02B9,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F318
+02BA,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31B
+02BB,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31B
+02BC,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31E
+02BD,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31E
+02BE,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F315
+02BF,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F315
+02C0,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F318
+02C1,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F318
+02C2,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31B
+02C3,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31B
+02C4,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31E
+02C5,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F31E
+02C6,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F315
+02C7,Internal RAM,unnamed byte or word companion,F297;F29D,F285;F29B;F2A1;F315
+02C8,Internal RAM,Fuel startup AFR,8952;E3C0;E412,E34C;E42F;F318
+02C9,Internal RAM,Reference-event enrichment,7650;768A;8A79;8A81,7693;E36D;F318
+02CA,Internal RAM,Fuel startup hold,E3BB;E434,E373;E434;F31B
+02CB,Internal RAM,Startup spark adder,A7EF;E44C;E46D,E357;E474;F31B
+02CC,Internal RAM,Fuel startup spark delay,E43C;E447,E362;E447;F31E
+02CD,Internal RAM,Reference-event crank references,753D;755A;759B;7E95,7543;7D69;F31E
+02CE,Internal RAM,Reference-event age used by fuel scheduling,75BF;7630;766A;7829;85C2;A5B6,7456;75C8;7638;764A;7D6C;A5BB;F315
+02CF,Internal RAM,Base/cranking pulse-width seed (word),7566;7E9D;F558,7E6F;7E83;F315
+02D0,Internal RAM,unnamed byte or word companion,7566;7E9D;F551,7E6F;7E83;F318
+02D1,Internal RAM,unnamed byte or word companion,74C3;74C8,74CD;F318
+02D2,Internal RAM,unnamed byte or word companion,74C3;74C8,74CD;F31B
+02D3,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02D4,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02D5,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02D6,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02D7,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02D8,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02D9,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02DA,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02DB,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02DC,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02DD,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02DE,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02DF,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02E0,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02E1,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02E2,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02E3,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02E4,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02E5,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02E6,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02E7,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02E8,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02E9,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02EA,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02EB,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02EC,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02ED,Internal RAM,unnamed byte or word companion,7A72,7A77;F31E
+02EE,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02EF,Internal RAM,unnamed byte or word companion,7A72,7A77;F315
+02F0,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02F1,Internal RAM,unnamed byte or word companion,7A72,7A77;F318
+02F2,Internal RAM,unnamed byte or word companion,7A72,7A77;F31B
+02F3,Internal RAM,Sampled barometric-pressure input,EB27;EB5B,C606;C61D;F31B
+02F4,Internal RAM,Barometric filter high byte,9285;A468;C5AE;C60C;C614;DFD8;DFDD,C620;F31E
+02F5,Internal RAM,Barometric filter fractional byte,C60C,C620;F31E
+02F6,Internal RAM,Learned TPS-zero high byte,5C9A;5CC6,5CCC;7233;F315
+02F7,Internal RAM,Learned TPS-zero fractional byte,5C9A,5CCC;7233;F315
+0360,Internal RAM,ALDL serial count,F825;F8EF;F922;F9B0,F7B7;F8EF;F8F9;F9B0;FA38;FA52
+0361,Internal RAM,ALDL serial checksum,F8E2;F8E9;F91C;F9B9,F7B7;F8EC;F8F9;F91F;FA33;FA52
+0362,Internal RAM,ALDL serial descriptor (word),F822;F911;FA21,F7B4;F8FC;F94B;F97F;F9A8;FA28;FA4F
+0363,Internal RAM,unnamed byte or word companion,F822;F911;FA21,F7B4;F8FC;F94B;F97F;F9A8;FA28;FA4F
+0364,Internal RAM,ALDL serial last ID,F835;F85C;F893;F9F5,F9C0
+0365,Internal RAM,ALDL serial length,F844;F869;F966;F9C7,F84A;F960
+0366,Internal RAM,ALDL serial companion,F8D7,F8CC
+0367,Internal RAM,ALDL serial receive age,F786,F78C;F914
+0368,Internal RAM,ALDL serial service age (word),F7BF,F7C3;F7E6
+0369,Internal RAM,unnamed byte or word companion,F7BF,F7C3;F7E6
+036A,Internal RAM,ALDL serial service expiry (word),F772;F7D3,F7CE;F7D9;F7E3
+036B,Internal RAM,unnamed byte or word companion,F772;F7D3,F7CE;F7D9;F7E3
+036C,Internal RAM,ALDL receive buffer,F98A;F9D9,
+038E,Internal RAM,ALDL serial engine command,F719;F832;F859;F890,F77A;F796;F9DC
+038F,Internal RAM,Engine masks or factory destination low byte,7990;A41F,
+0390,Internal RAM,Engine output values or factory upload byte0,799A;A44C,
+0391,Internal RAM,Engine requests: reset/clear/IAC/heartbeat,7A23;86F9;A40F;AC45;E49A;F723;F741,
+0392,Internal RAM,unnamed byte or word companion,86FD;E49E,
+0395,Internal RAM,Spark service flags,8C57;A41A;A42F;AB24;AB28;AB2E,
+0396,Internal RAM,IAC service value,A43A;A440,
+0397,Internal RAM,Fuel service AFR,8C5E,
+0398,Internal RAM,Spark service amount,AB32;AB39,
+0399,Internal RAM,ALDL serial transmission command (retired operational role; reset/shared access may remain),F83C;F863;F89A,F793;F9DC
+03B0,Internal RAM,unnamed byte or word companion,CC4B,
+03F3,Internal RAM,unnamed byte or word companion,F53D;F546,
+03F4,Internal RAM,unnamed byte or word companion,F536,
+03F5,Internal RAM,unnamed byte or word companion,F50C;F522,
+0801,External GEN selection; backing unknown,Fuel module state,E4F5,F315
+081D,External GEN selection; backing unknown,Fuel acceleration hold,8167,815F;816D;F31B
+081E,External GEN selection; backing unknown,Reference-event decay count,767C;767F,767C;7687;F31E
+081F,External GEN selection; backing unknown,Reference-event timer delay (word),77CA;77FA,7747;7760;8529;F31E
+0820,External GEN selection; backing unknown,unnamed byte or word companion,77CA;77FA,7747;7760;8529;F315
+0821,External GEN selection; backing unknown,Reference-event compare a (word),77E6;77F1;78CD;78D3,77D8;F315
+0822,External GEN selection; backing unknown,unnamed byte or word companion,77E6;77F1;78CD;78D3,77D8;F318
+0823,External GEN selection; backing unknown,Reference-event compare b (word),7816;7821;7931;7937,7808;F318
+0824,External GEN selection; backing unknown,unnamed byte or word companion,7816;7821;7931;7937,7808;F31B
+0825,External GEN selection; backing unknown,Reference-event extended a (word),75EA;75F0;78BA;78C0,75DF;789A;78B2;F31B
+0826,External GEN selection; backing unknown,unnamed byte or word companion,75EA;75F0;78BA;78C0,75DF;789A;78B2;F31E
+0827,External GEN selection; backing unknown,Reference-event extended b (word),761D;7623;791E;7924,7612;78FE;7916;F31E
+0828,External GEN selection; backing unknown,unnamed byte or word companion,761D;7623;791E;7924,7612;78FE;7916;F315
+0829,External GEN selection; backing unknown,Reference-event split count,76BA;76BD;76CD;76EC;76F8,76BA;76F3;7719;F315
+082A,External GEN selection; backing unknown,Reference-event split clear,83CB;83DF,7716;83D1;F318
+082B,External GEN selection; backing unknown,Fuel throttle drop,8274;82A2,8266;F318
+082C,External GEN selection; backing unknown,Fuel warm AFR count,8A40,8A4B;F31B
+082D,External GEN selection; backing unknown,Raw coolant ADC sample awaiting conversion,C96A;E76D;E7A1,F21C;F31B
+082E,External GEN selection; backing unknown,Raw MAP sample,7393;7BAA;A4BD;DFE0,752B;F256;F31E
+082F,External GEN selection; backing unknown,Input/output diagnostic sample,7205;CB19,F238;F31E
+0830,External GEN selection; backing unknown,Input/output A/C entry,CB55;CB5A,CB4A;CB5A;F315
+0831,External GEN selection; backing unknown,Input/output A/C exit,CC27;CC2C,CB50;CB9A;CC2C;F315
+0832,External GEN selection; backing unknown,Input/output A/C RPM count,CC0F,CC0A;CC1A;F318
+0833,External GEN selection; backing unknown,Input/output A/C release count,CB9F,CB94;CBAF;F318
+0834,External GEN selection; backing unknown,Input/output A/C throttle count (word),CB7A,CB71;CB83;F31B
+0835,External GEN selection; backing unknown,unnamed byte or word companion,CB7A,CB71;CB83;F31B
+0836,External GEN selection; backing unknown,Input/output A/C throttle delay,CBF0,CBE8;CBF6;F31E
+083C,External GEN selection; backing unknown,Signed-MAT spark correction magnitude after load scaling,A83C,A832;F31B
+083D,External GEN selection; backing unknown,Raw fractional RPM calculation result (word),A620;A64B;A66E,A607;F31B
+083E,External GEN selection; backing unknown,unnamed byte or word companion,A620;A64B;A66E,A607;F31E
+083F,External GEN selection; backing unknown,Reference-period correction term (word),A6E6,A6D9;F31E
+0840,External GEN selection; backing unknown,unnamed byte or word companion,A6E6,A6D9;F315
+0841,External GEN selection; backing unknown,RPM factor used by adaptive/low-octane spark retard,A77A,CADE;F315
+0842,External GEN selection; backing unknown,Burst-knock retard amount,AA54,CA65;F318
+0843,External GEN selection; backing unknown,Gain converting knock observations into retard,AAB5,CAE9;F318
+0844,External GEN selection; backing unknown,Normal knock-retard limit selected by operating state,AAC4,CB11;F31B
+084E,External GEN selection; backing unknown,Reference-event bank guard count,7861,75FB;7733;7869;F31E
+0851,External GEN selection; backing unknown,Fuel authorization capture (word),AE6D,7428;AE72;F315
+0852,External GEN selection; backing unknown,unnamed byte or word companion,AE6D,7428;AE72;F318
+0856,External GEN selection; backing unknown,unnamed byte or word companion,E107,E112;F31E
+0857,External GEN selection; backing unknown,Shared startup/running RPM request from FF60,9569;9587;959D;9900;9F44;FF0F,98FD;A443;F31E
+0858,External GEN selection; backing unknown,Retained absolute RPM-error coordinate,9973;E3A8,9574;F315
+085F,External GEN selection; backing unknown,Shared startup/running downward-slewed base target,98F0,98C2;98FA;F31E
+0864,External GEN selection; backing unknown,Effective RPM error after deadband; arithmetic scratch byte,998C;99B7;99DA,997B;F31B
+0868,External GEN selection; backing unknown,Target-relative single-controller stall threshold,95DB,9909;F315
+086B,External GEN selection; backing unknown,Arithmetic high-byte scratch,9A57,9A4C;F318
+086E,External GEN selection; backing unknown,Proportional air magnitude word,9A28;9A2F,98AD;9953;9993;F31E
+086F,External GEN selection; backing unknown,unnamed byte or word companion,9A28;9A2F,98AD;9953;9993;F31E
+0871,External GEN selection; backing unknown,Arithmetic scratch word,992D;993F;9944;99CB;99E7;9A73,9925;99C3;99E1;9A44;F315
+0872,External GEN selection; backing unknown,unnamed byte or word companion,992D;993F;9944;99CB;99E7;9A73,9925;99C3;99E1;9A44;F318
+087D,External GEN selection; backing unknown,Single-controller pre-follower composite and AE history,9A47,98B9;9A76;F31B
+087E,External GEN selection; backing unknown,unnamed byte or word companion,9A47,98B9;9A76;F31E
+087F,External GEN selection; backing unknown,Retained pre-follower air-change enrichment role,810C,98BF;9A70;F31E
+0889,External GEN selection; backing unknown,Retained converter input and anti-windup feedback,99AF;99D5;F558,983D;98B3;F315
+088A,External GEN selection; backing unknown,unnamed byte or word companion,99AF;99D5;F551,983D;98B3;F318
+3000,Internal CPU registers,PORTA: timer/input pin state,77E2;7812;787C;78E0,7120
+3008,Internal CPU registers,PORTD: sensor multiplexer selection and sampled port state,F275;F27B,7122;F275;F27D
+300B,Internal CPU registers,CFORC: timer output-compare force control; read-modify-write operand,75CE;7601,75CE;7601;CC83
+300E,Internal CPU registers,TCNT: free-running timer counter,745E;74F1;75DD;75E5;7610;7618;77D6;7806;78B5;78C8;7919;792C;7A62,
+300F,Internal CPU registers,unnamed byte or word companion,745E;74F1;75DD;75E5;7610;7618;77D6;7806;78B5;78C8;7919;792C;7A62,
+3012,Internal CPU registers,TIC2: timer input-capture register,7425;AE67,
+3013,Internal CPU registers,unnamed byte or word companion,7425;AE67,
+301A,Internal CPU registers,TOC3: recurring dispatcher compare timing,793D;7A65,7464;7943
+301B,Internal CPU registers,unnamed byte or word companion,793D;7A65,7464;7943
+301C,Internal CPU registers,TOC4: fuel output-compare timing,7819;78FC;7914,7626;7824;793A
+301D,Internal CPU registers,unnamed byte or word companion,7819;78FC;7914,7626;7824;793A
+301E,Internal CPU registers,TOC5: fuel output-compare timing,77E9;7898;78B0,75F3;77F4;78D6
+301F,Internal CPU registers,unnamed byte or word companion,77E9;7898;78B0,75F3;77F4;78D6
+3020,Internal CPU registers,TCTL1: timer output-compare action control,75CB;75E2;75FE;7615;77EE;781E;7883;78C5;78E7;7929,75CB;75E2;75FE;7615;77EE;781E;7883;78C5;78E7;7929
+3022,Internal CPU registers,TMSK1: timer interrupt-enable state,77DF;780F;7880;78E4;CC56,7469;77DF;780F;7880;78E4;CC56;FC31
+3023,Internal CPU registers,TFLG1: timer interrupt status and acknowledgement flags,7597;772B,745B;754D;75F9;76E1;7731;77DD;780D;787A;78DE;7948;CE7E;FC16;FC36
+302D,Internal CPU registers,"SCCR2: SCI transmit, receive and interrupt enables",F7ED;F7FA;F807,7154;F7AF;F811;F907;F950;FA48;FA57
+302E,Internal CPU registers,SCSR: SCI transmit/receive status,7150;F608;F7F1;F7FE;F80B;F8FF;F90B;FA2B,
+302F,Internal CPU registers,SCDR: SCI receive data and shared transmit-data register,7150;F902;F90E,F8E6;FA30
+3030,Internal CPU registers,ADCTL: ADC channel/sequence selection and conversion-complete status,F267,7521;F262
+3031,Internal CPU registers,ADR1: ADC result register 1; sensor meaning depends on channel and external multiplexer,7528;F24C,
+3032,Internal CPU registers,ADR2: ADC result register 2; sensor meaning depends on sequence and external multiplexer,F236;F254,
+3033,Internal CPU registers,ADR3: ADC result register 3; sensor meaning depends on sequence and external multiplexer,F259,
+3034,Internal CPU registers,ADR4: ADC result register 4; sensor meaning depends on sequence and external multiplexer,C57D;CEF1;DC0A;F21A;F23F,
+3038,Internal CPU registers,OPT2: HC11 secondary operating-option register,7115,7115
+303F,Internal CPU registers,CONFIG: HC11 operating-configuration register,71C6,
+3060,External IO1 selection,Board control/status latch; includes reference/EST control state,A5D4;F400,A5D4;F409
+3062,External IO1 selection,Board input/status and reference-strobe interface; physical decode remains under review,7509;750C,7509;750C;F411
+3064,External IO1 selection,Sampled board digital-input register; individual physical input identities require confirmation,F414,
+3066,External IO1 selection,Board I/O bit-update interface; physical function unresolved,F3E4,F3E9
+3FC0,External IO2 selection,ASIC reference-pulse period sample (word),842C;858B;A551;A581;A5E5;A6EF;AB8E;AC58,715B
+3FC1,External IO2 selection,unnamed byte or word companion,842C;858B;A551;A581;A5E5;A6EF;AB8E;AC58,715B
+3FC8,External IO2 selection,ASIC knock-observation counter sample (word),CE81,715B
+3FC9,External IO2 selection,unnamed byte or word companion,CE81,715B
+3FCA,External IO2 selection,ASIC event/EST feedback counter sample (word),741F;8629;ABD3;E01E,715B
+3FCB,External IO2 selection,unnamed byte or word companion,741F;8629;ABD3;E01E,715B
+3FDC,External IO2 selection,ASIC spark dwell/period scheduling state (word),ABB0,715B;ABC0
+3FDD,External IO2 selection,unnamed byte or word companion,ABB0,715B;ABC0
+3FEC,External IO2 selection,ASIC EST feedback/status sample (word),AC28,715B
+3FED,External IO2 selection,unnamed byte or word companion,AC28,715B
+3FF6,External IO2 selection,ASIC rolling EST edge/scheduling state (word),AB97;ABA4,715B;ABC8
+3FF7,External IO2 selection,unnamed byte or word companion,AB97;ABA4,715B;ABC8
+3FFA,External IO2 selection,Packed board/reference-status sample (word); physical bit meanings remain under review,7765;7BF6,
+3FFB,External IO2 selection,unnamed byte or word companion,7765;7BF6,
+3FFC,External IO2 selection,External board output-latch state used by engine/serial control,7140;71EF;8577;CC5A;F3EF;F637;F7A2;F813;FA3B,713A;714A;71F7;857F;8587;CC75;F3FD;F7AA;F81B;FA43
+3FFD,External IO2 selection,"Low byte of shared external output latch, including ALDL line control",7140;71EF;8577;CC5A;F3EF;F637;F7A2;F813;FA3B,713A;714A;71F7;857F;8587;CC75;F3FD;F7AA;F81B;FA43
+4006,Program selection; supplied code/calibration/vector region,Stored ROM checksum word,71DB,
+4007,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,71DB,
+4008,Program selection; supplied code/calibration/vector region,Program mask/family identifier,71D8,
+4009,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7D81,
+400A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7D81,
+400B,Program selection; supplied code/calibration/vector region,Configuration option byte B,7132;7572;7720;7736;774F;7792;826C;83C0;83FE;850E;88B8;88F3;89C5;CA6F;CC63;E2CD,
+400C,Program selection; supplied code/calibration/vector region,Configuration option byte C,7562;7696;7799;7E89;8632;871D;872D;8731;8DA1;E0E4,
+400D,Program selection; supplied code/calibration/vector region,Configuration option byte D,892D;A764;AE5C,
+400E,Program selection; supplied code/calibration/vector region,Configuration option byte E,81BD;854B;8D13;8D2E;8D57;D475;E087;E53E,
+400F,Program selection; supplied code/calibration/vector region,Configuration option byte F,7371;7B0C;7DBA;7E36;809F;916C;AA33;CB34,
+4010,Program selection; supplied code/calibration/vector region,A/C throttle limit table,CB66,
+4011,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,CB5F,
+4012,Program selection; supplied code/calibration/vector region,A/C entry delay,CB47,
+4013,Program selection; supplied code/calibration/vector region,A/C exit delay,CB4D;CB97,
+4014,Program selection; supplied code/calibration/vector region,A/C throttle delay,CBE5,
+4015,Program selection; supplied code/calibration/vector region,A/C RPM count limit,CC12,
+4016,Program selection; supplied code/calibration/vector region,A/C RPM release delay,CBA2,
+4017,Program selection; supplied code/calibration/vector region,A/C RPM limit table,CBFC,
+4018,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,CC03,
+4019,Program selection; supplied code/calibration/vector region,A/C running RPM limit,CB8C,
+401A,Program selection; supplied code/calibration/vector region,A/C coolant limit table,CBC1,
+401B,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,CBBA,
+401C,Program selection; supplied code/calibration/vector region,A/C speed limit table,CBC8,
+401D,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,CBCF,
+401E,Program selection; supplied code/calibration/vector region,A/C throttle release table,CBDB,
+401F,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,CBE2,
+4020,Program selection; supplied code/calibration/vector region,A/C throttle count limit (word),CB7D,
+4021,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,CB7D,
+4022,Program selection; supplied code/calibration/vector region,Engine state minimum (word),CB3D,
+4023,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,CB3D,
+412B,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,D48B,
+412C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,D48B,
+412D,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,D48F,
+412E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,D48F,
+412F,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,D496,
+4130,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,D496,
+4131,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,D484,
+4132,Program selection; supplied code/calibration/vector region,Reference-angle bias subtracted from composite spark demand,AA1D,
+4133,Program selection; supplied code/calibration/vector region,Reference-period threshold for spark-running admission (word),A554,
+4134,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,A554,
+4135,Program selection; supplied code/calibration/vector region,Reference-period threshold for fuel-running admission (word),A584,
+4136,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,A584,
+4137,Program selection; supplied code/calibration/vector region,Input/output MAP normal gain,7BE3,
+4138,Program selection; supplied code/calibration/vector region,Input/output MAP transient gain,7BDC,
+4139,Program selection; supplied code/calibration/vector region,Input/output MAP hold reload,7DE7,
+413A,Program selection; supplied code/calibration/vector region,Input/output MAP RPM delta limit,7DD2,
+413B,Program selection; supplied code/calibration/vector region,Base-spark bias,A7F4,
+413C,Program selection; supplied code/calibration/vector region,Coolant-spark lookup bias; also used to form deceleration retard,9F5F;A759;A75E;A7F9,
+413D,Program selection; supplied code/calibration/vector region,Altitude-spark bias,A7FE,
+413F,Program selection; supplied code/calibration/vector region,Intake-air-temperature spark bias,CAA3,
+4140,Program selection; supplied code/calibration/vector region,Coolant threshold for the cold-idle spark floor,A754,
+4141,Program selection; supplied code/calibration/vector region,Reference-period preprocessing scale,858E;A5F0;AC63,
+4142,Program selection; supplied code/calibration/vector region,Reference-event count for spark-running admission,A566,
+4143,Program selection; supplied code/calibration/vector region,Reference-event count for fuel-running admission,A58E,
+4144,Program selection; supplied code/calibration/vector region,Maximum normal spark command (word),AA25,
+4145,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,AA25,
+4146,Program selection; supplied code/calibration/vector region,signed normal lower spark-angle bound,AB0E,
+4147,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,AB0E,
+4148,Program selection; supplied code/calibration/vector region,signed DFCO lower spark-angle bound,AB03,
+4149,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,AB03,
+414E,Program selection; supplied code/calibration/vector region,Startup spark-conversion recovery gain,A523,
+4152,Program selection; supplied code/calibration/vector region,Base deceleration spark-retard amount,9F59,
+4153,Program selection; supplied code/calibration/vector region,Engine-speed filter gain used by spark control,F43B;F444;F44C,
+4154,Program selection; supplied code/calibration/vector region,Air calculation barometric RPM upper,C5C4,
+4155,Program selection; supplied code/calibration/vector region,Air calculation barometric RPM lower,C5C9,
+4156,Program selection; supplied code/calibration/vector region,Air calculation barometric throttle minimum,C5D8,
+4157,Program selection; supplied code/calibration/vector region,Air calculation barometric throttle delta,C5E3,
+4158,Program selection; supplied code/calibration/vector region,Air calculation barometric gain,C609,
+4159,Program selection; supplied code/calibration/vector region,Air calculation barometric coolant minimum,C5D0,
+4161,Program selection; supplied code/calibration/vector region,Spark override coolant minimum,A9F4,
+4162,Program selection; supplied code/calibration/vector region,Spark override command (word),AA0C,
+4163,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,AA0C,
+4164,Program selection; supplied code/calibration/vector region,Spark override throttle entry,AA00,
+4165,Program selection; supplied code/calibration/vector region,Spark override throttle retained,AA07,
+4166,Program selection; supplied code/calibration/vector region,Single active RPM-by-load base spark table header,F4E2,
+4167,Program selection; supplied code/calibration/vector region,Main spark table load-coordinate offset,F4E7,
+4168,Program selection; supplied code/calibration/vector region,Main spark table row stride,F4FD;F503,
+43AE,Program selection; supplied code/calibration/vector region,Coolant-spark load-axis selection,A733,
+43AF,Program selection; supplied code/calibration/vector region,Coolant-spark lookup table header,F4E2,
+43B0,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+43B1,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+4439,Program selection; supplied code/calibration/vector region,MAT-spark load-axis selection,CA88,
+443A,Program selection; supplied code/calibration/vector region,MAT-spark lookup table header,F4E2,
+443B,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+443C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+44D5,Program selection; supplied code/calibration/vector region,Altitude-spark lookup table header,F4E2,
+44D6,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+44D7,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+4516,Program selection; supplied code/calibration/vector region,Fuel feedback derivative load,7773;82EF,
+4517,Program selection; supplied code/calibration/vector region,Spark load filter gain,F47C;F485;F48D,
+4518,Program selection; supplied code/calibration/vector region,Reference-event load event gain,F47C;F485;F48D,
+452C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4B8,
+4536,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4B8,
+4540,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4B8,
+454A,Program selection; supplied code/calibration/vector region,Spark-output latency curve header,F49A;F49E,
+4558,Program selection; supplied code/calibration/vector region,Air calculation barometric correction lookup header,F4E2,
+4559,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+455A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+45B6,Program selection; supplied code/calibration/vector region,Knock learn min coolant,CE1F,
+45B7,Program selection; supplied code/calibration/vector region,Knock learn min load,CE27,
+45B8,Program selection; supplied code/calibration/vector region,Knock learn load change limit,CE31,
+45B9,Program selection; supplied code/calibration/vector region,Knock learn high retard,CE3E,
+45BA,Program selection; supplied code/calibration/vector region,Knock learn low retard,CE39,
+45BB,Program selection; supplied code/calibration/vector region,Knock learn increment,CE4F,
+45BC,Program selection; supplied code/calibration/vector region,Knock learn decrement,CE64,
+45BD,Program selection; supplied code/calibration/vector region,Knock learn scale,CE6D,
+45D9,Program selection; supplied code/calibration/vector region,Filtered-RPM threshold for normal knock-retard admission,AAA7,
+45DA,Program selection; supplied code/calibration/vector region,Coolant threshold for knock control,AA40;AA95;CAB7,
+46DF,Program selection; supplied code/calibration/vector region,Knock burst load limit,AA61,
+46E0,Program selection; supplied code/calibration/vector region,Knock burst throttle limit,AA69,
+46E1,Program selection; supplied code/calibration/vector region,Knock burst throttle delta,AA73,
+46E2,Program selection; supplied code/calibration/vector region,Knock burst duration,AA7B,
+46E3,Program selection; supplied code/calibration/vector region,Knock burst table limit,F49A;F49E,
+48BB,Program selection; supplied code/calibration/vector region,Fuel mixture oxygen minimum,7E1A,
+48BC,Program selection; supplied code/calibration/vector region,Fuel mixture oxygen maximum,7E22,
+48BD,Program selection; supplied code/calibration/vector region,Fuel mixture oxygen idle gain,7E09,
+48BE,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,73DE;CC3F,
+48BF,Program selection; supplied code/calibration/vector region,Fuel mixture MAP threshold table,7EC8,
+48C0,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7EC1,
+48C1,Program selection; supplied code/calibration/vector region,Fuel mixture MAP closed throttle,7ECE,
+48C2,Program selection; supplied code/calibration/vector region,Fuel mixture MAP double throttle,7EE7,
+48C3,Program selection; supplied code/calibration/vector region,Fuel mixture TPS threshold,7F35,
+48C6,Program selection; supplied code/calibration/vector region,Fuel delivery transition enrichment,8116,
+48C7,Program selection; supplied code/calibration/vector region,Fuel delivery A/C enrichment,812B,
+48C8,Program selection; supplied code/calibration/vector region,Fuel mixture history reload,8DF4,
+48C9,Program selection; supplied code/calibration/vector region,Fuel mixture history gain,8DFA,
+48CA,Program selection; supplied code/calibration/vector region,Fuel delivery acceleration hold,815C,
+48CB,Program selection; supplied code/calibration/vector region,Fuel feedback starting coolant table,E4D3,
+48CC,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E4C7,
+48CD,Program selection; supplied code/calibration/vector region,Fuel feedback warmup time table,E4DF,
+48CE,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E4D8,
+48CF,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E4CC,
+48D0,Program selection; supplied code/calibration/vector region,Fuel feedback closed coolant,E4EC,
+48D1,Program selection; supplied code/calibration/vector region,Fuel mixture open coolant,8933,
+48D2,Program selection; supplied code/calibration/vector region,Fuel feedback activity age limit,E4A7,
+48D3,Program selection; supplied code/calibration/vector region,Fuel feedback learning vacuum,E536,
+48D4,Program selection; supplied code/calibration/vector region,Fuel feedback learning load table,E54D,
+48D5,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E548,
+48D6,Program selection; supplied code/calibration/vector region,Fuel feedback learning coolant,E526,
+48D7,Program selection; supplied code/calibration/vector region,Fuel feedback learning RPM,E554,
+48DA,Program selection; supplied code/calibration/vector region,shared low-TPS threshold for filter/BLM/spark-floor consumers,777B;8DA8;AAFE,
+48DB,Program selection; supplied code/calibration/vector region,Fuel feedback derivative throttle,82F7,
+48DE,Program selection; supplied code/calibration/vector region,Fuel mixture idle entry delay,89BD;89DE,
+48DF,Program selection; supplied code/calibration/vector region,Fuel mixture idle apply delay,89D4,
+48E0,Program selection; supplied code/calibration/vector region,Fuel mixture idle runtime (word),8A0D,
+48E1,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8A0D,
+48E2,Program selection; supplied code/calibration/vector region,Fuel mixture idle coolant,89B8,
+48E3,Program selection; supplied code/calibration/vector region,Environment low coolant limit,CA24,
+48E4,Program selection; supplied code/calibration/vector region,Fuel mixture warm coolant table,8A32,
+48E5,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8A37,
+48E6,Program selection; supplied code/calibration/vector region,Fuel mixture warm duration,8A43,
+48E7,Program selection; supplied code/calibration/vector region,Fuel feedback stoich,742B;891E;E52E,
+48E8,Program selection; supplied code/calibration/vector region,Environment low coolant subtract,CA29,
+48E9,Program selection; supplied code/calibration/vector region,Fuel feedback warmup AFR,E511,
+48EA,Program selection; supplied code/calibration/vector region,Fuel mixture warm drive subtract,8A4E,
+48EC,Program selection; supplied code/calibration/vector region,Fuel mixture AFR filter gain,8980,
+48ED,Program selection; supplied code/calibration/vector region,Fuel feedback learning delay,8CDC;8E44,
+48EE,Program selection; supplied code/calibration/vector region,Fuel feedback RPM bins table,8CDC;8CEB;8D3F,
+48EF,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8CDC;8CEB;8D45,
+48F0,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8CDC;8CEB;8D05;8D4B,
+48F1,Program selection; supplied code/calibration/vector region,Fuel feedback load bins table,8CEB;8D05;8D21;8D5E,
+48F2,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8D05;8D21;8D65,
+48F3,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8D05;8D21;8D6C,
+48F4,Program selection; supplied code/calibration/vector region,Fuel feedback RPM margin,8CDE;8CED;8D21,
+48F5,Program selection; supplied code/calibration/vector region,Fuel feedback load margin,8D07;8D23,
+48F6,Program selection; supplied code/calibration/vector region,Fuel feedback special cells,8C91,
+48F7,Program selection; supplied code/calibration/vector region,Fuel feedback learning error table,8E5E;8E6C,
+48F8,Program selection; supplied code/calibration/vector region,Fuel mixture idle integrator limit,89F1;8E5E;8E6C,
+48F9,Program selection; supplied code/calibration/vector region,Fuel feedback BLM minimum table,8D8D;8E83;8E88,
+48FA,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8D88;8E83;8E88,
+48FB,Program selection; supplied code/calibration/vector region,Fuel feedback learning step,8E7E;8E8D,
+48FC,Program selection; supplied code/calibration/vector region,Fuel feedback BLM maximum,8D7F;8E92;8E97,
+48FD,Program selection; supplied code/calibration/vector region,Fuel feedback boot maximum,F28E,
+48FE,Program selection; supplied code/calibration/vector region,Fuel feedback boot minimum,F291,
+48FF,Program selection; supplied code/calibration/vector region,Fuel feedback activity table,8654,
+4900,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8658,
+4901,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8654,
+4902,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8658,
+4903,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8654,
+4904,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8658,
+4905,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8654,
+4906,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8658,
+4907,Program selection; supplied code/calibration/vector region,Fuel feedback transition integrator low,8DD1,
+4908,Program selection; supplied code/calibration/vector region,Fuel feedback transition integrator high,8DE1,
+4909,Program selection; supplied code/calibration/vector region,Fuel feedback transition positive,8DC9,
+490A,Program selection; supplied code/calibration/vector region,Fuel feedback transition negative,8DD9,
+490B,Program selection; supplied code/calibration/vector region,Fuel feedback control load,8754,
+490C,Program selection; supplied code/calibration/vector region,Fuel feedback control RPM lower,875B,
+490D,Program selection; supplied code/calibration/vector region,Fuel feedback control RPM upper,8760,
+490F,Program selection; supplied code/calibration/vector region,Air calculation VE integrator limit,7FCA,
+4910,Program selection; supplied code/calibration/vector region,Fuel feedback integrator minimum,88C0,
+4911,Program selection; supplied code/calibration/vector region,Fuel feedback integrator maximum,88A5,
+4912,Program selection; supplied code/calibration/vector region,Fuel feedback proportional cap,88FB,
+4913,Program selection; supplied code/calibration/vector region,Fuel mixture AFR maximum,8A5C,
+4914,Program selection; supplied code/calibration/vector region,Fuel mixture PE RPM delta,8AFA,
+4915,Program selection; supplied code/calibration/vector region,Fuel mixture PE coolant table,8B0C;8B85,
+4916,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8B07,
+4917,Program selection; supplied code/calibration/vector region,Fuel mixture PE hysteresis,8AE1,
+4918,Program selection; supplied code/calibration/vector region,Fuel mixture PE RPM,8B11;8B79,
+4919,Program selection; supplied code/calibration/vector region,Fuel mixture PE exit delay,8BFF,
+491A,Program selection; supplied code/calibration/vector region,Fuel mixture PE gain delay,8B3E,
+491B,Program selection; supplied code/calibration/vector region,Fuel mixture PE gain step,8B47,
+491C,Program selection; supplied code/calibration/vector region,Fuel mixture PE cold coolant,8BC3,
+491D,Program selection; supplied code/calibration/vector region,Fuel mixture PE time,8B69,
+491E,Program selection; supplied code/calibration/vector region,Fuel mixture PE warm coolant,8B80,
+491F,Program selection; supplied code/calibration/vector region,Fuel mixture PE cold RPM,8BCA,
+4923,Program selection; supplied code/calibration/vector region,Fuel mixture PE permission delay,8AAD,
+4925,Program selection; supplied code/calibration/vector region,Fuel mixture PE part throttle,8BAB;8BB2,
+4928,Program selection; supplied code/calibration/vector region,Fuel mixture startup AFR gain,E415,
+4929,Program selection; supplied code/calibration/vector region,Fuel mixture startup hold,E370,
+492A,Program selection; supplied code/calibration/vector region,Fuel delivery synchronous threshold index 1 (word),76C7;76E6;77AF;8414,
+492B,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,76C7;76E6;77AF;8414,
+492C,Program selection; supplied code/calibration/vector region,Fuel delivery synchronous threshold index 0 (word),83D9;8414,
+492D,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,83D9;8414,
+492E,Program selection; supplied code/calibration/vector region,Fuel delivery synchronous load index 1,8412,
+492F,Program selection; supplied code/calibration/vector region,Fuel delivery synchronous RPM index 1,8412,
+4930,Program selection; supplied code/calibration/vector region,Fuel delivery synchronous load index 0,8412,
+4931,Program selection; supplied code/calibration/vector region,Fuel delivery synchronous RPM index 0,8412,
+4932,Program selection; supplied code/calibration/vector region,Fuel delivery packet maximum (word),847C;8496;84A6,
+4933,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,847C;8496;84A6,
+4934,Program selection; supplied code/calibration/vector region,Fuel delivery packet minimum (word),8482,
+4935,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8482,
+4936,Program selection; supplied code/calibration/vector region,Fuel delivery throttle drop minimum,8277,
+4937,Program selection; supplied code/calibration/vector region,Fuel delivery load drop minimum,828D,
+493A,Program selection; supplied code/calibration/vector region,RPM hysteresis added when entering deceleration fuel cut-off,81DC,
+493B,Program selection; supplied code/calibration/vector region,DFCO entry-speed threshold (retired operational role; reset/shared access may remain),8209,
+493C,Program selection; supplied code/calibration/vector region,DFCO retained-speed threshold (retired operational role; reset/shared access may remain),8210,
+493D,Program selection; supplied code/calibration/vector region,Load threshold for entering deceleration fuel cut-off,81C7,
+493E,Program selection; supplied code/calibration/vector region,Load threshold for retaining deceleration fuel cut-off,81D0,
+493F,Program selection; supplied code/calibration/vector region,Fuel added to the enrichment reservoir during deceleration recovery (word),81EF,
+4940,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,81EF,
+4941,Program selection; supplied code/calibration/vector region,Deceleration fuel-cut admission-delay reload,8200,
+4942,Program selection; supplied code/calibration/vector region,Deceleration-active timer reload,8220,
+4943,Program selection; supplied code/calibration/vector region,Deceleration fuel-reduction step,822C,
+4944,Program selection; supplied code/calibration/vector region,Minimum coolant coordinate for deceleration fuel cut-off,8177,
+4945,Program selection; supplied code/calibration/vector region,RPM-drop threshold cancelling deceleration fuel cut-off,81A7,
+4946,Program selection; supplied code/calibration/vector region,MAP-change threshold cancelling deceleration fuel cut-off,81B5,
+4947,Program selection; supplied code/calibration/vector region,Fuel feedback direction band,86B5;86C2,
+4948,Program selection; supplied code/calibration/vector region,Fuel feedback integrator deadband,8883,
+4949,Program selection; supplied code/calibration/vector region,Fuel feedback airflow gain,8665,
+494A,Program selection; supplied code/calibration/vector region,Fuel feedback idle thresholds table,867E,
+494B,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,867E,
+494C,Program selection; supplied code/calibration/vector region,Fuel feedback idle center,8684,
+494D,Program selection; supplied code/calibration/vector region,Fuel feedback idle base delay,87CF,
+494E,Program selection; supplied code/calibration/vector region,Fuel feedback window width,88D3,
+494F,Program selection; supplied code/calibration/vector region,Fuel feedback idle coefficient table,8803,
+4950,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8803,
+4951,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,8803,
+4952,Program selection; supplied code/calibration/vector region,Fuel feedback idle interval table,87F8,
+4953,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,87EE,
+4954,Program selection; supplied code/calibration/vector region,Fuel mixture startup RPM delta,E39D,
+4955,Program selection; supplied code/calibration/vector region,Fuel feedback positive error gain,87A9,
+4956,Program selection; supplied code/calibration/vector region,Fuel feedback idle error gain,87B4,
+4957,Program selection; supplied code/calibration/vector region,Fuel mixture startup coolant limit,E3D4;E424,
+4958,Program selection; supplied code/calibration/vector region,Fuel mixture startup AFR limit,E41D,
+4959,Program selection; supplied code/calibration/vector region,Fuel mixture startup park hold,E3CD;E429,
+495A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,73CE,
+495B,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,73D3,
+495C,Program selection; supplied code/calibration/vector region,Fuel mixture hotstart subtract,8A2A,
+495D,Program selection; supplied code/calibration/vector region,Run-counter threshold for clearing the startup scheduler flag (word),79BC,
+495E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,79BC,
+495F,Program selection; supplied code/calibration/vector region,Fuel mixture enrichment age,8A6D,
+4960,Program selection; supplied code/calibration/vector region,Reference-event crank timer gain,75AF,
+4961,Program selection; supplied code/calibration/vector region,Fuel mixture enrichment coolant,8A74,
+4962,Program selection; supplied code/calibration/vector region,Spark no reference age limit (word),A59E,
+4963,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,A59E,
+4964,Program selection; supplied code/calibration/vector region,Reference-event decay interval,7682,
+4967,Program selection; supplied code/calibration/vector region,Fuel delivery cut RPM table,80C1,
+4968,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,80C1,
+496D,Program selection; supplied code/calibration/vector region,synchronous minimum-pulse comparison threshold,84E9,
+496E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,84E9,
+496F,Program selection; supplied code/calibration/vector region,synchronous replacement pulse,84F2,
+4970,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,84F2,
+4971,Program selection; supplied code/calibration/vector region,shared short-pulse subtraction word,84E1;8564,
+4972,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,84E1;8564,
+4973,Program selection; supplied code/calibration/vector region,Fuel output injection delay gain,8517,
+4974,Program selection; supplied code/calibration/vector region,Fuel delivery CPI delay,83E2,
+49AA,Program selection; supplied code/calibration/vector region,Fuel feedback barometric lookup header,F4E2,
+49AB,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+49AC,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+49D5,Program selection; supplied code/calibration/vector region,Main VE table selected above the closed-throttle TPS limit or RPM boundary,F4E2,
+49D6,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+49D7,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+4A88,Program selection; supplied code/calibration/vector region,Closed-throttle VE below the RPM boundary; independent of captured idle,F4E2,
+4A89,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+4A8A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+4B16,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4B8,
+4B49,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4B8,
+4BA4,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F49A;F49E,
+4BBA,Program selection; supplied code/calibration/vector region,Fuel mixture open mode,893E,
+4BBB,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E2,
+4BBC,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+4BBD,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+4C5A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F49A;F49E,
+4C64,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F49A;F49E,
+4C7F,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F49A;F49E,
+4C94,Program selection; supplied code/calibration/vector region,DFCO TPS-admission curve header,F49A;F49E,
+4D31,Program selection; supplied code/calibration/vector region,Fuel feedback proportional lookup header,F4E2,
+4D32,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4E7,
+4D33,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4FD;F503,
+4D92,Program selection; supplied code/calibration/vector region,Injector flow calibration (word),801C;8021,
+4D93,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,801C;8021,
+4D94,Program selection; supplied code/calibration/vector region,Cylinder-volume/engine-size calibration,7FE1,
+4D95,Program selection; supplied code/calibration/vector region,Fuel mixture crank age,85C5,
+4D96,Program selection; supplied code/calibration/vector region,Spark missing reference age cap,7453;A5B3,
+4D97,Program selection; supplied code/calibration/vector region,Reference-event crank age cap,7642;7647,
+4D98,Program selection; supplied code/calibration/vector region,Reference-event battery limit,763D,
+4D99,Program selection; supplied code/calibration/vector region,Reference-event coolant gain threshold,7843,
+4D9A,Program selection; supplied code/calibration/vector region,Fuel mixture crank base (word),F558,
+4D9B,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F551,
+4DC3,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F4B8,
+4E2E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E184,
+4E2F,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E184,
+4E30,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E184;E191,
+4E31,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E184,
+4E32,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD50,
+4E33,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD5F,
+4E34,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD70,
+4E35,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD7D,
+4E36,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD78,
+4E37,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD9E,
+4E38,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD85,
+4E39,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD96,
+4E41,Program selection; supplied code/calibration/vector region,Air calculation MAT low threshold,DC27,
+4E42,Program selection; supplied code/calibration/vector region,Air calculation MAT low delay,DC2F,
+4E45,Program selection; supplied code/calibration/vector region,Air calculation MAT runtime limit (word),DC12,
+4E46,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DC12,
+4E48,Program selection; supplied code/calibration/vector region,Air calculation MAT default,DC82,
+4E49,Program selection; supplied code/calibration/vector region,Air calculation MAT high threshold,DC53,
+4E4A,Program selection; supplied code/calibration/vector region,Air calculation MAT high delay,DC5B,
+4E60,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DFF0,
+4E61,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DFD5,
+4E62,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DFE8,
+4E63,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DFF7,
+4E64,Program selection; supplied code/calibration/vector region,Spark MAP sample minimum,A4C0,
+4E65,Program selection; supplied code/calibration/vector region,Spark MAP RPM minimum,A4CF,
+4E66,Program selection; supplied code/calibration/vector region,Spark MAP count limit,A4C8,
+4E67,Program selection; supplied code/calibration/vector region,Spark MAP throttle limit,A4D7,
+4E68,Program selection; supplied code/calibration/vector region,Input/output MAP default,7BD4;7BD9;C5BD;C619,
+4E69,Program selection; supplied code/calibration/vector region,Input/output MAP throttle gain,7BB7,
+4E6A,Program selection; supplied code/calibration/vector region,Input/output MAP bias limit,F49A;F49E,
+4E6F,Program selection; supplied code/calibration/vector region,Reference-event bank guard limit,786C,
+4E70,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E023,
+4E71,Program selection; supplied code/calibration/vector region,Spark bypass delta limit,ABF0,
+4E72,Program selection; supplied code/calibration/vector region,Spark bypass count limit,AC01,
+4E73,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E030,
+4E74,Program selection; supplied code/calibration/vector region,Knock sensor fault delay,CF00,
+4E75,Program selection; supplied code/calibration/vector region,Knock sensor upper,CEF3,
+4E76,Program selection; supplied code/calibration/vector region,Knock sensor lower,CEF8,
+4E77,Program selection; supplied code/calibration/vector region,Substitute spark-retard amount for a knock-sensor fault,AAB0,
+4E78,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E044,
+4E79,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E05E,
+4E7A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E053,
+4E7B,Program selection; supplied code/calibration/vector region,Fuel mixture AFR alternate maximum,8A63,
+4E7C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E0A0,
+4E7D,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E091,
+4E7E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E0A5,
+4E7F,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E0A5,
+4E80,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E0AF,
+4E81,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E0AF,
+4E82,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E0BF,
+4E83,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E0C4,
+4E84,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E10A,
+4E85,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E2B3,
+4E86,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E2B8,
+4E87,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E2A5,
+4E88,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E296,
+4E89,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,5C8D,
+4E8F,Program selection; supplied code/calibration/vector region,Auxiliary IAC output option; former Park/Drive strategy options omitted,927E;9858,
+4E90,Program selection; supplied code/calibration/vector region,Resident low-TPS spark override option; former learned-cell option omitted,A9E7,
+4EA3,Program selection; supplied code/calibration/vector region,IAC barometric offset,F4A6,
+4EA4,Program selection; supplied code/calibration/vector region,IAC barometric limit,F4AB;F4AF,
+4EA5,Program selection; supplied code/calibration/vector region,IAC barometric curve scale,F4B8,
+4EB0,Program selection; supplied code/calibration/vector region,IAC park target,926A;9401,
+4EB6,Program selection; supplied code/calibration/vector region,minimum battery-voltage sample for IAC operation,91B3,
+4EF2,Program selection; supplied code/calibration/vector region,Initialization-only read for retired follower threshold; no controller consumer,925E,
+4FBE,Program selection; supplied code/calibration/vector region,Retained fuel-state reader; do not mark this shared address omitted,E3AB,
+50A2,Program selection; supplied code/calibration/vector region,Retained fuel compensation table,F4B8,
+50A8,Program selection; supplied code/calibration/vector region,minimum normalized air-command increase for IAC AE,9A5A,
+50A9,Program selection; supplied code/calibration/vector region,normalized-TPS cutoff for IAC-change AE,9A52,
+50C7,Program selection; supplied code/calibration/vector region,IAC kicker coolant minimum,928F,
+50C8,Program selection; supplied code/calibration/vector region,IAC kicker flow subtract,9860,
+50C9,Program selection; supplied code/calibration/vector region,IAC kicker flow gain,9870,
+50CE,Program selection; supplied code/calibration/vector region,IAC kicker barometric exit,9288,
+50E4,Program selection; supplied code/calibration/vector region,Spark monitor filter gain,A62D,
+518B,Program selection; supplied code/calibration/vector region,Fuel mixture authorization maximum (word),AE75,
+518C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,AE75,
+518D,Program selection; supplied code/calibration/vector region,Fuel mixture authorization minimum (word),AE7B,
+518E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,AE7B,
+518F,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5190,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5191,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5192,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5193,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5194,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5195,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5196,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5197,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5198,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+5199,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+519A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+519B,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+519C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+519D,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+519E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+519F,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A0,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A1,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A2,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A3,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A4,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A5,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A6,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A7,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A8,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51A9,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51AA,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51AB,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51AC,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51AD,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51AE,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51AF,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F5F6,
+51BB,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F7C6,
+51BC,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F7C6,
+51BD,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F7DC,
+51BE,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F7DC,
+51BF,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F935,
+51C0,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F935,
+51C1,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F931,
+53A8,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F935,
+53A9,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F935,
+53AA,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F931,
+53C9,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F935,
+53CA,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F935,
+53CB,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,F931,
+5B00,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E766;E79A;E7CE,
+5B01,Program selection; supplied code/calibration/vector region,Air calculation MAT options,DC20;DC49;E80F,
+5B03,Program selection; supplied code/calibration/vector region,Reference-event diagnostic options,785A;ABDD;CEDB;E0F6,
+5B04,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E289;EA47;EA83,
+5B05,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EB20;EB54,
+5B12,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,DD29,
+5B13,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E770,
+5B14,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E779;E787,
+5B15,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E7A4,
+5B16,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E7AD;E7BB,
+5B18,Program selection; supplied code/calibration/vector region,Air calculation coolant runtime limit (word),C99A,
+5B19,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,C99A,
+5B1A,Program selection; supplied code/calibration/vector region,Air calculation coolant default late,C995,
+5B1B,Program selection; supplied code/calibration/vector region,Air calculation coolant default early,C99F,
+5B1C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E7D7,
+5B1D,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E7FB,
+5B1E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7276;E7E8,
+5B1F,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E818,
+5B20,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,E83B,
+5B21,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7282;E829,
+5B24,Program selection; supplied code/calibration/vector region,TPS-zero tracking upper raw-input limit,5CBD;722E,
+5B26,Program selection; supplied code/calibration/vector region,Engine TPS normalization gain,5CA7,
+5B63,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EA51,
+5B64,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EA6B,
+5B65,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EA6B,
+5B66,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EA8C,
+5B67,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EAA5,
+5B6D,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EB2A,
+5B6E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EB33;EB41,
+5B71,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EB5E,
+5B72,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,EB67;EB75,
+7A85,Program selection; supplied code/calibration/vector region,Dispatcher slot 0 routine-pointer word,7A4D,
+7A86,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A87,Program selection; supplied code/calibration/vector region,Dispatcher slot 1 routine-pointer word,7A4D,
+7A88,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A89,Program selection; supplied code/calibration/vector region,Dispatcher slot 2 routine-pointer word,7A4D,
+7A8A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A8B,Program selection; supplied code/calibration/vector region,Dispatcher slot 3 routine-pointer word,7A4D,
+7A8C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A8D,Program selection; supplied code/calibration/vector region,Dispatcher slot 4 routine-pointer word,7A4D,
+7A8E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A8F,Program selection; supplied code/calibration/vector region,Dispatcher slot 5 routine-pointer word,7A4D,
+7A90,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A91,Program selection; supplied code/calibration/vector region,Dispatcher slot 6 routine-pointer word,7A4D,
+7A92,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A93,Program selection; supplied code/calibration/vector region,Dispatcher slot 7 routine-pointer word,7A4D,
+7A94,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A95,Program selection; supplied code/calibration/vector region,Dispatcher slot 8 routine-pointer word,7A4D,
+7A96,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A97,Program selection; supplied code/calibration/vector region,Dispatcher slot 9 routine-pointer word,7A4D,
+7A98,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A99,Program selection; supplied code/calibration/vector region,Dispatcher slot 10 routine-pointer word,7A4D,
+7A9A,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A9B,Program selection; supplied code/calibration/vector region,Dispatcher slot 11 routine-pointer word,7A4D,
+7A9C,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A9D,Program selection; supplied code/calibration/vector region,Dispatcher slot 12 routine-pointer word,7A4D,
+7A9E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7A9F,Program selection; supplied code/calibration/vector region,Dispatcher slot 13 routine-pointer word,7A4D,
+7AA0,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7AA1,Program selection; supplied code/calibration/vector region,Dispatcher slot 14 routine-pointer word,7A4D,
+7AA2,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+7AA3,Program selection; supplied code/calibration/vector region,Dispatcher slot 15 routine-pointer word,7A4D,
+7AA4,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,7A4D,
+9F11,Program selection; supplied code/calibration/vector region,Single baseline seed,989C,
+9F12,Program selection; supplied code/calibration/vector region,Startup-air amount,98D1,
+9F13,Program selection; supplied code/calibration/vector region,Startup-air fade divider reload,9551;98D7,
+9F14,Program selection; supplied code/calibration/vector region,Capture normalized-TPS ceiling,9582,
+9F15,Program selection; supplied code/calibration/vector region,Release normalized-TPS ceiling,9598;9916;9960,
+9F16,Program selection; supplied code/calibration/vector region,Capture RPM margin above target,958A,
+9F17,Program selection; supplied code/calibration/vector region,Shared IAC capture release and DFCO spark-release margin above requested idle RPM,95A0;9F47,
+9F18,Program selection; supplied code/calibration/vector region,Integral admission delay in main calls,95AF;95BB,
+9F19,Program selection; supplied code/calibration/vector region,RPM error deadband,9976,
+9F1A,Program selection; supplied code/calibration/vector region,Proportional gain,997E;998F,
+9F1B,Program selection; supplied code/calibration/vector region,Underspeed integral gain,99BA,
+9F1C,Program selection; supplied code/calibration/vector region,Overspeed integral gain,99DD,
+9F1D,Program selection; supplied code/calibration/vector region,Proportional air limit word,9982;9987,
+9F1E,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,9982;9987,
+9F1F,Program selection; supplied code/calibration/vector region,Baseline integral upper limit word,99C6;99D0,
+9F20,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,99C6;99D0,
+9F21,Program selection; supplied code/calibration/vector region,TPS follower ceiling,991C;9921,
+9F22,Program selection; supplied code/calibration/vector region,TPS follower decay per main call word,9935,
+9F23,Program selection; supplied code/calibration/vector region,unnamed byte or word companion,9935,
+9F24,Program selection; supplied code/calibration/vector region,Stall margin below target,9903,
+9F25,Program selection; supplied code/calibration/vector region,Stall airflow increment,9A3A,
+9F26,Program selection; supplied code/calibration/vector region,A/C feedforward airflow,9A1C,
+FE9F,Program selection; supplied code/calibration/vector region,Custom closed-throttle and global open-loop fuel-policy flags,FEC0;FEE0;FF43,
+FF8A,Program selection; supplied code/calibration/vector region,TPS threshold for relative idle-entry classification,FEFF,
+FF8B,Program selection; supplied code/calibration/vector region,shared fuel-idle/VE/optional-OL normalized-TPS limit,7F95;FF08;FF51,

@@ -56,7 +56,7 @@ hardware validation or emulator certification. The CPU reference is NXP's
 The maintained read register corrects one established role at `$4EB6`:
 minimum battery-voltage sample threshold for IAC step service. `$91A5` loads
 the battery sample at `$00A7`, and `$91B3` compares `$4EB6`. The earlier coolant
-wording described the wrong input. Only Current use C398 changes; historical
+wording described the wrong input. For that correction, only Current use C398 changed; historical
 OEM role text, other cells/tabs, both OEM books and the write reference remain
 preserved. The supplied XDF already describes a voltage threshold and stays
 byte-identical, as does the BIN.
@@ -79,6 +79,10 @@ is introduced by this documentation work.
 For hardware-address context, use the [CS/EN and resource guide](REVB_CS_EN_ADDRESS_MAP.md).
 It explains nominal selects versus the conditional internal-resource partition,
 IRV bus visibility, software output shadows and the ALDL address transform.
+The [read companion](REVB_READ_RESOURCES.md) adds all 2,221 explicit read
+sites, caller-qualified ADC meanings, board input mirrors, shared words and
+separate checksum/fetch/stack/vector inventories. Its two additional hardware
+read-register entries are recorded with their own workbook update evidence.
 
 ## Functional context layer
 

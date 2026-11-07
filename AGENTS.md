@@ -93,3 +93,11 @@ the separate factory-equivalence milestones do not imply custom-ROM completion.
 The current first step is TS00: truck testing and fine-tuning of the released
 Rev B change. Later structural/behavior changes remain queued until that
 validation checkpoint is closed. A label audit does not authorize a new BIN.
+
+The Rev B read extraction adds `$300B` (CFORC RMW operand) and `$3066`
+(board bit-update read; physical role unresolved) to the maintained ADC-HW
+read tab, now 44 entries. Prior values and both OEM books remain preserved.
+See [the read-resource guide](docs/investigations/REVB_READ_RESOURCES.md) and
+[maps/maintenance/revb_reads/REGISTER_UPDATES.json](maps/maintenance/revb_reads/REGISTER_UPDATES.json)
+for exact workbook identities and read-PC evidence. This is a reference update,
+not a new firmware revision or advancement beyond TS00.

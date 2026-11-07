@@ -6,6 +6,10 @@ Trace date: 2026-11-07. CPU addresses equal offsets in the mapped ROM region at 
 
 The firmware establishes separate CPU, general-memory and I/O windows. Software output shadows and ALDL address translation are additional, distinct mechanisms. No BIN, XDF or calibration was changed.
 
+The [read companion](REVB_READ_RESOURCES.md) maps operand reads to these
+resources, including ADC caller context, board input mirrors, shared words and
+the separately qualified boot-checksum footprint.
+
 ## 1. Actual relocation, CS/EN and visibility writes
 
 | Write PC | Instruction bytes | Effective destination | Value | Register / purpose |

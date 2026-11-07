@@ -206,6 +206,7 @@ For the active step, keep this checkpoint current:
 - Supporting verification: [the XDF label trace](investigations/REVB_XDF_LABEL_VERIFICATION.md) replays 87 Rev B and 15 historical AE instruction fixtures, with supplied BIN/XDF bytes preserved. It does not complete truck validation.
 - Reading reference: [the whole-image operation guide](investigations/REVB_OPERATION_GUIDE.md) explains 6,449 statically rooted instructions, groups them into 289 functional explanations and accounts for every file byte. This documentation keeps TS00 active and introduces no firmware change.
 - Hardware reference: [Rev B CS/EN and resource decoding](investigations/REVB_CS_EN_ADDRESS_MAP.md) separates nominal selects, the conditional internal-resource map, IRV bus visibility, board shadows and ALDL address translation. Exact setup and bounded instruction witnesses are recorded; physical backing/aliases remain qualified. This is documentation, not a remap or a later tuning step.
+- Read reference: [Rev B reads by resource and purpose](investigations/REVB_READ_RESOURCES.md) inventories 2,221 explicit read sites, preserves indexed-pointer qualifications and separates checksum, fetch, stack and vector reads. The maintained read register adds two hardware operands; no BIN/XDF behavior changes.
 - Next action: assess the first Rev B cold/warm-up/hot-idle and return-to-idle recordings, then fine-tune only this revision's change before considering later simplifications.
 
 Each completed step must distinguish implementation, local checks, CI, merge,

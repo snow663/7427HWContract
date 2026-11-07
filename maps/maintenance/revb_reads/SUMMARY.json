@@ -1,0 +1,30 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "rooted_instructions": 6449,
+  "procedure_entries": 132,
+  "explicit_read_sites": 2221,
+  "fixed_read_sites": 1927,
+  "indexed_read_sites": 294,
+  "rmw_read_sites": 425,
+  "indexed_sites_with_finite_context": 208,
+  "indexed_sites_with_nonfinite_context": 110,
+  "distinct_finite_read_bytes": 1006,
+  "hardware_site_address_rows": 108,
+  "distinct_hardware_operand_forms": 34,
+  "qualified_checksum_read_bytes": 49144,
+  "implicit_stack_read_sites": 187,
+  "instruction_fetch_bytes": 15272,
+  "vector_words": 21,
+  "read_witness_cases": 22,
+  "reference_inputs": [
+    {
+      "path": "7427_Address_Register_0.3.12.xlsx",
+      "sha256": "e63a758c3eeac14a8ad223192f228db6ed99b9808496f40b60b8d463a8040142"
+    },
+    {
+      "path": "7427_Write_Register_0.3.12.xlsx",
+      "sha256": "16d8a0c08135970f8341d0af1eb6ef861c6092e7620f3282d377f1c5a5b7b1ff"
+    }
+  ],
+  "scope": "Explicit operand reads including RMW; static normal-return may-effects. Unknown/formal contexts remain separate. Instruction fetch, vector fetch and implicit stack reads have separate inventories. No physical aliases or dummy bus cycles inferred."
+}
