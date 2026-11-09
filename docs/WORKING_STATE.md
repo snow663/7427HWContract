@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 288 public routines: 151 implemented outlines,
-28 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 289 public routines: 153 implemented outlines,
+27 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -236,6 +236,12 @@ Next extend factory-test admission/recurring execution and the remaining retaine
 boot/system stages using their ROM contracts. Keep the eight earlier AE85 callees
 explicit until their bodies are implemented. Target logical-address binding,
 startup/interrupt assembly, stack/cycle bounds and physical SCI behavior remain explicit interfaces.
+
+The second source PR replaces the working-RAM reset boundary with the actual
+three clear calls and serial loop. The callable F2FD helper retains count-driven
+byte/word ordering, eight-bit block truncation and address wrap. See the
+[startup memory contract](../pseudo-source/reference/startup_memory_contract.md).
+Initial acquisition/factory admission is next in this three-PR batch.
 
 ## Tracked milestone: complete fuel calculation and injector control
 

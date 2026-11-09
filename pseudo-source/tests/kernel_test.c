@@ -96,6 +96,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
     f->platform.task[PCM_SERIAL_POLL]=f->platform.task[PCM_SCI_BODY]=f->platform.task[PCM_RESET_SERIAL]=NULL;
     f->platform.task[PCM_TRANSMISSION_INPUT]=NULL;
+    f->platform.task[PCM_RESET_RAM]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
@@ -122,7 +123,7 @@ static void test_initialization_and_missing_contracts(void) {
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
     CHECK(pcm.system.startup_counter==20 && pcm.iac.blm_value==128 && f.counts[PCM_RESET_SERIAL]==0);
-    static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RAM,
+    static const PcmTask expected[]={PCM_RESET_ENTRY,
         PCM_RESET_SENSORS,PCM_RESET_RETAINED,PCM_RESET_CONTROLLERS};
     CHECK(f.used==sizeof(expected)/sizeof(expected[0]));
     CHECK(memcmp(f.trace,expected,sizeof(expected))==0);

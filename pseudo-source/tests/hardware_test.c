@@ -9,7 +9,7 @@
 typedef struct { char kind; unsigned width; uint16_t address, value; } Event;
 typedef struct {
     uint8_t memory[65536]; /* Host peripheral fixture only. */
-    Event events[128];
+    Event events[1024];
     unsigned used, attempts, fail_at, strobe_reads, strobe_writes;
     uint16_t board_readback;
     uint8_t strobe_samples[2];
@@ -142,7 +142,7 @@ static void test_entry_and_continuation_boundaries(void)
     init(&f, &pcm);
     f.platform.task[PCM_RESET_ENTRY] = entry_precondition;
     CHECK(pcm_reset_sequence(&pcm, &f.platform, &pcm_reference_scheduler_calibration) == PCM_UNIMPLEMENTED);
-    CHECK(pcm.unresolved_task == PCM_RESET_RAM && f.used == 57);
+    CHECK(pcm.unresolved_task == PCM_RESET_SENSORS && f.used == 607);
     init(&f, &pcm);
     pcm.reference.pending = true;
     pcm.runtime.factory_mode = true;
