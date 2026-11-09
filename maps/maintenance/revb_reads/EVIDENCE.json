@@ -1,0 +1,91 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "spans": [
+    {
+      "start": "71C6",
+      "end_exclusive": "71D2",
+      "bytes": "b6 30 3f 81 0b 27 05 14 3a 04 20 1a"
+    },
+    {
+      "start": "F245",
+      "end_exclusive": "F280",
+      "bytes": "ce 30 00 86 14 8d 13 a6 31 97 a6 12 50 01 05 a6 32 b7 08 2e a6 33 b7 01 d5 39 15 1a 02 b7 30 30 c6 0c 1e 30 80 09 5a 26 f9 14 3a 01 14 1a 02 39 1d 08 38 48 48 48 aa 08 a7 08 39"
+    },
+    {
+      "start": "F3ED",
+      "end_exclusive": "F420",
+      "bytes": "39 0f fc 3f fc bd f3 ed ca 08 13 72 80 02 c4 f7 fd 3f fc b6 30 60 84 6f d6 4b c4 90 f7 30 60 1b 97 4b 96 4c b7 30 62 b6 30 64 97 4d 96 4e b7 30 67 0e 39"
+    },
+    {
+      "start": "A5E5",
+      "end_exclusive": "A5E8",
+      "bytes": "fc 3f c0"
+    },
+    {
+      "start": "F90B",
+      "end_exclusive": "F911",
+      "bytes": "f6 30 2e b6 30 2f"
+    },
+    {
+      "start": "F888",
+      "end_exclusive": "F88A",
+      "bytes": "ee 09"
+    },
+    {
+      "start": "F8B8",
+      "end_exclusive": "F8E6",
+      "bytes": "8c 10 00 25 1f 8c 3f ff 22 1a 8f 12 50 08 02 84 cf 8f ec 00 f7 03 66 14 3b 80 20 12 15 3b 80 b6 03 66 20 0a a6 00 20 06 26 12 b6 03 61 40"
+    },
+    {
+      "start": "F4B8",
+      "end_exclusive": "F4BA",
+      "bytes": "e6 00"
+    },
+    {
+      "start": "50A2",
+      "end_exclusive": "50A3",
+      "bytes": "04"
+    },
+    {
+      "start": "5216",
+      "end_exclusive": "5218",
+      "bytes": "02 4a"
+    },
+    {
+      "start": "F20D",
+      "end_exclusive": "F245",
+      "bytes": "ce 30 00 86 07 bd f2 75 86 01 bd f2 5f a6 34 b7 08 2d 7e f2 2e ff ff ff ff ff ff ff ff ff ff ff ff 86 01 8d 43 86 11 8d 29 a6 32 b7 08 2f 7e f2 3f ff a6 34 97 a7 20 19"
+    },
+    {
+      "start": "C56F",
+      "end_exclusive": "C583",
+      "bytes": "ce 30 00 86 02 bd f2 75 86 01 0f bd f2 5f e6 34 0e d7 55 39"
+    },
+    {
+      "start": "DC0A",
+      "end_exclusive": "DC10",
+      "bytes": "a6 34 43 b7 02 30"
+    },
+    {
+      "start": "F2AA",
+      "end_exclusive": "F2FD",
+      "bytes": "18 ce 00 00 3c 32 32 5f 04 04 04 36 17 27 09 e6 00 18 3a 08 8b 20 26 f7 c6 08 32 18 8f eb 00 89 00 eb 01 89 00 eb 02 89 00 eb 03 89 00 eb 04 89 00 eb 05 89 00 eb 06 89 00 eb 07 89 00 18 8f 3a 4c 26 d8 86 55 b7 30 3a 43 b7 30 3a 4f 8c 00 00 26 c9 39"
+    },
+    {
+      "start": "FC44",
+      "end_exclusive": "FC45",
+      "bytes": "3b"
+    },
+    {
+      "start": "71D2",
+      "end_exclusive": "71D8",
+      "bytes": "ce 40 08 bd f2 aa"
+    },
+    {
+      "start": "FFD6",
+      "end_exclusive": "10000",
+      "bytes": "f7 ea fc 44 fc 3a fc 3a fc 3a 78 75 78 d9 79 3d fc 2f ce 7c fc 2f fc 2f fc 2f fc 2f 74 ea fc 09 fc 04 fc 1a fc 1f fc 24 fc 29"
+    }
+  ],
+  "scope": "Recorded scoped read witnesses, not a complete image or full abstract-analysis replay"
+}

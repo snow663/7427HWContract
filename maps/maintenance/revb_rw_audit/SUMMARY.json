@@ -1,0 +1,19 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "rooted_instructions": 6449,
+  "explicit_read_sites": 2221,
+  "explicit_write_sites": 1120,
+  "fixed_write_sites": 1018,
+  "named_write_rows": 807,
+  "named_writer_associations": 2841,
+  "association_results": {
+    "fixed_operand_matches": 1356,
+    "inherited_indexed_qualification_not_resolved": 569,
+    "finite_indexed_matches": 916
+  },
+  "write_sites_without_named_evidence": 3,
+  "additional_site_roles": 92,
+  "write_sites_without_role": 0,
+  "witness_cases": 13,
+  "scope": "Audit Rev B read/write evidence and replay bounded cross-reference findings.\n\nFull-image mode checks rooted writers and recorded readers against actual bytes.\nRecorded mode replays selected code in controlled byte storage; it cannot prove\nwhole-image reachability, interrupt histories, electrical behavior or aliases."
+}

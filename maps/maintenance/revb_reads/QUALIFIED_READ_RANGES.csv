@@ -1,0 +1,9 @@
+pc,start,end,stride,distinct_bytes,resource,condition,proof
+F2C7,4008,FFF8,8,6143,Program ROM checksum data,Boot call71D5 with X4008 after CONFIG qualification; not arbitrary helper entry,Exact caller/loop bytes plus bounded CPU address-walk witness
+F2CB,4009,FFF9,8,6143,Program ROM checksum data,Boot call71D5 with X4008 after CONFIG qualification; not arbitrary helper entry,Exact caller/loop bytes plus bounded CPU address-walk witness
+F2CF,400A,FFFA,8,6143,Program ROM checksum data,Boot call71D5 with X4008 after CONFIG qualification; not arbitrary helper entry,Exact caller/loop bytes plus bounded CPU address-walk witness
+F2D3,400B,FFFB,8,6143,Program ROM checksum data,Boot call71D5 with X4008 after CONFIG qualification; not arbitrary helper entry,Exact caller/loop bytes plus bounded CPU address-walk witness
+F2D7,400C,FFFC,8,6143,Program ROM checksum data,Boot call71D5 with X4008 after CONFIG qualification; not arbitrary helper entry,Exact caller/loop bytes plus bounded CPU address-walk witness
+F2DB,400D,FFFD,8,6143,Program ROM checksum data,Boot call71D5 with X4008 after CONFIG qualification; not arbitrary helper entry,Exact caller/loop bytes plus bounded CPU address-walk witness
+F2DF,400E,FFFE,8,6143,Program ROM checksum data,Boot call71D5 with X4008 after CONFIG qualification; not arbitrary helper entry,Exact caller/loop bytes plus bounded CPU address-walk witness
+F2E3,400F,FFFF,8,6143,Program ROM checksum data,Boot call71D5 with X4008 after CONFIG qualification; not arbitrary helper entry,Exact caller/loop bytes plus bounded CPU address-walk witness

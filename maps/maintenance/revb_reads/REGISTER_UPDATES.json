@@ -1,0 +1,26 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "workbook": "7427_Address_Register_0.3.12.xlsx",
+  "before_sha256": "f1f2c738e2c274885589882dcc4beb7f67b10f69d81a5b022a85b61d9145b2a4",
+  "after_sha256": "e63a758c3eeac14a8ad223192f228db6ed99b9808496f40b60b8d463a8040142",
+  "added_rows": [
+    {
+      "address": "$300B",
+      "OEM role": "CFORC: timer output-compare force control; read-modify-write operand",
+      "Current use": "",
+      "read_pcs": [
+        "75CE",
+        "7601"
+      ]
+    },
+    {
+      "address": "$3066",
+      "OEM role": "Board I/O bit-update interface; physical function unresolved",
+      "Current use": "",
+      "read_pcs": [
+        "F3E4"
+      ]
+    }
+  ],
+  "preserved": "Every prior address/role/use value; other two sheets; column widths; frozen views; native table names; both OEM books and write reference untouched."
+}

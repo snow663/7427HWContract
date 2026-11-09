@@ -1,0 +1,10 @@
+start,end,size_bytes,resource,assumption
+0000,03FF,1024,Internal RAM,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+0400,0DFF,2560,External GEN selection; backing unknown,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+0E00,0FFF,512,Conditional internal EEPROM,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+1000,1FFF,4096,External GEN selection; backing unknown,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+2000,2FFF,4096,Program selection; backing unknown,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+3000,305F,96,Internal CPU registers,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+3060,37FF,1952,External IO1 selection,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+3800,3FFF,2048,External IO2 selection,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory
+4000,FFFF,49152,Program selection; supplied code/calibration/vector region,Standard F1 internal resources and CONFIG live value0B; not a measured physical inventory

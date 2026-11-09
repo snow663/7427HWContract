@@ -1,0 +1,79 @@
+name: Rev B Operation Reader
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "tools/explain_revb_bin.py"
+      - "tools/explain_revb_functions.py"
+      - "tools/factory_rom_decode.py"
+      - "tools/trace_manual_idle.py"
+      - "tools/*revb_cs*.py"
+      - "tools/revb_access_flow.py"
+      - "tools/audit_revb_rw.py"
+      - "tools/verify_revb_write_roles.py"
+      - "maps/maintenance/write_registers_evidence.json"
+      - "tools/trace_revb_reads.py"
+      - "tools/revb_read_witnesses.py"
+      - "7427_Address_Register_0.3.12.xlsx"
+      - "tools/factory_state_flow.py"
+      - "tools/build_factory_state_flow.py"
+      - "7427_Write_Register_0.3.12.xlsx"
+      - "tools/verify_revb_xdf_labels.py"
+      - "hac31_romsim/romsim/**"
+      - "maps/maintenance/revb_operation_examples.json"
+      - "maps/maintenance/revb_function_*.json"
+      - "maps/maintenance/revb_cs_decode/**"
+      - "maps/maintenance/revb_reads/**"
+      - "maps/maintenance/revb_rw_audit/**"
+      - "maps/maintenance/revb_write_roles/**"
+      - "tests/test_revb_english.py"
+      - "tests/test_revb_functions.py"
+      - ".github/workflows/revb-operation-reader.yml"
+  push:
+    branches: [main]
+    paths:
+      - "tools/explain_revb_bin.py"
+      - "tools/explain_revb_functions.py"
+      - "tools/factory_rom_decode.py"
+      - "tools/trace_manual_idle.py"
+      - "tools/*revb_cs*.py"
+      - "tools/revb_access_flow.py"
+      - "tools/audit_revb_rw.py"
+      - "tools/verify_revb_write_roles.py"
+      - "maps/maintenance/write_registers_evidence.json"
+      - "tools/trace_revb_reads.py"
+      - "tools/revb_read_witnesses.py"
+      - "7427_Address_Register_0.3.12.xlsx"
+      - "tools/factory_state_flow.py"
+      - "tools/build_factory_state_flow.py"
+      - "7427_Write_Register_0.3.12.xlsx"
+      - "tools/verify_revb_xdf_labels.py"
+      - "hac31_romsim/romsim/**"
+      - "maps/maintenance/revb_operation_examples.json"
+      - "maps/maintenance/revb_function_*.json"
+      - "maps/maintenance/revb_cs_decode/**"
+      - "maps/maintenance/revb_reads/**"
+      - "maps/maintenance/revb_rw_audit/**"
+      - "maps/maintenance/revb_write_roles/**"
+      - "tests/test_revb_english.py"
+      - "tests/test_revb_functions.py"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check English rules and local provenance without a private BIN
+        run: python -m unittest discover -s tests -p 'test_revb_*.py' -v
+      - name: Replay chip-select, shadow and ALDL-address evidence
+        run: python tools/verify_revb_cs_decode.py --check-recorded
+      - name: Replay reads, ADC publications and qualified checksum footprint
+        run: python tools/trace_revb_reads.py --check-recorded
+      - name: Audit write associations and replay cross-reference findings
+        run: python tools/audit_revb_rw.py --check-recorded
+      - name: Verify formerly unnamed writer roles and dynamic owners
+        run: python tools/verify_revb_write_roles.py --check-recorded

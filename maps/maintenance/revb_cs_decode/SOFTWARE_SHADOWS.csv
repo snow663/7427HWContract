@@ -1,0 +1,6 @@
+ram_source,target,pc,width_bits,operation,category
+004B bits90,3060 bits90,F405/F407/F409,8,Masked output request;3060 input bits6F merged back into004B atF40C/F40D,"Software shadow flush, not CPU remapping"
+004C,3062,F40F/F411,8,Full-byte shadow copy; retained IAC phase/enable fields share the byte,"Software shadow flush, physical pin polarity separate"
+004E,3067,F419/F41B,8,Full-byte output shadow copy,Software shadow flush
+004D (destination),3064 (source),F414/F417,8,Hardware sample copied back into RAM; reverse direction,Input mirror
+0072 bit7,3FFD bit3 within word3FFC,F3F5/F3F7/F3FB/F3FD,16,"Read-modify-write shared word; low-byte bit3 set when RAM bit7 clear, cleared when set","Derived shared hardware bit, not full-word RAM mirror"

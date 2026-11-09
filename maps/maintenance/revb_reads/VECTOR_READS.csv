@@ -1,0 +1,22 @@
+address,target,kind
+FFD6,F7EA,CPU vector-fetch candidate; admission/mode selects which vector
+FFD8,FC44,CPU vector-fetch candidate; admission/mode selects which vector
+FFDA,FC3A,CPU vector-fetch candidate; admission/mode selects which vector
+FFDC,FC3A,CPU vector-fetch candidate; admission/mode selects which vector
+FFDE,FC3A,CPU vector-fetch candidate; admission/mode selects which vector
+FFE0,7875,CPU vector-fetch candidate; admission/mode selects which vector
+FFE2,78D9,CPU vector-fetch candidate; admission/mode selects which vector
+FFE4,793D,CPU vector-fetch candidate; admission/mode selects which vector
+FFE6,FC2F,CPU vector-fetch candidate; admission/mode selects which vector
+FFE8,CE7C,CPU vector-fetch candidate; admission/mode selects which vector
+FFEA,FC2F,CPU vector-fetch candidate; admission/mode selects which vector
+FFEC,FC2F,CPU vector-fetch candidate; admission/mode selects which vector
+FFEE,FC2F,CPU vector-fetch candidate; admission/mode selects which vector
+FFF0,FC2F,CPU vector-fetch candidate; admission/mode selects which vector
+FFF2,74EA,CPU vector-fetch candidate; admission/mode selects which vector
+FFF4,FC09,CPU vector-fetch candidate; admission/mode selects which vector
+FFF6,FC04,CPU vector-fetch candidate; admission/mode selects which vector
+FFF8,FC1A,CPU vector-fetch candidate; admission/mode selects which vector
+FFFA,FC1F,CPU vector-fetch candidate; admission/mode selects which vector
+FFFC,FC24,CPU vector-fetch candidate; admission/mode selects which vector
+FFFE,FC29,CPU vector-fetch candidate; admission/mode selects which vector

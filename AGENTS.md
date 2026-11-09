@@ -93,3 +93,31 @@ the separate factory-equivalence milestones do not imply custom-ROM completion.
 The current first step is TS00: truck testing and fine-tuning of the released
 Rev B change. Later structural/behavior changes remain queued until that
 validation checkpoint is closed. A label audit does not authorize a new BIN.
+
+The Rev B read extraction adds `$300B` (CFORC RMW operand) and `$3066`
+(board bit-update read; physical role unresolved) to the maintained ADC-HW
+read tab, now 44 entries. Prior values and both OEM books remain preserved.
+See [the read-resource guide](docs/investigations/REVB_READ_RESOURCES.md) and
+[maps/maintenance/revb_reads/REGISTER_UPDATES.json](maps/maintenance/revb_reads/REGISTER_UPDATES.json)
+for exact workbook identities and read-PC evidence. This is a reference update,
+not a new firmware revision or advancement beyond TS00.
+
+The subsequent [Rev B read/write audit](docs/investigations/REVB_READ_WRITE_AUDIT.md)
+corrects the shared `$004C/$004D` and constructed BARO `$02F3` Current use fields,
+clarifies the `$088B` write,
+and adds cause/barometric-diagnostic locations plus the qualified `$0F00` write.
+The maintained read RAM tab has 497 entries; write RAM/register tabs have
+638/83 entries. `maps/maintenance/revb_rw_audit/REGISTER_UPDATES.json` records
+this later reference snapshot; earlier update journals remain historical.
+The complete rooted write-site audit is separate from named register coverage.
+Simulator-resource corrections and cleanup candidates remain pending; TS00 is
+still first. No new BIN or simulator behavior is introduced by this audit.
+
+The [missing-role follow-up](docs/investigations/REVB_MISSING_WRITE_ROLES.md)
+names all 92 prior unmatched writer sites and adds 86 RAM entries per maintained
+book. Current RAM counts are 583 read and 724 write (83 register writes).
+`maps/maintenance/revb_write_roles/REGISTER_UPDATES.json` chains to the previous
+audit journal. Keep stack-local EST/lag words and descriptor-selected serial
+staging as site roles, not invented absolute variables. Legacy recovery slots
+A/B have a counter/clear role but no proved monitor number. The empty current
+broadcast schedule does not imply requested ALDL replies are disabled.

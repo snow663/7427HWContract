@@ -1,0 +1,7 @@
+pc,bytes,operation,address,value,register,meaning,context
+7108,a7 3d,"STAA $3D,X",103D,03,INIT,RAM page 0; CPU-register page 3,X=1000 from7103; A=03 from7106
+CC89,a7 5c,"STAA $5C,X",305C,00,CSSTRH,All four programmed stretch fields zero,Caller711C establishes X=3000; straight-line immediate A
+CCA3,a7 3c,"STAA $3C,X",303C,15,HPRIO,IRV bit4 set; write mode bits have normal-mode restrictions,Caller711C establishes X=3000; straight-line immediate A
+CCA7,a7 5d,"STAA $5D,X",305D,AC,CSCTL,IO1/IO2/program enabled; GEN priority; program size64K,Caller711C establishes X=3000; straight-line immediate A
+CCAB,a7 5f,"STAA $5F,X",305F,CB,CSGSIZ,GEN8K; active-low/address-valid; IO1/IO2 address-valid,Caller711C establishes X=3000; straight-line immediate A
+CCAF,a7 5e,"STAA $5E,X",305E,00,CSGADR,General-select base0000,Caller711C establishes X=3000; straight-line immediate A

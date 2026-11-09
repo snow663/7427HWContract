@@ -10,7 +10,8 @@
     "Reset writes to ASIC status windows do not establish physical write behavior or an inactive output.",
     "Named word starts represent the full word; independently named byte/bit owners remain separate.",
     "Unknown register identities remain explicit. Blank current use means retained write role, not byte-identical calibration or identical writer set.",
-    "Omitted describes the removed write role. Initialization, refresh or safe-off writes may remain and are identified separately."
+    "Omitted describes the removed write role. Initialization, refresh or safe-off writes may remain and are identified separately.",
+    "The 2026-11-07 audit completes fixed-writer associations for named row starts. Separate full write-site inventory includes unnamed operands; this does not resolve inherited indexed/reset scopes or prove bit-level operational liveness."
   ],
   "sources": [
     "maps/structure/factory_global_instructions.csv",
@@ -29,10 +30,39 @@
     "docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md",
     "docs/investigations/MANUAL_IDLE_REPLACEMENT.md",
     "source/manual_idle/decel_spark_gate.asm",
-    "docs/investigations/MANUAL_IDLE_REVB_RELEASE.md"
+    "docs/investigations/MANUAL_IDLE_REVB_RELEASE.md",
+    "docs/investigations/REVB_READ_WRITE_AUDIT.md",
+    "docs/investigations/REVB_MISSING_WRITE_ROLES.md"
   ],
-  "updated": "2026-11-06",
+  "updated": "2026-11-07",
   "rows": [
+    {
+      "sheet": "RAM writes",
+      "address": "$0000",
+      "oem_role": "Interrupt and trap cause latch",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$794B",
+        "$FC04",
+        "$FC09",
+        "$FC11",
+        "$FC1A",
+        "$FC1F",
+        "$FC24",
+        "$FC29"
+      ],
+      "current_writer_pcs": [
+        "$794B",
+        "$FC04",
+        "$FC09",
+        "$FC11",
+        "$FC1A",
+        "$FC1F",
+        "$FC24",
+        "$FC29"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
     {
       "sheet": "RAM writes",
       "address": "$0001",
@@ -122,6 +152,20 @@
     },
     {
       "sheet": "RAM writes",
+      "address": "$0004.2",
+      "oem_role": "Background observation of pending RAM refresh",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$7B56"
+      ],
+      "current_writer_pcs": [
+        "$7B56",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
       "address": "$0004.3",
       "oem_role": "Spark run transition",
       "current_use": "",
@@ -171,6 +215,22 @@
         "$F315",
         "$F354"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0005.4",
+      "oem_role": "Boot configuration or program-validation failure",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$71C3",
+        "$71EC"
+      ],
+      "current_writer_pcs": [
+        "$71C3",
+        "$71EC",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -360,6 +420,170 @@
         "$93CD",
         "$F31E"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$000B",
+      "oem_role": "Retained diagnostic log bank 1",
+      "current_use": "Retained diagnostic log bank 1. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$5BD4",
+        "$F301"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$000C",
+      "oem_role": "Retained diagnostic log bank 2",
+      "current_use": "Retained diagnostic log bank 2. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$5BDA",
+        "$F301"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$000D",
+      "oem_role": "Retained diagnostic log bank 3",
+      "current_use": "Retained diagnostic log bank 3. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$5BE0",
+        "$F301"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$000E",
+      "oem_role": "Retained diagnostic log bank 4",
+      "current_use": "Retained diagnostic log bank 4. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$5BE6",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$000F",
+      "oem_role": "Retained diagnostic log bank 5",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$71FD"
+      ],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$71FD",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$000F.5",
+      "oem_role": "Retained program-validation fault, DTC51",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$71FD"
+      ],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$71FD",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0010",
+      "oem_role": "Retained diagnostic log bank 6",
+      "current_use": "Retained diagnostic log bank 6. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$5BEC",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0011",
+      "oem_role": "Retained diagnostic log bank 7",
+      "current_use": "Retained diagnostic log bank 7. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$5BEE",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0012",
+      "oem_role": "Retained diagnostic log bank 8",
+      "current_use": "Retained diagnostic log bank 8. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$5BF1",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0013",
+      "oem_role": "Retained diagnostic log bank 9",
+      "current_use": "Retained diagnostic log bank 9. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E19F",
+        "$DD32",
+        "$F38C",
+        "$F33F",
+        "$5BF4",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -830,6 +1054,40 @@
     },
     {
       "sheet": "RAM writes",
+      "address": "$001A",
+      "oem_role": "Live diagnostic fault bank 5",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$71FA",
+        "$D16E",
+        "$D180",
+        "$E28D",
+        "$E2C5",
+        "$EA60",
+        "$EA70",
+        "$EA9B",
+        "$EAA9",
+        "$F25F",
+        "$F271"
+      ],
+      "current_writer_pcs": [
+        "$E28D",
+        "$E2C5",
+        "$F25F",
+        "$F271",
+        "$EA9B",
+        "$EAA9",
+        "$EA60",
+        "$EA70",
+        "$F393",
+        "$F346",
+        "$71FA",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
       "address": "$001A.1",
       "oem_role": "Engine state ADC timeout",
       "current_use": "",
@@ -847,6 +1105,132 @@
         "$F31B",
         "$F346"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001A.2",
+      "oem_role": "Fuel-pump feedback diagnostic fault, DTC54",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$E28D",
+        "$E2C5"
+      ],
+      "current_writer_pcs": [
+        "$E28D",
+        "$E2C5",
+        "$F393",
+        "$F346",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001A.3",
+      "oem_role": "Battery-threshold diagnostic fault, DTC53 (literal high-side test)",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EA9B",
+        "$EAA9"
+      ],
+      "current_writer_pcs": [
+        "$EA9B",
+        "$EAA9",
+        "$F393",
+        "$F346",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001A.4",
+      "oem_role": "High battery-sample diagnostic fault, DTC52",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EA60",
+        "$EA70"
+      ],
+      "current_writer_pcs": [
+        "$EA60",
+        "$EA70",
+        "$F393",
+        "$F346",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001A.5",
+      "oem_role": "Live program-validation diagnostic fault, DTC51",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$71FA"
+      ],
+      "current_writer_pcs": [
+        "$F393",
+        "$F346",
+        "$71FA",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001B",
+      "oem_role": "Diagnostic fault-flag byte",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EACE",
+        "$EADC",
+        "$EB01",
+        "$EB0F",
+        "$EB37",
+        "$EB45",
+        "$EB6B",
+        "$EB79"
+      ],
+      "current_writer_pcs": [
+        "$5C13",
+        "$EB37",
+        "$EB45",
+        "$EB6B",
+        "$EB79"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001B.1",
+      "oem_role": "BARO-estimate low-limit diagnostic flag",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EB6B",
+        "$EB79"
+      ],
+      "current_writer_pcs": [
+        "$5C13",
+        "$EB6B",
+        "$EB79"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001B.2",
+      "oem_role": "BARO-estimate high-limit diagnostic flag",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EB37",
+        "$EB45"
+      ],
+      "current_writer_pcs": [
+        "$5C13",
+        "$EB37",
+        "$EB45"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
     },
     {
       "sheet": "RAM writes",
@@ -909,6 +1293,357 @@
         "$F346",
         "$F393"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001E",
+      "oem_role": "Live diagnostic fault bank 9",
+      "current_use": "Live diagnostic fault bank 9. Removed monitor bits cleared.",
+      "oem_writer_pcs": [
+        "$7365",
+        "$EFAB",
+        "$F027",
+        "$F052",
+        "$F0A5",
+        "$F0D0",
+        "$F129",
+        "$F151",
+        "$F1D9"
+      ],
+      "current_writer_pcs": [
+        "$F393",
+        "$F346",
+        "$5C1B",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$001F",
+      "oem_role": "DTC21 retained recovery-budget counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$727C",
+        "$E7EF",
+        "$F364",
+        "$F3A1"
+      ],
+      "current_writer_pcs": [
+        "$F3A1",
+        "$F364",
+        "$E7EF",
+        "$727C",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0020",
+      "oem_role": "DTC22 retained recovery-budget counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$7288",
+        "$E82F",
+        "$F366",
+        "$F3A3"
+      ],
+      "current_writer_pcs": [
+        "$F3A3",
+        "$F366",
+        "$E82F",
+        "$7288",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0021",
+      "oem_role": "DTC24 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$7294",
+        "$E868",
+        "$F3A5"
+      ],
+      "current_writer_pcs": [
+        "$F3A5",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0022",
+      "oem_role": "DTC28 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$72A0",
+        "$E8ED",
+        "$F3A7"
+      ],
+      "current_writer_pcs": [
+        "$F3A7",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0023",
+      "oem_role": "DTC37 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$72AC",
+        "$E92B",
+        "$F3A9"
+      ],
+      "current_writer_pcs": [
+        "$F3A9",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0024",
+      "oem_role": "DTC38 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$72B8",
+        "$E9C7",
+        "$F3AB"
+      ],
+      "current_writer_pcs": [
+        "$F3AB",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0026",
+      "oem_role": "Legacy diagnostic recovery slot A",
+      "current_use": "Explicit diagnostic clear. Monitor identity unproven.",
+      "oem_writer_pcs": [
+        "$72D0",
+        "$F3AD"
+      ],
+      "current_writer_pcs": [
+        "$F3AD",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0027",
+      "oem_role": "Legacy diagnostic recovery slot B",
+      "current_use": "Explicit diagnostic clear. Monitor identity unproven.",
+      "oem_writer_pcs": [
+        "$72DC",
+        "$F3AF"
+      ],
+      "current_writer_pcs": [
+        "$F3AF",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0028",
+      "oem_role": "DTC68 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$72E8",
+        "$EE8A",
+        "$F3B1"
+      ],
+      "current_writer_pcs": [
+        "$F3B1",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0029",
+      "oem_role": "DTC72 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$72F4",
+        "$EBF9",
+        "$F3B3"
+      ],
+      "current_writer_pcs": [
+        "$F3B3",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$002A",
+      "oem_role": "DTC73 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$7300",
+        "$EC5C",
+        "$F3B5"
+      ],
+      "current_writer_pcs": [
+        "$F3B5",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$002B",
+      "oem_role": "DTC81 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$730C",
+        "$ED68",
+        "$F3B7"
+      ],
+      "current_writer_pcs": [
+        "$F3B7",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$002C",
+      "oem_role": "DTC82 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$7318",
+        "$EDA9",
+        "$F3B9"
+      ],
+      "current_writer_pcs": [
+        "$F3B9",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$002D",
+      "oem_role": "DTC83 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$7324",
+        "$EDEA",
+        "$F3BB"
+      ],
+      "current_writer_pcs": [
+        "$F3BB",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$002F",
+      "oem_role": "DTC86 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$733C",
+        "$F050",
+        "$F3BD"
+      ],
+      "current_writer_pcs": [
+        "$F3BD",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0030",
+      "oem_role": "DTC87 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$7348",
+        "$F0CE",
+        "$F3BF"
+      ],
+      "current_writer_pcs": [
+        "$F3BF",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0031",
+      "oem_role": "DTC89 retained recovery-budget counter",
+      "current_use": "Explicit diagnostic clear of a retired recovery counter.",
+      "oem_writer_pcs": [
+        "$7354",
+        "$7363",
+        "$F14F",
+        "$F3C1"
+      ],
+      "current_writer_pcs": [
+        "$F3C1",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0032",
+      "oem_role": "DTC89 gear-1 long-shift qualification counter",
+      "current_use": "Explicit diagnostic clear of a retired shift counter.",
+      "oem_writer_pcs": [
+        "$7381",
+        "$F19F",
+        "$F3CF"
+      ],
+      "current_writer_pcs": [
+        "$F3CF",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0033",
+      "oem_role": "DTC89 gear-2 long-shift qualification counter",
+      "current_use": "Explicit diagnostic clear of a retired shift counter.",
+      "oem_writer_pcs": [
+        "$7389",
+        "$F1BA",
+        "$F3D1"
+      ],
+      "current_writer_pcs": [
+        "$F3D1",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0034",
+      "oem_role": "DTC89 gear-3 long-shift qualification counter",
+      "current_use": "Explicit diagnostic clear of a retired shift counter.",
+      "oem_writer_pcs": [
+        "$7391",
+        "$F1D5",
+        "$F3D3"
+      ],
+      "current_writer_pcs": [
+        "$F3D3",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -1209,6 +1944,34 @@
     },
     {
       "sheet": "RAM writes",
+      "address": "$003A",
+      "oem_role": "Boot, stack and dispatcher diagnostic latches",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$71CD",
+        "$71E9",
+        "$7268",
+        "$7971",
+        "$7985",
+        "$7A7D",
+        "$CC50",
+        "$D17D",
+        "$F26E"
+      ],
+      "current_writer_pcs": [
+        "$7971",
+        "$7985",
+        "$7A7D",
+        "$F26E",
+        "$CC50",
+        "$71CD",
+        "$F318",
+        "$71E9"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
       "address": "$003A.0",
       "oem_role": "Engine state ADC fault",
       "current_use": "",
@@ -1221,6 +1984,78 @@
         "$F26E",
         "$F318"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$003A.1",
+      "oem_role": "Program checksum or mask-validation failure latch",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$71E9"
+      ],
+      "current_writer_pcs": [
+        "$F318",
+        "$71E9"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$003A.2",
+      "oem_role": "CPU CONFIG mismatch latch",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$71CD"
+      ],
+      "current_writer_pcs": [
+        "$71CD",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$003A.3",
+      "oem_role": "Interrupt stack-range failure latch",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$7971"
+      ],
+      "current_writer_pcs": [
+        "$7971",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$003A.4",
+      "oem_role": "Stack-fill sentinel disturbance latch",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$CC50"
+      ],
+      "current_writer_pcs": [
+        "$CC50",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$003A.5",
+      "oem_role": "Dispatcher overrun and resume-request latch",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$7985",
+        "$7A7D"
+      ],
+      "current_writer_pcs": [
+        "$7985",
+        "$7A7D",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -2439,7 +3274,7 @@
       "sheet": "RAM writes",
       "address": "$004C",
       "oem_role": "Shared board-output shadow, including engine I/O and factory transmission bits",
-      "current_use": "Engine-only cleanup clears removed subsystem state",
+      "current_use": "Shared IAC phase/enable and board-output shadow. Transmission fields cleared.",
       "oem_writer_pcs": [
         "$744D",
         "$749E",
@@ -2465,7 +3300,7 @@
       "sheet": "RAM writes",
       "address": "$004D",
       "oem_role": "IAC input shadow",
-      "current_use": "",
+      "current_use": "Board digital-input sample mirrored from $3064. Surviving engine/IAC consumers.",
       "oem_writer_pcs": [
         "$749E",
         "$F31B",
@@ -3275,6 +4110,149 @@
         "$C580",
         "$F31B"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0056",
+      "oem_role": "Diagnostic persistence-candidate bank 1",
+      "current_use": "Diagnostic persistence-candidate bank 1. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$5C22",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0057",
+      "oem_role": "Diagnostic persistence-candidate bank 2",
+      "current_use": "Diagnostic persistence-candidate bank 2. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$5C28",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0058",
+      "oem_role": "Diagnostic persistence-candidate bank 3",
+      "current_use": "Diagnostic persistence-candidate bank 3. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$5C2E",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0059",
+      "oem_role": "Diagnostic persistence-candidate bank 4",
+      "current_use": "Diagnostic persistence-candidate bank 4. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$5C34",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$005A",
+      "oem_role": "Diagnostic persistence-candidate bank 5",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$005B",
+      "oem_role": "Diagnostic persistence-candidate bank 6",
+      "current_use": "Diagnostic persistence-candidate bank 6. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$5C3A",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$005C",
+      "oem_role": "Diagnostic persistence-candidate bank 7",
+      "current_use": "Diagnostic persistence-candidate bank 7. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$5C3C",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$005D",
+      "oem_role": "Diagnostic persistence-candidate bank 8",
+      "current_use": "Diagnostic persistence-candidate bank 8. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$5C3F",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$005E",
+      "oem_role": "Diagnostic persistence-candidate bank 9",
+      "current_use": "Diagnostic persistence-candidate bank 9. Removed subsystem bits cleared.",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$E14A",
+        "$E16B",
+        "$E1A1",
+        "$F34D",
+        "$5C42",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -5681,6 +6659,196 @@
         "$749A",
         "$F31E"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$015F",
+      "oem_role": "DFCO exposure and recovery counter for the O2 activity diagnostic",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$DD64",
+        "$DD6D"
+      ],
+      "current_writer_pcs": [
+        "$DD64",
+        "$DD6D",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0160",
+      "oem_role": "DTC14 low coolant-ADC qualification counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$E78F"
+      ],
+      "current_writer_pcs": [
+        "$E78F",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0161",
+      "oem_role": "DTC15 high coolant-ADC qualification counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$E7C3"
+      ],
+      "current_writer_pcs": [
+        "$E7C3",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0162",
+      "oem_role": "DTC21 high raw-TPS qualification counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$E804"
+      ],
+      "current_writer_pcs": [
+        "$E804",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0163",
+      "oem_role": "DTC22 low raw-TPS qualification counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$E843"
+      ],
+      "current_writer_pcs": [
+        "$E843",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0169",
+      "oem_role": "DTC52 high battery-sample qualification counter (word)",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EA77"
+      ],
+      "current_writer_pcs": [
+        "$EA77",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$016B",
+      "oem_role": "DTC53 battery-threshold qualification counter (literal high-side test)",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EAAD"
+      ],
+      "current_writer_pcs": [
+        "$EAAD",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$016E",
+      "oem_role": "BARO-estimate high-limit qualification counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EB49"
+      ],
+      "current_writer_pcs": [
+        "$EB49"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$016F",
+      "oem_role": "BARO-estimate low-limit qualification counter",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$EB7D"
+      ],
+      "current_writer_pcs": [
+        "$EB7D"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0182",
+      "oem_role": "DTC37 brake/speed episode first-stage counter",
+      "current_use": "Explicit diagnostic clear of a retired episode counter.",
+      "oem_writer_pcs": [
+        "$E94A",
+        "$E962",
+        "$F3C3"
+      ],
+      "current_writer_pcs": [
+        "$F3C3",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0183",
+      "oem_role": "DTC37 brake/speed episode second-stage counter",
+      "current_use": "Explicit diagnostic clear of a retired episode counter.",
+      "oem_writer_pcs": [
+        "$E966",
+        "$E975",
+        "$F3C6"
+      ],
+      "current_writer_pcs": [
+        "$F3C6",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0184",
+      "oem_role": "DTC38 brake/speed episode first-stage counter",
+      "current_use": "Explicit diagnostic clear of a retired episode counter.",
+      "oem_writer_pcs": [
+        "$E9F8",
+        "$EA0F",
+        "$F3C9"
+      ],
+      "current_writer_pcs": [
+        "$F3C9",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0185",
+      "oem_role": "DTC38 brake/speed episode second-stage counter",
+      "current_use": "Explicit diagnostic clear of a retired episode counter.",
+      "oem_writer_pcs": [
+        "$E9E4",
+        "$E9F4",
+        "$F3CC"
+      ],
+      "current_writer_pcs": [
+        "$F3CC",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -8610,6 +9778,20 @@
     },
     {
       "sheet": "RAM writes",
+      "address": "$027E",
+      "oem_role": "Ignition-off fuel-pass counter (word)",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$7DAE"
+      ],
+      "current_writer_pcs": [
+        "$7DAE",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
       "address": "$0280",
       "oem_role": "Fuel oxygen error",
       "current_use": "",
@@ -8928,6 +10110,24 @@
         "$749A",
         "$F31B"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$029B",
+      "oem_role": "RAM-refresh scan cursor (word)",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$747B",
+        "$74A7",
+        "$74AD"
+      ],
+      "current_writer_pcs": [
+        "$747B",
+        "$74A7",
+        "$74AD",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -9398,9 +10598,215 @@
     },
     {
       "sheet": "RAM writes",
+      "address": "$02D1",
+      "oem_role": "Minimum observed stack-fill scan boundary (word)",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$74CD"
+      ],
+      "current_writer_pcs": [
+        "$74CD",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02D3",
+      "oem_role": "Dispatcher slot 0 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02D5",
+      "oem_role": "Dispatcher slot 1 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02D7",
+      "oem_role": "Dispatcher slot 2 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02D9",
+      "oem_role": "Dispatcher slot 3 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02DB",
+      "oem_role": "Dispatcher slot 4 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02DD",
+      "oem_role": "Dispatcher slot 5 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02DF",
+      "oem_role": "Dispatcher slot 6 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02E1",
+      "oem_role": "Dispatcher slot 7 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02E3",
+      "oem_role": "Dispatcher slot 8 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02E5",
+      "oem_role": "Dispatcher slot 9 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02E7",
+      "oem_role": "Dispatcher slot 10 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02E9",
+      "oem_role": "Dispatcher slot 11 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02EB",
+      "oem_role": "Dispatcher slot 12 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02ED",
+      "oem_role": "Dispatcher slot 13 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02EF",
+      "oem_role": "Dispatcher slot 14 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F315"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$02F1",
+      "oem_role": "Dispatcher slot 15 maximum observed elapsed timer count (word)",
+      "current_use": "",
+      "oem_writer_pcs": [],
+      "current_writer_pcs": [
+        "$7A77",
+        "$F318"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
       "address": "$02F3",
       "oem_role": "Sampled barometric-pressure input",
-      "current_use": "",
+      "current_use": "BARO estimate from MAP plus lookup correction or fallback. No direct ADC sample.",
       "oem_writer_pcs": [
         "$748A",
         "$C59B",
@@ -10216,6 +11622,22 @@
     },
     {
       "sheet": "RAM writes",
+      "address": "$0817",
+      "oem_role": "VSS-buffer diagnostic qualification counter, DTC16",
+      "current_use": "Explicit diagnostic clear of the removed VSS monitor counter.",
+      "oem_writer_pcs": [
+        "$DDEE",
+        "$DDFF",
+        "$F368"
+      ],
+      "current_writer_pcs": [
+        "$F368",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
+    },
+    {
+      "sheet": "RAM writes",
       "address": "$0818",
       "oem_role": "Fuel PE vehicle change (word)",
       "current_use": "omitted",
@@ -10243,6 +11665,22 @@
         "$749A",
         "$F318"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$081C",
+      "oem_role": "Manual-option VSS diagnostic qualification counter, DTC24",
+      "current_use": "Explicit diagnostic clear of the removed VSS monitor counter.",
+      "oem_writer_pcs": [
+        "$DE1D",
+        "$DE37",
+        "$F36E"
+      ],
+      "current_writer_pcs": [
+        "$F36E",
+        "$F31B"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -10936,6 +12374,20 @@
         "$DC7B",
         "$F31B"
       ]
+    },
+    {
+      "sheet": "RAM writes",
+      "address": "$0856",
+      "oem_role": "VATS authorization-failure qualification counter, DTC46",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$E112"
+      ],
+      "current_writer_pcs": [
+        "$E112",
+        "$F31E"
+      ],
+      "current_writer_scope": "Current fixed operands and finite abstract footprints. Named arrays retain caller/index bounds; stack temporaries and descriptor-selected pointers have separate site roles. Explicit cleanup does not reactivate a removed monitor."
     },
     {
       "sheet": "RAM writes",
@@ -11692,7 +13144,7 @@
       "sheet": "RAM writes",
       "address": "$088B",
       "oem_role": "Converted IAC airflow demand (word)",
-      "current_use": "",
+      "current_use": "Converted air-command snapshot before the IAC position lookup. No fixed/finite read identified.",
       "oem_writer_pcs": [
         "$749A",
         "$9880",
@@ -11838,6 +13290,19 @@
         "$7496",
         "$F315"
       ]
+    },
+    {
+      "sheet": "Register writes",
+      "address": "$0F00",
+      "oem_role": "Conditional EEPROM-window destination. Purpose and physical backing unresolved.",
+      "current_use": "",
+      "oem_writer_pcs": [
+        "$F5D8"
+      ],
+      "current_writer_pcs": [
+        "$F5D8"
+      ],
+      "current_writer_scope": "Exact current-image fixed operand writers plus preserved qualified indexed/reset/refresh associations. A memory write is not proof of an operational role or changed bit value."
     },
     {
       "sheet": "Register writes",
