@@ -25,6 +25,7 @@ controller bodies and physical hardware backend remain to be implemented.
 | `src/spark/`, `src/idle/` | Knock/adaptive gains, background IAC, learning, corrections and remaining boundaries |
 | `src/sensors/` | Knock sensor diagnostic and remaining acquisition/housekeeping boundaries |
 | `src/serial/` | SCI/ALDL RX/TX, broadcast, session timing and logical-address interfaces |
+| `src/service/` | Retained service lifecycle, diagnostic clears and the scheduled idle/service tail |
 | `src/transmission/`, `src/emissions/` | Existing scheduling dependencies retained visibly for later feature selection |
 | `include/` | Public routine declarations, named state, platform and calibration interfaces |
 | `calibration/` | Source defaults, separate from executable routines |
@@ -38,8 +39,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 277 public routines: 141 implemented outlines, 28 dependency
-boundaries and 108 implemented algorithms. Reset CPU/chip-select/board
+The tree contains 288 public routines: 151 implemented outlines, 28 dependency
+boundaries and 109 implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -165,8 +166,15 @@ The [SCI/system contract](reference/serial_system_contract.md) covers resident
 receive/transmit, IRQ arbitration, broadcasts, session expiry, callable serial
 RAM clearing and post-controller boot seeds. The address-space provider must
 bind other logical RAM addresses to their existing named owners. Retained
-controller-service processing, factory callback execution and the target ABI
-remain the next layer.
+controller-service processing is covered by the follow-up below; factory
+callback execution and the target ABI remain separate work.
+
+The [retained service contract](reference/service_lifecycle_contract.md) now
+connects accepted commands to engine/transmission service admission, edge-triggered
+BLM/diagnostic clears, retained output fields and expiry cleanup. The scheduled
+wrapper calls the resident idle/service tail after an explicit eight-callee input
+prefix dependency. It adds80,142 C/ROM comparisons; earlier transmission work,
+factory execution and target interfaces remain visible dependencies.
 
 ## Local checks
 
@@ -192,7 +200,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are fifty-two CTest entries; the Python route runs the same contract/differential checks.
+are fifty-four CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035

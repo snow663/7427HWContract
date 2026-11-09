@@ -28,7 +28,7 @@ typedef enum {
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
     PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
-    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TASK_COUNT
+    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TRANSMISSION_INPUT_PREFIX, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -320,8 +320,8 @@ typedef struct {
     volatile bool fuel_running;        /* RAM004F.4 */
     volatile bool spark_running;       /* RAM004F.7 */
     bool ignition_off;                 /* RAM0051.3 */
-    bool engine_service;               /* RAM003B.4 */
-    bool transmission_service;         /* RAM003B.3 */
+    volatile bool engine_service;      /* RAM003B.4 */
+    volatile bool transmission_service; /* RAM003B.3 */
     bool service_output_enable;        /* RAM038F.2 */
     bool service_output_value;         /* RAM0390.2 */
     bool service_output_mirror;        /* RAM0072.7 */
@@ -428,7 +428,9 @@ typedef struct {
     volatile uint8_t inhibit_flags, fault_flags_primary, fault_flags_secondary; /* 0099,001C,001D */
     volatile bool driver_inhibit;      /* 0086.0; shares its byte with profiling0086.6 */
     volatile uint8_t output_fault_flags; /* 008E */
-    volatile uint8_t current_service_enable, current_service_value; /* 039A,039B, bit6 */
+    volatile uint8_t current_service_enable, current_service_value; /* 039A,039B; output and solenoid masks. */
+    volatile uint8_t service_gear, service_tcc, service_pressure, service_state, adaptive_flags; /*0103,010A,0111,0118,011A */
+    volatile uint8_t diagnostic_status[2]; /*0130/0131, packed by F64E */
     volatile uint8_t tcc_flags, tcc_state; /* 008A,008B */
     volatile uint16_t tcc_command, tcc_lower_limit; /* 0126,012B */
     volatile uint8_t range_context, shift_gear, shift_hold, shift_ratio; /* 0089,0845/46/4B */
@@ -555,6 +557,7 @@ typedef struct {
 } PcmSerial;
 
 typedef struct {
+    volatile uint8_t diagnostic_checksum; /*0015, negative sum of0014..000B */
     volatile uint8_t startup_counter; /*0049, reset seed20 */
 } PcmSystem;
 
