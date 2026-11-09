@@ -23,7 +23,8 @@ are source-development outcomes, not instructions replacing RTI or STOP.
 ## Tick and pass order
 
 `pcm_periodic_irq()` advances the old OC3 compare, acknowledges its flag, and
-sets the seen flag. Factory mode ends at an explicit boundary. Ordinary entry
+sets the seen flag. Factory mode increments the raw phase byte before its
+explicit FA5B boundary. Ordinary entry
 opens the modeled mask and requires a stack-check binding. Fast service always
 precedes the busy test. A busy arrival snapshots phase and sets one pending bit.
 
@@ -117,9 +118,10 @@ crank, running, decay, filter and individual output/timer routines. ADC sampling
 requires a backend delay binding. See the
 [REF event contract](../reference/ref_event_contract.md).
 
-The remaining reset stages are coarse ownership boundaries rather than a
-complete boot translation. Early boot unmasking, retained-state branches,
-factory redirection,
+Working/serial RAM initialization and initial acquisition/factory admission now
+run resident C. The battery call retains its early boot CLI. The remaining reset
+stages are coarse ownership boundaries rather than a complete boot translation.
+Retained-state branches, factory redirection,
 SP assignments and trap loops must be implemented before target execution.
 The stock stack guards cannot simply be copied onto a different C call graph.
 

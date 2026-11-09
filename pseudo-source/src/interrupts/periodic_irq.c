@@ -14,7 +14,10 @@ PcmStatus pcm_periodic_irq(Pcm *pcm)
         (uint16_t)(old_compare + pcm->calibration->recurring_compare_counts)));
     RUN(pcm_write8(pcm, PCM_TFLG1, 0x20));
     pcm->scheduler.timer_seen = true;
-    if (pcm->runtime.factory_mode) return PCM_FACTORY_BOUNDARY;
+    if (pcm->runtime.factory_mode) {
+        ++pcm->scheduler.phase; /*7952 increments the raw byte before FA5B. */
+        return PCM_FACTORY_BOUNDARY;
+    }
     RUN(pcm_mask_irq(pcm, false));
     if (pcm->platform->check_stack == NULL) return PCM_STACK_BOUNDARY;
     RUN(pcm->platform->check_stack(pcm->platform->context, pcm->scheduler.busy));

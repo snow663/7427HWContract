@@ -557,6 +557,7 @@ typedef struct {
 } PcmSerial;
 
 typedef struct {
+    volatile uint8_t factory_flags; /*0001, factory callback-arm byte; not scheduler busy. */
     volatile uint8_t diagnostic_checksum; /*0015, negative sum of0014..000B */
     volatile uint8_t startup_counter; /*0049, reset seed20 */
 } PcmSystem;

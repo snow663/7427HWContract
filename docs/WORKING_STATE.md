@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 289 public routines: 153 implemented outlines,
-27 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 290 public routines: 155 implemented outlines,
+26 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -241,7 +241,14 @@ The second source PR replaces the working-RAM reset boundary with the actual
 three clear calls and serial loop. The callable F2FD helper retains count-driven
 byte/word ordering, eight-bit block truncation and address wrap. See the
 [startup memory contract](../pseudo-source/reference/startup_memory_contract.md).
-Initial acquisition/factory admission is next in this three-PR batch.
+Initial auxiliary/engine/battery acquisition and factory admission now also run
+resident C. The 0050.3 partial latch, independent0001 owner, failed admission
+prefix and raw factory timer-phase increment have joined ROM comparisons. See
+the [startup sampling contract](../pseudo-source/reference/startup_sensors_contract.md).
+The three-PR batch is #30, #45 and the startup-factory-admission branch. Required
+batch verification and ordered merges remain in progress. Next are retained
+boot checks/recovery and recurring factory execution; target control transfers
+remain explicit.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -465,8 +472,9 @@ dependency order after all required checks pass. Keep each PR reviewable and
 record its exact checked head; do not count unrelated documentation or tuning
 PRs toward the source batch. The user authorized these merges; another
 confirmation is not required. Work in progress stays on its implementation
-branch. The active batch starts with service lifecycle PR #30, followed by
-startup RAM initialization and startup sampling/factory admission.
+branch. The active batch is service lifecycle PR #30, startup RAM initialization
+PR #45 and startup sampling/factory admission. Verify the completed checks and
+merge in that order; record completion here before starting another group.
 
 ## Historical material
 

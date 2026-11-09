@@ -39,6 +39,7 @@ TARGETS=[
  ('serial','serial_test',[],[['--contracts']],['serial_rom']),
  ('service','service_test',[],[['--contracts']],['service_rom']),
  ('startup_memory','startup_memory_test',[],[['--contracts']],['startup_memory_rom']),
+ ('startup_sensors','startup_sensors_test',[],[['--contracts']],['startup_sensors_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
