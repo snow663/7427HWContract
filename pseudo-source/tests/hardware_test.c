@@ -147,8 +147,8 @@ static void test_entry_and_continuation_boundaries(void)
     CHECK(pcm.unresolved_task == PCM_RESET_ENTRY && f.used == 0);
     init(&f, &pcm);
     f.platform.task[PCM_RESET_ENTRY] = entry_precondition;
-    CHECK(pcm_reset_sequence(&pcm, &f.platform, &pcm_reference_scheduler_calibration) == PCM_UNIMPLEMENTED);
-    CHECK(pcm.unresolved_task == PCM_RESET_CONTROLLERS && f.used > 607);
+    CHECK(pcm_reset_sequence(&pcm, &f.platform, &pcm_reference_scheduler_calibration) == PCM_OK);
+    CHECK(pcm.unresolved_task == PCM_TASK_COUNT && f.used > 607);
     init(&f, &pcm);
     pcm.reference.pending = true;
     pcm.runtime.factory_mode = true;

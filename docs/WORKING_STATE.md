@@ -11,7 +11,7 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 295 public routines: 161 implemented outlines,
+The source currently has 301 public routines: 169 implemented outlines,
 25 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
@@ -276,7 +276,12 @@ The checks exposed the simulator's signed indexed-offset error; the shared
 helper now uses unsigned offsets, with focused X/Y, word/bit/control and signed
 relative-branch checks. Earlier full-suite results above remain historical;
 the full regression under the corrected CPU is pending "pull and merge".
-Controller seeding at7393..7430 and recurring factory execution are next.
+The next accumulated group connects controller seeding at7393..7430 and its
+BARO, IAC, TPS and EGR callees. Focused checks pass2,773 C/ROM cases across
+all365 new scoped instruction starts. Kernel/hardware smoke contracts pass,
+and the source now registers62 CTest checks. See the
+[controller boot contract](../pseudo-source/reference/boot_controllers_contract.md).
+Recurring factory execution is next; no PR or complete regression has run.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -515,8 +520,8 @@ three-PR cadence and older per-update publication guidance are superseded.
 
 Active development branch: `work/pseudo-source-development`, starting from
 `b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. No new PR or full-suite run is
-requested yet. Next implementation work is retained boot checks/recovery and
-recurring factory execution. The previously completed group #30/#45/#46 remains
+requested yet. Retained boot and controller seeding are implemented on this branch.
+Recurring factory execution is the next implementation group. The previously completed group #30/#45/#46 remains
 historical validation evidence.
 
 ## Historical material

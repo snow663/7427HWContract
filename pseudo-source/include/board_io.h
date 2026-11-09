@@ -14,4 +14,6 @@ PcmStatus pcm_throttle_normalize(Pcm *, uint8_t *result);
 PcmStatus pcm_coolant_input(Pcm *);
 PcmStatus pcm_mat_input(Pcm *);
 PcmStatus pcm_baro_input(Pcm *);
+PcmStatus pcm_baro_seed(Pcm *);
+PcmStatus pcm_transmission_throttle(Pcm *);
 #endif

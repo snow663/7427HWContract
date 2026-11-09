@@ -9,4 +9,5 @@ PcmStatus pcm_boot_rom_validate(Pcm *);
 PcmStatus pcm_boot_retained_validate(Pcm *);
 PcmStatus pcm_boot_adaptive_validate(Pcm *);
 PcmStatus pcm_boot_recovery(Pcm *);
+PcmStatus pcm_controller_baselines(Pcm *);
 #endif

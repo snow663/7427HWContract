@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 295 public routines: 161 implemented outlines, 25 dependency
+The tree contains 301 public routines: 169 implemented outlines, 23 dependency
 boundaries and 109 implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -261,7 +261,9 @@ or whole-program equivalence. The dedicated GitHub workflow runs the CMake route
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
-resident C through7392. See the [retained boot contract](reference/boot_retained_contract.md)
+resident C through7430. Controller seeding includes the actual BARO boot entry,
+IAC learned-cell restoration, transmission TPS processing, EGR position feedback
+and delayed board baselines. See the [controller boot contract](reference/boot_controllers_contract.md). See the [retained boot contract](reference/boot_retained_contract.md)
 for the rooted checksum/COP cadence, captured-sample wait boundary and corrected
 7393 controller entry. The full regression under the corrected indexed CPU
 remains pending until "pull and merge".

@@ -11,6 +11,8 @@ typedef struct { char kind;unsigned width;uint16_t address,value;bool masked; } 
 typedef struct {
     uint8_t memory[65536];BootEvent events[65536];unsigned used,attempts,fail,action;
     bool masked;Pcm *pcm;PcmPlatform platform;
+    void (*extra_transfer)(Pcm *,uint8_t *,bool);
+    unsigned polls;
 } BootFixture;
 static uint8_t boot_rom[65536];
 #define B(a,m) {a,8,0,1,offsetof(Pcm,m)}
@@ -33,6 +35,7 @@ static void boot_transfer(BootFixture *f,bool load)
     transfer(f->pcm,f->memory,state_map,SIZE(state_map),load);
     transfer(f->pcm,f->memory,service_state_map,SIZE(service_state_map),load);
     transfer(f->pcm,f->memory,boot_state_map,SIZE(boot_state_map),load);
+    if (f->extra_transfer!=NULL) f->extra_transfer(f->pcm,f->memory,load);
 }
 static PcmStatus boot_record(BootFixture *f,char kind,unsigned width,uint16_t address,uint16_t value)
 {
@@ -106,7 +109,10 @@ static void boot_contracts(void)
     CHECK(pcm.iac.tps_zero_low==128);
     puts("Boot wait capture, checksum failed-output retention, adaptive revalidation and canonical recovery joins pass.");
 }
-int main(int argc,char **argv)
+#ifndef PCM_BOOT_FIXTURE_ENTRY
+#define PCM_BOOT_FIXTURE_ENTRY main
+#endif
+int PCM_BOOT_FIXTURE_ENTRY(int argc,char **argv)
 {
     bool contracts=argc==2 && strcmp(argv[1],"--contracts")==0;
     const char *path=getenv("PCM_BOOT_ROM");CHECK(path!=NULL || contracts);
