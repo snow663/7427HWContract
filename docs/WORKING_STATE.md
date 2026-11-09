@@ -245,10 +245,26 @@ Initial auxiliary/engine/battery acquisition and factory admission now also run
 resident C. The 0050.3 partial latch, independent0001 owner, failed admission
 prefix and raw factory timer-phase increment have joined ROM comparisons. See
 the [startup sampling contract](../pseudo-source/reference/startup_sensors_contract.md).
-The three-PR batch is #30, #45 and the startup-factory-admission branch. Required
-batch verification and ordered merges remain in progress. Next are retained
-boot checks/recovery and recurring factory execution; target control transfers
-remain explicit.
+The three-PR batch completed on 2026-11-08: service lifecycle
+[PR #30](https://github.com/snow663/7427HWContract/pull/30), startup RAM
+[PR #45](https://github.com/snow663/7427HWContract/pull/45), and initial sampling/
+factory admission [PR #46](https://github.com/snow663/7427HWContract/pull/46)
+were merged in that order after each PR's three required CI checks passed.
+The checked heads were `14b8d6789c881157e50babe80595d4c9004c9d66`,
+`1e933fd8e33656163b669907d19308549a37f643` and
+`e8d65701a385b5422502af246f6aefd70a77530e`; each merged tree matched its
+checked implementation tree. GitHub PRs retain the merge and workflow evidence.
+
+Local verification passed all 29 quick contracts/provenance checks, the prior
+27 complete ROM regression suites and both new startup ROM suites (1,008 memory
+and 10,728 sampling/factory cases), 190 factory tests, all 18 simulator tests
+including the two real-BMHM tests, repository hygiene and 18 runnable static
+builders (33 parameterized builders intentionally skipped). The final source
+registers 58 CTest checks. No target BIN or new truck calibration is produced.
+
+Next are retained boot checks/recovery and recurring factory execution; target
+control transfers remain explicit. This three-PR group is closed; begin the next
+implementation group from current main while preserving the same merge cadence.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -472,9 +488,9 @@ dependency order after all required checks pass. Keep each PR reviewable and
 record its exact checked head; do not count unrelated documentation or tuning
 PRs toward the source batch. The user authorized these merges; another
 confirmation is not required. Work in progress stays on its implementation
-branch. The active batch is service lifecycle PR #30, startup RAM initialization
-PR #45 and startup sampling/factory admission. Verify the completed checks and
-merge in that order; record completion here before starting another group.
+branch. The most recently completed group is #30, #45 and #46, recorded above.
+The next group starts from the resulting main branch; accumulate three
+implementation PRs, verify them, and merge each passing PR in dependency order.
 
 ## Historical material
 
