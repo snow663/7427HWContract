@@ -263,8 +263,9 @@ builders (33 parameterized builders intentionally skipped). The final source
 registers 58 CTest checks. No target BIN or new truck calibration is produced.
 
 Next are retained boot checks/recovery and recurring factory execution; target
-control transfers remain explicit. This three-PR group is closed; begin the next
-implementation group from current main while preserving the same merge cadence.
+control transfers remain explicit. That three-PR group is closed. Subsequent
+work follows the single-branch accumulation and explicit release instruction
+below; the previous three-PR cadence is superseded.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -479,18 +480,33 @@ We can continue the C source while preserving those explicit interfaces.
 
 ## Delivery workflow
 
-Batch several related routine groups into each implementation PR so a full CI
-run covers more progress. Retain one public routine per source file and run the
-quick contracts before the ROM differential suites. Complete each batch and
-publish its PR after local verification. As requested on 2026-11-08, work in
-groups of three pseudo-source PRs, then run the batch checks and merge in
-dependency order after all required checks pass. Keep each PR reviewable and
-record its exact checked head; do not count unrelated documentation or tuning
-PRs toward the source batch. The user authorized these merges; another
-confirmation is not required. Work in progress stays on its implementation
-branch. The most recently completed group is #30, #45 and #46, recorded above.
-The next group starts from the resulting main branch; accumulate three
-implementation PRs, verify them, and merge each passing PR in dependency order.
+As requested on 2026-11-08, accumulate several substantial routine groups as
+separate commits on one development branch. The full suite is expensive; give
+each run a larger body of completed source to validate. There is no fixed
+three-PR or three-commit batch size. Retain one public routine per source file
+and keep implementation, provenance, focused test cases and documentation
+aligned as the branch advances.
+
+Use compilation and focused contract/ROM comparisons where needed to catch
+problems in the changed routines during development. Do not open a PR, launch
+the complete regression suite or merge automatically after an ordinary update
+or a request to continue. Ordinary development-branch pushes do not trigger the
+current full CI workflow; a PR does.
+
+When the user says **"pull and merge"**, prepare one PR for the accumulated
+branch changes, run the full suite and required repository checks against its
+final head, resolve any failures, and merge after the checks pass. That phrase
+provides authorization to complete the release; another confirmation is not
+required. Record the checked head, validation, merge, remaining work and next
+action in this working state. Resume later development on one branch from the
+resulting main rather than creating a PR for each routine group. The previous
+three-PR cadence and older per-update publication guidance are superseded.
+
+Active development branch: `work/pseudo-source-development`, starting from
+`b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. No new PR or full-suite run is
+requested yet. Next implementation work is retained boot checks/recovery and
+recurring factory execution. The previously completed group #30/#45/#46 remains
+historical validation evidence.
 
 ## Historical material
 

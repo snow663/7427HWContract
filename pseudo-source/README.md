@@ -311,3 +311,10 @@ The factory contracts remain linked from
 Fast local gate: `python pseudo-source/tests/run_checks.py --contracts-only`.
 The default Python route runs all comparisons after that gate. CI likewise runs
 quick contracts first and schedules long independent ROM suites first.
+
+Accumulate substantial routine groups as commits on one development branch,
+using focused checks during development. Open one PR and run the full suite
+only when the user says "pull and merge", then merge after its checks pass.
+The current branch and authoritative delivery workflow are recorded in
+[working state](../docs/WORKING_STATE.md#delivery-workflow); older per-update
+publication and three-PR instructions are superseded.
