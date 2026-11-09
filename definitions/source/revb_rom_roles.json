@@ -1,0 +1,2886 @@
+{
+  "$4000": [
+    "Calibration/PROM identification word",
+    ""
+  ],
+  "$4002": [
+    "Calibration identification metadata",
+    ""
+  ],
+  "$4004": [
+    "Calibration identification metadata",
+    ""
+  ],
+  "$4006": [
+    "Stored ROM checksum word",
+    ""
+  ],
+  "$4008": [
+    "Program mask/family identifier",
+    ""
+  ],
+  "$400B": [
+    "Configuration option byte B",
+    ""
+  ],
+  "$400B.6": [
+    "Intake-air-temperature spark correction enable option",
+    ""
+  ],
+  "$400C": [
+    "Configuration option byte C",
+    ""
+  ],
+  "$400D": [
+    "Configuration option byte D",
+    ""
+  ],
+  "$400D.2": [
+    "Altitude-spark correction enable option",
+    ""
+  ],
+  "$400E": [
+    "Configuration option byte E",
+    ""
+  ],
+  "$400E.1": [
+    "Select normalized effective load rather than MAP load for DFCO admission",
+    ""
+  ],
+  "$400F": [
+    "Configuration option byte F",
+    ""
+  ],
+  "$400F.0": [
+    "Conditional high-RPM fuel-cut admission option; not a deceleration-spark enable",
+    ""
+  ],
+  "$400F.3": [
+    "Burst-knock correction enable option",
+    ""
+  ],
+  "$400F.7": [
+    "Transient-spark correction enable option",
+    "omitted"
+  ],
+  "$4010": [
+    "A/C throttle limit table",
+    ""
+  ],
+  "$4012": [
+    "A/C entry delay",
+    ""
+  ],
+  "$4013": [
+    "A/C exit delay",
+    ""
+  ],
+  "$4014": [
+    "A/C throttle delay",
+    ""
+  ],
+  "$4015": [
+    "A/C RPM count limit",
+    ""
+  ],
+  "$4016": [
+    "A/C RPM release delay",
+    ""
+  ],
+  "$4017": [
+    "A/C RPM limit table",
+    ""
+  ],
+  "$4019": [
+    "A/C running RPM limit",
+    ""
+  ],
+  "$401A": [
+    "A/C coolant limit table",
+    ""
+  ],
+  "$401C": [
+    "A/C speed limit table",
+    ""
+  ],
+  "$401E": [
+    "A/C throttle release table",
+    ""
+  ],
+  "$4020": [
+    "A/C throttle count limit (word)",
+    ""
+  ],
+  "$4022": [
+    "Engine state minimum (word)",
+    ""
+  ],
+  "$4132": [
+    "Reference-angle bias subtracted from composite spark demand",
+    ""
+  ],
+  "$4133": [
+    "Reference-period threshold for spark-running admission (word)",
+    ""
+  ],
+  "$4135": [
+    "Reference-period threshold for fuel-running admission (word)",
+    ""
+  ],
+  "$4137": [
+    "Input/output MAP normal gain",
+    ""
+  ],
+  "$4138": [
+    "Input/output MAP transient gain",
+    ""
+  ],
+  "$4139": [
+    "Input/output MAP hold reload",
+    ""
+  ],
+  "$413A": [
+    "Input/output MAP RPM delta limit",
+    ""
+  ],
+  "$413B": [
+    "Base-spark bias",
+    ""
+  ],
+  "$413C": [
+    "Coolant-spark lookup bias; also used to form deceleration retard",
+    ""
+  ],
+  "$413D": [
+    "Altitude-spark bias",
+    ""
+  ],
+  "$413E": [
+    "EGR-spark bias",
+    "omitted"
+  ],
+  "$413F": [
+    "Intake-air-temperature spark bias",
+    ""
+  ],
+  "$4140": [
+    "Coolant threshold for the cold-idle spark floor",
+    ""
+  ],
+  "$4141": [
+    "Reference-period preprocessing scale",
+    ""
+  ],
+  "$4142": [
+    "Reference-event count for spark-running admission",
+    ""
+  ],
+  "$4143": [
+    "Reference-event count for fuel-running admission",
+    ""
+  ],
+  "$4144": [
+    "Maximum normal spark command (word)",
+    ""
+  ],
+  "$4146": [
+    "Normal lower spark-command limit (word)",
+    ""
+  ],
+  "$4148": [
+    "Deceleration-recovery lower spark-command limit (word)",
+    ""
+  ],
+  "$414A": [
+    "Transmission-retard spark floor (word)",
+    "omitted"
+  ],
+  "$414C": [
+    "Transmission-state spark floor (word)",
+    "omitted"
+  ],
+  "$414E": [
+    "Startup spark-conversion recovery gain",
+    ""
+  ],
+  "$414F": [
+    "Slow deceleration-spark recovery gain",
+    "omitted"
+  ],
+  "$4150": [
+    "Fast deceleration-spark recovery gain",
+    "omitted"
+  ],
+  "$4151": [
+    "TPS threshold selecting slow or fast deceleration-spark recovery",
+    "omitted"
+  ],
+  "$4152": [
+    "Base deceleration spark-retard amount",
+    ""
+  ],
+  "$4153": [
+    "Engine-speed filter gain used by spark control",
+    ""
+  ],
+  "$4154": [
+    "Air calculation barometric RPM upper",
+    ""
+  ],
+  "$4155": [
+    "Air calculation barometric RPM lower",
+    ""
+  ],
+  "$4156": [
+    "Air calculation barometric throttle minimum",
+    ""
+  ],
+  "$4157": [
+    "Air calculation barometric throttle delta",
+    ""
+  ],
+  "$4158": [
+    "Air calculation barometric gain",
+    ""
+  ],
+  "$4159": [
+    "Air calculation barometric coolant minimum",
+    ""
+  ],
+  "$415A": [
+    "Vehicle-speed threshold for idle-spark feedback admission",
+    "omitted"
+  ],
+  "$415B": [
+    "TPS threshold for entering idle-spark feedback",
+    "omitted"
+  ],
+  "$415C": [
+    "TPS threshold for retaining idle-spark feedback",
+    "omitted"
+  ],
+  "$415D": [
+    "Minimum coolant coordinate for idle-spark feedback",
+    "omitted"
+  ],
+  "$415E": [
+    "Minimum running-counter value for idle-spark feedback (word)",
+    "omitted"
+  ],
+  "$4160": [
+    "Target-RPM adder used outside idle by the idle-spark feedback calculation",
+    "omitted"
+  ],
+  "$4161": [
+    "Spark override coolant minimum",
+    ""
+  ],
+  "$4162": [
+    "Spark override command (word)",
+    ""
+  ],
+  "$4164": [
+    "Spark override throttle entry",
+    ""
+  ],
+  "$4165": [
+    "Spark override throttle retained",
+    ""
+  ],
+  "$4166": [
+    "Main RPM-by-load spark table header",
+    "Single active RPM-by-load base spark table header"
+  ],
+  "$4167": [
+    "Main spark table load-coordinate offset",
+    ""
+  ],
+  "$4168": [
+    "Main spark table row stride",
+    ""
+  ],
+  "$4169": [
+    "Main RPM-by-load spark table data start",
+    "Single active base spark data, including the idle shelf and loaded-region adjustment"
+  ],
+  "$428A": [
+    "Alternate idle-spark table header",
+    "omitted"
+  ],
+  "$428D": [
+    "Alternate idle-spark table data start",
+    "omitted"
+  ],
+  "$43AE": [
+    "Coolant-spark load-axis selection",
+    ""
+  ],
+  "$43AF": [
+    "Coolant-spark lookup table header",
+    ""
+  ],
+  "$43B2": [
+    "Coolant-spark lookup table data start",
+    ""
+  ],
+  "$4439": [
+    "MAT-spark load-axis selection",
+    ""
+  ],
+  "$443A": [
+    "MAT-spark lookup table header",
+    ""
+  ],
+  "$443D": [
+    "MAT-spark lookup table data start",
+    ""
+  ],
+  "$449D": [
+    "Spark MAT negative gain table",
+    ""
+  ],
+  "$44AE": [
+    "Spark MAT positive gain table",
+    ""
+  ],
+  "$44BF": [
+    "Spark PE curve table",
+    ""
+  ],
+  "$44D0": [
+    "Spark air table",
+    ""
+  ],
+  "$44D5": [
+    "Altitude-spark lookup table header",
+    ""
+  ],
+  "$44D8": [
+    "Altitude-spark lookup table data start",
+    ""
+  ],
+  "$44F0": [
+    "Spark idle negative speed lookup header",
+    "omitted"
+  ],
+  "$44F8": [
+    "Spark idle negative load lookup header",
+    "omitted"
+  ],
+  "$4502": [
+    "Spark idle positive speed lookup header",
+    "omitted"
+  ],
+  "$450A": [
+    "Spark idle positive load lookup header",
+    "omitted"
+  ],
+  "$4514": [
+    "Spark idle bias",
+    "omitted"
+  ],
+  "$4515": [
+    "Spark idle positive cap",
+    "omitted"
+  ],
+  "$4516": [
+    "Fuel feedback derivative load",
+    ""
+  ],
+  "$4517": [
+    "Spark load filter gain",
+    ""
+  ],
+  "$4518": [
+    "Reference-event load event gain",
+    ""
+  ],
+  "$4519": [
+    "Fuel feedback derivative bounds table",
+    ""
+  ],
+  "$451B": [
+    "Idle-spark derivative curve",
+    "omitted"
+  ],
+  "$454A": [
+    "Spark-output latency curve header",
+    ""
+  ],
+  "$454B": [
+    "Spark-output latency curve data start",
+    ""
+  ],
+  "$4558": [
+    "Air calculation barometric correction lookup header",
+    ""
+  ],
+  "$4585": [
+    "Power-enrichment knock-retard limit curve",
+    ""
+  ],
+  "$458D": [
+    "Cruise knock-retard limit curve",
+    ""
+  ],
+  "$4594": [
+    "Knock event-gain curve",
+    ""
+  ],
+  "$45A5": [
+    "Normal knock-retard decay-rate curve",
+    ""
+  ],
+  "$45B6": [
+    "Knock learn min coolant",
+    ""
+  ],
+  "$45B7": [
+    "Knock learn min load",
+    ""
+  ],
+  "$45B8": [
+    "Knock learn load change limit",
+    ""
+  ],
+  "$45B9": [
+    "Knock learn high retard",
+    ""
+  ],
+  "$45BA": [
+    "Knock learn low retard",
+    ""
+  ],
+  "$45BB": [
+    "Knock learn increment",
+    ""
+  ],
+  "$45BC": [
+    "Knock learn decrement",
+    ""
+  ],
+  "$45BD": [
+    "Knock learn scale",
+    ""
+  ],
+  "$45BE": [
+    "Adaptive/low-octane knock RPM factor curve",
+    ""
+  ],
+  "$45C7": [
+    "Adaptive/low-octane knock load factor curve",
+    ""
+  ],
+  "$45D8": [
+    "Vehicle-speed threshold for normal knock-retard admission",
+    "omitted"
+  ],
+  "$45D9": [
+    "Filtered-RPM threshold for normal knock-retard admission",
+    ""
+  ],
+  "$45DA": [
+    "Coolant threshold for knock control",
+    ""
+  ],
+  "$45DB": [
+    "Knock noise-floor compensation table",
+    ""
+  ],
+  "$461C": [
+    "Knock-observation bias table",
+    ""
+  ],
+  "$465D": [
+    "Reference-event timer-compare schedule",
+    ""
+  ],
+  "$46DF": [
+    "Knock burst load limit",
+    ""
+  ],
+  "$46E0": [
+    "Knock burst throttle limit",
+    ""
+  ],
+  "$46E1": [
+    "Knock burst throttle delta",
+    ""
+  ],
+  "$46E2": [
+    "Knock burst duration",
+    ""
+  ],
+  "$46E3": [
+    "Knock burst table limit",
+    ""
+  ],
+  "$46E4": [
+    "Knock burst curve table",
+    ""
+  ],
+  "$46EC": [
+    "Positive transient-spark correction parameters",
+    "omitted"
+  ],
+  "$46EF": [
+    "Negative transient-spark correction parameters",
+    "omitted"
+  ],
+  "$46F2": [
+    "Spark transient coolant minimum",
+    "omitted"
+  ],
+  "$46F3": [
+    "Spark transient coolant maximum",
+    "omitted"
+  ],
+  "$46F4": [
+    "Spark transient gain table",
+    "omitted"
+  ],
+  "$475F": [
+    "Environment density limit",
+    "omitted"
+  ],
+  "$485E": [
+    "Spark EGR gain",
+    "omitted"
+  ],
+  "$485F": [
+    "Spark EGR mode",
+    "omitted"
+  ],
+  "$4860": [
+    "Spark EGR lookup header",
+    "omitted"
+  ],
+  "$48BB": [
+    "Fuel mixture oxygen minimum",
+    ""
+  ],
+  "$48BC": [
+    "Fuel mixture oxygen maximum",
+    ""
+  ],
+  "$48BD": [
+    "Fuel mixture oxygen idle gain",
+    ""
+  ],
+  "$48BF": [
+    "Fuel mixture MAP threshold table",
+    ""
+  ],
+  "$48C1": [
+    "Fuel mixture MAP closed throttle",
+    ""
+  ],
+  "$48C2": [
+    "Fuel mixture MAP double throttle",
+    ""
+  ],
+  "$48C3": [
+    "Fuel mixture TPS threshold",
+    ""
+  ],
+  "$48C4": [
+    "Fuel mixture TPS speed gain",
+    ""
+  ],
+  "$48C5": [
+    "Fuel mixture TPS speed limit",
+    ""
+  ],
+  "$48C6": [
+    "Fuel delivery transition enrichment",
+    ""
+  ],
+  "$48C7": [
+    "Fuel delivery A/C enrichment",
+    ""
+  ],
+  "$48C8": [
+    "Fuel mixture history reload",
+    ""
+  ],
+  "$48C9": [
+    "Fuel mixture history gain",
+    ""
+  ],
+  "$48CA": [
+    "Fuel delivery acceleration hold",
+    ""
+  ],
+  "$48CB": [
+    "Fuel feedback starting coolant table",
+    ""
+  ],
+  "$48CD": [
+    "Fuel feedback warmup time table",
+    ""
+  ],
+  "$48D0": [
+    "Fuel feedback closed coolant",
+    ""
+  ],
+  "$48D1": [
+    "Fuel mixture open coolant",
+    ""
+  ],
+  "$48D2": [
+    "Fuel feedback activity age limit",
+    ""
+  ],
+  "$48D3": [
+    "Fuel feedback learning vacuum",
+    ""
+  ],
+  "$48D4": [
+    "Fuel feedback learning load table",
+    ""
+  ],
+  "$48D6": [
+    "Fuel feedback learning coolant",
+    ""
+  ],
+  "$48D7": [
+    "Fuel feedback learning RPM",
+    ""
+  ],
+  "$48D8": [
+    "Vehicle-speed threshold for idle/open VE selection",
+    "omitted"
+  ],
+  "$48D9": [
+    "Fuel feedback idle speed",
+    ""
+  ],
+  "$48DA": [
+    "Fuel feedback idle throttle",
+    ""
+  ],
+  "$48DB": [
+    "Fuel feedback derivative throttle",
+    ""
+  ],
+  "$48DC": [
+    "Fuel feedback derivative speed",
+    ""
+  ],
+  "$48DD": [
+    "Fuel feedback derivative coolant",
+    ""
+  ],
+  "$48DE": [
+    "Fuel mixture idle entry delay",
+    ""
+  ],
+  "$48DF": [
+    "Fuel mixture idle apply delay",
+    ""
+  ],
+  "$48E0": [
+    "Fuel mixture idle runtime (word)",
+    ""
+  ],
+  "$48E2": [
+    "Fuel mixture idle coolant",
+    ""
+  ],
+  "$48E3": [
+    "Environment low coolant limit",
+    ""
+  ],
+  "$48E4": [
+    "Fuel mixture warm coolant table",
+    ""
+  ],
+  "$48E6": [
+    "Fuel mixture warm duration",
+    ""
+  ],
+  "$48E7": [
+    "Fuel feedback stoich",
+    ""
+  ],
+  "$48E8": [
+    "Environment low coolant subtract",
+    ""
+  ],
+  "$48E9": [
+    "Fuel feedback warmup AFR",
+    ""
+  ],
+  "$48EA": [
+    "Fuel mixture warm drive subtract",
+    ""
+  ],
+  "$48EB": [
+    "Fuel mixture warm park subtract",
+    "omitted"
+  ],
+  "$48EC": [
+    "Fuel mixture AFR filter gain",
+    ""
+  ],
+  "$48ED": [
+    "Fuel feedback learning delay",
+    ""
+  ],
+  "$48EE": [
+    "Fuel feedback RPM bins table",
+    ""
+  ],
+  "$48F1": [
+    "Fuel feedback load bins table",
+    ""
+  ],
+  "$48F4": [
+    "Fuel feedback RPM margin",
+    ""
+  ],
+  "$48F5": [
+    "Fuel feedback load margin",
+    ""
+  ],
+  "$48F6": [
+    "Fuel feedback special cells",
+    ""
+  ],
+  "$48F6.2": [
+    "Enable separate Park/Neutral idle BLM-cell offset",
+    "omitted"
+  ],
+  "$48F7": [
+    "Fuel feedback learning error table",
+    ""
+  ],
+  "$48F8": [
+    "Fuel mixture idle integrator limit",
+    ""
+  ],
+  "$48F9": [
+    "Fuel feedback BLM minimum table",
+    ""
+  ],
+  "$48FB": [
+    "Fuel feedback learning step",
+    ""
+  ],
+  "$48FC": [
+    "Fuel feedback BLM maximum",
+    ""
+  ],
+  "$48FD": [
+    "Fuel feedback boot maximum",
+    ""
+  ],
+  "$48FE": [
+    "Fuel feedback boot minimum",
+    ""
+  ],
+  "$48FF": [
+    "Fuel feedback activity table",
+    ""
+  ],
+  "$4907": [
+    "Fuel feedback transition integrator low",
+    ""
+  ],
+  "$4908": [
+    "Fuel feedback transition integrator high",
+    ""
+  ],
+  "$4909": [
+    "Fuel feedback transition positive",
+    ""
+  ],
+  "$490A": [
+    "Fuel feedback transition negative",
+    ""
+  ],
+  "$490B": [
+    "Fuel feedback control load",
+    ""
+  ],
+  "$490C": [
+    "Fuel feedback control RPM lower",
+    ""
+  ],
+  "$490D": [
+    "Fuel feedback control RPM upper",
+    ""
+  ],
+  "$490E": [
+    "Fuel feedback control speed",
+    ""
+  ],
+  "$490F": [
+    "Air calculation VE integrator limit",
+    ""
+  ],
+  "$4910": [
+    "Fuel feedback integrator minimum",
+    ""
+  ],
+  "$4911": [
+    "Fuel feedback integrator maximum",
+    ""
+  ],
+  "$4912": [
+    "Fuel feedback proportional cap",
+    ""
+  ],
+  "$4913": [
+    "Fuel mixture AFR maximum",
+    ""
+  ],
+  "$4914": [
+    "Fuel mixture PE RPM delta",
+    ""
+  ],
+  "$4915": [
+    "Fuel mixture PE coolant table",
+    ""
+  ],
+  "$4917": [
+    "Fuel mixture PE hysteresis",
+    ""
+  ],
+  "$4918": [
+    "Fuel mixture PE RPM",
+    ""
+  ],
+  "$4919": [
+    "Fuel mixture PE exit delay",
+    ""
+  ],
+  "$491A": [
+    "Fuel mixture PE gain delay",
+    ""
+  ],
+  "$491B": [
+    "Fuel mixture PE gain step",
+    ""
+  ],
+  "$491C": [
+    "Fuel mixture PE cold coolant",
+    ""
+  ],
+  "$491D": [
+    "Fuel mixture PE time",
+    ""
+  ],
+  "$491E": [
+    "Fuel mixture PE warm coolant",
+    ""
+  ],
+  "$491F": [
+    "Fuel mixture PE cold RPM",
+    ""
+  ],
+  "$4920": [
+    "Fuel mixture PE cold speed",
+    ""
+  ],
+  "$4921": [
+    "Fuel mixture PE permission speed",
+    ""
+  ],
+  "$4922": [
+    "Fuel mixture PE permission throttle",
+    ""
+  ],
+  "$4923": [
+    "Fuel mixture PE permission delay",
+    ""
+  ],
+  "$4924": [
+    "Fuel mixture PE cold subtract",
+    ""
+  ],
+  "$4925": [
+    "Fuel mixture PE part throttle",
+    ""
+  ],
+  "$4926": [
+    "Fuel mixture PE vehicle change (word)",
+    ""
+  ],
+  "$4928": [
+    "Fuel mixture startup AFR gain",
+    ""
+  ],
+  "$4929": [
+    "Fuel mixture startup hold",
+    ""
+  ],
+  "$492A": [
+    "Fuel delivery synchronous threshold index 1 (word)",
+    ""
+  ],
+  "$492C": [
+    "Fuel delivery synchronous threshold index 0 (word)",
+    ""
+  ],
+  "$492E": [
+    "Fuel delivery synchronous load index 1",
+    ""
+  ],
+  "$492F": [
+    "Fuel delivery synchronous RPM index 1",
+    ""
+  ],
+  "$4930": [
+    "Fuel delivery synchronous load index 0",
+    ""
+  ],
+  "$4931": [
+    "Fuel delivery synchronous RPM index 0",
+    ""
+  ],
+  "$4932": [
+    "Fuel delivery packet maximum (word)",
+    ""
+  ],
+  "$4934": [
+    "Fuel delivery packet minimum (word)",
+    ""
+  ],
+  "$4936": [
+    "Fuel delivery throttle drop minimum",
+    ""
+  ],
+  "$4937": [
+    "Fuel delivery load drop minimum",
+    ""
+  ],
+  "$4938": [
+    "Fuel delivery slow enleanment gain",
+    ""
+  ],
+  "$4939": [
+    "Fuel delivery enleanment speed",
+    ""
+  ],
+  "$493A": [
+    "RPM hysteresis added when entering deceleration fuel cut-off",
+    ""
+  ],
+  "$493B": [
+    "DFCO entry-speed threshold",
+    "omitted"
+  ],
+  "$493C": [
+    "DFCO retained-speed threshold",
+    "omitted"
+  ],
+  "$493D": [
+    "Load threshold for entering deceleration fuel cut-off",
+    ""
+  ],
+  "$493E": [
+    "Load threshold for retaining deceleration fuel cut-off",
+    ""
+  ],
+  "$493F": [
+    "Fuel added to the enrichment reservoir during deceleration recovery (word)",
+    ""
+  ],
+  "$4941": [
+    "Deceleration fuel-cut admission-delay reload",
+    ""
+  ],
+  "$4942": [
+    "Deceleration-active timer reload",
+    ""
+  ],
+  "$4943": [
+    "Deceleration fuel-reduction step",
+    ""
+  ],
+  "$4944": [
+    "Minimum coolant coordinate for deceleration fuel cut-off",
+    ""
+  ],
+  "$4945": [
+    "RPM-drop threshold cancelling deceleration fuel cut-off",
+    ""
+  ],
+  "$4946": [
+    "MAP-change threshold cancelling deceleration fuel cut-off",
+    ""
+  ],
+  "$4947": [
+    "Fuel feedback direction band",
+    ""
+  ],
+  "$4948": [
+    "Fuel feedback integrator deadband",
+    ""
+  ],
+  "$4949": [
+    "Fuel feedback airflow gain",
+    ""
+  ],
+  "$494A": [
+    "Fuel feedback idle thresholds table",
+    ""
+  ],
+  "$494C": [
+    "Fuel feedback idle center",
+    ""
+  ],
+  "$494D": [
+    "Fuel feedback idle base delay",
+    ""
+  ],
+  "$494E": [
+    "Fuel feedback window width",
+    ""
+  ],
+  "$494F": [
+    "Fuel feedback idle coefficient table",
+    ""
+  ],
+  "$4952": [
+    "Fuel feedback idle interval table",
+    ""
+  ],
+  "$4954": [
+    "Fuel mixture startup RPM delta",
+    ""
+  ],
+  "$4955": [
+    "Fuel feedback positive error gain",
+    ""
+  ],
+  "$4956": [
+    "Fuel feedback idle error gain",
+    ""
+  ],
+  "$4957": [
+    "Fuel mixture startup coolant limit",
+    ""
+  ],
+  "$4958": [
+    "Fuel mixture startup AFR limit",
+    ""
+  ],
+  "$4959": [
+    "Fuel mixture startup park hold",
+    ""
+  ],
+  "$495C": [
+    "Fuel mixture hotstart subtract",
+    ""
+  ],
+  "$495D": [
+    "Run-counter threshold for clearing the startup scheduler flag (word)",
+    ""
+  ],
+  "$495F": [
+    "Fuel mixture enrichment age",
+    ""
+  ],
+  "$4960": [
+    "Reference-event crank timer gain",
+    ""
+  ],
+  "$4961": [
+    "Fuel mixture enrichment coolant",
+    ""
+  ],
+  "$4962": [
+    "Spark no reference age limit (word)",
+    ""
+  ],
+  "$4964": [
+    "Reference-event decay interval",
+    ""
+  ],
+  "$4965": [
+    "Fuel delivery cut delay",
+    ""
+  ],
+  "$4966": [
+    "Fuel delivery cut minimum RPM",
+    ""
+  ],
+  "$4967": [
+    "Fuel delivery cut RPM table",
+    ""
+  ],
+  "$4969": [
+    "Alternate RPM fuel-cut entry threshold for VSS/transmission fault selection",
+    "omitted"
+  ],
+  "$496A": [
+    "Alternate RPM fuel-cut release threshold for VSS/transmission fault selection",
+    "omitted"
+  ],
+  "$496B": [
+    "Fuel delivery cut speed table",
+    ""
+  ],
+  "$496D": [
+    "Fuel output synchronous minimum (word)",
+    ""
+  ],
+  "$496F": [
+    "Fuel output synchronous replacement (word)",
+    ""
+  ],
+  "$4971": [
+    "Reference-event short subtract (word)",
+    ""
+  ],
+  "$4973": [
+    "Fuel output injection delay gain",
+    ""
+  ],
+  "$4974": [
+    "Fuel delivery CPI delay",
+    ""
+  ],
+  "$4975": [
+    "Air calculation barometric PE RPM table",
+    ""
+  ],
+  "$4979": [
+    "Short injector-pulse correction curve",
+    ""
+  ],
+  "$4988": [
+    "Fuel feedback battery table",
+    ""
+  ],
+  "$4999": [
+    "Fuel mixture output rich limit table",
+    ""
+  ],
+  "$49AA": [
+    "Fuel feedback barometric lookup header",
+    ""
+  ],
+  "$49D1": [
+    "Air calculation barometric load table",
+    ""
+  ],
+  "$49D5": [
+    "Open/off-idle volumetric-efficiency table header",
+    ""
+  ],
+  "$49D8": [
+    "Open/off-idle VE table data start",
+    ""
+  ],
+  "$4A88": [
+    "Idle volumetric-efficiency table header",
+    ""
+  ],
+  "$4A8B": [
+    "Idle VE table data start",
+    ""
+  ],
+  "$4AE3": [
+    "Air calculation charge weight table",
+    ""
+  ],
+  "$4AF4": [
+    "Air calculation charge curve table",
+    ""
+  ],
+  "$4B05": [
+    "Injector battery-voltage pulse-width correction table",
+    ""
+  ],
+  "$4B20": [
+    "Fuel delivery enleanment load table",
+    ""
+  ],
+  "$4B2B": [
+    "Fuel delivery enleanment throttle table",
+    ""
+  ],
+  "$4B3C": [
+    "Environment coolant idle table",
+    ""
+  ],
+  "$4B4F": [
+    "Fuel mixture TPS curve table",
+    ""
+  ],
+  "$4B60": [
+    "Air calculation barometric AE table",
+    ""
+  ],
+  "$4B64": [
+    "Environment coolant trim table",
+    ""
+  ],
+  "$4B71": [
+    "Fuel mixture AE coolant table",
+    ""
+  ],
+  "$4B82": [
+    "Fuel mixture AE MAT table",
+    ""
+  ],
+  "$4B93": [
+    "Fuel mixture AE MAP gain table",
+    ""
+  ],
+  "$4BAD": [
+    "Environment coolant load table",
+    ""
+  ],
+  "$4BBA": [
+    "Fuel mixture open mode",
+    ""
+  ],
+  "$4C33": [
+    "Fuel mixture startup AFR table",
+    ""
+  ],
+  "$4C44": [
+    "Fuel mixture startup interval table",
+    ""
+  ],
+  "$4C55": [
+    "Fuel mixture startup air table",
+    ""
+  ],
+  "$4C6E": [
+    "Fuel mixture PE target table",
+    ""
+  ],
+  "$4C89": [
+    "Air calculation barometric PE throttle table",
+    ""
+  ],
+  "$4C8D": [
+    "Coolant-indexed DFCO RPM threshold curve",
+    ""
+  ],
+  "$4C94": [
+    "DFCO TPS-admission curve header",
+    ""
+  ],
+  "$4C95": [
+    "DFCO TPS-admission curve data start",
+    ""
+  ],
+  "$4C9D": [
+    "Fuel mixture startup ref table",
+    ""
+  ],
+  "$4CAE": [
+    "Fuel mixture startup decrement table",
+    ""
+  ],
+  "$4CBF": [
+    "Reference-event decay temperature table",
+    ""
+  ],
+  "$4CD0": [
+    "Reference-event decay event table",
+    ""
+  ],
+  "$4CE1": [
+    "Fuel feedback oxygen index 0 table",
+    ""
+  ],
+  "$4CEA": [
+    "Fuel feedback oxygen index 1 table",
+    ""
+  ],
+  "$4CF3": [
+    "Fuel feedback oxygen index 2 table",
+    ""
+  ],
+  "$4CFC": [
+    "Fuel feedback oxygen index 3 table",
+    ""
+  ],
+  "$4D05": [
+    "Fuel mixture oxygen gain table",
+    ""
+  ],
+  "$4D0E": [
+    "Fuel feedback error curve table",
+    ""
+  ],
+  "$4D1B": [
+    "Fuel feedback error delay table",
+    ""
+  ],
+  "$4D28": [
+    "Fuel feedback base delay table",
+    ""
+  ],
+  "$4D31": [
+    "Fuel feedback proportional lookup header",
+    ""
+  ],
+  "$4D85": [
+    "Fuel feedback interval gain table",
+    ""
+  ],
+  "$4D92": [
+    "Injector flow calibration (word)",
+    ""
+  ],
+  "$4D94": [
+    "Cylinder-volume/engine-size calibration",
+    ""
+  ],
+  "$4D95": [
+    "Fuel mixture crank age",
+    ""
+  ],
+  "$4D96": [
+    "Spark missing reference age cap",
+    ""
+  ],
+  "$4D97": [
+    "Reference-event crank age cap",
+    ""
+  ],
+  "$4D98": [
+    "Reference-event battery limit",
+    ""
+  ],
+  "$4D99": [
+    "Reference-event coolant gain threshold",
+    ""
+  ],
+  "$4D9A": [
+    "Fuel mixture crank base (word)",
+    ""
+  ],
+  "$4D9C": [
+    "Fuel mixture crank coolant table",
+    ""
+  ],
+  "$4DAD": [
+    "Fuel mixture crank normal table",
+    ""
+  ],
+  "$4DB6": [
+    "Fuel mixture crank hot table",
+    ""
+  ],
+  "$4DBF": [
+    "Fuel mixture crank barometric table",
+    ""
+  ],
+  "$4DCD": [
+    "Reference-event crank skip table",
+    ""
+  ],
+  "$4DDE": [
+    "Reference-event crank cold table",
+    ""
+  ],
+  "$4DF6": [
+    "Reference-event crank warm table",
+    ""
+  ],
+  "$4E0E": [
+    "Reference-event crank hot table",
+    ""
+  ],
+  "$4E26": [
+    "Reference-event crank repeat table",
+    ""
+  ],
+  "$4E41": [
+    "Air calculation MAT low threshold",
+    ""
+  ],
+  "$4E42": [
+    "Air calculation MAT low delay",
+    ""
+  ],
+  "$4E45": [
+    "Air calculation MAT runtime limit (word)",
+    ""
+  ],
+  "$4E47": [
+    "Air calculation MAT speed limit",
+    ""
+  ],
+  "$4E48": [
+    "Air calculation MAT default",
+    ""
+  ],
+  "$4E49": [
+    "Air calculation MAT high threshold",
+    ""
+  ],
+  "$4E4A": [
+    "Air calculation MAT high delay",
+    ""
+  ],
+  "$4E58": [
+    "Fuel feedback alternate interval",
+    ""
+  ],
+  "$4E64": [
+    "Spark MAP sample minimum",
+    ""
+  ],
+  "$4E65": [
+    "Spark MAP RPM minimum",
+    ""
+  ],
+  "$4E66": [
+    "Spark MAP count limit",
+    ""
+  ],
+  "$4E67": [
+    "Spark MAP throttle limit",
+    ""
+  ],
+  "$4E68": [
+    "Input/output MAP default",
+    ""
+  ],
+  "$4E69": [
+    "Input/output MAP throttle gain",
+    ""
+  ],
+  "$4E6A": [
+    "Input/output MAP bias limit",
+    ""
+  ],
+  "$4E6F": [
+    "Reference-event bank guard limit",
+    ""
+  ],
+  "$4E71": [
+    "Spark bypass delta limit",
+    ""
+  ],
+  "$4E72": [
+    "Spark bypass count limit",
+    ""
+  ],
+  "$4E74": [
+    "Knock sensor fault delay",
+    ""
+  ],
+  "$4E75": [
+    "Knock sensor upper",
+    ""
+  ],
+  "$4E76": [
+    "Knock sensor lower",
+    ""
+  ],
+  "$4E77": [
+    "Substitute spark-retard amount for a knock-sensor fault",
+    ""
+  ],
+  "$4E7B": [
+    "Fuel mixture AFR alternate maximum",
+    ""
+  ],
+  "$4E8E": [
+    "Input/output VSS gain",
+    ""
+  ],
+  "$4E8F": [
+    "IAC operating-option flags",
+    "Auxiliary IAC output option; former Park/Drive strategy options omitted"
+  ],
+  "$4E8F.0": [
+    "IAC startup Park/Drive bank and idle-control admission option",
+    "omitted"
+  ],
+  "$4E8F.1": [
+    "IAC extended DFCO throttle cracker option",
+    "omitted"
+  ],
+  "$4E8F.2": [
+    "Auxiliary IAC output enable",
+    "Retained auxiliary IAC output enable"
+  ],
+  "$4E8F.3": [
+    "Separate learned off-idle A/C cells option",
+    "omitted"
+  ],
+  "$4E8F.4": [
+    "IAC high-pressure switch option",
+    "omitted"
+  ],
+  "$4E8F.5": [
+    "IAC stopped integral initialization option",
+    "omitted"
+  ],
+  "$4E8F.6": [
+    "IAC MAT-based A/C transition option",
+    "omitted"
+  ],
+  "$4E8F.7": [
+    "IAC stall threshold selection",
+    "omitted"
+  ],
+  "$4E90": [
+    "IAC output and resident spark-override option flags",
+    "Resident low-TPS spark override option; former learned-cell option omitted"
+  ],
+  "$4E90.0": [
+    "Initialize full integrals from learned warm cells",
+    "omitted"
+  ],
+  "$4E90.1": [
+    "Resident low-TPS spark-override enable option",
+    "Resident spark-path option test retained; normal request writer omitted"
+  ],
+  "$4E91": [
+    "IAC prestart coolant minimum",
+    "omitted"
+  ],
+  "$4E92": [
+    "IAC position curve table",
+    ""
+  ],
+  "$4EA3": [
+    "IAC barometric offset",
+    ""
+  ],
+  "$4EA4": [
+    "IAC barometric limit",
+    ""
+  ],
+  "$4EA5": [
+    "IAC barometric curve scale",
+    ""
+  ],
+  "$4EB0": [
+    "IAC park target",
+    ""
+  ],
+  "$4EB1": [
+    "IAC default integral index 0",
+    "omitted"
+  ],
+  "$4EB2": [
+    "IAC default integral index 1",
+    "omitted"
+  ],
+  "$4EB3": [
+    "IAC default A/C warm",
+    "omitted"
+  ],
+  "$4EB4": [
+    "IAC default A/C cold",
+    "omitted"
+  ],
+  "$4EB5": [
+    "IAC default coolant",
+    "omitted"
+  ],
+  "$4EB6": [
+    "IAC driver coolant comparison threshold",
+    ""
+  ],
+  "$4EB7": [
+    "IAC reset speed",
+    "omitted"
+  ],
+  "$4EB8": [
+    "IAC start flow",
+    "omitted"
+  ],
+  "$4EB9": [
+    "IAC startup flow reload",
+    "omitted"
+  ],
+  "$4EBA": [
+    "IAC start RPM hold",
+    "omitted"
+  ],
+  "$4EBB": [
+    "IAC startup RPM reload",
+    "omitted"
+  ],
+  "$4EBC": [
+    "IAC startup RPM gain",
+    "omitted"
+  ],
+  "$4EBD": [
+    "IAC cold decay gain",
+    "omitted"
+  ],
+  "$4EBE": [
+    "IAC cold gain index 0",
+    "omitted"
+  ],
+  "$4EBF": [
+    "IAC cold gain index 1",
+    "omitted"
+  ],
+  "$4EC0": [
+    "IAC movement speed limit",
+    "omitted"
+  ],
+  "$4EC1": [
+    "IAC movement gain",
+    "omitted"
+  ],
+  "$4EC2": [
+    "IAC start cold curve index 0 table",
+    "omitted"
+  ],
+  "$4ECF": [
+    "IAC start cold curve index 1 table",
+    "omitted"
+  ],
+  "$4EDC": [
+    "IAC cold delay curve table",
+    "omitted"
+  ],
+  "$4EE9": [
+    "IAC cold runtime curve table",
+    "omitted"
+  ],
+  "$4EEE": [
+    "IAC cold upper index 1",
+    "omitted"
+  ],
+  "$4EEF": [
+    "IAC cold lower index 1",
+    "omitted"
+  ],
+  "$4EF0": [
+    "IAC cold upper index 0",
+    "omitted"
+  ],
+  "$4EF1": [
+    "IAC cold lower index 0",
+    "omitted"
+  ],
+  "$4EF2": [
+    "IAC closed throttle",
+    "Initialization-only read for retired follower threshold; no controller consumer"
+  ],
+  "$4EF3": [
+    "IAC closed speed",
+    "omitted"
+  ],
+  "$4EF4": [
+    "IAC closed delay",
+    "omitted"
+  ],
+  "$4EF5": [
+    "IAC start hold curve index 0 table",
+    "omitted"
+  ],
+  "$4F02": [
+    "IAC start hold curve index 1 table",
+    "omitted"
+  ],
+  "$4F0F": [
+    "IAC A/C transition gain index 0",
+    "omitted"
+  ],
+  "$4F10": [
+    "IAC A/C transition minimum index 0",
+    "omitted"
+  ],
+  "$4F11": [
+    "IAC A/C transition maximum index 0",
+    "omitted"
+  ],
+  "$4F12": [
+    "IAC A/C transition hold index 0",
+    "omitted"
+  ],
+  "$4F13": [
+    "IAC A/C transition delay index 0",
+    "omitted"
+  ],
+  "$4F14": [
+    "IAC A/C temperature offset",
+    "omitted"
+  ],
+  "$4F15": [
+    "IAC A/C temperature limit",
+    "omitted"
+  ],
+  "$4F16": [
+    "IAC A/C temperature curve scale",
+    "omitted"
+  ],
+  "$4F1C": [
+    "IAC A/C transition gain index 1",
+    "omitted"
+  ],
+  "$4F1D": [
+    "IAC A/C transition minimum index 1",
+    "omitted"
+  ],
+  "$4F1E": [
+    "IAC A/C transition maximum index 1",
+    "omitted"
+  ],
+  "$4F1F": [
+    "IAC A/C transition hold index 1",
+    "omitted"
+  ],
+  "$4F20": [
+    "IAC A/C transition delay index 1",
+    "omitted"
+  ],
+  "$4F21": [
+    "IAC A/C decay amount",
+    "omitted"
+  ],
+  "$4F22": [
+    "IAC A/C decay reload",
+    "omitted"
+  ],
+  "$4F23": [
+    "IAC gear flow index 1",
+    "omitted"
+  ],
+  "$4F24": [
+    "IAC gear hold index 1",
+    "omitted"
+  ],
+  "$4F25": [
+    "IAC gear delay index 1",
+    "omitted"
+  ],
+  "$4F26": [
+    "IAC gear flow index 0",
+    "omitted"
+  ],
+  "$4F27": [
+    "IAC gear hold index 0",
+    "omitted"
+  ],
+  "$4F28": [
+    "IAC gear delay index 0",
+    "omitted"
+  ],
+  "$4F29": [
+    "IAC gear coolant",
+    "omitted"
+  ],
+  "$4F2A": [
+    "IAC gear cold delay index 1",
+    "omitted"
+  ],
+  "$4F2B": [
+    "IAC gear cold hold index 1",
+    "omitted"
+  ],
+  "$4F2C": [
+    "IAC gear cold delay index 0",
+    "omitted"
+  ],
+  "$4F2D": [
+    "IAC gear cold hold index 0",
+    "omitted"
+  ],
+  "$4F2E": [
+    "IAC steering flow",
+    "omitted"
+  ],
+  "$4F2F": [
+    "IAC steering delay",
+    "omitted"
+  ],
+  "$4F30": [
+    "IAC switch decay reload",
+    "omitted"
+  ],
+  "$4F31": [
+    "IAC switch decay amount",
+    "omitted"
+  ],
+  "$4F32": [
+    "Park/no-A-C base idle-speed curve",
+    "omitted"
+  ],
+  "$4F41": [
+    "Park/A-C base idle-speed curve",
+    "omitted"
+  ],
+  "$4F50": [
+    "Drive/no-A-C base idle-speed curve",
+    "omitted"
+  ],
+  "$4F5F": [
+    "Drive/A-C base idle-speed curve",
+    "omitted"
+  ],
+  "$4F6E": [
+    "IAC start RPM curve table",
+    "omitted"
+  ],
+  "$4F7D": [
+    "IAC rough gain",
+    "omitted"
+  ],
+  "$4F7E": [
+    "IAC error gain",
+    "omitted"
+  ],
+  "$4F7F": [
+    "IAC error deadband table",
+    "omitted"
+  ],
+  "$4F83": [
+    "IAC rough limit",
+    "omitted"
+  ],
+  "$4F84": [
+    "IAC battery threshold",
+    "omitted"
+  ],
+  "$4F85": [
+    "IAC battery gain",
+    "omitted"
+  ],
+  "$4F86": [
+    "IAC battery limit",
+    "omitted"
+  ],
+  "$4F87": [
+    "IAC BLM limit",
+    "omitted"
+  ],
+  "$4F88": [
+    "IAC BLM count limit",
+    "omitted"
+  ],
+  "$4F89": [
+    "IAC BLM coolant minimum",
+    "omitted"
+  ],
+  "$4F8A": [
+    "IAC BLM adder table",
+    "omitted"
+  ],
+  "$4F8B": [
+    "Park/A-C BLM-related idle-speed adder",
+    "omitted"
+  ],
+  "$4F8C": [
+    "Drive/no-A-C BLM-related idle-speed adder",
+    "omitted"
+  ],
+  "$4F8D": [
+    "Drive/A-C BLM-related idle-speed adder",
+    "omitted"
+  ],
+  "$4F8E": [
+    "IAC switch threshold table",
+    "omitted"
+  ],
+  "$4F90": [
+    "IAC switch up delay",
+    "omitted"
+  ],
+  "$4F91": [
+    "IAC switch down delay",
+    "omitted"
+  ],
+  "$4F92": [
+    "IAC integral curve index 0 table",
+    "omitted"
+  ],
+  "$4F9D": [
+    "IAC integral curve index 1 table",
+    "omitted"
+  ],
+  "$4FA8": [
+    "IAC integral curve index 2 table",
+    "omitted"
+  ],
+  "$4FB3": [
+    "IAC integral curve index 3 table",
+    "omitted"
+  ],
+  "$4FBE": [
+    "Fuel mixture startup effort",
+    "Retained fuel-state reader; do not mark this shared address omitted"
+  ],
+  "$4FBF": [
+    "IAC warm coolant minimum",
+    "omitted"
+  ],
+  "$4FC0": [
+    "IAC warm coolant maximum",
+    "omitted"
+  ],
+  "$4FC1": [
+    "IAC A/C difference lower index 0",
+    "omitted"
+  ],
+  "$4FC2": [
+    "IAC A/C difference upper index 0",
+    "omitted"
+  ],
+  "$4FC3": [
+    "IAC A/C difference lower index 1",
+    "omitted"
+  ],
+  "$4FC4": [
+    "IAC A/C difference upper index 1",
+    "omitted"
+  ],
+  "$4FC5": [
+    "IAC drive park delta",
+    "omitted"
+  ],
+  "$4FC6": [
+    "IAC park drive delta",
+    "omitted"
+  ],
+  "$4FC7": [
+    "IAC drive snapshot delta table",
+    "omitted"
+  ],
+  "$4FC9": [
+    "IAC proportional speed entry",
+    "omitted"
+  ],
+  "$4FCA": [
+    "IAC proportional speed exit",
+    "omitted"
+  ],
+  "$4FCB": [
+    "IAC proportional error limit",
+    "omitted"
+  ],
+  "$4FCC": [
+    "IAC proportional curve index 0 table",
+    "omitted"
+  ],
+  "$4FD7": [
+    "IAC proportional curve index 1 table",
+    "omitted"
+  ],
+  "$4FE2": [
+    "IAC proportional curve index 2 table",
+    "omitted"
+  ],
+  "$4FED": [
+    "IAC proportional curve index 3 table",
+    "omitted"
+  ],
+  "$4FF8": [
+    "IAC proportional curve index 4 table",
+    "omitted"
+  ],
+  "$5003": [
+    "IAC proportional curve index 5 table",
+    "omitted"
+  ],
+  "$500E": [
+    "IAC proportional curve index 6 table",
+    "omitted"
+  ],
+  "$5019": [
+    "IAC proportional curve index 7 table",
+    "omitted"
+  ],
+  "$5024": [
+    "IAC proportional curve index 8 table",
+    "omitted"
+  ],
+  "$502F": [
+    "IAC proportional curve index 9 table",
+    "omitted"
+  ],
+  "$503A": [
+    "IAC derivative fast gain",
+    "omitted"
+  ],
+  "$503B": [
+    "IAC derivative slow gain",
+    "omitted"
+  ],
+  "$503C": [
+    "IAC derivative curve table",
+    "omitted"
+  ],
+  "$504D": [
+    "IAC stall factor table",
+    "omitted"
+  ],
+  "$5051": [
+    "IAC stall flow table",
+    "omitted"
+  ],
+  "$5055": [
+    "IAC stall hold table",
+    "omitted"
+  ],
+  "$5057": [
+    "IAC follower coolant table",
+    "omitted"
+  ],
+  "$5064": [
+    "IAC follower RPM scale",
+    "omitted"
+  ],
+  "$506E": [
+    "IAC follower cap table",
+    "omitted"
+  ],
+  "$5070": [
+    "IAC follower park gain",
+    "omitted"
+  ],
+  "$5071": [
+    "IAC follower drive hold table",
+    "omitted"
+  ],
+  "$507C": [
+    "IAC follower drive gain table",
+    "omitted"
+  ],
+  "$5087": [
+    "IAC follower change limit",
+    "omitted"
+  ],
+  "$5088": [
+    "IAC follower load limit",
+    "omitted"
+  ],
+  "$5089": [
+    "IAC follower low load gain",
+    "omitted"
+  ],
+  "$508A": [
+    "IAC follower minimum table",
+    "omitted"
+  ],
+  "$5097": [
+    "IAC follower age limit",
+    "omitted"
+  ],
+  "$509A": [
+    "IAC hotstart coolant minimum",
+    "omitted"
+  ],
+  "$509B": [
+    "IAC hotstart coolant maximum",
+    "omitted"
+  ],
+  "$509C": [
+    "IAC hotstart runtime limit (word)",
+    "omitted"
+  ],
+  "$509E": [
+    "IAC follower extended gain table",
+    "omitted"
+  ],
+  "$50A0": [
+    "IAC follower start minimum gain",
+    "omitted"
+  ],
+  "$50A1": [
+    "IAC follower start flow gain",
+    "omitted"
+  ],
+  "$50A2": [
+    "IAC enrichment curve scale",
+    "Retained fuel compensation table"
+  ],
+  "$50A8": [
+    "IAC enrichment flow",
+    ""
+  ],
+  "$50A9": [
+    "IAC enrichment throttle",
+    ""
+  ],
+  "$50AA": [
+    "IAC PE flow limit (word)",
+    "omitted"
+  ],
+  "$50AC": [
+    "IAC DFCO bias",
+    "omitted"
+  ],
+  "$50AD": [
+    "IAC DFCO curve table",
+    "omitted"
+  ],
+  "$50BE": [
+    "IAC DFCO decay amount",
+    "omitted"
+  ],
+  "$50BF": [
+    "IAC DFCO decay reload",
+    "omitted"
+  ],
+  "$50C0": [
+    "IAC learning error limit",
+    "omitted"
+  ],
+  "$50C1": [
+    "IAC learning count limit",
+    "omitted"
+  ],
+  "$50C2": [
+    "IAC reconcile coolant",
+    "omitted"
+  ],
+  "$50C3": [
+    "IAC reconcile flow index 0",
+    "omitted"
+  ],
+  "$50C4": [
+    "IAC reconcile flow index 1",
+    "omitted"
+  ],
+  "$50C5": [
+    "IAC reconcile error",
+    "omitted"
+  ],
+  "$50C6": [
+    "IAC reconcile phase",
+    "omitted"
+  ],
+  "$50C7": [
+    "IAC kicker coolant minimum",
+    ""
+  ],
+  "$50C8": [
+    "IAC kicker flow subtract",
+    ""
+  ],
+  "$50C9": [
+    "IAC kicker flow gain",
+    ""
+  ],
+  "$50CA": [
+    "IAC kicker speed limit",
+    "omitted"
+  ],
+  "$50CB": [
+    "IAC kicker throttle limit",
+    "omitted"
+  ],
+  "$50CC": [
+    "IAC kicker cold reload",
+    "omitted"
+  ],
+  "$50CD": [
+    "IAC kicker barometric entry",
+    "omitted"
+  ],
+  "$50CE": [
+    "IAC kicker barometric exit",
+    ""
+  ],
+  "$50CF": [
+    "IAC kicker integral limit",
+    "omitted"
+  ],
+  "$50D0": [
+    "IAC kicker flow limit",
+    "omitted"
+  ],
+  "$50D1": [
+    "IAC kicker error limit index 1",
+    "omitted"
+  ],
+  "$50D2": [
+    "IAC kicker error limit index 0",
+    "omitted"
+  ],
+  "$50D3": [
+    "IAC kicker on reload",
+    "omitted"
+  ],
+  "$50D4": [
+    "IAC default baseline",
+    "omitted"
+  ],
+  "$50D5": [
+    "IAC kicker TPS adder",
+    ""
+  ],
+  "$50D6": [
+    "IAC kicker baseline limit",
+    ""
+  ],
+  "$50D7": [
+    "IAC kicker off match",
+    ""
+  ],
+  "$50E4": [
+    "Spark monitor filter gain",
+    ""
+  ],
+  "$5113": [
+    "Transmission shift ratio table",
+    ""
+  ],
+  "$5117": [
+    "Transmission shift RPM table",
+    ""
+  ],
+  "$511B": [
+    "Transmission shift throttle gain table",
+    ""
+  ],
+  "$511F": [
+    "Transmission shift coolant",
+    ""
+  ],
+  "$5120": [
+    "Transmission shift throttle table",
+    ""
+  ],
+  "$5122": [
+    "Transmission shift RPM max",
+    ""
+  ],
+  "$5123": [
+    "Transmission shift reload table",
+    ""
+  ],
+  "$5125": [
+    "Transmission shift curves table",
+    ""
+  ],
+  "$5155": [
+    "Fuel delivery qualification reload",
+    ""
+  ],
+  "$5156": [
+    "Fuel delivery qualification speed",
+    ""
+  ],
+  "$5157": [
+    "Fuel delivery qualification RPM table",
+    ""
+  ],
+  "$5159": [
+    "Fuel delivery qualification throttle",
+    ""
+  ],
+  "$518B": [
+    "Fuel mixture authorization maximum (word)",
+    ""
+  ],
+  "$518D": [
+    "Fuel mixture authorization minimum (word)",
+    ""
+  ],
+  "$55F2": [
+    "Transmission bias",
+    "omitted"
+  ],
+  "$55F5": [
+    "Transmission pressure table (source label)",
+    "omitted"
+  ],
+  "$5719": [
+    "Transmission pressure table (source label)",
+    "omitted"
+  ],
+  "$583D": [
+    "Transmission pressure table (source label)",
+    "omitted"
+  ],
+  "$5961": [
+    "Transmission pressure table (source label)",
+    "omitted"
+  ],
+  "$5B01": [
+    "Air calculation MAT options",
+    ""
+  ],
+  "$5B02": [
+    "IAC fault options",
+    ""
+  ],
+  "$5B03": [
+    "Reference-event diagnostic options",
+    ""
+  ],
+  "$5B18": [
+    "Air calculation coolant runtime limit (word)",
+    ""
+  ],
+  "$5B1A": [
+    "Air calculation coolant default late",
+    ""
+  ],
+  "$5B1B": [
+    "Air calculation coolant default early",
+    ""
+  ],
+  "$5B23": [
+    "Air calculation throttle default",
+    "omitted"
+  ],
+  "$5B24": [
+    "TPS-zero tracking upper raw-input limit",
+    ""
+  ],
+  "$5B26": [
+    "Engine TPS normalization gain",
+    ""
+  ],
+  "$5B27": [
+    "TPS-zero tracking filter gain",
+    "omitted"
+  ],
+  "$5BD0": [
+    "Reserved ROM workspace",
+    "Engine-only initialization code"
+  ],
+  "$5C8A": [
+    "Reserved ROM workspace",
+    "Independent engine oxygen-filter code"
+  ],
+  "$5C9A": [
+    "Reserved ROM workspace",
+    "Independent engine TPS normalization code"
+  ],
+  "$5CBB": [
+    "Reserved ROM workspace",
+    "Independent engine TPS-zero tracking code"
+  ],
+  "$5CD0": [
+    "Reserved ROM workspace",
+    "Independent engine-input and serial-service wrapper code"
+  ],
+  "$5D00": [
+    "Transmission configuration and option flags (source label)",
+    "omitted"
+  ],
+  "$5D02": [
+    "Air calculation barometric options",
+    "omitted"
+  ],
+  "$5D06": [
+    "Input/output brake delay",
+    "omitted"
+  ],
+  "$5D3E": [
+    "Transmission shift-speed thresholds by gear (source label)",
+    "omitted"
+  ],
+  "$5D44": [
+    "Transmission shift-speed thresholds by gear (source label)",
+    "omitted"
+  ],
+  "$5D4A": [
+    "Transmission shift-speed thresholds by gear (source label)",
+    "omitted"
+  ],
+  "$5D50": [
+    "Transmission shift-speed thresholds by gear (source label)",
+    "omitted"
+  ],
+  "$5D56": [
+    "Transmission shift-RPM thresholds by gear (source label)",
+    "omitted"
+  ],
+  "$5D5C": [
+    "Transmission shift-RPM thresholds by gear (source label)",
+    "omitted"
+  ],
+  "$5D62": [
+    "Transmission shift-RPM thresholds by gear (source label)",
+    "omitted"
+  ],
+  "$5D68": [
+    "Transmission shift-RPM thresholds by gear (source label)",
+    "omitted"
+  ],
+  "$5D6E": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5D7F": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5D90": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5DA1": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5DB2": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5DC3": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5DD4": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5DE5": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5DF6": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E07": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E18": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E29": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E3A": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E4B": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E5C": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E6D": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E7E": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5E8F": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5EA0": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5EB1": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5EC2": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$5F30": [
+    "Transmission WOT line-pressure modifier versus RPM (source label)",
+    "omitted"
+  ],
+  "$5F41": [
+    "Transmission temperature-dependent pressure modifier (source label)",
+    "omitted"
+  ],
+  "$5FB8": [
+    "Transmission park/neutral garage-shift pressure table (source label)",
+    "omitted"
+  ],
+  "$6043": [
+    "Transmission reverse garage-shift pressure table (source label)",
+    "omitted"
+  ],
+  "$60CE": [
+    "Transmission pressure-scaling table (source label)",
+    "omitted"
+  ],
+  "$6126": [
+    "Transmission pressure-scaling table (source label)",
+    "omitted"
+  ],
+  "$6155": [
+    "Transmission pressure-scaling table (source label)",
+    "omitted"
+  ],
+  "$6184": [
+    "Transmission pressure-scaling table (source label)",
+    "omitted"
+  ],
+  "$61B3": [
+    "Normal-range line pressure versus road speed and throttle, lower-speed table (source label)",
+    "omitted"
+  ],
+  "$62D7": [
+    "Normal-range line pressure versus road speed and throttle, upper-speed table (source label)",
+    "omitted"
+  ],
+  "$63FB": [
+    "Manual-range line pressure versus road speed and throttle, lower-speed table (source label)",
+    "omitted"
+  ],
+  "$651F": [
+    "Manual-range line pressure versus road speed and throttle, upper-speed table (source label)",
+    "omitted"
+  ],
+  "$6643": [
+    "Transmission pressure modifier versus throttle (source label)",
+    "omitted"
+  ],
+  "$6654": [
+    "Transmission pressure modifier versus throttle (source label)",
+    "omitted"
+  ],
+  "$6665": [
+    "Transmission pressure modifier versus throttle (source label)",
+    "omitted"
+  ],
+  "$6676": [
+    "Transmission pressure-modifier table (source label)",
+    "omitted"
+  ],
+  "$66DC": [
+    "Downshift pressure-modifier speed breakpoints (source label)",
+    "omitted"
+  ],
+  "$66DF": [
+    "Downshift pressure modifier versus road speed (source label)",
+    "omitted"
+  ],
+  "$66F0": [
+    "Downshift pressure-modifier speed breakpoints (source label)",
+    "omitted"
+  ],
+  "$66F3": [
+    "Downshift pressure modifier versus road speed (source label)",
+    "omitted"
+  ],
+  "$6704": [
+    "Downshift pressure-modifier speed breakpoints (source label)",
+    "omitted"
+  ],
+  "$6707": [
+    "Downshift pressure modifier versus road speed (source label)",
+    "omitted"
+  ],
+  "$6AFA": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$6B0B": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$6B1C": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$6BC6": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$6BD7": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$6BE8": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$6BF9": [
+    "Transmission shift-speed versus throttle table (source label)",
+    "omitted"
+  ],
+  "$6E59": [
+    "Transmission pressure table (source label)",
+    "omitted"
+  ],
+  "$7A85": [
+    "Dispatcher slot 0 routine-pointer word",
+    ""
+  ],
+  "$7A87": [
+    "Dispatcher slot 1 routine-pointer word",
+    ""
+  ],
+  "$7A89": [
+    "Dispatcher slot 2 routine-pointer word",
+    ""
+  ],
+  "$7A8B": [
+    "Dispatcher slot 3 routine-pointer word",
+    ""
+  ],
+  "$7A8D": [
+    "Dispatcher slot 4 routine-pointer word",
+    ""
+  ],
+  "$7A8F": [
+    "Dispatcher slot 5 routine-pointer word",
+    ""
+  ],
+  "$7A91": [
+    "Dispatcher slot 6 routine-pointer word",
+    ""
+  ],
+  "$7A93": [
+    "Dispatcher slot 7 routine-pointer word",
+    ""
+  ],
+  "$7A95": [
+    "Dispatcher slot 8 routine-pointer word",
+    ""
+  ],
+  "$7A97": [
+    "Dispatcher slot 9 routine-pointer word",
+    ""
+  ],
+  "$7A99": [
+    "Dispatcher slot 10 routine-pointer word",
+    ""
+  ],
+  "$7A9B": [
+    "Dispatcher slot 11 routine-pointer word",
+    ""
+  ],
+  "$7A9D": [
+    "Dispatcher slot 12 routine-pointer word",
+    ""
+  ],
+  "$7A9F": [
+    "Dispatcher slot 13 routine-pointer word",
+    ""
+  ],
+  "$7AA1": [
+    "Dispatcher slot 14 routine-pointer word",
+    ""
+  ],
+  "$7AA3": [
+    "Dispatcher slot 15 routine-pointer word",
+    ""
+  ],
+  "$9F00": [
+    "Original IAC kicker-control code",
+    "Single coolant-index cold-air feedforward curve"
+  ],
+  "$9F11": [
+    "Original IAC kicker-control code",
+    "Single baseline seed"
+  ],
+  "$9F12": [
+    "Original IAC kicker-control code",
+    "Startup-air amount"
+  ],
+  "$9F13": [
+    "Original IAC kicker-control code",
+    "Startup-air fade divider reload"
+  ],
+  "$9F14": [
+    "Original IAC kicker-control code",
+    "Capture normalized-TPS ceiling"
+  ],
+  "$9F15": [
+    "Original IAC kicker-control code",
+    "Release normalized-TPS ceiling"
+  ],
+  "$9F16": [
+    "Original IAC kicker-control code",
+    "Capture RPM margin above target"
+  ],
+  "$9F17": [
+    "Original IAC kicker-control code",
+    "Shared IAC capture release and DFCO spark-release margin above requested idle RPM"
+  ],
+  "$9F18": [
+    "Original IAC kicker-control code",
+    "Integral admission delay in main calls"
+  ],
+  "$9F19": [
+    "Original IAC kicker-control code",
+    "RPM error deadband"
+  ],
+  "$9F1A": [
+    "Original IAC kicker-control code",
+    "Proportional gain"
+  ],
+  "$9F1B": [
+    "Original IAC kicker-control code",
+    "Underspeed integral gain"
+  ],
+  "$9F1C": [
+    "Original IAC kicker-control code",
+    "Overspeed integral gain"
+  ],
+  "$9F1D": [
+    "Original IAC kicker-control code",
+    "Proportional air limit word"
+  ],
+  "$9F1F": [
+    "Original IAC kicker-control code",
+    "Baseline integral upper limit word"
+  ],
+  "$9F21": [
+    "Original IAC kicker-control code",
+    "TPS follower ceiling"
+  ],
+  "$9F22": [
+    "Original IAC kicker-control code",
+    "TPS follower decay per main call word"
+  ],
+  "$9F24": [
+    "Original IAC kicker-control code",
+    "Stall margin below target"
+  ],
+  "$9F25": [
+    "Original IAC kicker-control code",
+    "Stall airflow increment"
+  ],
+  "$9F26": [
+    "Original IAC kicker-control code",
+    "A/C feedforward airflow"
+  ],
+  "$FC45": [
+    "Coolant ADC-to-temperature conversion table for one sensor range",
+    ""
+  ],
+  "$FD45": [
+    "Coolant ADC-to-temperature conversion table for the other sensor range",
+    ""
+  ],
+  "$FE45": [
+    "MAT ADC-to-temperature conversion curve",
+    ""
+  ],
+  "$FE9F": [
+    "Reserved ROM workspace",
+    "Custom closed-throttle and global open-loop fuel-policy flags"
+  ],
+  "$FE9F.0": [
+    "Reserved bit in OEM high-ROM workspace",
+    "Force open loop when normalized TPS is at or below $FF8B"
+  ],
+  "$FE9F.1": [
+    "Reserved bit in OEM high-ROM workspace",
+    "Global open loop; substitute neutral BLM and clear the signed INT-derived additive correction"
+  ],
+  "$FF60": [
+    "Reserved ROM workspace",
+    "Retained Rev A RPM schedule, now shared by startup and running"
+  ],
+  "$FF88": [
+    "Reserved ROM workspace",
+    "omitted"
+  ],
+  "$FF89": [
+    "Reserved ROM workspace",
+    "omitted"
+  ],
+  "$FF8A": [
+    "Reserved ROM workspace",
+    "TPS threshold for relative idle-entry classification"
+  ],
+  "$FF8B": [
+    "Reserved ROM workspace",
+    "TPS threshold for relative idle-retention classification"
+  ],
+  "$FFC0": [
+    "Reserved interrupt-vector table start",
+    ""
+  ],
+  "$FFD6": [
+    "SCI serial interrupt vector word",
+    ""
+  ],
+  "$FFD8": [
+    "SPI interrupt vector word",
+    ""
+  ],
+  "$FFDA": [
+    "Pulse-accumulator input edge vector word",
+    ""
+  ],
+  "$FFDC": [
+    "Pulse-accumulator overflow vector word",
+    ""
+  ],
+  "$FFDE": [
+    "Timer overflow vector word",
+    ""
+  ],
+  "$FFE0": [
+    "Timer output compare 5 vector word",
+    ""
+  ],
+  "$FFE2": [
+    "Timer output compare 4 vector word",
+    ""
+  ],
+  "$FFE4": [
+    "Timer output compare 3 vector word",
+    ""
+  ],
+  "$FFE6": [
+    "Timer output compare 2 vector word",
+    ""
+  ],
+  "$FFE8": [
+    "Timer output compare 1 vector word",
+    ""
+  ],
+  "$FFEA": [
+    "Timer input capture 3 vector word",
+    ""
+  ],
+  "$FFEC": [
+    "Timer input capture 2 vector word",
+    ""
+  ],
+  "$FFEE": [
+    "Timer input capture 1 vector word",
+    ""
+  ],
+  "$FFF0": [
+    "Real-time interrupt vector word",
+    ""
+  ],
+  "$FFF2": [
+    "IRQ/reference-event interrupt vector word",
+    ""
+  ],
+  "$FFF4": [
+    "XIRQ vector word",
+    ""
+  ],
+  "$FFF6": [
+    "Software interrupt vector word",
+    ""
+  ],
+  "$FFF8": [
+    "Illegal-opcode trap vector word",
+    ""
+  ],
+  "$FFFA": [
+    "COP watchdog timeout vector word",
+    ""
+  ],
+  "$FFFC": [
+    "Clock-failure reset vector word",
+    ""
+  ],
+  "$FFFE": [
+    "Reset vector word",
+    ""
+  ]
+}

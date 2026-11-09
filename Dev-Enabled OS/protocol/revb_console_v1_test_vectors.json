@@ -1,0 +1,59 @@
+{
+  "purpose": "Proposed Phase 1/2 developer protocol codec fixtures \u2014 not recorded vehicle traffic",
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "frames": [
+    {
+      "label": "INFO identity",
+      "command": "info",
+      "frame_hex": "F5 5A D6 01 01 01 00 D8",
+      "bytes": 8,
+      "payload_count": 5,
+      "valid_additive_checksum": true
+    },
+    {
+      "label": "READ TPS 1 byte",
+      "command": "peek $01D9 1",
+      "frame_hex": "F5 5C D6 01 02 10 01 D9 01 EB",
+      "bytes": 10,
+      "payload_count": 7,
+      "valid_additive_checksum": true
+    },
+    {
+      "label": "GATHER three variables",
+      "command": "get8 $0062; get8 $01D9; get16 $0250",
+      "frame_hex": "F5 63 D6 01 03 11 03 00 62 01 01 D9 01 02 50 02 28",
+      "bytes": 17,
+      "payload_count": 14,
+      "valid_additive_checksum": true
+    },
+    {
+      "label": "CLOSE",
+      "command": "close",
+      "frame_hex": "F5 59 D6 01 04 7F 58",
+      "bytes": 7,
+      "payload_count": 4,
+      "valid_additive_checksum": true
+    },
+    {
+      "label": "READ 16 ROM bytes",
+      "command": "peek $4000 16",
+      "frame_hex": "F5 5C D6 01 05 10 40 00 10 73",
+      "bytes": 10,
+      "payload_count": 7,
+      "valid_additive_checksum": true
+    },
+    {
+      "label": "TRACE_FETCH 4 events [Phase 2]",
+      "command": "trace fetch cursor=$0020 count=4",
+      "frame_hex": "F5 5C D6 01 06 21 00 20 04 8D",
+      "bytes": 10,
+      "payload_count": 7,
+      "valid_additive_checksum": true
+    }
+  ],
+  "synthetic_response": {
+    "label": "READ 01D9 assumed data 2A, codec test only",
+    "frame_hex": "F5 5E D6 01 02 90 00 01 D9 01 2A 3F"
+  },
+  "tests": "length, CRC/additive checksum, request+response, corruption rejects, max gather and trace response bounds: PASS"
+}

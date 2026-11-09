@@ -1,0 +1,129 @@
+{
+  "base_xdf_sha256": "0b4c321b2d11d52db479944bb1a7cd641251ae90147598439cd7efcf6e6154b6",
+  "base_xdf_filename": "Advanced $31 TP5 v251.xdf",
+  "base_xdf_author": "93V8S10",
+  "reva_sha256": "d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e",
+  "retired_data_ranges": [
+    {
+      "start": "4024",
+      "end_exclusive": "412B",
+      "reason": "Purge and catalyst-model calibration"
+    },
+    {
+      "start": "46F9",
+      "end_exclusive": "48BB",
+      "reason": "Dedicated EGR demand/flow/position/spark tables"
+    },
+    {
+      "start": "4E8A",
+      "end_exclusive": "4E8E",
+      "reason": "Dedicated AIR thresholds; retain engine O2 filter gain at4E89"
+    },
+    {
+      "start": "55F2",
+      "end_exclusive": "5AFC",
+      "reason": "Dedicated transmission spark surfaces and unused tail; preserve engine diagnostic descriptor prefix at5AFC"
+    },
+    {
+      "start": "5B22",
+      "end_exclusive": "5B24",
+      "reason": "Dedicated transmission diagnostic/reaction/retention calibration; engine thresholds retained"
+    },
+    {
+      "start": "5B25",
+      "end_exclusive": "5B26",
+      "reason": "Dedicated transmission diagnostic/reaction/retention calibration; engine thresholds retained"
+    },
+    {
+      "start": "5B27",
+      "end_exclusive": "5B63",
+      "reason": "Dedicated transmission diagnostic/reaction/retention calibration; engine thresholds retained"
+    },
+    {
+      "start": "5B68",
+      "end_exclusive": "5B6D",
+      "reason": "Dedicated transmission diagnostic/reaction/retention calibration; engine thresholds retained"
+    },
+    {
+      "start": "5B6F",
+      "end_exclusive": "5B71",
+      "reason": "Dedicated transmission diagnostic/reaction/retention calibration; engine thresholds retained"
+    },
+    {
+      "start": "5B73",
+      "end_exclusive": "5BD0",
+      "reason": "Dedicated transmission diagnostic/reaction/retention calibration; engine thresholds retained"
+    },
+    {
+      "start": "5CDD",
+      "end_exclusive": "5D00",
+      "reason": "Dedicated transmission diagnostic/reaction/retention calibration; engine thresholds retained"
+    },
+    {
+      "start": "5D00",
+      "end_exclusive": "7100",
+      "reason": "Dedicated automatic-transmission configuration/tables"
+    },
+    {
+      "start": "428A",
+      "end_exclusive": "43AE",
+      "reason": "Retire alternate 428A spark table"
+    },
+    {
+      "start": "44F0",
+      "end_exclusive": "4516",
+      "reason": "Separate idle-spark feedback correction removed in Rev A"
+    },
+    {
+      "start": "451B",
+      "end_exclusive": "452C",
+      "reason": "Idle-spark derivative correction removed in Rev A"
+    },
+    {
+      "start": "46EC",
+      "end_exclusive": "46F9",
+      "reason": "Transient-spark correction removed in Rev A"
+    },
+    {
+      "start": "48EB",
+      "end_exclusive": "48EC",
+      "reason": "Park warmup-AFR branch bypassed; common/Drive subtraction remains"
+    },
+    {
+      "start": "4969",
+      "end_exclusive": "496B",
+      "reason": "Transmission-fault RPM-limit pair no longer selected"
+    },
+    {
+      "start": "4F26",
+      "end_exclusive": "4F29",
+      "reason": "Park-entry IAC transition code retired"
+    },
+    {
+      "start": "4F2C",
+      "end_exclusive": "4F2E",
+      "reason": "Park-entry cold-transition code retired"
+    }
+  ],
+  "executable_helper_range": [
+    "5BD0",
+    "5CDD"
+  ],
+  "source_notes": "Reviewed engine-only v2/Rev A provenance, pinned historical Rev A role snapshot, and source-rebuilt Rev B candidate. Original uploaded XDF and Rev A input are preserved.",
+  "manual_idle_assembly_sha256": "f2d1d0d508dbc690935924ecb6f1ef257650554a6cfd37a77cbee86cbde18550",
+  "profiles": {
+    "reva": {
+      "pristine_sha256": "d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e",
+      "program_fingerprint": "c1255b66a719b938677730d6af14fa0d69ea7712e5d97c54332a667227c67d09"
+    },
+    "manual_idle_dev": {
+      "pristine_sha256": "264beb0140e470a8d63a83da74f460fb8864b6027711a26207b308fe9ae2d0b4",
+      "program_fingerprint": "8b71f410793ea5d71058281509346b60ef3f085f82dbb1050dedeaa7444344de"
+    },
+    "manual_idle_revb": {
+      "pristine_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+      "program_fingerprint": "f255e8c0c6ec209573cab86926ac480f9ce3fb5fe1f4a43b31090df152e28537"
+    }
+  },
+  "gate_assembly_sha256": "60f80dc03072403c8348d1be5c9d55bcd1a6a659230ae0638b43274692c1d26e"
+}

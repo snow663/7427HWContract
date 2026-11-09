@@ -1,0 +1,324 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "baseline_sha256": "d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e",
+  "xdf_sha256": "788b8f5b79c646fa072b45de5f8e075c77f5d692468d39541406676a0145214e",
+  "scope": "Recorded code/calibration excerpts, not a full executable ROM.",
+  "ranges": [
+    {
+      "start": "5C9A",
+      "end_exclusive": "5CBB",
+      "bytes": "fc02f6c300801696a61024014ff65b263dc30020052503052403ccffffb701a639"
+    },
+    {
+      "start": "7765",
+      "end_exclusive": "7792",
+      "bytes": "fc3ffa9a7315734085402755d667f145162516f601d9f148da220edc68ce006a18ce4518bdf4792002dc68dd6a"
+    },
+    {
+      "start": "7DF1",
+      "end_exclusive": "7E09",
+      "bytes": "b601d9b701dabd5c9ab701d97e7e09ffffffffffffffffff"
+    },
+    {
+      "start": "7F86",
+      "end_exclusive": "7FD8",
+      "bytes": "f601c0c140230554c900cb20b601d9b1ff8b220e7e7fa2ffffffffff96628148250d9662ce49d5144f08bdf4de20209663819023028690ce4a88bdf4de134f080ef6020ff1490f2203144f20154f08b70231"
+    },
+    {
+      "start": "8D9E",
+      "end_exclusive": "8DEF",
+      "bytes": "ce400c1e00104ab601d9b148da25091352040e155204203312520405145204202ab60249b00248271f2b0fb149092518b6020fb149072210201140b1490a2508b6020fb149082403153d04b60248b70249"
+    },
+    {
+      "start": "84BC",
+      "end_exclusive": "852C",
+      "bytes": "fc024e133e1008fd024c153f80206127281a830100241317c620ce4979bdf4bd164ff3024eb349712509153f801ab3496d2406143f80fc496ffd024c270efb025689001a837fff2503cc7ffffd0250ce400b1e000105fd3fce2015b64973ce005fbdf550052503052403ccfffffd081f"
+    },
+    {
+      "start": "8548",
+      "end_exclusive": "856C",
+      "bytes": "ce400e1f00101d1a8301002417373617c620ce4979bdf4bd16383a8fb349712403cc0000"
+    },
+    {
+      "start": "989C",
+      "end_exclusive": "9913",
+      "bytes": "b69f115ffd029dfd0862b7086a4ffd02a0fd086efd0880fd0889ccfffffd087d7f02a47f087f7f085f7f086d15369f150930151808b69f12b702a2b69f13b702a386a5b702a53912384019b60283ceff60bdf4c1f6085f27051124025a17b7085fb70857b60857b09f2424014fb70868b6029db7086a39"
+    },
+    {
+      "start": "9A44",
+      "end_exclusive": "9A82",
+      "bytes": "fd0871b3087d2523b7086bb601d9b150a92418b6086bb150a8251005250305240286ffce50a2bdf4b620014fb7087ffc0871fd087df302a02403ccffff39"
+    },
+    {
+      "start": "AAF7",
+      "end_exclusive": "AB1A",
+      "bytes": "13512013b601d9b148da220bfc41481ab301ee2d0e2009fc41461ab301ee2d03fd01ee"
+    },
+    {
+      "start": "C9AD",
+      "end_exclusive": "C9C0",
+      "bytes": "9606801024034f200681c0230286c0b7028339"
+    },
+    {
+      "start": "F4B6",
+      "end_exclusive": "F4DE",
+      "bytes": "3c37e6000820081024014f3c37c6103d37163aec0010332406403da90020063d890040ab00333839"
+    },
+    {
+      "start": "F86E",
+      "end_exclusive": "F8E0",
+      "bytes": "123b80621e03800b1e034012ee053aa6002065134203015a583aee09202c5aee0537b6038ef60364c1f42708b60399c1f527014f338102270d585c81042602cb0a3aee00200408ee003a8c1000251f8c3fff221a8f1250080284cf8fec00f70366143b802012153b80b60366200aa6002006"
+    },
+    {
+      "start": "FF40",
+      "end_exclusive": "FF60",
+      "bytes": "144680b6fe9f8502260f85012708b601d9b1ff8b23037ee4ff153ea27ee56100"
+    },
+    {
+      "start": "400B",
+      "end_exclusive": "400F",
+      "bytes": "0c370013"
+    },
+    {
+      "start": "4146",
+      "end_exclusive": "414A",
+      "bytes": "ffeefff5"
+    },
+    {
+      "start": "48DA",
+      "end_exclusive": "48DB",
+      "bytes": "06"
+    },
+    {
+      "start": "496D",
+      "end_exclusive": "4989",
+      "bytes": "00200020000000000000000000000000000000000000000000000080"
+    },
+    {
+      "start": "49D5",
+      "end_exclusive": "49D8",
+      "bytes": "10000b"
+    },
+    {
+      "start": "4A88",
+      "end_exclusive": "4A8B",
+      "bytes": "20000b"
+    },
+    {
+      "start": "50A2",
+      "end_exclusive": "50AA",
+      "bytes": "04040506070a0a1a"
+    },
+    {
+      "start": "51BF",
+      "end_exclusive": "5220",
+      "bytes": "53a8f40080036c036c51e051ef5384538d539600000000000000000000539f00000000f40001036c036c51ef527652fd0000f48040036c036c40004001000400360007000b000c000d000e000f00080009000a003700a8024a00a6082e01d5003d"
+    },
+    {
+      "start": "5B26",
+      "end_exclusive": "5B27",
+      "bytes": "5a"
+    },
+    {
+      "start": "9F00",
+      "end_exclusive": "9F27",
+      "bytes": "78706450403020140c0400000000000000263c040203081010024004041800b400280080100c05"
+    },
+    {
+      "start": "FE9F",
+      "end_exclusive": "FEA0",
+      "bytes": "00"
+    },
+    {
+      "start": "FF60",
+      "end_exclusive": "FF71",
+      "bytes": "70706e6c68645e58504444444444444444"
+    },
+    {
+      "start": "FF8A",
+      "end_exclusive": "FF8C",
+      "bytes": "0203"
+    }
+  ],
+  "extra_instructions": [
+    {
+      "pc": "98E7",
+      "bytes": "b6 02 83",
+      "op": "LDAA",
+      "operand": "$0283"
+    },
+    {
+      "pc": "99FB",
+      "bytes": "b6 02 83",
+      "op": "LDAA",
+      "operand": "$0283"
+    },
+    {
+      "pc": "C9BC",
+      "bytes": "b7 02 83",
+      "op": "STAA",
+      "operand": "$0283"
+    },
+    {
+      "pc": "C9F7",
+      "bytes": "b6 02 83",
+      "op": "LDAA",
+      "operand": "$0283"
+    },
+    {
+      "pc": "CA03",
+      "bytes": "b6 02 83",
+      "op": "LDAA",
+      "operand": "$0283"
+    },
+    {
+      "pc": "CA36",
+      "bytes": "b6 02 83",
+      "op": "LDAA",
+      "operand": "$0283"
+    },
+    {
+      "pc": "AB0E",
+      "bytes": "fc 41 46",
+      "op": "LDD",
+      "operand": "$4146"
+    },
+    {
+      "pc": "AB03",
+      "bytes": "fc 41 48",
+      "op": "LDD",
+      "operand": "$4148"
+    },
+    {
+      "pc": "777B",
+      "bytes": "f1 48 da",
+      "op": "CMPB",
+      "operand": "$48DA"
+    },
+    {
+      "pc": "8DA8",
+      "bytes": "b1 48 da",
+      "op": "CMPA",
+      "operand": "$48DA"
+    },
+    {
+      "pc": "AAFE",
+      "bytes": "b1 48 da",
+      "op": "CMPA",
+      "operand": "$48DA"
+    },
+    {
+      "pc": "84E9",
+      "bytes": "1a b3 49 6d",
+      "op": "CPD",
+      "operand": "$496D"
+    },
+    {
+      "pc": "84F2",
+      "bytes": "fc 49 6f",
+      "op": "LDD",
+      "operand": "$496F"
+    },
+    {
+      "pc": "84E1",
+      "bytes": "b3 49 71",
+      "op": "SUBD",
+      "operand": "$4971"
+    },
+    {
+      "pc": "8564",
+      "bytes": "b3 49 71",
+      "op": "SUBD",
+      "operand": "$4971"
+    },
+    {
+      "pc": "84D6",
+      "bytes": "ce 49 79",
+      "op": "LDX",
+      "operand": "#$4979"
+    },
+    {
+      "pc": "855A",
+      "bytes": "ce 49 79",
+      "op": "LDX",
+      "operand": "#$4979"
+    },
+    {
+      "pc": "7FAA",
+      "bytes": "ce 49 d5",
+      "op": "LDX",
+      "operand": "#$49D5"
+    },
+    {
+      "pc": "7FBD",
+      "bytes": "ce 4a 88",
+      "op": "LDX",
+      "operand": "#$4A88"
+    },
+    {
+      "pc": "9A5A",
+      "bytes": "b1 50 a8",
+      "op": "CMPA",
+      "operand": "$50A8"
+    },
+    {
+      "pc": "9A52",
+      "bytes": "b1 50 a9",
+      "op": "CMPA",
+      "operand": "$50A9"
+    },
+    {
+      "pc": "989C",
+      "bytes": "b6 9f 11",
+      "op": "LDAA",
+      "operand": "$9F11"
+    },
+    {
+      "pc": "FEC0",
+      "bytes": "b6 fe 9f",
+      "op": "LDAA",
+      "operand": "$FE9F"
+    },
+    {
+      "pc": "FEE0",
+      "bytes": "f6 fe 9f",
+      "op": "LDAB",
+      "operand": "$FE9F"
+    },
+    {
+      "pc": "FF43",
+      "bytes": "b6 fe 9f",
+      "op": "LDAA",
+      "operand": "$FE9F"
+    },
+    {
+      "pc": "98EA",
+      "bytes": "ce ff 60",
+      "op": "LDX",
+      "operand": "#$FF60"
+    },
+    {
+      "pc": "7F95",
+      "bytes": "b1 ff 8b",
+      "op": "CMPA",
+      "operand": "$FF8B"
+    },
+    {
+      "pc": "FF08",
+      "bytes": "b1 ff 8b",
+      "op": "CMPA",
+      "operand": "$FF8B"
+    },
+    {
+      "pc": "FF51",
+      "bytes": "b1 ff 8b",
+      "op": "CMPA",
+      "operand": "$FF8B"
+    }
+  ],
+  "reva_ae_excerpt": {
+    "start": "97B6",
+    "end_exclusive": "97E6",
+    "bytes": "fe087dfd087d36b601d9b150a932240c3c30a300382505b150a824034f200e05250305240286ffce50a2bdf4b6b7087f"
+  }
+}

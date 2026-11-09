@@ -5,6 +5,10 @@ August `2.bin` investigations are historical and do not establish current
 0.3.12 calibration values or active consumers. See [current state](../WORKING_STATE.md)
 for the reported running version and exact-image limitations.
 
+[Manual-only idle replacement](MANUAL_IDLE_REPLACEMENT.md) traces the entire
+Rev A idle boundary and records a new C/HC11 strategy tested as an in-memory
+overlay. It is development source, not a released firmware revision.
+
 The [VSS transport reassessment](VSS_FUELING_TRANSPORT_REASSESSMENT_2026-08-20.md)
 supersedes the earlier exact event-order inference from adjacent ALDL rows.
 Its serialization reasoning remains useful; snapshot-specific values remain

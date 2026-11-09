@@ -1,0 +1,66 @@
+{
+  "baseline_sha256": "d771e824686d086986ee0bdef37697bfc63274071a13b79fc4ba59746644923e",
+  "overlay_sha256": "264beb0140e470a8d63a83da74f460fb8864b6027711a26207b308fe9ae2d0b4",
+  "firmware_file_created": false,
+  "scope": "Full reset and modeled interrupt/scheduler execution. RPM is imposed, not an airflow-responsive engine model. No physical stability, mixture, motor or deadline proof.",
+  "cases": [
+    {
+      "name": "hot_idle",
+      "fixture": {
+        "rpm": 875
+      },
+      "steps": 11872734,
+      "booted": true,
+      "checksum_error": false,
+      "retired_execution": [],
+      "slots_seen": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "timer_entries": 1278,
+      "reference_entries": 465,
+      "fuel_calls": 639,
+      "spark_calls": 638,
+      "iac_calls": 320,
+      "completed_iac_calls": 320,
+      "maximum_observed_iac_call_cycles": 1295,
+      "minimum_sp": "03D1",
+      "final": {
+        "0006": 169,
+        "0007": 40,
+        "0008": 40,
+        "0009": 0,
+        "0036": 141,
+        "0063": 69,
+        "0283": 153,
+        "029D": 38,
+        "029E": 0,
+        "02A2": 0,
+        "02A4": 16,
+        "0857": 68,
+        "087F": 0
+      },
+      "speed_reads": [
+        "7488:0812",
+        "7488:0813",
+        "748C:0284",
+        "748C:0285"
+      ],
+      "engine_output_digest": "400c05d014d4e01462e3a4dd854be0e3f07bcb40b5a23245df7e54909e357b70"
+    }
+  ]
+}

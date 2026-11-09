@@ -16,12 +16,46 @@ Older investigations and prototype build records retain their original scope.
 | Remaining information | [Equivalence ledger](docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md) | Scoped specifications plus identified ROM/device/board/module work |
 | Truck tuning | [Runtime workflow](docs/TRUCK_FIRST_RUNTIME_DECODING.md) | Use the exact current tune and matching logs for calibration-specific conclusions |
 | ROM simulator | [hac31_romsim/](hac31_romsim/README.md) | Existing clickable GUI and instruction/peripheral fixtures |
+| Developer-enabled Rev B firmware + Android ALDL console | [Dev-Enabled OS/](Dev-Enabled%20OS/README.md) | Separate workstream: firmware source/release tracking, binary protocol and Android app; design/prebuild stage |
 
-The user restored the **regular 0.3.12 tune** after the temporary 1800 readback
-probe. Its exact normal-image filename and SHA-256 are not asserted here.
+The maintained address-register snapshot is the **0.3.12 single manual-idle
+Rev B development candidate**. Its exact image identity is recorded in [AGENTS.md](AGENTS.md).
 The old `2.bin` snapshot is historical and is not the current calibration
 value authority. No old pressure, injector, VSS or table value is promoted to
 current tune fact without checking the current image and observations.
+
+## Address references
+
+- [OEM BMHM register](7427_Address_Register_OEM_BMHM.xlsx): preserved factory
+  address roles.
+- [Non-OEM register](7427_Address_Register_0.3.12.xlsx): ongoing address reference
+  for the modified firmware; update this same workbook as traces and BIN changes
+  establish new uses.
+
+Both have ROM reads, RAM reads and ADC-HW reads tabs. The non-OEM register
+preserves each OEM role and uses its third column for `omitted` or a new use;
+blank means the original role is retained. No byte values are stored in the
+sheets. [Maintenance instructions](AGENTS.md) apply to future tracing work.
+
+The matching write references also live in the root:
+
+- [OEM write register](7427_Write_Register_OEM_BMHM.xlsx).
+- [Non-OEM write register](7427_Write_Register_0.3.12.xlsx), maintained as writers
+  are removed or reused.
+
+Each has RAM writes and Register writes tabs, using the same two/three-column
+format. Explicit output-off and cleanup writes remain identified even where the
+original subsystem is removed. The separate
+[write evidence index](maps/maintenance/write_registers_evidence.json) records
+writer addresses and scope without adding byte values to the spreadsheets.
+
+[Rev A Park/Drive trace](docs/investigations/REVA_PARK_DRIVE_TRACE_20261106.md)
+records the forced Drive idle context, retained Park-bank dependencies and the
+surviving startup use of the old Drive idle-speed curve in the baseline.
+The [Rev B release trace](docs/investigations/MANUAL_IDLE_REVB_RELEASE.md)
+records the replacement, cold-idle spark changes, software checks and rollback
+pair. [Matching definitions](definitions/README.md) are image specific. The
+last supplied running reference remains Rev A; no Rev B flash is asserted.
 
 ## Evidence authority
 

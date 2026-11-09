@@ -1,0 +1,52 @@
+{
+  "xml_profiles": {
+    "reva": {
+      "filename": "7427_0.3.12_RevA.xdf",
+      "parameters": 522,
+      "custom_entries": 3
+    },
+    "manual_idle_dev": {
+      "filename": "7427_Manual_Idle_DEV.xdf",
+      "parameters": 391,
+      "custom_entries": 23
+    },
+    "manual_idle_revb": {
+      "filename": "7427_0.3.12_Manual_Idle_RevB.xdf",
+      "parameters": 393,
+      "custom_entries": 23
+    }
+  },
+  "image_tests": [
+    {
+      "profile": "reva",
+      "xdf": "7427_0.3.12_RevA.xdf",
+      "checksum": "6D36",
+      "pristine_reference": true
+    },
+    {
+      "profile": "manual_idle_dev",
+      "xdf": "7427_Manual_Idle_DEV.xdf",
+      "checksum": "40A0",
+      "pristine_reference": true
+    },
+    {
+      "profile": "manual_idle_revb",
+      "xdf": "7427_0.3.12_Manual_Idle_RevB.xdf",
+      "checksum": "4E78",
+      "pristine_reference": true
+    },
+    {
+      "profile": "manual_idle_revb",
+      "xdf": "7427_0.3.12_Manual_Idle_RevB.xdf",
+      "checksum": "4EF8",
+      "pristine_reference": false
+    }
+  ],
+  "invalid_checksum_rejected": true,
+  "protected_gate_and_hook_edits_rejected": true,
+  "word_edit_roundtrip_value": 24.5,
+  "original_rom_unchanged": true,
+  "revb_binary_created": true,
+  "native_tunerpro_gui_tested": false,
+  "scope": "Layout/math/address checks plus full-image program/checksum identification. Physical calibration and all inherited conversions are not established."
+}
