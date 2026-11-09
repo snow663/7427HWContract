@@ -76,6 +76,11 @@ static PcmStatus mask_irq(void *context, bool masked)
     (void)masked; /* Initial battery acquisition also performs the literal CLI. */
     return PCM_OK;
 }
+static PcmStatus delay_cycles(void *context,uint16_t cycles)
+{
+    if (cycles!=11) return PCM_NO_HARDWARE; /* ADC delay remains absent in this fixture. */
+    return record(context,'D',0,0,cycles);
+}
 static PcmStatus entry_precondition(Pcm *pcm, PcmTask task)
 {
     (void)pcm;
@@ -93,6 +98,7 @@ static void init(Fixture *f, Pcm *pcm)
     f->platform.write8 = write8;
     f->platform.write16 = write16;
     f->platform.mask_irq = mask_irq;
+    f->platform.delay_cycles = delay_cycles;
     pcm->platform = &f->platform;
     pcm->calibration = &pcm_reference_scheduler_calibration;
     pcm->unresolved_task = PCM_TASK_COUNT;
@@ -142,7 +148,7 @@ static void test_entry_and_continuation_boundaries(void)
     init(&f, &pcm);
     f.platform.task[PCM_RESET_ENTRY] = entry_precondition;
     CHECK(pcm_reset_sequence(&pcm, &f.platform, &pcm_reference_scheduler_calibration) == PCM_UNIMPLEMENTED);
-    CHECK(pcm.unresolved_task == PCM_RESET_RETAINED && f.used > 607);
+    CHECK(pcm.unresolved_task == PCM_RESET_CONTROLLERS && f.used > 607);
     init(&f, &pcm);
     pcm.reference.pending = true;
     pcm.runtime.factory_mode = true;

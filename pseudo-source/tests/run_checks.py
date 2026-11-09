@@ -40,6 +40,7 @@ TARGETS=[
  ('service','service_test',[],[['--contracts']],['service_rom']),
  ('startup_memory','startup_memory_test',[],[['--contracts']],['startup_memory_rom']),
  ('startup_sensors','startup_sensors_test',[],[['--contracts']],['startup_sensors_rom']),
+ ('boot_system','boot_system_test',[],[['--contracts']],['boot_system_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',

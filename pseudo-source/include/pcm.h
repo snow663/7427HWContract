@@ -9,7 +9,8 @@
  * placement is implied by compiling this host-checkable outline. */
 typedef enum {
     PCM_OK = 0, PCM_UNIMPLEMENTED, PCM_NO_HARDWARE, PCM_BAD_CONFIGURATION,
-    PCM_FACTORY_BOUNDARY, PCM_STACK_BOUNDARY, PCM_TRAP_BOUNDARY
+    PCM_FACTORY_BOUNDARY, PCM_STACK_BOUNDARY, PCM_TRAP_BOUNDARY,
+    PCM_BOOT_WAIT_BOUNDARY /*7208's captured-sample loop does not return. */
 } PcmStatus;
 
 typedef enum {
@@ -559,6 +560,11 @@ typedef struct {
 typedef struct {
     volatile uint8_t factory_flags; /*0001, factory callback-arm byte; not scheduler busy. */
     volatile uint8_t diagnostic_checksum; /*0015, negative sum of0014..000B */
+    volatile uint8_t diagnostic_log[9], diagnostic_age; /*000B..0013,0014 */
+    volatile uint8_t recovery_counts[22]; /*001F..0034, distinct calibration thresholds. */
+    volatile bool boot_output_inhibit, rom_failure, configuration_failure, adaptive_failure, retained_initialized;
+    /*0005.4,003A.1/.2/.6,0086.3; other shared-byte owners stay separate. */
+    volatile uint16_t initial_spark; /*01F6, boot-published4132 high byte and zero fraction. */
     volatile uint8_t startup_counter; /*0049, reset seed20 */
 } PcmSystem;
 

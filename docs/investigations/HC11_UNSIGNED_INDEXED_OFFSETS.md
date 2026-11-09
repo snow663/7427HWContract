@@ -24,3 +24,8 @@ Earlier passing CPU comparisons do not prove the corrected high-offset cases.
 The full source and simulator suites remain queued for the user's "pull and
 merge" instruction; current development uses focused comparisons. Record their
 results before claiming regression closure under the corrected CPU.
+
+A decode of the existing rooted alias catalog identifies72 explicit indexed
+sites with displacements>=80 hexadecimal. They include the three new boot
+counter comparisons and later transmission/diagnostic sites. This is a static
+impact inventory, not execution coverage of those72 sites.

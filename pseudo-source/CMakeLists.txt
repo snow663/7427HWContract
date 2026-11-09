@@ -120,6 +120,10 @@ if(BUILD_TESTING)
   target_link_libraries(pcm_startup_sensor_tests PRIVATE pcm_pseudo_source)
   add_test(NAME startup_sensor_contracts COMMAND pcm_startup_sensor_tests --contracts)
   add_test(NAME startup_sensor_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_startup_sensors_rom.py $<TARGET_FILE:pcm_startup_sensor_tests>)
+  add_executable(pcm_boot_system_tests tests/boot_system_test.c)
+  target_link_libraries(pcm_boot_system_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME boot_system_contracts COMMAND pcm_boot_system_tests --contracts)
+  add_test(NAME boot_system_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_boot_system_rom.py $<TARGET_FILE:pcm_boot_system_tests>)
   # Long independent ROM suites start first on fresh CI runners. These relative
   # costs affect scheduling only; every selected test still runs.
   set_tests_properties(scheduled_input_rom_differential PROPERTIES COST 1200)

@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 290 public routines: 155 implemented outlines, 26 dependency
+The tree contains 295 public routines: 161 implemented outlines, 25 dependency
 boundaries and 109 implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -200,7 +200,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are fifty-eight CTest entries; the Python route runs the same contract/differential checks.
+are sixty CTest entries; the Python route runs the same contract/differential checks.
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -260,6 +260,11 @@ or whole-program equivalence. The dedicated GitHub workflow runs the CMake route
 ## Next source work
 
 Implement the remaining reset stages and target early-reset/interrupt backend.
+ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
+resident C through7392. See the [retained boot contract](reference/boot_retained_contract.md)
+for the rooted checksum/COP cadence, captured-sample wait boundary and corrected
+7393 controller entry. The full regression under the corrected indexed CPU
+remains pending until "pull and merge".
 Working RAM initialization now calls the literal stock clear helper and existing
 serial clear directly. See the [startup memory contract](reference/startup_memory_contract.md)
 for count truncation, transaction widths and the explicit target-stack exclusion.

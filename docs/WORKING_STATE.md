@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 290 public routines: 155 implemented outlines,
-26 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 295 public routines: 161 implemented outlines,
+25 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -266,6 +266,17 @@ Next are retained boot checks/recovery and recurring factory execution; target
 control transfers remain explicit. That three-PR group is closed. Subsequent
 work follows the single-branch accumulation and explicit release instruction
 below; the previous three-PR cadence is superseded.
+
+On `work/pseudo-source-development`, the next accumulated update implements
+71C3..7392 retained boot as five callable bodies plus its connected reset wrapper.
+Focused checks pass729 C/ROM cases across253 rooted starts, including failed
+prefixes and captured-sample wait behavior. See the
+[retained boot contract](../pseudo-source/reference/boot_retained_contract.md).
+The checks exposed the simulator's signed indexed-offset error; the shared
+helper now uses unsigned offsets, with focused X/Y, word/bit/control and signed
+relative-branch checks. Earlier full-suite results above remain historical;
+the full regression under the corrected CPU is pending "pull and merge".
+Controller seeding at7393..7430 and recurring factory execution are next.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
