@@ -97,6 +97,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_SERIAL_POLL]=f->platform.task[PCM_SCI_BODY]=f->platform.task[PCM_RESET_SERIAL]=NULL;
     f->platform.task[PCM_TRANSMISSION_INPUT]=NULL;
     f->platform.task[PCM_RESET_RAM]=NULL;
+    f->platform.task[PCM_RESET_SENSORS]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
@@ -113,7 +114,7 @@ static void test_initialization_and_missing_contracts(void) {
     pcm.iac.transfer_flags=0xff;pcm.iac.bank[0].cold=0xabcd;
     pcm.io.map_filter=0xabcd;pcm.io.auxiliary_output=0xff;
     CHECK(pcm_reset_sequence(&pcm,&f.platform,&pcm_reference_scheduler_calibration)==PCM_OK);
-    CHECK(pcm.scheduler.phase==0x0e && f.masked);
+    CHECK(pcm.scheduler.phase==0x0e && !f.masked);
     CHECK(pcm.knock.sample_baseline==0 && pcm.knock.observation_accumulator==0);
     CHECK(pcm.knock.retard==0 && !pcm.knock.sensor_fault && pcm.knock.sensor_fault_count==0);
     CHECK(pcm.spark.command==0 && !pcm.runtime.adc_timeout && !pcm.runtime.adc_fault);
@@ -123,10 +124,15 @@ static void test_initialization_and_missing_contracts(void) {
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
     CHECK(pcm.system.startup_counter==20 && pcm.iac.blm_value==128 && f.counts[PCM_RESET_SERIAL]==0);
-    static const PcmTask expected[]={PCM_RESET_ENTRY,
-        PCM_RESET_SENSORS,PCM_RESET_RETAINED,PCM_RESET_CONTROLLERS};
+    static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RETAINED,PCM_RESET_CONTROLLERS};
     CHECK(f.used==sizeof(expected)/sizeof(expected[0]));
     CHECK(memcmp(f.trace,expected,sizeof(expected))==0);
+    init(&f,&pcm);pcm.system.factory_flags=0xa5;
+    f.memory[PCM_ADR1]=252;f.memory[PCM_ADR2]=64;f.memory[PCM_ADR3]=5;f.memory[PCM_ADR4]=252;
+    CHECK(pcm_reset_sequence(&pcm,&f.platform,&pcm_reference_scheduler_calibration)==PCM_FACTORY_BOUNDARY);
+    CHECK(pcm.runtime.factory_mode && pcm.io.diagnostic_warm && pcm.system.factory_flags==0 && !f.masked);
+    CHECK(f.used==1 && f.trace[0]==PCM_RESET_ENTRY && f.timer_writes==0);
+    CHECK(f.memory[PCM_BOARD_CONTROL]==0xb9 && f.memory[PCM_BOARD_CONTROL+1]==0x3a);
     init(&f,&pcm); f.platform.delay_cycles=NULL;
     CHECK(pcm_main_pass(&pcm)==PCM_NO_HARDWARE && f.counts[PCM_FUEL_CONTROL]==0);
     pcm.platform=NULL; CHECK(pcm_watchdog_service(&pcm)==PCM_NO_HARDWARE);
@@ -232,6 +238,7 @@ static void test_retained_fields_profile_and_boundaries(void) {
     }
     init(&f,&pcm); pcm.runtime.factory_mode=true;
     CHECK(pcm_periodic_irq(&pcm)==PCM_FACTORY_BOUNDARY && f.used==0 && f.timer_writes==1);
+    CHECK(pcm.scheduler.phase==0x0f && pcm.scheduler.timer_seen);
     init(&f,&pcm); f.guard_fails=true;
     CHECK(pcm_periodic_irq(&pcm)==PCM_STACK_BOUNDARY && f.used==0);
 }
