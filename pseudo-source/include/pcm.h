@@ -10,7 +10,8 @@
 typedef enum {
     PCM_OK = 0, PCM_UNIMPLEMENTED, PCM_NO_HARDWARE, PCM_BAD_CONFIGURATION,
     PCM_FACTORY_BOUNDARY, PCM_STACK_BOUNDARY, PCM_TRAP_BOUNDARY,
-    PCM_BOOT_WAIT_BOUNDARY /*7208's captured-sample loop does not return. */
+    PCM_BOOT_WAIT_BOUNDARY, /*7208's captured-sample loop does not return. */
+    PCM_FACTORY_WAIT_BOUNDARY /*FBD4 waits for the next nonreturning factory restart. */
 } PcmStatus;
 
 typedef enum {
@@ -29,7 +30,8 @@ typedef enum {
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
     PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
-    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TRANSMISSION_INPUT_PREFIX, PCM_TASK_COUNT
+    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TRANSMISSION_INPUT_PREFIX,
+    PCM_FACTORY_ENTRY, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -53,6 +55,9 @@ typedef struct {
      * guard/recovery is deliberately delegated, not simulated with C SP. */
     PcmStatus (*check_stack)(void *, bool busy);
     PcmDependency task[PCM_TASK_COUNT];
+    /* Factory FAA5 dispatches a captured full logical address. A target/backend
+     * supplies its execution and return ABI; it may return a boundary status. */
+    PcmStatus (*call_address)(void *, uint16_t address);
 } PcmPlatform;
 
 typedef struct {

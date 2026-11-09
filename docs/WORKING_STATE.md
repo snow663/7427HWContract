@@ -11,8 +11,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 301 public routines: 169 implemented outlines,
-25 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 305 public routines: 173 implemented outlines,
+23 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -281,7 +281,17 @@ BARO, IAC, TPS and EGR callees. Focused checks pass2,773 C/ROM cases across
 all365 new scoped instruction starts. Kernel/hardware smoke contracts pass,
 and the source now registers62 CTest checks. See the
 [controller boot contract](../pseudo-source/reference/boot_controllers_contract.md).
-Recurring factory execution is next; no PR or complete regression has run.
+The next accumulated group implements recurring factory qualification, live
+32-byte uploads, payload-pointer dispatch and exact output-row logic. Its2,807
+focused comparisons cover all152 resident starts, with entry SP/SWI/wait as
+explicit boundaries; serial acceptance, timer joins and128 retained histories
+are included. See the [factory runtime contract](../pseudo-source/reference/factory_runtime_contract.md).
+The branch now registers64 CTest checks. No PR or complete regression has run.
+The three new groups together pass6,309 focused C/ROM comparisons.
+
+Next is the ordinary background loop746C..74D1: RAM refresh, stack watermark
+and wait behavior. Target startup/interrupt assembly and the eight earlier
+AE85 transmission-input callees remain explicit interfaces/work.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -521,7 +531,8 @@ three-PR cadence and older per-update publication guidance are superseded.
 Active development branch: `work/pseudo-source-development`, starting from
 `b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. No new PR or full-suite run is
 requested yet. Retained boot and controller seeding are implemented on this branch.
-Recurring factory execution is the next implementation group. The previously completed group #30/#45/#46 remains
+Recurring factory execution is also implemented. The next source group is
+ordinary background RAM refresh/stack watermark handling. The previously completed group #30/#45/#46 remains
 historical validation evidence.
 
 ## Historical material

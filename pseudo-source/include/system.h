@@ -10,4 +10,10 @@ PcmStatus pcm_boot_retained_validate(Pcm *);
 PcmStatus pcm_boot_adaptive_validate(Pcm *);
 PcmStatus pcm_boot_recovery(Pcm *);
 PcmStatus pcm_controller_baselines(Pcm *);
+/* Entry binding verifies FA5B's abandoned-frame/SP precondition before C.
+ * Success reaches a wait boundary, never an invented return to that frame. */
+PcmStatus pcm_factory_cycle(Pcm *);
+PcmStatus pcm_factory_upload(Pcm *);
+PcmStatus pcm_factory_call(Pcm *);
+PcmStatus pcm_factory_outputs(Pcm *,uint8_t captured_id);
 #endif

@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 301 public routines: 169 implemented outlines, 23 dependency
+The tree contains 305 public routines: 173 implemented outlines, 23 dependency
 boundaries and 109 implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -174,7 +174,7 @@ connects accepted commands to engine/transmission service admission, edge-trigge
 BLM/diagnostic clears, retained output fields and expiry cleanup. The scheduled
 wrapper calls the resident idle/service tail after an explicit eight-callee input
 prefix dependency. It adds80,142 C/ROM comparisons; earlier transmission work,
-factory execution and target interfaces remain visible dependencies.
+supplied factory callbacks and target interfaces remain visible dependencies.
 
 ## Local checks
 
@@ -192,7 +192,7 @@ With Python and a host C compiler available as `cc`:
 python pseudo-source/tests/run_checks.py
 ```
 
-The checks compile the separate source files, test six kernel contract groups,
+The full checks compile the separate source files, test six kernel contract groups,
 check provenance, compare 532 base-fuel cases, and compare 128 startup plus 4,112
 REF prefix cases with actual stock instructions. Full-handler tests add 2,502
 cases, 143 failure prefixes and 38 direct timer-entry cases. The hardware harness
@@ -200,7 +200,10 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are sixty CTest entries; the Python route runs the same contract/differential checks.
+are64 CTest entries; the Python route runs the same contract/differential checks.
+The large regression totals in this section are historical validation from the
+last merged batch. New boot/factory groups have focused verification; a complete
+regression under the corrected indexed CPU is pending "pull and merge".
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -259,17 +262,22 @@ or whole-program equivalence. The dedicated GitHub workflow runs the CMake route
 
 ## Next source work
 
-Implement the remaining reset stages and target early-reset/interrupt backend.
+Implement ordinary background RAM refresh/stack watermark handling at746C..74D1,
+then continue the target early-reset/interrupt backend and remaining input producers.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback
-and delayed board baselines. See the [controller boot contract](reference/boot_controllers_contract.md). See the [retained boot contract](reference/boot_retained_contract.md)
+and delayed board baselines. See the [controller boot contract](reference/boot_controllers_contract.md)
+and [retained boot contract](reference/boot_retained_contract.md)
 for the rooted checksum/COP cadence, captured-sample wait boundary and corrected
 7393 controller entry. The full regression under the corrected indexed CPU
 remains pending until "pull and merge".
 Working RAM initialization now calls the literal stock clear helper and existing
 serial clear directly. See the [startup memory contract](reference/startup_memory_contract.md)
 for count truncation, transaction widths and the explicit target-stack exclusion.
+Recurring factory qualification, payload uploads, captured callback dispatch and
+output cycling now run resident C, with explicit target entry/trap/wait boundaries.
+See the [factory runtime contract](reference/factory_runtime_contract.md).
 Initial acquisition/factory admission also runs resident C, with the diagnostic
 partial latch and factory-only raw timer phase increment retained. See the
 [startup sampling contract](reference/startup_sensors_contract.md).
