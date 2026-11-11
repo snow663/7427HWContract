@@ -11,7 +11,7 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 309 public routines: 177 implemented outlines,
+The source currently has 319 public routines: 187 implemented outlines,
 23 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
@@ -296,8 +296,16 @@ C/ROM comparisons across all52 resident starts; kernel/hardware contracts pass.
 See the [foreground contract](../pseudo-source/reference/background_contract.md).
 There are66 registered CTest checks; the full suite remains deferred.
 
-Next are the small trap/reset/fallback interrupt bodies. Target startup/interrupt
-assembly and the eight earlier AE85 transmission-input callees remain explicit.
+The following group ports the resident trap/reset/XIRQ/fallback leaves and
+connects complete factory REF to FC11. Focused checks pass8,267 C/ROM comparisons
+across all22 resident starts; the complete REF regression passes2,502 cases,143
+I/O failure prefixes and38 direct timer-entry cases. Kernel/hardware contracts
+pass. See the [interrupt-leaf contract](../pseudo-source/reference/interrupt_leaves_contract.md).
+The branch now has68 registered CTest checks; no PR or full-suite run has begun.
+The two current groups add9,302 focused comparisons to the earlier6,309.
+
+Next is timer stack-guard policy7959..7979. Target startup/interrupt assembly
+and the eight earlier AE85 transmission-input callees remain explicit.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -538,7 +546,8 @@ Active development branch: `work/pseudo-source-development`, starting from
 `b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. No new PR or full-suite run is
 requested yet. Retained boot and controller seeding are implemented on this branch.
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
-are also implemented. The next group is the resident trap/reset/fallback handlers. The previously completed group #30/#45/#46 remains
+are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
+The next group is timer stack-guard policy7959..7979. The previously completed group #30/#45/#46 remains
 historical validation evidence.
 
 ## Historical material

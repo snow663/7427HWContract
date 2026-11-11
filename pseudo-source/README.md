@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 309 public routines: 177 implemented outlines, 23 dependency
+The tree contains 319 public routines: 187 implemented outlines, 23 dependency
 boundaries and 109 implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -200,7 +200,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are66 CTest entries; the Python route runs the same contract/differential checks.
+are68 CTest entries; the Python route runs the same contract/differential checks.
 The large regression totals in this section are historical validation from the
 last merged batch. New boot/factory groups have focused verification; a complete
 regression under the corrected indexed CPU is pending "pull and merge".
@@ -264,8 +264,11 @@ or whole-program equivalence. The dedicated GitHub workflow runs the CMake route
 
 Ordinary background refresh and stack watermark handling now have C bodies;
 see the [foreground contract](reference/background_contract.md). The first timer
-arm now includes the preceding TFLG1 acknowledgment. Continue with the small
-trap/reset/fallback interrupt bodies, then target entry glue and remaining producers.
+arm now includes the preceding TFLG1 acknowledgment. The small trap/reset/XIRQ
+and fallback interrupt bodies are also implemented; see the
+[interrupt-leaf contract](reference/interrupt_leaves_contract.md). Complete factory
+REF now calls its cause/acknowledgment leaf. Next is the timer stack-guard policy
+at7959..7979, followed by target entry glue and remaining input producers.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback
