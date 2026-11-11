@@ -43,6 +43,7 @@ TARGETS=[
  ('boot_system','boot_system_test',[],[['--contracts']],['boot_system_rom']),
  ('boot_controllers','boot_controllers_test',[],[['--contracts']],['boot_controllers_rom']),
  ('factory_runtime','factory_runtime_test',[],[['--contracts']],['factory_runtime_rom']),
+ ('background','background_test',[],[['--contracts']],['background_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',

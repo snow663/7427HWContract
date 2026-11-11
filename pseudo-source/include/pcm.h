@@ -11,7 +11,8 @@ typedef enum {
     PCM_OK = 0, PCM_UNIMPLEMENTED, PCM_NO_HARDWARE, PCM_BAD_CONFIGURATION,
     PCM_FACTORY_BOUNDARY, PCM_STACK_BOUNDARY, PCM_TRAP_BOUNDARY,
     PCM_BOOT_WAIT_BOUNDARY, /*7208's captured-sample loop does not return. */
-    PCM_FACTORY_WAIT_BOUNDARY /*FBD4 waits for the next nonreturning factory restart. */
+    PCM_FACTORY_WAIT_BOUNDARY, /*FBD4 waits for the next nonreturning factory restart. */
+    PCM_BACKGROUND_WAIT_BOUNDARY /*74D0 WAI/interrupt frame and resume require the target ABI. */
 } PcmStatus;
 
 typedef enum {
@@ -571,6 +572,7 @@ typedef struct {
     /*0005.4,003A.1/.2/.6,0086.3; other shared-byte owners stay separate. */
     volatile uint16_t initial_spark; /*01F6, boot-published4132 high byte and zero fraction. */
     volatile uint8_t startup_counter; /*0049, reset seed20 */
+    volatile uint16_t refresh_cursor, stack_watermark; /*029B,02D1; logical CPU addresses. */
 } PcmSystem;
 
 typedef struct Pcm {

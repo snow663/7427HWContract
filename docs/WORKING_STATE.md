@@ -11,7 +11,7 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 305 public routines: 173 implemented outlines,
+The source currently has 309 public routines: 177 implemented outlines,
 23 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
@@ -289,9 +289,15 @@ are included. See the [factory runtime contract](../pseudo-source/reference/fact
 The branch now registers64 CTest checks. No PR or complete regression has run.
 The three new groups together pass6,309 focused C/ROM comparisons.
 
-Next is the ordinary background loop746C..74D1: RAM refresh, stack watermark
-and wait behavior. Target startup/interrupt assembly and the eight earlier
-AE85 transmission-input callees remain explicit interfaces/work.
+The next group implements foreground746C..74CF refresh and stack watermark
+handling, with WAI/resume as an explicit boundary. It also closes the missing
+7459 TFLG1 acknowledgment before first timer arming. Focused checks pass1,035
+C/ROM comparisons across all52 resident starts; kernel/hardware contracts pass.
+See the [foreground contract](../pseudo-source/reference/background_contract.md).
+There are66 registered CTest checks; the full suite remains deferred.
+
+Next are the small trap/reset/fallback interrupt bodies. Target startup/interrupt
+assembly and the eight earlier AE85 transmission-input callees remain explicit.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -531,8 +537,8 @@ three-PR cadence and older per-update publication guidance are superseded.
 Active development branch: `work/pseudo-source-development`, starting from
 `b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. No new PR or full-suite run is
 requested yet. Retained boot and controller seeding are implemented on this branch.
-Recurring factory execution is also implemented. The next source group is
-ordinary background RAM refresh/stack watermark handling. The previously completed group #30/#45/#46 remains
+Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
+are also implemented. The next group is the resident trap/reset/fallback handlers. The previously completed group #30/#45/#46 remains
 historical validation evidence.
 
 ## Historical material

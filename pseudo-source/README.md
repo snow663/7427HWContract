@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 305 public routines: 173 implemented outlines, 23 dependency
+The tree contains 309 public routines: 177 implemented outlines, 23 dependency
 boundaries and 109 implemented algorithms. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
@@ -200,7 +200,7 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are64 CTest entries; the Python route runs the same contract/differential checks.
+are66 CTest entries; the Python route runs the same contract/differential checks.
 The large regression totals in this section are historical validation from the
 last merged batch. New boot/factory groups have focused verification; a complete
 regression under the corrected indexed CPU is pending "pull and merge".
@@ -262,8 +262,10 @@ or whole-program equivalence. The dedicated GitHub workflow runs the CMake route
 
 ## Next source work
 
-Implement ordinary background RAM refresh/stack watermark handling at746C..74D1,
-then continue the target early-reset/interrupt backend and remaining input producers.
+Ordinary background refresh and stack watermark handling now have C bodies;
+see the [foreground contract](reference/background_contract.md). The first timer
+arm now includes the preceding TFLG1 acknowledgment. Continue with the small
+trap/reset/fallback interrupt bodies, then target entry glue and remaining producers.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback

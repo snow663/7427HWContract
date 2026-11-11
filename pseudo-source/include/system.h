@@ -16,4 +16,8 @@ PcmStatus pcm_factory_cycle(Pcm *);
 PcmStatus pcm_factory_upload(Pcm *);
 PcmStatus pcm_factory_call(Pcm *);
 PcmStatus pcm_factory_outputs(Pcm *,uint8_t captured_id);
+PcmStatus pcm_ram_refresh(Pcm *);
+PcmStatus pcm_stack_watermark(Pcm *);
+/* One foreground iteration, ending before WAI creates a target interrupt frame. */
+PcmStatus pcm_background_pass(Pcm *);
 #endif

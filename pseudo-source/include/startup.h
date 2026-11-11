@@ -9,4 +9,5 @@ PcmStatus pcm_reset_sensors(Pcm *);
 PcmStatus pcm_reset_retained(Pcm *);
 PcmStatus pcm_reset_controllers(Pcm *);
 PcmStatus pcm_reset_serial(Pcm *);
+PcmStatus pcm_reset_timers(Pcm *);
 #endif

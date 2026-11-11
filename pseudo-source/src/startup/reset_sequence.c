@@ -33,5 +33,5 @@ PcmStatus pcm_reset_sequence(Pcm *pcm, const PcmPlatform *platform, const PcmCal
     RUN(pcm_reset_controllers(pcm));
     pcm->scheduler.phase = calibration->initial_phase;
     RUN(pcm_reset_serial(pcm));
-    return pcm_timer_arm(pcm);
+    return pcm_reset_timers(pcm);
 }
