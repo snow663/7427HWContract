@@ -6,11 +6,17 @@ Independent, clean-room engine-control firmware for the GM 16197427 ($7427) hard
 
 This directory is a **new standalone project**. It does not replace or extend `pseudo-source/`, which remains a separate stock-$31 equivalence/reconstruction project with its own source, tests, targets, and history. Do not move, modify, or link against `pseudo-source/` as part of the Hybrid build.
 
-`source/`, `maps/`, `docs/`, `ROMFlow_Studio/`, and `pseudo-source/` may provide reviewed *evidence* to cite, but no factory algorithm, memory mapping, ISR or hardware behavior becomes authoritative in Hybrid simply because it appears in an annotated listing. Record provenance and verification for every imported contract. D8/BAMW HAC labels are provisional until checked against ROM bytes.
+`source/`, `maps/`, `docs/`, `ROMFlow_Studio/`, and `pseudo-source/` may provide reviewed *evidence* to cite, but no factory algorithm, memory mapping, ISR or hardware behavior becomes authoritative in Hybrid simply because it appears in an annotated listing. Record provenance and verification for every imported contract. D8/BAMW HAC labels are provisional until checked against ROM bytes. **Engine lineage and algorithm authority are distinct from hardware authority:** the engine originally ran the $D8 strategy; $31 is native to the current 7427 firmware, not the original engine control-law baseline.
+
+## Control-law baseline and non-equivalence
+
+The 1993 7.4L TBI engine came with the **$D8-family strategy on its donor controller**. The substantial mathematical and scaling differences between $D8 and $31 made apparent calibration-table matching unreliable: equivalent table numbers, VE values, or nominal injector flow do **not** establish equivalent commanded pulse width or timing. Treat $D8 as the engine-algorithm reference and the $7427/$31 work as evidence for the *target hardware interface*, not as a shortcut to the engine math.
+
+Our own Hybrid calculations may improve upon $D8, but each intentional change must be defined against an independently verified $D8 numerical baseline, including intermediate stages, unit conversions, fuel-per-event convention and electrical output encoding. Never blindly copy $31 fuel formulas, feedback gains, hidden offsets or table encodings. See [architecture and calibration equivalence requirements](docs/ARCHITECTURE.md).
 
 ## Intent
 
-- Use the simplest proven $D8-inspired speed-density airflow, fuel, spark, idle/IAC and DFCO principles.
+- Use a verified $D8-native engine-control mathematical baseline for speed-density airflow, fuel, spark, idle/IAC and DFCO, then simplify and improve it deliberately.
 - Implement **our own** explicit reset/startup, interrupt, dispatcher, state and scheduling system within the actual $7427 timing/hardware constraints.
 - Separate physical input/output and ASIC transactions from algorithms and calibration.
 - Expose large, appropriately resolved tune tables with explicit engineering units, axis dimensions, signedness, scale and clamping.
@@ -35,7 +41,7 @@ Hybrid-standalone/
     kernel/         # dispatcher and state machine
     irq/            # REF, compare, SCI, periodic ISR
     sensors/        # acquisition, conversion, filtering
-    airflow/        # D8-inspired speed-density model
+    airflow/        # D8-derived speed-density model
     fuel/           # base PW, AE, PE, WUE, DFCO, O2
     spark/          # main spark and corrections
     idle/           # rpm target, IAC and spark idle trim
