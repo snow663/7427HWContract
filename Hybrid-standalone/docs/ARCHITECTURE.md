@@ -2,6 +2,14 @@
 
 Status: **design only; no executable or PCM build in this directory**.
 
+## Authoritative distinction: engine strategy vs target hardware
+
+The engine was originally controlled by the **$D8 family**; the current `pseudo-source/` work reconstructs the **$31** firmware, which belongs to the 7427 hardware being reused. These are not interchangeable mathematical strategies. Even similar-looking VE/spark/AFR tables can yield different real injector pulse widths, operating states and idle behavior because of different air-charge normalization, base pulse-width constant, pulse frequency, injector-flow/voltage corrections, integer scaling, interpolation, feedback and scheduling conventions. These are **candidate mismatch mechanisms**, not a claim that every listed mechanism has already been numerically proven.
+
+**Algorithmic authority:** verified D8 ROM/BIN plus controlled observations from the working D8-on-7427 port. **Hardware authority:** verified 16197427 register, ASIC, timer, IRQ, latch and electrical contracts. **Comparative reference only:** stock-$31 ROM and its separate C equivalence work. **New design authority:** documented Hybrid equations and measured results. No undocumented cross-mask parameter import.
+
+Before enlarging any table or changing resolution, explicitly decode what each source table value means *to its algorithm*. A number displayed as VE% under $31 cannot be assumed to represent the same resulting fuel mass as the same number under $D8. Preserve the D8 stage-by-stage numerical model as a reference fixture, then make changes individually and record the expected differences.
+
 ## Separate codebase
 
 `Hybrid-standalone/` owns its complete code, build system, tests, symbols, calibration format and release process. `pseudo-source/` is not a library and is not to be copied into Hybrid wholesale. Existing stock-$31 evidence in the parent repository is a reference for **verified 7427 interface semantics**, not a mandatory factory scheduler or algorithm design.
@@ -28,7 +36,7 @@ BOOT -> KEY_ON -> CRANK -> RUN, with IDLE, POWER and DECEL/DFCO as qualified sub
 
 ## Fuel calculation
 
-The D8-informed base path should be independently reconstructed and compared to the actual running D8-port image:
+The native-engine $D8 base path must first be independently reconstructed and compared with the actual running D8-port image. The following is a **proposed clean output pipeline** rather than a transcription of factory arithmetic:
 
 ```
 base_fuel = SpeedDensity(MAP_abs, RPM, displacement, charge_temperature,
@@ -40,9 +48,13 @@ electrical_PW = injector_transfer(requested_fuel, battery_voltage,
 final_PW = safe_limits_and_DFCO(electrical_PW)
 ```
 
-This is **an interface-level model, not a claim about exact D8 integer operations**. Derive the actual D8 math from evidence before choosing how much to preserve. Do not multiply AFR, injector opening delay or pulse counts together ambiguously. AE additive corrections and wall-film state are explicit and observable. Define the pulse interval convention for simultaneous TBI injectors so event frequency cannot introduce a hidden factor-of-two error.
+This is **an interface-level model, not a claim about exact D8 integer operations**. Derive the actual D8 math from evidence before choosing how much to preserve. Start with a numeric trace at each boundary: raw MAP/RPM/temperature inputs, air-charge intermediate, table lookup coordinates/weights, fuel constant, requested fuel per event, synchronous/async division, battery/short-pulse compensation and the final electrical pulse width. Compare $D8, the working port and Hybrid with the **same inputs**; compare $31 separately to explain divergence, not to define the target. Do not multiply AFR, injector opening delay or pulse counts together ambiguously. AE additive corrections and wall-film state are explicit and observable. Define the pulse interval convention for simultaneous TBI injectors so event frequency cannot introduce a hidden factor-of-two error.
 
 Closed loop is an optional **single well-defined trim path**, not a parallel inherited $31 INT/BLM chain. Base VE tuning remains understandable with feedback disabled. When feedback is on, report instantaneous correction and learned multiplier separately, plus the actual total pulse-width correction.
+
+## Calibration-equivalence gate
+
+The first acceptance fixture must run the same sensor/event vectors through original $D8 arithmetic, the working D8 port (after any measured hardware/OS adaptations), and Hybrid. Log each intermediate and output stage, including integer rounding, saturations, fuel-per-event conventions and injector timing. Deliberate improvements get individual assertions; differences cannot be hidden inside a retuned VE map. Test steady cruise, idle near short-PW behavior, startup, throttle steps, power load, DFCO entry/exit and voltage changes. This comparison precedes any claim that an expanded table is correctly calibrated.
 
 ## Proposed calibration resolution
 
@@ -67,7 +79,7 @@ The hardware contract must be separately bench-verified for ASIC $3FC0/$3FCA ref
 
 ## Development milestones
 
-1. **Source authority**: inventory running D8-port BIN and matching $D8/BAMW source; validate algorithm equations, lookup encoding and command handoffs. Document confirmed vs inferred items.
+1. **Source authority**: inventory the original-engine $D8 BIN, running D8-port BIN and matching $D8/BAMW source; validate equations, scaling, fuel-per-event convention, lookup encoding and command handoffs. Quantify disagreements with $31 and document confirmed vs inferred items.
 2. **Pure control math**: create independent table lookup, speed-density, fuel and spark libraries with exact host tests, including 8/16-bit saturation and rounding.
 3. **Idle/transients**: independent idle speed/stepper controller, AE, warmup, power enrichment and DFCO state tests. Explicit reset and stall behavior.
 4. **7427 hardware interface**: direct contract drivers, interrupts, watchdog and limited ISR work; simulate and bench-check write order/timing.
