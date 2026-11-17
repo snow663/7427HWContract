@@ -16,6 +16,8 @@ STAB instruction at7391. It ends before the next stage at7431.
 | `pcm_egr_feedback` |D14E..D1F5|Position ADC, zero tracking, lag filtering and reference adjustment.|
 | `pcm_controller_baselines` |74D3..74E9|D000/DFFF board commands, separate11-cycle delays and initial gear.|
 
+The existing isolated spark-controller fixture deliberately binds the old EGR-feedback dependency instead of the newly resident D14E implementation; the controller-boot suite runs the real EGR source and retains ROM comparison coverage.
+
 The reset wrapper calls the existing real coolant, environment, spark auxiliary,
 TPS-zero, IAC-cell seed and kicker-disable bodies. It does not route these
 through fake-success task callbacks. The old `PCM_RESET_CONTROLLERS` and
