@@ -39,8 +39,10 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 290 public routines: 155 implemented outlines, 26 dependency
-boundaries and 109 implemented algorithms. Reset CPU/chip-select/board
+The working branch contains 321 public routines: 189 implemented outlines, 23 dependency
+boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
+now has a callable software/RMW body and an exhaustive threshold fixture;
+the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
@@ -174,7 +176,7 @@ connects accepted commands to engine/transmission service admission, edge-trigge
 BLM/diagnostic clears, retained output fields and expiry cleanup. The scheduled
 wrapper calls the resident idle/service tail after an explicit eight-callee input
 prefix dependency. It adds80,142 C/ROM comparisons; earlier transmission work,
-factory execution and target interfaces remain visible dependencies.
+supplied factory callbacks and target interfaces remain visible dependencies.
 
 ## Local checks
 
@@ -192,7 +194,7 @@ With Python and a host C compiler available as `cc`:
 python pseudo-source/tests/run_checks.py
 ```
 
-The checks compile the separate source files, test six kernel contract groups,
+The full checks compile the separate source files, test six kernel contract groups,
 check provenance, compare 532 base-fuel cases, and compare 128 startup plus 4,112
 REF prefix cases with actual stock instructions. Full-handler tests add 2,502
 cases, 143 failure prefixes and 38 direct timer-entry cases. The hardware harness
@@ -200,7 +202,10 @@ also checks 64 injected failure positions and the startup/REF dependency boundar
 OC1 checks add 261,632 numeric cases, 16 failure prefixes and 1,280 REF/OC1 pairs.
 Knock control adds 283,023 comparisons and checks all 121 scoped instruction
 starts, including selected IRQ boundaries and sensor-fault histories. There
-are fifty-eight CTest entries; the Python route runs the same contract/differential checks.
+are68 CTest entries; the Python route runs the same contract/differential checks.
+The large regression totals in this section are historical validation from the
+last merged batch. New boot/factory groups have focused verification; a complete
+regression under the corrected indexed CPU is pending "pull and merge".
 Adaptive spark adds 480,560 comparisons, all 201 scoped instruction starts and
 83 checked calibration bytes, while retaining the explicit CB15 input boundary.
 Spark terms add 753,561 comparisons, all 336 scoped instruction starts and 1,035
@@ -259,10 +264,27 @@ or whole-program equivalence. The dedicated GitHub workflow runs the CMake route
 
 ## Next source work
 
-Implement the remaining reset stages and target early-reset/interrupt backend.
+Ordinary background refresh and stack watermark handling now have C bodies;
+see the [foreground contract](reference/background_contract.md). The first timer
+arm now includes the preceding TFLG1 acknowledgment. The small trap/reset/XIRQ
+and fallback interrupt bodies are also implemented; see the
+[interrupt-leaf contract](reference/interrupt_leaves_contract.md). Complete factory
+REF now calls its cause/acknowledgment leaf. Next is the timer stack-guard policy
+at7959..7979, followed by target entry glue and remaining input producers.
+ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
+resident C through7430. Controller seeding includes the actual BARO boot entry,
+IAC learned-cell restoration, transmission TPS processing, EGR position feedback
+and delayed board baselines. See the [controller boot contract](reference/boot_controllers_contract.md)
+and [retained boot contract](reference/boot_retained_contract.md)
+for the rooted checksum/COP cadence, captured-sample wait boundary and corrected
+7393 controller entry. The full regression under the corrected indexed CPU
+remains pending until "pull and merge".
 Working RAM initialization now calls the literal stock clear helper and existing
 serial clear directly. See the [startup memory contract](reference/startup_memory_contract.md)
 for count truncation, transaction widths and the explicit target-stack exclusion.
+Recurring factory qualification, payload uploads, captured callback dispatch and
+output cycling now run resident C, with explicit target entry/trap/wait boundaries.
+See the [factory runtime contract](reference/factory_runtime_contract.md).
 Initial acquisition/factory admission also runs resident C, with the diagnostic
 partial latch and factory-only raw timer phase increment retained. See the
 [startup sampling contract](reference/startup_sensors_contract.md).
@@ -311,3 +333,10 @@ The factory contracts remain linked from
 Fast local gate: `python pseudo-source/tests/run_checks.py --contracts-only`.
 The default Python route runs all comparisons after that gate. CI likewise runs
 quick contracts first and schedules long independent ROM suites first.
+
+Accumulate substantial routine groups as commits on one development branch,
+using focused checks during development. Open one PR and run the full suite
+only when the user says "pull and merge", then merge after its checks pass.
+The current branch and authoritative delivery workflow are recorded in
+[working state](../docs/WORKING_STATE.md#delivery-workflow); older per-update
+publication and three-PR instructions are superseded.

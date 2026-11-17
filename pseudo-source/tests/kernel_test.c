@@ -15,7 +15,9 @@ typedef struct {
     unsigned connection_action, signature_reads, transmission_writes;
     uint8_t step_positions[256], observed_shadows[256];
     unsigned step_observations, shadow_observations;
-    bool masked, inject, injected, guard_fails, feed_reference;
+    bool masked, inject, injected, guard_fails, feed_reference, stack_capture_fail;
+    uint16_t supplied_stack_x;
+    unsigned stack_captures;
     Pcm *pcm;
     PcmPlatform platform;
 } Fixture;
@@ -71,6 +73,12 @@ static PcmStatus delay_cycles(void *v,uint16_t cycles) { (void)v;CHECK(cycles==1
 static PcmStatus guard(void *v, bool busy) {
     Fixture *f=v; (void)busy; return f->guard_fails?PCM_STACK_BOUNDARY:PCM_OK;
 }
+static PcmStatus capture_stack_x(void *v,uint16_t *sample)
+{
+    Fixture *f=v;++f->stack_captures;
+    if (f->stack_capture_fail) return PCM_NO_HARDWARE;
+    *sample=f->supplied_stack_x;return PCM_OK;
+}
 static PcmStatus task(Pcm *pcm, PcmTask id) {
     Fixture *f=pcm->platform->context;
     CHECK(f->used<sizeof(f->trace)/sizeof(f->trace[0]));
@@ -98,6 +106,8 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_TRANSMISSION_INPUT]=NULL;
     f->platform.task[PCM_RESET_RAM]=NULL;
     f->platform.task[PCM_RESET_SENSORS]=NULL;
+    f->platform.task[PCM_RESET_RETAINED]=NULL;
+    f->platform.task[PCM_RESET_CONTROLLERS]=NULL;
     pcm->platform=&f->platform; pcm->calibration=&pcm_reference_scheduler_calibration;
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
@@ -124,7 +134,7 @@ static void test_initialization_and_missing_contracts(void) {
     CHECK(f.memory[PCM_TOC3]==0 && f.memory[PCM_TOC3+1]==4);
     CHECK(f.memory[PCM_TMSK1]==0xa0);
     CHECK(pcm.system.startup_counter==20 && pcm.iac.blm_value==128 && f.counts[PCM_RESET_SERIAL]==0);
-    static const PcmTask expected[]={PCM_RESET_ENTRY,PCM_RESET_RETAINED,PCM_RESET_CONTROLLERS};
+    static const PcmTask expected[]={PCM_RESET_ENTRY};
     CHECK(f.used==sizeof(expected)/sizeof(expected[0]));
     CHECK(memcmp(f.trace,expected,sizeof(expected))==0);
     init(&f,&pcm);pcm.system.factory_flags=0xa5;
@@ -242,6 +252,41 @@ static void test_retained_fields_profile_and_boundaries(void) {
     init(&f,&pcm); f.guard_fails=true;
     CHECK(pcm_periodic_irq(&pcm)==PCM_STACK_BOUNDARY && f.used==0);
 }
+static void test_timer_stack_capture_and_recovery(void)
+{
+    static Fixture f;Pcm pcm;
+    init(&f,&pcm);
+    f.platform.capture_timer_stack_x=capture_stack_x;
+    f.platform.check_stack=NULL;f.supplied_stack_x=0x03af;
+    f.memory[0x004f]=0x84;f.memory[0x003a]=0x20;pcm.scheduler.busy=true;
+    CHECK(pcm_periodic_irq(&pcm)==PCM_STACK_RECOVERY_BOUNDARY);
+    CHECK(f.stack_captures==1 && f.timer_writes==1 && f.step_observations==0);
+    CHECK(f.memory[0x003a]==0x28 && f.memory[0x004f]==0x80);
+    CHECK(pcm.scheduler.timer_seen);
+    /* Test fixture supplies the target LDS/SP recovery outside the C frame:
+     * expose the canonical busy owner before entering the $797A continuation. */
+    pcm.scheduler.busy=false;
+    CHECK(pcm_periodic_irq_resume(&pcm)==PCM_OK);
+    CHECK(f.timer_writes==1 && f.step_observations==1);
+    init(&f,&pcm);
+    f.platform.capture_timer_stack_x=capture_stack_x;
+    f.platform.check_stack=NULL;f.supplied_stack_x=0x03f7;
+    f.memory[0x004f]=0;
+    CHECK(pcm_periodic_irq(&pcm)==PCM_OK && f.stack_captures==1);
+    CHECK(f.timer_writes==1 && f.step_observations==1);
+    init(&f,&pcm);
+    f.platform.capture_timer_stack_x=capture_stack_x;
+    f.platform.check_stack=NULL;f.supplied_stack_x=0x03ef;
+    f.memory[0x004f]=4;pcm.scheduler.busy=true;
+    CHECK(pcm_periodic_irq(&pcm)==PCM_STACK_RECOVERY_BOUNDARY);
+    CHECK(f.memory[0x003a]==8 && f.memory[0x004f]==0);
+    CHECK(f.step_observations==0 && f.stack_captures==1);
+    init(&f,&pcm);
+    f.platform.capture_timer_stack_x=capture_stack_x;
+    f.stack_capture_fail=true;f.platform.check_stack=NULL;
+    CHECK(pcm_periodic_irq(&pcm)==PCM_NO_HARDWARE);
+    CHECK(f.timer_writes==1 && f.step_observations==0 && f.stack_captures==1);
+}
 int main(int argc, char **argv) {
     if (argc==2 && strcmp(argv[1],"--fuel")==0) {
         unsigned d,t,v,e,p,a,f;
@@ -257,6 +302,7 @@ int main(int argc, char **argv) {
     test_busy_coalescing_and_call_order(); test_special_mode_and_slot_state();
     test_retained_fields_profile_and_boundaries();
     test_step_reset_cadence_and_busy_hold();
+    test_timer_stack_capture_and_recovery();
     puts("Six kernel contract groups pass, including resident IAC steps before busy checks and no extra steps on catch-up.");
     return 0;
 }

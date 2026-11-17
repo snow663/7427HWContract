@@ -7,6 +7,9 @@ static const Mapping service_state_map[]={
  B(0x10a,transmission.service_tcc),B(0x111,transmission.service_pressure),
  B(0x118,transmission.service_state),B(0x11a,transmission.adaptive_flags),
  A(0x130,2,transmission.diagnostic_status),
+ A(0x0b,9,system.diagnostic_log),B(0x14,system.diagnostic_age),A(0x1f,22,system.recovery_counts),
+ F(5,0x10,system.boot_output_inhibit),F(0x3a,2,system.rom_failure),F(0x3a,4,system.configuration_failure),
+ F(0x3a,0x40,system.adaptive_failure),F(0x86,8,system.retained_initialized),
 };
 #undef B
 #undef A

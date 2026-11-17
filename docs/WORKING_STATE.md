@@ -3,6 +3,10 @@
 This is the single live project-state index for 7427HWContract. Detailed
 contracts and historical proofs are linked rather than repeated here.
 
+The [2026-11-17 pseudo-source audit](../pseudo-source/reference/development_audit_2026-11-17.md)
+records the current branch inventory, explicit remaining dependencies and
+pending full-suite/target validation.
+
 ## Active direction
 
 The active replacement-firmware source is [pseudo-source/](../pseudo-source/README.md).
@@ -11,8 +15,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 290 public routines: 155 implemented outlines,
-26 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 319 public routines: 187 implemented outlines,
+23 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -263,8 +267,56 @@ builders (33 parameterized builders intentionally skipped). The final source
 registers 58 CTest checks. No target BIN or new truck calibration is produced.
 
 Next are retained boot checks/recovery and recurring factory execution; target
-control transfers remain explicit. This three-PR group is closed; begin the next
-implementation group from current main while preserving the same merge cadence.
+control transfers remain explicit. That three-PR group is closed. Subsequent
+work follows the single-branch accumulation and explicit release instruction
+below; the previous three-PR cadence is superseded.
+
+On `work/pseudo-source-development`, the next accumulated update implements
+71C3..7392 retained boot as five callable bodies plus its connected reset wrapper.
+Focused checks pass729 C/ROM cases across253 rooted starts, including failed
+prefixes and captured-sample wait behavior. See the
+[retained boot contract](../pseudo-source/reference/boot_retained_contract.md).
+The checks exposed the simulator's signed indexed-offset error; the shared
+helper now uses unsigned offsets, with focused X/Y, word/bit/control and signed
+relative-branch checks. Earlier full-suite results above remain historical;
+the full regression under the corrected CPU is pending "pull and merge".
+The next accumulated group connects controller seeding at7393..7430 and its
+BARO, IAC, TPS and EGR callees. Focused checks pass2,773 C/ROM cases across
+all365 new scoped instruction starts. Kernel/hardware smoke contracts pass,
+and the source now registers62 CTest checks. See the
+[controller boot contract](../pseudo-source/reference/boot_controllers_contract.md).
+The next accumulated group implements recurring factory qualification, live
+32-byte uploads, payload-pointer dispatch and exact output-row logic. Its2,807
+focused comparisons cover all152 resident starts, with entry SP/SWI/wait as
+explicit boundaries; serial acceptance, timer joins and128 retained histories
+are included. See the [factory runtime contract](../pseudo-source/reference/factory_runtime_contract.md).
+The branch now registers64 CTest checks. No PR or complete regression has run.
+The three new groups together pass6,309 focused C/ROM comparisons.
+
+The next group implements foreground746C..74CF refresh and stack watermark
+handling, with WAI/resume as an explicit boundary. It also closes the missing
+7459 TFLG1 acknowledgment before first timer arming. Focused checks pass1,035
+C/ROM comparisons across all52 resident starts; kernel/hardware contracts pass.
+See the [foreground contract](../pseudo-source/reference/background_contract.md).
+There are66 registered CTest checks; the full suite remains deferred.
+
+The following group ports the resident trap/reset/XIRQ/fallback leaves and
+connects complete factory REF to FC11. Focused checks pass8,267 C/ROM comparisons
+across all22 resident starts; the complete REF regression passes2,502 cases,143
+I/O failure prefixes and38 direct timer-entry cases. Kernel/hardware contracts
+pass. See the [interrupt-leaf contract](../pseudo-source/reference/interrupt_leaves_contract.md).
+The branch now has68 registered CTest checks; no PR or full-suite run has begun.
+The two current groups add9,302 focused comparisons to the earlier6,309.
+
+The next accumulated update adds the callable software guard for7959..7979:
+the exact sampled004F.2 ranges and ordered003A.3 / 004F.2 RMW recovery
+prefix. Its host fixture defines 131072 threshold cases plus failed-prefix
+and fresh-read checks; these new tests have not yet been run as a full branch
+suite. The periodic IRQ now offers an optional captured-X callback and an explicit
+stack-recovery return boundary; the $797A continuation is a separate callable
+routine. The target shim still owns live TSX/SP observation, LDS #03F6 and RTI. See the [timer stack guard contract](../pseudo-source/reference/timer_stack_guard_contract.md).
+The branch now registers69 CTest checks. Target startup/interrupt assembly
+and the eight earlier AE85 transmission-input callees remain explicit.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -479,18 +531,35 @@ We can continue the C source while preserving those explicit interfaces.
 
 ## Delivery workflow
 
-Batch several related routine groups into each implementation PR so a full CI
-run covers more progress. Retain one public routine per source file and run the
-quick contracts before the ROM differential suites. Complete each batch and
-publish its PR after local verification. As requested on 2026-11-08, work in
-groups of three pseudo-source PRs, then run the batch checks and merge in
-dependency order after all required checks pass. Keep each PR reviewable and
-record its exact checked head; do not count unrelated documentation or tuning
-PRs toward the source batch. The user authorized these merges; another
-confirmation is not required. Work in progress stays on its implementation
-branch. The most recently completed group is #30, #45 and #46, recorded above.
-The next group starts from the resulting main branch; accumulate three
-implementation PRs, verify them, and merge each passing PR in dependency order.
+As requested on 2026-11-08, accumulate several substantial routine groups as
+separate commits on one development branch. The full suite is expensive; give
+each run a larger body of completed source to validate. There is no fixed
+three-PR or three-commit batch size. Retain one public routine per source file
+and keep implementation, provenance, focused test cases and documentation
+aligned as the branch advances.
+
+Use compilation and focused contract/ROM comparisons where needed to catch
+problems in the changed routines during development. Do not open a PR, launch
+the complete regression suite or merge automatically after an ordinary update
+or a request to continue. Ordinary development-branch pushes do not trigger the
+current full CI workflow; a PR does.
+
+When the user says **"pull and merge"**, prepare one PR for the accumulated
+branch changes, run the full suite and required repository checks against its
+final head, resolve any failures, and merge after the checks pass. That phrase
+provides authorization to complete the release; another confirmation is not
+required. Record the checked head, validation, merge, remaining work and next
+action in this working state. Resume later development on one branch from the
+resulting main rather than creating a PR for each routine group. The previous
+three-PR cadence and older per-update publication guidance are superseded.
+
+Active development branch: `work/pseudo-source-development`, starting from
+`b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. No new PR or full-suite run is
+requested yet. Retained boot and controller seeding are implemented on this branch.
+Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
+are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
+The next group is timer stack-guard policy7959..7979. The previously completed group #30/#45/#46 remains
+historical validation evidence.
 
 ## Historical material
 

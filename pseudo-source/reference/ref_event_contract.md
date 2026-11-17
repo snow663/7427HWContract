@@ -27,6 +27,13 @@ their owner. There is no longer a `PCM_REFERENCE_BODY` task dependency.
 The original [reset/REF prefix note](reset_ref_transactions.md) remains the
 reference for reset transactions and early reset assembly boundaries.
 
+The complete `pcm_reference_irq` now consumes the prefix's factory boundary
+and calls the resident FC11 leaf: preserve/set0000.1, write01 toTFLG1 and
+finish successfully for target RTI. It skips the ordinary prefix/fuel path.
+The independently callable `pcm_reference_prefix` still returns its original
+factory boundary without device activity. See the
+[interrupt-leaf contract](interrupt_leaves_contract.md).
+
 ## Preserved details
 
 Crank reference qualification is strict: deliver only when the incremented

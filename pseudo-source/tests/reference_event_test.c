@@ -93,7 +93,10 @@ static PcmStatus record(Fixture *f,char kind,unsigned width,uint16_t address,uin
 }
 static PcmStatus read8(void *v,uint16_t a,uint8_t *out)
 {
-    Fixture *f=v;uint8_t value=f->memory[a];PcmStatus r=record(f,'R',8,a,value);
+    Fixture *f=v;uint8_t value=f->memory[a];
+    /* This historical fixture traces hardware only. FC11's cause-byte RMW
+     * has full provider/failure coverage in interrupt_leaves_test instead. */
+    PcmStatus r=a==0?PCM_OK:record(f,'R',8,a,value);
     if (r==PCM_OK) *out=value;
     return r;
 }
@@ -104,7 +107,7 @@ static PcmStatus read16(void *v,uint16_t a,uint16_t *out)
 }
 static PcmStatus write8(void *v,uint16_t a,uint8_t value)
 {
-    Fixture *f=v;PcmStatus r=record(f,'W',8,a,value);
+    Fixture *f=v;PcmStatus r=a==0?PCM_OK:record(f,'W',8,a,value);
     if (r==PCM_OK) { if (a==PCM_TFLG1) f->memory[a]&=(uint8_t)~value;else f->memory[a]=value; }return r;
 }
 static PcmStatus write16(void *v,uint16_t a,uint16_t value)

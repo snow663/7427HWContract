@@ -602,7 +602,9 @@ class HC11CPU:
         return self._fetch16()
 
     def _indexed(self, base: int) -> int:
-        off = s8(self._fetch8())
+        # HC11 indexed displacements are unsigned bytes. Relative branches
+        # separately sign-extend their displacement; these modes must not mix.
+        off = self._fetch8()
         return (base + off) & 0xFFFF
 
     # --------------------------

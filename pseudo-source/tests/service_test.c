@@ -125,6 +125,7 @@ static void service_contracts(void)
     pcm.serial.engine_command=4;CHECK(pcm_service_engine(&pcm)==PCM_OK && !(pcm.serial.clear_edges&0x10));
     INIT();for (unsigned a=0xb;a<=0x34;++a) f.memory[a]=255;
     f.memory[0x25]=71;f.memory[0x2e]=72;f.memory[0x56]=73;
+    service_transfer(&pcm,&f,true); /* Recovery counters now have canonical native owners. */
     CHECK(pcm_diagnostic_clear_transmission(&pcm)==PCM_OK && f.memory[0x25]==71 && f.memory[0x2e]==72 && f.memory[0x56]==73);
 #undef INIT
     puts("Service prefix dependency, checksum/clear failed prefixes, qualified BLM rearm and diagnostic-clear holes pass.");

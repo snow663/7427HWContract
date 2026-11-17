@@ -114,7 +114,7 @@ def execute(packed, step, fail=0, helper=False):
     try:
         for _ in range(4000):
             pc = cpu.s.pc
-            if pc in ({0x7630} if helper else {0x7000, 0xFC11}):
+            if pc in ({0x7630} if helper else {0x7000}):
                 break
             coverage.add(pc)
             if pc == 0x7524:
@@ -126,7 +126,7 @@ def execute(packed, step, fail=0, helper=False):
                 memory.record('D', 0, 0, cycles)
         else:
             raise AssertionError(f'REF execution budget at {cpu.s.pc:04X}')
-        status = 4 if cpu.s.pc == 0xFC11 else 0
+        status = 0
         if status == 0 and not helper:
             assert (cpu.s.pc, cpu.s.sp, cpu.s.ccr, cpu.s.a, cpu.s.b, cpu.s.x, cpu.s.y) == before
     except Failure:
@@ -198,7 +198,8 @@ for difference in [0x7FFF,0x8000,0x8001]:
     cases.append((packed_image({0x44:0,0x4F:0x10,0x50:0,0x51:0,0x73:0x40,
         0x400B:1,0x400C:0,0x3000:0x18,0x300E:bytes.fromhex('1234'),
         0x81F:bytes(2),0x301C:prior.to_bytes(2,'big'),0x301E:prior.to_bytes(2,'big')}),0,0))
-# Factory must leave before prefix/device activity.
+# Factory follows FC11's cause publication/IC3 acknowledgment, then RTI;
+# it never enters normal prefix/fuel work.
 for _ in range(16):
     cases.append((packed_image({0x44: rng.randrange(256) | 1}), 0, 0))
 

@@ -21,9 +21,9 @@ TARGETS=[
  ('hardware','hardware_test',[],[[]],['hardware_rom']),
  ('reference_event','reference_event_test',[],[['--oc1-contracts']],['reference_event_rom','oc1_rom']),
  ('knock','knock_test',['ac_switch'],[['--contracts'],['--adaptive-contracts']],['knock_rom','adaptive_spark_rom']),
- ('spark','spark_test',['alternate'],[['--contracts'],['--modifier-contracts'],['--command-contracts'],['--period-contracts'],['--output-contracts']],['spark_rom','spark_modifiers_rom','spark_command_rom','spark_period_rom','spark_output_rom']),
+ ('spark','spark_test',['alternate','egr_feedback'],[['--contracts'],['--modifier-contracts'],['--command-contracts'],['--period-contracts'],['--output-contracts']],['spark_rom','spark_modifiers_rom','spark_command_rom','spark_period_rom','spark_output_rom']),
  ('spark_admission','spark_admission_test',['alternate'],[['--contracts']],['spark_admission_rom']),
- ('spark_controller','spark_test',[],[['--controller-contracts']],['spark_controller_rom']),
+ ('spark_controller','spark_test',['egr_feedback'],[['--controller-contracts']],['spark_controller_rom']),
  ('slot7','slot7_test',['iac_background','shift_lamp'],[['--contracts']],['slot7_rom']),
  ('iac','iac_test',['shift_lamp'],[['--contracts']],['iac_rom']),
  ('iac_slow','iac_slow_test',['shift_lamp','vss_filter'],[['--contracts']],['iac_slow_rom']),
@@ -40,11 +40,18 @@ TARGETS=[
  ('service','service_test',[],[['--contracts']],['service_rom']),
  ('startup_memory','startup_memory_test',[],[['--contracts']],['startup_memory_rom']),
  ('startup_sensors','startup_sensors_test',[],[['--contracts']],['startup_sensors_rom']),
+ ('boot_system','boot_system_test',[],[['--contracts']],['boot_system_rom']),
+ ('boot_controllers','boot_controllers_test',[],[['--contracts']],['boot_controllers_rom']),
+ ('factory_runtime','factory_runtime_test',[],[['--contracts']],['factory_runtime_rom']),
+ ('background','background_test',[],[['--contracts']],['background_rom']),
+ ('interrupt_leaves','interrupt_leaves_test',[],[['--contracts']],['interrupt_leaves_rom']),
+ ('timer_stack_guard','timer_stack_guard_test',[],[['--contracts']],[]),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
  'ac_switch':'sensors/ac_switch_inputs.c', 'shift_lamp':'transmission/shift_lamp.c',
  'vss_filter':'sensors/vss_filter.c',
+ 'egr_feedback':'emissions/egr_feedback.c',
 }
 with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     sources=sorted((ROOT/'src').rglob('*.c'))+sorted((ROOT/'calibration').glob('*.c'))

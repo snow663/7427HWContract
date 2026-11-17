@@ -9,7 +9,12 @@
  * placement is implied by compiling this host-checkable outline. */
 typedef enum {
     PCM_OK = 0, PCM_UNIMPLEMENTED, PCM_NO_HARDWARE, PCM_BAD_CONFIGURATION,
-    PCM_FACTORY_BOUNDARY, PCM_STACK_BOUNDARY, PCM_TRAP_BOUNDARY
+    PCM_FACTORY_BOUNDARY, PCM_STACK_BOUNDARY, PCM_TRAP_BOUNDARY,
+    PCM_BOOT_WAIT_BOUNDARY, /*7208's captured-sample loop does not return. */
+    PCM_FACTORY_WAIT_BOUNDARY, /*FBD4 waits for the next nonreturning factory restart. */
+    PCM_BACKGROUND_WAIT_BOUNDARY, /*74D0 WAI/interrupt frame and resume require the target ABI. */
+    PCM_HALT_BOUNDARY, PCM_RESET_BOUNDARY, /*Resident terminal loop / jump to7100. */
+    PCM_STACK_RECOVERY_BOUNDARY /*Host returns after RMW; target must LDS #03F6 and resume at797A. */
 } PcmStatus;
 
 typedef enum {
@@ -28,7 +33,8 @@ typedef enum {
     PCM_RESET_SENSORS, PCM_RESET_RETAINED, PCM_RESET_CONTROLLERS,
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
     PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
-    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TRANSMISSION_INPUT_PREFIX, PCM_TASK_COUNT
+    PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TRANSMISSION_INPUT_PREFIX,
+    PCM_FACTORY_ENTRY, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -51,7 +57,13 @@ typedef struct {
     /* Must establish the documented entry-stack precondition. Target stack
      * guard/recovery is deliberately delegated, not simulated with C SP. */
     PcmStatus (*check_stack)(void *, bool busy);
+    /* Optional target entry shim: supply X captured by $7959 TSX after CLI.
+     * Never infer this X from a host C call frame or change the host stack. */
+    PcmStatus (*capture_timer_stack_x)(void *, uint16_t *);
     PcmDependency task[PCM_TASK_COUNT];
+    /* Factory FAA5 dispatches a captured full logical address. A target/backend
+     * supplies its execution and return ABI; it may return a boundary status. */
+    PcmStatus (*call_address)(void *, uint16_t address);
 } PcmPlatform;
 
 typedef struct {
@@ -559,7 +571,15 @@ typedef struct {
 typedef struct {
     volatile uint8_t factory_flags; /*0001, factory callback-arm byte; not scheduler busy. */
     volatile uint8_t diagnostic_checksum; /*0015, negative sum of0014..000B */
+    volatile uint8_t diagnostic_log[9], diagnostic_age; /*000B..0013,0014 */
+    volatile uint8_t recovery_counts[22]; /*001F..0034, distinct calibration thresholds. */
+    volatile bool boot_output_inhibit, rom_failure, configuration_failure, adaptive_failure, retained_initialized;
+    /*0005.4,003A.1/.2/.6,0086.3; other shared-byte owners stay separate. */
+    volatile uint16_t initial_spark; /*01F6, boot-published4132 high byte and zero fraction. */
     volatile uint8_t startup_counter; /*0049, reset seed20 */
+    volatile uint16_t refresh_cursor, stack_watermark; /*029B,02D1; logical CPU addresses. */
+    volatile uint8_t interrupt_flags; /*0000 bitsFE; timer_seen bit01 stays with the scheduler. */
+    volatile bool stack_recovery; /*003A.3; separate from scheduler.pending at003A.5. */
 } PcmSystem;
 
 typedef struct Pcm {
