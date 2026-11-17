@@ -3,6 +3,10 @@
 This is the single live project-state index for 7427HWContract. Detailed
 contracts and historical proofs are linked rather than repeated here.
 
+The [2026-11-17 pseudo-source audit](../pseudo-source/reference/development_audit_2026-11-17.md)
+records the current branch inventory, explicit remaining dependencies and
+pending full-suite/target validation.
+
 ## Active direction
 
 The active replacement-firmware source is [pseudo-source/](../pseudo-source/README.md).
