@@ -575,6 +575,7 @@ typedef struct {
     volatile uint8_t startup_counter; /*0049, reset seed20 */
     volatile uint16_t refresh_cursor, stack_watermark; /*029B,02D1; logical CPU addresses. */
     volatile uint8_t interrupt_flags; /*0000 bitsFE; timer_seen bit01 stays with the scheduler. */
+    volatile bool stack_recovery; /*003A.3; separate from scheduler.pending at003A.5. */
 } PcmSystem;
 
 typedef struct Pcm {
