@@ -9,6 +9,8 @@ PcmStatus pcm_dispatcher(Pcm *);
 PcmStatus pcm_fast_service(Pcm *);
 PcmStatus pcm_profile_tail(Pcm *);
 PcmStatus pcm_periodic_irq(Pcm *);
+/* $797A continuation: target must establish valid recovered stack first. */
+PcmStatus pcm_periodic_irq_resume(Pcm *);
 PcmStatus pcm_slot_00(Pcm *); PcmStatus pcm_slot_01(Pcm *);
 PcmStatus pcm_slot_02(Pcm *); PcmStatus pcm_slot_03(Pcm *);
 PcmStatus pcm_slot_04(Pcm *); PcmStatus pcm_slot_05(Pcm *);
