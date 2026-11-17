@@ -43,10 +43,17 @@ the already successful prefix retained.
 
 The output `needs_reset=true` means the **software** portion succeeded and
 the **target shim must still execute `LDS #$03F6`** before transfer to
-`$797A`. The source does not reset the host C stack. Existing
-`pcm_periodic_irq` intentionally retains `PcmPlatform.check_stack`
-until an actual HC11 entry/frame/recovery ABI is available; it does not
-silently substitute this helper as a target implementation.
+`$797A`. The source does not reset the host C stack. `pcm_periodic_irq`
+now optionally calls the helper when an entry shim supplies the sampled X
+through `PcmPlatform.capture_timer_stack_x`; with that callback absent,
+its prior `PcmPlatform.check_stack` boundary remains available to older
+host fixtures. A valid captured X proceeds directly into
+`pcm_periodic_irq_resume` at the $797A continuation. An invalid captured X
+returns appended `PCM_STACK_RECOVERY_BOUNDARY` once the RMWs complete.
+The target must then establish SP=$03F6 and transfer to that continuation.
+The C status boundary is **not** a hardware stack reset or return from a
+damaged native C call frame. Real target entry/RTI and interrupt nesting
+remain explicitly unimplemented.
 
 A dedicated host fixture enumerates both busy states and all 65536 X values
 (131072 threshold cases), the five transaction-failure prefixes, fresh-read
