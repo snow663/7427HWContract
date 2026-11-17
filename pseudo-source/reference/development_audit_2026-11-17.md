@@ -6,16 +6,16 @@ PR or merge until the user explicitly requests pull/check/merge.
 
 ## Source inventory
 
-The current branch's `routine_index.csv` contains **320 indexed public C
+The current branch's `routine_index.csv` contains **321 indexed public C
 routines**, with one public routine per `src/*.c`:
 
 | Class | Count | Interpretation |
 |---|---:|---|
 | Implemented algorithm | 109 | Callable arithmetic/control algorithm with scoped verification |
-| Implemented outline | 188 | Callable resident behavior; may require platform/provider/target work |
+| Implemented outline | 189 | Callable resident behavior; may require platform/provider/target work |
 | Dependency boundary | 23 | Explicitly absent producer/controller/external behavior |
 
-Neither 297 callable routines nor 320 indexed routines measure ROM-byte
+Neither 298 callable routines nor 321 indexed routines measure ROM-byte
 equivalence or target readiness. Calibration and C host layouts remain distinct
 from the installed 16197427 firmware image.
 
