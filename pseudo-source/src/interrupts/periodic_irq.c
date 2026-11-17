@@ -1,5 +1,6 @@
 #include "scheduler.h"
 #include "hardware.h"
+#include "interrupts.h"
 #define RUN(call) do { PcmStatus result = (call); if (result != PCM_OK) return result; } while (0)
 
 /* Reference 793D..7989. Actual interrupt entry/RTI and SP recovery need target
@@ -19,13 +20,18 @@ PcmStatus pcm_periodic_irq(Pcm *pcm)
         return PCM_FACTORY_BOUNDARY;
     }
     RUN(pcm_mask_irq(pcm, false));
-    if (pcm->platform->check_stack == NULL) return PCM_STACK_BOUNDARY;
-    RUN(pcm->platform->check_stack(pcm->platform->context, pcm->scheduler.busy));
-    RUN(pcm_fast_service(pcm));
-    if (pcm->scheduler.busy) {
-        pcm->scheduler.busy_phase = pcm->scheduler.phase;
-        pcm->scheduler.pending = true;
-        return PCM_OK;
+    /* A future target entry shim may provide the X captured at $7959.
+     * Preserve the legacy host check_stack boundary when that ABI is absent. */
+    if (pcm->platform != NULL && pcm->platform->capture_timer_stack_x != NULL) {
+        uint16_t captured_x;
+        RUN(pcm->platform->capture_timer_stack_x(pcm->platform->context,&captured_x));
+        bool reset_required=false;
+        RUN(pcm_timer_stack_guard(pcm,captured_x,&reset_required));
+        if (reset_required) return PCM_STACK_RECOVERY_BOUNDARY;
+    } else {
+        if (pcm->platform == NULL || pcm->platform->check_stack == NULL)
+            return PCM_STACK_BOUNDARY;
+        RUN(pcm->platform->check_stack(pcm->platform->context, pcm->scheduler.busy));
     }
-    return pcm_dispatcher(pcm);
+    return pcm_periodic_irq_resume(pcm);
 }
