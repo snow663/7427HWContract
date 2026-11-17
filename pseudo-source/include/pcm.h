@@ -13,7 +13,8 @@ typedef enum {
     PCM_BOOT_WAIT_BOUNDARY, /*7208's captured-sample loop does not return. */
     PCM_FACTORY_WAIT_BOUNDARY, /*FBD4 waits for the next nonreturning factory restart. */
     PCM_BACKGROUND_WAIT_BOUNDARY, /*74D0 WAI/interrupt frame and resume require the target ABI. */
-    PCM_HALT_BOUNDARY, PCM_RESET_BOUNDARY /*Resident terminal loop / jump to7100. */
+    PCM_HALT_BOUNDARY, PCM_RESET_BOUNDARY, /*Resident terminal loop / jump to7100. */
+    PCM_STACK_RECOVERY_BOUNDARY /*Host returns after RMW; target must LDS #03F6 and resume at797A. */
 } PcmStatus;
 
 typedef enum {
@@ -56,6 +57,9 @@ typedef struct {
     /* Must establish the documented entry-stack precondition. Target stack
      * guard/recovery is deliberately delegated, not simulated with C SP. */
     PcmStatus (*check_stack)(void *, bool busy);
+    /* Optional target entry shim: supply X captured by $7959 TSX after CLI.
+     * Never infer this X from a host C call frame or change the host stack. */
+    PcmStatus (*capture_timer_stack_x)(void *, uint16_t *);
     PcmDependency task[PCM_TASK_COUNT];
     /* Factory FAA5 dispatches a captured full logical address. A target/backend
      * supplies its execution and return ABI; it may return a boundary status. */
