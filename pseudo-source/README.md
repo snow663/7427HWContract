@@ -39,8 +39,10 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The tree contains 319 public routines: 187 implemented outlines, 23 dependency
-boundaries and 109 implemented algorithms. Reset CPU/chip-select/board
+The working branch contains 320 public routines: 188 implemented outlines, 23 dependency
+boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
+now has a callable software/RMW body and an exhaustive threshold fixture;
+the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
 transaction-level C implementations. Their 4,240 compiled-C/ROM comparisons and
 64 injected I/O-failure checks are described in the
