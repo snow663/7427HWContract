@@ -55,6 +55,11 @@ The C status boundary is **not** a hardware stack reset or return from a
 damaged native C call frame. Real target entry/RTI and interrupt nesting
 remain explicitly unimplemented.
 
+The kernel fixture separately joins guard capture, recovery status and a
+single $797A continuation without rearming the timer; the supply of a valid
+SP after the recovery boundary is a **test precondition**, not a native
+machine-stack implementation.
+
 A dedicated host fixture enumerates both busy states and all 65536 X values
 (131072 threshold cases), the five transaction-failure prefixes, fresh-read
 mutation and invalid/missing provider contracts. These are test definitions;
