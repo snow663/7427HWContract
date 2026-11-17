@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The working branch contains 320 public routines: 188 implemented outlines, 23 dependency
+The working branch contains 321 public routines: 189 implemented outlines, 23 dependency
 boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
