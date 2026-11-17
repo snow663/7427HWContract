@@ -304,7 +304,13 @@ pass. See the [interrupt-leaf contract](../pseudo-source/reference/interrupt_lea
 The branch now has68 registered CTest checks; no PR or full-suite run has begun.
 The two current groups add9,302 focused comparisons to the earlier6,309.
 
-Next is timer stack-guard policy7959..7979. Target startup/interrupt assembly
+The next accumulated update adds the callable software guard for7959..7979:
+the exact sampled004F.2 ranges and ordered003A.3 / 004F.2 RMW recovery
+prefix. Its host fixture defines 131072 threshold cases plus failed-prefix
+and fresh-read checks; these new tests have not yet been run as a full branch
+suite. The target shim still owns TSX/SP observation, LDS #03F6 and resume
+at797A. See the [timer stack guard contract](../pseudo-source/reference/timer_stack_guard_contract.md).
+The branch now registers69 CTest checks. Target startup/interrupt assembly
 and the eight earlier AE85 transmission-input callees remain explicit.
 
 ## Tracked milestone: complete fuel calculation and injector control
