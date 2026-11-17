@@ -140,6 +140,9 @@ if(BUILD_TESTING)
   target_link_libraries(pcm_interrupt_leaves_tests PRIVATE pcm_pseudo_source)
   add_test(NAME interrupt_leaves_contracts COMMAND pcm_interrupt_leaves_tests --contracts)
   add_test(NAME interrupt_leaves_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_interrupt_leaves_rom.py $<TARGET_FILE:pcm_interrupt_leaves_tests>)
+  add_executable(pcm_timer_stack_guard_tests tests/timer_stack_guard_test.c)
+  target_link_libraries(pcm_timer_stack_guard_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME timer_stack_guard_contracts COMMAND pcm_timer_stack_guard_tests --contracts)
   # Long independent ROM suites start first on fresh CI runners. These relative
   # costs affect scheduling only; every selected test still runs.
   set_tests_properties(scheduled_input_rom_differential PROPERTIES COST 1200)
