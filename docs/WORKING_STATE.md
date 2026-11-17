@@ -312,8 +312,9 @@ The next accumulated update adds the callable software guard for7959..7979:
 the exact sampled004F.2 ranges and ordered003A.3 / 004F.2 RMW recovery
 prefix. Its host fixture defines 131072 threshold cases plus failed-prefix
 and fresh-read checks; these new tests have not yet been run as a full branch
-suite. The target shim still owns TSX/SP observation, LDS #03F6 and resume
-at797A. See the [timer stack guard contract](../pseudo-source/reference/timer_stack_guard_contract.md).
+suite. The periodic IRQ now offers an optional captured-X callback and an explicit
+stack-recovery return boundary; the $797A continuation is a separate callable
+routine. The target shim still owns live TSX/SP observation, LDS #03F6 and RTI. See the [timer stack guard contract](../pseudo-source/reference/timer_stack_guard_contract.md).
 The branch now registers69 CTest checks. Target startup/interrupt assembly
 and the eight earlier AE85 transmission-input callees remain explicit.
 
