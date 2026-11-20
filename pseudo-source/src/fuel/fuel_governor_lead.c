@@ -21,7 +21,7 @@ PcmStatus pcm_fuel_governor_lead(Pcm *pcm,uint8_t *candidate)
         } else {
             uint8_t coordinate=derivative>32u?32u:derivative,limit;
             GOV_RUN(governor_scaled_curve(pcm,0x50eeu,coordinate,&limit));
-            if(limit>=pcm->spark.rpm_monitor_filtered>>8) {
+            if(limit>=(uint8_t)(pcm->spark.rpm_monitor_filtered>>8)) {
                 output=255u;result=0xff00u; /* 9028 CMPA 028E; BCC */
             } else {
                 pcm->transmission.governor_flags|=0x02u; /* 902D */
