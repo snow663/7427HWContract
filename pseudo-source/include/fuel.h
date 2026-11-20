@@ -19,6 +19,8 @@ PcmStatus pcm_fuel_governor_drive(Pcm *);
 PcmStatus pcm_fuel_governor_error(Pcm *);
 /* BMHM $8EE4..$8F3A: fourfold VSS delta, 0075 latches and TPS seed. */
 PcmStatus pcm_fuel_governor_vss_gate(Pcm *);
+/* $8F3B..$8F5C: signed target-error TPS gate, control path selector. */
+PcmStatus pcm_fuel_governor_tps_mode(Pcm *,bool *ordinary);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
