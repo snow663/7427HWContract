@@ -4,6 +4,7 @@
  * No target firmware or physical injector actuation is inferred. */
 #define PCM_DELIVERY_TEST_MAIN inherited_delivery_main
 #include "fuel_delivery_test.c"
+#include "control.h"
 #undef PCM_DELIVERY_TEST_MAIN
 
 static void cycle_init(Fixture *f,Pcm *pcm,PcmCalibration *root,
@@ -124,11 +125,35 @@ static void cycle_running_uninhibited(void)
     CHECK(pcm.spark.density==(uint16_t)((uint32_t)100u*65536u/694u+2649u));
     CHECK(cycle_injector_writes(&f)>=1);
 }
+static void cycle_guarded_fast_root(void)
+{
+    static Fixture f;Pcm pcm;PcmCalibration root;PcmFuelCalibration fuel;PcmIacCalibration iac;
+    PcmAirCalibration air;PcmIoCalibration io;PcmMixtureCalibration mix;
+    PcmFeedbackCalibration fb;PcmDeliveryCalibration dl;
+    CHECK(pcm_fuel_control(NULL)==PCM_BAD_CONFIGURATION);
+    cycle_init(&f,&pcm,&root,&fuel,&iac,&air,&io,&mix,&fb,&dl,2);
+    CHECK(pcm_fuel_control(&pcm)==PCM_UNIMPLEMENTED);
+    CHECK(pcm.unresolved_task==PCM_FUEL_CONTROL);
+    CHECK(f.used==0 && cycle_injector_writes(&f)==0);
+    cycle_init(&f,&pcm,&root,&fuel,&iac,&air,&io,&mix,&fb,&dl,2);
+    f.platform.enable_resident_fuel_cycle=true;
+    f.platform.bind_fuel_ram_owners=false;
+    CHECK(pcm_fuel_control(&pcm)==PCM_BAD_CONFIGURATION);
+    CHECK(f.used==0 && pcm.system.fuel_ignition_counter==7);
+    cycle_init(&f,&pcm,&root,&fuel,&iac,&air,&io,&mix,&fb,&dl,2);
+    f.platform.enable_resident_fuel_cycle=true;
+    CHECK(pcm_fuel_control(&pcm)==PCM_OK);
+    CHECK(pcm.system.fuel_ignition_counter==8);
+    CHECK(!pcm.fuel.authorized);
+    CHECK(cycle_injector_writes(&f)==1);
+    CHECK(pcm.unresolved_task==PCM_TASK_COUNT);
+}
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
     cycle_authorization_zero_packet();
     cycle_running_uninhibited();
+    cycle_guarded_fast_root();
     cycle_trap_prevents_delivery();
     cycle_provider_failure_prefix();
     puts("Joined $7D4B..$8547 fuel path: all phases, zero-packet auth, trap and bus-failure histories pass.");
