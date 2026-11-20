@@ -109,7 +109,7 @@ static void cycle_running_uninhibited(void)
     cycle_init(&f,&pcm,&root,&fuel,&iac,&air,&io,&mix,&fb,&dl,2);
     root.mode_d=0; /* source authorization immediately granted */
     pcm.reference.latch_inhibited=false; /* source $0044.4 off */
-    pcm.system.ignition_off=false; /* no once-only off-history clear */
+    pcm.runtime.ignition_off=false; /* no once-only off-history clear */
     pcm.reference.additive_offset=0;
     pcm.iac.blm_value=128;
     pcm.fuel.integrator=128;
