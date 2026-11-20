@@ -3,10 +3,12 @@
 #include <stdlib.h>
 #include <string.h>
 #define CHECK(x) do { if (!(x)) { fprintf(stderr,"Fuel tail %s:%d: %s\n",__FILE__,__LINE__,#x);exit(1); } } while(0)
-typedef struct { PcmPlatform platform; PcmCalibration calibration; unsigned reads,governor_calls;uint8_t flags;bool fail; } Fixture;
+typedef struct { PcmPlatform platform; PcmCalibration calibration; unsigned reads,governor_calls,cal_reads;uint8_t flags;bool fail,fail_cal; } Fixture;
 static PcmStatus read8(void *ctx,uint16_t addr,uint8_t *sample)
 {
-    Fixture *f=ctx;CHECK(addr==0x006f);++f->reads;
+    Fixture *f=ctx;
+    if(addr==0x50d8u){++f->cal_reads;if(f->fail_cal)return PCM_NO_HARDWARE;*sample=20;return PCM_OK;}
+    CHECK(addr==0x006f);++f->reads;
     if(f->fail)return PCM_NO_HARDWARE;
     *sample=f->flags;return PCM_OK;
 }
@@ -42,7 +44,8 @@ static void test_phase_two_defaults(void)
     CHECK(pcm_fuel_scheduled_tail(&pcm)==PCM_UNIMPLEMENTED);
     CHECK(pcm.unresolved_task==PCM_GOVERNOR_TARGET);
     CHECK(pcm.transmission.governor_requested_throttle==12);
-    CHECK(f.reads==1 && f.governor_calls==0);
+    CHECK(f.reads==1 && f.cal_reads==1 && f.governor_calls==0);
+    CHECK(pcm.transmission.governor_speed_error==20);
 }
 static void test_enabled_and_failures(void)
 {
@@ -50,12 +53,18 @@ static void test_enabled_and_failures(void)
     init(&f,&pcm,2,1);pcm.runtime.spark_running=true;
     f.platform.task[PCM_GOVERNOR_TARGET]=governor;
     CHECK(pcm_fuel_scheduled_tail(&pcm)==PCM_OK);
-    CHECK(f.reads==1 && f.governor_calls==1);
+    CHECK(f.reads==1 && f.cal_reads==1 && f.governor_calls==1);
+    CHECK(pcm.transmission.governor_speed_error==20);
     CHECK(pcm.transmission.governor_requested_throttle==77);
     init(&f,&pcm,2,1);pcm.runtime.spark_running=true;f.fail=true;
     CHECK(pcm_fuel_scheduled_tail(&pcm)==PCM_NO_HARDWARE);
     CHECK(f.reads==1 && f.governor_calls==0);
     CHECK(pcm.transmission.governor_requested_throttle==12);
+    init(&f,&pcm,2,1);pcm.runtime.spark_running=true;f.fail_cal=true;
+    pcm.transmission.governor_flags=0xff;
+    CHECK(pcm_fuel_scheduled_tail(&pcm)==PCM_NO_HARDWARE);
+    CHECK(f.reads==1 && f.cal_reads==1 && f.governor_calls==0);
+    CHECK(pcm.transmission.governor_flags==0xfb); /* 8EC9 clear precedes failed ROM read */
 }
 static void test_selected_elsewhere(void)
 {
