@@ -39,8 +39,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The cumulative closure branch contains 336 public routines: 196 implemented outlines, 23 dependency
-boundaries and 117 implemented algorithms. The $7959..$7979 timer stack guard
+The cumulative closure branch contains 340 public routines: 196 implemented outlines, 23 dependency
+boundaries and 121 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
@@ -273,10 +273,12 @@ still block promotion of the broad `PCM_FUEL_CONTROL` task. See the
 [fuel input prefix contract](reference/fuel_input_prefix_contract.md),
 [scheduled tail contract](reference/fuel_scheduled_tail_contract.md), and
 [five-stage closure plan](reference/source_closure_plan_2026-11-20.md).
-The branch registers 79 CTest entries (36 ROM differential suites). All 43
-quick source contracts and the focused governor/ignition BMHM ROM suites
-passed on [development CI](https://github.com/snow663/7427HWContract/actions/runs/44744985921).
-Full fuel-cycle/provider integration and the release-wide ROM suite are pending.
+The branch registers 81 CTest entries (36 ROM differential suites). All 45
+fast source contracts, including the canonical RAM owner and joined fuel-cycle
+host fixtures, and the focused governor/ignition BMHM ROM suites passed on
+[development CI](https://github.com/snow663/7427HWContract/actions/runs/44748475806).
+Full joined-cycle ROM parity, full target provider and the release-wide ROM
+suite are pending. See [joined fuel contract](reference/fuel_cycle_joined_contract.md).
 
 ## Next source work
 
