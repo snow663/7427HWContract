@@ -339,3 +339,4 @@ src/system/fuel_ram_owner_read8.c,pcm_fuel_ram_owner_read8,implemented_algorithm
 src/system/fuel_ram_owner_write8.c,pcm_fuel_ram_owner_write8,implemented_algorithm,7D4B fuel prefix named RAM write and overlapping bit owners,Validate atomic provider commit and failure prefix
 src/system/fuel_ram_owner_read16.c,pcm_fuel_ram_owner_read16,implemented_algorithm,7D4B fuel prefix big endian word read and split ownership,Validate unified word and byte state provider
 src/system/fuel_ram_owner_write16.c,pcm_fuel_ram_owner_write16,implemented_algorithm,7D4B fuel prefix big endian word publication to canonical owners,Connect target physical and SRAM providers after source checks
+src/sensors/speed_source.c,pcm_speed_source,implemented_algorithm,C668..C6BA slot01 speed source and F436 lag,Verify ROM differential and adjacent C583 and ADAA call boundaries
