@@ -26,7 +26,7 @@ jobs:
         run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2 --stop-on-failure -E rom_differential
 
       - name: Focused BMHM governor C/ROM differential
-        run: ctest --test-dir pseudo-source/build --output-on-failure -R '^(fuel_governor_rom_differential|fuel_ignition_rom_differential|fuel_cycle_rom_differential)$'
+        run: ctest --test-dir pseudo-source/build --output-on-failure -R '^(fuel_governor_rom_differential|fuel_ignition_rom_differential|fuel_cycle_rom_differential|speed_source_rom_differential)$'
 
 
 
