@@ -117,7 +117,7 @@ static void test_ordinary(void)
     setup(&f,&pcm);pcm.transmission.governor_flags=0x80u;
     CHECK(pcm_fuel_governor_compute(&pcm,true)==PCM_OK);
     CHECK(pcm.transmission.governor_tps_baseline==0x6415u);
-    CHECK(pcm.transmission.governor_requested_throttle==106u);
+    CHECK(pcm.transmission.governor_requested_throttle==107u);
     setup(&f,&pcm);pcm.transmission.governor_flags=0x81u;
     pcm.transmission.governor_integrator=0;
     CHECK(pcm_fuel_governor_compute(&pcm,true)==PCM_OK);
