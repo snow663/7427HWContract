@@ -15,8 +15,11 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 319 public routines: 187 implemented outlines,
+The cumulative closure branch now indexes 327 public routines: 195 implemented outlines,
 23 explicit dependency boundaries and 109 implemented algorithms.
+The authoritative 2026-11-17 audit records the previous PR #47 baseline;
+the [2026-11-20 closure plan](../pseudo-source/reference/source_closure_plan_2026-11-20.md)
+tracks the new sequential branch and its remaining milestone work.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
