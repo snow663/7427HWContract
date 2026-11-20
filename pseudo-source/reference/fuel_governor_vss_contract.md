@@ -11,8 +11,10 @@ An absent binding returns `PCM_UNIMPLEMENTED`, not an invented
 no-module result. The $8F3B..$8F5C TPS-baseline/mode gate is now separately resident as
 `pcm_fuel_governor_tps_mode`. It preserves the $0286 low byte and
 implements the source's bit0/bit7 ordinary-versus-lead decision.
-The remaining $8F5F..$90D2 control and lead paths are still delegated to
-`PCM_GOVERNOR_TARGET`.
+The $8F5F..$90D2 ordinary and lead governor paths are now resident in
+five public C routines, assembled by `pcm_fuel_governor_compute`.
+See [governor completion contract](fuel_governor_completion_contract.md).
+The optional heads-up module at $1809 remains a delegated dependency.
 
 ## Source-aligned behavior
 
@@ -54,5 +56,6 @@ fully executed repository suite or independent HC11 ROM comparison.
 
 The new code remains callable and gated by the optional $1809
 interface; the complete stock-equivalent fuel loop remains outside
-fast-dispatch admission. Next: $8F5F..$90D2 speed-error, throttle
-limit, integral lead and source $0299 publication.
+fast-dispatch admission. Next: validate joined $8EB4..$90D2 histories against real BMHM instructions,
+test the native optional $1809 ABI and coherent logical RAM ownership before
+promoting the broad scheduled-fuel task.
