@@ -54,15 +54,19 @@ def execute(edits):
     cpu.s.sp=0x3ff;cpu.s.ccr=0xc0
     cpu.s.a,cpu.s.b,cpu.s.x,cpu.s.y=0x12,0x34,0x5678,0x9abc
     cpu._push16(0x7000);cpu.s.pc=0x7d4b
+    changes=[]
     for i in range(40000):
         pc=cpu.s.pc
         if pc in (0x7000,0x7d8d):
             return {'status':10 if pc==0x7d8d else 0,
-                'state':[memory.mem[a] for a in ADDR]}
+                'state':[memory.mem[a] for a in ADDR], 'changes':changes}
         if pc==0x1809:
             raise AssertionError('External governor $1809 reached; disable optional flag')
         coverage.add(pc)
+        before=memory.mem[0x44]
         cpu.step()
+        if before!=memory.mem[0x44]:
+            changes.append((f'{pc:04X}',before,memory.mem[0x44]))
     raise AssertionError(f'Full fuel cycle blocked at {cpu.s.pc:04X}, steps=40000')
 def compare(cases,description):
     count=0
@@ -76,12 +80,12 @@ def compare(cases,description):
         assert len(results)==len(batch),(description,len(results),len(batch),x.stderr)
         for n,(edits,line) in enumerate(zip(batch,results)):
             actual=json.loads(line);expected=execute(edits)
-            if actual!=expected:
+            if actual!=dict((k,v) for k,v in expected.items() if k!='changes'):
                 diffs=[(f'{a:04X}',a0,e0) for a,a0,e0 in zip(
                     ADDR,actual['state'],expected['state']) if a0!=e0]
                 raise AssertionError((description,count+n,
                     {f'{a:04X}':v for a,v in edits.items()},actual['status'],
-                    expected['status'],diffs[:25]))
+                    expected['status'],diffs[:25],expected['changes'][-20:]))
         count+=len(batch)
     print(f'{count:,} full-entry BMHM $7D4B cases matched: {description}',flush=True)
     return count
