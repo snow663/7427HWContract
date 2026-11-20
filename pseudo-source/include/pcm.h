@@ -68,6 +68,10 @@ typedef struct {
     /* Factory FAA5 dispatches a captured full logical address. A target/backend
      * supplies its execution and return ABI; it may return a boundary status. */
     PcmStatus (*call_address)(void *, uint16_t address);
+    /* Opt-in sparse named-RAM binding for the $7D4B fuel source. All bus
+     * accesses still invoke the platform transaction first; unknown RAM
+     * keeps its raw provider semantics. No target memory layout implied. */
+    bool bind_fuel_ram_owners;
 } PcmPlatform;
 
 typedef struct {
