@@ -175,6 +175,9 @@ if(BUILD_TESTING)
   target_link_libraries(pcm_fuel_ignition_rom_tests PRIVATE pcm_pseudo_source)
   add_test(NAME fuel_ignition_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_fuel_ignition_rom.py $<TARGET_FILE:pcm_fuel_ignition_rom_tests>)
   set_tests_properties(fuel_ignition_rom_differential PROPERTIES COST 180)
+  add_executable(pcm_fuel_ram_owners_tests tests/fuel_ram_owners_test.c)
+  target_link_libraries(pcm_fuel_ram_owners_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME fuel_ram_owner_contracts COMMAND pcm_fuel_ram_owners_tests --contracts)
   # Long independent ROM suites start first on fresh CI runners. These relative
   # costs affect scheduling only; every selected test still runs.
   set_tests_properties(scheduled_input_rom_differential PROPERTIES COST 1200)
