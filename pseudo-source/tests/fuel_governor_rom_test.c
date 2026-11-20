@@ -33,6 +33,15 @@ static PcmStatus write16(void *ctx,uint16_t address,uint16_t value)
     f->image[address]=(uint8_t)(value>>8);
     f->image[(uint16_t)(address+1u)]=(uint8_t)value;return PCM_OK;
 }
+/* Synthetic $1809 is a typed host stub, not a claim of installed firmware. */
+static PcmStatus synthetic_headsup(Pcm *pcm,PcmTask task)
+{
+    Fixture *f=pcm->platform->context;
+    if(task!=PCM_GOVERNOR_HEADSUP)return PCM_BAD_CONFIGURATION;
+    pcm->transmission.governor_headsup_carry=(f->image[0x903]&1u)!=0;
+    pcm->transmission.governor_headsup_result=f->image[0x904];
+    return PCM_OK;
+}
 static uint16_t word(const Fixture *f,uint16_t address)
 {
     return (uint16_t)(((uint16_t)f->image[address]<<8)|
@@ -50,6 +59,7 @@ static void load(Pcm *pcm,Fixture *f,PcmCalibration *cal)
     f->platform.context=f;
     f->platform.read8=read8;f->platform.read16=read16;
     f->platform.write16=write16;pcm->platform=&f->platform;
+    f->platform.task[PCM_GOVERNOR_HEADSUP]=f->image[0x902]?synthetic_headsup:NULL;
     pcm->unresolved_task=PCM_TASK_COUNT;pcm->calibration=cal;
     cal->mode_f=f->image[0x400f];
     pcm->scheduler.profiling_enabled=(f->image[0x86]&0x40u)!=0;
