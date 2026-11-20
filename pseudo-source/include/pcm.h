@@ -519,6 +519,7 @@ typedef struct {
     volatile bool mat_low_fault, mat_high_fault; /* 0017.6,0017.4; IAC owns0017.7 */
     volatile uint8_t barometric_sample, barometric_fraction; /* 02F3,02F5; high remains spark owner */
     volatile uint8_t tps_ae_factor, pe_throttle_threshold, pe_rpm_threshold; /* 01E4,01E3,01CD */
+    volatile uint8_t egr_failure_count; /* 0223, ignition-off reset at 7DA1 */
 } PcmIo;
 
 typedef struct {
@@ -591,6 +592,7 @@ typedef struct {
     /*0005.4,003A.1/.2/.6,0086.3; other shared-byte owners stay separate. */
     volatile uint16_t initial_spark; /*01F6, boot-published4132 high byte and zero fraction. */
     volatile uint8_t startup_counter; /*0049, reset seed20 */
+    volatile uint16_t fuel_ignition_counter; /* 027E/027F, $7D4B early-cycle counter */
     volatile uint16_t refresh_cursor, stack_watermark; /*029B,02D1; logical CPU addresses. */
     volatile uint8_t interrupt_flags; /*0000 bitsFE; timer_seen bit01 stays with the scheduler. */
     volatile bool stack_recovery; /*003A.3; separate from scheduler.pending at003A.5. */
