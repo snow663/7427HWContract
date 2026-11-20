@@ -72,6 +72,10 @@ typedef struct {
      * accesses still invoke the platform transaction first; unknown RAM
      * keeps its raw provider semantics. No target memory layout implied. */
     bool bind_fuel_ram_owners;
+    /* Explicit host/research opt-in: dispatch the joined source fuel cycle
+     * only with the named-RAM provider active. Default remains the stock
+     * PCM_FUEL_CONTROL dependency until joined ROM and target checks pass. */
+    bool enable_resident_fuel_cycle;
 } PcmPlatform;
 
 typedef struct {
