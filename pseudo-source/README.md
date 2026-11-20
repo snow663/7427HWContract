@@ -268,13 +268,15 @@ A new callable ignition/input prefix now covers BMHM $7D4B..$7E4E; the
 $852C phase-selected tail and its $8EB4 governor-default gate also have
 separate C bodies. A callable $7D4B..$8547 `pcm_fuel_cycle` joins the new
 prefix, existing fuel calculation and new tail without changing fast dispatch.
-Enabled $90D3/$8EC9 governor branches and full source/ROM/provider integration
+The optional $1809 module and full source/ROM/provider integration
 still block promotion of the broad `PCM_FUEL_CONTROL` task. See the
 [fuel input prefix contract](reference/fuel_input_prefix_contract.md),
 [scheduled tail contract](reference/fuel_scheduled_tail_contract.md), and
 [five-stage closure plan](reference/source_closure_plan_2026-11-20.md).
-The branch registers 78 CTest entries (35 ROM suites); the new fixtures have not
-been verified by the full project/ROM suite yet.
+The branch registers 79 CTest entries (36 ROM differential suites). All 43
+quick source contracts and the focused governor/ignition BMHM ROM suites
+passed on [development CI](https://github.com/snow663/7427HWContract/actions/runs/44744985921).
+Full fuel-cycle/provider integration and the release-wide ROM suite are pending.
 
 ## Next source work
 
