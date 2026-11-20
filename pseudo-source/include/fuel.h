@@ -10,6 +10,8 @@ PcmStatus pcm_fuel_input_precalculate(Pcm *);
 PcmStatus pcm_fuel_input_prefix(Pcm *);
 /* $852C phase-dependent tail, guarded $8EB4 governor target. */
 PcmStatus pcm_fuel_scheduled_tail(Pcm *);
+/* Complete $7D4B..$8547 callable cycle, not yet installed in fast dispatch. */
+PcmStatus pcm_fuel_cycle(Pcm *);
 PcmStatus pcm_fuel_governor_target(Pcm *);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
