@@ -22,8 +22,12 @@ mirroring C state. It closes the tested alias split, but is not a complete
 RAM/ASIC/target provider: unknown addresses continue using the raw backend,
 and newly added C producers may need extra owners or a change-order review.
 The default platform flag is **false**; historical suite behavior is intact.
-The broad `pcm_fuel_control` fast-dispatch root remains delegated until
-source ROM and peripheral/optional-module histories justify promotion.
+The broad `pcm_fuel_control` fast-dispatch root remains delegated by
+**default**. Only explicit `PcmPlatform.enable_resident_fuel_cycle`
+**and** `bind_fuel_ram_owners` together permit the complete resident
+source call path in host/research mode. Neither opt-in changes target
+startup, ROM, ASIC or interrupt placement. Full ROM/target verification
+is required before making it unconditional.
 
 ## Address-to-owner handoff
 
