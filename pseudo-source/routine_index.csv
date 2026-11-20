@@ -55,7 +55,7 @@ src/sensors/input_housekeeping.c,pcm_input_housekeeping,implemented_outline,9167
 src/sensors/knock_sensor.c,pcm_knock_sensor,implemented_outline,CEDB..CF15: mux0/ADCTL01/ADR4 sensor diagnostic and literal masking.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/serial/serial_poll.c,pcm_serial_poll,implemented_outline,"F5E8..F64D: unscaled broadcast schedule, deferred flag and masked precopy.","Retain ROM/address-space checks; target ABI, controller service execution and physical SCI timing remain separate validation"
 src/slots/slot_00.c,pcm_slot_00,implemented_outline,7AA6..7AAC: resident battery acquisition and literal CF15 return.,Retain ROM comparisons and actual scheduled producer ordering
-src/slots/slot_01.c,pcm_slot_01,dependency_boundary,"7AAD, table word 7A87.",Implement the named body and compare observable state/transactions
+src/slots/slot_01.c,pcm_slot_01,implemented_outline,"7AAD..7AB6; ordered resident C583 BARO, C668 speed and ADAA TCC","Verified fast gate and ROM callees; actual target ASIC/solenoid remains a separate boundary"
 src/slots/slot_02.c,pcm_slot_02,implemented_outline,7AB7..7ABC: resident auxiliary ADC scan under literal SEI/CLI.,Retain ROM comparisons and actual scheduled producer ordering
 src/slots/slot_03.c,pcm_slot_03,dependency_boundary,"7ABD, table word 7A8B.",Implement the named body and compare observable state/transactions
 src/slots/slot_04.c,pcm_slot_04,dependency_boundary,"7AC7, table word 7A8D.",Implement the named body and compare observable state/transactions
