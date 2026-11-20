@@ -24,3 +24,6 @@ jobs:
         run: cmake --build pseudo-source/build --parallel 2
       - name: Run source contracts without expensive ROM suites
         run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2 --stop-on-failure -E rom_differential
+
+      - name: Focused BMHM governor C/ROM differential
+        run: ctest --test-dir pseudo-source/build --output-on-failure -R '^fuel_governor_rom_differential$'
