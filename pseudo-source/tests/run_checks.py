@@ -51,6 +51,7 @@ TARGETS=[
  ('fuel_scheduled_tail','fuel_scheduled_tail_test',[],[['--contracts']],[]),
  ('fuel_governor_drive','fuel_governor_drive_test',[],[['--contracts']],[]),
  ('fuel_governor_error','fuel_governor_error_test',[],[['--contracts']],[]),
+ ('fuel_governor_vss','fuel_governor_vss_gate_test',[],[['--contracts']],[]),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
