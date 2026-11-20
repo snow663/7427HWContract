@@ -1,6 +1,9 @@
 #ifndef PSEUDO_SOURCE_FUEL_H
 #define PSEUDO_SOURCE_FUEL_H
 #include "pcm.h"
+/* Initial scheduled-fuel ignition and watchdog prefix, BMHM $7D4B..$7DB5.
+ * The later input/tail dispatch is not wired until all ordered callees exist. */
+PcmStatus pcm_fuel_ignition_precheck(Pcm *);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
