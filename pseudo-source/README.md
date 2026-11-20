@@ -273,7 +273,7 @@ still block promotion of the broad `PCM_FUEL_CONTROL` task. See the
 [fuel input prefix contract](reference/fuel_input_prefix_contract.md),
 [scheduled tail contract](reference/fuel_scheduled_tail_contract.md), and
 [five-stage closure plan](reference/source_closure_plan_2026-11-20.md).
-The branch registers 77 CTest entries; the new eight fixtures have not
+The branch registers 78 CTest entries (35 ROM suites); the new fixtures have not
 been verified by the full project/ROM suite yet.
 
 ## Next source work
