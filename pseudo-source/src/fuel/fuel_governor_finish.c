@@ -10,7 +10,7 @@ PcmStatus pcm_fuel_governor_finish(Pcm *pcm,uint8_t candidate)
     uint8_t snapshot=pcm->transmission.governor_flags;
     if(snapshot&0x84u) {
         uint8_t auxiliary=pcm->transmission.governor_auxiliary_adjust;
-        if(!(snapshot&0x40u)) {
+        if(!(pcm->transmission.governor_flags&0x40u)) {
             unsigned sum=(unsigned)candidate+auxiliary;
             candidate=sum>255u?255u:(uint8_t)sum;
         } else {
