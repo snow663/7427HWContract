@@ -34,7 +34,7 @@ typedef enum {
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
     PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
     PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TRANSMISSION_INPUT_PREFIX,
-    PCM_FACTORY_ENTRY, PCM_FUEL_GOVERNOR, PCM_TASK_COUNT
+    PCM_FACTORY_ENTRY, PCM_FUEL_GOVERNOR, PCM_GOVERNOR_TARGET, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -448,6 +448,7 @@ typedef struct {
     volatile uint8_t range_context, shift_gear, shift_hold, shift_ratio; /* 0089,0845/46/4B */
     volatile bool shift_lamp, shift_service_enable, shift_service_value; /* 0053.2,038F.0,0390.0 */
     volatile uint16_t shift_counter, shift_delta; /* 0847,0849 */
+    volatile uint8_t governor_requested_throttle; /* 0299, source gate at 8EB4 */
 } PcmTransmission;
 
 typedef struct {
