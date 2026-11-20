@@ -63,6 +63,13 @@ add/sub and retained-first-store cases, lead-branch selection,
 negative derivative, $0288 cleanup, and failures after partial work.
 The earlier individual governor test fixtures remain registered.
 
+A dedicated `fuel_governor_rom_differential` harness is now registered.
+It replays source-evidence BMHM bytes on the repository's HC11 core and
+compares 8 governor entry modes with C native-state publication, using
+recorded ROM calibration, directed edge cases and randomized histories.
+It deliberately excludes the unresolved optional $1809 ABI and labels
+its sparse recorded-ROM view as nonflashable.
+
 **Registration is not execution.** This branch has no published
 integrated test run or confirmed full BMHM C/ROM parity for the newly
 ported controller. The fast dispatcher still delegates the broad
