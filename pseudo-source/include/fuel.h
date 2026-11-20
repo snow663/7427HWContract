@@ -13,6 +13,8 @@ PcmStatus pcm_fuel_scheduled_tail(Pcm *);
 /* Complete $7D4B..$8547 callable cycle, not yet installed in fast dispatch. */
 PcmStatus pcm_fuel_cycle(Pcm *);
 PcmStatus pcm_fuel_governor_target(Pcm *);
+/* BMHM $90D3..$9166: proportional/integral governor command to board306C. */
+PcmStatus pcm_fuel_governor_drive(Pcm *);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
