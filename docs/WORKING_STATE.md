@@ -15,12 +15,14 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The cumulative closure branch now indexes 340 public routines: 196 implemented outlines,
-23 explicit dependency boundaries and 121 implemented algorithms.
+The cumulative closure branch now indexes 342 public routines: 197 implemented outlines,
+22 explicit dependency boundaries and 123 implemented algorithms.
 The cumulative branch adds the governor rate/ordinary/lead/output stages,
 with passed scoped HC11/C governor and ignition-prefix differentials;
 an opt-in canonical RAM provider bridge and full joined host fuel-cycle
-contracts pass 45/45 quick checks in GitHub Actions run 44748475806.
+contracts pass 47/47 fast checks and 5 focused ROM comparisons in
+GitHub Actions run 44820137699. Milestone1 source-level closure and
+slot01/03 M2 progress are tracked in the source closure plan.
 Full stock ROM parity for the complete cycle and target provider remain open.
 The authoritative 2026-11-17 audit records the previous PR #47 baseline;
 the [2026-11-20 closure plan](../pseudo-source/reference/source_closure_plan_2026-11-20.md)
