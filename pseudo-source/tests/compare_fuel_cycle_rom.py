@@ -107,6 +107,15 @@ with tempfile.TemporaryDirectory(prefix='pcm-fuel-full-entry-') as tmp:
                   [2,3,6,7],[0,7,8],[0,0x10],[0,0x80,0x90],
                   [0,64,128],[0,128,255],[0,0x80])]
     n+=compare(directed[:2048],'selected ignition, no-fuel, TPS/O2 and phase histories')
+    running=[case({2:phase,0x44:0,0x4f:0x90,0x400d:0,
+                   0x400f:0x80,0xa7:battery,0x1c6:load,
+                   0x63:rpm,0x62:rpm,0xa6:tps,
+                   0x24a:128,0x20f:128,0x248:128,
+                   0x55:128,0x6:160,0x1d5:128})
+             for phase,battery,load,rpm,tps in product(
+                 [2,3,6,7],[90,128,255],[31,100,180],
+                 [48,96,180],[10,80,180])]
+    n+=compare(running,'authorized crank/running path, battery qualification and nonzero delivery')
     print(f'{n:,} full-entry C/ROM cases passed; {len(coverage)} source PCs reached. '
           'Physical E-cycle timing, $1809 module, and nonzero injector '
           'driver response are not proven by this test.')
