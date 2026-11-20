@@ -31,5 +31,10 @@ PcmStatus pcm_fuel_governor_target(Pcm *pcm)
     }
     result=pcm_fuel_governor_vss_gate(pcm);
     if(result!=PCM_OK)return result;
+    bool ordinary;
+    result=pcm_fuel_governor_tps_mode(pcm,&ordinary);
+    if(result!=PCM_OK)return result;
+    /* The named continuation owns both $8F5F and $9010 successors.
+     * Its task binding can inspect $0075; no guessed branch is run. */
     return pcm_run_task(pcm,PCM_GOVERNOR_TARGET);
 }
