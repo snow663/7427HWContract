@@ -57,8 +57,11 @@ def execute(edits):
     cpu.s.pc=0x7d4b
     for _ in range(180):
         pc=cpu.s.pc
-        if pc in (0x7db6,0x7d8e):
-            return {'status':10 if pc==0x7d8e else 0,
+        # Stock $7D8D is $CF (deliberate illegal/terminal byte). The
+        # project's HC11 core cannot execute it; compare the completed
+        # memory, board and CCR prefix at the instruction boundary.
+        if pc in (0x7db6,0x7d8d):
+            return {'status':10 if pc==0x7d8d else 0,
                     'masked':int(bool(cpu.s.ccr&0x10)),
                     'state':[memory.mem[a] for a in ADDRS]}
         cpu.step()
