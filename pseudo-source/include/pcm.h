@@ -76,6 +76,10 @@ typedef struct {
      * only with the named-RAM provider active. Default remains the stock
      * PCM_FUEL_CONTROL dependency until joined ROM and target checks pass. */
     bool enable_resident_fuel_cycle;
+    /* Research opt-in: execute source-backed slow-slot wrappers. The
+     * default remains the existing task boundary until each transitive
+     * slow callee has an actual resident implementation or target ABI. */
+    bool enable_resident_slow_slots;
 } PcmPlatform;
 
 typedef struct {
