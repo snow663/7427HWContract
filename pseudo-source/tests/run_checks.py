@@ -48,6 +48,7 @@ TARGETS=[
  ('timer_stack_guard','timer_stack_guard_test',[],[['--contracts']],[]),
  ('fuel_ignition_precheck','fuel_ignition_precheck_test',[],[['--contracts']],[]),
  ('fuel_input_prefix','fuel_input_prefix_test',[],[['--contracts']],[]),
+ ('fuel_scheduled_tail','fuel_scheduled_tail_test',[],[['--contracts']],[]),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
