@@ -59,6 +59,7 @@ TARGETS=[
  ('fuel_ram_owners','fuel_ram_owners_test',[],[['--contracts']],[]),
  ('fuel_cycle_joined','fuel_cycle_joined_test',[],[['--contracts']],[]),
  ('fuel_cycle_rom','fuel_cycle_rom_test',[],[],['fuel_cycle_rom']),
+ ('speed_source_rom','speed_source_rom_test',[],[],['speed_source_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
