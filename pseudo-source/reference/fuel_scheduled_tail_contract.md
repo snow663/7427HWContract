@@ -27,11 +27,12 @@ and whether any $006F bits 2,4,5 are set. If disabled, not running or
 status nonzero under mask $34, it writes target $0299=255 and returns.
 This default is resident in `pcm_fuel_governor_target`, with canonical
 owner `PcmTransmission.governor_requested_throttle`. When enabled,
-running and $006F&$34 equals zero, the source continues at $8EC9;
-`PCM_GOVERNOR_TARGET` is an explicit task boundary for that remaining
-governor calculation. The earlier $90D3 call reached at $7E3D when
-$400F.0 is enabled is independently represented by
-`PCM_FUEL_GOVERNOR`. No guessed PID gains, throttle targets, actuator
+running and $006F&$34 equals zero, the source continues at $8EC9.
+The $8EC9..$8EDA signed error and direction flag are now resident in
+`pcm_fuel_governor_error`, while `PCM_GOVERNOR_TARGET` is the explicit
+$8EDB..$90D2 boundary, including optional $1809 carry behavior. The earlier $90D3 actuator call reached at $7E3D when $400F.0 is
+set is now resident as `pcm_fuel_governor_drive`. Its bus command at $306C
+remains dependent on the physical provider. No guessed PID gains, throttle targets, actuator
 commands or optional $1809 heads-up semantics are supplied.
 
 ## Joined source and foreground gate
