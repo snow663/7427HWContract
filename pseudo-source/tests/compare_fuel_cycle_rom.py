@@ -51,23 +51,33 @@ def execute(edits):
     for a,v in edits.items():memory.mem[a]=v
     memory.writes.clear()
     memory.cycle_counter=0
-    cpu.s.sp=0x3ff;cpu.s.ccr=0xc0
-    cpu.s.a,cpu.s.b,cpu.s.x,cpu.s.y=0x12,0x34,0x5678,0x9abc
-    cpu._push16(0x7000);cpu.s.pc=0x7d4b
     changes=[]
-    for i in range(40000):
-        pc=cpu.s.pc
-        if pc in (0x7000,0x7d8d):
-            return {'status':10 if pc==0x7d8d else 0,
-                'state':[memory.mem[a] for a in ADDR], 'changes':changes}
-        if pc==0x1809:
-            raise AssertionError('External governor $1809 reached; disable optional flag')
-        coverage.add(pc)
-        before=memory.mem[0x44]
-        cpu.step()
-        if before!=memory.mem[0x44]:
-            changes.append((f'{pc:04X}',before,memory.mem[0x44]))
-    raise AssertionError(f'Full fuel cycle blocked at {cpu.s.pc:04X}, steps=40000')
+    passes=memory.mem[0x905] or 1
+    phase_delta=memory.mem[0x906]
+    assert 1<=passes<=8
+    status=0
+    for cycle in range(passes):
+        if cycle:memory.mem[2]=(memory.mem[2]+phase_delta)&255
+        cpu.s.sp=0x3ff;cpu.s.ccr=0xc0
+        cpu.s.a,cpu.s.b,cpu.s.x,cpu.s.y=0x12,0x34,0x5678,0x9abc
+        cpu._push16(0x7000);cpu.s.pc=0x7d4b
+        for i in range(40000):
+            pc=cpu.s.pc
+            if pc in (0x7000,0x7d8d):
+                if pc==0x7d8d:status=10
+                break
+            if pc==0x1809:
+                raise AssertionError('External governor $1809 reached; disable optional flag')
+            coverage.add(pc)
+            before=memory.mem[0x44]
+            cpu.step()
+            if before!=memory.mem[0x44]:
+                changes.append((f'{pc:04X}',before,memory.mem[0x44]))
+        else:
+            raise AssertionError(f'Full fuel cycle blocked at {cpu.s.pc:04X}, steps=40000')
+        if status:break
+    return {'status':status,'state':[memory.mem[a] for a in ADDR],
+            'changes':changes}
 def compare(cases,description):
     count=0
     cases=iter(cases)
@@ -116,6 +126,15 @@ with tempfile.TemporaryDirectory(prefix='pcm-fuel-full-entry-') as tmp:
                  list(range(8)),[90,128,255],[31,100,180],
                  [48,96,180],[10,80,180])]
     n+=compare(running,'authorized crank/running path, battery qualification and nonzero delivery')
+    retained=[case({0x905:4,0x906:step,2:phase,0x44:ignition,
+                    0x4f:0x90,0x400d:authorization,0x400f:0x80,
+                    0xa7:battery,0x1c6:load,0x63:100,0x62:80,
+                    0xa6:tps,0x20f:128,0x24a:128,0x248:128,
+                    0x55:128,0x6:160,0x1d5:128})
+              for phase,step,ignition,authorization,battery,load,tps in product(
+                  [0,1,2,3],[1,2,4],[0,0x10],[0,0x40],
+                  [90,128],[50,120],[20,150])]
+    n+=compare(retained,'four-pass retained fuel histories, alternating phases, ignition and authorization')
     print(f'{n:,} full-entry C/ROM cases passed; {len(coverage)} source PCs reached. '
           'Physical E-cycle timing, $1809 module, and nonzero injector '
           'driver response are not proven by this test.')
