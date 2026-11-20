@@ -44,13 +44,13 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
         BIT(b,0x80u,pcm->spark.bypass_supervision);
         BIT(b,0x10u,pcm->scheduler.clear_after_run_count);
         BIT(b,0x08u,pcm->spark.run_transition);
-        BIT(b,0x04u,pcm->scheduler.refresh_late);
+        BIT(b,0x04u,pcm->runtime.refresh_late);
         BIT(b,0x02u,pcm->fuel.oxygen_warmed);
         BIT(b,0x01u,pcm->fuel.oxygen_activity);
         break;
     case 0x0019:
         b&=(uint8_t)~0x7cu;
-        BIT(b,0x40u,pcm->knock.bank_fault);
+        BIT(b,0x40u,pcm->reference.bank_fault);
         BIT(b,0x20u,pcm->spark.est_fault);
         BIT(b,0x10u,pcm->knock.sensor_fault);
         BIT(b,0x08u,pcm->fuel.oxygen_fault_b);
@@ -110,8 +110,8 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
         BIT(b,0x80u,pcm->reference.bank_latch);
         BIT(b,0x40u,pcm->spark.startup_gain_complete);
         BIT(b,0x20u,pcm->spark.recovery_active);
-        BIT(b,0x08u,pcm->system.ignition_off);
-        BIT(b,0x04u,pcm->scheduler.refresh_requested);
+        BIT(b,0x08u,pcm->runtime.ignition_off);
+        BIT(b,0x04u,pcm->runtime.refresh_requested);
         BIT(b,0x01u,pcm->reference.packet_updated);
         break;
     case 0x0086:
@@ -129,7 +129,7 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
     case 0x01d5:b=pcm->fuel.raw_oxygen;break;
     case 0x01d9:b=pcm->reference.throttle;break;
     case 0x0223:b=pcm->io.egr_failure_count;break;
-    case 0x0268:b=pcm->fuel.enrichment_age;break;
+    case 0x0268:b=pcm->reference.enrichment_age;break;
     case 0x027b:b=pcm->fuel.oxygen_coordinate;break;
     case 0x027d:b=pcm->fuel.startup_park_hold;break;
     case 0x02cd:b=pcm->reference.crank_references;break;
@@ -161,12 +161,12 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
         OWNED_BOOL(pcm->spark.bypass_supervision,0x80u);
         OWNED_BOOL(pcm->scheduler.clear_after_run_count,0x10u);
         OWNED_BOOL(pcm->spark.run_transition,0x08u);
-        OWNED_BOOL(pcm->scheduler.refresh_late,0x04u);
+        OWNED_BOOL(pcm->runtime.refresh_late,0x04u);
         OWNED_BOOL(pcm->fuel.oxygen_warmed,0x02u);
         OWNED_BOOL(pcm->fuel.oxygen_activity,0x01u);
         return true;
     case 0x0019:
-        OWNED_BOOL(pcm->knock.bank_fault,0x40u);
+        OWNED_BOOL(pcm->reference.bank_fault,0x40u);
         OWNED_BOOL(pcm->spark.est_fault,0x20u);
         OWNED_BOOL(pcm->knock.sensor_fault,0x10u);
         OWNED_BOOL(pcm->fuel.oxygen_fault_b,0x08u);
@@ -213,8 +213,8 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
         OWNED_BOOL(pcm->reference.bank_latch,0x80u);
         OWNED_BOOL(pcm->spark.startup_gain_complete,0x40u);
         OWNED_BOOL(pcm->spark.recovery_active,0x20u);
-        OWNED_BOOL(pcm->system.ignition_off,0x08u);
-        OWNED_BOOL(pcm->scheduler.refresh_requested,0x04u);
+        OWNED_BOOL(pcm->runtime.ignition_off,0x08u);
+        OWNED_BOOL(pcm->runtime.refresh_requested,0x04u);
         OWNED_BOOL(pcm->reference.packet_updated,0x01u);return true;
     case 0x0086:
         OWNED_BOOL(pcm->scheduler.profiling_enabled,0x40u);
@@ -229,7 +229,7 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
     case 0x01d5:pcm->fuel.raw_oxygen=value;return true;
     case 0x01d9:pcm->reference.throttle=value;return true;
     case 0x0223:pcm->io.egr_failure_count=value;return true;
-    case 0x0268:pcm->fuel.enrichment_age=value;return true;
+    case 0x0268:pcm->reference.enrichment_age=value;return true;
     case 0x027b:pcm->fuel.oxygen_coordinate=value;return true;
     case 0x027d:pcm->fuel.startup_park_hold=value;return true;
     case 0x02cd:pcm->reference.crank_references=value;return true;
