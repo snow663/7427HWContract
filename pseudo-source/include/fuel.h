@@ -15,6 +15,8 @@ PcmStatus pcm_fuel_cycle(Pcm *);
 PcmStatus pcm_fuel_governor_target(Pcm *);
 /* BMHM $90D3..$9166: proportional/integral governor command to board306C. */
 PcmStatus pcm_fuel_governor_drive(Pcm *);
+/* BMHM $8EC9..$8EDA: unsigned RPM-target difference and 0075.2 direction. */
+PcmStatus pcm_fuel_governor_error(Pcm *);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
