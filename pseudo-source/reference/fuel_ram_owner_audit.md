@@ -30,14 +30,14 @@ This is a correctness and live-injector safety boundary.
 | $0004.7 | Restart clear | `spark.bypass_supervision` | Alias needed |
 | $0004.1/.0 | Restart clear | `fuel.oxygen_warmed`, `fuel.oxygen_activity` | Alias needed |
 | $0004.3 | Reset running transition | `spark.run_transition` | Alias needed |
-| $0019.6/.5 | Clear faults | `knock.bank_fault`, `spark.est_fault` | Alias needed |
+| $0019.6/.5 | Clear faults | `reference.bank_fault`, `spark.est_fault` | Alias needed |
 | $00FD..$00FE | Reset source run timer | `scheduler.run_counter` | Word alias needed |
 | $024C..$024D | Reset delivered sync command | `reference.delivered_pulse` | Word alias needed |
 | $0062 | Reset RPM coordinate | `reference.rpm_coordinate` | Alias needed |
 | $02CD | Reset DRP count | `reference.crank_references` | Alias needed |
 | $02CE | Reset event age | `reference.event_age` | Alias needed |
-| $0268 | Reset enrichment age | `fuel.enrichment_age` | Alias needed |
-| $0051.3 | Restart/off history | `system.ignition_off` | Alias needed |
+| $0268 | Reset enrichment age | `reference.enrichment_age` | Alias needed |
+| $0051.3 | Restart/off history | `runtime.ignition_off` | Alias needed |
 | $0086.3 | Ignition off/on latch | `system.retained_initialized` (bit3) | Provider alias pending |
 | $004F.7/.4 | Clear running spark/fuel | `runtime.spark_running`, `runtime.fuel_running` | Critical alias needed |
 | $0046.7 | Clear previous CL history | `fuel.closed_seen` | Alias needed |
