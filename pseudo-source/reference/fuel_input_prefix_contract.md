@@ -49,8 +49,11 @@ is a separate joined prefix fixture covering optional governor admission,
 success/failure, MAP/TPS/O2 ordering and early trap propagation. All 43 fast contracts and the separate $7D4B..$7DB5 BMHM ignition C/ROM
 comparison passed in GitHub Actions run 44744985921. The ROM replay
 stops at $7D8D, the stock illegal-opcode boundary ($CF), after the
-preceding trap state effects. The complete joined $7D4B..$8547
-cycle has **not** yet been ROM-compared or admitted to fast dispatch.
+preceding trap state effects. The connected $7D4B..$8547 C host cycle, canonical RAM and all phase
+selections now pass on [CI run 44748475806](https://github.com/snow663/7427HWContract/actions/runs/44748475806).
+The complete joined cycle has **not** yet been ROM-compared or admitted
+to the default fast dispatch. See
+[joined contract](fuel_cycle_joined_contract.md).
 
 The callable $852C phase-selected tail and a joined $7D4B..$8547
 `pcm_fuel_cycle` are now committed separately. See
