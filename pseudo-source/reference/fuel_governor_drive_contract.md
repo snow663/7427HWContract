@@ -71,6 +71,10 @@ failed-ROM-read prefix. They are **defined test cases**; full
 repository/CMake execution and instruction-by-instruction ROM
 differentials are still pending on this branch.
 
+The standalone governor C/ROM differential passed on GitHub Actions
+run 44744985921. The optional heads-up $1809 target interface and full
+fuel-cycle/physical driver contract remain open.
+
 The new resident governor drive is called from
 `pcm_fuel_input_precalculate`, but `pcm_fuel_control` in the fast
 dispatcher remains an explicit dependency. Promotion requires
