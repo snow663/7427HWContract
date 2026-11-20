@@ -455,7 +455,9 @@ typedef struct {
     volatile uint16_t governor_integrator; /* 0288, prior signed-direction accumulator */
     volatile uint8_t governor_flags, governor_speed_error; /* 0075,0293 */
     volatile uint8_t governor_vehicle_error; /* 0294, 4x VSS threshold delta */
-    volatile uint16_t governor_tps_baseline; /* 0286/0287; 8F0F only sets high byte */
+    volatile uint16_t governor_tps_baseline; /* 0286/0287; first correction stores here */
+    volatile uint16_t governor_primary_step, governor_secondary_step; /* 028A,0290 */
+    volatile uint8_t governor_auxiliary_adjust; /* 0292, $8FA5 and $9010 */
     bool governor_headsup_carry; uint8_t governor_headsup_result; /* transient 1809 ABI */
 } PcmTransmission;
 
