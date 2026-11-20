@@ -1,0 +1,26 @@
+name: Pseudo-source Fast Branch Gate
+on:
+  push:
+    branches:
+      - "work/pseudo-source-*"
+    paths:
+      - "pseudo-source/**"
+      - "docs/WORKING_STATE.md"
+      - ".github/workflows/pseudo-source-fast-validation.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pseudo-source-fast-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quick-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure host C pseudo-source
+        run: cmake -S pseudo-source -B pseudo-source/build -DBUILD_TESTING=ON
+      - name: Compile source and fixtures
+        run: cmake --build pseudo-source/build --parallel 2
+      - name: Run source contracts without expensive ROM suites
+        run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2 --stop-on-failure -E rom_differential
