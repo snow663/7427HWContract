@@ -1,8 +1,9 @@
 #include "fuel.h"
 
-/* BMHM $8EB4..$8EC8 default gates and resident $8EC9..$8EDA
- * direction/magnitude. The $8EDB..$90D2 governing body remains an
- * explicit task including optional $1809 carry/flags semantics. */
+/* BMHM $8EB4..$8F3A: default, error and VSS gates are resident.
+ * The optional $1809 task must supply both carry and accumulator-A
+ * result through the explicit transient fields. $8F3B..$90D2 remains
+ * a named dependency, rather than a guessed governor control policy. */
 PcmStatus pcm_fuel_governor_target(Pcm *pcm)
 {
     if (pcm==NULL || pcm->calibration==NULL) return PCM_BAD_CONFIGURATION;
@@ -18,6 +19,17 @@ PcmStatus pcm_fuel_governor_target(Pcm *pcm)
         return PCM_OK;
     }
     result=pcm_fuel_governor_error(pcm);
+    if(result!=PCM_OK)return result;
+    if(pcm->scheduler.profiling_enabled) { /* $8EDB: optional $1809 */
+        result=pcm_run_task(pcm,PCM_GOVERNOR_HEADSUP);
+        if(result!=PCM_OK)return result;
+        if(pcm->transmission.governor_headsup_carry) {
+            pcm->transmission.governor_requested_throttle=
+                pcm->transmission.governor_headsup_result; /* $8EC5 */
+            return PCM_OK;
+        }
+    }
+    result=pcm_fuel_governor_vss_gate(pcm);
     if(result!=PCM_OK)return result;
     return pcm_run_task(pcm,PCM_GOVERNOR_TARGET);
 }
