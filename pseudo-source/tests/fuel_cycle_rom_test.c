@@ -76,10 +76,13 @@ static uint16_t W(const Pcm *p,uint16_t a,const Fixture *f)
 static uint8_t B(const Pcm *p,uint16_t a,const Fixture *f)
 {
     uint16_t value;
+    if(a==0x0257||a==0x0258) {
+        value=p->spark.density;
+        return a==0x0257?(uint8_t)(value>>8):(uint8_t)value;
+    }
     if(a==0x027e||a==0x027f||a==0x01d2||a==0x01d3||
-       a==0x0257||a==0x0258||a==0x024c||a==0x024d||
-       a==0x01de||a==0x01df||a==0x01dc||a==0x01dd||
-       a==0x023a||a==0x023b) {
+       a==0x024c||a==0x024d||a==0x01de||a==0x01df||
+       a==0x01dc||a==0x01dd||a==0x023a||a==0x023b) {
         value=W(p,(uint16_t)(a&0xfffeu),f);
         return (a&1u)?(uint8_t)value:(uint8_t)(value>>8);
     }
