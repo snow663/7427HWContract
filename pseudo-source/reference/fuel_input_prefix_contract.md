@@ -46,10 +46,11 @@ C11 strict warnings and passed five branch-mode scenarios with **82
 individual failed-I/O prefix cases** on the local stubbed backend. A matching
 repository fixture is registered in both CMake and the Python fast gate, as
 is a separate joined prefix fixture covering optional governor admission,
-success/failure, MAP/TPS/O2 ordering and early trap propagation. These
-repository fixtures have **not yet** run against the full integrated project
-or been compared with the executable BMHM ROM after this branch change.
-That work belongs to focused development validation and the final PR gate.
+success/failure, MAP/TPS/O2 ordering and early trap propagation. All 43 fast contracts and the separate $7D4B..$7DB5 BMHM ignition C/ROM
+comparison passed in GitHub Actions run 44744985921. The ROM replay
+stops at $7D8D, the stock illegal-opcode boundary ($CF), after the
+preceding trap state effects. The complete joined $7D4B..$8547
+cycle has **not** yet been ROM-compared or admitted to fast dispatch.
 
 The callable $852C phase-selected tail and a joined $7D4B..$8547
 `pcm_fuel_cycle` are now committed separately. See
