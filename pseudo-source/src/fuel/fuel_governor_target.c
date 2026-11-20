@@ -2,8 +2,8 @@
 
 /* BMHM $8EB4..$8F3A: default, error and VSS gates are resident.
  * The optional $1809 task must supply both carry and accumulator-A
- * result through the explicit transient fields. $8F3B..$90D2 remains
- * a named dependency, rather than a guessed governor control policy. */
+ * result through explicit transient fields. Remaining $8F5F..$90D2
+ * ordinary/lead arithmetic and command output now run as resident C. */
 PcmStatus pcm_fuel_governor_target(Pcm *pcm)
 {
     if (pcm==NULL || pcm->calibration==NULL) return PCM_BAD_CONFIGURATION;
@@ -34,7 +34,5 @@ PcmStatus pcm_fuel_governor_target(Pcm *pcm)
     bool ordinary;
     result=pcm_fuel_governor_tps_mode(pcm,&ordinary);
     if(result!=PCM_OK)return result;
-    /* The named continuation owns both $8F5F and $9010 successors.
-     * Its task binding can inspect $0075; no guessed branch is run. */
-    return pcm_run_task(pcm,PCM_GOVERNOR_TARGET);
+    return pcm_fuel_governor_compute(pcm,ordinary);
 }
