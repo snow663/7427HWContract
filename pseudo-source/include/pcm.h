@@ -449,6 +449,9 @@ typedef struct {
     volatile bool shift_lamp, shift_service_enable, shift_service_value; /* 0053.2,038F.0,0390.0 */
     volatile uint16_t shift_counter, shift_delta; /* 0847,0849 */
     volatile uint8_t governor_requested_throttle; /* 0299, source gate at 8EB4 */
+    volatile uint8_t governor_throttle_error; /* 029A, abs(desired TPS - TPS) */
+    volatile uint16_t governor_proportional, governor_integral_gain; /* 0295,0297 */
+    volatile uint16_t governor_integrator; /* 0288, prior signed-direction accumulator */
 } PcmTransmission;
 
 typedef struct {
