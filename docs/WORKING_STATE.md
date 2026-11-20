@@ -17,6 +17,8 @@ calibration/executable partitioning can be ours within physical constraints.
 
 The cumulative closure branch now indexes 336 public routines: 196 implemented outlines,
 23 explicit dependency boundaries and 117 implemented algorithms.
+The cumulative branch adds the governor rate/ordinary/lead/output stages,
+with a new HC11/C governor differential fixture registered but not yet run.
 The authoritative 2026-11-17 audit records the previous PR #47 baseline;
 the [2026-11-20 closure plan](../pseudo-source/reference/source_closure_plan_2026-11-20.md)
 tracks the new sequential branch and its remaining milestone work.
