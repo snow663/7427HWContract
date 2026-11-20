@@ -20,7 +20,7 @@ This is an execution ledger, not an assertion of completed work. Existing routin
 ### M2 — Close the nine remaining slow slots
 - Port 01/03/04/05/0A/0B/0C/0D/0F one by one from the ROM; include state sharing and failure prefixes.
 - Replace each `pcm_run_task` boundary only when the slot's required producers have been supplied.
-- Current status: **queued after M1**.
+- Current status: **in progress**. Slot01 ($7AAD) now has all three resident source callees: previously checked $C583 BARO input, newly ported and source-ROM-checked $C668 speed selection, and source-ROM-checked $ADAA non-electronic TCC state. All run in stock order under `enable_resident_slow_slots`; default task behavior remains unchanged. Slot03 ($7ABD) now performs the real optional $1806 check and $F7/$0F00 publication before its still-explicit $D4EB transmission callee; the existing resident $C514 output follows only a successful $D4EB return. Slow slots 04/05/0A/0B/0C/0D/0F remain delegated. [Focused branch CI](https://github.com/snow663/7427HWContract/actions/runs/44820137699) passes **47 fast contracts and 5 ROM suites**; full release suite remains deferred. See [slow-slot source contracts](slow_slot_01_03_contract.md).
 
 ### M3 — Resolve the eight-callee AE85 transmission prefix and five remaining current/transmission roots
 - Port or explicitly eliminate each dependency only with a complete stock producer/consumer map.
