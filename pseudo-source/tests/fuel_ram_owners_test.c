@@ -78,14 +78,14 @@ static void init(Fixture *f,Pcm *pcm)
     pcm->fuel.oxygen_activity=pcm->fuel.oxygen_warmed=true;
     pcm->spark.run_transition=true;
     pcm->scheduler.clear_after_run_count=true; /* unmasked $0004.4 survives */
-    pcm->knock.bank_fault=pcm->spark.est_fault=true;
+    pcm->reference.bank_fault=pcm->spark.est_fault=true;
     pcm->scheduler.run_counter=0x1234;
     pcm->reference.delivered_pulse=0x5678;
     pcm->reference.rpm_coordinate=75;
     pcm->reference.crank_references=13;
     pcm->reference.event_age=17;
-    pcm->fuel.enrichment_age=28;
-    pcm->system.ignition_off=false;
+    pcm->reference.enrichment_age=28;
+    pcm->runtime.ignition_off=false;
     pcm->system.retained_initialized=true;
     pcm->scheduler.profiling_enabled=true;
     pcm->spark.first_reference=true;
@@ -102,10 +102,10 @@ static void test_reset_and_word_alias(void)
     CHECK(p.scheduler.run_counter==0 && p.reference.delivered_pulse==0);
     CHECK(!p.runtime.spark_running && !p.runtime.fuel_running);
     CHECK(!p.spark.bypass_supervision && !p.fuel.oxygen_activity && !p.fuel.oxygen_warmed);
-    CHECK(!p.spark.run_transition && !p.knock.bank_fault && !p.spark.est_fault);
+    CHECK(!p.spark.run_transition && !p.reference.bank_fault && !p.spark.est_fault);
     CHECK(p.reference.rpm_coordinate==0 && p.reference.crank_references==0);
-    CHECK(p.reference.event_age==0 && p.fuel.enrichment_age==0);
-    CHECK(p.system.ignition_off && !p.system.retained_initialized);
+    CHECK(p.reference.event_age==0 && p.reference.enrichment_age==0);
+    CHECK(p.runtime.ignition_off && !p.system.retained_initialized);
     CHECK(p.scheduler.profiling_enabled && p.spark.first_reference);
     CHECK(f.provider[PCM_COPRST]==0x55 && !f.masked);
     uint8_t byte;
@@ -129,11 +129,11 @@ static void test_ignition_off_single_clear(void)
 {
     static Fixture f;Pcm p;init(&f,&p);
     p.reference.latch_inhibited=false;
-    p.system.ignition_off=true;
+    p.runtime.ignition_off=true;
     p.system.fuel_ignition_counter=501;
     CHECK(pcm_fuel_ignition_precheck(&p)==PCM_OK);
     CHECK(p.system.fuel_ignition_counter==0);
-    CHECK(!p.system.ignition_off && !p.fuel.closed_seen);
+    CHECK(!p.runtime.ignition_off && !p.fuel.closed_seen);
     CHECK(!p.spark.first_reference && !(p.io.coolant_context&8u));
     CHECK(p.io.egr_failure_count==0 && p.fuel.startup_park_hold==0);
     CHECK(p.system.retained_initialized);
@@ -162,7 +162,7 @@ static void test_gate_halt_and_failure_prefix(void)
     init(&f,&p);f.fail_at=5;
     CHECK(pcm_fuel_ignition_precheck(&p)==PCM_NO_HARDWARE);
     CHECK(!p.spark.bypass_supervision && !p.fuel.oxygen_activity);
-    CHECK(p.knock.bank_fault && p.spark.est_fault);
+    CHECK(p.reference.bank_fault && p.spark.est_fault);
     CHECK(p.runtime.spark_running && p.runtime.fuel_running);
     CHECK(f.attempts==5);
 }
