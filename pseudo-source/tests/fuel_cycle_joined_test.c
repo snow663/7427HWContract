@@ -101,10 +101,34 @@ static void cycle_provider_failure_prefix(void)
         CHECK(pcm.spark.density==0);
     }
 }
+static void cycle_running_uninhibited(void)
+{
+    static Fixture f;Pcm pcm;PcmCalibration root;PcmFuelCalibration fuel;PcmIacCalibration iac;
+    PcmAirCalibration air;PcmIoCalibration io;PcmMixtureCalibration mix;
+    PcmFeedbackCalibration fb;PcmDeliveryCalibration dl;
+    cycle_init(&f,&pcm,&root,&fuel,&iac,&air,&io,&mix,&fb,&dl,2);
+    root.mode_d=0; /* source authorization immediately granted */
+    pcm.reference.latch_inhibited=false; /* source $0044.4 off */
+    pcm.system.ignition_off=false; /* no once-only off-history clear */
+    pcm.reference.additive_offset=0;
+    pcm.iac.blm_value=128;
+    pcm.fuel.integrator=128;
+    pcm.spark.load_coordinate=50;
+    pcm.spark.period_basis=0x1800;
+    pcm.reference.rpm_coordinate=60;
+    pcm.reference.delivered_pulse=0;
+    CHECK(pcm_fuel_cycle(&pcm)==PCM_OK);
+    CHECK(pcm.fuel.authorized);
+    CHECK(pcm.system.fuel_ignition_counter==0);
+    CHECK(f.memory[PCM_COPRST]==0x55);
+    CHECK(pcm.spark.density==(uint16_t)((uint32_t)100u*65536u/694u+2649u));
+    CHECK(cycle_injector_writes(&f)>=1);
+}
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
     cycle_authorization_zero_packet();
+    cycle_running_uninhibited();
     cycle_trap_prevents_delivery();
     cycle_provider_failure_prefix();
     puts("Joined $7D4B..$8547 fuel path: all phases, zero-packet auth, trap and bus-failure histories pass.");
