@@ -8,7 +8,10 @@ handoff uses `PCM_GOVERNOR_HEADSUP`, with transient fields
 `governor_headsup_carry`. A successful carry writes the returned byte
 to $0299 and **skips** the VSS and governor-target calculation.
 An absent binding returns `PCM_UNIMPLEMENTED`, not an invented
-no-module result. The $8F3B..$90D2 control tail is still delegated to
+no-module result. The $8F3B..$8F5C TPS-baseline/mode gate is now separately resident as
+`pcm_fuel_governor_tps_mode`. It preserves the $0286 low byte and
+implements the source's bit0/bit7 ordinary-versus-lead decision.
+The remaining $8F5F..$90D2 control and lead paths are still delegated to
 `PCM_GOVERNOR_TARGET`.
 
 ## Source-aligned behavior
@@ -51,5 +54,5 @@ fully executed repository suite or independent HC11 ROM comparison.
 
 The new code remains callable and gated by the optional $1809
 interface; the complete stock-equivalent fuel loop remains outside
-fast-dispatch admission. Next: $8F3B..$90D2 speed-error, throttle
+fast-dispatch admission. Next: $8F5F..$90D2 speed-error, throttle
 limit, integral lead and source $0299 publication.
