@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The working branch contains 321 public routines: 189 implemented outlines, 23 dependency
+The cumulative closure branch contains 327 public routines: 195 implemented outlines, 23 dependency
 boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
@@ -261,6 +261,20 @@ bytes,1,343 selected failure prefixes and1,024 retained calculation/delivery/REF
 history calls.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
+
+## Connected fuel closure branch (November 20, 2026)
+
+A new callable ignition/input prefix now covers BMHM $7D4B..$7E4E; the
+$852C phase-selected tail and its $8EB4 governor-default gate also have
+separate C bodies. A callable $7D4B..$8547 `pcm_fuel_cycle` joins the new
+prefix, existing fuel calculation and new tail without changing fast dispatch.
+Enabled $90D3/$8EC9 governor branches and full source/ROM/provider integration
+still block promotion of the broad `PCM_FUEL_CONTROL` task. See the
+[fuel input prefix contract](reference/fuel_input_prefix_contract.md),
+[scheduled tail contract](reference/fuel_scheduled_tail_contract.md), and
+[five-stage closure plan](reference/source_closure_plan_2026-11-20.md).
+The branch registers 72 CTest entries; the new three fixtures have not
+been verified by the full project/ROM suite yet.
 
 ## Next source work
 
