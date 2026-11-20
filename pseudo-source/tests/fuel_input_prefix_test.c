@@ -118,6 +118,12 @@ static void test_early_stop(void)
     init(&f,&pcm,false,false);pcm.calibration=NULL;
     CHECK(pcm_fuel_input_precalculate(&pcm)==PCM_BAD_CONFIGURATION);
     CHECK(pcm_fuel_input_precalculate(NULL)==PCM_BAD_CONFIGURATION);
+    init(&f,&pcm,false,false);f.memory[0x027f]=16;
+    CHECK(pcm_fuel_cycle(&pcm)==PCM_HALT_BOUNDARY);
+    CHECK(pcm.spark.density==0x1111 && pcm.reference.throttle==11);
+    init(&f,&pcm,true,false);
+    CHECK(pcm_fuel_cycle(&pcm)==PCM_UNIMPLEMENTED);
+    CHECK(pcm.unresolved_task==PCM_FUEL_GOVERNOR && pcm.spark.density==0x1111);
 }
 int main(int argc,char **argv)
 {
