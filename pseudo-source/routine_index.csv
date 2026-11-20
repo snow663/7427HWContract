@@ -330,3 +330,8 @@ src/fuel/fuel_governor_drive.c,pcm_fuel_governor_drive,implemented_algorithm,90D
 src/fuel/fuel_governor_error.c,pcm_fuel_governor_error,implemented_algorithm,8EC9..8EDA governor RPM sign and magnitude with fresh calibration read,Port 8EDB..90D2 follow-up including 1809 module carry boundary
 src/fuel/fuel_governor_vss_gate.c,pcm_fuel_governor_vss_gate,implemented_algorithm,8EE4..8F3A VSS error/state and TPS seed with 50DA/DB/E1 rereads,Port 8F3B..90D2 remaining governor body; verify module 1809 and full RAM provider
 src/fuel/fuel_governor_tps_mode.c,pcm_fuel_governor_tps_mode,implemented_algorithm,8F3B..8F5C signed TPS baseline and ordinary/lead governor mode,Port 8F5F..90D2 two gated control paths with 1809 extension tests
+src/fuel/fuel_governor_rate.c,pcm_fuel_governor_rate,implemented_algorithm,8F5F..8FCB integral and VSS speed contributions to 028A/0290/0292,Validate literal F499 and F550 arithmetic and injected ROM read failures
+src/fuel/fuel_governor_ordinary.c,pcm_fuel_governor_ordinary,implemented_algorithm,8FCC..900D ordinary baseline updates and candidate TPS,Check first-stage versus second-stage 0286 retained writes
+src/fuel/fuel_governor_lead.c,pcm_fuel_governor_lead,implemented_algorithm,9010..9096 lead RPM and temperature derivative branches,Check table interpolation CC signed BLT and source branch paths
+src/fuel/fuel_governor_finish.c,pcm_fuel_governor_finish,implemented_algorithm,9097..90D2 auxiliary bound and requested TPS publication,Check stale B flags and stepwise 50E2 rereads under failure
+src/fuel/fuel_governor_compute.c,pcm_fuel_governor_compute,implemented_outline,8F5F..90D2 joined ordinary/lead command builder,Use complete target in scheduled 852C fuel tail and compare stock cycle
