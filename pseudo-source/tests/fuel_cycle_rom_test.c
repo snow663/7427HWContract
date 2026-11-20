@@ -3,6 +3,7 @@
  * Input ROM file is SHA-checked by the Python caller, NEVER flash output. */
 #define PCM_DELIVERY_TEST_MAIN inherited_full_entry_main
 #include "fuel_delivery_test.c"
+#include "fuel_ram_owners.h"
 #undef PCM_DELIVERY_TEST_MAIN
 
 static uint16_t be(const uint8_t *memory,uint16_t a)
@@ -95,7 +96,11 @@ static uint8_t B(const Pcm *p,uint16_t a,const Fixture *f)
     case 0x0231:return p->fuel.volumetric_efficiency;
     case 0x020f:return p->fuel.integrator;
     case 0x01d5:return p->fuel.raw_oxygen;
-    default:return f->memory[a];
+    default: {
+        uint8_t owner;
+        if(pcm_fuel_ram_owner_read8(p,a,f->memory[a],&owner))return owner;
+        return f->memory[a];
+    }
     }
 }
 static const uint16_t check_addresses[]={
