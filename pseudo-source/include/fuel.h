@@ -4,6 +4,10 @@
 /* Initial scheduled-fuel ignition and watchdog prefix, BMHM $7D4B..$7DB5.
  * The later input/tail dispatch is not wired until all ordered callees exist. */
 PcmStatus pcm_fuel_ignition_precheck(Pcm *);
+/* $7DB6..$7E4E, follows precheck; $90D3 governor remains a gated dependency. */
+PcmStatus pcm_fuel_input_precalculate(Pcm *);
+/* Contiguous $7D4B..$7E4E callable source; not yet the scheduled fuel root. */
+PcmStatus pcm_fuel_input_prefix(Pcm *);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
