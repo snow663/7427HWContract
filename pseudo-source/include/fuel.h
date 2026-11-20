@@ -17,6 +17,8 @@ PcmStatus pcm_fuel_governor_target(Pcm *);
 PcmStatus pcm_fuel_governor_drive(Pcm *);
 /* BMHM $8EC9..$8EDA: unsigned RPM-target difference and 0075.2 direction. */
 PcmStatus pcm_fuel_governor_error(Pcm *);
+/* BMHM $8EE4..$8F3A: fourfold VSS delta, 0075 latches and TPS seed. */
+PcmStatus pcm_fuel_governor_vss_gate(Pcm *);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
