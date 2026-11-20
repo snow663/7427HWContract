@@ -32,7 +32,9 @@ static PcmStatus write8(void *v,uint16_t a,uint8_t value)
 }
 static PcmStatus write16(void *v,uint16_t a,uint16_t value)
 {
-    Fixture *f=v;++f->used;f->memory[a]=(uint8_t)(value>>8);
+    Fixture *f=v;++f->used;
+    if(a==0x306cu && f->governor_fail)return PCM_NO_HARDWARE;
+    f->memory[a]=(uint8_t)(value>>8);
     f->memory[(uint16_t)(a+1u)]=(uint8_t)value;return PCM_OK;
 }
 static PcmStatus mask_irq(void *v,bool masked)
@@ -87,26 +89,29 @@ static void test_no_governor(void)
     CHECK(pcm.spark.density==(uint16_t)(100u*65536u/694u+2649u));
     CHECK(f.governor_calls==0 && pcm.unresolved_task==PCM_TASK_COUNT);
 }
-static void test_governor_boundary(void)
+static void test_resident_governor(void)
 {
     static Fixture f;Pcm pcm;init(&f,&pcm,true,false);
-    CHECK(pcm_fuel_input_prefix(&pcm)==PCM_UNIMPLEMENTED);
-    CHECK(pcm.unresolved_task==PCM_FUEL_GOVERNOR);
+    CHECK(pcm_fuel_input_prefix(&pcm)==PCM_OK);
+    CHECK(pcm.unresolved_task==PCM_TASK_COUNT);
+    CHECK(pcm.transmission.governor_throttle_error==80);
     CHECK(pcm.io.map_hold==1 && pcm.reference.throttle==80);
     CHECK(pcm.fuel.oxygen_filtered!=0);
-    CHECK(pcm.spark.density==0x1111);
+    CHECK(f.memory[0x306c]==0x1f && f.memory[0x306d]==0);
+    CHECK(pcm.spark.density==(uint16_t)(100u*65536u/694u+2649u));
     CHECK(f.memory[PCM_COPRST]==0x55);
 }
 static void test_governor_success_failure(void)
 {
     static Fixture f;Pcm pcm;init(&f,&pcm,true,true);
     CHECK(pcm_fuel_input_prefix(&pcm)==PCM_OK);
-    CHECK(f.governor_calls==1 && f.governor_throttle==80);
-    CHECK(f.governor_oxygen!=0 && f.governor_previous_density==0x1111);
-    CHECK(pcm.spark.map_filtered==103 && pcm.spark.density==(uint16_t)(103u*65536u/694u+2649u));
+    CHECK(f.governor_calls==0 && pcm.unresolved_task==PCM_TASK_COUNT);
+    CHECK(f.memory[0x306c]==0x1f);
+    CHECK(pcm.spark.map_filtered==100 && pcm.spark.density==(uint16_t)(100u*65536u/694u+2649u));
     init(&f,&pcm,true,true);f.governor_fail=true;
     CHECK(pcm_fuel_input_prefix(&pcm)==PCM_NO_HARDWARE);
-    CHECK(f.governor_calls==1 && pcm.spark.density==0x1111);
+    CHECK(f.governor_calls==0 && pcm.spark.density==0x1111);
+    CHECK(f.memory[0x306c]==0 && pcm.transmission.governor_throttle_error==80);
 }
 static void test_early_stop(void)
 {
@@ -121,15 +126,15 @@ static void test_early_stop(void)
     init(&f,&pcm,false,false);f.memory[0x027f]=16;
     CHECK(pcm_fuel_cycle(&pcm)==PCM_HALT_BOUNDARY);
     CHECK(pcm.spark.density==0x1111 && pcm.reference.throttle==11);
-    init(&f,&pcm,true,false);
-    CHECK(pcm_fuel_cycle(&pcm)==PCM_UNIMPLEMENTED);
-    CHECK(pcm.unresolved_task==PCM_FUEL_GOVERNOR && pcm.spark.density==0x1111);
+    init(&f,&pcm,true,false);f.governor_fail=true;
+    CHECK(pcm_fuel_cycle(&pcm)==PCM_NO_HARDWARE);
+    CHECK(pcm.unresolved_task==PCM_TASK_COUNT && pcm.spark.density==0x1111);
 }
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
-    test_no_governor();test_governor_boundary();
+    test_no_governor();test_resident_governor();
     test_governor_success_failure();test_early_stop();
-    puts("Joined MAP/TPS/O2/density, optional governor and early-stop contracts pass.");
+    puts("Joined MAP/TPS/O2/density, resident governor command and early-stop contracts pass.");
     return 0;
 }
