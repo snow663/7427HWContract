@@ -77,6 +77,7 @@ static void init(Fixture *f,Pcm *pcm)
     pcm->spark.bypass_supervision=true;
     pcm->fuel.oxygen_activity=pcm->fuel.oxygen_warmed=true;
     pcm->spark.run_transition=true;
+    pcm->scheduler.clear_after_run_count=true; /* unmasked $0004.4 survives */
     pcm->knock.bank_fault=pcm->spark.est_fault=true;
     pcm->scheduler.run_counter=0x1234;
     pcm->reference.delivered_pulse=0x5678;
