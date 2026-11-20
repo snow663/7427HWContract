@@ -1,14 +1,9 @@
 #include "scheduler.h"
 #include "board_io.h"
-/* BMHM $7AAD..$7AB6:
- * JSR C583: resident BARO/air-charge input and derived coordinates
- * JSR C668: resident speed-source selection (F436 lag in fallback)
- * JSR ADAA: non-electronic TCC gate, still needs verified source C body
- *
- * The default remains the old dependency to preserve existing target and
- * kernel assumptions. The explicit source-mode guard runs the first two
- * real bodies in factory order; unresolved ADAA remains visible, never
- * skipped or replaced by an invented success. */
+/* Stock BMHM $7AAD..$7AB6. All three scheduled calls now have resident
+ * C bodies, preserving BARO -> speed-source -> non-electronic TCC order.
+ * Default continues to use existing platform task until full physical
+ * provider equivalence/target ABI gates are satisfied. */
 PcmStatus pcm_slot_01(Pcm *pcm)
 {
     if(pcm==NULL || pcm->platform==NULL)return PCM_BAD_CONFIGURATION;
@@ -18,9 +13,5 @@ PcmStatus pcm_slot_01(Pcm *pcm)
     if(status!=PCM_OK)return status;
     status=pcm_speed_source(pcm);
     if(status!=PCM_OK)return status;
-    if(pcm->platform->call_address==NULL) {
-        pcm->unresolved_task=PCM_SLOT_01;
-        return PCM_UNIMPLEMENTED;
-    }
-    return pcm->platform->call_address(pcm->platform->context,0xadaau);
+    return pcm_tcc_non_electronic(pcm);
 }
