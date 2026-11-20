@@ -29,8 +29,10 @@ This default is resident in `pcm_fuel_governor_target`, with canonical
 owner `PcmTransmission.governor_requested_throttle`. When enabled,
 running and $006F&$34 equals zero, the source continues at $8EC9.
 The $8EC9..$8EDA signed error and direction flag are now resident in
-`pcm_fuel_governor_error`, while `PCM_GOVERNOR_TARGET` is the explicit
-$8EDB..$90D2 boundary, including optional $1809 carry behavior. The earlier $90D3 actuator call reached at $7E3D when $400F.0 is
+`pcm_fuel_governor_error`. The $8EDB optional $1809 call is an explicit
+`PCM_GOVERNOR_HEADSUP` interface, carrying A and C through transient state.
+$8EE4..$8F3A VSS/hysteresis processing is resident. `PCM_GOVERNOR_TARGET`
+now covers only the remaining $8F3B..$90D2 controller. The earlier $90D3 actuator call reached at $7E3D when $400F.0 is
 set is now resident as `pcm_fuel_governor_drive`. Its bus command at $306C
 remains dependent on the physical provider. No guessed PID gains, throttle targets, actuator
 commands or optional $1809 heads-up semantics are supplied.
