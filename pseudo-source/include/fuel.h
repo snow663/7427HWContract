@@ -21,6 +21,12 @@ PcmStatus pcm_fuel_governor_error(Pcm *);
 PcmStatus pcm_fuel_governor_vss_gate(Pcm *);
 /* $8F3B..$8F5C: signed target-error TPS gate, control path selector. */
 PcmStatus pcm_fuel_governor_tps_mode(Pcm *,bool *ordinary);
+/* BMHM $8F5F..$90D2: separate rate, ordinary, lead and final command stages. */
+PcmStatus pcm_fuel_governor_rate(Pcm *);
+PcmStatus pcm_fuel_governor_ordinary(Pcm *,uint8_t *candidate);
+PcmStatus pcm_fuel_governor_lead(Pcm *,uint8_t *candidate);
+PcmStatus pcm_fuel_governor_finish(Pcm *,uint8_t candidate);
+PcmStatus pcm_fuel_governor_compute(Pcm *,bool ordinary);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
