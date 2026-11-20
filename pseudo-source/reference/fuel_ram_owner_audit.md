@@ -25,7 +25,7 @@ This is a correctness and live-injector safety boundary.
 
 | Logical RAM | Source action/consumer | Existing canonical C owner | Provider status |
 |---|---|---|---|
-| $027E..$027F | Read, increment, write ignition/cycle count at 7D4B/7DAD | **Not yet named** | New owner required |
+| $027E..$027F | Read, increment, write ignition/cycle count at 7D4B/7DAD | `system.fuel_ignition_counter` (new) | Provider alias pending |
 | $0044.4 | Source ignition-qualified gate | `reference.latch_inhibited` (same bit, current naming) | Must reconcile gate meaning |
 | $0004.7 | Restart clear | `spark.bypass_supervision` | Alias needed |
 | $0004.1/.0 | Restart clear | `fuel.oxygen_warmed`, `fuel.oxygen_activity` | Alias needed |
@@ -38,12 +38,12 @@ This is a correctness and live-injector safety boundary.
 | $02CE | Reset event age | `reference.event_age` | Alias needed |
 | $0268 | Reset enrichment age | `fuel.enrichment_age` | Alias needed |
 | $0051.3 | Restart/off history | `system.ignition_off` | Alias needed |
-| $0086.3 | Ignition off/on latch | **Not yet named** (other bits have owners) | Name and alias needed |
+| $0086.3 | Ignition off/on latch | `system.retained_initialized` (bit3) | Provider alias pending |
 | $004F.7/.4 | Clear running spark/fuel | `runtime.spark_running`, `runtime.fuel_running` | Critical alias needed |
 | $0046.7 | Clear previous CL history | `fuel.closed_seen` | Alias needed |
 | $0044.3 | Clear first-reference latch | `spark.first_reference` | Alias needed |
 | $003E.3 | Clear startup context flag | `io.coolant_context` bit3 | Masked alias needed |
-| $0223 | Reset EGR diagnostic count | **Not yet named** | Owner required |
+| $0223 | Reset EGR diagnostic count | `io.egr_failure_count` (new) | Provider alias pending |
 | $027D | Reset cold P/N time | `fuel.startup_park_hold` | Alias needed |
 | $3039 | $08 before trap | Physical board register | Explicit device write |
 | $303A | $55 COP continuation | `PCM_COPRST` device register | Explicit device write |
