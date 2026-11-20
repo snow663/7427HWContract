@@ -192,6 +192,10 @@ if(BUILD_TESTING)
   add_executable(pcm_slow_slot_01_tests tests/slow_slot_01_test.c)
   target_link_libraries(pcm_slow_slot_01_tests PRIVATE pcm_pseudo_source)
   add_test(NAME slow_slot_01_contracts COMMAND pcm_slow_slot_01_tests --contracts)
+  add_executable(pcm_tcc_non_electronic_rom_tests tests/tcc_non_electronic_rom_test.c)
+  target_link_libraries(pcm_tcc_non_electronic_rom_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME tcc_non_electronic_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_tcc_non_electronic_rom.py $<TARGET_FILE:pcm_tcc_non_electronic_rom_tests>)
+  set_tests_properties(tcc_non_electronic_rom_differential PROPERTIES COST 120)
   # Long independent ROM suites start first on fresh CI runners. These relative
   # costs affect scheduling only; every selected test still runs.
   set_tests_properties(scheduled_input_rom_differential PROPERTIES COST 1200)
