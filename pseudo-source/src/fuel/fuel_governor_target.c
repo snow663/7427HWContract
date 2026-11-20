@@ -1,7 +1,8 @@
 #include "fuel.h"
 
-/* BMHM $8EB4..$8EC8: early source gates and default target. The eligible
- * $8EC9+ governor body remains an explicit task, not a guessed command. */
+/* BMHM $8EB4..$8EC8 default gates and resident $8EC9..$8EDA
+ * direction/magnitude. The $8EDB..$90D2 governing body remains an
+ * explicit task including optional $1809 carry/flags semantics. */
 PcmStatus pcm_fuel_governor_target(Pcm *pcm)
 {
     if (pcm==NULL || pcm->calibration==NULL) return PCM_BAD_CONFIGURATION;
@@ -16,5 +17,7 @@ PcmStatus pcm_fuel_governor_target(Pcm *pcm)
         pcm->transmission.governor_requested_throttle=255;
         return PCM_OK;
     }
+    result=pcm_fuel_governor_error(pcm);
+    if(result!=PCM_OK)return result;
     return pcm_run_task(pcm,PCM_GOVERNOR_TARGET);
 }
