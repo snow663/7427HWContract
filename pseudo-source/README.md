@@ -276,7 +276,10 @@ still block promotion of the broad `PCM_FUEL_CONTROL` task. See the
 The branch registers 81 CTest entries (36 ROM differential suites). All 45
 fast source contracts, including the canonical RAM owner and joined fuel-cycle
 host fixtures, and the focused governor/ignition BMHM ROM suites passed on
-[development CI](https://github.com/snow663/7427HWContract/actions/runs/44748475806).
+[development CI](https://github.com/snow663/7427HWContract/actions/runs/44749213748).
+The actual `pcm_fuel_control` entry is now connected to the full source
+cycle only under a dual platform guard (`enable_resident_fuel_cycle` plus
+`bind_fuel_ram_owners`), while default source behavior remains delegated.
 Full joined-cycle ROM parity, full target provider and the release-wide ROM
 suite are pending. See [joined fuel contract](reference/fuel_cycle_joined_contract.md).
 
