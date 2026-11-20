@@ -51,9 +51,12 @@ repository fixtures have **not yet** run against the full integrated project
 or been compared with the executable BMHM ROM after this branch change.
 That work belongs to focused development validation and the final PR gate.
 
-Next implementation order: inspect/port the source's $852C phase-selected
-tail and its resident or missing callees, connect it to the verified
-$7E4F..$852B calculation, then replace the broad fuel-task binding.
+The callable $852C phase-selected tail and a joined $7D4B..$8547
+`pcm_fuel_cycle` are now committed separately. See
+[fuel_scheduled_tail_contract.md](fuel_scheduled_tail_contract.md).
+Next implementation order: resolve active governor callees, verify the
+canonical provider aliases and full source-order histories, then replace
+the broad fuel-task binding.
 Verify special crank, VATS/authorization, governor-option, failure-prefix,
 phase-flag and output histories **before** admitting it to foreground
 dispatch. Do not infer flashed BIN/actuator proof from host comparisons.
