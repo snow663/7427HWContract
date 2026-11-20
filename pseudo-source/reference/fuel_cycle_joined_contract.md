@@ -2,9 +2,14 @@
 
 The resident `pcm_fuel_cycle` composes the stock order of ignition/COP
 precheck, MAP/TPS/O2 and density prelude, existing crank/running calculation
-and pulse delivery, and the $852C phase-selected tail. It remains callable
-C, **not yet admitted** as the default `PCM_FUEL_CONTROL` fast dispatcher
-root or flashable HC11 code.
+and pulse delivery, and the $852C phase-selected tail. The default `PCM_FUEL_CONTROL` fast-dispatch root still delegates to the
+explicit task. A new `PcmPlatform.enable_resident_fuel_cycle` **research-only
+opt-in**, guarded by `bind_fuel_ram_owners`, connects the actual
+`pcm_fuel_control()` wrapper to the contiguous source cycle. Missing
+RAM binding fails closed with `PCM_BAD_CONFIGURATION` before any bus
+operation. The host test verifies the default/delegated, denied/missing
+provider and admitted/successful paths. This does **not** authorize
+hardware deployment or establish a flashable HC11 BIN.
 
 ## Grounded verification
 
@@ -23,7 +28,7 @@ new production RAM mirror.
 | Ignition elapsed at threshold | $7D4B prefix clears running state through canonical RAM aliases, updates terminal board $3039 and IRQ mask, returns `PCM_HALT_BOUNDARY` before fuel delivery; no injector write |
 | Early bus failure at provider operations 1..4 | No later injector output or density publication; completed initial count writes are retained according to their exact failure position |
 
-The [development fast gate](https://github.com/snow663/7427HWContract/actions/runs/44748475806)
+The [development fast gate](https://github.com/snow663/7427HWContract/actions/runs/44749213748)
 passes **45/45 fast contracts** including the joined fixture, and passes
 both independent **governor** and **ignition** BMHM C/ROM differential
 suites. The latter stops at the deliberate $CF terminal instruction
