@@ -15,6 +15,7 @@ PcmStatus pcm_coolant_input(Pcm *);
 PcmStatus pcm_mat_input(Pcm *);
 PcmStatus pcm_baro_input(Pcm *);
 PcmStatus pcm_speed_source(Pcm *);
+PcmStatus pcm_tcc_non_electronic(Pcm *);
 PcmStatus pcm_baro_seed(Pcm *);
 PcmStatus pcm_transmission_throttle(Pcm *);
 #endif
