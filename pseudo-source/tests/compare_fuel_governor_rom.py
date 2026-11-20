@@ -55,7 +55,7 @@ BASE={0x400f:1,0x4f:0x80,0x86:0,0x6f:0,0x75:0,0x1d9:80,
     0x284:0,0x285:0x80,0x28d:0,0x293:5,0x294:7,
     0x299:64,0x29a:11,0x292:0,0x295:0,0x296:0,0x297:0,0x298:0,
     0x306c:0,0x306d:0,0x51:0,0x3b:0,0x393:0,0x394:0,
-    0x901:77} | word(0x286,0x6400) | word(0x288,0x1000) | \
+    0x901:77,0x902:0,0x903:0,0x904:0} | word(0x286,0x6400) | word(0x288,0x1000) | \
     word(0x28a,0x0120) | word(0x290,0x0180) | word(0x28e,0x1200)
 
 START=[0x8eb4,0x8f5f,0x9010,0x90d3,0x8f5f,0x8fcc,0x9010,0x9097]
@@ -78,7 +78,14 @@ def execute(item):
             return {'status':0,'value':cpu.s.a if mode in (5,6) else 0,
                 'state':[memory.mem[a] for a in ADDRS]}
         if pc==0x1809:
-            raise AssertionError('Unmodeled optional $1809 reached: case must clear $0086.6')
+            # Optional external ABI replay: synthetic return, NOT real module.
+            if not memory.mem[0x902]:
+                raise AssertionError('Optional 1809 called without a synthetic module')
+            cpu.s.a=memory.mem[0x904]
+            if memory.mem[0x903]&1:cpu.s.ccr|=1
+            else:cpu.s.ccr&=~1
+            cpu.s.pc=cpu._pull16()
+            continue
         coverage.add(pc)
         cpu.step()
     raise AssertionError(f'Governor PC budget exceeded: mode={mode}, pc={cpu.s.pc:04X}')
@@ -146,5 +153,14 @@ with tempfile.TemporaryDirectory(prefix='pcm-governor-rom-') as temp:
     counts['random']=compare(random_cases,'random RAM, service and calibration states')
     # Real instruction-address coverage; only the original $1809 module
     # branch is an intentionally excluded external frontier.
+    optional=[]
+    for flags,carry,result,target,actual in product(
+        [0,1,4,0x40,0x80,0xff],[0,1],[0,1,17,128,255],
+        [0,40,127,255],[0,40,127,255]):
+        changes={0x86:0x40,0x902:1,0x903:carry,0x904:result,
+                 0x75:flags,0x50d8:target,0x28e:actual,0x6f:0,
+                 0x400f:1,0x4f:0x80}
+        optional.append(case(0,changes))
+    counts['optional']=compare(optional,'synthetic optional 1809 A/carry early skip and continuation')
     print(f'{sum(counts.values()):,} source/ROM governor differential cases; '
           f'{len(coverage)} reachable instruction starts encountered.')
