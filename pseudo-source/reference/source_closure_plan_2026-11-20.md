@@ -43,3 +43,11 @@ This is an execution ledger, not an assertion of completed work. Existing routin
 Factory source is the BMHM stock ROM, not ambiguous HAC comments. Consult literal instructions, bytes, branch targets and execution traces before porting routines. Preserve INT additive/P correction and BLM multiplicative application; do not replace them with two independent multipliers. Reuse established source bodies and named state owners rather than creating parallel RAM image state. Include ordinary, boundary, retained-history and failure-prefix witnesses for each stage.
 
 `pseudo-source/routine_index.csv` is the authoritative public C routine inventory. Notes and old counts in `docs/WORKING_STATE.md` and `pseudo-source/README.md` can lag implementation; update them by milestones with evidence. Keep target/flash claims separate from C compilation and ROM-differential claims.
+
+## Fast branch verification
+
+The dedicated `.github/workflows/pseudo-source-fast-validation.yml` runs
+only host C compilation, contracts and provenance on updates to this cumulative
+source branch. It explicitly excludes `rom_differential` jobs and cancels
+superseded branch runs. The full 34 ROM comparison suites and broader GitHub
+checks remain the single-PR release gate, not a per-commit development tax.
