@@ -70,9 +70,12 @@ recorded ROM calibration, directed edge cases and randomized histories.
 It deliberately excludes the unresolved optional $1809 ABI and labels
 its sparse recorded-ROM view as nonflashable.
 
-**Registration is not execution.** This branch has no published
-integrated test run or confirmed full BMHM C/ROM parity for the newly
-ported controller. The fast dispatcher still delegates the broad
+The branch-specific GitHub Actions run
+[44744985921](https://github.com/snow663/7427HWContract/actions/runs/44744985921)
+passed all 43 quick contracts and the focused governor C/ROM replay,
+covering normal/lead/actuator paths across directed and random BMHM
+state/calibration histories. This is bounded source parity rather than
+a full target ABI, $1809 or connected fuel-cycle proof. The fast dispatcher still delegates the broad
 `PCM_FUEL_CONTROL` routine until provider aliases, complete
 $7D4B..$8547 cycles, and emitted injector safety boundaries are
 tested. The code remains nonflashable source, not a PCM BIN.
