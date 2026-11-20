@@ -158,6 +158,9 @@ if(BUILD_TESTING)
   add_executable(pcm_fuel_governor_error_tests tests/fuel_governor_error_test.c)
   target_link_libraries(pcm_fuel_governor_error_tests PRIVATE pcm_pseudo_source)
   add_test(NAME fuel_governor_error_contracts COMMAND pcm_fuel_governor_error_tests --contracts)
+  add_executable(pcm_fuel_governor_vss_tests tests/fuel_governor_vss_gate_test.c)
+  target_link_libraries(pcm_fuel_governor_vss_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME fuel_governor_vss_contracts COMMAND pcm_fuel_governor_vss_tests --contracts)
   # Long independent ROM suites start first on fresh CI runners. These relative
   # costs affect scheduling only; every selected test still runs.
   set_tests_properties(scheduled_input_rom_differential PROPERTIES COST 1200)
