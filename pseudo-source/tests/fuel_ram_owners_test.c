@@ -22,16 +22,14 @@ static PcmStatus read8(void *ctx,uint16_t address,uint8_t *out)
 {
     Fixture *f=ctx;
     PcmStatus result=operation(f);if(result!=PCM_OK)return result;
-    if(!pcm_fuel_ram_owner_read8(f->pcm,address,f->provider[address],out))
-        *out=f->provider[address];
+    *out=f->provider[address];
     return PCM_OK;
 }
 static PcmStatus read16(void *ctx,uint16_t address,uint16_t *out)
 {
     Fixture *f=ctx;
     PcmStatus result=operation(f);if(result!=PCM_OK)return result;
-    if(!pcm_fuel_ram_owner_read16(f->pcm,address,out))
-        *out=(uint16_t)(((uint16_t)f->provider[address]<<8)|
+    *out=(uint16_t)(((uint16_t)f->provider[address]<<8)|
                  f->provider[(uint16_t)(address+1u)]);
     return PCM_OK;
 }
@@ -39,7 +37,6 @@ static PcmStatus write8(void *ctx,uint16_t address,uint8_t value)
 {
     Fixture *f=ctx;
     PcmStatus result=operation(f);if(result!=PCM_OK)return result;
-    (void)pcm_fuel_ram_owner_write8(f->pcm,address,value);
     f->provider[address]=value;
     return PCM_OK;
 }
@@ -47,7 +44,6 @@ static PcmStatus write16(void *ctx,uint16_t address,uint16_t value)
 {
     Fixture *f=ctx;
     PcmStatus result=operation(f);if(result!=PCM_OK)return result;
-    (void)pcm_fuel_ram_owner_write16(f->pcm,address,value);
     f->provider[address]=(uint8_t)(value>>8);
     f->provider[(uint16_t)(address+1u)]=(uint8_t)value;
     return PCM_OK;
@@ -64,6 +60,7 @@ static void init(Fixture *f,Pcm *pcm)
     f->pcm=pcm;f->platform.context=f;f->platform.read8=read8;
     f->platform.read16=read16;f->platform.write8=write8;
     f->platform.write16=write16;f->platform.mask_irq=mask;
+    f->platform.bind_fuel_ram_owners=true;
     pcm->platform=&f->platform;
     f->provider[0x0004]=0x60; /* unowned bits 6/5 survive owned writes */
     f->provider[0x0044]=0x20; /* unowned bit5 survives */
@@ -109,17 +106,17 @@ static void test_reset_and_word_alias(void)
     CHECK(p.scheduler.profiling_enabled && p.spark.first_reference);
     CHECK(f.provider[PCM_COPRST]==0x55 && !f.masked);
     uint8_t byte;
-    CHECK(read8(&f,0x0004,&byte)==PCM_OK && byte==0x70); /* residual60 + bit4 */
-    CHECK(read8(&f,0x0044,&byte)==PCM_OK && (byte&0x20u));
-    CHECK(read8(&f,0x004f,&byte)==PCM_OK && byte==0x02);
-    CHECK(read8(&f,0x0086,&byte)==PCM_OK && (byte&0x40u) && !(byte&8u));
-    CHECK(read8(&f,0x027e,&byte)==PCM_OK && byte==0);
-    CHECK(read8(&f,0x027f,&byte)==PCM_OK && byte==9);
-    CHECK(write8(&f,0x027e,0x12)==PCM_OK);
-    CHECK(write8(&f,0x027f,0x34)==PCM_OK);
+    CHECK(pcm_read8(&p,0x0004,&byte)==PCM_OK && byte==0x70); /* residual60 + bit4 */
+    CHECK(pcm_read8(&p,0x0044,&byte)==PCM_OK && (byte&0x20u));
+    CHECK(pcm_read8(&p,0x004f,&byte)==PCM_OK && byte==0x02);
+    CHECK(pcm_read8(&p,0x0086,&byte)==PCM_OK && (byte&0x40u) && !(byte&8u));
+    CHECK(pcm_read8(&p,0x027e,&byte)==PCM_OK && byte==0);
+    CHECK(pcm_read8(&p,0x027f,&byte)==PCM_OK && byte==9);
+    CHECK(pcm_write8(&p,0x027e,0x12)==PCM_OK);
+    CHECK(pcm_write8(&p,0x027f,0x34)==PCM_OK);
     CHECK(p.system.fuel_ignition_counter==0x1234);
-    CHECK(read8(&f,0x027e,&byte)==PCM_OK && byte==0x12);
-    CHECK(read8(&f,0x027f,&byte)==PCM_OK && byte==0x34);
+    CHECK(pcm_read8(&p,0x027e,&byte)==PCM_OK && byte==0x12);
+    CHECK(pcm_read8(&p,0x027f,&byte)==PCM_OK && byte==0x34);
     CHECK(!pcm_fuel_ram_owner_read8(&p,0x0bad,0,NULL));
     CHECK(!pcm_fuel_ram_owner_write8(&p,0x0bad,123));
     CHECK(!pcm_fuel_ram_owner_read16(&p,0x0bad,NULL));
@@ -172,26 +169,39 @@ static void test_roundtrip_shared_bits(void)
     const uint16_t words[]={0x00fd,0x024c,0x027e,0x01d2};
     for(unsigned n=0;n<4;++n) {
         uint16_t a=words[n],v;
-        CHECK(write16(&f,a,0x55aau)==PCM_OK);
-        CHECK(read16(&f,a,&v)==PCM_OK && v==0x55aau);
-        CHECK(write8(&f,a,0x12)==PCM_OK);
-        CHECK(write8(&f,(uint16_t)(a+1),0x34)==PCM_OK);
-        CHECK(read16(&f,a,&v)==PCM_OK && v==0x1234u);
+        CHECK(pcm_write16(&p,a,0x55aau)==PCM_OK);
+        CHECK(pcm_read16(&p,a,&v)==PCM_OK && v==0x55aau);
+        CHECK(pcm_write8(&p,a,0x12)==PCM_OK);
+        CHECK(pcm_write8(&p,(uint16_t)(a+1),0x34)==PCM_OK);
+        CHECK(pcm_read16(&p,a,&v)==PCM_OK && v==0x1234u);
     }
     const uint16_t bytes[]={0x0004,0x0019,0x003e,0x0041,0x0044,
       0x0046,0x0047,0x004f,0x0050,0x0051,0x0086};
     for(unsigned n=0;n<sizeof(bytes)/sizeof(bytes[0]);++n) {
         uint16_t a=bytes[n];uint8_t old,after;
-        CHECK(read8(&f,a,&old)==PCM_OK);
-        CHECK(write8(&f,a,(uint8_t)(old^0xffu))==PCM_OK);
-        CHECK(read8(&f,a,&after)==PCM_OK);
+        CHECK(pcm_read8(&p,a,&old)==PCM_OK);
+        CHECK(pcm_write8(&p,a,(uint8_t)(old^0xffu))==PCM_OK);
+        CHECK(pcm_read8(&p,a,&after)==PCM_OK);
         CHECK(after==(uint8_t)(old^0xffu));
     }
+}
+static void test_binding_is_opt_in(void)
+{
+    static Fixture f;Pcm p;uint8_t value;
+    init(&f,&p);
+    f.platform.bind_fuel_ram_owners=false;
+    CHECK(pcm_read8(&p,0x004f,&value)==PCM_OK && value==0x02);
+    CHECK(pcm_write8(&p,0x004f,0)==PCM_OK);
+    CHECK(p.runtime.fuel_running && p.runtime.spark_running);
+    init(&f,&p);
+    CHECK(pcm_read8(&p,0x004f,&value)==PCM_OK && value==0x92);
+    CHECK(pcm_write8(&p,0x004f,0)==PCM_OK);
+    CHECK(!p.runtime.fuel_running && !p.runtime.spark_running);
 }
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
-    test_reset_and_word_alias();test_ignition_off_single_clear();
+    test_binding_is_opt_in();test_reset_and_word_alias();test_ignition_off_single_clear();
     test_gate_halt_and_failure_prefix();test_roundtrip_shared_bits();
     puts("Fuel prelude canonical RAM provider aliases, split-word bytes and failure prefixes passed.");
     return 0;
