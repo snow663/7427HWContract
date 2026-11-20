@@ -128,7 +128,15 @@ int main(int argc,char **argv)
             f.memory[addr]=(uint8_t)val;
         }
         load_full(&pcm,&f,&root);
-        PcmStatus status=pcm_fuel_cycle(&pcm);
+        unsigned passes=f.memory[0x905]?f.memory[0x905]:1u;
+        unsigned phase_delta=f.memory[0x906];
+        if(passes>8)return 3;
+        PcmStatus status=PCM_OK;
+        for(unsigned pass=0;pass<passes;++pass) {
+            if(pass) pcm.scheduler.phase=(uint8_t)(pcm.scheduler.phase+phase_delta);
+            status=pcm_fuel_cycle(&pcm);
+            if(status!=PCM_OK)break;
+        }
         printf("{\"status\":%u,\"state\":[",(unsigned)status);
         for(unsigned i=0;i<sizeof(check_addresses)/sizeof(check_addresses[0]);++i)
             printf("%s%u",i?",":"",(unsigned)B(&pcm,check_addresses[i],&f));
