@@ -8,6 +8,9 @@ PcmStatus pcm_fuel_ignition_precheck(Pcm *);
 PcmStatus pcm_fuel_input_precalculate(Pcm *);
 /* Contiguous $7D4B..$7E4E callable source; not yet the scheduled fuel root. */
 PcmStatus pcm_fuel_input_prefix(Pcm *);
+/* $852C phase-dependent tail, guarded $8EB4 governor target. */
+PcmStatus pcm_fuel_scheduled_tail(Pcm *);
+PcmStatus pcm_fuel_governor_target(Pcm *);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
