@@ -13,9 +13,9 @@ skipped producers or output side effects.
 | $7DB6..$7DF0 | existing `pcm_map_transient` | $0041.4/$0089.5 context, RPM delta/idle/O2 flags, held transient MAP application |
 | $7DF1..$7E08 | existing `pcm_fuel_throttle` | Copy previous engine TPS, normalize raw TPS by the transmission zero, fault-default fallback |
 | $7E09..$7E35 | existing `pcm_fuel_oxygen_filter` | Idle/airflow-select gain and low/high clamp before lag filter |
-| $7E36..$7E3F | `PCM_FUEL_GOVERNOR` task | Only if calibration $400F.0; $90D3 body is not ported in this group |
+| $7E36..$7E3F | `pcm_fuel_governor_drive` | Only if calibration $400F.0; now executes $90D3..$9166 proportional/integral duty body |
 | $7E40..$7E4E | existing `pcm_fuel_density` | Zero-extended $01C6 MAP, FDIV by 694 and add $0A59 to density $0257 |
-| $7D4B..$7E4E | `pcm_fuel_input_prefix` | Calls the first two group functions in source order; propagates nonreturning trap and unsupplied governor |
+| $7D4B..$7E4E | `pcm_fuel_input_prefix` | Calls the first two group functions in source order; propagates nonreturning trap and failed governor drive output |
 
 ## Ignition gates and exception boundary
 
@@ -54,9 +54,16 @@ That work belongs to focused development validation and the final PR gate.
 The callable $852C phase-selected tail and a joined $7D4B..$8547
 `pcm_fuel_cycle` are now committed separately. See
 [fuel_scheduled_tail_contract.md](fuel_scheduled_tail_contract.md).
-Next implementation order: resolve active governor callees, verify the
-canonical provider aliases and full source-order histories, then replace
-the broad fuel-task binding.
+The $90D3..$9166 governor PWM/drive body is now resident, including the
+$306C word publication, ordered dual scaled-curve ROM reads, saturation,
+source integral reset and service overrides. The $8EB4 target stage also
+executes its $8EC9..$8EDA signed RPM error prelude; $8EDB..$90D2 and
+optional $1809 remain explicit boundaries. See
+[governor drive contract](fuel_governor_drive_contract.md).
+
+Next implementation order: close the remaining $8EDB..$90D2 governing
+TPS calculation and $1809 interface; verify canonical provider aliases
+and full source-order histories before replacing the broad fuel task.
 Verify special crank, VATS/authorization, governor-option, failure-prefix,
 phase-flag and output histories **before** admitting it to foreground
 dispatch. Do not infer flashed BIN/actuator proof from host comparisons.
