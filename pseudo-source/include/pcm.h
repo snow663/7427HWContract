@@ -34,7 +34,8 @@ typedef enum {
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
     PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
     PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TRANSMISSION_INPUT_PREFIX,
-    PCM_FACTORY_ENTRY, PCM_FUEL_GOVERNOR, PCM_GOVERNOR_TARGET, PCM_TASK_COUNT
+    PCM_FACTORY_ENTRY, PCM_FUEL_GOVERNOR, PCM_GOVERNOR_TARGET,
+    PCM_GOVERNOR_HEADSUP, PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -453,6 +454,9 @@ typedef struct {
     volatile uint16_t governor_proportional, governor_integral_gain; /* 0295,0297 */
     volatile uint16_t governor_integrator; /* 0288, prior signed-direction accumulator */
     volatile uint8_t governor_flags, governor_speed_error; /* 0075,0293 */
+    volatile uint8_t governor_vehicle_error; /* 0294, 4x VSS threshold delta */
+    volatile uint16_t governor_tps_baseline; /* 0286/0287; 8F0F only sets high byte */
+    bool governor_headsup_carry; uint8_t governor_headsup_result; /* transient 1809 ABI */
 } PcmTransmission;
 
 typedef struct {
