@@ -4,47 +4,51 @@ Stock authority: BMHM $7D4B..$7E4E and $852C..$8547 as checked against
 the SHA-identified ROM evidence. C ownership authority:
 `pseudo-source/include/pcm.h` on this branch.
 
-## Why activation is still withheld
+## Current partial provider bridge and why activation is still withheld
 
-The new `pcm_fuel_ignition_precheck` reproduces BMHM memory operations
-through `pcm_read8/read16/write8/write16`, while most already-ported
-calculations use **named C state owners** in `Pcm`. The current
-`PcmPlatform` declares that providers must bind non-serial RAM to
-those named owners, but it supplies no complete concrete mapping.
-A test-only 65536-byte provider satisfies a standalone source slice,
-**not** the complete controller. Without a coherent address provider,
-a clear of $004F.4 on the bus would not change
-`pcm->runtime.fuel_running`, and `pcm_fuel_calculate` could
-select the wrong path in the same scheduled cycle.
+The stock $7D4B ignition prelude uses literal logical RAM accesses through
+`pcm_read8/16` and `pcm_write8/16`; most downstream C calculations
+consume canonical named fields in `Pcm`. The explicit,
+**opt-in** `PcmPlatform.bind_fuel_ram_owners` mode now resolves selected
+fuel-prefix RAM addresses through `fuel_ram_owner_read8/write8/read16/write16`.
+Every access still invokes the original physical-width provider transaction;
+an I/O failure never publishes a subsequent canonical field change.
+Shared flag bytes reconstruct only source-owned bits over the residual
+provider byte, and split big-endian word bytes share the same named word.
 
-Therefore `pcm_fuel_control` must continue to call the explicit
-`PCM_FUEL_CONTROL` dependency until the provider is proven.
-This is a correctness and live-injector safety boundary.
+This sparse bridge is host-tested through the real `pcm_read/write`
+drivers, with the underlying raw test provider deliberately **not**
+mirroring C state. It closes the tested alias split, but is not a complete
+RAM/ASIC/target provider: unknown addresses continue using the raw backend,
+and newly added C producers may need extra owners or a change-order review.
+The default platform flag is **false**; historical suite behavior is intact.
+The broad `pcm_fuel_control` fast-dispatch root remains delegated until
+source ROM and peripheral/optional-module histories justify promotion.
 
 ## Address-to-owner handoff
 
 | Logical RAM | Source action/consumer | Existing canonical C owner | Provider status |
 |---|---|---|---|
-| $027E..$027F | Read, increment, write ignition/cycle count at 7D4B/7DAD | `system.fuel_ignition_counter` (new) | Provider alias pending |
-| $0044.4 | Source ignition-qualified gate | `reference.latch_inhibited` (same bit, current naming) | Must reconcile gate meaning |
-| $0004.7 | Restart clear | `spark.bypass_supervision` | Alias needed |
-| $0004.1/.0 | Restart clear | `fuel.oxygen_warmed`, `fuel.oxygen_activity` | Alias needed |
-| $0004.3 | Reset running transition | `spark.run_transition` | Alias needed |
-| $0019.6/.5 | Clear faults | `reference.bank_fault`, `spark.est_fault` | Alias needed |
-| $00FD..$00FE | Reset source run timer | `scheduler.run_counter` | Word alias needed |
-| $024C..$024D | Reset delivered sync command | `reference.delivered_pulse` | Word alias needed |
-| $0062 | Reset RPM coordinate | `reference.rpm_coordinate` | Alias needed |
-| $02CD | Reset DRP count | `reference.crank_references` | Alias needed |
-| $02CE | Reset event age | `reference.event_age` | Alias needed |
-| $0268 | Reset enrichment age | `reference.enrichment_age` | Alias needed |
-| $0051.3 | Restart/off history | `runtime.ignition_off` | Alias needed |
-| $0086.3 | Ignition off/on latch | `system.retained_initialized` (bit3) | Provider alias pending |
-| $004F.7/.4 | Clear running spark/fuel | `runtime.spark_running`, `runtime.fuel_running` | Critical alias needed |
-| $0046.7 | Clear previous CL history | `fuel.closed_seen` | Alias needed |
-| $0044.3 | Clear first-reference latch | `spark.first_reference` | Alias needed |
-| $003E.3 | Clear startup context flag | `io.coolant_context` bit3 | Masked alias needed |
-| $0223 | Reset EGR diagnostic count | `io.egr_failure_count` (new) | Provider alias pending |
-| $027D | Reset cold P/N time | `fuel.startup_park_hold` | Alias needed |
+| $027E..$027F | Read, increment, write ignition/cycle count at 7D4B/7DAD | `system.fuel_ignition_counter` (new) | Mapped; target provider pending |
+| $0044.4 | Source ignition-qualified gate | `reference.latch_inhibited` (same bit, current naming) | Mapped to canonical bit; semantic review pending |
+| $0004.7 | Restart clear | `spark.bypass_supervision` | Mapped by opt-in sparse adapter; full provider pending |
+| $0004.1/.0 | Restart clear | `fuel.oxygen_warmed`, `fuel.oxygen_activity` | Mapped by opt-in sparse adapter; full provider pending |
+| $0004.3 | Reset running transition | `spark.run_transition` | Mapped by opt-in sparse adapter; full provider pending |
+| $0019.6/.5 | Clear faults | `reference.bank_fault`, `spark.est_fault` | Mapped by opt-in sparse adapter; full provider pending |
+| $00FD..$00FE | Reset source run timer | `scheduler.run_counter` | Word mapped; target provider pending |
+| $024C..$024D | Reset delivered sync command | `reference.delivered_pulse` | Word mapped; target provider pending |
+| $0062 | Reset RPM coordinate | `reference.rpm_coordinate` | Mapped by opt-in sparse adapter; full provider pending |
+| $02CD | Reset DRP count | `reference.crank_references` | Mapped by opt-in sparse adapter; full provider pending |
+| $02CE | Reset event age | `reference.event_age` | Mapped by opt-in sparse adapter; full provider pending |
+| $0268 | Reset enrichment age | `reference.enrichment_age` | Mapped by opt-in sparse adapter; full provider pending |
+| $0051.3 | Restart/off history | `runtime.ignition_off` | Mapped by opt-in sparse adapter; full provider pending |
+| $0086.3 | Ignition off/on latch | `system.retained_initialized` (bit3) | Mapped; target provider pending |
+| $004F.7/.4 | Clear running spark/fuel | `runtime.spark_running`, `runtime.fuel_running` | Opt-in mapped, critical full-cycle test required |
+| $0046.7 | Clear previous CL history | `fuel.closed_seen` | Mapped by opt-in sparse adapter; full provider pending |
+| $0044.3 | Clear first-reference latch | `spark.first_reference` | Mapped by opt-in sparse adapter; full provider pending |
+| $003E.3 | Clear startup context flag | `io.coolant_context` bit3 | Mapped with owned-bit mask |
+| $0223 | Reset EGR diagnostic count | `io.egr_failure_count` (new) | Mapped; target provider pending |
+| $027D | Reset cold P/N time | `fuel.startup_park_hold` | Mapped by opt-in sparse adapter; full provider pending |
 | $3039 | $08 before trap | Physical board register | Explicit device write |
 | $303A | $55 COP continuation | `PCM_COPRST` device register | Explicit device write |
 | $0041.4 | MAP transient AC context | `io.ac_mirror` | Already C-owned |
@@ -89,9 +93,18 @@ not silently renamed.
 
 ## Verified focused slices
 
-The branch fast GitHub Actions gate confirms all 43 existing quick
-contracts and two new ROM comparisons: the $8EB4..$9166 governor
-controller (excluding $1809) and the $7D4B..$7DB5 ignition prelude,
-where ROM execution stops at the deliberate illegal/terminal byte
-$7D8D rather than executing the emulator-unsupported opcode $CF.
-These are scoped tests; the joined full fuel cycle is **not** yet proven.
+The [joined-fuel development run](https://github.com/snow663/7427HWContract/actions/runs/44748475806)
+passed **45 of 45 fast contracts**, including the opt-in RAM-owner
+roundtrips and a connected `pcm_fuel_cycle` test. The joined fixture
+traverses all eight phase values with authorization denied and an actual
+zero-injector-word publication; it also tests an authorized/uninhibited
+running fuel calculation, ignition trap before publication and early
+provider-operation failures. The two independently replayed BMHM ROM
+comparisons also pass: $8EB4..$9166 governor (optional $1809 excluded)
+and $7D4B..$7DB5 ignition, which stops before emulator-unsupported
+terminal opcode $CF at $7D8D.
+
+**This is not full cycle ROM equivalence.** The complete $7D4B..$8547
+joined instructions, interrupted/failure histories, and true target
+module/peripheral binding are not yet independently replayed in one
+test. Default `PCM_FUEL_CONTROL` admission remains delegated.
