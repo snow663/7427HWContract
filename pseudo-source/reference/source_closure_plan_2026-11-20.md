@@ -51,3 +51,17 @@ only host C compilation, contracts and provenance on updates to this cumulative
 source branch. It explicitly excludes `rom_differential` jobs and cancels
 superseded branch runs. The full 34 ROM comparison suites and broader GitHub
 checks remain the single-PR release gate, not a per-commit development tax.
+
+
+## Cross-branch consolidation — 2026-11-22
+
+The separate validated PR48 main history has been reconciled into this
+closure branch through a two-parent commit, without opening a PR or
+merging closure back to main. PR48's default resident fuel/slot01 sources
+and the separately checked closure alternatives are preserved with
+explicit admission flags. The updated source has 374 indexed routines
+and 105 CTest entries. Its [focused combined-source CI](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
+passes **56 fast contracts and 15 selected ROM differentials**.
+Complete 49-ROM release verification, D4EB's unported middle segment,
+all remaining slow slots and native HC11 hardware ABI remain open.
+See [source conflict and validation ledger](reconciliation_2026-11-22.md).
