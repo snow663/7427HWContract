@@ -65,6 +65,7 @@ TARGETS=[
  ('tcc_non_electronic_rom','tcc_non_electronic_rom_test',[],[],['tcc_non_electronic_rom']),
  ('transmission_d4eb_prefix','transmission_d4eb_prefix_test',[],[['--contracts']],['transmission_d4eb_prefix_rom']),
  ('transmission_gear_limit_rom','transmission_gear_limit_rom_test',[],[['--contracts']],['transmission_gear_limit_rom']),
+ ('transmission_gear_finalize_rom','transmission_gear_finalize_rom_test',[],[['--contracts']],['transmission_gear_finalize_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
