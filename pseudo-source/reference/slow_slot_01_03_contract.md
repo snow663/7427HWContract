@@ -49,8 +49,13 @@ a failed callback or failed logical write stops immediately.
 `slow_slot_03_contracts` checks these paths. This slot is still
 an indexed `dependency_boundary`, not closed.
 
-**Next:** port $D4EB and its transitive callees against stock ROM,
-with native lookup/interpolation and state/RAM ownership contracts.
+**Update, Nov 22:** source-backed $D4EB–$D4F7 diagnostics,
+$D5B7–$D69E gear finalizer, $E562 and $D8CE now pass independent
+ROM differentials; the middle $D4F7–$D5B6 and its other callees
+remain outstanding. See [detailed D4EB ledger](transmission_d4eb_source_closure.md).
+
+**Next:** close $D4F7–$D5B6 and remaining helpers without invoking
+the stock $D4EB callback after a partial C prefix.
 The optional module $1806 remains external and cannot be replaced
 by arbitrary success.
 
