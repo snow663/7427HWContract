@@ -93,3 +93,11 @@ Current inventory is 321 routines: 193 implemented outlines, 19 dependency
 boundaries and 109 algorithms. All five EGR bodies are resident; optional1815
 and target execution remain explicit. There are 74 CTest registrations; see the
 [EGR producer contract](egr_producers_contract.md). Full regression is deferred.
+
+The following scheduled-fuel group closes the7D4B controller boundary and adds
+five public ignition/input/tail/governor entries. Current inventory is326 routines:
+199 implemented outlines,18 dependency boundaries and109 algorithms. Its16,493
+focused comparisons cover389 new software starts and real controller/REF joins;
+the source now registers76 CTest checks. See the
+[fuel controller contract](fuel_controller_contract.md). STOP, optional module,
+remaining slow-slot producer and target backend work remain separate.

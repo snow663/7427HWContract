@@ -137,7 +137,7 @@ static void init(Fixture *f, Pcm *pcm) {
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
     pcm->io.diagnostic_sample=100;pcm->reference.map_sample=135;pcm->io.map_filter=0x8700;
-    f->memory[PCM_ADR2]=135;
+    f->memory[PCM_ADR2]=135;f->memory[PCM_ADR4]=130; /* Stable nominal battery input. */
 }
 static void test_initialization_and_missing_contracts(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
@@ -184,8 +184,8 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==160 && f.current_writes==160);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_INPUT_HOUSEKEEPING]==0 && f.shadow_observations==160);
     CHECK(f.counts[PCM_SERIAL_POLL]==0);
-    CHECK(f.watchdog_writes==80); /* The real housekeeping supplies oneAA per even pass. */
-    CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==80);
+    CHECK(f.watchdog_writes==160); /* Housekeeping AA and resident fuel55 on alternate phases. */
+    CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==0);
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==0 && f.counts[PCM_TRANSMISSION_INPUT_PREFIX]==40 && f.counts[PCM_PRESSURE_TCC]==40);
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */

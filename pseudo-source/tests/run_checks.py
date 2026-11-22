@@ -48,6 +48,7 @@ TARGETS=[
  ('timer_stack_guard','timer_stack_guard_test',[],[['--contracts']],['timer_stack_guard_rom']),
  ('egr_control','egr_control_test',[],[['--contracts']],['egr_control_rom']),
  ('egr_producers','egr_producers_test',[],[['--contracts']],['egr_producers_rom']),
+ ('fuel_controller','fuel_controller_test',[],[['--contracts']],['fuel_controller_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',

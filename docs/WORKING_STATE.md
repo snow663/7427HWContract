@@ -15,8 +15,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 321 public routines: 193 implemented outlines,
-19 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 326 public routines: 199 implemented outlines,
+18 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -128,9 +128,10 @@ INT/P/MAP corrections now have checked C bodies. See the
 Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
-Broader fuel/slot1/4/D/F roots remain boundaries. Fuel follow-up includes the7D4B ignition/input
-prefix and852C scheduled tail. Required EGR demand/feedback/control/flow/output
-bodies now run resident C; their optional module and target interfaces remain explicit.
+The complete7D4B..8547 fuel root, including its ignition/input prefix and
+scheduled tail, now runs resident C. Required EGR demand/feedback/control/flow/output
+bodies are also resident. Slot1/4/D/F producer admissions, optional modules and
+target interfaces remain explicit.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -350,23 +351,45 @@ word fraction views bind canonical fuel/spark owners, including a real flow-to-f
 handoff. All eight kernel contract groups pass; the full project suite remains
 deferred. See the EGR producer contract for the exact host/target boundary.
 
+The following group replaces the broad fuel task with resident7D4B..8547 C,
+including separate ignition, inputs, scheduled-tail and governor target/actuator
+entries. Its16,493 focused comparisons cover all389 new software starts,
+367 failed-operation prefixes,128 retained histories and real crank/running/REF
+joins. The new scope stops before7D8C TAP/STOP; optional1809 returns captured A
+and carry through an explicit host dependency. Actual ROM9093 clears the
+anticipation-reduction fraction, correcting the earlier governor note.
+All eight kernel and64 hardware contracts pass. The nominal full-phase fixture
+now supplies a real battery input and observes160 COP writes (housekeeping AA
+and resident fuel55), with zero fuel task callbacks. The EGR suite still passes
+8,950 cases. The preliminary delivery subset passes7,821 comparisons; its8432
+overflow instruction remains outside that quick subset. All337 production/
+calibration files compile strictly. There are76 registered CTest checks.
+See the [fuel controller contract](../pseudo-source/reference/fuel_controller_contract.md).
+Next are remaining slot1/4/F producer admissions and initialization, followed by
+wider scheduled/REF validation. Target startup/interrupt/STOP ABI, backend and
+the eight earlier AE85 transmission-input callees remain explicit. No full
+project suite, PR or merge has run for this group.
+
 ## Tracked milestone: complete fuel calculation and injector control
 
 The goal is a connected, ROM-checked C fuel path from acquired inputs and retained
 state through pulse construction, synchronous/asynchronous arbitration and ordered
 injector-command writes. Complete the fuel-dependent acquisition and producer work
-alongside it. Batch related routines per PR. Publish after local verification;
-report GitHub CI as pending and check its results before a later merge. This is
-a tracked milestone; ALDL and system code are the current implementation priority.
+alongside it. Accumulate related updates on the persistent development branch.
+Run focused checks while developing; defer the full project suite, PR and merge
+until the user's "pull and merge" instruction. ALDL/system work and this fuel
+milestone retain their separate source and target boundaries.
 
 The current implementation already includes the base equation at 7FD8..802F,
 the REF crank/running/decay/common routines, crank event gain, asynchronous output
 at 8548..858A, and their timer helpers. MAP filtering/transient selection, RPM/load,
 VSS and environmental slices also have checked bodies. These are building blocks:
-`pcm_fuel_control` at 7D4B remains an explicit task boundary. The first
+`pcm_fuel_control` now joins7D4B ignition through8547 scheduled return without
+its former task callback. The first
 fuel batch replaced `pcm_adc_feedback` and slot0/2 task boundaries with resident C. The documented upstream and closed-loop/learning contracts now also have the
 callable C stages listed above. Cut/decel/AE-reservoir and sync/async accounting now also have connected C bodies.
-Full caller admissions, scheduled tail and required producer wiring remain work.
+The scheduled tail is resident; remaining slow-slot producer admissions and
+initialization still need their own joined checks.
 
 | Batch | Related implementation work | Joined evidence required |
 |---|---|---|
@@ -374,7 +397,7 @@ Full caller admissions, scheduled tail and required producer wiring remain work.
 | Air charge and fuel input producers (implemented normalization/air slices) | TPS acquisition/zero normalization, BARO, CTS/MAT, density/charge temperature, VE selection; connect existing base arithmetic and environmental/RPM/VSS producers | Producer/consumer state age, lookup neighbors, diagnostic substitutions, scaling, rounding and old-state feedback; complete fuel-required EGR demand/feedback/control/flow/output dependencies as encountered |
 | Fuel modes, commanded AFR and enrichment (callable calculation/reservoir slices implemented) | Startup and crank equation; open-loop/idle AFR, PE and transitions; MAP/TPS/IAC-related AE gains, histories and reservoirs | Cold/hot crank through REF delivery, startup-to-running changes, OL idle and PE admission/exit, retained histories and phase-gated updates |
 | Running corrections and closed-loop learning (callable correction/learning slices implemented) | 8032..83AE EGR/BLM, cut/decel/recovery, RPM/BARO/battery, signed INT/P and MAP AE; O2 filtering/activity/I/P at 863D..891D, AFR/BLM at 891E..8EB3, and slot-F admission producers | BLM saturated doubling versus signed additive INT/P; cut/recovery priority; learning/cell reset/persistence; O2 activity and distinct admission/learning gates |
-| Delivery accounting and controller integration (accounting and7E4F..852B implemented; broad callers pending) | 83B1..84BB sync/async routing, packet/reservoir accounting and shared-state joins; replace the 7D4B fuel task binding; connect fuel-required scheduled producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
+| Delivery accounting and controller integration (resident7D4B..8547 controller implemented; remaining slow producers pending) | Sync/async routing, packet/reservoir accounting, ignition/input/tail and governor joins; connect remaining fuel-required slow-slot producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, wider REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
 
 The batches describe dependency groups, not a claim that each fits one PR. Move
 supporting producers forward when a consumer needs them; preserve one public
@@ -591,7 +614,8 @@ requested yet. Retained boot and controller seeding are implemented on this bran
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
-the five-body EGR demand/feedback/control/flow/output path. Next is the broad scheduled fuel wrapper.
+the five-body EGR demand/feedback/control/flow/output path and complete scheduled
+fuel wrapper. Next are remaining slow-slot producer admissions and target glue.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 

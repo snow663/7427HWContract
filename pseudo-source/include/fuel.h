@@ -80,4 +80,9 @@ PcmStatus pcm_fuel_deliver(Pcm *pcm);
 PcmStatus pcm_fuel_construct(Pcm *pcm);
 PcmStatus pcm_fuel_running(Pcm *pcm);
 PcmStatus pcm_fuel_calculate(Pcm *pcm);
+PcmStatus pcm_fuel_ignition(Pcm *pcm);
+PcmStatus pcm_fuel_inputs(Pcm *pcm);
+PcmStatus pcm_fuel_schedule(Pcm *pcm);
+PcmStatus pcm_governor_target(Pcm *pcm);
+PcmStatus pcm_governor_actuator(Pcm *pcm);
 #endif

@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The working branch contains 321 public routines: 193 implemented outlines, 19 dependency
+The working branch contains 326 public routines: 199 implemented outlines, 18 dependency
 boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
@@ -282,7 +282,13 @@ consumers, optional-hook admission, retained histories and 409 failed-operation
 prefixes. The kernel follow-up verifies demand/fraction/command admission counts
 and coherent fraction-byte owners across a full160-phase cycle. See the
 [EGR producer contract](reference/egr_producers_contract.md).
-Continue with the broad scheduled fuel wrapper and target entry glue.
+The complete7D4B..8547 scheduled fuel controller now runs resident ignition,
+input/calculation and tail bodies, including both governor target/actuator
+paths. Its16,493 focused comparisons cover389 new software instruction starts,
+complete fuel/REF joins and367 failed-operation prefixes. The reducing governor
+branch clears its fraction at9093, correcting an earlier documentation claim.
+See the [fuel controller contract](reference/fuel_controller_contract.md).
+Continue with remaining slow-slot producer admissions and target entry glue.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback
@@ -323,12 +329,12 @@ INT/P/MAP corrections now have checked C bodies. See the
 Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](reference/fuel_delivery_contract.md).
-Next are the broad ignition/input prefix and scheduled tail. The required EGR
+The broad ignition/input prefix and scheduled tail now run resident C. The required EGR
 demand/feedback/control/flow/output bodies and existing admissions now call resident C;
 their physical backend and optional1815 implementation remain explicit.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
-resident bodies directly; broad fuel and slot4 work stays explicit. See the
+resident bodies directly; remaining slot1/4/F producer admissions stay explicit. See the
 [scheduled input contract](reference/scheduled_inputs_contract.md).
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified

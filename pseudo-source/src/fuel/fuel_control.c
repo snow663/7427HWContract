@@ -1,7 +1,10 @@
 #include "control.h"
-/* Reference 7D4B: Ignition handling and scheduled fuel group.
- * Contract boundary: body not ported. An explicit platform binding is required. */
+#include "fuel.h"
+#include "../system/system_internal.h"
+/*7D4B..8547. Resident ignition/input/calculation/tail join. STOP and optional
+ * external modules remain explicit boundaries at their actual admissions. */
 PcmStatus pcm_fuel_control(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_FUEL_CONTROL);
+    SYS_RUN(pcm_fuel_ignition(pcm));SYS_RUN(pcm_fuel_inputs(pcm));
+    SYS_RUN(pcm_fuel_calculate(pcm));return pcm_fuel_schedule(pcm);
 }
