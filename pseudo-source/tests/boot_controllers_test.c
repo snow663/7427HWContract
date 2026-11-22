@@ -91,7 +91,10 @@ static PcmStatus controller_execute(unsigned mode,Pcm *pcm)
     default:return PCM_BAD_CONFIGURATION;
     }
 }
-int main(int argc,char **argv)
+#ifndef PCM_CONTROLLER_FIXTURE_ENTRY
+#define PCM_CONTROLLER_FIXTURE_ENTRY main
+#endif
+int PCM_CONTROLLER_FIXTURE_ENTRY(int argc,char **argv)
 {
     const char *path=getenv("PCM_BOOT_ROM");CHECK(path!=NULL || argc==2);
     if (path!=NULL) {

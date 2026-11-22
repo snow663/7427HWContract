@@ -15,8 +15,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 319 public routines: 187 implemented outlines,
-23 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 321 public routines: 191 implemented outlines,
+21 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -321,9 +321,19 @@ busy/fault/pending recovery join, kernel and hardware contracts also pass. The
 new ROM differential is registered for release; the branch has70 CTest checks.
 See the updated timer guard contract for failed-attempt trace semantics and
 remaining target ABI work. No full-suite run or PR has begun.
-Next are the remaining EGR control/output producers, then demand/flow and the
-broad scheduled fuel wrapper. Target startup/interrupt assembly and the eight
-earlier AE85 transmission-input callees remain explicit.
+The next accumulated group implements EGR control atD1F6..D2B1 and output
+atCDF7..CE0F. The direct-duty route retains prior PI words; the linear route
+preserves live magnitude/direction rereads, saturation and the exactFF00
+proportional overflow cap. Output always publishes a literalF0 high byte.
+Focused verification passes2,662 actual C/ROM comparisons across all90 new
+scoped starts, including real feedback/control/output joins,172 failed-operation
+prefixes and128 retained histories. The shared boot fixture still passes2,773
+comparisons, and kernel/hardware contracts pass. See the
+[EGR control contract](../pseudo-source/reference/egr_control_contract.md).
+There are72 registered CTest checks; full regression and PR creation remain deferred.
+Next are EGR demand/flow and the broad scheduled fuel wrapper. Target
+startup/interrupt assembly and the eight earlier AE85 transmission-input callees
+remain explicit.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -565,8 +575,9 @@ Active development branch: `work/pseudo-source-development`, starting from
 requested yet. Retained boot and controller seeding are implemented on this branch.
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
-Timer stack-guard policy and its focused ROM checks are implemented; the next
-group is the remaining EGR producer/control/output path. The previously completed group #30/#45/#46 remains
+Timer stack-guard policy and its focused ROM checks are implemented, as are
+EGR control/output. Next are EGR demand/flow and the broad scheduled fuel wrapper.
+The previously completed group #30/#45/#46 remains
 historical validation evidence.
 
 ## Historical material

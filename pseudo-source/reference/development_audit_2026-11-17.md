@@ -6,7 +6,7 @@ PR or merge until the user explicitly requests pull/check/merge.
 
 ## Source inventory
 
-The current branch's `routine_index.csv` contains **321 indexed public C
+At this audit checkpoint, `routine_index.csv` contained **321 indexed public C
 routines**, with one public routine per `src/*.c`:
 
 | Class | Count | Interpretation |
@@ -79,3 +79,10 @@ owners coherently. This supersedes the unexecuted-test caveat above for that
 scope only. The branch now has70 registered CTest checks. See the current
 [timer guard contract](timer_stack_guard_contract.md) and
 [working state](../../docs/WORKING_STATE.md); full regression remains deferred.
+
+The following2026-11-22 group replaces the EGR control/output boundaries with
+resident C. It passes2,662 focused actual-ROM comparisons across all90 new
+scoped starts, including the real position-feedback join. Current inventory
+is321 routines:191 implemented outlines,21 dependency boundaries and109
+implemented algorithms. EGR demand/flow remain boundaries. There are72 CTest
+registrations; see the [EGR control contract](egr_control_contract.md).

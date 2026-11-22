@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The working branch contains 321 public routines: 189 implemented outlines, 23 dependency
+The working branch contains 321 public routines: 191 implemented outlines, 21 dependency
 boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
@@ -269,10 +269,14 @@ see the [foreground contract](reference/background_contract.md). The first timer
 arm now includes the preceding TFLG1 acknowledgment. The small trap/reset/XIRQ
 and fallback interrupt bodies are also implemented; see the
 [interrupt-leaf contract](reference/interrupt_leaves_contract.md). Complete factory
-REF now calls its cause/acknowledgment leaf. Next is the timer stack-guard policy
+REF now calls its cause/acknowledgment leaf. The timer stack-guard policy
 at7959..7979 now has6,056 focused ROM comparisons and a passed131,072-case
 host sweep; see the [guard contract](reference/timer_stack_guard_contract.md).
-Continue with remaining EGR producers/control/output and target entry glue.
+The EGR PI/direct-duty controller and literal F0 command publisher now run
+resident C. Their2,662 focused comparisons include real feedback/control/output
+joins, retained histories and172 failed-operation prefixes; see the
+[EGR control contract](reference/egr_control_contract.md).
+Continue with EGR demand/flow, the broad scheduled fuel wrapper and target entry glue.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback

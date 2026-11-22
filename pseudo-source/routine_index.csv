@@ -14,10 +14,10 @@ src/drivers/update8.c,pcm_update8,implemented_outline,New byte read/modify/write
 src/drivers/watchdog_service.c,pcm_watchdog_service,implemented_outline,"79E7..79EE, FA84..FA8B and other literal COP services. */",Retain source/ROM checks; target ABI and timing still need verification
 src/drivers/write16.c,pcm_write16,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
 src/drivers/write8.c,pcm_write8,implemented_outline,New platform/interface contract,Retain source/ROM checks; target ABI and timing still need verification
-src/emissions/egr_control.c,pcm_egr_control,dependency_boundary,D1F6: EGR position and duty controller.,Implement the named body and compare observable state/transactions
+src/emissions/egr_control.c,pcm_egr_control,implemented_outline,"D1F6..D2B1: inhibited/direct-duty/linear PI control with retained words and live scaled curves.",Retain ROM/provider comparisons; demand/flow admissions and target execution remain explicit
 src/emissions/egr_feedback.c,pcm_egr_feedback,implemented_outline,D14E..D1F5: ADC feedback; closed-position tracking; live coefficient lag and position publication.,Retain focused state/transaction and failure-prefix checks; target binding remains explicit
 src/emissions/egr_flow.c,pcm_egr_flow,dependency_boundary,D03E: EGR flow calculation.,Implement the named body and compare observable state/transactions
-src/emissions/egr_output.c,pcm_egr_output,dependency_boundary,CDF7: EGR hardware command publication.,Implement the named body and compare observable state/transactions
+src/emissions/egr_output.c,pcm_egr_output,implemented_outline,"CDF7..CE0F: literal F0 command publication with running duty and stopped-engine override.",Retain ROM/provider comparisons; physical command semantics and timing remain explicit
 src/fuel/crank_event_gain.c,pcm_crank_event_gain,implemented_algorithm,7827..7859: four gain tables and saturated pulse doubling.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/fuel/fuel_async.c,pcm_fuel_async,implemented_outline,"8548..858A: short-packet shaping, additive offset and literal3FF2/3FFC sequence.","Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/fuel/fuel_base.c,pcm_fuel_base,implemented_algorithm,7FD8..802F; each divide retains its own truncation/saturation. */,Retain source/ROM checks; target ABI and timing still need verification

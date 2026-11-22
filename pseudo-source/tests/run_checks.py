@@ -46,6 +46,7 @@ TARGETS=[
  ('background','background_test',[],[['--contracts']],['background_rom']),
  ('interrupt_leaves','interrupt_leaves_test',[],[['--contracts']],['interrupt_leaves_rom']),
  ('timer_stack_guard','timer_stack_guard_test',[],[['--contracts']],['timer_stack_guard_rom']),
+ ('egr_control','egr_control_test',[],[['--contracts']],['egr_control_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
