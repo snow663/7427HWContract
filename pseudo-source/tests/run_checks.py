@@ -43,7 +43,7 @@ TARGETS=[
  ('boot_system','boot_system_test',[],[['--contracts']],['boot_system_rom']),
  ('boot_controllers','boot_controllers_test',[],[['--contracts']],['boot_controllers_rom']),
  ('factory_runtime','factory_runtime_test',[],[['--contracts']],['factory_runtime_rom']),
- ('background','background_test',[],[['--contracts']],['background_rom']),
+ ('background','background_test',['slot_f'],[['--contracts']],['background_rom']),
  ('interrupt_leaves','interrupt_leaves_test',[],[['--contracts']],['interrupt_leaves_rom']),
  ('timer_stack_guard','timer_stack_guard_test',[],[['--contracts']],['timer_stack_guard_rom']),
  ('egr_control','egr_control_test',[],[['--contracts']],['egr_control_rom']),
@@ -61,6 +61,7 @@ REPLACED={
  'egr_control':'emissions/egr_control.c',
  'egr_flow':'emissions/egr_flow.c',
  'egr_output':'emissions/egr_output.c',
+ 'slot_f':'slots/slot_0f.c',
 }
 with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     sources=sorted((ROOT/'src').rglob('*.c'))+sorted((ROOT/'calibration').glob('*.c'))

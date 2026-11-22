@@ -89,6 +89,9 @@ and20 transmission-output publications per160 phases:10 from slot7 and10 from
 slotF, with zero old slotF callbacks. Historical spark-dispatch contracts retain
 their original EGR task boundaries; EGR/kernel/controller suites independently
 link the resident implementations.
+The historical foreground-refresh suite similarly supplies its original slotF
+producer boundary. Its oracle already excludes that producer's body; the new
+whole-slot suite checks outputs/diagnostics/fuel before the refresh handoff.
 
 The user has authorized the accumulated full regression and merge. Results for
 that release are recorded in the [working state](../../docs/WORKING_STATE.md).

@@ -403,6 +403,14 @@ intervening PR47 merge is reconciled on the development branch. Prepare one PR
 for all remaining accumulated changes and merge its checked head after success.
 Slot4/other slow slots, target startup/interrupt/STOP ABI and backend remain next.
 
+The first full CI run passed32 ROM suites and found a stale background
+fixture: its ROM oracle intentionally supplies the old slotF task boundary,
+while its binary had started linking the newly resident whole slot. The
+background target now explicitly supplies that historical producer boundary;
+the real slotF/kernel suites remain unchanged. Recheck this suite and the seven
+not reached by the stopped CI job, then rerun the final merge gate. This is a
+test-fixture scope correction; no production source changes are needed.
+
 ## Tracked milestone: complete fuel calculation and injector control
 
 The goal is a connected, ROM-checked C fuel path from acquired inputs and retained
