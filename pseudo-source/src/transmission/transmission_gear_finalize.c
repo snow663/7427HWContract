@@ -18,10 +18,20 @@ PcmStatus pcm_transmission_gear_finalize(Pcm *pcm, uint8_t proposed)
     if(flags&0x08u)proposed=1u; /* D5B7 */
 
     READ(0x0099u,flags);
-    if(flags&0x01u) { /* D5BD: disallow non-1 extreme jumps */
-        READ(0x00d9u,gear);
-        if((proposed>gear && proposed>1u) ||
-           (proposed<gear && proposed<1u))proposed=gear;
+    if(flags&0x01u) { /* D5BD..D5D3; repeated D9 compares are real */
+        READ(0x00d9u,gear); /* D5C1 */
+        if(proposed>gear) {
+            if(proposed>1u) {
+                READ(0x00d9u,gear); /* D5D3 branch */
+                proposed=gear;
+            }
+        } else {
+            READ(0x00d9u,gear); /* D5CB: required second memory sample */
+            if(proposed<gear && proposed<1u) {
+                READ(0x00d9u,gear); /* D5D3 */
+                proposed=gear;
+            }
+        }
     }
     READ(0x0099u,flags);
     if((flags&0x01u) && proposed==1u) {
