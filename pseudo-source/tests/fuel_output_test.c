@@ -9,6 +9,7 @@ typedef struct {
     uint8_t memory[65536]; Event events[4096];
     unsigned used,attempts,fail_at,polls,control,action;
     bool masked; Pcm *pcm; PcmPlatform platform;
+    void (*extra_transfer)(Pcm *,uint8_t *,bool);
 } Fixture;
 static PcmStatus record(Fixture *f,char kind,unsigned width,uint16_t address,uint16_t value)
 {

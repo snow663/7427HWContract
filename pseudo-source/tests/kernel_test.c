@@ -14,7 +14,7 @@ typedef struct {
     PcmTask trace[2048]; unsigned used;
     unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
     unsigned connection_action, signature_reads, transmission_writes;
-    unsigned egr_demand_writes, egr_fraction_writes, egr_output_writes;
+    unsigned egr_demand_writes, egr_fraction_writes, egr_output_writes, transmission_baro_writes;
     uint8_t step_positions[256], observed_shadows[256];
     unsigned step_observations, shadow_observations;
     bool masked, inject, injected, guard_fails, feed_reference, stack_capture_fail;
@@ -28,6 +28,9 @@ static PcmStatus read8(void *v, uint16_t a, uint8_t *out) {
     if (a==0x006e) *out=(uint8_t)((*out&0x7fu)|(f->pcm->spark.egr_active?0x80u:0));
     if (a==0x01b2) *out=f->pcm->spark.egr_fraction_high;
     if (a==0x01b3) *out=f->pcm->fuel.egr_fraction_low;
+    if (a==0x02f3) *out=f->pcm->io.barometric_sample;
+    if (a==0x02f4) *out=f->pcm->spark.barometric_high;
+    if (a==0x02f5) *out=f->pcm->io.barometric_fraction;
     if (a==PCM_ADCTL) *out|=0x80; /* Explicit ready peripheral fixture. */
     return PCM_OK;
 }
@@ -37,6 +40,7 @@ static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
     if (a==PCM_EXTENSION_SIGNATURE) ++f->signature_reads;
     *out=(uint16_t)((uint16_t)f->memory[a]*256u+f->memory[(uint16_t)(a+1u)]);
     if (a==0x01b2) *out=(uint16_t)((uint16_t)f->pcm->spark.egr_fraction_high*256u+f->pcm->fuel.egr_fraction_low);
+    if (a==0x02f4) *out=(uint16_t)((uint16_t)f->pcm->spark.barometric_high*256u+f->pcm->io.barometric_fraction);
     return PCM_OK;
 }
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
@@ -45,6 +49,9 @@ static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     if (a==0x006e) f->pcm->spark.egr_active=(value&0x80u)!=0;
     if (a==0x01b2) f->pcm->spark.egr_fraction_high=value;
     if (a==0x01b3) f->pcm->fuel.egr_fraction_low=value;
+    if (a==0x02f3) f->pcm->io.barometric_sample=value;
+    if (a==0x02f4) f->pcm->spark.barometric_high=value;
+    if (a==0x02f5) f->pcm->io.barometric_fraction=value;
     /* The captured-X adapter binds the guard's shared RAM writes to their
      * canonical owners before the separate recovery continuation is entered. */
     if (f->platform.capture_timer_stack_x!=NULL) {
@@ -80,6 +87,10 @@ static PcmStatus write16(void *v, uint16_t a, uint16_t value) {
         f->pcm->spark.egr_fraction_high=(uint8_t)(value>>8);f->pcm->fuel.egr_fraction_low=(uint8_t)value;
     }
     if (a==0x3fd8) ++f->egr_output_writes;
+    if (a==0x00ac) ++f->transmission_baro_writes;
+    if (a==0x02f4) {
+        f->pcm->spark.barometric_high=(uint8_t)(value>>8);f->pcm->io.barometric_fraction=(uint8_t)value;
+    }
     if (a==PCM_TOC3) ++f->timer_writes;
     if (a==PCM_CURRENT_COMMAND) ++f->current_writes;
     if (a==PCM_SPARK_TIMING_A) ++f->spark_writes;
@@ -190,12 +201,13 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
+        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
     CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.counts[PCM_EGR_DEMAND]==0 && f.counts[PCM_EGR_FLOW]==0 && f.counts[PCM_VSS_FILTER]==0);
     CHECK(f.egr_demand_writes==10 && f.egr_fraction_writes==40 && f.egr_output_writes==80);
+    CHECK(f.transmission_baro_writes==10 && f.counts[PCM_SLOT_01]==0);
     CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
     CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==370); /*320 feedback +10 slot8 +10 slot0 +30 slot2. */
     /* The phase6 observation precedes the first slot7 gain publication and

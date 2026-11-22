@@ -101,3 +101,11 @@ focused comparisons cover389 new software starts and real controller/REF joins;
 the source now registers76 CTest checks. See the
 [fuel controller contract](fuel_controller_contract.md). STOP, optional module,
 remaining slow-slot producer and target backend work remain separate.
+
+The following slow-producer group closes slot1 and adds eight public entries
+for transmission BARO/TCC, pump/slow fuel, fault reactions and the slotF suffix.
+Current inventory is334 routines:208 outlines,17 boundaries and109 algorithms.
+Its22,168 focused C/ROM cases cover234 scoped starts and437 failed prefixes;
+the existing16,493-case controller checks also pass. There are78 CTest entries.
+See the [slow fuel contract](slow_fuel_contract.md); the C4F5 prefix, whole
+slotF admission and slot4 callers remain explicit. Full regression is deferred.

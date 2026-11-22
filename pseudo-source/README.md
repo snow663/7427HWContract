@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The working branch contains 326 public routines: 199 implemented outlines, 18 dependency
+The working branch contains 334 public routines: 208 implemented outlines, 17 dependency
 boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
@@ -288,7 +288,14 @@ paths. Its16,493 focused comparisons cover389 new software instruction starts,
 complete fuel/REF joins and367 failed-operation prefixes. The reducing governor
 branch clears its fraction at9093, correcting an earlier documentation claim.
 See the [fuel controller contract](reference/fuel_controller_contract.md).
-Continue with remaining slow-slot producer admissions and target entry glue.
+Slot1 now runs BARO acquisition, transmission BARO and nonelectronic TCC in
+order. The callable slotF suffix also joins fault reactions, pump feedback,
+temperature/offset, phase-qualified AE/startup/closed-loop work and refresh.
+Its22,168 focused comparisons cover234 scoped starts and real fuel/REF joins;
+see the [slow fuel contract](reference/slow_fuel_contract.md). The preceding
+C514/C4F5 slotF group and slot4 callers remain explicit work.
+Continue with the slotF diagnostic prefix, then remaining slow-slot admissions
+and target entry glue.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback
@@ -334,7 +341,7 @@ demand/feedback/control/flow/output bodies and existing admissions now call resi
 their physical backend and optional1815 implementation remain explicit.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
-resident bodies directly; remaining slot1/4/F producer admissions stay explicit. See the
+resident bodies directly; slot1 is also resident and slot4/F root work stays explicit. See the
 [scheduled input contract](reference/scheduled_inputs_contract.md).
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified

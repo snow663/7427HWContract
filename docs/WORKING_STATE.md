@@ -15,8 +15,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 326 public routines: 199 implemented outlines,
-18 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 334 public routines: 208 implemented outlines,
+17 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -130,7 +130,7 @@ admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
 The complete7D4B..8547 fuel root, including its ignition/input prefix and
 scheduled tail, now runs resident C. Required EGR demand/feedback/control/flow/output
-bodies are also resident. Slot1/4/D/F producer admissions, optional modules and
+bodies are also resident. Slot1 is resident; slot4/D/F root admissions, optional modules and
 target interfaces remain explicit.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
@@ -370,6 +370,21 @@ wider scheduled/REF validation. Target startup/interrupt/STOP ABI, backend and
 the eight earlier AE85 transmission-input callees remain explicit. No full
 project suite, PR or merge has run for this group.
 
+The next group closes slot1 with resident BARO acquisition, transmission BARO
+and nonelectronic TCC. It also adds the E286..E561 slow-fuel body, pump feedback,
+descending nine-bank fault reactions and the callable7B60 slotF suffix. Its
+22,168 focused C/ROM comparisons cover all234 scoped starts,437 failed-operation
+prefixes and128 retained slot1/suffix/fuel/REF histories, including both bytes
+of the AC accumulator. The complete fuel-controller suite still passes16,493
+cases after sharing the fixture machinery. Kernel and hardware contracts pass;
+the full-phase kernel now observes10 AC stores with zero slot1 task callbacks.
+All345 production/calibration files compile strictly;78 CTest checks are registered.
+See the [slow fuel contract](../pseudo-source/reference/slow_fuel_contract.md).
+The whole slotF root stays an explicit dependency: C514 and the C4F5 diagnostic
+group must finish before its new suffix. Next close that diagnostic prefix,
+then wire the whole slot and continue slot4 callers. Full project regression,
+PR and merge remain deferred until "pull and merge".
+
 ## Tracked milestone: complete fuel calculation and injector control
 
 The goal is a connected, ROM-checked C fuel path from acquired inputs and retained
@@ -388,7 +403,7 @@ VSS and environmental slices also have checked bodies. These are building blocks
 its former task callback. The first
 fuel batch replaced `pcm_adc_feedback` and slot0/2 task boundaries with resident C. The documented upstream and closed-loop/learning contracts now also have the
 callable C stages listed above. Cut/decel/AE-reservoir and sync/async accounting now also have connected C bodies.
-The scheduled tail is resident; remaining slow-slot producer admissions and
+The scheduled tail and slot1 are resident; remaining slow-slot producer admissions and
 initialization still need their own joined checks.
 
 | Batch | Related implementation work | Joined evidence required |
@@ -615,7 +630,8 @@ Recurring factory execution is also implemented. Foreground RAM refresh/stack wa
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
 the five-body EGR demand/feedback/control/flow/output path and complete scheduled
-fuel wrapper. Next are remaining slow-slot producer admissions and target glue.
+fuel wrapper. Slot1 and the callable slotF suffix are also resident. Next are
+the slotF diagnostic prefix, remaining slow-slot producer admissions and target glue.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 

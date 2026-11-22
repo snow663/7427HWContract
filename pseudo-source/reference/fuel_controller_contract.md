@@ -109,7 +109,11 @@ remain visible. ADC completion is an explicit fixture. Private HC11 stack traffi
 and older math scratchAD..B2 are excluded consistently with the bounded native
 math contracts. The fixture binds involved named owners to logical RAM.
 
-Remaining work includes slot1/4/F producer admissions and initialization, wider
+Remaining work includes slot4/F producer admissions and initialization, wider
 scheduled/REF interleavings, optional modules, target assembly/STOP ABI, physical
 backend, timing and delivered fuel. Full project regression, PR and merge remain
 deferred until the user's "pull and merge" instruction.
+
+The later [slow-producer group](slow_fuel_contract.md) closes slot1 and supplies
+the callable slotF suffix. Its C4F5 diagnostic prefix and slot4 callers remain
+separate; this controller suite retains its original entry scope.

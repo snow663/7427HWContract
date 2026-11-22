@@ -21,6 +21,7 @@ static void controller_transfer(Fixture *f,bool load)
     transfer(pcm,f->memory,controller_state_map,SIZE(controller_state_map),load);
     if (load) pcm->io.map_context=f->memory[0x47]&0xfeu;
     else f->memory[0x47]=(uint8_t)((f->memory[0x47]&1u)|(pcm->io.map_context&0xfeu));
+    if (f->extra_transfer!=NULL) f->extra_transfer(pcm,f->memory,load);
 }
 static PcmStatus controller_read8(void *v,uint16_t a,uint8_t *out)
 {
@@ -156,7 +157,10 @@ static void controller_contracts(void)
     CHECK(pcm_governor_actuator(&pcm)==PCM_OK && word(f.memory,0x288)==0 && word(f.memory,0x306c)==0x1fff);
     puts("Ignition STOP prefix, missing1809 and target-FF post-command integral clearing contracts pass.");
 }
-int main(int argc,char **argv)
+#ifndef PCM_CONTROLLER_TEST_MAIN
+#define PCM_CONTROLLER_TEST_MAIN main
+#endif
+int PCM_CONTROLLER_TEST_MAIN(int argc,char **argv)
 {
     const char *path=getenv("PCM_FUEL_CONTROLLER_ROM");CHECK(path!=NULL || argc==2);
     if (path!=NULL) { FILE *file=fopen(path,"rb");CHECK(file!=NULL && fread(stock,1,sizeof(stock),file)==sizeof(stock));CHECK(fclose(file)==0); }

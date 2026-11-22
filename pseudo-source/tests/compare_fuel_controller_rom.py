@@ -56,6 +56,13 @@ BASE={0x44:0,0x4f:0x90,0x51:0,0x86:0,0x3d:2,0x3e:0,0x3f:0x80,0x6f:0,
     0x299:80,0x28d:0,0x1bb:128,0x3ffc:0xb9,0x3ffd:0x3a,2:1,0x811:39}
 BASE=BASE|word(0x27e,0)|word(0xfd,500)|word(0x28e,0x6000)|word(0x286,0x8000)|word(0x288,0x4000)
 BASE=BASE|word(0x1e8,0x2000)|word(0x5f,0x2000)|word(0x3fc0,0x2000)|word(0x24e,4096)|word(0x851,1000)
+ENTRIES=[[(0x7d4b,0x7db6)],[(0x8eb4,0x7000)],[(0x90d3,0x7000)],
+    [(0x7db6,0x7e4f)],[(0x852c,0x7000)],[(0x7d4b,0x7000)],
+    [(0x7d4b,0x7000),(0x751b,0x77c6)],[(0x852c,0x7000),(0x7d4b,0x7000)],[(0x7db6,0x852c)]]
+NATIVE_INLINE={0x7db6:0x7e36,0x7e40:0x852c}
+NATIVE_CALLEES={0x863d,0x8613,0x891e,0xd4a3}
+NATIVE_ROOTS={0x751b};NATIVE_GATES={0x852c,0x853b}
+IGNORED_STATE=[(0x3b0,0x400),(0xad,0xb3)];VALUE_MODES=set();ENTRY_WORD_ARGUMENT={}
 
 def execute(item):
     mode,fail,action,masked,edits=item
@@ -64,22 +71,22 @@ def execute(item):
     memory.events.clear();memory.attempts=memory.polls=memory.control=0;memory.fail=fail;memory.action=action;memory.foreign=None
     cpu.s.sp=0x3ff;cpu.s.ccr=0xd0 if masked else 0xc0
     cpu.s.a,cpu.s.b,cpu.s.x,cpu.s.y=0x12,0x34,0x5678,0x9abc
-    entries=[[(0x7d4b,0x7db6)],[(0x8eb4,0x7000)],[(0x90d3,0x7000)],
-        [(0x7db6,0x7e4f)],[(0x852c,0x7000)],[(0x7d4b,0x7000)],
-        [(0x7d4b,0x7000),(0x751b,0x77c6)],[(0x852c,0x7000),(0x7d4b,0x7000)],[(0x7db6,0x852c)]]
     status=unresolved=0;native_stop=None;gap_start=delay_start=0
     try:
-        for entry,stop in entries[mode]:
-            cpu.s.pc=entry;native_stop=stop if entry==0x751b else None
+        for entry,stop in ENTRIES[mode]:
+            cpu.s.pc=entry;native_stop=stop if entry in NATIVE_ROOTS else None
+            if entry in ENTRY_WORD_ARGUMENT:
+                a=ENTRY_WORD_ARGUMENT[entry];cpu.s.x=memory.mem[a]<<8|memory.mem[a+1]
             if stop in (0x7000,0x77c6):cpu._push16(0x7000)
             for _ in range(20000):
                 pc=cpu.s.pc
                 if pc==stop:break
                 if pc==0x7d8c:status=13;raise ModuleBoundary
                 if pc==native_stop:native_stop=None
-                if pc==0x7db6:native_stop=0x7e36
-                if pc==0x7e40:native_stop=0x852c
-                if native_stop is None and pc in (0x863d,0x8613,0x891e,0xd4a3):
+                if native_stop is None and pc in NATIVE_INLINE:
+                    native_stop=NATIVE_INLINE[pc]
+                    if native_stop is None:native_stop=memory.mem[(cpu.s.sp+1)&65535]<<8|memory.mem[(cpu.s.sp+2)&65535]
+                if native_stop is None and pc in NATIVE_CALLEES:
                     native_stop=memory.mem[(cpu.s.sp+1)&65535]<<8|memory.mem[(cpu.s.sp+2)&65535]
                 if pc in (0x1809,0x1800):
                     governor=pc==0x1809
@@ -94,7 +101,7 @@ def execute(item):
                     cpu.s.pc=cpu._pull16();continue
                 coverage.add(pc);inst=decoded.setdefault(pc,decode(rom.read,pc)) if pc not in decoded else decoded[pc]
                 memory.foreign=None;memory.foreign_access='';access=inst.access()
-                if access is not None and pc not in (0x852c,0x853b):
+                if access is not None and pc not in NATIVE_GATES:
                     if inst.mode in ('direct','extended'):address=inst.value
                     elif inst.mode=='indexed_x':address=(cpu.s.x+inst.value)&65535
                     elif inst.mode=='indexed_y':address=(cpu.s.y+inst.value)&65535
@@ -129,9 +136,10 @@ def execute(item):
             else:raise AssertionError(f'Fuel controller budget at {cpu.s.pc:04X}')
     except Failure:status=2
     except ModuleBoundary:pass
-    state=bytearray(memory.mem[:0x900]);state[0x3b0:0x400]=bytes(0x50);state[0xad:0xb3]=bytes(6)
+    state=bytearray(memory.mem[:0x900])
+    for start,end in IGNORED_STATE:state[start:end]=bytes(end-start)
     state+=memory.mem[0x3000:0x3070]+memory.mem[0x3fc0:0x3ffe]
-    return {'status':status,'value':0,'unresolved':unresolved,'masked':int(bool(cpu.s.ccr&0x10)),
+    return {'status':status,'value':cpu.s.a if mode in VALUE_MODES and status==0 else 0,'unresolved':unresolved,'masked':int(bool(cpu.s.ccr&0x10)),
         'state':state.hex(),'events':list(memory.events)}
 
 with tempfile.TemporaryDirectory(prefix='pcm-fuel-controller-') as directory:

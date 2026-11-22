@@ -85,4 +85,6 @@ PcmStatus pcm_fuel_inputs(Pcm *pcm);
 PcmStatus pcm_fuel_schedule(Pcm *pcm);
 PcmStatus pcm_governor_target(Pcm *pcm);
 PcmStatus pcm_governor_actuator(Pcm *pcm);
+PcmStatus pcm_pump_feedback(Pcm *pcm);
+PcmStatus pcm_fuel_slow(Pcm *pcm);
 #endif

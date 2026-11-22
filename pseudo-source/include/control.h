@@ -26,6 +26,11 @@ PcmStatus pcm_iac_background(Pcm *);
 PcmStatus pcm_shift_lamp(Pcm *);
 PcmStatus pcm_egr_demand(Pcm *);
 PcmStatus pcm_vss_filter(Pcm *);
+PcmStatus pcm_transmission_baro(Pcm *);
+PcmStatus pcm_tcc_nonelectronic(Pcm *);
+PcmStatus pcm_fault_primary_reaction(Pcm *);
+PcmStatus pcm_fault_injection_reaction(Pcm *);
+PcmStatus pcm_fault_reaction_mask(Pcm *, uint16_t mask_base, uint8_t *value);
 
 /* A first real algorithm slice. Inputs retain the factory fixed-point
  * representations; they are not yet RPM/kPa/microsecond engineering units. */
