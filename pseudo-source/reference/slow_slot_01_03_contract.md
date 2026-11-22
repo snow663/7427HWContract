@@ -18,18 +18,20 @@ The $ADAA body is checked by
 `tcc_non_electronic_rom_differential` including its option-off,
 lock/unlock, MPH, TPS, temperature and delay gates, and interpolation
 endpoints. The combined wrapper is checked by
-`slow_slot_01_contracts`, including default delegation and
-failure-prefix short-circuits.
+`slow_slot_01_contracts`, including the independently compiled PR48
+default and the guarded closure alternative, with failure-prefix short circuits.
 
 **Important:** The factory's `$ADAA` path updates **logical request
 state** at $0089.5 and does not by itself prove physical TCC output.
 Its eventual electrical output, any asynchronous interrupts and
 automatic-transmission hardware remain target contracts.
 
-`pcm_slot_01` is now a **resident source wrapper**. To preserve
-the existing kernel and hardware-facing default, the source body
-requires `PcmPlatform.enable_resident_slow_slots=true`.
-Otherwise the original explicit `PCM_SLOT_01` task boundary remains.
+`pcm_slot_01` is now a **resident source wrapper with two verified
+implementations**. PR48's C583→`pcm_transmission_baro`→
+`pcm_tcc_nonelectronic` remains the default after reconciliation.
+With `PcmPlatform.enable_resident_slow_slots=true`, the alternative
+C583→`pcm_speed_source`→`pcm_tcc_non_electronic` executes instead.
+Neither variant's host success proves the physical TCC output.
 
 ## Slot 03 — $7ABD..$7AC6 (in progress)
 
