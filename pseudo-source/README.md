@@ -273,13 +273,14 @@ still block promotion of the broad `PCM_FUEL_CONTROL` task. See the
 [fuel input prefix contract](reference/fuel_input_prefix_contract.md),
 [scheduled tail contract](reference/fuel_scheduled_tail_contract.md), and
 [five-stage closure plan](reference/source_closure_plan_2026-11-20.md).
-The branch registers 81 CTest entries (36 ROM differential suites). All 45
-fast source contracts, including the canonical RAM owner and joined fuel-cycle
-host fixtures, and the focused governor/ignition BMHM ROM suites passed on
-[development CI](https://github.com/snow663/7427HWContract/actions/runs/44749213748).
-The actual `pcm_fuel_control` entry is now connected to the full source
-cycle only under a dual platform guard (`enable_resident_fuel_cycle` plus
-`bind_fuel_ram_owners`), while default source behavior remains delegated.
+The **pre-PR48** closure branch had 81 CTest entries and independently
+verified scheduled fuel/slot01 alternatives. Following mainline integration,
+the combined branch has **105 CTest entries**, including 49 ROM suites,
+with PR48's resident fuel controller as the default C-source entry.
+Closure's independently ROM-verified fuel-cycle alternative remains guarded
+by `enable_resident_fuel_cycle` and `bind_fuel_ram_owners`.
+The [reconciled fast gate](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
+passes **56/56 contracts and 15/15 focused actual-ROM suites**.
 Full joined-cycle ROM parity, full target provider and the release-wide ROM
 suite are pending. See [joined fuel contract](reference/fuel_cycle_joined_contract.md).
 
@@ -373,6 +374,7 @@ points. The closure implementations remain available behind the explicit
 `enable_resident_slow_slots` research switches.
 
 The combined tree has **105 CTest entries, including 49 ROM differential
-suites**. This does *not* inherit either parent's CI success automatically;
-the merge requires its own compilation, contract and ROM regression.
+suites**. Its own [focused integration CI](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
+passes all **56 fast contracts and 15 selected source/ROM suites**.
+The remaining 34 ROM suites are reserved for the final full release gate.
 See [the reconciliation ledger](reference/reconciliation_2026-11-22.md).
