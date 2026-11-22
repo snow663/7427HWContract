@@ -346,3 +346,4 @@ src/transmission/transmission_fault_gate_684.c,pcm_transmission_fault_gate_684,i
 src/transmission/transmission_fault_gate_6ac.c,pcm_transmission_fault_gate_6ac,implemented_algorithm,E6AC..E6BB E743 mask to 0099.1,Compare fixed-point source fields and failure history
 src/transmission/transmission_fault_gate_69c.c,pcm_transmission_fault_gate_69c,implemented_algorithm,E69C..E6AB E73A mask to 0099.0,Compare low bits and RMW exact order
 src/transmission/transmission_d4eb_prefix.c,pcm_transmission_d4eb_prefix,implemented_algorithm,D4EB..D4F7 ordered diagnostic flags and 0084 reset,Continue D4F7-D69E gear select while retaining source ABI
+src/transmission/transmission_gear_limit.c,pcm_transmission_gear_limit,implemented_algorithm,E562..E57B proposed gear cap via range and indexed ROM table,Check all range inputs and indexed table reads against stock ROM
