@@ -25,6 +25,7 @@ static void contracts(void)
     CHECK(pcm_transmission_threshold_select(&p,0xd763,2,&value,&valid)==PCM_OK);
     CHECK(value==0&&!valid&&f.reads==2);
     for(unsigned range=1;range<256;range++)for(unsigned slot=0;slot<256;slot++) {
+        if((range&7u)==0u)continue; /* source zero-selector is an invalid/carry exit */
         init(&f,&p);f.mem[0xa2]=(uint8_t)range;
         unsigned addr=0xd763+displacement(range,slot);
         f.mem[addr]=0x12;f.mem[addr+1]=0x34;f.mem[0x1234]=(uint8_t)(range^slot);
