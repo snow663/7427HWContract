@@ -72,3 +72,26 @@ different trees. Do not claim they validated this merge. Record the
 new merged commit and its own focused/complete CI here after actually
 observing their results. Do not open a PR or merge to main without a
 separate explicit request.
+
+## Actual combined-tree validation (not inherited from either parent)
+
+The two-parent reconciliation commit is
+[`41d7f84efd5a3ef75db1fefac049fbf5a578c62f`](https://github.com/snow663/7427HWContract/commit/41d7f84efd5a3ef75db1fefac049fbf5a578c62f).
+An early combined quick gate identified one **obsolete host fixture
+assumption**: it expected the fuel root to delegate by default, but
+PR48 intentionally made the resident C controller default. That fixture
+and the slot01 alternate fixture were updated to assert both variants
+without weakening the ROM checks.
+
+Fresh [integration CI run 45072057548](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
+then passed **56/56 fast contracts**, **9/9 closure-specific BMHM ROM
+differentials** and **6/6 imported PR48 ROM differentials**. The latter
+include timer stack guard, EGR control/producers, fuel controller,
+slow fuel and whole slot-F. This validates **15/49** selected ROM suites
+on the combined C-source tree. The remaining 34 ROM suites and other
+repository workflows are not claimed rerun after the merge.
+
+The development branch is **0 commits behind main** and continues to
+contain the full independent branch history. Nothing was merged into
+`main`; no PR was opened. The future complete 49-ROM CTest run remains
+reserved for the single end-of-batch PR and explicit merge request.
