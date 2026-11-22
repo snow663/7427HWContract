@@ -34,6 +34,15 @@ static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
 }
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     Fixture *f=v; f->memory[a]=value;
+    /* The captured-X adapter binds the guard's shared RAM writes to their
+     * canonical owners before the separate recovery continuation is entered. */
+    if (f->platform.capture_timer_stack_x!=NULL) {
+        if (a==0x004f) f->pcm->scheduler.busy=(value&4u)!=0;
+        if (a==0x003a) {
+            f->pcm->system.stack_recovery=(value&8u)!=0;
+            f->pcm->scheduler.pending=(value&0x20u)!=0;
+        }
+    }
     if (a==PCM_ADCTL) {
         ++f->adc_starts;
         if (value==7) {
@@ -263,11 +272,18 @@ static void test_timer_stack_capture_and_recovery(void)
     CHECK(f.stack_captures==1 && f.timer_writes==1 && f.step_observations==0);
     CHECK(f.memory[0x003a]==0x28 && f.memory[0x004f]==0x80);
     CHECK(pcm.scheduler.timer_seen);
-    /* Test fixture supplies the target LDS/SP recovery outside the C frame:
-     * expose the canonical busy owner before entering the $797A continuation. */
-    pcm.scheduler.busy=false;
+    CHECK(pcm.system.stack_recovery && !pcm.scheduler.busy && pcm.scheduler.pending);
+    /* The provider committed canonical owners. The target LDS/SP recovery
+     * outside the C frame is still a supplied precondition at this join. */
     CHECK(pcm_periodic_irq_resume(&pcm)==PCM_OK);
     CHECK(f.timer_writes==1 && f.step_observations==1);
+    init(&f,&pcm);
+    f.platform.capture_timer_stack_x=capture_stack_x;
+    f.platform.check_stack=NULL;f.supplied_stack_x=0x03ee;
+    f.memory[0x004f]=4;pcm.scheduler.busy=true;
+    CHECK(pcm_periodic_irq(&pcm)==PCM_OK && f.stack_captures==1);
+    CHECK(pcm.scheduler.busy && pcm.scheduler.pending && pcm.scheduler.busy_phase==0x0e);
+    CHECK(f.timer_writes==1 && f.step_observations==1 && !pcm.system.stack_recovery);
     init(&f,&pcm);
     f.platform.capture_timer_stack_x=capture_stack_x;
     f.platform.check_stack=NULL;f.supplied_stack_x=0x03f7;

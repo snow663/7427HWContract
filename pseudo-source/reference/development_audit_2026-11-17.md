@@ -70,3 +70,12 @@ from target BIN generation and physical injector/spark output behavior.
 Unrelated open PR21 (VSS filter) and PR42 (Rev B register/read/write documents)
 are not the current pseudo-source branch; both diverged from current main at
 this audit and require reconciliation before a future merge.
+
+## Later validation checkpoint
+
+On2026-11-22 the guard host contracts and6,056 focused actual-ROM comparisons
+were executed and passed; the kernel recovery join now binds busy/fault/pending
+owners coherently. This supersedes the unexecuted-test caveat above for that
+scope only. The branch now has70 registered CTest checks. See the current
+[timer guard contract](timer_stack_guard_contract.md) and
+[working state](../../docs/WORKING_STATE.md); full regression remains deferred.

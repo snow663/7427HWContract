@@ -270,7 +270,9 @@ arm now includes the preceding TFLG1 acknowledgment. The small trap/reset/XIRQ
 and fallback interrupt bodies are also implemented; see the
 [interrupt-leaf contract](reference/interrupt_leaves_contract.md). Complete factory
 REF now calls its cause/acknowledgment leaf. Next is the timer stack-guard policy
-at7959..7979, followed by target entry glue and remaining input producers.
+at7959..7979 now has6,056 focused ROM comparisons and a passed131,072-case
+host sweep; see the [guard contract](reference/timer_stack_guard_contract.md).
+Continue with remaining EGR producers/control/output and target entry glue.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback

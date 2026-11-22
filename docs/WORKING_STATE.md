@@ -315,8 +315,15 @@ and fresh-read checks; these new tests have not yet been run as a full branch
 suite. The periodic IRQ now offers an optional captured-X callback and an explicit
 stack-recovery return boundary; the $797A continuation is a separate callable
 routine. The target shim still owns live TSX/SP observation, LDS #03F6 and RTI. See the [timer stack guard contract](../pseudo-source/reference/timer_stack_guard_contract.md).
-The branch now registers69 CTest checks. Target startup/interrupt assembly
-and the eight earlier AE85 transmission-input callees remain explicit.
+Focused verification on2026-11-22 now passes6,056 actual C/ROM comparisons
+across all10 guard software starts. The131,072 host threshold cases, canonical
+busy/fault/pending recovery join, kernel and hardware contracts also pass. The
+new ROM differential is registered for release; the branch has70 CTest checks.
+See the updated timer guard contract for failed-attempt trace semantics and
+remaining target ABI work. No full-suite run or PR has begun.
+Next are the remaining EGR control/output producers, then demand/flow and the
+broad scheduled fuel wrapper. Target startup/interrupt assembly and the eight
+earlier AE85 transmission-input callees remain explicit.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -558,7 +565,8 @@ Active development branch: `work/pseudo-source-development`, starting from
 requested yet. Retained boot and controller seeding are implemented on this branch.
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
-The next group is timer stack-guard policy7959..7979. The previously completed group #30/#45/#46 remains
+Timer stack-guard policy and its focused ROM checks are implemented; the next
+group is the remaining EGR producer/control/output path. The previously completed group #30/#45/#46 remains
 historical validation evidence.
 
 ## Historical material
