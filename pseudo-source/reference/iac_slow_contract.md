@@ -18,13 +18,15 @@ has its own file; `include/iac.h` declares the IAC functions.
 | A3FA..A406 | `pcm_iac_reset_request` | Software homing state, target0 and position255 |
 | F4B6..F4BB → F4C5..F4DD | `pcm_lookup_scaled` | Scaled coordinate and rounded interpolation |
 
-Slot9 calls the real slow IAC between the remaining `PCM_EGR_DEMAND` dependency
-and the now-resident VSS filter. CF16..D03D remains unfinished; D4DA..D4EA is
-implemented by the [scheduled input batch](scheduled_inputs_contract.md). The
-former whole-slot9 task ID is reserved and unused. This historical slow-IAC suite
-retains an explicit VSS return fixture; the current kernel and combined input
-suite execute the real VSS body. Missing EGR bindings and failed calls retain
-the completed prefix and stop later calls without reordering the three admissions.
+Slot9 calls resident EGR demand, slow IAC and VSS filtering in that order.
+CF16..D03D is implemented by the [EGR producer batch](egr_producers_contract.md);
+D4DA..D4EA is implemented by the [scheduled input batch](scheduled_inputs_contract.md).
+The former whole-slot9 task ID is reserved and unused. This historical slow-IAC
+suite retains explicit EGR and VSS return fixtures; the combined input suite
+also retains the EGR fixture while running real VSS. Current kernel and EGR
+producer checks execute the real demand body. Historical missing-binding and
+failed-call cases retain the completed prefix and stop later calls without
+reordering the three admissions.
 
 The root returns immediately when004F.7 is clear, requiring no profile and
 changing no IAC state. Running work preserves follower → decays → drive cap →

@@ -14,7 +14,7 @@ typedef enum {
     PCM_FACTORY_WAIT_BOUNDARY, /*FBD4 waits for the next nonreturning factory restart. */
     PCM_BACKGROUND_WAIT_BOUNDARY, /*74D0 WAI/interrupt frame and resume require the target ABI. */
     PCM_HALT_BOUNDARY, PCM_RESET_BOUNDARY, /*Resident terminal loop / jump to7100. */
-    PCM_STACK_RECOVERY_BOUNDARY /*Host returns after RMW; target must LDS #03F6 and resume at797A. */
+    PCM_STACK_RECOVERY_BOUNDARY, PCM_STOP_BOUNDARY /*Host returns after RMW; target must LDS #03F6 and resume at797A. */
 } PcmStatus;
 
 typedef enum {
@@ -38,6 +38,7 @@ typedef enum {
     PCM_FUEL_GOVERNOR, /* reserved index: $90D3 is now resident C */
     PCM_GOVERNOR_TARGET, /* reserved index: $8F5F..$90D2 is now resident C */
     PCM_GOVERNOR_HEADSUP, /* active optional $1809 A/carry boundary */
+    PCM_GOVERNOR_EXTENSION, /* PR48 independent $1809 A/carry host interface */
     PCM_TASK_COUNT
 } PcmTask;
 
@@ -65,8 +66,8 @@ typedef struct {
      * Never infer this X from a host C call frame or change the host stack. */
     PcmStatus (*capture_timer_stack_x)(void *, uint16_t *);
     PcmDependency task[PCM_TASK_COUNT];
-    /* Factory FAA5 dispatches a captured full logical address. A target/backend
-     * supplies its execution and return ABI; it may return a boundary status. */
+    /* FAA5 full-address dispatcher plus optional $1815 hook. Execution and
+     * register/CCR return ABI remain target-owned. */
     PcmStatus (*call_address)(void *, uint16_t address);
     /* Opt-in sparse named-RAM binding for the $7D4B fuel source. All bus
      * accesses still invoke the platform transaction first; unknown RAM
@@ -610,6 +611,13 @@ typedef struct {
     volatile bool stack_recovery; /*003A.3; separate from scheduler.pending at003A.5. */
 } PcmSystem;
 
+typedef struct {
+    /* Host payload for unsupplied1809: captured A and returned carry. These
+     * are interface values, not new factory RAM or a machine calling ABI. */
+    uint8_t extension_value;
+    bool extension_carry;
+} PcmGovernor;
+
 typedef struct Pcm {
     const PcmPlatform *platform; /* immutable bindings can live in ROM */
     const PcmCalibration *calibration;
@@ -622,6 +630,7 @@ typedef struct Pcm {
     PcmIac iac;
     PcmIo io;
     PcmFuel fuel;
+    PcmGovernor governor; /* PR48 extension return; distinct from RAM $0288 owner */
     PcmSerial serial;
     PcmSystem system;
     PcmTask unresolved_task;

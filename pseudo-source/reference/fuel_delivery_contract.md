@@ -4,7 +4,9 @@ This batch adds16 public routines. The source now has261 routines:122 implemente
 outlines,108 implemented algorithms and31 dependency boundaries. Each public
 routine has its own file. The admitted calculation at7E4F now has a connected
 C path through synchronous/asynchronous injector-command publication at852B.
-The broad7D4B ignition/input prefix and852C scheduling tail remain separate.
+The broad7D4B ignition/input prefix and852C scheduling tail were ported in the
+later [fuel controller group](fuel_controller_contract.md); this delivery suite
+retains its original bounded entries.
 
 ## Entries and stops
 

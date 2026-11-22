@@ -5,7 +5,27 @@ contracts and historical proofs are linked rather than repeated here.
 
 The [2026-11-17 pseudo-source audit](../pseudo-source/reference/development_audit_2026-11-17.md)
 records the current branch inventory, explicit remaining dependencies and
-pending full-suite/target validation.
+the later release checkpoints. Target validation remains separate.
+
+## Validated source checkpoint — 2026-11-22
+
+[PR48](https://github.com/snow663/7427HWContract/pull/48) is merged at
+`ccc7dfeb4b8821aeb6ed8092bfe7a14d10e1e375`. The validated source head is
+`9532b50d24a4f21e07ffa43cb06be723f1be69b5`; the merge has the identical tree.
+All80 CMake/CTest checks pass:40 contracts/provenance and40 actual-ROM suites.
+The213 repository Python tests,21 simulator tests (2 display-dependent skips),
+recorded factory verifiers and byte-identical artifact regeneration also pass.
+All four final-head CI workflows succeeded: [C/ROM](https://github.com/snow663/7427HWContract/actions/runs/45065425450),
+[factory structure](https://github.com/snow663/7427HWContract/actions/runs/45065425420),
+[static artifacts](https://github.com/snow663/7427HWContract/actions/runs/45065425408)
+and [hygiene](https://github.com/snow663/7427HWContract/actions/runs/45065425418).
+
+This closes the accumulated EGR, scheduled fuel/governor, slot1 and whole-slotF
+batch. Next implement slot4's alternating diagnostic groups and shared fuel-fault
+publication, then the other slow-slot callers and target glue. Continue ordinary
+development on `work/pseudo-source-development` from merged main; accumulate
+updates and defer another full-suite/PR/merge cycle until the next explicit request.
+Custom-ROM TS00 truck validation remains active; this merge changes no BIN.
 
 ## Active direction
 
@@ -15,20 +35,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The cumulative closure branch now indexes 350 public routines: 197 implemented outlines,
-22 explicit dependency boundaries and 131 implemented algorithms.
-The cumulative branch adds the governor rate/ordinary/lead/output stages,
-with passed scoped HC11/C governor and ignition-prefix differentials;
-an opt-in canonical RAM provider bridge and full joined host fuel-cycle
-contracts pass 51/51 fast checks and 9 focused ROM comparisons in
-GitHub Actions run 45004479765. The D4EB prefix, E562 limiter,
-D5B7 gear finalizer and D8CE selector now have stock-source diffs;
-its middle $D4F7–$D5B6 logic remains a required closure. Milestone1 source-level closure and
-slot01/03 M2 progress are tracked in the source closure plan.
-Full stock ROM parity for the complete cycle and target provider remain open.
-The authoritative 2026-11-17 audit records the previous PR #47 baseline;
-the [2026-11-20 closure plan](../pseudo-source/reference/source_closure_plan_2026-11-20.md)
-tracks the new sequential branch and its remaining milestone work.
+The source currently has 345 public routines: 220 implemented outlines,
+16 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -140,9 +148,10 @@ INT/P/MAP corrections now have checked C bodies. See the
 Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
-Broader fuel/slot1/4/D/F roots remain boundaries. Fuel follow-up includes the7D4B ignition/input
-prefix and852C scheduled tail, required EGR producers and their slow-slot
-admissions/initialization.
+The complete7D4B..8547 fuel root, including its ignition/input prefix and
+scheduled tail, now runs resident C. Required EGR demand/feedback/control/flow/output
+bodies are also resident. Slot1 is resident; slot4/D/F root admissions, optional modules and
+target interfaces remain explicit.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -327,26 +336,122 @@ and fresh-read checks; these new tests have not yet been run as a full branch
 suite. The periodic IRQ now offers an optional captured-X callback and an explicit
 stack-recovery return boundary; the $797A continuation is a separate callable
 routine. The target shim still owns live TSX/SP observation, LDS #03F6 and RTI. See the [timer stack guard contract](../pseudo-source/reference/timer_stack_guard_contract.md).
-The branch now registers69 CTest checks. Target startup/interrupt assembly
+Focused verification on2026-11-22 now passes6,056 actual C/ROM comparisons
+across all10 guard software starts. The131,072 host threshold cases, canonical
+busy/fault/pending recovery join, kernel and hardware contracts also pass. The
+new ROM differential is registered for release; the branch has70 CTest checks.
+See the updated timer guard contract for failed-attempt trace semantics and
+remaining target ABI work. No full-suite run or PR has begun.
+The next accumulated group implements EGR control atD1F6..D2B1 and output
+atCDF7..CE0F. The direct-duty route retains prior PI words; the linear route
+preserves live magnitude/direction rereads, saturation and the exactFF00
+proportional overflow cap. Output always publishes a literalF0 high byte.
+Focused verification passes2,662 actual C/ROM comparisons across all90 new
+scoped starts, including real feedback/control/output joins,172 failed-operation
+prefixes and128 retained histories. The shared boot fixture still passes2,773
+comparisons, and kernel/hardware contracts pass. See the
+[EGR control contract](../pseudo-source/reference/egr_control_contract.md).
+There are72 registered CTest checks; full regression and PR creation remain deferred.
+The following group replaces EGR demand at CF16..D03D and flow at D03E..D14D
+with resident C. The five-body EGR path now has real demand/feedback/control/
+flow/output joins and real fraction-to-fuel/spark consumers. Focused checks pass
+8,950 C/ROM cases across all 323 new scoped instruction starts, including 409
+failed-operation prefixes and 128 retained histories. The earlier control suite
+still passes 2,662 cases. Kernel/hardware contracts, five affected historical
+IAC/input contract fixtures and 97 focused historical slot9 comparisons pass.
+See the [EGR producer contract](../pseudo-source/reference/egr_producers_contract.md).
+There are 74 registered CTest checks. The optional1815 body and its machine ABI
+remain a callback boundary; the full project suite and PR remain deferred.
+Next is the broad scheduled fuel wrapper. Target startup/interrupt assembly
 and the eight earlier AE85 transmission-input callees remain explicit.
+
+The EGR follow-up kernel witness confirms10 demand,40 fraction and80 command
+publications in a full160-phase cycle without EGR task callbacks. Both byte and
+word fraction views bind canonical fuel/spark owners, including a real flow-to-fuel
+handoff. All eight kernel contract groups pass; the full project suite remains
+deferred. See the EGR producer contract for the exact host/target boundary.
+
+The following group replaces the broad fuel task with resident7D4B..8547 C,
+including separate ignition, inputs, scheduled-tail and governor target/actuator
+entries. Its16,493 focused comparisons cover all389 new software starts,
+367 failed-operation prefixes,128 retained histories and real crank/running/REF
+joins. The new scope stops before7D8C TAP/STOP; optional1809 returns captured A
+and carry through an explicit host dependency. Actual ROM9093 clears the
+anticipation-reduction fraction, correcting the earlier governor note.
+All eight kernel and64 hardware contracts pass. The nominal full-phase fixture
+now supplies a real battery input and observes160 COP writes (housekeeping AA
+and resident fuel55), with zero fuel task callbacks. The EGR suite still passes
+8,950 cases. The preliminary delivery subset passes7,821 comparisons; its8432
+overflow instruction remains outside that quick subset. All337 production/
+calibration files compile strictly. There are76 registered CTest checks.
+See the [fuel controller contract](../pseudo-source/reference/fuel_controller_contract.md).
+Next are remaining slot1/4/F producer admissions and initialization, followed by
+wider scheduled/REF validation. Target startup/interrupt/STOP ABI, backend and
+the eight earlier AE85 transmission-input callees remain explicit. No full
+project suite, PR or merge has run for this group.
+
+The next group closes slot1 with resident BARO acquisition, transmission BARO
+and nonelectronic TCC. It also adds the E286..E561 slow-fuel body, pump feedback,
+descending nine-bank fault reactions and the callable7B60 slotF suffix. Its
+22,168 focused C/ROM comparisons cover all234 scoped starts,437 failed-operation
+prefixes and128 retained slot1/suffix/fuel/REF histories, including both bytes
+of the AC accumulator. The complete fuel-controller suite still passes16,493
+cases after sharing the fixture machinery. Kernel and hardware contracts pass;
+the full-phase kernel now observes10 AC stores with zero slot1 task callbacks.
+All345 production/calibration files compile strictly;78 CTest checks are registered.
+See the [slow fuel contract](../pseudo-source/reference/slow_fuel_contract.md).
+The whole slotF root stays an explicit dependency: C514 and the C4F5 diagnostic
+group must finish before its new suffix. Next close that diagnostic prefix,
+then wire the whole slot and continue slot4 callers. Full project regression,
+PR and merge remain deferred until "pull and merge".
+
+The following group completes all ten C4F5 diagnostic bodies and connects C514,
+diagnostics and the7B60 suffix into the complete slotF root. Its43,299 focused
+C/ROM comparisons cover all466 new scoped starts,1,395 failed provider prefixes
+and160 retained slot1/whole-slotF/fuel/REF histories. Kernel contracts observe10
+diagnostic admissions and20 transmission-output publications per160 phases,
+with no old slotF callback. All356 production/calibration files compile strictly;
+the CMake and Python runners register80 checks. See the
+[slotF contract](../pseudo-source/reference/slot_f_contract.md).
+
+On2026-11-22 the user explicitly authorized completion and merge. The final
+40 quick C/contract/provenance checks and40 actual-ROM suites pass. The213
+repository Python tests and21 simulator tests (2 display-dependent skips) also
+pass. The earlier spark-dispatch fixture explicitly retains its original EGR
+task boundaries; the resident EGR and kernel checks stay intact. Main's
+intervening PR47 merge was reconciled before PR48. Slot4/other slow slots,
+target startup/interrupt/STOP ABI and backend remain next.
+
+The first full CI run passed32 ROM suites and found a stale background
+fixture: its ROM oracle intentionally supplies the old slotF task boundary,
+while its binary had started linking the newly resident whole slot. The
+background target now explicitly supplies that historical producer boundary;
+the real slotF/kernel suites remain unchanged. Its1,035 comparisons and all
+seven suites not reached by that stopped job pass locally. The subsequent full
+local and final-head CI reruns pass, and PR48 is merged. This was a test-fixture
+scope correction; production source was unchanged by that correction. The
+validated head, merge identity and CI evidence are recorded at the top of this file.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
 The goal is a connected, ROM-checked C fuel path from acquired inputs and retained
 state through pulse construction, synchronous/asynchronous arbitration and ordered
 injector-command writes. Complete the fuel-dependent acquisition and producer work
-alongside it. Batch related routines per PR. Publish after local verification;
-report GitHub CI as pending and check its results before a later merge. This is
-a tracked milestone; ALDL and system code are the current implementation priority.
+alongside it. Accumulate related updates on the persistent development branch.
+Run focused checks while developing; defer the full project suite, PR and merge
+until the user's "pull and merge" instruction. ALDL/system work and this fuel
+milestone retain their separate source and target boundaries.
 
 The current implementation already includes the base equation at 7FD8..802F,
 the REF crank/running/decay/common routines, crank event gain, asynchronous output
 at 8548..858A, and their timer helpers. MAP filtering/transient selection, RPM/load,
 VSS and environmental slices also have checked bodies. These are building blocks:
-`pcm_fuel_control` at 7D4B remains an explicit task boundary. The first
+`pcm_fuel_control` now joins7D4B ignition through8547 scheduled return without
+its former task callback. The first
 fuel batch replaced `pcm_adc_feedback` and slot0/2 task boundaries with resident C. The documented upstream and closed-loop/learning contracts now also have the
 callable C stages listed above. Cut/decel/AE-reservoir and sync/async accounting now also have connected C bodies.
-Full caller admissions, scheduled tail and required producer wiring remain work.
+The scheduled tail and slot1 are resident; remaining slow-slot producer admissions and
+initialization still need their own joined checks.
 
 | Batch | Related implementation work | Joined evidence required |
 |---|---|---|
@@ -354,7 +459,7 @@ Full caller admissions, scheduled tail and required producer wiring remain work.
 | Air charge and fuel input producers (implemented normalization/air slices) | TPS acquisition/zero normalization, BARO, CTS/MAT, density/charge temperature, VE selection; connect existing base arithmetic and environmental/RPM/VSS producers | Producer/consumer state age, lookup neighbors, diagnostic substitutions, scaling, rounding and old-state feedback; complete fuel-required EGR demand/feedback/control/flow/output dependencies as encountered |
 | Fuel modes, commanded AFR and enrichment (callable calculation/reservoir slices implemented) | Startup and crank equation; open-loop/idle AFR, PE and transitions; MAP/TPS/IAC-related AE gains, histories and reservoirs | Cold/hot crank through REF delivery, startup-to-running changes, OL idle and PE admission/exit, retained histories and phase-gated updates |
 | Running corrections and closed-loop learning (callable correction/learning slices implemented) | 8032..83AE EGR/BLM, cut/decel/recovery, RPM/BARO/battery, signed INT/P and MAP AE; O2 filtering/activity/I/P at 863D..891D, AFR/BLM at 891E..8EB3, and slot-F admission producers | BLM saturated doubling versus signed additive INT/P; cut/recovery priority; learning/cell reset/persistence; O2 activity and distinct admission/learning gates |
-| Delivery accounting and controller integration (accounting and7E4F..852B implemented; broad callers pending) | 83B1..84BB sync/async routing, packet/reservoir accounting and shared-state joins; replace the 7D4B fuel task binding; connect fuel-required scheduled producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
+| Delivery accounting and controller integration (resident7D4B..8547 controller implemented; remaining slow producers pending) | Sync/async routing, packet/reservoir accounting, ignition/input/tail and governor joins; connect remaining fuel-required slow-slot producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, wider REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
 
 The batches describe dependency groups, not a claim that each fits one PR. Move
 supporting producers forward when a consumer needs them; preserve one public
@@ -453,7 +558,7 @@ are not a whole-firmware completion percentage.
 
 ## Verification and remaining work
 
-The current factory suite has 190 tests. The C source checks cover six kernel
+The current factory suite has 190 tests. The C source checks cover eight kernel
 contract groups, one-public-routine-per-file provenance, and 532 compiled-C
 base-fuel cases against actual stock instructions. Another 128 startup and 4,112
 REF cases compare ordered C/ROM transactions and pending state; 64 injected I/O
@@ -566,11 +671,16 @@ resulting main rather than creating a PR for each routine group. The previous
 three-PR cadence and older per-update publication guidance are superseded.
 
 Active development branch: `work/pseudo-source-development`, starting from
-`b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. No new PR or full-suite run is
-requested yet. Retained boot and controller seeding are implemented on this branch.
+`b2d851d81eb7a3843b9153309de1e2ff7dc40c02` and now continuing from the merged
+PR48 checkpoint above. The authorized full regression and accumulated merge are
+complete. Retained boot and controller seeding are implemented on this branch.
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
-The next group is timer stack-guard policy7959..7979. The previously completed group #30/#45/#46 remains
+Timer stack-guard policy and its focused ROM checks are implemented, as are
+the five-body EGR demand/feedback/control/flow/output path and complete scheduled
+fuel wrapper. Slot1 and the complete slotF diagnostic/fault/fuel group are also
+resident. Next are slot4, remaining slow-slot producer admissions and target glue.
+The previously completed group #30/#45/#46 remains
 historical validation evidence.
 
 ## Historical material
@@ -581,3 +691,18 @@ within that prototype. Frozen V1 plans and dated `2.bin` investigations do not
 override the current C design or current-tune image identity.
 Git history is the version record; no parallel live-state document is created.
 [Repository audit](REPOSITORY_AUDIT.md) records the cleanup and retained evidence.
+
+## Reconciliation checkpoint — 2026-11-22
+
+The cumulative `work/pseudo-source-closure` branch has now combined the
+independently validated PR48 mainline work with the separately developed
+$7D4B–$8547 fuel-cycle ROM tests and $D4EB gear-source modules.
+The 374-function / 105-CTest integrated tree retains **both** source
+variants where their root names overlapped, while preferring PR48's
+previously validated C-source default behavior. The closure fuel and
+slot01 paths are still available under explicit research-mode switches.
+The two independent validation histories are **not** evidence that this
+combination has passed; verify the new merge tree and its ROM provenance.
+The hardware contract, native HC11 linker/output and complete $D4EB
+transmission path remain unfinished. See
+`pseudo-source/reference/reconciliation_2026-11-22.md`.

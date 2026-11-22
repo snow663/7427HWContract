@@ -113,7 +113,7 @@ Clear0292. With75.1 clear, a negative-N byte028D immediately chooses255<<8 as028
 
 With75.1 already set, old recovery75.4 bypasses the following sign decision. Otherwise compute byte `0-028D` and use the actual signed `BLT`: signed-positive derivative selects the reducing branch; zero/negative derivative selects recovery. This uses N xor V, not merely the N bit of a wrapped negate.
 
-- **Reducing:** `r=hi(sat16(4*L1(min(coolant,128)>>1,$50FA)*raw028D))`. Subtract r from high0286, retaining the fraction when it stays at/above50E3. Borrow or a lower result sets50E3<<8. Use the resulting high byte as output.
+- **Reducing:** `r=hi(sat16(4*L1(min(coolant,128)>>1,$50FA)*raw028D))`. Subtract r from high0286 and floor the result at50E3. The old fraction is read at9086, but both the accepted and clamped routes join9093 `CLRB`; the stored accumulator fraction is always zero on this branch. Use the resulting high byte as output. Actual-ROM comparison during the C port corrected the earlier claim that an accepted result retained its fraction.
 - **Recovery:** set75.4. Select gain50E7 when old0299<50E5, otherwise50E6; add unshifted word `0293*gain` to0286. A word carry writes255<<8 and target255; otherwise retain/store the whole sum and output its high byte.
 
 All branches join the common speed-correction/output store above. After storing0299, any75&11 (RPM mode or recovery) can clear75 bits13 only when actuator integral **high byte0288=0**, and either RPM mode is clear or filtered RPM high028E<50D9. This is a byte-high release test, not a whole-word-zero requirement.

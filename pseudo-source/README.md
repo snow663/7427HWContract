@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The cumulative closure branch contains 350 public routines: 197 implemented outlines, 22 dependency
+The reconciled closure branch contains 374 public routines: 227 implemented outlines, 16 dependency
 boundaries and 131 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
@@ -361,3 +361,18 @@ only when the user says "pull and merge", then merge after its checks pass.
 The current branch and authoritative delivery workflow are recorded in
 [working state](../docs/WORKING_STATE.md#delivery-workflow); older per-update
 publication and three-PR instructions are superseded.
+
+## PR48 / closure reconciliation (November 22, 2026)
+
+PR48's already validated EGR, scheduled fuel/governor, diagnostic and whole
+slot-F modules are preserved alongside the cumulative closure branch's
+independent ROM-verified fuel and transmission routines. PR48 remains the
+default **C pseudo-source** implementation for the fuel and slot01 entry
+points. The closure implementations remain available behind the explicit
+`enable_resident_fuel_cycle` / `bind_fuel_ram_owners` and
+`enable_resident_slow_slots` research switches.
+
+The combined tree has **105 CTest entries, including 49 ROM differential
+suites**. This does *not* inherit either parent's CI success automatically;
+the merge requires its own compilation, contract and ROM regression.
+See [the reconciliation ledger](reference/reconciliation_2026-11-22.md).

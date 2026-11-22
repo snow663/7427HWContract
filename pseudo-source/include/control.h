@@ -36,6 +36,23 @@ PcmStatus pcm_iac_background(Pcm *);
 PcmStatus pcm_shift_lamp(Pcm *);
 PcmStatus pcm_egr_demand(Pcm *);
 PcmStatus pcm_vss_filter(Pcm *);
+/* PR48 EGR, diagnostics and whole-slotF callable sources. */
+PcmStatus pcm_transmission_baro(Pcm *);
+PcmStatus pcm_tcc_nonelectronic(Pcm *);
+PcmStatus pcm_fault_primary_reaction(Pcm *);
+PcmStatus pcm_fault_injection_reaction(Pcm *);
+PcmStatus pcm_fault_reaction_mask(Pcm *, uint16_t mask_base, uint8_t *value);
+PcmStatus pcm_diagnostic_brake_set(Pcm *);
+PcmStatus pcm_diagnostic_brake_clear(Pcm *);
+PcmStatus pcm_diagnostic_tcc_slip(Pcm *);
+PcmStatus pcm_diagnostic_top_gear_slip(Pcm *);
+PcmStatus pcm_diagnostic_tcc_released_slip(Pcm *);
+PcmStatus pcm_diagnostic_current_error(Pcm *);
+PcmStatus pcm_diagnostic_transmission_temperature(Pcm *);
+PcmStatus pcm_diagnostic_ratio_invalid(Pcm *);
+PcmStatus pcm_diagnostic_ratio_lowgear(Pcm *);
+PcmStatus pcm_diagnostic_ratio_highgear(Pcm *);
+PcmStatus pcm_diagnostic_slot_f(Pcm *);
 
 /* A first real algorithm slice. Inputs retain the factory fixed-point
  * representations; they are not yet RPM/kPa/microsecond engineering units. */
