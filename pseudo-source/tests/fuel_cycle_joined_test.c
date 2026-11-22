@@ -132,8 +132,10 @@ static void cycle_guarded_fast_root(void)
     PcmFeedbackCalibration fb;PcmDeliveryCalibration dl;
     CHECK(pcm_fuel_control(NULL)==PCM_BAD_CONFIGURATION);
     cycle_init(&f,&pcm,&root,&fuel,&iac,&air,&io,&mix,&fb,&dl,2);
-    CHECK(pcm_fuel_control(&pcm)==PCM_UNIMPLEMENTED);
-    CHECK(pcm.unresolved_task==PCM_FUEL_CONTROL);
+    /* Mainline resident fuel is now the default and is exercised by
+     * fuel_controller_contracts. This host fixture owns the independently
+     * verified research variant; it checks that the guard begins disabled. */
+    CHECK(!f.platform.enable_resident_fuel_cycle);
     CHECK(f.used==0 && cycle_injector_writes(&f)==0);
     cycle_init(&f,&pcm,&root,&fuel,&iac,&air,&io,&mix,&fb,&dl,2);
     f.platform.enable_resident_fuel_cycle=true;
