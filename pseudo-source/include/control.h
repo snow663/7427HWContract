@@ -29,6 +29,8 @@ PcmStatus pcm_transmission_fault_gate_69c(Pcm *);
 PcmStatus pcm_transmission_d4eb_prefix(Pcm *);
 PcmStatus pcm_transmission_gear_limit(Pcm *, uint8_t proposed, uint8_t *capped);
 PcmStatus pcm_transmission_gear_finalize(Pcm *, uint8_t proposed);
+PcmStatus pcm_transmission_threshold_select(Pcm *, uint16_t table, uint8_t slot,
+                                            uint8_t *value, bool *valid);
 PcmStatus pcm_connection_probe(Pcm *);
 PcmStatus pcm_iac_background(Pcm *);
 PcmStatus pcm_shift_lamp(Pcm *);
