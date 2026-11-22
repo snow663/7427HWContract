@@ -7,6 +7,26 @@ The [2026-11-17 pseudo-source audit](../pseudo-source/reference/development_audi
 records the current branch inventory, explicit remaining dependencies and
 the later release checkpoints. Target validation remains separate.
 
+## Validated source checkpoint — 2026-11-22
+
+[PR48](https://github.com/snow663/7427HWContract/pull/48) is merged at
+`ccc7dfeb4b8821aeb6ed8092bfe7a14d10e1e375`. The validated source head is
+`9532b50d24a4f21e07ffa43cb06be723f1be69b5`; the merge has the identical tree.
+All80 CMake/CTest checks pass:40 contracts/provenance and40 actual-ROM suites.
+The213 repository Python tests,21 simulator tests (2 display-dependent skips),
+recorded factory verifiers and byte-identical artifact regeneration also pass.
+All four final-head CI workflows succeeded: [C/ROM](https://github.com/snow663/7427HWContract/actions/runs/45065425450),
+[factory structure](https://github.com/snow663/7427HWContract/actions/runs/45065425420),
+[static artifacts](https://github.com/snow663/7427HWContract/actions/runs/45065425408)
+and [hygiene](https://github.com/snow663/7427HWContract/actions/runs/45065425418).
+
+This closes the accumulated EGR, scheduled fuel/governor, slot1 and whole-slotF
+batch. Next implement slot4's alternating diagnostic groups and shared fuel-fault
+publication, then the other slow-slot callers and target glue. Continue ordinary
+development on `work/pseudo-source-development` from merged main; accumulate
+updates and defer another full-suite/PR/merge cycle until the next explicit request.
+Custom-ROM TS00 truck validation remains active; this merge changes no BIN.
+
 ## Active direction
 
 The active replacement-firmware source is [pseudo-source/](../pseudo-source/README.md).
@@ -394,22 +414,23 @@ with no old slotF callback. All356 production/calibration files compile strictly
 the CMake and Python runners register80 checks. See the
 [slotF contract](../pseudo-source/reference/slot_f_contract.md).
 
-On2026-11-22 the user explicitly authorized completion and merge. The40 quick
-C/contract/provenance checks pass; the40 actual-ROM suites and repository-wide
-regression are running. The simulator suite passes21 tests with2 display-dependent
-skips. The earlier spark-dispatch fixture now explicitly retains its original
-EGR task boundaries; the resident EGR and kernel checks stay intact. Main's
-intervening PR47 merge is reconciled on the development branch. Prepare one PR
-for all remaining accumulated changes and merge its checked head after success.
-Slot4/other slow slots, target startup/interrupt/STOP ABI and backend remain next.
+On2026-11-22 the user explicitly authorized completion and merge. The final
+40 quick C/contract/provenance checks and40 actual-ROM suites pass. The213
+repository Python tests and21 simulator tests (2 display-dependent skips) also
+pass. The earlier spark-dispatch fixture explicitly retains its original EGR
+task boundaries; the resident EGR and kernel checks stay intact. Main's
+intervening PR47 merge was reconciled before PR48. Slot4/other slow slots,
+target startup/interrupt/STOP ABI and backend remain next.
 
 The first full CI run passed32 ROM suites and found a stale background
 fixture: its ROM oracle intentionally supplies the old slotF task boundary,
 while its binary had started linking the newly resident whole slot. The
 background target now explicitly supplies that historical producer boundary;
-the real slotF/kernel suites remain unchanged. Recheck this suite and the seven
-not reached by the stopped CI job, then rerun the final merge gate. This is a
-test-fixture scope correction; no production source changes are needed.
+the real slotF/kernel suites remain unchanged. Its1,035 comparisons and all
+seven suites not reached by that stopped job pass locally. The subsequent full
+local and final-head CI reruns pass, and PR48 is merged. This was a test-fixture
+scope correction; production source was unchanged by that correction. The
+validated head, merge identity and CI evidence are recorded at the top of this file.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -650,8 +671,9 @@ resulting main rather than creating a PR for each routine group. The previous
 three-PR cadence and older per-update publication guidance are superseded.
 
 Active development branch: `work/pseudo-source-development`, starting from
-`b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. Full regression and one accumulated
-PR/merge are now authorized. Retained boot and controller seeding are implemented on this branch.
+`b2d851d81eb7a3843b9153309de1e2ff7dc40c02` and now continuing from the merged
+PR48 checkpoint above. The authorized full regression and accumulated merge are
+complete. Retained boot and controller seeding are implemented on this branch.
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
