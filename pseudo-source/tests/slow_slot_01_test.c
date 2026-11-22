@@ -29,8 +29,11 @@ int main(int argc,char **argv)
     PcmIacCalibration iac;PcmAirCalibration air;PcmIoCalibration io;
 #define SETUP() setup(&f,&pcm,&root,&fuel,&iac,&air,&io)
     SETUP();f.platform.enable_resident_slow_slots=false;
-    CHECK(pcm_slot_01(&pcm)==PCM_UNIMPLEMENTED && pcm.unresolved_task==PCM_SLOT_01);
-    CHECK(f.memory[0xac]==0 && f.memory[0xad]==0);
+    /* PR48's complete C583/C668/ADAA chain is now default. This
+     * fixture verifies the alternative chain below without demanding an
+     * obsolete dependency task at the root. */
+    CHECK(pcm_slot_01(&pcm)==PCM_OK);
+    CHECK(f.memory[0xac]==0x12 && f.memory[0xad]==0x34);
     SETUP();
     CHECK(pcm_slot_01(&pcm)==PCM_OK);
     CHECK(f.memory[0xac]==0x12 && f.memory[0xad]==0x34);
