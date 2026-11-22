@@ -22,12 +22,12 @@ mirroring C state. It closes the tested alias split, but is not a complete
 RAM/ASIC/target provider: unknown addresses continue using the raw backend,
 and newly added C producers may need extra owners or a change-order review.
 The default platform flag is **false**; historical suite behavior is intact.
-The broad `pcm_fuel_control` fast-dispatch root remains delegated by
-**default**. Only explicit `PcmPlatform.enable_resident_fuel_cycle`
-**and** `bind_fuel_ram_owners` together permit the complete resident
-source call path in host/research mode. Neither opt-in changes target
-startup, ROM, ASIC or interrupt placement. Full ROM/target verification
-is required before making it unconditional.
+After PR48 reconciliation, the default C-source `pcm_fuel_control` root
+executes the separately validated PR48 resident implementation. The
+independent closure `pcm_fuel_cycle()` remains an **opt-in alternative**:
+only both `enable_resident_fuel_cycle` and `bind_fuel_ram_owners` enable
+it. The default `bind_fuel_ram_owners` flag itself remains **false**.
+Neither C entry proves the physical PCM RAM/ASIC/timing/target ABI.
 
 ## Address-to-owner handoff
 
