@@ -3,9 +3,10 @@
 Stock BMHM remains byte authority (SHA-256
 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`).
 Slot1 now calls all three resident bodies in order. A separate callable slotF
-suffix preserves its actual entry after the C514/C4F5 group. The **whole slotF
-root remains a dependency** until that prefix is ported and joined; the suffix
-is never substituted for the preceding diagnostic work. This group changes no BIN.
+suffix preserves its actual entry after the C514/C4F5 group. That prefix and
+the whole slotF root have since been implemented and checked; see the
+[slotF contract](slot_f_contract.md). The suffix is never substituted for the
+preceding diagnostic work. These groups change no BIN.
 
 | C entry | Stock scope | Behavior |
 |---|---|---|
@@ -96,6 +97,7 @@ IRQ assignments, supplied ADC completion and nominal delays retain their earlier
 contracts. These joined calls do not establish intervening whole-scheduler input
 age, physical TCC/pump behavior, target ABI or interrupt/device timing.
 
-Next complete the C4F5 diagnostic prefix and join C514 plus the suffix into the
-whole slotF root, then continue slot4's alternating producer groups. Full project
-regression, PR and merge remain deferred until "pull and merge".
+The subsequent group completes C4F5 and joins the whole slotF root. Next continue
+slot4's alternating producer groups. The user has authorized full regression,
+one accumulated PR and merge; current results are in the
+[working state](../../docs/WORKING_STATE.md).

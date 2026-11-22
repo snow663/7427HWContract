@@ -82,7 +82,10 @@ static void slow_contracts(void)
     CHECK(pcm_slot_01(&pcm)==PCM_BAD_CONFIGURATION && f.used==0);
     puts("Fault-mask output retention/polarity, slow phase admission, suffix refresh and slot1 prefix-stop contracts pass.");
 }
-int main(int argc,char **argv)
+#ifndef PCM_SLOW_TEST_MAIN
+#define PCM_SLOW_TEST_MAIN main
+#endif
+int PCM_SLOW_TEST_MAIN(int argc,char **argv)
 {
     const char *path=getenv("PCM_FUEL_CONTROLLER_ROM");CHECK(path!=NULL || argc==2);
     if (path!=NULL) { FILE *file=fopen(path,"rb");CHECK(file!=NULL && fread(stock,1,sizeof(stock),file)==sizeof(stock));CHECK(fclose(file)==0); }

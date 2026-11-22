@@ -23,7 +23,7 @@ TARGETS=[
  ('knock','knock_test',['ac_switch'],[['--contracts'],['--adaptive-contracts']],['knock_rom','adaptive_spark_rom']),
  ('spark','spark_test',['alternate','egr_feedback'],[['--contracts'],['--modifier-contracts'],['--command-contracts'],['--period-contracts'],['--output-contracts']],['spark_rom','spark_modifiers_rom','spark_command_rom','spark_period_rom','spark_output_rom']),
  ('spark_admission','spark_admission_test',['alternate'],[['--contracts']],['spark_admission_rom']),
- ('spark_controller','spark_test',['egr_feedback'],[['--controller-contracts']],['spark_controller_rom']),
+ ('spark_controller','spark_test',['egr_feedback','egr_control','egr_flow','egr_output'],[['--controller-contracts']],['spark_controller_rom']),
  ('slot7','slot7_test',['iac_background','shift_lamp'],[['--contracts']],['slot7_rom']),
  ('iac','iac_test',['shift_lamp'],[['--contracts']],['iac_rom']),
  ('iac_slow','iac_slow_test',['shift_lamp','vss_filter','egr_demand'],[['--contracts']],['iac_slow_rom']),
@@ -50,6 +50,7 @@ TARGETS=[
  ('egr_producers','egr_producers_test',[],[['--contracts']],['egr_producers_rom']),
  ('fuel_controller','fuel_controller_test',[],[['--contracts']],['fuel_controller_rom']),
  ('slow_fuel','slow_fuel_test',[],[['--contracts']],['slow_fuel_rom']),
+ ('slot_f','slot_f_test',[],[['--contracts']],['slot_f_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
@@ -57,6 +58,9 @@ REPLACED={
  'vss_filter':'sensors/vss_filter.c',
  'egr_feedback':'emissions/egr_feedback.c',
  'egr_demand':'emissions/egr_demand.c',
+ 'egr_control':'emissions/egr_control.c',
+ 'egr_flow':'emissions/egr_flow.c',
+ 'egr_output':'emissions/egr_output.c',
 }
 with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     sources=sorted((ROOT/'src').rglob('*.c'))+sorted((ROOT/'calibration').glob('*.c'))

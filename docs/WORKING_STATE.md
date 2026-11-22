@@ -5,7 +5,7 @@ contracts and historical proofs are linked rather than repeated here.
 
 The [2026-11-17 pseudo-source audit](../pseudo-source/reference/development_audit_2026-11-17.md)
 records the current branch inventory, explicit remaining dependencies and
-pending full-suite/target validation.
+the later release checkpoints. Target validation remains separate.
 
 ## Active direction
 
@@ -15,8 +15,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 334 public routines: 208 implemented outlines,
-17 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 345 public routines: 220 implemented outlines,
+16 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -385,6 +385,24 @@ group must finish before its new suffix. Next close that diagnostic prefix,
 then wire the whole slot and continue slot4 callers. Full project regression,
 PR and merge remain deferred until "pull and merge".
 
+The following group completes all ten C4F5 diagnostic bodies and connects C514,
+diagnostics and the7B60 suffix into the complete slotF root. Its43,299 focused
+C/ROM comparisons cover all466 new scoped starts,1,395 failed provider prefixes
+and160 retained slot1/whole-slotF/fuel/REF histories. Kernel contracts observe10
+diagnostic admissions and20 transmission-output publications per160 phases,
+with no old slotF callback. All356 production/calibration files compile strictly;
+the CMake and Python runners register80 checks. See the
+[slotF contract](../pseudo-source/reference/slot_f_contract.md).
+
+On2026-11-22 the user explicitly authorized completion and merge. The40 quick
+C/contract/provenance checks pass; the40 actual-ROM suites and repository-wide
+regression are running. The simulator suite passes21 tests with2 display-dependent
+skips. The earlier spark-dispatch fixture now explicitly retains its original
+EGR task boundaries; the resident EGR and kernel checks stay intact. Main's
+intervening PR47 merge is reconciled on the development branch. Prepare one PR
+for all remaining accumulated changes and merge its checked head after success.
+Slot4/other slow slots, target startup/interrupt/STOP ABI and backend remain next.
+
 ## Tracked milestone: complete fuel calculation and injector control
 
 The goal is a connected, ROM-checked C fuel path from acquired inputs and retained
@@ -624,14 +642,14 @@ resulting main rather than creating a PR for each routine group. The previous
 three-PR cadence and older per-update publication guidance are superseded.
 
 Active development branch: `work/pseudo-source-development`, starting from
-`b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. No new PR or full-suite run is
-requested yet. Retained boot and controller seeding are implemented on this branch.
+`b2d851d81eb7a3843b9153309de1e2ff7dc40c02`. Full regression and one accumulated
+PR/merge are now authorized. Retained boot and controller seeding are implemented on this branch.
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
 the five-body EGR demand/feedback/control/flow/output path and complete scheduled
-fuel wrapper. Slot1 and the callable slotF suffix are also resident. Next are
-the slotF diagnostic prefix, remaining slow-slot producer admissions and target glue.
+fuel wrapper. Slot1 and the complete slotF diagnostic/fault/fuel group are also
+resident. Next are slot4, remaining slow-slot producer admissions and target glue.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 

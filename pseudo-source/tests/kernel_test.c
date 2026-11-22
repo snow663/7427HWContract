@@ -14,7 +14,7 @@ typedef struct {
     PcmTask trace[2048]; unsigned used;
     unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
     unsigned connection_action, signature_reads, transmission_writes;
-    unsigned egr_demand_writes, egr_fraction_writes, egr_output_writes, transmission_baro_writes;
+    unsigned egr_demand_writes, egr_fraction_writes, egr_output_writes, transmission_baro_writes, slot_f_diagnostic_writes;
     uint8_t step_positions[256], observed_shadows[256];
     unsigned step_observations, shadow_observations;
     bool masked, inject, injected, guard_fails, feed_reference, stack_capture_fail;
@@ -31,6 +31,10 @@ static PcmStatus read8(void *v, uint16_t a, uint8_t *out) {
     if (a==0x02f3) *out=f->pcm->io.barometric_sample;
     if (a==0x02f4) *out=f->pcm->spark.barometric_high;
     if (a==0x02f5) *out=f->pcm->io.barometric_fraction;
+    if (a==0x1c) *out=f->pcm->transmission.fault_flags_primary;
+    if (a==0x1d) *out=f->pcm->transmission.fault_flags_secondary;
+    if (a==0x99) *out=f->pcm->transmission.inhibit_flags;
+    if (a==0x89) *out=f->pcm->transmission.range_context;
     if (a==PCM_ADCTL) *out|=0x80; /* Explicit ready peripheral fixture. */
     return PCM_OK;
 }
@@ -52,6 +56,11 @@ static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     if (a==0x02f3) f->pcm->io.barometric_sample=value;
     if (a==0x02f4) f->pcm->spark.barometric_high=value;
     if (a==0x02f5) f->pcm->io.barometric_fraction=value;
+    if (a==0x1c) f->pcm->transmission.fault_flags_primary=value;
+    if (a==0x1d) f->pcm->transmission.fault_flags_secondary=value;
+    if (a==0x99) f->pcm->transmission.inhibit_flags=value;
+    if (a==0x89) f->pcm->transmission.range_context=value;
+    if (a==0x166) ++f->slot_f_diagnostic_writes;
     /* The captured-X adapter binds the guard's shared RAM writes to their
      * canonical owners before the separate recovery continuation is entered. */
     if (f->platform.capture_timer_stack_x!=NULL) {
@@ -136,6 +145,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
+    f->platform.task[PCM_SLOT_0F]=NULL;
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
     f->platform.task[PCM_SERIAL_POLL]=f->platform.task[PCM_SCI_BODY]=f->platform.task[PCM_RESET_SERIAL]=NULL;
@@ -201,8 +211,9 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
-    CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E || k==PCM_SLOT_0F?0u:10u));
+    CHECK(f.signature_reads==10 && f.transmission_writes==20 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+    CHECK(f.slot_f_diagnostic_writes==10);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.counts[PCM_EGR_DEMAND]==0 && f.counts[PCM_EGR_FLOW]==0 && f.counts[PCM_VSS_FILTER]==0);
@@ -251,7 +262,7 @@ static void test_special_mode_and_slot_state(void) {
     CHECK(f.counts[PCM_ALTERNATE_RPM]==0 && f.period_reads==80 && f.watchdog_writes==160);
     CHECK(!pcm.spark.output_request && !pcm.reference.consumed);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_FUEL_CONTROL]==0);
-    CHECK(f.counts[PCM_SLOT_00]==0 && f.counts[PCM_SLOT_0F]==10);
+    CHECK(f.counts[PCM_SLOT_00]==0 && f.counts[PCM_SLOT_0F]==0 && f.slot_f_diagnostic_writes==10);
 }
 static void test_retained_fields_profile_and_boundaries(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);

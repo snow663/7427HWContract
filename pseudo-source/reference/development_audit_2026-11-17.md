@@ -109,3 +109,12 @@ Its22,168 focused C/ROM cases cover234 scoped starts and437 failed prefixes;
 the existing16,493-case controller checks also pass. There are78 CTest entries.
 See the [slow fuel contract](slow_fuel_contract.md); the C4F5 prefix, whole
 slotF admission and slot4 callers remain explicit. Full regression is deferred.
+
+The subsequent slotF group closes its root boundary and adds eleven public
+diagnostic entries. Current inventory is345 routines:220 outlines,16 boundaries
+and109 algorithms. Its43,299 focused comparisons cover all466 new scoped starts,
+1,395 failed prefixes and160 retained whole-slot/fuel/REF histories. There are80
+CTest registrations. See the [slotF contract](slot_f_contract.md). On2026-11-22
+the user authorized full regression and merge of the accumulated branch. That
+authorization supersedes the deferral at earlier checkpoints; current execution
+and publication results are recorded in the [working state](../../docs/WORKING_STATE.md).

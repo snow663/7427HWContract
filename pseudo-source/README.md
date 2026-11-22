@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The working branch contains 334 public routines: 208 implemented outlines, 17 dependency
+The working branch contains 345 public routines: 220 implemented outlines, 16 dependency
 boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
@@ -292,10 +292,12 @@ Slot1 now runs BARO acquisition, transmission BARO and nonelectronic TCC in
 order. The callable slotF suffix also joins fault reactions, pump feedback,
 temperature/offset, phase-qualified AE/startup/closed-loop work and refresh.
 Its22,168 focused comparisons cover234 scoped starts and real fuel/REF joins;
-see the [slow fuel contract](reference/slow_fuel_contract.md). The preceding
-C514/C4F5 slotF group and slot4 callers remain explicit work.
-Continue with the slotF diagnostic prefix, then remaining slow-slot admissions
-and target entry glue.
+see the [slow fuel contract](reference/slow_fuel_contract.md). The complete slotF
+root now runs C514 outputs and all ten C4F5 diagnostic bodies before that suffix.
+Its43,299 focused comparisons cover all466 new scoped starts,1,395 failed
+prefixes and160 retained slot1/whole-slotF/fuel/REF histories. See the
+[slotF contract](reference/slot_f_contract.md). Continue with slot4 and the
+remaining slow-slot admissions, then target entry glue.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback
@@ -303,7 +305,8 @@ and delayed board baselines. See the [controller boot contract](reference/boot_c
 and [retained boot contract](reference/boot_retained_contract.md)
 for the rooted checksum/COP cadence, captured-sample wait boundary and corrected
 7393 controller entry. The full regression under the corrected indexed CPU
-remains pending until "pull and merge".
+is included in the currently authorized full regression; release results are
+recorded in the [working state](../docs/WORKING_STATE.md).
 Working RAM initialization now calls the literal stock clear helper and existing
 serial clear directly. See the [startup memory contract](reference/startup_memory_contract.md)
 for count truncation, transaction widths and the explicit target-stack exclusion.
