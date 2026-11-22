@@ -4,17 +4,19 @@
 #include <stdlib.h>
 #include <string.h>
 #define CHECK(x) do{if(!(x)){fprintf(stderr,"D5B7:%d %s\n",__LINE__,#x);exit(3);}}while(0)
-typedef struct {PcmPlatform platform;uint8_t mem[65536];unsigned ops,fail_at;} Fixture;
+typedef struct {PcmPlatform platform;uint8_t mem[65536];uint16_t addresses[256];unsigned ops,fail_at;} Fixture;
 static PcmStatus read8(void*ctx,uint16_t addr,uint8_t*value)
 {
     Fixture*f=ctx;
-    if(++f->ops==f->fail_at)return PCM_NO_HARDWARE;
+    unsigned op=f->ops++;if(op<256)f->addresses[op]=addr;
+    if(f->ops==f->fail_at)return PCM_NO_HARDWARE;
     *value=f->mem[addr];return PCM_OK;
 }
 static PcmStatus write8(void*ctx,uint16_t addr,uint8_t value)
 {
     Fixture*f=ctx;
-    if(++f->ops==f->fail_at)return PCM_NO_HARDWARE;
+    unsigned op=f->ops++;if(op<256)f->addresses[op]=addr;
+    if(f->ops==f->fail_at)return PCM_NO_HARDWARE;
     f->mem[addr]=value;return PCM_OK;
 }
 static void init(Fixture*f,Pcm*p)
@@ -40,6 +42,13 @@ static void contracts(void)
     init(&f,&p);f.mem[0x83]=0xff;f.fail_at=1;
     CHECK(pcm_transmission_gear_finalize(&p,1)==PCM_NO_HARDWARE);
     CHECK(f.mem[0x83]==0xff && f.ops==1);
+    init(&f,&p);f.mem[0x0099]=1;f.mem[0x00d9]=2;
+    f.mem[0x0083]=0xa5;f.fail_at=4;
+    CHECK(pcm_transmission_gear_finalize(&p,2)==PCM_NO_HARDWARE);
+    CHECK(f.ops==4 && f.addresses[0]==0x0099 &&
+          f.addresses[1]==0x0099 && f.addresses[2]==0x00d9 &&
+          f.addresses[3]==0x00d9);
+    CHECK(f.mem[0x0083]==0xa5 && f.mem[0x00d9]==2);
     CHECK(pcm_transmission_gear_finalize(NULL,1)==PCM_BAD_CONFIGURATION);
     puts("D5B7 gear arbitration: direct upshift, override and fail-at-first-prefix pass.");
 }
