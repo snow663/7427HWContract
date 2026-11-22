@@ -21,6 +21,12 @@ PcmStatus pcm_adc_feedback(Pcm *);
 PcmStatus pcm_current_control(Pcm *);
 PcmStatus pcm_ac_switch_inputs(Pcm *);
 PcmStatus pcm_transmission_outputs(Pcm *);
+/* D4EB diagnostics: exact source-state prefix; remaining gear decision separate. */
+PcmStatus pcm_transmission_mask_scan(Pcm *, uint16_t table, bool *active);
+PcmStatus pcm_transmission_fault_gate_684(Pcm *);
+PcmStatus pcm_transmission_fault_gate_6ac(Pcm *);
+PcmStatus pcm_transmission_fault_gate_69c(Pcm *);
+PcmStatus pcm_transmission_d4eb_prefix(Pcm *);
 PcmStatus pcm_connection_probe(Pcm *);
 PcmStatus pcm_iac_background(Pcm *);
 PcmStatus pcm_shift_lamp(Pcm *);
