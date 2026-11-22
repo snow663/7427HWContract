@@ -209,6 +209,11 @@ if(BUILD_TESTING)
   add_test(NAME transmission_gear_limit_contracts COMMAND pcm_transmission_gear_limit_rom_tests --contracts)
   add_test(NAME transmission_gear_limit_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_transmission_gear_limit_rom.py $<TARGET_FILE:pcm_transmission_gear_limit_rom_tests>)
   set_tests_properties(transmission_gear_limit_rom_differential PROPERTIES COST 250)
+  add_executable(pcm_transmission_gear_finalize_tests tests/transmission_gear_finalize_rom_test.c)
+  target_link_libraries(pcm_transmission_gear_finalize_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME transmission_gear_finalize_contracts COMMAND pcm_transmission_gear_finalize_tests --contracts)
+  add_test(NAME transmission_gear_finalize_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_transmission_gear_finalize_rom.py $<TARGET_FILE:pcm_transmission_gear_finalize_tests>)
+  set_tests_properties(transmission_gear_finalize_rom_differential PROPERTIES COST 200)
   # Long independent ROM suites start first on fresh CI runners. These relative
   # costs affect scheduling only; every selected test still runs.
   set_tests_properties(scheduled_input_rom_differential PROPERTIES COST 1200)
