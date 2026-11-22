@@ -63,6 +63,7 @@ TARGETS=[
  ('slow_slot_01','slow_slot_01_test',[],[['--contracts']],[]),
  ('slow_slot_03','slow_slot_03_test',[],[['--contracts']],[]),
  ('tcc_non_electronic_rom','tcc_non_electronic_rom_test',[],[],['tcc_non_electronic_rom']),
+ ('transmission_d4eb_prefix','transmission_d4eb_prefix_test',[],[['--contracts']],['transmission_d4eb_prefix_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
