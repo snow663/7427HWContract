@@ -341,3 +341,8 @@ src/system/fuel_ram_owner_read16.c,pcm_fuel_ram_owner_read16,implemented_algorit
 src/system/fuel_ram_owner_write16.c,pcm_fuel_ram_owner_write16,implemented_algorithm,7D4B fuel prefix big endian word publication to canonical owners,Connect target physical and SRAM providers after source checks
 src/sensors/speed_source.c,pcm_speed_source,implemented_algorithm,C668..C6BA slot01 speed source and F436 lag,Verify ROM differential and adjacent C583 and ADAA call boundaries
 src/transmission/tcc_non_electronic.c,pcm_tcc_non_electronic,implemented_algorithm,ADAA..AE5B non-electronic TCC qualification and hysteresis,Verify complete ROM branch/read-order source differential
+src/transmission/transmission_mask_scan.c,pcm_transmission_mask_scan,implemented_algorithm,E6BC..E6E3 nine entry diagnostics mask scan and TSTA output,Compare indexed RAM reads and conditional early exit to stock ROM
+src/transmission/transmission_fault_gate_684.c,pcm_transmission_fault_gate_684,implemented_algorithm,E684..E69B direct bit and E74C conditional scan set 0098.7,Compare flag retention and early stop
+src/transmission/transmission_fault_gate_6ac.c,pcm_transmission_fault_gate_6ac,implemented_algorithm,E6AC..E6BB E743 mask to 0099.1,Compare fixed-point source fields and failure history
+src/transmission/transmission_fault_gate_69c.c,pcm_transmission_fault_gate_69c,implemented_algorithm,E69C..E6AB E73A mask to 0099.0,Compare low bits and RMW exact order
+src/transmission/transmission_d4eb_prefix.c,pcm_transmission_d4eb_prefix,implemented_algorithm,D4EB..D4F7 ordered diagnostic flags and 0084 reset,Continue D4F7-D69E gear select while retaining source ABI
