@@ -706,3 +706,15 @@ combination has passed; verify the new merge tree and its ROM provenance.
 The hardware contract, native HC11 linker/output and complete $D4EB
 transmission path remain unfinished. See
 `pseudo-source/reference/reconciliation_2026-11-22.md`.
+
+
+### Reconciled branch source verification
+
+The 2026-11-22 two-parent main/closure integration is recorded at
+[commit 41d7f84](https://github.com/snow663/7427HWContract/commit/41d7f84efd5a3ef75db1fefac049fbf5a578c62f).
+Combined [CI run 45072057548](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
+passed all **56 fast contracts and 15 selected ROM comparisons**:
+9 closure and 6 PR48 suites. The branch has 374 indexed C routines,
+105 registered CTests (49 ROM suites) and no upstream commits outstanding.
+The complete merged-tree release regression is **not yet run**; nothing
+was merged from closure back into main or flashed to a PCM.
