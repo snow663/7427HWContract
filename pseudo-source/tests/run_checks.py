@@ -26,11 +26,11 @@ TARGETS=[
  ('spark_controller','spark_test',['egr_feedback'],[['--controller-contracts']],['spark_controller_rom']),
  ('slot7','slot7_test',['iac_background','shift_lamp'],[['--contracts']],['slot7_rom']),
  ('iac','iac_test',['shift_lamp'],[['--contracts']],['iac_rom']),
- ('iac_slow','iac_slow_test',['shift_lamp','vss_filter'],[['--contracts']],['iac_slow_rom']),
- ('iac_main','iac_main_test',['shift_lamp','vss_filter'],[['--contracts']],['iac_main_rom']),
- ('iac_step','iac_step_test',['shift_lamp','vss_filter'],[['--contracts']],['iac_step_rom']),
- ('io','io_test',['shift_lamp','vss_filter'],[['--contracts']],['io_rom']),
- ('inputs','inputs_test',[],[['--contracts']],['inputs_rom']),
+ ('iac_slow','iac_slow_test',['shift_lamp','vss_filter','egr_demand'],[['--contracts']],['iac_slow_rom']),
+ ('iac_main','iac_main_test',['shift_lamp','vss_filter','egr_demand'],[['--contracts']],['iac_main_rom']),
+ ('iac_step','iac_step_test',['shift_lamp','vss_filter','egr_demand'],[['--contracts']],['iac_step_rom']),
+ ('io','io_test',['shift_lamp','vss_filter','egr_demand'],[['--contracts']],['io_rom']),
+ ('inputs','inputs_test',['egr_demand'],[['--contracts']],['inputs_rom']),
  ('fuel_output','fuel_output_test',[],[['--contracts']],['fuel_output_rom']),
  ('fuel_air','fuel_air_test',[],[['--contracts']],['fuel_air_rom']),
  ('fuel_mixture','fuel_mixture_test',[],[['--contracts']],['fuel_mixture_rom']),
@@ -47,12 +47,14 @@ TARGETS=[
  ('interrupt_leaves','interrupt_leaves_test',[],[['--contracts']],['interrupt_leaves_rom']),
  ('timer_stack_guard','timer_stack_guard_test',[],[['--contracts']],['timer_stack_guard_rom']),
  ('egr_control','egr_control_test',[],[['--contracts']],['egr_control_rom']),
+ ('egr_producers','egr_producers_test',[],[['--contracts']],['egr_producers_rom']),
 ]
 REPLACED={
  'alternate':'spark/alternate_rpm.c', 'iac_background':'idle/iac_background.c',
  'ac_switch':'sensors/ac_switch_inputs.c', 'shift_lamp':'transmission/shift_lamp.c',
  'vss_filter':'sensors/vss_filter.c',
  'egr_feedback':'emissions/egr_feedback.c',
+ 'egr_demand':'emissions/egr_demand.c',
 }
 with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     sources=sorted((ROOT/'src').rglob('*.c'))+sorted((ROOT/'calibration').glob('*.c'))

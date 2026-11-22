@@ -61,8 +61,9 @@ typedef struct {
      * Never infer this X from a host C call frame or change the host stack. */
     PcmStatus (*capture_timer_stack_x)(void *, uint16_t *);
     PcmDependency task[PCM_TASK_COUNT];
-    /* Factory FAA5 dispatches a captured full logical address. A target/backend
-     * supplies its execution and return ABI; it may return a boundary status. */
+    /* Factory FAA5 dispatches a captured full logical address; EGR demand also
+     * admits the fixed optional1815 hook. A target/backend supplies execution
+     * and return ABI; it may return a boundary status. */
     PcmStatus (*call_address)(void *, uint16_t address);
 } PcmPlatform;
 

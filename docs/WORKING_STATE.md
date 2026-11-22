@@ -15,8 +15,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 321 public routines: 191 implemented outlines,
-21 explicit dependency boundaries and 109 implemented algorithms.
+The source currently has 321 public routines: 193 implemented outlines,
+19 explicit dependency boundaries and 109 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -129,8 +129,8 @@ Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
 Broader fuel/slot1/4/D/F roots remain boundaries. Fuel follow-up includes the7D4B ignition/input
-prefix and852C scheduled tail, required EGR producers and their slow-slot
-admissions/initialization.
+prefix and852C scheduled tail. Required EGR demand/feedback/control/flow/output
+bodies now run resident C; their optional module and target interfaces remain explicit.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -331,9 +331,18 @@ prefixes and128 retained histories. The shared boot fixture still passes2,773
 comparisons, and kernel/hardware contracts pass. See the
 [EGR control contract](../pseudo-source/reference/egr_control_contract.md).
 There are72 registered CTest checks; full regression and PR creation remain deferred.
-Next are EGR demand/flow and the broad scheduled fuel wrapper. Target
-startup/interrupt assembly and the eight earlier AE85 transmission-input callees
-remain explicit.
+The following group replaces EGR demand at CF16..D03D and flow at D03E..D14D
+with resident C. The five-body EGR path now has real demand/feedback/control/
+flow/output joins and real fraction-to-fuel/spark consumers. Focused checks pass
+8,950 C/ROM cases across all 323 new scoped instruction starts, including 409
+failed-operation prefixes and 128 retained histories. The earlier control suite
+still passes 2,662 cases. Kernel/hardware contracts, five affected historical
+IAC/input contract fixtures and 97 focused historical slot9 comparisons pass.
+See the [EGR producer contract](../pseudo-source/reference/egr_producers_contract.md).
+There are 74 registered CTest checks. The optional1815 body and its machine ABI
+remain a callback boundary; the full project suite and PR remain deferred.
+Next is the broad scheduled fuel wrapper. Target startup/interrupt assembly
+and the eight earlier AE85 transmission-input callees remain explicit.
 
 ## Tracked milestone: complete fuel calculation and injector control
 
@@ -576,7 +585,7 @@ requested yet. Retained boot and controller seeding are implemented on this bran
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
-EGR control/output. Next are EGR demand/flow and the broad scheduled fuel wrapper.
+the five-body EGR demand/feedback/control/flow/output path. Next is the broad scheduled fuel wrapper.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 

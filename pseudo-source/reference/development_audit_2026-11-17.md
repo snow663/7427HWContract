@@ -86,3 +86,10 @@ scoped starts, including the real position-feedback join. Current inventory
 is321 routines:191 implemented outlines,21 dependency boundaries and109
 implemented algorithms. EGR demand/flow remain boundaries. There are72 CTest
 registrations; see the [EGR control contract](egr_control_contract.md).
+
+The subsequent demand/flow group passes 8,950 focused actual-ROM comparisons
+across all 323 new scoped starts, with real fraction-to-fuel/spark consumers.
+Current inventory is 321 routines: 193 implemented outlines, 19 dependency
+boundaries and 109 algorithms. All five EGR bodies are resident; optional1815
+and target execution remain explicit. There are 74 CTest registrations; see the
+[EGR producer contract](egr_producers_contract.md). Full regression is deferred.

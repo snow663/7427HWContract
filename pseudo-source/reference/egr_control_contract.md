@@ -36,9 +36,10 @@ Otherwise0071.7 selects FF or00. Every successful path writes one word to3FD8
 with high byteF0, including inhibitedF000 and stopped-engine forcedF0FF.
 
 The existing fast dispatcher already calls these named routines; those calls
-now enter their resident bodies. Demand atCF16 and flow atD03E remain explicit
-dependencies. The broad scheduled fuel wrapper and their complete admissions
-remain separate work.
+now enter their resident bodies. Demand at CF16 and flow at D03E were ported in
+the following group; see the [EGR producer contract](egr_producers_contract.md)
+for joined checks and remaining boundaries. The broad scheduled fuel wrapper
+remains separate work.
 
 Focused verification passes **2,662 compiled-C/actual-ROM comparisons**:
 

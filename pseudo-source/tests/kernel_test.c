@@ -178,7 +178,7 @@ static void test_full_phase_cycle(void) {
     CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
-    CHECK(f.counts[PCM_EGR_DEMAND]==10 && f.counts[PCM_VSS_FILTER]==0);
+    CHECK(f.counts[PCM_EGR_DEMAND]==0 && f.counts[PCM_EGR_FLOW]==0 && f.counts[PCM_VSS_FILTER]==0);
     CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
     CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==370); /*320 feedback +10 slot8 +10 slot0 +30 slot2. */
     /* The phase6 observation precedes the first slot7 gain publication and

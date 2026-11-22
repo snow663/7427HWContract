@@ -44,7 +44,10 @@ static PcmStatus egr_execute(unsigned mode,Pcm *pcm)
     default:return PCM_BAD_CONFIGURATION;
     }
 }
-int main(int argc,char **argv)
+#ifndef PCM_EGR_FIXTURE_ENTRY
+#define PCM_EGR_FIXTURE_ENTRY main
+#endif
+int PCM_EGR_FIXTURE_ENTRY(int argc,char **argv)
 {
     const char *path=getenv("PCM_BOOT_ROM");CHECK(path!=NULL || argc==2);
     if (path!=NULL) { FILE *file=fopen(path,"rb");CHECK(file!=NULL && fread(boot_rom,1,65536,file)==65536);CHECK(fclose(file)==0); }
