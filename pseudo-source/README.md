@@ -39,8 +39,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The cumulative closure branch contains 342 public routines: 197 implemented outlines, 22 dependency
-boundaries and 123 implemented algorithms. The $7959..$7979 timer stack guard
+The cumulative closure branch contains 350 public routines: 197 implemented outlines, 22 dependency
+boundaries and 131 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
