@@ -85,6 +85,15 @@ retain an explicit test-only CF16 boundary to preserve their original scope;
 Production code and the new EGR fixture link the real demand and flow bodies.
 All332 production/calibration files compile with strict C11 warnings as errors.
 
+The follow-up kernel witness executes a full160-phase cycle with real EGR
+bodies. It observes10 demand publications,40 fraction-word publications and80
+hardware command writes, with zero EGR task callbacks. The fixture binds both
+byte and word views of01B2/01B3 and the006E.7 owner coherently. A real flow call
+then feeds the native fuel consumer; independent native edits also read back
+through the provider without overwriting the adjacent fraction byte. All eight
+kernel contract groups pass, including the existing busy/catch-up and stack
+recovery checks. This is a host admission/ownership witness, not target timing.
+
 Traces compare logical operand widths, order, values, literal IRQ masks and
 completed failure prefixes. Native fuel/spark consumers contribute actual state
 rather than fabricated provider events. Private HC11 stack traffic is excluded.

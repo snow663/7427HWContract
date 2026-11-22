@@ -279,7 +279,9 @@ joins, retained histories and172 failed-operation prefixes; see the
 EGR demand and flow now also run resident C, closing the five-body EGR path.
 Their 8,950 focused comparisons cover 323 new instruction starts, real fuel/spark
 consumers, optional-hook admission, retained histories and 409 failed-operation
-prefixes. See the [EGR producer contract](reference/egr_producers_contract.md).
+prefixes. The kernel follow-up verifies demand/fraction/command admission counts
+and coherent fraction-byte owners across a full160-phase cycle. See the
+[EGR producer contract](reference/egr_producers_contract.md).
 Continue with the broad scheduled fuel wrapper and target entry glue.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,

@@ -344,6 +344,12 @@ remain a callback boundary; the full project suite and PR remain deferred.
 Next is the broad scheduled fuel wrapper. Target startup/interrupt assembly
 and the eight earlier AE85 transmission-input callees remain explicit.
 
+The EGR follow-up kernel witness confirms10 demand,40 fraction and80 command
+publications in a full160-phase cycle without EGR task callbacks. Both byte and
+word fraction views bind canonical fuel/spark owners, including a real flow-to-fuel
+handoff. All eight kernel contract groups pass; the full project suite remains
+deferred. See the EGR producer contract for the exact host/target boundary.
+
 ## Tracked milestone: complete fuel calculation and injector control
 
 The goal is a connected, ROM-checked C fuel path from acquired inputs and retained
@@ -467,7 +473,7 @@ are not a whole-firmware completion percentage.
 
 ## Verification and remaining work
 
-The current factory suite has 190 tests. The C source checks cover six kernel
+The current factory suite has 190 tests. The C source checks cover eight kernel
 contract groups, one-public-routine-per-file provenance, and 532 compiled-C
 base-fuel cases against actual stock instructions. Another 128 startup and 4,112
 REF cases compare ordered C/ROM transactions and pending state; 64 injected I/O

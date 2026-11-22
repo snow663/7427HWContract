@@ -2,6 +2,7 @@
 #include "hardware.h"
 #include "control.h"
 #include "calibration.h"
+#include "fuel.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,6 +14,7 @@ typedef struct {
     PcmTask trace[2048]; unsigned used;
     unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
     unsigned connection_action, signature_reads, transmission_writes;
+    unsigned egr_demand_writes, egr_fraction_writes, egr_output_writes;
     uint8_t step_positions[256], observed_shadows[256];
     unsigned step_observations, shadow_observations;
     bool masked, inject, injected, guard_fails, feed_reference, stack_capture_fail;
@@ -22,7 +24,10 @@ typedef struct {
     PcmPlatform platform;
 } Fixture;
 static PcmStatus read8(void *v, uint16_t a, uint8_t *out) {
-    *out=((Fixture *)v)->memory[a];
+    Fixture *f=v;*out=f->memory[a];
+    if (a==0x006e) *out=(uint8_t)((*out&0x7fu)|(f->pcm->spark.egr_active?0x80u:0));
+    if (a==0x01b2) *out=f->pcm->spark.egr_fraction_high;
+    if (a==0x01b3) *out=f->pcm->fuel.egr_fraction_low;
     if (a==PCM_ADCTL) *out|=0x80; /* Explicit ready peripheral fixture. */
     return PCM_OK;
 }
@@ -30,10 +35,16 @@ static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
     Fixture *f=v;
     if (a==PCM_REFERENCE_PERIOD) ++f->period_reads;
     if (a==PCM_EXTENSION_SIGNATURE) ++f->signature_reads;
-    *out=(uint16_t)((uint16_t)f->memory[a]*256u+f->memory[(uint16_t)(a+1u)]); return PCM_OK;
+    *out=(uint16_t)((uint16_t)f->memory[a]*256u+f->memory[(uint16_t)(a+1u)]);
+    if (a==0x01b2) *out=(uint16_t)((uint16_t)f->pcm->spark.egr_fraction_high*256u+f->pcm->fuel.egr_fraction_low);
+    return PCM_OK;
 }
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     Fixture *f=v; f->memory[a]=value;
+    if (a==0x01ae) ++f->egr_demand_writes;
+    if (a==0x006e) f->pcm->spark.egr_active=(value&0x80u)!=0;
+    if (a==0x01b2) f->pcm->spark.egr_fraction_high=value;
+    if (a==0x01b3) f->pcm->fuel.egr_fraction_low=value;
     /* The captured-X adapter binds the guard's shared RAM writes to their
      * canonical owners before the separate recovery continuation is entered. */
     if (f->platform.capture_timer_stack_x!=NULL) {
@@ -64,6 +75,11 @@ static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
 }
 static PcmStatus write16(void *v, uint16_t a, uint16_t value) {
     Fixture *f=v; f->memory[a]=(uint8_t)(value>>8); f->memory[(uint16_t)(a+1u)]=(uint8_t)value;
+    if (a==0x01b2) {
+        ++f->egr_fraction_writes;
+        f->pcm->spark.egr_fraction_high=(uint8_t)(value>>8);f->pcm->fuel.egr_fraction_low=(uint8_t)value;
+    }
+    if (a==0x3fd8) ++f->egr_output_writes;
     if (a==PCM_TOC3) ++f->timer_writes;
     if (a==PCM_CURRENT_COMMAND) ++f->current_writes;
     if (a==PCM_SPARK_TIMING_A) ++f->spark_writes;
@@ -179,6 +195,7 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.counts[PCM_EGR_DEMAND]==0 && f.counts[PCM_EGR_FLOW]==0 && f.counts[PCM_VSS_FILTER]==0);
+    CHECK(f.egr_demand_writes==10 && f.egr_fraction_writes==40 && f.egr_output_writes==80);
     CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
     CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==370); /*320 feedback +10 slot8 +10 slot0 +30 slot2. */
     /* The phase6 observation precedes the first slot7 gain publication and
@@ -303,6 +320,25 @@ static void test_timer_stack_capture_and_recovery(void)
     CHECK(pcm_periodic_irq(&pcm)==PCM_NO_HARDWARE);
     CHECK(f.timer_writes==1 && f.step_observations==0 && f.stack_captures==1);
 }
+static void test_egr_state_handoff(void)
+{
+    static Fixture f;Pcm pcm;init(&f,&pcm);uint16_t word;uint8_t byte;
+    f.memory[0x400d]=2;f.memory[0x70]=1;f.memory[0x1cc]=96;
+    f.memory[0x4856]=f.memory[0x4857]=255;f.memory[0x47ce]=f.memory[0x47cf]=255;
+    CHECK(pcm_egr_flow(&pcm)==PCM_OK && f.egr_fraction_writes==1);
+    CHECK(pcm.spark.egr_fraction_high==0xfd && pcm.fuel.egr_fraction_low==2 && !pcm.spark.egr_active);
+    pcm.fuel.corrected_pulse=1800;pcm.iac.blm_value=128;
+    CHECK(pcm_fuel_egr_blm(&pcm)==PCM_OK && pcm.fuel.egr_subtract==444 && pcm.fuel.corrected_pulse==1356);
+    pcm.spark.egr_fraction_high=0x12;pcm.fuel.egr_fraction_low=0x34;
+    CHECK(read16(&f,0x1b2,&word)==PCM_OK && word==0x1234);
+    CHECK(read8(&f,0x1b2,&byte)==PCM_OK && byte==0x12);
+    CHECK(read8(&f,0x1b3,&byte)==PCM_OK && byte==0x34);
+    CHECK(write8(&f,0x1b3,0xef)==PCM_OK && read16(&f,0x1b2,&word)==PCM_OK && word==0x12ef);
+    CHECK(write8(&f,0x1b2,0xab)==PCM_OK && read16(&f,0x1b2,&word)==PCM_OK && word==0xabef);
+    f.memory[0x6e]=9;pcm.spark.egr_active=true;
+    CHECK(read8(&f,0x6e,&byte)==PCM_OK && byte==0x89);
+    CHECK(write8(&f,0x6e,0x47)==PCM_OK && !pcm.spark.egr_active && f.memory[0x6e]==0x47);
+}
 int main(int argc, char **argv) {
     if (argc==2 && strcmp(argv[1],"--fuel")==0) {
         unsigned d,t,v,e,p,a,f;
@@ -319,6 +355,7 @@ int main(int argc, char **argv) {
     test_retained_fields_profile_and_boundaries();
     test_step_reset_cadence_and_busy_hold();
     test_timer_stack_capture_and_recovery();
-    puts("Six kernel contract groups pass, including resident IAC steps before busy checks and no extra steps on catch-up.");
+    test_egr_state_handoff();
+    puts("Eight kernel contract groups pass, including resident EGR cadence/fraction owners and timer recovery.");
     return 0;
 }
