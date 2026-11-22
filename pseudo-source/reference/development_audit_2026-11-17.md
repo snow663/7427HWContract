@@ -6,7 +6,7 @@ PR or merge until the user explicitly requests pull/check/merge.
 
 ## Source inventory
 
-The current branch's `routine_index.csv` contains **321 indexed public C
+At this audit checkpoint, `routine_index.csv` contained **321 indexed public C
 routines**, with one public routine per `src/*.c`:
 
 | Class | Count | Interpretation |
@@ -70,3 +70,51 @@ from target BIN generation and physical injector/spark output behavior.
 Unrelated open PR21 (VSS filter) and PR42 (Rev B register/read/write documents)
 are not the current pseudo-source branch; both diverged from current main at
 this audit and require reconciliation before a future merge.
+
+## Later validation checkpoint
+
+On2026-11-22 the guard host contracts and6,056 focused actual-ROM comparisons
+were executed and passed; the kernel recovery join now binds busy/fault/pending
+owners coherently. This supersedes the unexecuted-test caveat above for that
+scope only. The branch now has70 registered CTest checks. See the current
+[timer guard contract](timer_stack_guard_contract.md) and
+[working state](../../docs/WORKING_STATE.md); full regression remains deferred.
+
+The following2026-11-22 group replaces the EGR control/output boundaries with
+resident C. It passes2,662 focused actual-ROM comparisons across all90 new
+scoped starts, including the real position-feedback join. Current inventory
+is321 routines:191 implemented outlines,21 dependency boundaries and109
+implemented algorithms. EGR demand/flow remain boundaries. There are72 CTest
+registrations; see the [EGR control contract](egr_control_contract.md).
+
+The subsequent demand/flow group passes 8,950 focused actual-ROM comparisons
+across all 323 new scoped starts, with real fraction-to-fuel/spark consumers.
+Current inventory is 321 routines: 193 implemented outlines, 19 dependency
+boundaries and 109 algorithms. All five EGR bodies are resident; optional1815
+and target execution remain explicit. There are 74 CTest registrations; see the
+[EGR producer contract](egr_producers_contract.md). Full regression is deferred.
+
+The following scheduled-fuel group closes the7D4B controller boundary and adds
+five public ignition/input/tail/governor entries. Current inventory is326 routines:
+199 implemented outlines,18 dependency boundaries and109 algorithms. Its16,493
+focused comparisons cover389 new software starts and real controller/REF joins;
+the source now registers76 CTest checks. See the
+[fuel controller contract](fuel_controller_contract.md). STOP, optional module,
+remaining slow-slot producer and target backend work remain separate.
+
+The following slow-producer group closes slot1 and adds eight public entries
+for transmission BARO/TCC, pump/slow fuel, fault reactions and the slotF suffix.
+Current inventory is334 routines:208 outlines,17 boundaries and109 algorithms.
+Its22,168 focused C/ROM cases cover234 scoped starts and437 failed prefixes;
+the existing16,493-case controller checks also pass. There are78 CTest entries.
+See the [slow fuel contract](slow_fuel_contract.md); the C4F5 prefix, whole
+slotF admission and slot4 callers remain explicit. Full regression is deferred.
+
+The subsequent slotF group closes its root boundary and adds eleven public
+diagnostic entries. Current inventory is345 routines:220 outlines,16 boundaries
+and109 algorithms. Its43,299 focused comparisons cover all466 new scoped starts,
+1,395 failed prefixes and160 retained whole-slot/fuel/REF histories. There are80
+CTest registrations. See the [slotF contract](slot_f_contract.md). On2026-11-22
+the user authorized full regression and merge of the accumulated branch. That
+authorization supersedes the deferral at earlier checkpoints; current execution
+and publication results are recorded in the [working state](../../docs/WORKING_STATE.md).

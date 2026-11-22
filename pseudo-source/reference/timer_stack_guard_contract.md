@@ -55,15 +55,25 @@ The C status boundary is **not** a hardware stack reset or return from a
 damaged native C call frame. Real target entry/RTI and interrupt nesting
 remain explicitly unimplemented.
 
-The kernel fixture separately joins guard capture, recovery status and a
-single $797A continuation without rearming the timer; the supply of a valid
-SP after the recovery boundary is a **test precondition**, not a native
-machine-stack implementation.
+The kernel fixture joins guard capture, recovery status and a single $797A
+continuation without rearming the timer. Its captured-X provider now commits
+$004F.2, $003A.3 and $003A.5 to their canonical native owners; the fixture no
+longer manually clears busy to make the continuation work. Both exact healthy
+upper bounds and capture failure are checked. Supply of a valid SP after the
+recovery boundary remains a target/test precondition, not a host stack reset.
 
-A dedicated host fixture enumerates both busy states and all 65536 X values
-(131072 threshold cases), the five transaction-failure prefixes, fresh-read
-mutation and invalid/missing provider contracts. These are test definitions;
-no new ROM differential run or full project suite is claimed by the source
-addition alone. Future integration should compare actual ROM instruction
-starts, preempting interrupts at the literal CLI and resumption after LDS,
-and stacked CCR/PC/SP recovery with the target ABI.
+Focused validation on 2026-11-22 passes **6,056 C/ROM comparisons** across
+**all10 software instruction starts** at795C..7976. The comparisons execute
+actual recorded BMHM bytes and independently observe each read/write, cause
+preservation, captured/fresh busy reads, provider mutation and every access
+failure prefix. Their event lists include the attempted failed transaction;
+RAM state retains only the successful writes. Source X and SP remain unchanged
+up to the explicit LDS boundary.
+
+The existing host contract also ran and passed its **131,072 threshold cases**
+(two busy states by all65,536 X values), plus failure/null/mutation checks.
+Kernel and hardware smoke contracts pass. The default new ROM test includes
+an exhaustive X sweep for the eventual release run; development used its
+`--focused` boundary and byte-class selection. The full branch suite remains
+deferred until "pull and merge". TSX/PSHX/PULX, native target recovery, interrupt
+arbitration, stacked CCR/PC/SP and RTI are separate target ABI work.

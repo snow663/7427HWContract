@@ -19,4 +19,6 @@ PcmStatus pcm_slot_08(Pcm *); PcmStatus pcm_slot_09(Pcm *);
 PcmStatus pcm_slot_0a(Pcm *); PcmStatus pcm_slot_0b(Pcm *);
 PcmStatus pcm_slot_0c(Pcm *); PcmStatus pcm_slot_0d(Pcm *);
 PcmStatus pcm_slot_0e(Pcm *); PcmStatus pcm_slot_0f(Pcm *);
+/*7B60 suffix: caller must complete C514/C4F5 before entering this stage. */
+PcmStatus pcm_slot_0f_finish(Pcm *);
 #endif

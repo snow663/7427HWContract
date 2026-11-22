@@ -2,6 +2,7 @@
 #include "hardware.h"
 #include "control.h"
 #include "calibration.h"
+#include "fuel.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,6 +14,7 @@ typedef struct {
     PcmTask trace[2048]; unsigned used;
     unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
     unsigned connection_action, signature_reads, transmission_writes;
+    unsigned egr_demand_writes, egr_fraction_writes, egr_output_writes, transmission_baro_writes, slot_f_diagnostic_writes;
     uint8_t step_positions[256], observed_shadows[256];
     unsigned step_observations, shadow_observations;
     bool masked, inject, injected, guard_fails, feed_reference, stack_capture_fail;
@@ -22,7 +24,17 @@ typedef struct {
     PcmPlatform platform;
 } Fixture;
 static PcmStatus read8(void *v, uint16_t a, uint8_t *out) {
-    *out=((Fixture *)v)->memory[a];
+    Fixture *f=v;*out=f->memory[a];
+    if (a==0x006e) *out=(uint8_t)((*out&0x7fu)|(f->pcm->spark.egr_active?0x80u:0));
+    if (a==0x01b2) *out=f->pcm->spark.egr_fraction_high;
+    if (a==0x01b3) *out=f->pcm->fuel.egr_fraction_low;
+    if (a==0x02f3) *out=f->pcm->io.barometric_sample;
+    if (a==0x02f4) *out=f->pcm->spark.barometric_high;
+    if (a==0x02f5) *out=f->pcm->io.barometric_fraction;
+    if (a==0x1c) *out=f->pcm->transmission.fault_flags_primary;
+    if (a==0x1d) *out=f->pcm->transmission.fault_flags_secondary;
+    if (a==0x99) *out=f->pcm->transmission.inhibit_flags;
+    if (a==0x89) *out=f->pcm->transmission.range_context;
     if (a==PCM_ADCTL) *out|=0x80; /* Explicit ready peripheral fixture. */
     return PCM_OK;
 }
@@ -30,10 +42,34 @@ static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
     Fixture *f=v;
     if (a==PCM_REFERENCE_PERIOD) ++f->period_reads;
     if (a==PCM_EXTENSION_SIGNATURE) ++f->signature_reads;
-    *out=(uint16_t)((uint16_t)f->memory[a]*256u+f->memory[(uint16_t)(a+1u)]); return PCM_OK;
+    *out=(uint16_t)((uint16_t)f->memory[a]*256u+f->memory[(uint16_t)(a+1u)]);
+    if (a==0x01b2) *out=(uint16_t)((uint16_t)f->pcm->spark.egr_fraction_high*256u+f->pcm->fuel.egr_fraction_low);
+    if (a==0x02f4) *out=(uint16_t)((uint16_t)f->pcm->spark.barometric_high*256u+f->pcm->io.barometric_fraction);
+    return PCM_OK;
 }
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     Fixture *f=v; f->memory[a]=value;
+    if (a==0x01ae) ++f->egr_demand_writes;
+    if (a==0x006e) f->pcm->spark.egr_active=(value&0x80u)!=0;
+    if (a==0x01b2) f->pcm->spark.egr_fraction_high=value;
+    if (a==0x01b3) f->pcm->fuel.egr_fraction_low=value;
+    if (a==0x02f3) f->pcm->io.barometric_sample=value;
+    if (a==0x02f4) f->pcm->spark.barometric_high=value;
+    if (a==0x02f5) f->pcm->io.barometric_fraction=value;
+    if (a==0x1c) f->pcm->transmission.fault_flags_primary=value;
+    if (a==0x1d) f->pcm->transmission.fault_flags_secondary=value;
+    if (a==0x99) f->pcm->transmission.inhibit_flags=value;
+    if (a==0x89) f->pcm->transmission.range_context=value;
+    if (a==0x166) ++f->slot_f_diagnostic_writes;
+    /* The captured-X adapter binds the guard's shared RAM writes to their
+     * canonical owners before the separate recovery continuation is entered. */
+    if (f->platform.capture_timer_stack_x!=NULL) {
+        if (a==0x004f) f->pcm->scheduler.busy=(value&4u)!=0;
+        if (a==0x003a) {
+            f->pcm->system.stack_recovery=(value&8u)!=0;
+            f->pcm->scheduler.pending=(value&0x20u)!=0;
+        }
+    }
     if (a==PCM_ADCTL) {
         ++f->adc_starts;
         if (value==7) {
@@ -55,6 +91,15 @@ static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
 }
 static PcmStatus write16(void *v, uint16_t a, uint16_t value) {
     Fixture *f=v; f->memory[a]=(uint8_t)(value>>8); f->memory[(uint16_t)(a+1u)]=(uint8_t)value;
+    if (a==0x01b2) {
+        ++f->egr_fraction_writes;
+        f->pcm->spark.egr_fraction_high=(uint8_t)(value>>8);f->pcm->fuel.egr_fraction_low=(uint8_t)value;
+    }
+    if (a==0x3fd8) ++f->egr_output_writes;
+    if (a==0x00ac) ++f->transmission_baro_writes;
+    if (a==0x02f4) {
+        f->pcm->spark.barometric_high=(uint8_t)(value>>8);f->pcm->io.barometric_fraction=(uint8_t)value;
+    }
     if (a==PCM_TOC3) ++f->timer_writes;
     if (a==PCM_CURRENT_COMMAND) ++f->current_writes;
     if (a==PCM_SPARK_TIMING_A) ++f->spark_writes;
@@ -100,6 +145,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
+    f->platform.task[PCM_SLOT_0F]=NULL;
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
     f->platform.task[PCM_SERIAL_POLL]=f->platform.task[PCM_SCI_BODY]=f->platform.task[PCM_RESET_SERIAL]=NULL;
@@ -112,7 +158,7 @@ static void init(Fixture *f, Pcm *pcm) {
     pcm->scheduler.phase=0x0e;
     pcm->spark.battery_sample=130;
     pcm->io.diagnostic_sample=100;pcm->reference.map_sample=135;pcm->io.map_filter=0x8700;
-    f->memory[PCM_ADR2]=135;
+    f->memory[PCM_ADR2]=135;f->memory[PCM_ADR4]=130; /* Stable nominal battery input. */
 }
 static void test_initialization_and_missing_contracts(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
@@ -159,17 +205,20 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==160 && f.current_writes==160);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_INPUT_HOUSEKEEPING]==0 && f.shadow_observations==160);
     CHECK(f.counts[PCM_SERIAL_POLL]==0);
-    CHECK(f.watchdog_writes==80); /* The real housekeeping supplies oneAA per even pass. */
-    CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==80);
+    CHECK(f.watchdog_writes==160); /* Housekeeping AA and resident fuel55 on alternate phases. */
+    CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==0);
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==0 && f.counts[PCM_TRANSMISSION_INPUT_PREFIX]==40 && f.counts[PCM_PRESSURE_TCC]==40);
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E?0u:10u));
-    CHECK(f.signature_reads==10 && f.transmission_writes==10 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E || k==PCM_SLOT_0F?0u:10u));
+    CHECK(f.signature_reads==10 && f.transmission_writes==20 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+    CHECK(f.slot_f_diagnostic_writes==10);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
-    CHECK(f.counts[PCM_EGR_DEMAND]==10 && f.counts[PCM_VSS_FILTER]==0);
+    CHECK(f.counts[PCM_EGR_DEMAND]==0 && f.counts[PCM_EGR_FLOW]==0 && f.counts[PCM_VSS_FILTER]==0);
+    CHECK(f.egr_demand_writes==10 && f.egr_fraction_writes==40 && f.egr_output_writes==80);
+    CHECK(f.transmission_baro_writes==10 && f.counts[PCM_SLOT_01]==0);
     CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
     CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==370); /*320 feedback +10 slot8 +10 slot0 +30 slot2. */
     /* The phase6 observation precedes the first slot7 gain publication and
@@ -213,7 +262,7 @@ static void test_special_mode_and_slot_state(void) {
     CHECK(f.counts[PCM_ALTERNATE_RPM]==0 && f.period_reads==80 && f.watchdog_writes==160);
     CHECK(!pcm.spark.output_request && !pcm.reference.consumed);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_FUEL_CONTROL]==0);
-    CHECK(f.counts[PCM_SLOT_00]==0 && f.counts[PCM_SLOT_0F]==10);
+    CHECK(f.counts[PCM_SLOT_00]==0 && f.counts[PCM_SLOT_0F]==0 && f.slot_f_diagnostic_writes==10);
 }
 static void test_retained_fields_profile_and_boundaries(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm);
@@ -263,11 +312,18 @@ static void test_timer_stack_capture_and_recovery(void)
     CHECK(f.stack_captures==1 && f.timer_writes==1 && f.step_observations==0);
     CHECK(f.memory[0x003a]==0x28 && f.memory[0x004f]==0x80);
     CHECK(pcm.scheduler.timer_seen);
-    /* Test fixture supplies the target LDS/SP recovery outside the C frame:
-     * expose the canonical busy owner before entering the $797A continuation. */
-    pcm.scheduler.busy=false;
+    CHECK(pcm.system.stack_recovery && !pcm.scheduler.busy && pcm.scheduler.pending);
+    /* The provider committed canonical owners. The target LDS/SP recovery
+     * outside the C frame is still a supplied precondition at this join. */
     CHECK(pcm_periodic_irq_resume(&pcm)==PCM_OK);
     CHECK(f.timer_writes==1 && f.step_observations==1);
+    init(&f,&pcm);
+    f.platform.capture_timer_stack_x=capture_stack_x;
+    f.platform.check_stack=NULL;f.supplied_stack_x=0x03ee;
+    f.memory[0x004f]=4;pcm.scheduler.busy=true;
+    CHECK(pcm_periodic_irq(&pcm)==PCM_OK && f.stack_captures==1);
+    CHECK(pcm.scheduler.busy && pcm.scheduler.pending && pcm.scheduler.busy_phase==0x0e);
+    CHECK(f.timer_writes==1 && f.step_observations==1 && !pcm.system.stack_recovery);
     init(&f,&pcm);
     f.platform.capture_timer_stack_x=capture_stack_x;
     f.platform.check_stack=NULL;f.supplied_stack_x=0x03f7;
@@ -287,6 +343,25 @@ static void test_timer_stack_capture_and_recovery(void)
     CHECK(pcm_periodic_irq(&pcm)==PCM_NO_HARDWARE);
     CHECK(f.timer_writes==1 && f.step_observations==0 && f.stack_captures==1);
 }
+static void test_egr_state_handoff(void)
+{
+    static Fixture f;Pcm pcm;init(&f,&pcm);uint16_t word;uint8_t byte;
+    f.memory[0x400d]=2;f.memory[0x70]=1;f.memory[0x1cc]=96;
+    f.memory[0x4856]=f.memory[0x4857]=255;f.memory[0x47ce]=f.memory[0x47cf]=255;
+    CHECK(pcm_egr_flow(&pcm)==PCM_OK && f.egr_fraction_writes==1);
+    CHECK(pcm.spark.egr_fraction_high==0xfd && pcm.fuel.egr_fraction_low==2 && !pcm.spark.egr_active);
+    pcm.fuel.corrected_pulse=1800;pcm.iac.blm_value=128;
+    CHECK(pcm_fuel_egr_blm(&pcm)==PCM_OK && pcm.fuel.egr_subtract==444 && pcm.fuel.corrected_pulse==1356);
+    pcm.spark.egr_fraction_high=0x12;pcm.fuel.egr_fraction_low=0x34;
+    CHECK(read16(&f,0x1b2,&word)==PCM_OK && word==0x1234);
+    CHECK(read8(&f,0x1b2,&byte)==PCM_OK && byte==0x12);
+    CHECK(read8(&f,0x1b3,&byte)==PCM_OK && byte==0x34);
+    CHECK(write8(&f,0x1b3,0xef)==PCM_OK && read16(&f,0x1b2,&word)==PCM_OK && word==0x12ef);
+    CHECK(write8(&f,0x1b2,0xab)==PCM_OK && read16(&f,0x1b2,&word)==PCM_OK && word==0xabef);
+    f.memory[0x6e]=9;pcm.spark.egr_active=true;
+    CHECK(read8(&f,0x6e,&byte)==PCM_OK && byte==0x89);
+    CHECK(write8(&f,0x6e,0x47)==PCM_OK && !pcm.spark.egr_active && f.memory[0x6e]==0x47);
+}
 int main(int argc, char **argv) {
     if (argc==2 && strcmp(argv[1],"--fuel")==0) {
         unsigned d,t,v,e,p,a,f;
@@ -303,6 +378,7 @@ int main(int argc, char **argv) {
     test_retained_fields_profile_and_boundaries();
     test_step_reset_cadence_and_busy_hold();
     test_timer_stack_capture_and_recovery();
-    puts("Six kernel contract groups pass, including resident IAC steps before busy checks and no extra steps on catch-up.");
+    test_egr_state_handoff();
+    puts("Eight kernel contract groups pass, including resident EGR cadence/fraction owners and timer recovery.");
     return 0;
 }

@@ -17,8 +17,10 @@ outlines, 64 algorithms and 34 explicit dependency boundaries.
 
 The broader fuel and slot4 wrappers remain unfinished. These callable slices do
 not silently skip their other scheduled producers or establish complete caller
-cadence. Slot6, slot7 and slot9 preserve their existing call order. EGR demand at
-CF16 and unsupplied optional modules retain explicit interfaces.
+cadence. Slot6, slot7 and slot9 preserve their existing call order. This historical
+input fixture substitutes the CF16 demand boundary. Current kernel and
+[EGR producer checks](egr_producers_contract.md) execute the resident CF16 body;
+unsupplied optional modules retain explicit interfaces.
 
 ## MAP transient selection
 

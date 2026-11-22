@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The working branch contains 321 public routines: 189 implemented outlines, 23 dependency
+The working branch contains 345 public routines: 220 implemented outlines, 16 dependency
 boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
@@ -269,8 +269,35 @@ see the [foreground contract](reference/background_contract.md). The first timer
 arm now includes the preceding TFLG1 acknowledgment. The small trap/reset/XIRQ
 and fallback interrupt bodies are also implemented; see the
 [interrupt-leaf contract](reference/interrupt_leaves_contract.md). Complete factory
-REF now calls its cause/acknowledgment leaf. Next is the timer stack-guard policy
-at7959..7979, followed by target entry glue and remaining input producers.
+REF now calls its cause/acknowledgment leaf. The timer stack-guard policy
+at7959..7979 now has6,056 focused ROM comparisons and a passed131,072-case
+host sweep; see the [guard contract](reference/timer_stack_guard_contract.md).
+The EGR PI/direct-duty controller and literal F0 command publisher now run
+resident C. Their2,662 focused comparisons include real feedback/control/output
+joins, retained histories and172 failed-operation prefixes; see the
+[EGR control contract](reference/egr_control_contract.md).
+EGR demand and flow now also run resident C, closing the five-body EGR path.
+Their 8,950 focused comparisons cover 323 new instruction starts, real fuel/spark
+consumers, optional-hook admission, retained histories and 409 failed-operation
+prefixes. The kernel follow-up verifies demand/fraction/command admission counts
+and coherent fraction-byte owners across a full160-phase cycle. See the
+[EGR producer contract](reference/egr_producers_contract.md).
+The complete7D4B..8547 scheduled fuel controller now runs resident ignition,
+input/calculation and tail bodies, including both governor target/actuator
+paths. Its16,493 focused comparisons cover389 new software instruction starts,
+complete fuel/REF joins and367 failed-operation prefixes. The reducing governor
+branch clears its fraction at9093, correcting an earlier documentation claim.
+See the [fuel controller contract](reference/fuel_controller_contract.md).
+Slot1 now runs BARO acquisition, transmission BARO and nonelectronic TCC in
+order. The callable slotF suffix also joins fault reactions, pump feedback,
+temperature/offset, phase-qualified AE/startup/closed-loop work and refresh.
+Its22,168 focused comparisons cover234 scoped starts and real fuel/REF joins;
+see the [slow fuel contract](reference/slow_fuel_contract.md). The complete slotF
+root now runs C514 outputs and all ten C4F5 diagnostic bodies before that suffix.
+Its43,299 focused comparisons cover all466 new scoped starts,1,395 failed
+prefixes and160 retained slot1/whole-slotF/fuel/REF histories. See the
+[slotF contract](reference/slot_f_contract.md). Continue with slot4 and the
+remaining slow-slot admissions, then target entry glue.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback
@@ -278,7 +305,8 @@ and delayed board baselines. See the [controller boot contract](reference/boot_c
 and [retained boot contract](reference/boot_retained_contract.md)
 for the rooted checksum/COP cadence, captured-sample wait boundary and corrected
 7393 controller entry. The full regression under the corrected indexed CPU
-remains pending until "pull and merge".
+is included in the currently authorized full regression; release results are
+recorded in the [working state](../docs/WORKING_STATE.md).
 Working RAM initialization now calls the literal stock clear helper and existing
 serial clear directly. See the [startup memory contract](reference/startup_memory_contract.md)
 for count truncation, transaction widths and the explicit target-stack exclusion.
@@ -311,11 +339,12 @@ INT/P/MAP corrections now have checked C bodies. See the
 Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](reference/fuel_delivery_contract.md).
-Next are the broad ignition/input prefix and scheduled tail, required EGR
-producers and their slow-slot admissions/initialization.
+The broad ignition/input prefix and scheduled tail now run resident C. The required EGR
+demand/feedback/control/flow/output bodies and existing admissions now call resident C;
+their physical backend and optional1815 implementation remain explicit.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
-resident bodies directly; broad fuel and slot4 work stays explicit. See the
+resident bodies directly; slot1 is also resident and slot4/F root work stays explicit. See the
 [scheduled input contract](reference/scheduled_inputs_contract.md).
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified
