@@ -3,9 +3,10 @@
 
 /* BMHM $7D4B..$8547. Callable ordered composition of the stock ignition/
  * input prefix, crank/running calculation, and phase-selected scheduled
- * continuation. This is NOT automatically admitted by fast dispatch:
- * active $90D3/$8EC9 governor paths, selected logical RAM bindings and
- * full source/ROM histories must close before replacing PCM_FUEL_CONTROL. */
+ * continuation. The independent alternative is selected by pcm_fuel_control
+ * only when enable_resident_fuel_cycle and bind_fuel_ram_owners are both set.
+ * The default fast path uses PR48's resident controller. Both paths retain
+ * explicit optional modules and need a native RAM/peripheral backend. */
 PcmStatus pcm_fuel_cycle(Pcm *pcm)
 {
     F_RUN(pcm_fuel_input_prefix(pcm));

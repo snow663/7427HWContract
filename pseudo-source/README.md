@@ -5,11 +5,18 @@ routine has its own C file. The existing stock BMHM analysis supplies the
 hardware and scheduling reference; algorithms and calibration layout can evolve
 independently behind named interfaces.
 
-The current deliverable is a host-compilable outline with checked scheduler
-logic, reset/REF/knock routines and verified integer algorithms. It does not emit
-a flashable BIN.
-The HC11 startup/vector assembly, target compiler/linker layout, complete
-controller bodies and physical hardware backend remain to be implemented.
+The current deliverable is host-compilable C with connected fuel, injector,
+spark/knock, idle, EGR and system bodies and scoped stock-ROM comparisons.
+The remaining stock-source work is concentrated in current/transmission and
+seven slow-slot roots. HC11 startup/vector assembly, target compiler/linker
+layout and physical hardware backend remain to be implemented; the project
+does not yet emit a flashable replacement BIN.
+
+Read the [2026-11-22 completeness audit](reference/completeness_audit_2026-11-22.md)
+for the current inventory, conditional external hooks, remaining work groups
+and exact verification limits. The detailed paragraphs below retain cumulative
+slice-level milestone evidence; earlier dependency descriptions belong to
+those narrower historical checkpoints.
 
 ## Start here
 
@@ -39,7 +46,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The single `work/pseudo-source-development` branch contains374 public routines:227 implemented outlines,16 dependency
+The canonical `work/pseudo-source-development` branch contains 374 public routines: 227 implemented outlines, 16 dependency
 boundaries and 131 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board

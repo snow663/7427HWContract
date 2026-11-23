@@ -3,9 +3,11 @@
 This is the single live project-state index for 7427HWContract. Detailed
 contracts and historical proofs are linked rather than repeated here.
 
-The [2026-11-17 pseudo-source audit](../pseudo-source/reference/development_audit_2026-11-17.md)
-records the current branch inventory, explicit remaining dependencies and
-the later release checkpoints. Target validation remains separate.
+The [2026-11-22 completeness audit](../pseudo-source/reference/completeness_audit_2026-11-22.md)
+records the source inventory, all declared and conditional dependencies,
+remaining call graphs and verification limits at `1ecbc4e`. The
+[2026-11-17 development audit](../pseudo-source/reference/development_audit_2026-11-17.md)
+retains historical milestone evidence. Target validation remains separate.
 
 ## Current development checkpoint — 2026-11-22
 
@@ -16,15 +18,22 @@ history. `work/pseudo-source-closure` is the old duplicate branch name;
 remote alias removal is pending authenticated branch-management access. Do not
 start another pseudo-source branch. `main` remains the validated release baseline.
 
-Current inventory: **374 public routines**, comprising227 implemented outlines,
-131 algorithms and16 explicit dependency boundaries; **105 CTests** comprise
-56 quick contracts/provenance checks and49 actual-ROM suites. The latest
-[combined-source CI](https://github.com/snow663/7427HWContract/actions/runs/45072378242)
-passes56 quick checks and15 selected ROM suites. The branch-consolidation
-audit also freshly compiled all385 production/calibration files and passed all56
+Current inventory: **374 public routines**, comprising 227 implemented outlines,
+131 algorithms and 16 explicit dependency boundaries; **105 CTests** comprise
+56 quick contracts/provenance checks and 49 actual-ROM suites. The latest
+[canonical-branch CI](https://github.com/snow663/7427HWContract/actions/runs/45103233828)
+passes 56 quick checks and 15 selected ROM suites at `1ecbc4e`. The branch-consolidation
+audit also freshly compiled all 385 production/calibration files and passed all 56
 quick checks plus repository hygiene. Its header edits change comments only.
-This is not a completed49-suite release regression:34 ROM suites remain outside
+This is not a completed 49-suite release regression: 34 ROM suites remain outside
 that combined-tree run.
+
+The completeness audit identifies 11 remaining stock-source work groups,
+including 33 distinct direct entry bodies behind the slow/current/transmission
+boundaries. Some bodies share already ported helpers; neither 374 routine files
+nor 16 declared boundaries supplies a completion percentage. The ordinary
+factory schedule still needs unimplemented-task bindings. Eight optional
+module addresses and native entry/wake/trap behavior remain explicit.
 
 Next close slot03's D4F7..D5B6 middle segment and its required helpers, then
 slot04 and the other remaining slow-slot/current/transmission roots. Fuel,
