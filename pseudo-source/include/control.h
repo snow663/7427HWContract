@@ -46,6 +46,7 @@ PcmStatus pcm_shift_lamp(Pcm *);
 PcmStatus pcm_egr_demand(Pcm *);
 PcmStatus pcm_catalyst_estimate(Pcm *);
 PcmStatus pcm_manifold_tuning(Pcm *);
+PcmStatus pcm_air_shared_outputs(Pcm *);
 PcmStatus pcm_canister_purge(Pcm *);
 PcmStatus pcm_tcc_qualification(Pcm *);
 PcmStatus pcm_vss_filter(Pcm *);

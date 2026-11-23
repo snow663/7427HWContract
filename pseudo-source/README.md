@@ -7,15 +7,17 @@ independently behind named interfaces.
 
 The current deliverable is host-compilable C with connected fuel, injector,
 spark/knock, idle, EGR and system bodies and scoped stock-ROM comparisons.
-Fourteen of the 16 slow slots have resident C wrappers. Slots 03 and 0B run
+All 16 slow slots have resident C wrappers. Slots 03 and 0B run
 the gear selector, and slot 04 runs both diagnostic groups. Slot 05 now
 runs catalyst, manifold and electronic TCC qualification. Slot 0A calculates
-canister purge duty. Slots 0C and 0D remain open. Current/transmission control, native entry and
-vectors, target linker layout and the physical hardware backend also remain open.
+canister purge duty. Slot 0C refreshes the hardware registers. Slot 0D writes
+AIR and purge outputs, samples MAT and runs fault monitoring, logging and lamp
+control. Five fast current/transmission groups, native entry and vectors,
+target linker layout and the physical hardware backend remain open.
 
 The November 22 completeness audit records the earlier inventory and the
 remaining work groups. The slot contracts record the November 23 additions.
-[Completeness audit](reference/completeness_audit_2026-11-22.md) · [Gear slots](reference/transmission_d4eb_source_closure.md) · [Slot 04](reference/slot_04_contract.md) · [Slots 05 and 0A](reference/slots_05_0a_contract.md)
+[Completeness audit](reference/completeness_audit_2026-11-22.md) · [Gear slots](reference/transmission_d4eb_source_closure.md) · [Slot 04](reference/slot_04_contract.md) · [Slots 05 and 0A](reference/slots_05_0a_contract.md) · [Slots 0C and 0D](reference/slots_0c_0d_contract.md)
 
 ## Start here
 
@@ -45,8 +47,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The canonical `work/pseudo-source-development` branch contains 404 public routines, with 233 implemented outlines, 11 dependency
-boundaries and 160 implemented algorithms. The $7959..$7979 timer stack guard
+The canonical `work/pseudo-source-development` branch contains 413 public routines, with 235 implemented outlines, 9 dependency
+boundaries and 169 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
@@ -158,8 +160,8 @@ refresh check and slotF's refresh request are explicit. Literal watchdog and
 intermediate saturation and truncation. Its inputs retain the documented fixed
 point representations. The callable finalizer/publication and existing REF/async bodies now cover named
 output slices. Fuel corrections, upstream producers and the complete scheduled
-running-fuel controller are resident; remaining slow-slot and target work is
-listed in the working state.
+running-fuel controller are resident. The working state lists remaining fast
+current/transmission and target work.
 
 An unfinished body delegates through `pcm_run_task()`. An absent binding returns
 `PCM_UNIMPLEMENTED` and identifies the task; absent hardware returns
@@ -330,7 +332,7 @@ Callable TPS zero/normalization, coolant/MAT/BARO acquisition and diagnostics,
 density, charge temperature, VE and the contiguous VE/base publisher now have
 checked C bodies. See the [fuel-air contract](reference/fuel_air_contract.md).
 The resident fuel, slot 1, slot 4 and slot F callers use these producers.
-Slot D and the remaining transmission controllers still need implementation.
+Slot 0D runs the MAT producer before its fault-reporting pass.
 Callable crank/running authorization, crank preparation/delivery, O2 filtering,
 MAP/TPS AE, startup seeding/decay and contiguous commanded AFR/PE now have checked
 C bodies. See the [mixture contract](reference/fuel_mixture_contract.md).
@@ -343,7 +345,8 @@ admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](reference/fuel_delivery_contract.md).
 The broad ignition/input prefix, scheduled tail and EGR path are now resident.
 Slots 03 and 0B now run the complete gear-selection body. Slot 04 runs both
-alternating diagnostic groups and publishes the fuel-fault bits. Slot 05 is next.
+alternating diagnostic groups and publishes the fuel-fault bits. Slots 05 and
+0A run catalyst, manifold, TCC and purge control.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
 resident bodies directly. Broad fuel and slot 4 also use resident C. See the

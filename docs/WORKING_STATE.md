@@ -17,30 +17,31 @@ audit. `work/pseudo-source-closure` is its older duplicate name. Removal
 of that remote alias was pending authenticated branch management at the last
 branch audit. The validated release baseline is on `main`.
 
-**Slots 05 and 0A now run through ordinary dispatch.** Slot 05 handles the
-catalyst estimate and rich AFR request, manifold tuning and electronic
-torque-converter clutch qualification. Slot 0A produces canister purge duty
-and updates its learned multiplier. Their **2,987 C/ROM comparisons** reached
-all 538 resident instruction starts in slot 05 and all 123 in slot 0A.
-Both exits were exercised at every conditional branch in each slot.
-[Slots 05 and 0A contract](../pseudo-source/reference/slots_05_0a_contract.md)
+**All 16 slow slots now execute their resident C bodies through ordinary
+dispatch.** Slot 0C runs the stopped-engine seed and the 20-register refresh
+shared with startup. Slot 0D writes the AIR, purge and shared outputs, samples
+MAT, then runs diagnostics and publishes the check-engine lamp request. The
+paired replay passed **3,495 C/ROM comparisons**, including 1,360 injected
+transaction failures. It reached all 64 instruction starts in 0C and all 846
+in 0D, with both exits at each of their 3 and 208 conditional branches.
+[Slots 0C and 0D contract](../pseudo-source/reference/slots_0c_0d_contract.md)
 
-Slot 04's common and alternating diagnostic groups passed 4,191 comparisons.
-Slots 03 and 0B share the complete gear selector and output routine. Their
-4,216 comparisons cover the two scheduler entries. [Slot 04](../pseudo-source/reference/slot_04_contract.md) · [Gear slots](../pseudo-source/reference/transmission_d4eb_source_closure.md)
+Slot 0A's purge duty now has a checked handoff into slot 0D's output at
+`$3FD6`. Slots 05 and 0A passed 2,987 comparisons, slot 04 passed 4,191,
+and the gear slots 03 and 0B passed 4,216.
+[Slots 05 and 0A](../pseudo-source/reference/slots_05_0a_contract.md) · [Slot 04](../pseudo-source/reference/slot_04_contract.md) · [Gear slots](../pseudo-source/reference/transmission_d4eb_source_closure.md)
 
-The inventory has **404 indexed routines** (233 outlines, 160 algorithms and
-11 explicit boundaries). **14 of 16 slow slots** have resident C wrappers.
-The remaining slots are **0C** (`$CC35`) and **0D** (`$CCC1`, `$DBFB` and
-`$DC89`). These two and the five fast current/transmission groups account for
-the seven remaining stock-source groups from the November 22 audit. Optional
-modules, the peripheral/RAM backend, native entry/interrupt ABI and the
-target BIN remain open.
+The index has **413 routines** (235 outlines, 169 algorithms and 9 explicit
+boundaries). **Five stock-source groups remain** from the November 22 audit. They cover
+current calculation `$7C13`, shift progress `$B32D`, pressure/TCC `$B56B`,
+transmission spark inputs `$C4E5` and the eight-callee transmission input
+prefix at `$AE85`. The optional modules, native entry and interrupt handling,
+physical peripheral/RAM backend and target BIN remain open.
 
-The host build and all **58 quick checks** passed. There are **110 registered
-CTests**, including 52 ROM suites. The development branch runs 18 selected
-ROM suites. The complete regression and one PR follow the next explicit
-pull/merge request.
+The host build and **59 quick checks** passed. The branch registers **112
+CTests**, including 53 ROM suites. The development gate selects 19 ROM
+suites. The next explicit pull/merge request starts the full-suite release run
+for the accumulated branch.
 
 ## Validated mainline source checkpoint — 2026-11-22
 
@@ -70,8 +71,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The development source has 404 indexed public routines, including 233 implemented
-outlines, 11 explicit dependency boundaries and 160 implemented algorithms.
+The development source has 413 indexed public routines, including 235 implemented
+outlines, 9 explicit dependency boundaries and 169 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -185,8 +186,8 @@ admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
 The complete7D4B..8547 fuel root, including its ignition/input prefix and
 scheduled tail, now runs resident C. Required EGR demand/feedback/control/flow/output
-bodies are also resident. Slots 0C and 0D, five current/transmission groups,
-optional modules and target interfaces remain open.
+bodies and all 16 slow-slot wrappers are also resident. Five fast
+current/transmission groups, optional modules and target interfaces remain open.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -485,8 +486,8 @@ VSS and environmental slices also have checked bodies. These are building blocks
 its former task callback. The first
 fuel batch replaced `pcm_adc_feedback` and slot0/2 task boundaries with resident C. The documented upstream and closed-loop/learning contracts now also have the
 callable C stages listed above. Cut/decel/AE-reservoir and sync/async accounting now also have connected C bodies.
-The scheduled tail and slot1 are resident; remaining slow-slot producer admissions and
-initialization still need their own joined checks.
+The scheduled tail and all 16 slow slots are resident. Wider histories joining
+initialization, fast dispatch, slow producers and reference interrupts remain open.
 
 | Batch | Related implementation work | Joined evidence required |
 |---|---|---|
@@ -494,7 +495,7 @@ initialization still need their own joined checks.
 | Air charge and fuel input producers (implemented normalization/air slices) | TPS acquisition/zero normalization, BARO, CTS/MAT, density/charge temperature, VE selection; connect existing base arithmetic and environmental/RPM/VSS producers | Producer/consumer state age, lookup neighbors, diagnostic substitutions, scaling, rounding and old-state feedback; complete fuel-required EGR demand/feedback/control/flow/output dependencies as encountered |
 | Fuel modes, commanded AFR and enrichment (callable calculation/reservoir slices implemented) | Startup and crank equation; open-loop/idle AFR, PE and transitions; MAP/TPS/IAC-related AE gains, histories and reservoirs | Cold/hot crank through REF delivery, startup-to-running changes, OL idle and PE admission/exit, retained histories and phase-gated updates |
 | Running corrections and closed-loop learning (callable correction/learning slices implemented) | 8032..83AE EGR/BLM, cut/decel/recovery, RPM/BARO/battery, signed INT/P and MAP AE; O2 filtering/activity/I/P at 863D..891D, AFR/BLM at 891E..8EB3, and slot-F admission producers | BLM saturated doubling versus signed additive INT/P; cut/recovery priority; learning/cell reset/persistence; O2 activity and distinct admission/learning gates |
-| Delivery accounting and controller integration (resident7D4B..8547 controller implemented; remaining slow producers pending) | Sync/async routing, packet/reservoir accounting, ignition/input/tail and governor joins; connect remaining fuel-required slow-slot producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, wider REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
+| Delivery accounting and controller integration (resident 7D4B..8547 controller and slow-slot producers implemented) | Sync/async routing, packet/reservoir accounting, ignition/input/tail and governor joins; verify joined initialization, slow-slot inputs and reference interrupts | Full running calculation through 3FCE and 3FF2/3FFC command sequences, wider REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
 
 The batches describe dependency groups, not a claim that each fits one PR. Move
 supporting producers forward when a consumer needs them; preserve one public
@@ -715,8 +716,8 @@ Timer stack-guard policy and its focused ROM checks are implemented, as are
 the five-body EGR demand/feedback/control/flow/output path and complete scheduled
 fuel wrapper. Slot1 and the complete slotF diagnostic/fault/fuel group are also
 resident. Slots 03 and 0B run the full gear selector. Slot 04 runs both
-diagnostic groups. Slot 05 is next, followed by the remaining slow-slot,
-transmission and target integration work.
+diagnostic groups. Slots 05, 0A, 0C and 0D complete the remaining slow entries. The
+next milestone is the five fast current/transmission groups.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 

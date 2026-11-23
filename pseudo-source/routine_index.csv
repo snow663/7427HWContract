@@ -66,8 +66,8 @@ src/slots/slot_08.c,pcm_slot_08,implemented_outline,7B2B..7B2E; CEBB..CF15: phas
 src/slots/slot_09.c,pcm_slot_09,implemented_outline,"7B2F..7B38: ordered EGR demand, resident slow IAC and VSS-filter wrapper.","Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/slots/slot_0a.c,pcm_slot_0a,implemented_outline,7B39..7B3C phase-qualified canister purge,Retain stock whole-slot comparisons
 src/slots/slot_0b.c,pcm_slot_0b,implemented_outline,7B3D..7B43 resident D4EB gear selection then C514 output,Retain whole-slot ROM and shared-state histories
-src/slots/slot_0c.c,pcm_slot_0c,dependency_boundary,"7B44, table word 7A9D.",Implement the named body and compare observable state/transactions
-src/slots/slot_0d.c,pcm_slot_0d,dependency_boundary,"7B48, table word 7A9F.",Implement the named body and compare observable state/transactions
+src/slots/slot_0c.c,pcm_slot_0c,implemented_outline,7B44..7B47 register service and stopped oxygen seed,Retain slot 0C ROM replay
+src/slots/slot_0d.c,pcm_slot_0d,implemented_outline,7B48..7B51 shared outputs then MAT and central diagnostics,Retain slot 0D ROM replay
 src/slots/slot_0e.c,pcm_slot_0e,implemented_outline,"7B52, table word 7AA1.",Retain source/ROM checks; target ABI and timing still need verification
 src/slots/slot_0f.c,pcm_slot_0f,implemented_outline,"7B5A..7B6C: resident transmission outputs, ordered diagnostic group, fault/fuel suffix and refresh.",Retain full-slot fuel/REF and provider-failure comparisons; target scheduling/ABI remain explicit
 src/spark/alternate_rpm.c,pcm_alternate_rpm,implemented_outline,AC51..ACA6: Resident alternate RPM adapter.,Direct call to the ROM-checked alternate body
@@ -403,3 +403,12 @@ src/emissions/manifold_tuning.c,pcm_manifold_tuning,implemented_algorithm,D472..
 src/emissions/canister_purge.c,pcm_canister_purge,implemented_algorithm,D2B2..D3AF purge admission and learned multiplier,Retain whole-slot ROM and shared-state comparisons
 src/transmission/tcc_qualification.c,pcm_tcc_qualification,implemented_algorithm,C6BB..C8B0 electronic TCC qualification and service override,Retain whole-slot ROM and shared-state comparisons
 src/transmission/transmission_fault_gate_674.c,pcm_transmission_fault_gate_674,implemented_algorithm,E674..E683 diagnostic reaction mask for electronic TCC,Retain whole-slot ROM and shared-state comparisons
+src/drivers/refresh_registers.c,pcm_refresh_registers,implemented_algorithm,CC7C..CCC0 shared twenty-register sequence,Retain scheduler ROM and provider handoff comparisons
+src/system/slow_register_service.c,pcm_slow_register_service,implemented_algorithm,CC35..CCC0 board and register service,Retain scheduler ROM and provider handoff comparisons
+src/emissions/air_shared_outputs.c,pcm_air_shared_outputs,implemented_algorithm,CCC1..CDF6 AIR and shared output words,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_slot_d.c,pcm_diagnostic_slot_d,implemented_algorithm,DC89..E1EB central diagnostic admission and cadence,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_engine_inputs.c,pcm_diagnostic_engine_inputs,implemented_algorithm,DD40..DE55 signal and governor monitors,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_egr_test.c,pcm_diagnostic_egr_test,implemented_algorithm,DE56..DFC9 EGR integrator and feedback tests,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_engine_feedback.c,pcm_diagnostic_engine_feedback,implemented_algorithm,DFCA..E119 MAP and EST and rich/lean diagnostics,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_report.c,pcm_diagnostic_report,implemented_algorithm,E11A..E1EB pending and retained fault reporting,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_flash_codes.c,pcm_diagnostic_flash_codes,implemented_algorithm,E1EC..E285 retained diagnostic flash sequence,Retain scheduler ROM and provider handoff comparisons

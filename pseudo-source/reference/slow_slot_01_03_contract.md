@@ -49,5 +49,5 @@ starts were reached from the two entries. The optional module body and
 physical outputs remain external validation work. [Detailed gear-selection ledger](transmission_d4eb_source_closure.md)
 
 Slot 04 subsequently joined both temperature and diagnostic groups. Slots 05 and
-0A now handle catalyst, manifold, electronic TCC and purge. The remaining slow
-slots are **0C and 0D**. [Slot 04 contract](slot_04_contract.md) · [Slots 05 and 0A](slots_05_0a_contract.md) · [Source closure plan](source_closure_plan_2026-11-20.md)
+0A handle catalyst, manifold, electronic TCC and purge. Slots 0C and 0D completed
+the register refresh, shared outputs, MAT acquisition and diagnostic reporting. [Slot 04 contract](slot_04_contract.md) · [Slots 05 and 0A](slots_05_0a_contract.md) · [Slots 0C and 0D](slots_0c_0d_contract.md) · [Source closure plan](source_closure_plan_2026-11-20.md)

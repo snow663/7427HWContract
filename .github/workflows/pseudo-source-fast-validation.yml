@@ -25,8 +25,8 @@ jobs:
       - name: Run source contracts without expensive ROM suites
         run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2 --stop-on-failure -E rom_differential
 
-      - name: Focused BMHM fuel and transmission ROM comparisons
-        run: ctest --test-dir pseudo-source/build --output-on-failure -R '^(fuel_governor_rom_differential|fuel_ignition_rom_differential|fuel_cycle_rom_differential|speed_source_rom_differential|tcc_non_electronic_rom_differential|transmission_d4eb_prefix_rom_differential|transmission_gear_limit_rom_differential|transmission_gear_finalize_rom_differential|transmission_threshold_select_rom_differential|gear_slots_rom_differential|slot_04_rom_differential|slots_05_0a_rom_differential)$'
+      - name: Focused BMHM fuel, transmission and slow-slot ROM comparisons
+        run: ctest --test-dir pseudo-source/build --output-on-failure -R '^(fuel_governor_rom_differential|fuel_ignition_rom_differential|fuel_cycle_rom_differential|speed_source_rom_differential|tcc_non_electronic_rom_differential|transmission_d4eb_prefix_rom_differential|transmission_gear_limit_rom_differential|transmission_gear_finalize_rom_differential|transmission_threshold_select_rom_differential|gear_slots_rom_differential|slot_04_rom_differential|slots_05_0a_rom_differential|slots_0c_0d_rom_differential)$'
 
       - name: Reconciliation replay of PR48 ROM evidence
         run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2 -R '^(timer_stack_guard_rom_differential|egr_control_rom_differential|egr_producers_rom_differential|fuel_controller_rom_differential|slow_fuel_rom_differential|slot_f_rom_differential)$'

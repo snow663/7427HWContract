@@ -61,6 +61,7 @@ TARGETS=[
  ('fuel_cycle_rom','fuel_cycle_rom_test',[],[],['fuel_cycle_rom']),
  ('speed_source_rom','speed_source_rom_test',[],[],['speed_source_rom']),
  ('slow_slot_01','slow_slot_01_test',[],[['--contracts']],[]),
+ ('slots_0c_0d','slots_0c_0d_test',[],[['--contracts']],['slots_0c_0d_rom']),
  ('slots_05_0a','slots_05_0a_test',[],[['--contracts']],['slots_05_0a_rom']),
  ('slot_04','slot_04_test',[],[['--contracts']],['slot_04_rom']),
  ('slow_slot_03','slow_slot_03_test',[],[['--contracts']],['gear_slots_rom']),

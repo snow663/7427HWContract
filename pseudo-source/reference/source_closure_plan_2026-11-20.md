@@ -7,8 +7,8 @@ Repository `snow663/7427HWContract`; use only `work/pseudo-source-development`. 
 Work **in this order**, commit each coherent implementation group to the same branch, and run focused host checks where available. Do **not** open a PR, merge, rewrite main, or claim firmware/hardware validation during development. On the next explicit pull/merge request, review the entire accumulated diff, create **one** PR, run the full ROM, simulator, code-structure and source-contract suites, and merge only if they pass. Ordinary continuation does not authorize another release cycle.
 
 The plan began with 321 routines and 69 CTests. As of November 23 there are
-404 indexed routines (160 algorithms, 233 outlines and 11 explicit boundaries)
-and 110 CTests (58 quick checks and 52 ROM suites).
+413 indexed routines (169 algorithms, 235 outlines and 9 explicit boundaries)
+and 112 CTests (59 quick checks and 53 ROM suites).
 
 ## Ordered milestones
 
@@ -20,16 +20,16 @@ and 110 CTests (58 quick checks and 52 ROM suites).
 - Current status: **source-level milestone closed** (not target firmware complete). The joined `pcm_fuel_cycle` is callable from the actual fast entry under the explicit dual guarded research opt-in; after PR48 reconciliation the default `pcm_fuel_control` executes the resident PR48 path, while this independent cycle remains an alternative. Factory $7D4B..$8547 execution is independently replayed against the full, hash-identified BMHM ROM across **3,096 complete-entry selected and retained multi-cycle cases**, all eight phase groups, ignition/on/off transitions, denied and authorized fuel, battery, TPS/O2, 4-pass retained-state sequences, and injector output publication. The scoped $8EB4..$9166 governor and $7D4B ignition differentials also pass; synthetic optional $1809 A/carry return is covered but does not supply the actual external module. The [source/ROM development run](https://github.com/snow663/7427HWContract/actions/runs/44818450983) passes all **45 fast contracts and 3 focused ROM differential suites**. The real $1809 binary/firmware, physical board/ASIC transactions, target ISR/linker/RAM layout, and full all-path/no-interrupt-exclusion equivalence remain explicit M4/M5 or release-gate work; **do not claim a target BIN or physical validation**. See [joined source contract](fuel_cycle_joined_contract.md) and [RAM owner audit](fuel_ram_owner_audit.md).
 
 ### M2 — Close the remaining slow slots
-- Original scope included slots 01, 03, 04, 05, 0A, 0B, 0C, 0D and 0F. Slots 01, 03, 04, 05, 0A, 0B and 0F now run resident C bodies. The two remaining scheduled entries are **0C and 0D**.
+- **Complete at source level.** All 16 slow slots have resident scheduler wrappers. The original M2 scope covered slots 01, 03, 04, 05, 0A, 0B, 0C, 0D and 0F.
 - Both 03 and 0B now call the complete `$D4EB` gear selector and `$C514` output routine on ordinary dispatch. Slot 03 first checks its optional external `$1806` module and publishes the `$0F00` marker. The November 23 replay covered all 602 reachable resident instruction starts in both entries and passed 4,216 comparisons overall. [Gear selection ROM ledger](transmission_d4eb_source_closure.md) · [Slot contracts](slow_slot_01_03_contract.md)
 - Slot 04 now runs the common monitors and both phase groups. Its 4,191 comparisons reached all 602 resident instruction starts and checked the shared fuel-fault output, adaptive-cell checksum, and IRQ-mask ordering. [Slot 04 ROM contract](slot_04_contract.md)
 - Slots 05 and 0A now run the catalyst, manifold, electronic TCC and purge routines. Their 2,987 comparisons reached every resident instruction and both exits of every conditional branch from each entry. [Slots 05 and 0A ROM contract](slots_05_0a_contract.md)
-- Next close slot 0C at `$CC35`, followed by slot 0D and its shared output service.
+- Slots 0C and 0D complete the register refresh, AIR/purge output, MAT acquisition and diagnostic reporting paths. Their 3,495 comparisons reached all 64 and 846 resident instruction starts respectively, with both exits at every conditional branch. [Slots 0C and 0D ROM contract](slots_0c_0d_contract.md)
 
 ### M3 — Resolve the eight-callee AE85 prefix and remaining current/transmission roots
 - Port or explicitly eliminate each dependency only with a complete stock producer/consumer map.
 - Preserve automatic transmission behavior in the stock-equivalent reference reconstruction; prepare separate manual-only feature selection.
-- Current status: **queued after M2**.
+- **Next source milestone.** Five groups remain. Current calculation at `$7C13` is the smallest audited group (116 instruction starts). Shift progress at `$B32D`, pressure/TCC at `$B56B`, transmission spark at `$C4E5` and the `$AE85` input prefix follow.
 
 ### M4 — EGR and optional module closure
 - Port four EGR producers/demand/flow/output controllers and inspect the optional `180C`, `180F`, `1812` dependencies with explicit dispatch policy. No guessed modules.
@@ -51,8 +51,8 @@ Factory source is the BMHM stock ROM, not ambiguous HAC comments. Consult litera
 ## Fast branch verification
 
 The dedicated `.github/workflows/pseudo-source-fast-validation.yml` compiles
-the host source and runs 58 quick checks and 18 selected ROM suites, including
-the whole gear-slot, slot 04 and paired slot 05/0A comparisons. The other 34 ROM suites run with the broader
+the host source and runs 59 quick checks and 19 selected ROM suites, including
+the whole gear-slot, slot 04 and both paired slot suites (05/0A and 0C/0D). The other 34 ROM suites run with the broader
 repository workflows at the complete end-of-batch release gate.
 
 
