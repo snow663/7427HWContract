@@ -7,15 +7,15 @@ independently behind named interfaces.
 
 The current deliverable is host-compilable C with connected fuel, injector,
 spark/knock, idle, EGR and system bodies and scoped stock-ROM comparisons.
-Eleven of the 16 slow slots have resident C wrappers. Slots 03 and 0B run
-the stock gear selector and output routine. The remaining slots are 04, 05,
-0A, 0C and 0D. Current/transmission control, native HC11 entry and vectors,
-target compiler/linker layout and the physical hardware backend remain open.
+Twelve of the 16 slow slots have resident C wrappers. Slots 03 and 0B run
+the stock gear selector. Slot 04 runs the common diagnostic monitors, both
+alternating groups and the shared fuel-fault publication. Slots 05, 0A,
+0C and 0D remain open. Current/transmission control, native entry and
+vectors, target linker layout and the physical hardware backend also remain open.
 
-The [gear-slot ROM comparison](reference/transmission_d4eb_source_closure.md)
-records the November 23 closure. The [November 22 completeness audit](reference/completeness_audit_2026-11-22.md)
-records the earlier inventory, remaining work groups and external hooks.
-The detailed sections below retain earlier milestone evidence.
+The November 22 completeness audit records the earlier inventory and the
+remaining work groups. The gear-slot and slot 04 contracts record the
+November 23 additions. [Completeness audit](reference/completeness_audit_2026-11-22.md) · [Gear slots](reference/transmission_d4eb_source_closure.md) · [Slot 04](reference/slot_04_contract.md)
 
 ## Start here
 
@@ -45,8 +45,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The canonical `work/pseudo-source-development` branch contains 381 public routines, with 229 implemented outlines, 14 dependency
-boundaries and 138 implemented algorithms. The $7959..$7979 timer stack guard
+The canonical `work/pseudo-source-development` branch contains 399 public routines, with 231 implemented outlines, 13 dependency
+boundaries and 155 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
@@ -329,8 +329,8 @@ and synchronous shaping/publication. See the
 Callable TPS zero/normalization, coolant/MAT/BARO acquisition and diagnostics,
 density, charge temperature, VE and the contiguous VE/base publisher now have
 checked C bodies. See the [fuel-air contract](reference/fuel_air_contract.md).
-The resident fuel, slot1 and slotF callers now use these producers; slot4/D
-and remaining transmission work stay explicit.
+The resident fuel, slot 1, slot 4 and slot F callers use these producers.
+Slot D and the remaining transmission controllers still need implementation.
 Callable crank/running authorization, crank preparation/delivery, O2 filtering,
 MAP/TPS AE, startup seeding/decay and contiguous commanded AFR/PE now have checked
 C bodies. See the [mixture contract](reference/fuel_mixture_contract.md).
@@ -342,11 +342,11 @@ Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](reference/fuel_delivery_contract.md).
 The broad ignition/input prefix, scheduled tail and EGR path are now resident.
-Slots 03 and 0B now run the complete gear-selection body. Next close slot 04’s
-alternating diagnostic groups and shared fuel-fault publication.
+Slots 03 and 0B now run the complete gear-selection body. Slot 04 runs both
+alternating diagnostic groups and publishes the fuel-fault bits. Slot 05 is next.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
-resident bodies directly; broad fuel is resident and slot4 work stays explicit. See the
+resident bodies directly. Broad fuel and slot 4 also use resident C. See the
 [scheduled input contract](reference/scheduled_inputs_contract.md).
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified

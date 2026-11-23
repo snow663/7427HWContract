@@ -62,6 +62,25 @@ PcmStatus pcm_diagnostic_ratio_lowgear(Pcm *);
 PcmStatus pcm_diagnostic_ratio_highgear(Pcm *);
 PcmStatus pcm_diagnostic_slot_f(Pcm *);
 
+/* Resident slot 04 diagnostic and transmission entries. */
+PcmStatus pcm_diagnostic_coolant_adc_low(Pcm *);
+PcmStatus pcm_diagnostic_coolant_adc_high(Pcm *);
+PcmStatus pcm_diagnostic_trans_temp_adc_low(Pcm *);
+PcmStatus pcm_diagnostic_trans_temp_adc_high(Pcm *);
+PcmStatus pcm_diagnostic_baro_adc_high(Pcm *);
+PcmStatus pcm_diagnostic_baro_adc_low(Pcm *);
+PcmStatus pcm_diagnostic_solenoid_81(Pcm *);
+PcmStatus pcm_diagnostic_solenoid_82(Pcm *);
+PcmStatus pcm_diagnostic_solenoid_83(Pcm *);
+PcmStatus pcm_diagnostic_battery_52(Pcm *);
+PcmStatus pcm_diagnostic_battery_53(Pcm *);
+PcmStatus pcm_diagnostic_battery_compensated(Pcm *);
+PcmStatus pcm_diagnostic_slot_04(Pcm *);
+PcmStatus pcm_transmission_adaptive_reset(Pcm *);
+PcmStatus pcm_transmission_adaptive_restore(Pcm *);
+PcmStatus pcm_transmission_temperature_input(Pcm *);
+PcmStatus pcm_transmission_temperature_filter(Pcm *);
+
 /* A first real algorithm slice. Inputs retain the factory fixed-point
  * representations; they are not yet RPM/kPa/microsecond engineering units. */
 typedef struct {

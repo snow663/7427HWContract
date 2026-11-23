@@ -14,6 +14,7 @@ typedef struct {
     PcmTask trace[2048]; unsigned used;
     unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
     unsigned connection_action, signature_reads, transmission_writes;
+    unsigned slot4_coolant_updates, slot4_transmission_updates;
     unsigned egr_demand_writes, egr_fraction_writes, egr_output_writes, transmission_baro_writes, slot_f_diagnostic_writes;
     uint8_t step_positions[256], observed_shadows[256];
     unsigned step_observations, shadow_observations;
@@ -95,6 +96,8 @@ static PcmStatus write16(void *v, uint16_t a, uint16_t value) {
         ++f->egr_fraction_writes;
         f->pcm->spark.egr_fraction_high=(uint8_t)(value>>8);f->pcm->fuel.egr_fraction_low=(uint8_t)value;
     }
+    if (a==0xa9) ++f->slot4_coolant_updates;
+    if (a==0xb5) ++f->slot4_transmission_updates;
     if (a==0x3fd8) ++f->egr_output_writes;
     if (a==0x00ac) ++f->transmission_baro_writes;
     if (a==0x02f4) {
@@ -145,6 +148,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
+    f->platform.task[PCM_SLOT_04]=NULL;
     f->platform.task[PCM_SLOT_03]=f->platform.task[PCM_SLOT_0B]=NULL;
     f->platform.task[PCM_SLOT_0F]=NULL;
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
@@ -214,10 +218,11 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_SLOT_03 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0B || k==PCM_SLOT_0E || k==PCM_SLOT_0F?0u:10u));
+        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_SLOT_03 || k==PCM_SLOT_04 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0B || k==PCM_SLOT_0E || k==PCM_SLOT_0F?0u:10u));
     CHECK(f.signature_reads==10 && f.transmission_writes==40 && f.counts[PCM_CONNECTION_EXTENSION]==0);
     CHECK(f.memory[0x0f00]==0xf7);
     CHECK(f.slot_f_diagnostic_writes==10);
+    CHECK(f.slot4_coolant_updates==5 && f.slot4_transmission_updates==5);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.counts[PCM_EGR_DEMAND]==0 && f.counts[PCM_EGR_FLOW]==0 && f.counts[PCM_VSS_FILTER]==0);

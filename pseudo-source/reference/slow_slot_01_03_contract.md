@@ -48,4 +48,5 @@ scheduled paths with the recorded BMHM image. All 602 resident instruction
 starts were reached from the two entries. The optional module body and
 physical outputs remain external validation work. [Detailed gear-selection ledger](transmission_d4eb_source_closure.md)
 
-The next slow slot is **04**, followed by 05, 0A, 0C and 0D. [Source closure plan](source_closure_plan_2026-11-20.md)
+Slot 04 subsequently joined both temperature and diagnostic groups. The next
+slow slot is **05**, followed by 0A, 0C and 0D. [Slot 04 contract](slot_04_contract.md) · [Source closure plan](source_closure_plan_2026-11-20.md)

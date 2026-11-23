@@ -17,31 +17,32 @@ audit. `work/pseudo-source-closure` is its older duplicate name. Removal
 of that remote alias was pending authenticated branch management at the last
 branch audit. The validated release baseline is on `main`.
 
-Slots **03 and 0B** now execute the entire stock `$D4EB` gear selector and
-`$C514` output routine through normal scheduler dispatch. Slot 03 also runs
-the `$F5CF` prefix, including its optional external `$1806` call and the
-`$F7` marker at `$0F00`. The recorded-ROM comparison reached all **602
-resident instruction starts** across the two slots, including all **558**
-in gear selection and its callees. The release suite and on-target
-execution remain separate milestones. [Gear selection and ROM evidence](../pseudo-source/reference/transmission_d4eb_source_closure.md)
+**Slot 04 is now resident.** The normal scheduler runs its common diagnostic
+group, then alternates between coolant/environment processing and transmission
+temperature/adaptive-cell service. Both paths rebuild the two TPS fault bits
+in `$006F`. The slot's replay passed **4,191 C/ROM comparisons** and reached
+all **602 resident instruction starts** from the stock entry. The host
+scheduler saw five executions of each group in 160 phases. [Slot 04 contract](../pseudo-source/reference/slot_04_contract.md)
 
-The inventory now has **381 indexed public routines** (229 outlines,
-138 algorithms and 14 explicit boundaries). **11 of 16 slow slots** have
-resident C wrappers. Five remain open: **04, 05, 0A, 0C and 0D**. Completing
-the joint gear-selection group leaves **10 of the 11 stock-source groups**
-identified by the November 22 audit. The ordinary scheduler still has explicit
-task dependencies. Optional modules, the physical RAM/peripheral backend, the
-native entry/interrupt ABI and a target BIN remain open.
+Slots **03 and 0B** run the full `$D4EB` gear selector and `$C514` output
+routine. Their 4,216 comparisons also passed after sharing the ROM test
+utilities with slot 04. The preceding gear-slot commit passed the branch's
+fast CI. [Gear-slot contract](../pseudo-source/reference/transmission_d4eb_source_closure.md) · [Previous branch checks](https://github.com/snow663/7427HWContract/actions/runs/45152710705)
 
-The host build and all **56 quick checks** passed. The joined gear-slot test
-passed **4,216 C/ROM comparisons**. The prefix, gear limit, finalizer, range
-threshold and foreground ROM tests also passed. There are **106 registered
-CTests**, including 50 ROM suites. The branch gate selects 16 of those ROM
-suites. Run the full suite and open one PR on the next explicit pull/merge
-request.
+The inventory now has **399 indexed routines** (231 outlines, 155 algorithms
+and 13 explicit boundaries). **12 of 16 slow slots** have resident C wrappers.
+The remaining four are **05, 0A, 0C and 0D**. Nine of the November 22 audit's
+11 stock-source groups remain. Optional modules, the peripheral/RAM backend,
+native entry/interrupt ABI and the target BIN also remain open.
 
-Next reconstruct **slot 04** through its two alternating diagnostic groups
-and the shared fuel-fault publication at `$006F`.
+The host build and all **57 quick checks** passed. There are **108 registered
+CTests**, including 51 ROM suites. The development branch runs 17 selected
+ROM suites. The complete regression and one PR follow the next explicit
+pull/merge request.
+
+Next reconstruct **slot 05** through its catalyst and manifold routines
+(`$D3B0` and `$D472`) and its optional-by-calibration electronic TCC
+qualification (`$C6BB`).
 
 ## Validated mainline source checkpoint — 2026-11-22
 
@@ -71,8 +72,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The development source has 381 indexed public routines, including 229 implemented
-outlines, 14 explicit dependency boundaries and 138 implemented algorithms.
+The development source has 399 indexed public routines, including 231 implemented
+outlines, 13 explicit dependency boundaries and 155 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -159,7 +160,7 @@ busy/catch-up witness. See the [board/input contract](../pseudo-source/reference
 The current priority is ALDL and system code. The fuel calculation and injector-control
 milestone remains tracked below, with its remaining dependency work explicit.
 MAP transient selection, raw VSS conversion and environmental precomputation
-now have callable checked bodies; their broader fuel/slot4 wrappers stay explicit.
+have callable checked bodies. The scheduled fuel and slot 04 wrappers are now resident.
 Slot6 AC inputs, slot7 shift-lamp logic and slot9 VSS filtering run resident C.
 See the [scheduled input contract](../pseudo-source/reference/scheduled_inputs_contract.md).
 The first fuel-milestone batch now implements resident ADC feedback and callable
@@ -186,8 +187,8 @@ admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
 The complete7D4B..8547 fuel root, including its ignition/input prefix and
 scheduled tail, now runs resident C. Required EGR demand/feedback/control/flow/output
-bodies are also resident. Slot1 is resident; slot4/D/F root admissions, optional modules and
-target interfaces remain explicit.
+bodies are also resident. Slots 01, 04 and 0F have resident wrappers. Slot 0D,
+optional modules and target interfaces remain open.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -715,8 +716,9 @@ are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
 the five-body EGR demand/feedback/control/flow/output path and complete scheduled
 fuel wrapper. Slot1 and the complete slotF diagnostic/fault/fuel group are also
-resident. Slots 03 and 0B also run the full gear selector. Slot 04 is next,
-followed by the remaining slow-slot and transmission work and target glue.
+resident. Slots 03 and 0B run the full gear selector. Slot 04 runs both
+diagnostic groups. Slot 05 is next, followed by the remaining slow-slot,
+transmission and target integration work.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 

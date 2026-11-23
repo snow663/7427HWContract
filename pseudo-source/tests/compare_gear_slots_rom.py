@@ -1,26 +1,13 @@
 """Replay whole BMHM slots 03 and 0B, with focused witnesses for their shared helpers."""
 from dataclasses import dataclass, field, replace
-from hashlib import sha256
-from itertools import islice, product
-import json
+from itertools import product
 from pathlib import Path
 import random
-import subprocess
 import sys
 import tempfile
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / 'tools'))
-from build_factory_scheduler import recorded_rom
-from factory_rom_decode import decode, successors
-from factory_scheduler_replay import FixtureMemory, HC11CPU
-from verify_factory_ownership import EVIDENCE
-from verify_factory_rom_structure import EXPECTED_SHA256
+from slot_rom_replay import CPU, FixtureMemory, IMAGE, ROM, compare, decode, resident_instructions, word
 
-ROM = recorded_rom(json.loads(EVIDENCE.read_text()))
-MAPPED = ROM.read(0x4000, 0xc000)
-assert sha256(bytes([0xff]) * 0x4000 + MAPPED).hexdigest() == EXPECTED_SHA256
-IMAGE = bytes(0x4000) + MAPPED  # fixture RAM below the mapped ROM
 OBSERVED = (0x83, 0x84, 0x85, 0x98, 0x99, 0xd9, 0x103, 0x135, 0x187, 0xf00, 0x306a, 0x306b)
 OWNERS = (0xd9, 0x99, 0x103, 0x4c, 0x8b)
 SLOTS = {3: (0x7abd,), 11: (0x7b3d,), 0: (0x7abd, 0x7b3d, 0x7abd)}
@@ -29,10 +16,6 @@ BASE = {0x80: 1, 0x81: 1, 0x82: 2, 0x83: 0, 0x84: 0xa5, 0x85: 0x20,
         0xd7: 75, 0xd9: 1, 0x125: 64, 0x126: 0xa5, 0x127: 0x40,
         0x12b: 0x91, 0x12c: 0x20, 0x8a: 4, 0x8b: 0x82, 0x1ac: 0x70,
         0x187: 0x5a, 0x4c: 0x44, 0xf00: 0x47, 0x306a: 0xee, 0x306b: 0x55}
-
-
-def word(address, value):
-    return {address: value >> 8, (address + 1) & 65535: value & 255}
 
 
 @dataclass
@@ -89,14 +72,6 @@ class Memory(FixtureMemory):
             self.event('W', address, value)
         self.mem[address] = value >> 8
         self.mem[(address + 1) & 65535] = value & 255
-
-
-class CPU(HC11CPU):
-    # A table operand may address ROM. Distinguish instruction fetch from data.
-    def _fetch8(self):
-        value = self.mem.mem[self.s.pc]
-        self.s.pc = (self.s.pc + 1) & 65535
-        return value
 
 
 memory = Memory(ROM)
@@ -170,26 +145,6 @@ def stock(case):
         status = status or 2
     state = [status, unresolved, result, *(memory.mem[a] for a in (*OBSERVED, *OWNERS))]
     return [*map(str, state), *memory.events]
-
-
-def compare(executable, romfile, cases, label):
-    cases = iter(cases)
-    count = 0
-    while block := list(islice(cases, 48)):
-        run = subprocess.run([executable, romfile], input='\n'.join(c.row() for c in block) + '\n',
-                             text=True, capture_output=True, check=True)
-        actual = run.stdout.splitlines()
-        assert len(actual) == len(block), (label, len(actual), len(block), run.stderr)
-        for case, line in zip(block, actual):
-            expected, observed = stock(case), line.split()
-            if expected != observed:
-                first = next((i for i, pair in enumerate(zip(expected, observed)) if pair[0] != pair[1]),
-                             min(len(expected), len(observed)))
-                raise AssertionError((label, case, first, 'stock', expected[max(0, first-3):first+4],
-                                      'C', observed[max(0, first-3):first+4]))
-            count += 1
-    print(f'{label}: {count:,} comparisons passed', flush=True)
-    return count
 
 
 def slot_cases():
@@ -294,31 +249,13 @@ def failures():
             yield replace(case, fail=index)
 
 
-def resident_instructions(entries):
-    pending = list(entries)
-    reached = set()
-    while pending:
-        pc = pending.pop()
-        if pc in reached:
-            continue
-        reached.add(pc)
-        ins = decode(ROM.read, pc)
-        pending.extend(target for target, _ in successors(ins))
-        if ins.op in ('JSR', 'BSR'):
-            if ins.target == 0x1806:
-                continue  # Optional external module. Its boundary is exercised separately.
-            assert ins.target is not None and ins.target >= 0x4000, f'Unresolved call at ${pc:04X}'
-            pending.append(ins.target)
-    return reached
-
-
 def main():
     with tempfile.TemporaryDirectory(prefix='pcm-gear-slots-') as directory:
         romfile = Path(directory) / 'bmhm-fixture.bin'
         romfile.write_bytes(IMAGE)
-        args = (sys.argv[1], romfile)
+        args = (sys.argv[1], romfile, stock)
         total = compare(*args, slot_cases(), 'Whole slots and retained passes')
-        required = resident_instructions((0x7abd, 0x7b3d))
+        required = resident_instructions((0x7abd, 0x7b3d), external={0x1806})
         assert coverage == required, (sorted(required - coverage), sorted(coverage - required))
         gear = resident_instructions((0xd4eb,))
         print(f'Whole slots reached all {len(required)} resident instruction starts, '
