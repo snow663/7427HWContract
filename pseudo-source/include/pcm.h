@@ -14,7 +14,8 @@ typedef enum {
     PCM_FACTORY_WAIT_BOUNDARY, /*FBD4 waits for the next nonreturning factory restart. */
     PCM_BACKGROUND_WAIT_BOUNDARY, /*74D0 WAI/interrupt frame and resume require the target ABI. */
     PCM_HALT_BOUNDARY, PCM_RESET_BOUNDARY, /*Resident terminal loop / jump to7100. */
-    PCM_STACK_RECOVERY_BOUNDARY, PCM_STOP_BOUNDARY /*Host returns after RMW; target must LDS #03F6 and resume at797A. */
+    PCM_STACK_RECOVERY_BOUNDARY, /*Host returns after RMW; target must LDS #03F6 and resume at797A. */
+    PCM_STOP_BOUNDARY /*7D8C TAP/STOP and its wake/terminal-loop ABI require the target shim. */
 } PcmStatus;
 
 typedef enum {
@@ -73,13 +74,13 @@ typedef struct {
      * accesses still invoke the platform transaction first; unknown RAM
      * keeps its raw provider semantics. No target memory layout implied. */
     bool bind_fuel_ram_owners;
-    /* Explicit host/research opt-in: dispatch the joined source fuel cycle
-     * only with the named-RAM provider active. Default remains the stock
-     * PCM_FUEL_CONTROL dependency until joined ROM and target checks pass. */
+    /* Explicit host/research opt-in for the independently checked fuel cycle,
+     * requiring the named-RAM provider. The default is PR48's resident
+     * ignition/input/calculation/tail path. Both still require a target backend. */
     bool enable_resident_fuel_cycle;
-    /* Research opt-in: execute source-backed slow-slot wrappers. The
-     * default remains the existing task boundary until each transitive
-     * slow callee has an actual resident implementation or target ABI. */
+    /* Research opt-in for alternative slot01 and partial slot03 source.
+     * Completed slots keep PR48's resident defaults; incomplete slot03
+     * keeps its explicit task boundary when this option is clear. */
     bool enable_resident_slow_slots;
 } PcmPlatform;
 

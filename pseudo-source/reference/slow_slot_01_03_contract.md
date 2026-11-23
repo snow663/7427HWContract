@@ -66,10 +66,12 @@ by arbitrary success.
 [GitHub Actions run 44820137699](https://github.com/snow663/7427HWContract/actions/runs/44820137699)
 passed the quick source contracts and five focused ROM-differential
 suites covering the previous full fuel cycle, governor, ignition,
-$C668 speed and $ADAA TCC. Remaining slow slots 04/05/0A/0B/0C/0D/0F
-and the full $D4EB component are not claimed completed.
+$C668 speed and $ADAA TCC. Slot0F was subsequently completed in PR48;
+slots03/04/05/0A/0B/0C/0D and the full $D4EB component remain incomplete.
+The reconciliation ledger records the newer combined56-contract/15-ROM gate.
 
 M1 source-level scope is recorded in
 [source closure plan](source_closure_plan_2026-11-20.md).
-All new work is retained on `work/pseudo-source-closure`.
-No PR, release merge, or target BIN has been requested or performed.
+All cumulative work now resides on `work/pseudo-source-development`;
+`work/pseudo-source-closure` is its former duplicate name. No release merge
+of this combined development tree or target BIN is claimed.

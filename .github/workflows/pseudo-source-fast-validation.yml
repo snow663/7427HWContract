@@ -2,7 +2,7 @@ name: Pseudo-source Fast Branch Gate
 on:
   push:
     branches:
-      - "work/pseudo-source-*"
+      - "work/pseudo-source-development"
     paths:
       - "pseudo-source/**"
       - "docs/WORKING_STATE.md"

@@ -7,7 +7,33 @@ The [2026-11-17 pseudo-source audit](../pseudo-source/reference/development_audi
 records the current branch inventory, explicit remaining dependencies and
 the later release checkpoints. Target validation remains separate.
 
-## Validated source checkpoint — 2026-11-22
+## Current development checkpoint — 2026-11-22
+
+Use **one active pseudo-source branch: `work/pseudo-source-development`**.
+It now contains all PR48 mainline history and all cumulative closure work,
+through `3152109910b9202ad251ff94d39552eb8340639f`, without rewriting either
+history. `work/pseudo-source-closure` is the old duplicate branch name;
+remote alias removal is pending authenticated branch-management access. Do not
+start another pseudo-source branch. `main` remains the validated release baseline.
+
+Current inventory: **374 public routines**, comprising227 implemented outlines,
+131 algorithms and16 explicit dependency boundaries; **105 CTests** comprise
+56 quick contracts/provenance checks and49 actual-ROM suites. The latest
+[combined-source CI](https://github.com/snow663/7427HWContract/actions/runs/45072378242)
+passes56 quick checks and15 selected ROM suites. The branch-consolidation
+audit also freshly compiled all385 production/calibration files and passed all56
+quick checks plus repository hygiene. Its header edits change comments only.
+This is not a completed49-suite release regression:34 ROM suites remain outside
+that combined-tree run.
+
+Next close slot03's D4F7..D5B6 middle segment and its required helpers, then
+slot04 and the other remaining slow-slot/current/transmission roots. Fuel,
+EGR and slot0F default entries are already resident. Optional external modules,
+the target RAM/peripheral backend, HC11 entry/interrupt/linker ABI and a target
+BIN remain unfinished. Continue focused checks while accumulating updates;
+run the full suite and open one PR only on the next explicit pull/merge request.
+
+## Validated mainline source checkpoint — 2026-11-22
 
 [PR48](https://github.com/snow663/7427HWContract/pull/48) is merged at
 `ccc7dfeb4b8821aeb6ed8092bfe7a14d10e1e375`. The validated source head is
@@ -35,8 +61,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 345 public routines: 220 implemented outlines,
-16 explicit dependency boundaries and 109 implemented algorithms.
+The development source currently has374 public routines:227 implemented outlines,
+16 explicit dependency boundaries and131 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -670,16 +696,16 @@ action in this working state. Resume later development on one branch from the
 resulting main rather than creating a PR for each routine group. The previous
 three-PR cadence and older per-update publication guidance are superseded.
 
-Active development branch: `work/pseudo-source-development`, starting from
-`b2d851d81eb7a3843b9153309de1e2ff7dc40c02` and now continuing from the merged
-PR48 checkpoint above. The authorized full regression and accumulated merge are
-complete. Retained boot and controller seeding are implemented on this branch.
+Active development branch: `work/pseudo-source-development`, continuing from
+the PR48 mainline checkpoint and the cumulative closure history recorded above.
+PR48's authorized release run is complete; the newer combined development tree
+still awaits its own full release run. Retained boot and controller seeding are implemented on this branch.
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
 the five-body EGR demand/feedback/control/flow/output path and complete scheduled
 fuel wrapper. Slot1 and the complete slotF diagnostic/fault/fuel group are also
-resident. Next are slot4, remaining slow-slot producer admissions and target glue.
+resident. Next are the slot03 middle segment, slot4, remaining slow-slot producer admissions and target glue.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 

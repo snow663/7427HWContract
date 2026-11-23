@@ -108,7 +108,10 @@ comparisons also pass: $8EB4..$9166 governor (optional $1809 excluded)
 and $7D4B..$7DB5 ignition, which stops before emulator-unsupported
 terminal opcode $CF at $7D8D.
 
-**This is not full cycle ROM equivalence.** The complete $7D4B..$8547
-joined instructions, interrupted/failure histories, and true target
-module/peripheral binding are not yet independently replayed in one
-test. Default `PCM_FUEL_CONTROL` admission remains delegated.
+That historical45-contract checkpoint did not establish complete-cycle ROM
+equivalence. The later [joined fuel contract](fuel_cycle_joined_contract.md)
+records3,096 selected full-entry/retained-history comparisons, and the
+[reconciliation ledger](reconciliation_2026-11-22.md) records combined-tree
+validation. PR48's resident controller is now the default; the independent
+closure cycle requires both research flags. Exhaustive interrupt interleavings,
+external machine modules and physical target binding remain separate work.

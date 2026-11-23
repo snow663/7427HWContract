@@ -39,7 +39,7 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The reconciled closure branch contains 374 public routines: 227 implemented outlines, 16 dependency
+The single `work/pseudo-source-development` branch contains374 public routines:227 implemented outlines,16 dependency
 boundaries and 131 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
@@ -152,7 +152,8 @@ refresh check and slotF's refresh request are explicit. Literal watchdog and
 intermediate saturation and truncation. Its inputs retain the documented fixed
 point representations. The callable finalizer/publication and existing REF/async bodies now cover named
 output slices. Fuel corrections, upstream producers and the complete scheduled
-running-fuel controller remain unfinished.
+running-fuel controller are resident; remaining slow-slot and target work is
+listed in the working state.
 
 An unfinished body delegates through `pcm_run_task()`. An absent binding returns
 `PCM_UNIMPLEMENTED` and identifies the task; absent hardware returns
@@ -322,7 +323,8 @@ and synchronous shaping/publication. See the
 Callable TPS zero/normalization, coolant/MAT/BARO acquisition and diagnostics,
 density, charge temperature, VE and the contiguous VE/base publisher now have
 checked C bodies. See the [fuel-air contract](reference/fuel_air_contract.md).
-Their wider fuel/slot1/4/D/F and transmission callers remain boundaries.
+The resident fuel, slot1 and slotF callers now use these producers; slot4/D
+and remaining transmission work stay explicit.
 Callable crank/running authorization, crank preparation/delivery, O2 filtering,
 MAP/TPS AE, startup seeding/decay and contiguous commanded AFR/PE now have checked
 C bodies. See the [mixture contract](reference/fuel_mixture_contract.md).
@@ -333,11 +335,11 @@ INT/P/MAP corrections now have checked C bodies. See the
 Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](reference/fuel_delivery_contract.md).
-Next are the broad ignition/input prefix and scheduled tail, required EGR
-producers and their slow-slot admissions/initialization.
+The broad ignition/input prefix, scheduled tail and EGR path are now resident.
+Next close the slot03 middle segment and the other remaining slow-slot roots.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
-resident bodies directly; broad fuel and slot4 work stays explicit. See the
+resident bodies directly; broad fuel is resident and slot4 work stays explicit. See the
 [scheduled input contract](reference/scheduled_inputs_contract.md).
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified

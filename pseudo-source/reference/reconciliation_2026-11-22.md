@@ -95,3 +95,17 @@ The development branch is **0 commits behind main** and continues to
 contain the full independent branch history. Nothing was merged into
 `main`; no PR was opened. The future complete 49-ROM CTest run remains
 reserved for the single end-of-batch PR and explicit merge request.
+
+## Single development branch after the audit
+
+The user requested one pseudo-source development branch. All history through
+`3152109910b9202ad251ff94d39552eb8340639f` is now also reachable through
+`work/pseudo-source-development`; it is the sole continuation name. The former
+`work/pseudo-source-closure` name is redundant and has no unique commits at
+that checkpoint. Its remote removal awaits authenticated branch-management
+access; do not resume work under it. Main remains the validated PR48 baseline.
+
+The [latest combined-source run](https://github.com/snow663/7427HWContract/actions/runs/45072378242)
+independently confirms56 fast contracts and15 selected ROM suites at3152109.
+The remaining34 ROM suites and the complete combined-tree release gate remain
+pending. Historical parent and branch names above describe provenance only.
