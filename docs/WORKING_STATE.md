@@ -17,32 +17,30 @@ audit. `work/pseudo-source-closure` is its older duplicate name. Removal
 of that remote alias was pending authenticated branch management at the last
 branch audit. The validated release baseline is on `main`.
 
-**Slot 04 is now resident.** The normal scheduler runs its common diagnostic
-group, then alternates between coolant/environment processing and transmission
-temperature/adaptive-cell service. Both paths rebuild the two TPS fault bits
-in `$006F`. The slot's replay passed **4,191 C/ROM comparisons** and reached
-all **602 resident instruction starts** from the stock entry. The host
-scheduler saw five executions of each group in 160 phases. [Slot 04 contract](../pseudo-source/reference/slot_04_contract.md)
+**Slots 05 and 0A now run through ordinary dispatch.** Slot 05 handles the
+catalyst estimate and rich AFR request, manifold tuning and electronic
+torque-converter clutch qualification. Slot 0A produces canister purge duty
+and updates its learned multiplier. Their **2,987 C/ROM comparisons** reached
+all 538 resident instruction starts in slot 05 and all 123 in slot 0A.
+Both exits were exercised at every conditional branch in each slot.
+[Slots 05 and 0A contract](../pseudo-source/reference/slots_05_0a_contract.md)
 
-Slots **03 and 0B** run the full `$D4EB` gear selector and `$C514` output
-routine. Their 4,216 comparisons also passed after sharing the ROM test
-utilities with slot 04. The preceding gear-slot commit passed the branch's
-fast CI. [Gear-slot contract](../pseudo-source/reference/transmission_d4eb_source_closure.md) · [Previous branch checks](https://github.com/snow663/7427HWContract/actions/runs/45152710705)
+Slot 04's common and alternating diagnostic groups passed 4,191 comparisons.
+Slots 03 and 0B share the complete gear selector and output routine. Their
+4,216 comparisons cover the two scheduler entries. [Slot 04](../pseudo-source/reference/slot_04_contract.md) · [Gear slots](../pseudo-source/reference/transmission_d4eb_source_closure.md)
 
-The inventory now has **399 indexed routines** (231 outlines, 155 algorithms
-and 13 explicit boundaries). **12 of 16 slow slots** have resident C wrappers.
-The remaining four are **05, 0A, 0C and 0D**. Nine of the November 22 audit's
-11 stock-source groups remain. Optional modules, the peripheral/RAM backend,
-native entry/interrupt ABI and the target BIN also remain open.
+The inventory has **404 indexed routines** (233 outlines, 160 algorithms and
+11 explicit boundaries). **14 of 16 slow slots** have resident C wrappers.
+The remaining slots are **0C** (`$CC35`) and **0D** (`$CCC1`, `$DBFB` and
+`$DC89`). These two and the five fast current/transmission groups account for
+the seven remaining stock-source groups from the November 22 audit. Optional
+modules, the peripheral/RAM backend, native entry/interrupt ABI and the
+target BIN remain open.
 
-The host build and all **57 quick checks** passed. There are **108 registered
-CTests**, including 51 ROM suites. The development branch runs 17 selected
+The host build and all **58 quick checks** passed. There are **110 registered
+CTests**, including 52 ROM suites. The development branch runs 18 selected
 ROM suites. The complete regression and one PR follow the next explicit
 pull/merge request.
-
-Next reconstruct **slot 05** through its catalyst and manifold routines
-(`$D3B0` and `$D472`) and its optional-by-calibration electronic TCC
-qualification (`$C6BB`).
 
 ## Validated mainline source checkpoint — 2026-11-22
 
@@ -72,8 +70,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The development source has 399 indexed public routines, including 231 implemented
-outlines, 13 explicit dependency boundaries and 155 implemented algorithms.
+The development source has 404 indexed public routines, including 233 implemented
+outlines, 11 explicit dependency boundaries and 160 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -187,7 +185,7 @@ admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
 The complete7D4B..8547 fuel root, including its ignition/input prefix and
 scheduled tail, now runs resident C. Required EGR demand/feedback/control/flow/output
-bodies are also resident. Slots 01, 04 and 0F have resident wrappers. Slot 0D,
+bodies are also resident. Slots 0C and 0D, five current/transmission groups,
 optional modules and target interfaces remain open.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.

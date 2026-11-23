@@ -23,6 +23,7 @@ PcmStatus pcm_ac_switch_inputs(Pcm *);
 PcmStatus pcm_transmission_outputs(Pcm *);
 /* D4EB diagnostics, threshold selection and final gear arbitration. */
 PcmStatus pcm_transmission_mask_scan(Pcm *, uint16_t table, bool *active);
+PcmStatus pcm_transmission_fault_gate_674(Pcm *);
 PcmStatus pcm_transmission_fault_gate_684(Pcm *);
 PcmStatus pcm_transmission_fault_gate_6ac(Pcm *);
 PcmStatus pcm_transmission_fault_gate_69c(Pcm *);
@@ -43,6 +44,10 @@ PcmStatus pcm_connection_probe(Pcm *);
 PcmStatus pcm_iac_background(Pcm *);
 PcmStatus pcm_shift_lamp(Pcm *);
 PcmStatus pcm_egr_demand(Pcm *);
+PcmStatus pcm_catalyst_estimate(Pcm *);
+PcmStatus pcm_manifold_tuning(Pcm *);
+PcmStatus pcm_canister_purge(Pcm *);
+PcmStatus pcm_tcc_qualification(Pcm *);
 PcmStatus pcm_vss_filter(Pcm *);
 /* PR48 EGR, diagnostics and whole-slotF callable sources. */
 PcmStatus pcm_transmission_baro(Pcm *);

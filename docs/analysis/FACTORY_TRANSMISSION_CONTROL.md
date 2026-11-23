@@ -472,7 +472,7 @@ software inputs, not an independently measured transmission state.
 | 8C.7 | 6AB5.0 and negative-slip hysteresis 0089.7 |
 | 8D.0 | 6AB5.4 and upshift delay 0124 nonzero |
 | 8D.1 | 6AB5.2 and one-shot 008B.3; consume that one-shot |
-| 8D.2 | 6AB5.2, reaction E674 and temperature below 6AC2/6AC3;0089.2 holds comparison hysteresis |
+| 8D.2 | 6AB5.2, reaction E674 and temperature at or below 6AC2/6AC3, selected by 0089.2 |
 | 8D.3 | 6AB5.2, fault 0099.2 and gear not 3 |
 | 8D.4/.5 | 6AB5.5/.6 and range A2.2/.3 |
 
@@ -485,13 +485,15 @@ Compute upper word 0129 from 6D5E and lower 012B from 6D6F using
 `sat8(2*E2)`. Service 010A in 1..100 writes 0126=652*selector and sets 008A
 bits 14, then returns. Values 101..200 force an apply request; values>200
 force release. Fault 0099.3 zeros the command and clears requests. Normal
-control clears 008A bits 14 after absolute service expires. The special
-brake/downshift/fault case can force apply for range A2.2 with gear 3.
+control clears 008A bits 14 after absolute service expires. If fault 0099.2 is set in gear 3
+and both brake and downshift reasons (008C masks 08 and 20) are clear, the
+controller requests apply before checking the combined inhibit word.
 Any remaining inhibit clears 008B bits 06. TPS-rise hold 018E forces release.
 
-MAP must reach 6AEC with 0089.6 clear, or 6AED with it set. Bypass that MAP
-test only when **both** live MAP bits 18&30 and both corresponding reaction
-mask bits are present. These are two all-bit tests, not either-fault tests.
+MAP must reach 6AEC with 0089.6 set, or 6AED with it clear. At C832,
+either live fault bit in 0018 & 30 qualifies for the second test. At C836,
+both reaction-mask bits in 5B2D & 30 must be set to bypass the MAP gate.
+[Whole-slot comparison](../../pseudo-source/reference/slots_05_0a_contract.md)
 
 Select C2D6 while releasing or C31A while applying, adding 22 for kickdown.
 Kickdown reads the first scalar; otherwise evaluate L1 at TPS. Save the

@@ -10,7 +10,7 @@ Older investigations and prototype build records retain their original scope.
 
 | Workstream | Start here | Status |
 |---|---|---|
-| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 399 indexed public routines on `work/pseudo-source-development`. Slots 03 and 0B run gear selection and slot 04 runs both diagnostic groups. Four slow slots remain open |
+| Modular C replacement firmware | [pseudo-source/](pseudo-source/README.md) | 404 indexed public routines on `work/pseudo-source-development`. Slots 05 and 0A now run the catalyst, manifold, electronic TCC and purge routines. Only slow slots 0C and 0D remain open |
 | Factory behavior and hardware | [Ownership closure](docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md) | ROM-backed access, arithmetic, state and interface contracts |
 | Timing and interrupts | [Timing closure](docs/analysis/FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md) | Conditional source/deadline/stack contracts; physical premises remain explicit |
 | Remaining information | [Equivalence ledger](docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md) | Scoped specifications plus identified ROM/device/board/module work |

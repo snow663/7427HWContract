@@ -250,9 +250,9 @@ Common overrides run even when the option was absent:
 ## Catalyst estimate and manifold tuning
 
 D3B0 only calculates at phase 05 with 400F.4 and engine 004F.7. Other entries
-retain the entire estimate and enrichment request. TPS<=4074 clears age 007E;
-otherwise RPM0062<4075 increments that age without storing a wrapped 0.
-Age>=4076 exits unchanged. Therefore high TPS may suspend the estimator.
+retain the entire estimate and enrichment request. TPS<=4074 clears age 007E and proceeds directly to the estimate. At higher
+TPS, RPM0062<4075 increments that age without storing a wrapped 0. This
+higher-TPS path suspends the calculation when age>=4076.
 
 ```text
 gain007C = L1(hi0232,4077)

@@ -7,15 +7,15 @@ independently behind named interfaces.
 
 The current deliverable is host-compilable C with connected fuel, injector,
 spark/knock, idle, EGR and system bodies and scoped stock-ROM comparisons.
-Twelve of the 16 slow slots have resident C wrappers. Slots 03 and 0B run
-the stock gear selector. Slot 04 runs the common diagnostic monitors, both
-alternating groups and the shared fuel-fault publication. Slots 05, 0A,
-0C and 0D remain open. Current/transmission control, native entry and
+Fourteen of the 16 slow slots have resident C wrappers. Slots 03 and 0B run
+the gear selector, and slot 04 runs both diagnostic groups. Slot 05 now
+runs catalyst, manifold and electronic TCC qualification. Slot 0A calculates
+canister purge duty. Slots 0C and 0D remain open. Current/transmission control, native entry and
 vectors, target linker layout and the physical hardware backend also remain open.
 
 The November 22 completeness audit records the earlier inventory and the
-remaining work groups. The gear-slot and slot 04 contracts record the
-November 23 additions. [Completeness audit](reference/completeness_audit_2026-11-22.md) · [Gear slots](reference/transmission_d4eb_source_closure.md) · [Slot 04](reference/slot_04_contract.md)
+remaining work groups. The slot contracts record the November 23 additions.
+[Completeness audit](reference/completeness_audit_2026-11-22.md) · [Gear slots](reference/transmission_d4eb_source_closure.md) · [Slot 04](reference/slot_04_contract.md) · [Slots 05 and 0A](reference/slots_05_0a_contract.md)
 
 ## Start here
 
@@ -45,8 +45,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The canonical `work/pseudo-source-development` branch contains 399 public routines, with 231 implemented outlines, 13 dependency
-boundaries and 155 implemented algorithms. The $7959..$7979 timer stack guard
+The canonical `work/pseudo-source-development` branch contains 404 public routines, with 233 implemented outlines, 11 dependency
+boundaries and 160 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have

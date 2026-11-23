@@ -48,5 +48,6 @@ scheduled paths with the recorded BMHM image. All 602 resident instruction
 starts were reached from the two entries. The optional module body and
 physical outputs remain external validation work. [Detailed gear-selection ledger](transmission_d4eb_source_closure.md)
 
-Slot 04 subsequently joined both temperature and diagnostic groups. The next
-slow slot is **05**, followed by 0A, 0C and 0D. [Slot 04 contract](slot_04_contract.md) · [Source closure plan](source_closure_plan_2026-11-20.md)
+Slot 04 subsequently joined both temperature and diagnostic groups. Slots 05 and
+0A now handle catalyst, manifold, electronic TCC and purge. The remaining slow
+slots are **0C and 0D**. [Slot 04 contract](slot_04_contract.md) · [Slots 05 and 0A](slots_05_0a_contract.md) · [Source closure plan](source_closure_plan_2026-11-20.md)
