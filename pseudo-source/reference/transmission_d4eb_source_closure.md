@@ -1,6 +1,55 @@
-# M2 slot 03: stock $D4EB transmission source closure ledger
+# Slots 03 and 0B gear selection
 
-## Verified source segments — 2026-11-22
+## November 23 source and verification
+
+Normal scheduler dispatch runs both resident slot bodies. The entries are:
+
+| Slot | Factory entry | Calls in execution order |
+| --- | --- | --- |
+| 03 | `$7ABD` | `$F5CF` checks `$0086.6`, calls external `$1806` when set, then writes `$F7` to `$0F00`. `$D4EB` selects the gear and `$C514` publishes the output. |
+| 0B | `$7B3D` | `$D4EB` selects the gear and `$C514` publishes the output. |
+
+The `$D4EB` body combines the diagnostic gates, the upshift/downshift decision
+at `$D4F7..$D5B6`, and final arbitration at `$D5B7..$D69E`. The priority
+in each direction is the nonzero fault threshold, the range table, kickdown
+when enabled, then the normal curve. The source bits are recorded at `$0084`
+before comparison. An upshift can qualify at equal road speed and RPM. A
+downshift requires road speed strictly below its threshold. An inhibited
+downshift samples the live gear again at `$D65A`. The selected gear and
+inhibit flags reach the named state consumed by `$C514`.
+
+| Stock code | C file in `src/transmission/` | Reconstructed behavior |
+| --- | --- | --- |
+| `$D4EB` and `$D8F0` | `transmission_gear_select.c` | Both threshold searches, source bits, RPM/speed admission, gear limits and finalizer handoff |
+| `$D7E5` | `transmission_normal_threshold.c` | Throttle curve, separate first-knot read and cold-corrected floor |
+| `$D840` | `transmission_kickdown_threshold.c` | Kickdown scalar with independently selected floor and cold offsets |
+| `$D8A7` | `transmission_kickdown_rpm.c` | Upshift RPM word, including the different pointer values retained on two descriptor miss paths |
+| `$D8FE` | `transmission_descriptor.c` | Selector and stop-bit priority, byte-wrapped initial gear displacement and 16-bit cursor |
+| `$D92E / $D94B` | `transmission_temperature_gain.c` | Centered gain, rounded scaling and saturated doubling |
+| `$D980` | `transmission_cold_offset.c` | Signed magnitude correction with rounded gain and unsigned saturation |
+
+`gear_slots_rom_differential` takes its factory code from the recorded BMHM
+image (SHA-256 `6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004`).
+It compares the compiled C against the HC11 interpreter from each scheduled
+entry, including retained 03 → 0B → 03 sequences. Some cases vary stock RAM
+inputs and calibration/table data to expose boundary behavior.
+
+| Verification | Observed result |
+| --- | --- |
+| Whole-slot and retained cases | 2,004 comparisons. Together they executed all 602 resident instruction starts reachable from the pair, including all 558 reachable from `$D4EB`. Coverage is checked before running the helper cases. |
+| Direct helper edges | 1,298 comparisons over pointer wrap, returned cursor, signed offsets, rounded gain and saturation |
+| Injected provider failures | 914 comparisons of the attempted read, write or external call and the state at the stop |
+| Scheduler cadence | Exactly one output write on each 03, 07, 0B and 0F phase across the 160-phase host fixture |
+| Total in the joined ROM suite | **4,216 comparisons passed** |
+
+The fixtures compare gear-selector bus transactions in order, named gear,
+inhibit, output-shadow and TCC state, and the electronic TCC command at
+`$306A`. The optional module is represented by an absent, returning or failing
+provider. Its firmware, physical solenoids, target timing and interrupt
+interleavings still need separate evidence. Instruction-start coverage
+measures which instructions were reached across the tested cases.
+
+## Earlier helper verification — 2026-11-22
 
 The source of truth is the SHA256-identified full BMHM ROM contained in
 `maps/structure/bmhm_ownership_rom_evidence.json`. The following new
@@ -31,47 +80,4 @@ order, parameter guards, retained data and failure-prefix behavior.
 Verified development [GitHub Actions run 45004479765](https://github.com/snow663/7427HWContract/actions/runs/45004479765)
 passes **51 of 51 fast contracts** and **9 of 9 focused ROM differential
 suites**, including the prior joined fuel controller, governor and
-ignition suites. All **43 registered** ROM suites are reserved for the
-single-PR release gate.
-
-## Factory call graph and remaining middle segment
-
-The actual $D4EB entry is not one short linear body. It comprises:
-
-- **$D4EB–$D4F7:** E684→E6AC→E69C fault gates, followed by zeroing $0084 — now resident and stock-verified
-- **$D4F7–$D5B6:** admission, upshift/downshift threshold options, position/gear-limit decisions, compare/read/lookup helpers — **not yet reconstructed as one full C body**
-- **$D5B7–$D69E:** output candidate arbitration, inhibit/delay and eventual selected gear — now resident and stock-verified at its own entry with B supplied as input
-
-The middle uses direct helpers at **$D8F0**, **$D8CE**,
-**$D840**, **$D8A7** and **$D7E5**, with further subcalls
-$D8FE, $D92E, $D980, $F4C1 and $F550.
-Only $D8CE has been ported as a new public C module in this
-increment. Existing generic fixed-point math can be reused only
-after checking exact ROM register/CCR and stack semantics.
-Source tables $D69F/$D6AB/$D763/$D775/$D787/$D79B must be
-read with source widths and pointer priorities rather than
-treated as plain calibration scalars.
-
-**No duplicate execution:** In current guarded slot03 source
-mode, the $D4EB dependency is still dispatched as a **whole**
-through `PcmPlatform.call_address` at address $D4EB. The new
-partial C prefix and finalizer are callable research primitives
-and are **not** executed before that callback. Replacing the
-whole call with a callback to $D4F7 would require the native
-HC11 entry ABI and CCR/register/stack contract; do not pretend a
-bare address is equivalent to a typed C invocation.
-
-The stock equivalent is separate from any future manual-only
-tuning changes to remove automatic transmission code. No physical
-shift/TCC solenoid, PCM target timing, ALDL stream, native BIN
-or complete transmission behavior has been validated here.
-
-## Next source integration move
-
-Port D8FE's hierarchical lookup and its D8F0 direct caller,
-then D840/D8A7/D7E5 branch arithmetic. Join only the *whole*
-D4F7–D5B6 candidate calculation with D5B7–D69E once its caller
-inputs and retained flags are verified in a new full-entry
-$D4EB ROM differential. After that, upgrade slot03's D4EB
-dependency to the resident source body (still behind source-mode
-admission); the optional $1806 module stays an explicit boundary.
+ignition suites. That checkpoint had **43 registered** ROM suites.

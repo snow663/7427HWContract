@@ -7,16 +7,15 @@ independently behind named interfaces.
 
 The current deliverable is host-compilable C with connected fuel, injector,
 spark/knock, idle, EGR and system bodies and scoped stock-ROM comparisons.
-The remaining stock-source work is concentrated in current/transmission and
-seven slow-slot roots. HC11 startup/vector assembly, target compiler/linker
-layout and physical hardware backend remain to be implemented; the project
-does not yet emit a flashable replacement BIN.
+Eleven of the 16 slow slots have resident C wrappers. Slots 03 and 0B run
+the stock gear selector and output routine. The remaining slots are 04, 05,
+0A, 0C and 0D. Current/transmission control, native HC11 entry and vectors,
+target compiler/linker layout and the physical hardware backend remain open.
 
-Read the [2026-11-22 completeness audit](reference/completeness_audit_2026-11-22.md)
-for the current inventory, conditional external hooks, remaining work groups
-and exact verification limits. The detailed paragraphs below retain cumulative
-slice-level milestone evidence; earlier dependency descriptions belong to
-those narrower historical checkpoints.
+The [gear-slot ROM comparison](reference/transmission_d4eb_source_closure.md)
+records the November 23 closure. The [November 22 completeness audit](reference/completeness_audit_2026-11-22.md)
+records the earlier inventory, remaining work groups and external hooks.
+The detailed sections below retain earlier milestone evidence.
 
 ## Start here
 
@@ -46,8 +45,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The canonical `work/pseudo-source-development` branch contains 374 public routines: 227 implemented outlines, 16 dependency
-boundaries and 131 implemented algorithms. The $7959..$7979 timer stack guard
+The canonical `work/pseudo-source-development` branch contains 381 public routines, with 229 implemented outlines, 14 dependency
+boundaries and 138 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
@@ -282,8 +281,8 @@ still block promotion of the broad `PCM_FUEL_CONTROL` task. See the
 [scheduled tail contract](reference/fuel_scheduled_tail_contract.md), and
 [five-stage closure plan](reference/source_closure_plan_2026-11-20.md).
 The **pre-PR48** closure branch had 81 CTest entries and independently
-verified scheduled fuel/slot01 alternatives. Following mainline integration,
-the combined branch has **105 CTest entries**, including 49 ROM suites,
+verified scheduled fuel/slot01 alternatives. At the November 22 mainline integration checkpoint,
+the branch had **105 CTest entries**, including 49 ROM suites,
 with PR48's resident fuel controller as the default C-source entry.
 Closure's independently ROM-verified fuel-cycle alternative remains guarded
 by `enable_resident_fuel_cycle` and `bind_fuel_ram_owners`.
@@ -343,7 +342,8 @@ Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](reference/fuel_delivery_contract.md).
 The broad ignition/input prefix, scheduled tail and EGR path are now resident.
-Next close the slot03 middle segment and the other remaining slow-slot roots.
+Slots 03 and 0B now run the complete gear-selection body. Next close slot 04’s
+alternating diagnostic groups and shared fuel-fault publication.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
 resident bodies directly; broad fuel is resident and slot4 work stays explicit. See the
@@ -382,7 +382,7 @@ points. The closure implementations remain available behind the explicit
 `enable_resident_fuel_cycle` / `bind_fuel_ram_owners` and
 `enable_resident_slow_slots` research switches.
 
-The combined tree has **105 CTest entries, including 49 ROM differential
+At that checkpoint the combined tree had **105 CTest entries, including 49 ROM differential
 suites**. Its own [focused integration CI](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
 passes all **56 fast contracts and 15 selected source/ROM suites**.
 The remaining 34 ROM suites are reserved for the final full release gate.

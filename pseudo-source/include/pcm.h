@@ -78,9 +78,8 @@ typedef struct {
      * requiring the named-RAM provider. The default is PR48's resident
      * ignition/input/calculation/tail path. Both still require a target backend. */
     bool enable_resident_fuel_cycle;
-    /* Research opt-in for alternative slot01 and partial slot03 source.
-     * Completed slots keep PR48's resident defaults; incomplete slot03
-     * keeps its explicit task boundary when this option is clear. */
+    /* Select the independently checked slot01 alternative.
+     * Slots03 and0B always use the resident stock gear decision. */
     bool enable_resident_slow_slots;
 } PcmPlatform;
 

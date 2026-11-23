@@ -1,7 +1,7 @@
 """Independent BMHM D5B7..D69E candidate-gear selection C/HC11 differential.
 
 Input is accumulator-B (candidate) at the exact D5B7 instruction boundary.
-The preceding D4F7..D5B6 threshold/decision body remains a separate stage.
+The gear-slot differential covers its D4F7..D5B6 caller through both scheduled entries.
 The original E562 callee is executed in ROM, including indexed reads beyond
 the nominal range table. No hardware transmission actuator is exercised.
 """
@@ -101,4 +101,4 @@ with tempfile.TemporaryDirectory(prefix='pcm-gear-join-') as d:
     n+=compare(randomized,'random gear candidates, countdown histories and source limits')
     required={0xd5b7,0xd5f0,0xd601,0xd623,0xd65c,0xd670,0xd673,0xd676,0xd68e,0xd69c}
     assert required<=visited,','.join(f'{a:04X}' for a in sorted(required-visited))
-    print(f'{n:,} ROM-equivalent tested boundaries; upstream $D4F7..$D5B6 remains unfinished.')
+    print(f'{n:,} ROM-equivalent finalizer comparisons at $D5B7.')

@@ -1,4 +1,4 @@
-# M2 slow-slot closure: slot 01 complete, slot 03 started
+# Stock slow slots 01, 03 and 0B
 
 Source of truth is the verified stock BMHM ROM, decoded HC11 instructions
 and SHA-identified recorded ROM bytes. These modules are C pseudo-source,
@@ -33,45 +33,19 @@ With `PcmPlatform.enable_resident_slow_slots=true`, the alternative
 C583→`pcm_speed_source`→`pcm_tcc_non_electronic` executes instead.
 Neither variant's host success proves the physical TCC output.
 
-## Slot 03 — $7ABD..$7AC6 (in progress)
+## Slots 03 and 0B — `$7ABD` and `$7B3D`
 
-Factory order:
-1. $F5CF: on $0086.6, execute optional external module $1806;
-   then publish literal decimal247 ($F7) to logical RAM $0F00
-2. $D4EB: transmission/gear computation with substantial transitive
-   $E684, $E6AC, $E69C and $D7xx/$D8xx helper graph
-3. $C514: existing resident transmission output controller
+Slot 03 reads `$0086.6`, calls the optional `$1806` module when enabled and
+writes `$F7` to `$0F00` on continuation. A missing enabled module returns
+`PCM_UNIMPLEMENTED`. A failed call or write stops that pass. Slot 0B enters
+gear selection directly. Both slots then run `pcm_transmission_gear_select`
+(`$D4EB`) followed by `pcm_transmission_outputs` (`$C514`) on the default
+scheduler path.
 
-The guarded `pcm_slot_03` now executes the literal $0086 flag
-read, optional $1806 address callback, and $F7 -> $0F00 write.
-It requires a real `call_address` boundary for $D4EB and does
-not skip it; only a successful return permits the $C514 output
-routine. Missing callback yields `PCM_UNIMPLEMENTED`, while
-a failed callback or failed logical write stops immediately.
-`slow_slot_03_contracts` checks these paths. This slot is still
-an indexed `dependency_boundary`, not closed.
+`slow_slot_03_contracts` checks the optional call, marker, named-state handoff
+and failure exits. `gear_slots_rom_differential` compares both complete
+scheduled paths with the recorded BMHM image. All 602 resident instruction
+starts were reached from the two entries. The optional module body and
+physical outputs remain external validation work. [Detailed gear-selection ledger](transmission_d4eb_source_closure.md)
 
-**Update, Nov 22:** source-backed $D4EB–$D4F7 diagnostics,
-$D5B7–$D69E gear finalizer, $E562 and $D8CE now pass independent
-ROM differentials; the middle $D4F7–$D5B6 and its other callees
-remain outstanding. See [detailed D4EB ledger](transmission_d4eb_source_closure.md).
-
-**Next:** close $D4F7–$D5B6 and remaining helpers without invoking
-the stock $D4EB callback after a partial C prefix.
-The optional module $1806 remains external and cannot be replaced
-by arbitrary success.
-
-## Verified development gate
-
-[GitHub Actions run 44820137699](https://github.com/snow663/7427HWContract/actions/runs/44820137699)
-passed the quick source contracts and five focused ROM-differential
-suites covering the previous full fuel cycle, governor, ignition,
-$C668 speed and $ADAA TCC. Slot0F was subsequently completed in PR48;
-slots03/04/05/0A/0B/0C/0D and the full $D4EB component remain incomplete.
-The reconciliation ledger records the newer combined56-contract/15-ROM gate.
-
-M1 source-level scope is recorded in
-[source closure plan](source_closure_plan_2026-11-20.md).
-All cumulative work now resides on `work/pseudo-source-development`;
-`work/pseudo-source-closure` is its former duplicate name. No release merge
-of this combined development tree or target BIN is claimed.
+The next slow slot is **04**, followed by 05, 0A, 0C and 0D. [Source closure plan](source_closure_plan_2026-11-20.md)

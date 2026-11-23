@@ -9,38 +9,39 @@ remaining call graphs and verification limits at `1ecbc4e`. The
 [2026-11-17 development audit](../pseudo-source/reference/development_audit_2026-11-17.md)
 retains historical milestone evidence. Target validation remains separate.
 
-## Current development checkpoint — 2026-11-22
+## Current development checkpoint — 2026-11-23
 
-Use **one active pseudo-source branch: `work/pseudo-source-development`**.
-It now contains all PR48 mainline history and all cumulative closure work,
-through `3152109910b9202ad251ff94d39552eb8340639f`, without rewriting either
-history. `work/pseudo-source-closure` is the old duplicate branch name;
-remote alias removal is pending authenticated branch-management access. Do not
-start another pseudo-source branch. `main` remains the validated release baseline.
+Use the existing `work/pseudo-source-development` branch for cumulative source
+work. It contains the validated PR48 mainline and the November 22 closure
+audit. `work/pseudo-source-closure` is its older duplicate name. Removal
+of that remote alias was pending authenticated branch management at the last
+branch audit. The validated release baseline is on `main`.
 
-Current inventory: **374 public routines**, comprising 227 implemented outlines,
-131 algorithms and 16 explicit dependency boundaries; **105 CTests** comprise
-56 quick contracts/provenance checks and 49 actual-ROM suites. The latest
-[canonical-branch CI](https://github.com/snow663/7427HWContract/actions/runs/45103233828)
-passes 56 quick checks and 15 selected ROM suites at `1ecbc4e`. The branch-consolidation
-audit also freshly compiled all 385 production/calibration files and passed all 56
-quick checks plus repository hygiene. Its header edits change comments only.
-This is not a completed 49-suite release regression: 34 ROM suites remain outside
-that combined-tree run.
+Slots **03 and 0B** now execute the entire stock `$D4EB` gear selector and
+`$C514` output routine through normal scheduler dispatch. Slot 03 also runs
+the `$F5CF` prefix, including its optional external `$1806` call and the
+`$F7` marker at `$0F00`. The recorded-ROM comparison reached all **602
+resident instruction starts** across the two slots, including all **558**
+in gear selection and its callees. The release suite and on-target
+execution remain separate milestones. [Gear selection and ROM evidence](../pseudo-source/reference/transmission_d4eb_source_closure.md)
 
-The completeness audit identifies 11 remaining stock-source work groups,
-including 33 distinct direct entry bodies behind the slow/current/transmission
-boundaries. Some bodies share already ported helpers; neither 374 routine files
-nor 16 declared boundaries supplies a completion percentage. The ordinary
-factory schedule still needs unimplemented-task bindings. Eight optional
-module addresses and native entry/wake/trap behavior remain explicit.
+The inventory now has **381 indexed public routines** (229 outlines,
+138 algorithms and 14 explicit boundaries). **11 of 16 slow slots** have
+resident C wrappers. Five remain open: **04, 05, 0A, 0C and 0D**. Completing
+the joint gear-selection group leaves **10 of the 11 stock-source groups**
+identified by the November 22 audit. The ordinary scheduler still has explicit
+task dependencies. Optional modules, the physical RAM/peripheral backend, the
+native entry/interrupt ABI and a target BIN remain open.
 
-Next close slot03's D4F7..D5B6 middle segment and its required helpers, then
-slot04 and the other remaining slow-slot/current/transmission roots. Fuel,
-EGR and slot0F default entries are already resident. Optional external modules,
-the target RAM/peripheral backend, HC11 entry/interrupt/linker ABI and a target
-BIN remain unfinished. Continue focused checks while accumulating updates;
-run the full suite and open one PR only on the next explicit pull/merge request.
+The host build and all **56 quick checks** passed. The joined gear-slot test
+passed **4,216 C/ROM comparisons**. The prefix, gear limit, finalizer, range
+threshold and foreground ROM tests also passed. There are **106 registered
+CTests**, including 50 ROM suites. The branch gate selects 16 of those ROM
+suites. Run the full suite and open one PR on the next explicit pull/merge
+request.
+
+Next reconstruct **slot 04** through its two alternating diagnostic groups
+and the shared fuel-fault publication at `$006F`.
 
 ## Validated mainline source checkpoint — 2026-11-22
 
@@ -70,8 +71,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The development source currently has374 public routines:227 implemented outlines,
-16 explicit dependency boundaries and131 implemented algorithms.
+The development source has 381 indexed public routines, including 229 implemented
+outlines, 14 explicit dependency boundaries and 138 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -714,7 +715,8 @@ are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
 the five-body EGR demand/feedback/control/flow/output path and complete scheduled
 fuel wrapper. Slot1 and the complete slotF diagnostic/fault/fuel group are also
-resident. Next are the slot03 middle segment, slot4, remaining slow-slot producer admissions and target glue.
+resident. Slots 03 and 0B also run the full gear selector. Slot 04 is next,
+followed by the remaining slow-slot and transmission work and target glue.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 

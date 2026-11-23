@@ -57,7 +57,7 @@ src/serial/serial_poll.c,pcm_serial_poll,implemented_outline,"F5E8..F64D: unscal
 src/slots/slot_00.c,pcm_slot_00,implemented_outline,7AA6..7AAC: resident battery acquisition and literal CF15 return.,Retain ROM comparisons and actual scheduled producer ordering
 src/slots/slot_01.c,pcm_slot_01,implemented_outline,7AAD..7AB6 validated PR48 BARO-speed-TCC default plus guarded closure alternate,Preserve both source variants until paired physical provider verification
 src/slots/slot_02.c,pcm_slot_02,implemented_outline,7AB7..7ABC: resident auxiliary ADC scan under literal SEI/CLI.,Retain ROM comparisons and actual scheduled producer ordering
-src/slots/slot_03.c,pcm_slot_03,dependency_boundary,"7ABD, table word 7A8B.",Implement the named body and compare observable state/transactions
+src/slots/slot_03.c,pcm_slot_03,implemented_outline,7ABD..7AC6 optional 1806 and F7 marker then resident D4EB and C514,Retain whole-slot ROM and missing-module checks
 src/slots/slot_04.c,pcm_slot_04,dependency_boundary,"7AC7, table word 7A8D.",Implement the named body and compare observable state/transactions
 src/slots/slot_05.c,pcm_slot_05,dependency_boundary,"7B03, table word 7A8F.",Implement the named body and compare observable state/transactions
 src/slots/slot_06.c,pcm_slot_06,implemented_outline,7B14..7B1A: CB15 input dependency before CE10 learning.,Port the explicit AC/switch input owner; retain full-phase06 learning admission
@@ -65,7 +65,7 @@ src/slots/slot_07.c,pcm_slot_07,implemented_outline,7B1B..7B2A: ordered five-cal
 src/slots/slot_08.c,pcm_slot_08,implemented_outline,7B2B..7B2E; CEBB..CF15: phase-gated knock decay and sensor diagnostic.,Retain differential checks; target ADC timing and physical mux behavior need verification
 src/slots/slot_09.c,pcm_slot_09,implemented_outline,"7B2F..7B38: ordered EGR demand, resident slow IAC and VSS-filter wrapper.","Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/slots/slot_0a.c,pcm_slot_0a,dependency_boundary,"7B39, table word 7A99.",Implement the named body and compare observable state/transactions
-src/slots/slot_0b.c,pcm_slot_0b,dependency_boundary,"7B3D, table word 7A9B.",Implement the named body and compare observable state/transactions
+src/slots/slot_0b.c,pcm_slot_0b,implemented_outline,7B3D..7B43 resident D4EB gear selection then C514 output,Retain whole-slot ROM and shared-state histories
 src/slots/slot_0c.c,pcm_slot_0c,dependency_boundary,"7B44, table word 7A9D.",Implement the named body and compare observable state/transactions
 src/slots/slot_0d.c,pcm_slot_0d,dependency_boundary,"7B48, table word 7A9F.",Implement the named body and compare observable state/transactions
 src/slots/slot_0e.c,pcm_slot_0e,implemented_outline,"7B52, table word 7AA1.",Retain source/ROM checks; target ABI and timing still need verification
@@ -345,9 +345,16 @@ src/transmission/transmission_mask_scan.c,pcm_transmission_mask_scan,implemented
 src/transmission/transmission_fault_gate_684.c,pcm_transmission_fault_gate_684,implemented_algorithm,E684..E69B direct bit and E74C conditional scan set 0098.7,Compare flag retention and early stop
 src/transmission/transmission_fault_gate_6ac.c,pcm_transmission_fault_gate_6ac,implemented_algorithm,E6AC..E6BB E743 mask to 0099.1,Compare fixed-point source fields and failure history
 src/transmission/transmission_fault_gate_69c.c,pcm_transmission_fault_gate_69c,implemented_algorithm,E69C..E6AB E73A mask to 0099.0,Compare low bits and RMW exact order
-src/transmission/transmission_d4eb_prefix.c,pcm_transmission_d4eb_prefix,implemented_algorithm,D4EB..D4F7 ordered diagnostic flags and 0084 reset,Continue D4F7-D69E gear select while retaining source ABI
+src/transmission/transmission_d4eb_prefix.c,pcm_transmission_d4eb_prefix,implemented_algorithm,D4EB..D4F7 ordered diagnostic flags and 0084 reset,Retain prefix and joined slot replay
+src/transmission/transmission_cold_offset.c,pcm_transmission_cold_offset,implemented_algorithm,D980..D9B6 signed cold correction with F550 rounding and unsigned saturation,Retain full-slot C/ROM comparison
+src/transmission/transmission_descriptor.c,pcm_transmission_descriptor,implemented_algorithm,D8FE..D92D gear-column descriptor with stop mask and retained pointer,Retain full-slot C/ROM comparison
+src/transmission/transmission_gear_select.c,pcm_transmission_gear_select,implemented_algorithm,D4EB..D69E complete shift source priority and gear selection,Retain full-slot C/ROM comparison
+src/transmission/transmission_kickdown_rpm.c,pcm_transmission_kickdown_rpm,implemented_algorithm,D8A7..D8CD kickdown RPM word and signed cold correction,Retain full-slot C/ROM comparison
+src/transmission/transmission_kickdown_threshold.c,pcm_transmission_kickdown_threshold,implemented_algorithm,D840..D8A6 kickdown scalar and normal speed floor,Retain full-slot C/ROM comparison
+src/transmission/transmission_normal_threshold.c,pcm_transmission_normal_threshold,implemented_algorithm,D7E5..D83F normal speed curve and cold-corrected floor,Retain full-slot C/ROM comparison
+src/transmission/transmission_temperature_gain.c,pcm_transmission_temperature_gain,implemented_algorithm,D92E..D968 gain selection and saturated word scaling,Retain full-slot C/ROM comparison
 src/transmission/transmission_gear_limit.c,pcm_transmission_gear_limit,implemented_algorithm,E562..E57B proposed gear cap via range and indexed ROM table,Check all range inputs and indexed table reads against stock ROM
-src/transmission/transmission_gear_finalize.c,pcm_transmission_gear_finalize,implemented_algorithm,D5B7..D69E candidate gear arbitration and E562 cap,Compare full ROM state and every conditional branch before D4EB join
+src/transmission/transmission_gear_finalize.c,pcm_transmission_gear_finalize,implemented_algorithm,D5B7..D69E candidate gear arbitration and E562 cap,Retain D65A reread and D9 handoff checks
 src/transmission/transmission_threshold_select.c,pcm_transmission_threshold_select,implemented_algorithm,D8CE..D8EF carry-qualified transmission threshold pointer from D763 or D775,Test all 8bit displacement wrap and pointer-zero conditions against ROM
 src/fuel/fuel_ignition.c,pcm_fuel_ignition,implemented_outline,"7D4B..7DB5: captured ignition counter, ordered cleanup/restart and COP55; pre-TAP STOP boundary.",Retain ROM/provider failure-prefix checks; target CCR/STOP wake ABI remains explicit
 src/fuel/fuel_inputs.c,pcm_fuel_inputs,implemented_outline,"7DB6..7E4E: MAP context/TPS/oxygen joins, optional governor actuator and density.",Retain real controller/REF comparisons; target backend and physical timing remain explicit

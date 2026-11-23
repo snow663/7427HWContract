@@ -145,6 +145,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
+    f->platform.task[PCM_SLOT_03]=f->platform.task[PCM_SLOT_0B]=NULL;
     f->platform.task[PCM_SLOT_0F]=NULL;
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
@@ -199,8 +200,10 @@ static void test_full_phase_cycle(void) {
     pcm.reference.coolant=200;pcm.spark.load_coordinate=128;pcm.spark.previous_load=128;
     pcm.knock.retard=13;pcm.knock.activity=7;pcm.knock.learning_high=true;
     for (unsigned k=0;k<160;++k) {
+        unsigned prior_writes=f.transmission_writes;
         CHECK(pcm_periodic_irq(&pcm)==PCM_OK);
         CHECK(pcm.scheduler.phase==k && !pcm.scheduler.busy);
+        CHECK(f.transmission_writes==prior_writes+(k%4u==3u)); /* slots 03, 07, 0B, 0F */
     }
     CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==160 && f.current_writes==160);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_INPUT_HOUSEKEEPING]==0 && f.shadow_observations==160);
@@ -211,8 +214,9 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E || k==PCM_SLOT_0F?0u:10u));
-    CHECK(f.signature_reads==10 && f.transmission_writes==20 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_SLOT_03 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0B || k==PCM_SLOT_0E || k==PCM_SLOT_0F?0u:10u));
+    CHECK(f.signature_reads==10 && f.transmission_writes==40 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+    CHECK(f.memory[0x0f00]==0xf7);
     CHECK(f.slot_f_diagnostic_writes==10);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);

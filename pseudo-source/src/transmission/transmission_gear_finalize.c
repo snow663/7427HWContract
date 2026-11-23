@@ -3,7 +3,7 @@
 /* BMHM D5B7..D69E: final transmission proposed-gear arbitration.
  * Entry B is the unsigned proposed gear from preceding D4F7..D5A6.
  * This slice reproduces raw status gates, downshift wait, range limiter
- * E562, and selected-gear publication. It is NOT the full D4EB body.
+ * E562, and selected-gear publication for the D4EB caller.
  * Each original BRSET/BRCLR/RMW is independently sampled to preserve
  * provider ordering and failure prefixes. No hardware coil command here. */
 #define READ(a,v) do {PcmStatus s=pcm_read8(pcm,(a),&(v));if(s!=PCM_OK)return s;}while(0)
@@ -88,8 +88,7 @@ decision:
                             READ(0x0134u,observed);
                             READ(0x5d31u,limit);
                             if(observed<limit) {
-                                proposed=gear;
-                                goto output;
+                                goto retain;
                             }
                         }
                     }
@@ -97,10 +96,12 @@ decision:
             }
             READ(0x0125u,observed);
             READ(0x5d30u,limit);
-            if(observed<limit)proposed=gear;
+            if(observed<limit)goto retain;
         }
     }
-
+    goto output;
+retain:
+    READ(0x00d9u,proposed); /* D65A samples the live gear after the delay tests. */
 output:
     CLEAR(0x0085u,0x20u);
     READ(0x00a2u,flags);
@@ -119,16 +120,21 @@ output:
         observed--;
         if(observed>3u) {
             STORE(0x0103u,4u);
+            pcm->transmission.service_gear=4u;
             observed=3u;
         }
         STORE(0x0187u,255u);
-        STORE(0x00d9u,observed);
-        return PCM_OK;
+        capped=observed;
+    } else {
+        READ(0x00d9u,gear);
+        if(capped==gear) {
+            pcm->transmission.selected_gear=gear;
+            return PCM_OK;
+        }
+        if(capped<gear)SET(0x0083u,0x08u);
+        else SET(0x0083u,0x01u);
     }
-    READ(0x00d9u,gear);
-    if(capped==gear)return PCM_OK;
-    if(capped<gear)SET(0x0083u,0x08u);
-    else SET(0x0083u,0x01u);
     STORE(0x00d9u,capped);
+    pcm->transmission.selected_gear=capped; /* C514 consumes the committed D9. */
     return PCM_OK;
 }
