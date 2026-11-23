@@ -17,6 +17,9 @@ target linker layout and the physical hardware backend remain open.
 
 The November 22 completeness audit records the earlier inventory and the
 remaining work groups. The slot contracts record the November 23 additions.
+[Home-stretch consolidation and target-port handoff](reference/home_stretch_readiness.md)
+records the canonical defaults, open ABI/hardware gates and the new fast source
+consistency check.
 [Completeness audit](reference/completeness_audit_2026-11-22.md) · [Gear slots](reference/transmission_d4eb_source_closure.md) · [Slot 04](reference/slot_04_contract.md) · [Slots 05 and 0A](reference/slots_05_0a_contract.md) · [Slots 0C and 0D](reference/slots_0c_0d_contract.md)
 
 ## Start here

@@ -102,6 +102,7 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
                         str(ROOT/'tests'/f'{fixture}.c'),'-o',str(binary)],check=True)
         for arguments in contracts:subprocess.run([str(binary),*arguments],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/check_provenance.py')],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tests/check_home_stretch.py')],check=True)
     if not args.contracts_only:
         for name,fixture,boundaries,contracts,suites in TARGETS:
             for suite in suites:

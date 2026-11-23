@@ -9,6 +9,19 @@ remaining call graphs and verification limits at `1ecbc4e`. The
 [2026-11-17 development audit](../pseudo-source/reference/development_audit_2026-11-17.md)
 retains historical milestone evidence. Target validation remains separate.
 
+## Home-stretch consolidation — 2026-11-23
+
+The canonical default fuel and slot01 source routes, eight unresolved
+optional-hook addresses and the target-port acceptance gates are captured in
+[the home-stretch handoff](../pseudo-source/reference/home_stretch_readiness.md)
+and its [machine-readable manifest](../pseudo-source/reference/home_stretch_manifest.json).
+A new quick consistency gate prevents silent drift of the 413-routine/9-boundary
+inventory, all sixteen slow-slot entries and the protected default paths.
+No output, BIN, calibration or model semantics change in this consolidation.
+Native HC11 startup/interrupts and RAM/ASIC mapping are now the engine-first
+priority. The five current/transmission groups remain explicitly deferred;
+full current-tree release verification and real target validation remain open.
+
 ## Current development checkpoint — 2026-11-23
 
 Use the existing `work/pseudo-source-development` branch for cumulative source

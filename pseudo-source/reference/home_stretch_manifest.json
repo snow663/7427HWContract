@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "as_of": "2026-11-23",
+  "branch": "work/pseudo-source-development",
+  "inventory": {
+    "indexed": 413,
+    "implemented_outline": 235,
+    "implemented_algorithm": 169,
+    "dependency_boundary": 9
+  },
+  "boundary_routines": [
+    "pcm_spark_extension",
+    "pcm_spark_output_extension",
+    "pcm_reset_entry",
+    "pcm_current_control",
+    "pcm_pressure_tcc",
+    "pcm_shift_control",
+    "pcm_transmission_spark",
+    "pcm_connection_probe",
+    "pcm_transmission_input_prefix"
+  ],
+  "optional_hooks": {
+    "1800": {
+      "role": "AFR module",
+      "policy": "unresolved"
+    },
+    "1803": {
+      "role": "IAC extension",
+      "policy": "unresolved"
+    },
+    "1806": {
+      "role": "slot03 module",
+      "policy": "unresolved"
+    },
+    "1809": {
+      "role": "governor extension",
+      "policy": "unresolved"
+    },
+    "1812": {
+      "role": "spark command extension",
+      "policy": "unresolved"
+    },
+    "1815": {
+      "role": "EGR extension",
+      "policy": "unresolved"
+    },
+    "180C": {
+      "role": "signature-qualified connection module",
+      "policy": "unresolved"
+    },
+    "180F": {
+      "role": "spark output extension",
+      "policy": "unresolved"
+    }
+  },
+  "execution_policy": {
+    "scheduled_fuel_default": "pcm_fuel_ignition -> pcm_fuel_inputs -> pcm_fuel_calculate -> pcm_fuel_schedule",
+    "fuel_research_requires": [
+      "enable_resident_fuel_cycle",
+      "bind_fuel_ram_owners"
+    ],
+    "slot01_default": "pcm_baro_input -> pcm_transmission_baro -> pcm_tcc_nonelectronic",
+    "slot01_research_requires": [
+      "enable_resident_slow_slots"
+    ],
+    "hardware_output_authority": "not established"
+  },
+  "gates": {
+    "source_slow_slots": "resident_scoped_C",
+    "current_transmission_fast_groups": "open_low_priority",
+    "external_hooks": "open",
+    "named_RAM_ALDL_aliases": "open",
+    "ASIC_device_timing": "open",
+    "HC11_startup_vectors_ISR_ABI": "open",
+    "target_linker_and_flashable_BIN": "open",
+    "complete_combined_ROM_suite": "pending",
+    "physical_bench_validation": "not_started"
+  }
+}
