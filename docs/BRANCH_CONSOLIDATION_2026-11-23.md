@@ -57,3 +57,15 @@ Branch deletion does not rewrite `main`, modify firmware/calibration
 values, or merge experimental commits. Keep archive tags until a separate
 provenance review explicitly retires them. A clean branch list and passing
 source tests do not constitute release or target hardware validation.
+
+## Final pull-request cleanup, 2026-11-23
+
+PR #49 integrated the pseudo-source source history into `main`; PR #42
+merged the separate Rev B operations and memory-access audit without
+changing PCM command code. PR #21 was closed as superseded because the
+canonical `pcm_vss_filter` implementation already exists in the combined
+source. Its unique head must be tagged before its remote branch is removed.
+The two release/development refs remain synchronized after PR #42.
+A follow-up `[prune-stale-branches]` commit archives the remaining obsolete
+PR head if unique, deletes both inactive PR branch pointers, and leaves
+only `main` and `work/pseudo-source-development`.

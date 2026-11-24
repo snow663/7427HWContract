@@ -1,4 +1,5 @@
 name: One-time Branch Consolidation
+# Prune only on a deliberately marked commit to the single development branch.
 on:
   push:
     branches:
