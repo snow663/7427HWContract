@@ -117,3 +117,13 @@ it to the C caller **only after the raw callback returns `PCM_OK`**. A
 host fixture deliberately dirties the output buffer before reporting failure;
 the original caller's value stays unchanged. This prevents partial owner
 publication on read failures as well as write failures.
+
+## Cross-path ALDL verification
+
+The host bridge also runs `pcm_serial_memory_read8/read16/write8` against
+board shadow $004B and canonical VSS $0284/$0812. Those foreign addresses
+flow through the same guarded address-space provider and owner fields.
+Serial-owned descriptor $0362 stays on the serial subsystem's direct C
+owner, so the bus receives **no physical transaction** for that address.
+This is a scoped address-source test, not proof of actual ALDL frame timing,
+serial SCI hardware, or all shared 7427 RAM aliases.

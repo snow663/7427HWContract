@@ -1,6 +1,7 @@
 #include "hc11_bus.h"
 #include "hardware.h"
 #include "board_io.h"
+#include "serial.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -249,6 +250,29 @@ static void test_failed_reads_never_publish(void)
     CHECK(pcm_read16(&p,0x00fd,&word)==PCM_NO_HARDWARE && word==0x2345);
     CHECK(f.calls==2);
 }
+static void test_aldl_logical_address_coherence(void)
+{
+    static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
+    init(&f,&bus,&platform,&p,true);
+    platform.bind_fuel_ram_owners=true;
+    p.spark.vehicle_speed_high=0x3c;
+    p.io.vehicle_speed_fraction=0x42;
+    p.io.vss_raw=0x1122;
+    p.io.output_context=0x21;
+    p.spark.output_request=true;
+    p.serial.descriptor=0xa55a;
+    uint16_t word=0;uint8_t byte=0;
+    CHECK(pcm_serial_memory_read16(&p,0x0284,&word)==PCM_OK && word==0x3c42);
+    CHECK(pcm_serial_memory_read8(&p,0x004b,&byte)==PCM_OK && byte==0x31);
+    CHECK(pcm_serial_memory_write8(&p,0x0812,0x9a)==PCM_OK &&
+          p.io.vss_raw==0x9a22);
+    CHECK(pcm_serial_memory_read16(&p,0x0812,&word)==PCM_OK && word==0x9a22);
+    unsigned bus_calls=f.calls;
+    CHECK(pcm_serial_memory_read16(&p,0x0362,&word)==PCM_OK && word==0xa55a);
+    CHECK(pcm_serial_memory_write8(&p,0x0363,0x77)==PCM_OK &&
+          p.serial.descriptor==0xa577);
+    CHECK(f.calls==bus_calls); /* no second physical owner of serial RAM */
+}
 static void test_native_is_fail_closed_on_host(void)
 {
 #ifndef PCM_HC11_NATIVE_MMIO
@@ -266,6 +290,7 @@ int main(void)
     test_canonical_ram_aliases();test_window_validation();
     test_real_board_path_denied_tail();
     test_failed_reads_never_publish();
+    test_aldl_logical_address_coherence();
     test_native_is_fail_closed_on_host();
     puts("HC11 mapped bus: explicit grants, fail-closed hardware writes, word width, RAM owners and failure prefixes passed.");
     return 0;
