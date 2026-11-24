@@ -92,6 +92,24 @@ int main(void)
     CHECK(m[PCM_IRQ_MB_ACTION]==0);
     CHECK(pcm_hc11_mailbox_dispatch(NULL,m)==PCM_BAD_CONFIGURATION);
     CHECK(pcm_hc11_mailbox_dispatch(&p,NULL)==PCM_BAD_CONFIGURATION);
+
+    /* Test the no-argument C symbol used by a future ASM11 JSR.
+     * Reset binding must be explicit; host CRT defaults are irrelevant. */
+    pcm_hc11_c_entry_reset();
+    prepare(m,0xffd8u);
+    pcm_hc11_c_entry();
+    CHECK(m[PCM_IRQ_MB_ACTION]==0);
+    CHECK(pcm_hc11_c_entry_bind(&p,m,false)==PCM_BAD_CONFIGURATION);
+    CHECK(pcm_hc11_c_entry_bind(NULL,m,true)==PCM_BAD_CONFIGURATION);
+    CHECK(pcm_hc11_c_entry_bind(&p,m,true)==PCM_OK);
+    CHECK(pcm_hc11_c_entry_bind(&p,m,true)==PCM_BAD_CONFIGURATION);
+    pcm_hc11_c_entry();
+    CHECK(m[PCM_IRQ_MB_ACTION]==PCM_IRQ_MB_RTI_TOKEN &&
+          m[PCM_IRQ_MB_STATUS]==PCM_OK);
+    pcm_hc11_c_entry_reset();
+    prepare(m,0xffd8u);
+    pcm_hc11_c_entry();
+    CHECK(m[PCM_IRQ_MB_ACTION]==0);
     puts("ASM11 ISR mailbox: RTI token, qualified frames, unmapped timers, nesting and identity-change rejection passed");
     return 0;
 }

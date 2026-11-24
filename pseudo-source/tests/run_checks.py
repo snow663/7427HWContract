@@ -138,6 +138,7 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
                     '-I',str(ROOT/'include'),*[str(p) for p in sources],
                     str(ROOT/'platform/hc11_vector_contract.c'),
                     str(ROOT/'platform/hc11_irq_mailbox.c'),
+                    str(ROOT/'platform/hc11_c_entry.c'),
                     str(ROOT/'tests/hc11_irq_mailbox_test.c'),
                     '-o',str(mb_test)],check=True)
     subprocess.run([str(mb_test)],check=True)

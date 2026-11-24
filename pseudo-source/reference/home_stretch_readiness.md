@@ -137,3 +137,23 @@ Every actual ROM vector except reset **still points to the original
 engine-off safe trap**. This code does not create an engine-running BIN,
 does not change fuel/spark logic, and does not assert native C calling
 convention, interrupt nesting, stack budget or live board output proof.
+
+### Zero-argument native C entry symbol
+
+`platform/hc11_c_entry.c` now provides a concrete C entry symbol
+`pcm_hc11_c_entry(void)`. The ASM11 `JSR 0,X` can call it without
+passing an HC11-dependent C argument list, once its actual executable
+address is linked into `HAL_ISR_C_ENTRY_WORD`. It forwards through
+`pcm_hc11_mailbox_dispatch` using context installed through
+`pcm_hc11_c_entry_bind` during an explicitly interrupt-masked native
+boot, and supports `pcm_hc11_c_entry_reset` so the ROM does not
+assume a C runtime has zeroed static data. Rebinding without reset,
+null pointers and unmasked bind attempts are refused. The native
+entry is an ordinary C function; it must **not** be declared
+`interrupt` or emit `RTI`. The ASM wrapper alone owns native RTI.
+
+Host tests prove this handoff behavior, but the real 68HC11 compiler's
+symbol decoration, subroutine return convention, stack usage,
+link address and RAM placement still require assembly listing/S19
+verification. This commit does not rebind the ROM call word; its
+default still rejects every unqualified interrupt.

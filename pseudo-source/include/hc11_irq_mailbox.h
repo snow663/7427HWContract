@@ -18,4 +18,16 @@ enum {
 /* Called by a future compiler-specific no-argument RTS thunk.
  * NOT called directly by ASM11: its args are compiler ABI dependent. */
 PcmStatus pcm_hc11_mailbox_dispatch(Pcm *pcm,volatile uint8_t *mailbox);
+
+/* Exact native-call seam: no C parameters; returns through normal C RTS.
+ * MUST be cross-compiler/assembler linked and stack-verified before binding
+ * HAL_ISR_C_ENTRY_WORD to its assembled address. */
+void pcm_hc11_c_entry(void);
+
+/* Native startup must call reset and bind before any IRQ vector activation.
+ * IRQ admission must be masked through both calls; no implicit BSS/CRT
+ * initialization is assumed in the bare HC11 ROM. */
+void pcm_hc11_c_entry_reset(void);
+PcmStatus pcm_hc11_c_entry_bind(Pcm *pcm,volatile uint8_t *mailbox,
+                                bool interrupts_masked);
 #endif

@@ -35,7 +35,8 @@ if(BUILD_TESTING)
       tests/hc11_vector_test.c platform/hc11_vector_contract.c)
   add_executable(pcm_hc11_irq_mailbox_tests
       tests/hc11_irq_mailbox_test.c
-      platform/hc11_vector_contract.c platform/hc11_irq_mailbox.c)
+      platform/hc11_vector_contract.c platform/hc11_irq_mailbox.c
+      platform/hc11_c_entry.c)
   target_link_libraries(pcm_hc11_irq_mailbox_tests PRIVATE pcm_pseudo_source)
   add_test(NAME hc11_irq_mailbox_contracts COMMAND pcm_hc11_irq_mailbox_tests)
   add_test(NAME hc11_native_isr_gateway_source_contract

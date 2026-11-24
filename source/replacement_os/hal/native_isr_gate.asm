@@ -2,9 +2,9 @@
 ; HC11 hardware has stacked CCR,B,A,X,Y,PC (nine bytes).
 ; On entry TSX is the address of saved CCR, before our JSR adds bytes.
 ; When a target C compiler is available, HAL_ISR_C_ENTRY_WORD will point
-; to a verified no-argument RTS thunk that uses the mailbox declared in
+; to a verified no-argument RTS thunk, pcm_hc11_c_entry, that uses the mailbox declared in
 ; hal/hal_ram.inc and invokes pcm_hc11_mailbox_dispatch.
-; The default thunk DENIES return. Do not bind vectors until C+ASM11
+; The default target DENIES return. Do not bind vectors until C+ASM11
 ; object ABI, stack budget, and interrupt admission are established.
 ;
 ; No production actuator output is enabled by this module.
