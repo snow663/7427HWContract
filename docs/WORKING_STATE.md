@@ -1,3 +1,12 @@
+## Source-scoped literal fuel RAM writer coverage gate
+
+The development branch now checks every factory fuel direct low-RAM WRITE
+site recorded in `maps/structure/factory_fuel_memory_accesses.csv` against
+the named read/write adapter, including overlapping word bytes. This is a
+scoped closure of those static operands, not of indirect/pointer writes or
+physical RAM backing. The guarded internal-RAM publisher remains opt-in
+and target critical-section dependent.
+
 ## Direct named-state to internal RAM publication — development-only
 
 A new [guarded internal RAM publication interface](../pseudo-source/reference/physical_bus_contract.md)

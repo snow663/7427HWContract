@@ -225,3 +225,14 @@ reads live C state. A targeted failure fixture revokes the guard immediately
 after a successful physical read and proves that no subsequent physical
 write occurs. The guard remains a target-supplied contract; no host check
 establishes real HC11 CCR or ISR exclusion.
+
+## Automatic factory fuel RAM literal-writer audit
+
+`check_fuel_ram_literal_writers.py` reads the maintained stock-ROM
+`maps/structure/factory_fuel_memory_accesses.csv` and both C byte-owner
+switches. It refuses inconsistent read/write owner address sets and
+verifies every listed **literal low-RAM write**, including both bytes of
+16-bit stores. Unrecognized indirect/indexed accesses, runtime pointers,
+interrupt-frame effects and the complete $7427 ABI remain explicitly
+outside this narrowly defined gate. Thus a green result is useful
+source-index coverage, not complete physical or timing equivalence.
