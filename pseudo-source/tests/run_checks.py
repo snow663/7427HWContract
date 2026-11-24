@@ -108,6 +108,8 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
         ROOT/'src/drivers/read8.c',ROOT/'src/drivers/read16.c',
         ROOT/'src/drivers/write8.c',ROOT/'src/drivers/write16.c',
         ROOT/'src/drivers/update8.c',
+        ROOT/'src/drivers/mask_irq.c',
+        ROOT/'src/drivers/board_ports.c',
         *sorted((ROOT/'src/system').glob('fuel_ram_owner_*.c')),
         ROOT/'tests/hc11_bus_test.c',
     ]

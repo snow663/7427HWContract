@@ -202,6 +202,27 @@ static void test_window_validation(void)
     CHECK(pcm_hc11_bus_bind(&bus,&platform,&io,windows,5)==PCM_BAD_CONFIGURATION);
     (void)p;
 }
+static void test_real_board_path_denied_tail(void)
+{
+    static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
+    init(&f,&bus,&platform,&p,true);
+    /* Exercise real F400..F41F source, not a synthetic bus-only write.
+     * The 3067 authorization failure must preserve the successful prefix. */
+    f.board1[0]=0x21;
+    f.board1[4]=0xa5;
+    p.spark.output_request=true;
+    p.iac.kicker_request=false;
+    p.transmission.output_shadow=0x5a;
+    p.io.auxiliary_output=0x7b;
+    f.irq_masked=true;
+    CHECK(pcm_board_ports(&p)==PCM_NO_HARDWARE);
+    CHECK(f.calls==4 && f.auth_calls==3);
+    CHECK(f.board1[0]==0x10 && f.board1[2]==0x5a);
+    CHECK(f.board1[7]==0);
+    CHECK(p.io.output_context==0x21);
+    CHECK(p.iac.input_shadow==0xa5);
+    CHECK(f.irq_masked); /* failed path must not invent an early CLI */
+}
 static void test_native_is_fail_closed_on_host(void)
 {
 #ifndef PCM_HC11_NATIVE_MMIO
@@ -217,6 +238,7 @@ int main(void)
 {
     test_regions_and_guard();test_width_and_raw_failure();
     test_canonical_ram_aliases();test_window_validation();
+    test_real_board_path_denied_tail();
     test_native_is_fail_closed_on_host();
     puts("HC11 mapped bus: explicit grants, fail-closed hardware writes, word width, RAM owners and failure prefixes passed.");
     return 0;
