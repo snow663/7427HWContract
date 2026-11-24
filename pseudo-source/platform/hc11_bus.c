@@ -35,7 +35,10 @@ static PcmStatus read8(void *context, uint16_t a, uint8_t *out)
     if (out == NULL) return PCM_BAD_CONFIGURATION;
     if (region(bus, a, 8, PCM_HC11_R8) == NULL ||
         bus->io.read8 == NULL) return PCM_NO_HARDWARE;
-    return bus->io.read8(bus->io.context, a, out);
+    uint8_t sample;
+    PcmStatus s = bus->io.read8(bus->io.context, a, &sample);
+    if (s == PCM_OK) *out = sample;
+    return s;
 }
 static PcmStatus read16(void *context, uint16_t a, uint16_t *out)
 {
@@ -43,7 +46,10 @@ static PcmStatus read16(void *context, uint16_t a, uint16_t *out)
     if (out == NULL) return PCM_BAD_CONFIGURATION;
     if (region(bus, a, 16, PCM_HC11_R16) == NULL ||
         bus->io.read16 == NULL) return PCM_NO_HARDWARE;
-    return bus->io.read16(bus->io.context, a, out);
+    uint16_t sample;
+    PcmStatus s = bus->io.read16(bus->io.context, a, &sample);
+    if (s == PCM_OK) *out = sample;
+    return s;
 }
 static PcmStatus authorize(const PcmHc11Bus *bus,
                             const PcmHc11Window *window, uint16_t a,

@@ -14,7 +14,7 @@ typedef struct {
     uint16_t last_address, last_value;
     unsigned last_width;
     char last_op;
-    bool irq_masked;
+    bool irq_masked, corrupt_failed_reads;
 } Fake;
 
 /* Only explicitly modeled target windows are provisioned; no 64K mirror. */
@@ -42,6 +42,7 @@ static PcmStatus fake_read8(void *context, uint16_t a, uint8_t *v)
     if (p==NULL || v==NULL) return PCM_BAD_CONFIGURATION;
     PcmStatus s=bus_call(f,'R',8,a,*p);
     if (s==PCM_OK) *v=*p;
+    else if(f->corrupt_failed_reads) *v=0xee;
     return s;
 }
 static PcmStatus fake_read16(void *context, uint16_t a, uint16_t *v)
@@ -52,6 +53,7 @@ static PcmStatus fake_read16(void *context, uint16_t a, uint16_t *v)
     uint16_t sample=(uint16_t)(((uint16_t)*hi<<8)|*lo);
     PcmStatus s=bus_call(f,'R',16,a,sample);
     if (s==PCM_OK) *v=sample;
+    else if(f->corrupt_failed_reads) *v=0xdeadu;
     return s;
 }
 static PcmStatus fake_write8(void *context, uint16_t a, uint8_t v)
@@ -234,6 +236,19 @@ static void test_real_board_path_denied_tail(void)
     CHECK(p.iac.input_shadow==0xa5);
     CHECK(f.irq_masked); /* failed path must not invent an early CLI */
 }
+static void test_failed_reads_never_publish(void)
+{
+    static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
+    init(&f,&bus,&platform,&p,true);
+    f.corrupt_failed_reads=true;
+    f.failures=1;
+    uint8_t byte=0x76;
+    CHECK(pcm_read8(&p,0x0004,&byte)==PCM_NO_HARDWARE && byte==0x76);
+    f.failures=2;
+    uint16_t word=0x2345;
+    CHECK(pcm_read16(&p,0x00fd,&word)==PCM_NO_HARDWARE && word==0x2345);
+    CHECK(f.calls==2);
+}
 static void test_native_is_fail_closed_on_host(void)
 {
 #ifndef PCM_HC11_NATIVE_MMIO
@@ -250,6 +265,7 @@ int main(void)
     test_regions_and_guard();test_width_and_raw_failure();
     test_canonical_ram_aliases();test_window_validation();
     test_real_board_path_denied_tail();
+    test_failed_reads_never_publish();
     test_native_is_fail_closed_on_host();
     puts("HC11 mapped bus: explicit grants, fail-closed hardware writes, word width, RAM owners and failure prefixes passed.");
     return 0;

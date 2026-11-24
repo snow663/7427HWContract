@@ -111,3 +111,9 @@ source. The $080F..$0813 region is explicitly granted **only in the host
 fixture**, not declared fitted RAM on the real board. Byte/word overlap and
 backing-failure tests run through both the existing fuel-owner gate and the
 new HC11 provider. This remains a partial bridge pending a full access ledger.
+
+The provider stages every physical read into a local byte/word and publishes
+it to the C caller **only after the raw callback returns `PCM_OK`**. A
+host fixture deliberately dirties the output buffer before reporting failure;
+the original caller's value stays unchanged. This prevents partial owner
+publication on read failures as well as write failures.
