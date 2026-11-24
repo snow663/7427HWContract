@@ -237,6 +237,27 @@ static void test_real_board_path_denied_tail(void)
     CHECK(p.iac.input_shadow==0xa5);
     CHECK(f.irq_masked); /* failed path must not invent an early CLI */
 }
+static void test_mixed_word_via_bus(void)
+{
+    static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
+    init(&f,&bus,&platform,&p,true);
+    platform.bind_fuel_ram_owners=true;
+    /* A cross-owner 16-bit word must issue exactly one raw 16-bit bus
+     * transaction, despite mixed flag and serial owners. */
+    f.ram[0x41]=0x83;
+    p.iac.park_neutral=true;
+    p.fuel.ac_enrichment_seen=true;
+    p.serial.sessions=0x5c;
+    unsigned before_mixed=f.calls;
+    CHECK(pcm_serial_memory_read16(&p,0x0041,&word)==PCM_OK &&
+          word==0xab5c);
+    CHECK(f.calls==before_mixed+1 && f.last_width==16);
+    CHECK(pcm_write16(&p,0x0041,0x9277)==PCM_OK);
+    CHECK(f.calls==before_mixed+2 && f.last_width==16);
+    CHECK(f.ram[0x41]==0x92 && f.ram[0x42]==0x77 &&
+          p.serial.sessions==0x77 && p.io.ac_mirror);
+
+}
 static void test_failed_reads_never_publish(void)
 {
     static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
@@ -297,6 +318,7 @@ int main(void)
     test_canonical_ram_aliases();test_window_validation();
     test_real_board_path_denied_tail();
     test_failed_reads_never_publish();
+    test_mixed_word_via_bus();
     test_aldl_logical_address_coherence();
     test_native_is_fail_closed_on_host();
     puts("HC11 mapped bus: explicit grants, fail-closed hardware writes, word width, RAM owners and failure prefixes passed.");

@@ -360,6 +360,52 @@ static void test_serial_owner_unification(void)
     CHECK(pcm_write16(&p,0x0362,0xffff)==PCM_NO_HARDWARE);
     CHECK(p.serial.descriptor==0x1256);
 }
+static void test_mixed_owner_word_transactions(void)
+{
+    static Fixture f;Pcm p;init(&f,&p);
+    /* 0041 is shared bit state; 0042 is the serial session byte.
+     * Both must be coherent from a single physical 16-bit sample. */
+    f.provider[0x0041]=0x83;
+    f.provider[0x0042]=0;
+    p.iac.park_neutral=true;
+    p.io.ac_mirror=false;
+    p.fuel.ac_enrichment_seen=true;
+    p.serial.sessions=0x5c;
+    unsigned start=f.attempts;
+    uint16_t word=0;
+    CHECK(pcm_read16(&p,0x0041,&word)==PCM_OK && word==0xab5c);
+    CHECK(f.attempts==start+1);
+    CHECK(pcm_serial_memory_read16(&p,0x0041,&word)==PCM_OK &&
+          word==0xab5c);
+    CHECK(pcm_write16(&p,0x0041,0x9277)==PCM_OK);
+    CHECK(!p.iac.park_neutral && p.io.ac_mirror &&
+          !p.fuel.ac_enrichment_seen && p.serial.sessions==0x77);
+    CHECK(f.provider[0x0041]==0x92 && f.provider[0x0042]==0x77);
+    CHECK(pcm_read16(&p,0x0041,&word)==PCM_OK && word==0x9277);
+    /* The 003A/003B word crosses scheduler/fault and serial owners. */
+    f.provider[0x003a]=0x90;
+    p.runtime.adc_fault=true;
+    p.scheduler.pending=true;
+    p.serial.busy=true;
+    CHECK(pcm_read16(&p,0x003a,&word)==PCM_OK && word==0xb140);
+    CHECK(pcm_write16(&p,0x003a,0x1155)==PCM_OK);
+    CHECK(!p.scheduler.pending && p.runtime.adc_fault &&
+          p.serial.busy && p.serial.clear_transmission);
+    /* The 004B/004C word crosses board shadow field owners. */
+    p.io.output_context=0x21;
+    p.spark.output_request=true;
+    p.iac.kicker_request=false;
+    p.transmission.output_shadow=0xa2;
+    CHECK(pcm_read16(&p,0x004b,&word)==PCM_OK && word==0x31a2);
+    CHECK(pcm_write16(&p,0x004b,0x80ed)==PCM_OK);
+    CHECK(p.iac.kicker_request && !p.spark.output_request &&
+          p.transmission.output_shadow==0xed);
+    unsigned before=f.attempts;
+    f.fail_at=before+1;
+    CHECK(pcm_write16(&p,0x0041,0xffff)==PCM_NO_HARDWARE);
+    CHECK(f.attempts==before+1 && p.serial.sessions==0x77 &&
+          p.io.ac_mirror);
+}
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
@@ -368,6 +414,7 @@ int main(int argc,char **argv)
     test_board_and_vss_named_ram();
     test_engine_owners_and_aldl();
     test_serial_owner_unification();
+    test_mixed_owner_word_transactions();
     puts("Fuel prelude canonical RAM provider aliases, split-word bytes and failure prefixes passed.");
     return 0;
 }

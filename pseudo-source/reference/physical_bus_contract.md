@@ -156,3 +156,25 @@ writes are not automatic *physical* memory publications. The named bridge
 continues to require explicit activation, platform backing, and a
 target-side coherence strategy. A source-side shared owner is not proof
 of a fitted RAM alias.
+
+## Mixed-owner 16-bit transactions
+
+A logical 16-bit access can cross independently named bytes
+(e.g. $0041–$0042 = shared IAC/AC flags plus serial sessions,
+$003A–$003B = diagnostic/interrupt flags plus serial command status,
+$004B–$004C = shared board shadow plus output shadow).
+Previously only explicitly indexed `uint16_t` fields were overlaid:
+these cross-owner reads could return stale backing.
+
+`pcm_read16` now performs **exactly one** original physical-width
+read, checks a whole-word owner first, and otherwise resolves the
+two byte owners independently using the physical high/low values as
+residual bits. `pcm_write16` publishes **exactly one** physical word
+first and then updates both byte owners only on success when there is
+no whole-word owner. The host tests check width, read counts, serial
+logical reads, shared-bit preservation and rejected stores.
+
+The two C-field writes are logical state updates, **not** a claim that
+an HC11 word write or interrupt interleaving is atomic. Cross-byte
+interrupt synchronization and true physical memory backing remain
+separate target validation.
