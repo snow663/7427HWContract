@@ -3,7 +3,7 @@ import importlib.util
 from pathlib import Path
 import unittest
 
-PATH=Path(__file__).resolve().parents[1]/"native/compose_hc11_rom.py"
+PATH=Path(__file__).resolve().parents[1]/"compose_hc11_rom.py"
 SPEC=importlib.util.spec_from_file_location("compose_hc11_rom",PATH)
 MOD=importlib.util.module_from_spec(SPEC)
 import sys
