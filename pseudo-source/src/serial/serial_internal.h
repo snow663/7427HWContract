@@ -31,4 +31,32 @@ static inline bool ser_get(const Pcm *pcm,uint16_t a,uint8_t *out)
     default:return false;
     }
 }
+/* Common named RAM owner: called by direct SCI/ALDL access AND the opt-in
+ * physical address bridge. Exactly one writer owns each serial field. */
+static inline bool ser_put(Pcm *pcm,uint16_t a,uint8_t v)
+{
+    if (a>=0x36c && a<=0x38d) { pcm->serial.receive[a-0x36c]=v;return true; }
+    switch (a) {
+    case 0x3b:pcm->serial.clear_transmission=(v&1u)!=0;pcm->serial.clear_engine=(v&2u)!=0;
+        pcm->runtime.monitor_freeze=(v&4u)!=0;pcm->runtime.transmission_service=(v&8u)!=0;pcm->runtime.engine_service=(v&16u)!=0;
+        pcm->serial.deferred=(v&32u)!=0;pcm->serial.busy=(v&64u)!=0;pcm->serial.companion_pending=(v&128u)!=0;return true;
+    case 0x42:pcm->serial.sessions=v;return true;
+    case 0x45:pcm->serial.clear_edges=v;return true;
+    case 0x360:pcm->serial.count=v;return true;
+    case 0x361:pcm->serial.checksum=v;return true;
+    case 0x362:pcm->serial.descriptor=(uint16_t)((uint16_t)v*256u+(pcm->serial.descriptor&255u));return true;
+    case 0x363:pcm->serial.descriptor=(uint16_t)((pcm->serial.descriptor&0xff00u)|v);return true;
+    case 0x364:pcm->serial.last_id=v;return true;
+    case 0x365:pcm->serial.length=v;return true;
+    case 0x366:pcm->serial.companion=v;return true;
+    case 0x367:pcm->serial.receive_age=v;return true;
+    case 0x368:pcm->serial.service_age=(uint16_t)((uint16_t)v*256u+(pcm->serial.service_age&255u));return true;
+    case 0x369:pcm->serial.service_age=(uint16_t)((pcm->serial.service_age&0xff00u)|v);return true;
+    case 0x36a:pcm->serial.service_expiry=(uint16_t)((uint16_t)v*256u+(pcm->serial.service_expiry&255u));return true;
+    case 0x36b:pcm->serial.service_expiry=(uint16_t)((pcm->serial.service_expiry&0xff00u)|v);return true;
+    case 0x38e:pcm->serial.engine_command=v;return true;
+    case 0x399:pcm->serial.transmission_command=v;return true;
+    default:return false;
+    }
+}
 #endif

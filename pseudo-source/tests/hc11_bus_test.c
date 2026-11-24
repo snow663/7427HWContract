@@ -272,6 +272,13 @@ static void test_aldl_logical_address_coherence(void)
     CHECK(pcm_serial_memory_write8(&p,0x0363,0x77)==PCM_OK &&
           p.serial.descriptor==0xa577);
     CHECK(f.calls==bus_calls); /* no second physical owner of serial RAM */
+    CHECK(pcm_read16(&p,0x0362,&word)==PCM_OK && word==0xa577);
+    CHECK(pcm_write8(&p,0x0362,0x44)==PCM_OK);
+    CHECK(p.serial.descriptor==0x4477);
+    CHECK(pcm_serial_memory_read16(&p,0x0362,&word)==PCM_OK && word==0x4477);
+    CHECK(pcm_write8(&p,0x036c,0x82)==PCM_OK &&
+          p.serial.receive[0]==0x82);
+    CHECK(pcm_serial_memory_read8(&p,0x036c,&byte)==PCM_OK && byte==0x82);
 }
 static void test_native_is_fail_closed_on_host(void)
 {

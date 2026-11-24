@@ -1,4 +1,5 @@
 #include "fuel_ram_owners.h"
+#include "../serial/serial_internal.h"
 /* Big-endian $7D4B prefix word ownership. */
 bool pcm_fuel_ram_owner_read16(const Pcm *pcm,uint16_t address,uint16_t *out)
 {
@@ -26,6 +27,14 @@ bool pcm_fuel_ram_owner_read16(const Pcm *pcm,uint16_t address,uint16_t *out)
     case 0x0818:*out=pcm->fuel.pe_vehicle_change;return true;
     case 0x0851:*out=pcm->fuel.authorization_capture;return true;
     case 0x088b:*out=pcm->iac.airflow;return true;
-    default:return false;
+    default: {
+        uint8_t high, low;
+        if (address != 0xffffu && ser_get(pcm,address,&high) &&
+            ser_get(pcm,(uint16_t)(address+1u),&low)) {
+            *out=(uint16_t)(((uint16_t)high<<8)|low);
+            return true;
+        }
+        return false;
+    }
     }
 }

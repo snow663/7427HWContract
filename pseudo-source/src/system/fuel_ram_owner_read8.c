@@ -1,4 +1,5 @@
 #include "fuel_ram_owners.h"
+#include "../serial/serial_internal.h"
 /* Reconstitute only source-owned flag bits over provider residual. */
 static uint8_t with_bit(uint8_t byte,uint8_t mask,bool on)
 {
@@ -198,7 +199,7 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
     case 0x088b:case 0x088c:
         (void)pcm_fuel_ram_owner_read16(pcm,0x088b,&word);
         b=address==0x088b?(uint8_t)(word>>8):(uint8_t)word;break;
-    default:return false;
+    default:return ser_get(pcm,address,out);
     }
     *out=b;
     return true;

@@ -1,6 +1,7 @@
 #include "fuel.h"
 #include "fuel_ram_owners.h"
 #include "hardware.h"
+#include "serial.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -313,6 +314,52 @@ static void test_engine_owners_and_aldl(void)
     CHECK(pcm_write16(&p,0x01fd,0x8899)==PCM_NO_HARDWARE);
     CHECK(p.spark.composite==0xac42);
 }
+static void test_serial_owner_unification(void)
+{
+    static Fixture f;Pcm p;init(&f,&p);
+    p.serial.sessions=0x31;
+    p.serial.descriptor=0xa55a;
+    p.serial.receive[0]=0x22;p.serial.receive[33]=0x77;
+    p.serial.engine_command=0xf0;p.serial.transmission_command=0x69;
+    p.runtime.monitor_freeze=true;
+    p.serial.busy=true;
+    uint8_t value;
+    uint16_t word;
+    CHECK(pcm_read8(&p,0x0042,&value)==PCM_OK && value==0x31);
+    CHECK(pcm_serial_memory_read8(&p,0x0042,&value)==PCM_OK && value==0x31);
+    CHECK(pcm_read8(&p,0x003b,&value)==PCM_OK && value==0x44);
+    CHECK(pcm_read16(&p,0x0362,&word)==PCM_OK && word==0xa55a);
+    CHECK(pcm_serial_memory_read16(&p,0x0362,&word)==PCM_OK && word==0xa55a);
+    CHECK(pcm_read8(&p,0x036c,&value)==PCM_OK && value==0x22);
+    CHECK(pcm_read8(&p,0x038d,&value)==PCM_OK && value==0x77);
+    CHECK(pcm_read8(&p,0x038e,&value)==PCM_OK && value==0xf0);
+    CHECK(pcm_read8(&p,0x0399,&value)==PCM_OK && value==0x69);
+
+    CHECK(pcm_write8(&p,0x0042,0x80)==PCM_OK && p.serial.sessions==0x80);
+    CHECK(pcm_serial_memory_write8(&p,0x0042,0x63)==PCM_OK);
+    CHECK(pcm_read8(&p,0x0042,&value)==PCM_OK && value==0x63);
+    CHECK(pcm_write8(&p,0x003b,0x95)==PCM_OK);
+    CHECK(p.serial.clear_transmission && !p.serial.clear_engine &&
+          p.runtime.monitor_freeze && !p.serial.busy &&
+          p.serial.companion_pending);
+    CHECK(pcm_write16(&p,0x0362,0x1234)==PCM_OK && p.serial.descriptor==0x1234);
+    CHECK(pcm_serial_memory_write8(&p,0x0363,0x56)==PCM_OK &&
+          p.serial.descriptor==0x1256);
+    CHECK(pcm_read16(&p,0x0362,&word)==PCM_OK && word==0x1256);
+    CHECK(pcm_write8(&p,0x036c,0x99)==PCM_OK && p.serial.receive[0]==0x99);
+    CHECK(pcm_serial_memory_write8(&p,0x038d,0xaa)==PCM_OK &&
+          p.serial.receive[33]==0xaa);
+    CHECK(pcm_read16(&p,0x038d,&word)==PCM_OK && word==0xaaf0);
+    CHECK(pcm_write16(&p,0x0368,0xabcd)==PCM_OK &&
+          p.serial.service_age==0xabcd);
+    CHECK(pcm_write16(&p,0x036a,0x55aa)==PCM_OK &&
+          p.serial.service_expiry==0x55aa);
+    CHECK(pcm_serial_memory_write8(&p,0x0399,0x41)==PCM_OK);
+    CHECK(pcm_read8(&p,0x0399,&value)==PCM_OK && value==0x41);
+    f.fail_at=f.attempts+1;
+    CHECK(pcm_write16(&p,0x0362,0xffff)==PCM_NO_HARDWARE);
+    CHECK(p.serial.descriptor==0x1256);
+}
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
@@ -320,6 +367,7 @@ int main(int argc,char **argv)
     test_gate_halt_and_failure_prefix();test_roundtrip_shared_bits();
     test_board_and_vss_named_ram();
     test_engine_owners_and_aldl();
+    test_serial_owner_unification();
     puts("Fuel prelude canonical RAM provider aliases, split-word bytes and failure prefixes passed.");
     return 0;
 }

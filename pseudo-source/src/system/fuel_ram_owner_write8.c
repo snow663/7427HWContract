@@ -1,4 +1,5 @@
 #include "fuel_ram_owners.h"
+#include "../serial/serial_internal.h"
 /* Apply only source-owned flags after a successful backing write. */
 #define OWNED_BOOL(field,mask) do { (field)=((value&(mask))!=0); } while(0)
 bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
@@ -212,7 +213,7 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
         word=address==0x088b?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
                 (uint16_t)((word&0xff00u)|value);
         return pcm_fuel_ram_owner_write16(pcm,0x088b,word);
-    default:return false;
+    default:return ser_put(pcm,address,value);
     }
 }
 

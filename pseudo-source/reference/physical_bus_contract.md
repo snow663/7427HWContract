@@ -127,3 +127,32 @@ Serial-owned descriptor $0362 stays on the serial subsystem's direct C
 owner, so the bus receives **no physical transaction** for that address.
 This is a scoped address-source test, not proof of actual ALDL frame timing,
 serial SCI hardware, or all shared 7427 RAM aliases.
+
+## Consolidated serial RAM ownership (same canonical bridge)
+
+Previously `pcm_serial_memory_write8` independently edited `Pcm.serial`
+while general `pcm_write8/16` knew only the fuel/board aliases.
+The serial-owned byte switch is now centralized in **`ser_put`** beside
+the existing `ser_get` owner: both direct ALDL access and the opt-in
+logical RAM provider use the same implementation, without replicating
+state or maintaining a 64 KiB shadow.
+
+Covered owners include shared service byte `$003B`, session and
+edge bytes `$0042/$0045`, serial framing/session state
+`$0360–$036B`, receive buffer `$036C–$038D`, engine command
+`$038E`, and transmission command `$0399`. Word reads/writes
+preserve the big-endian descriptor `$0362`, service age `$0368`,
+and expiry `$036A`. Other paired serial bytes use the same two
+owner accessors; this is logical C state, not a claim of interrupt-atomic
+native word instructions.
+
+Host contracts now verify all three views: direct `Pcm.serial`
+mutation, `pcm_serial_memory_*` reads/writes, and
+`pcm_read/write8/16` with `bind_fuel_ram_owners=true`.
+Failure of the backing bus never updates the owner after the failure.
+
+**Remaining limitation:** `Pcm.serial` direct mutations and direct ALDL
+writes are not automatic *physical* memory publications. The named bridge
+continues to require explicit activation, platform backing, and a
+target-side coherence strategy. A source-side shared owner is not proof
+of a fitted RAM alias.
