@@ -51,6 +51,9 @@ RESET_CLEAR_RAM:
 
         ; Semantic/runtime initialization keeps all actuator permissions false.
         JSR     OS_SAFE_INIT
+        ; Optional real-C CRT hook; FCB=0 means no C data clear or call.
+        ; The only path enabled in the current ASM11 source is engine-off.
+        JSR     HAL_NATIVE_C_INITIALIZE
         JSR     HAL_GM_IAC_STATE_INIT
 
 ; ---------------------------------------------------------------------------
@@ -69,6 +72,7 @@ FIRST_ROM_IDLE_LOOP:
 ; Linked implementation modules
 ; ---------------------------------------------------------------------------
         INCLUDE "hal/init_safe.asm"
+        INCLUDE "hal/native_c_startup.asm"    ; C BSS/softregs disabled until linked
         INCLUDE "hal/native_isr_gate.asm"   ; unbound, all vectors still safe trap
         INCLUDE "core/safe_runtime.asm"
         INCLUDE "core/debug_frame.asm"
