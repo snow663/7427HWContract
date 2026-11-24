@@ -43,6 +43,10 @@ PcmStatus pcm_ram_sync_publish(Pcm *pcm, const PcmRamSyncEntry *entries,
     if(platform->read8==NULL||platform->write8==NULL||
        platform->read16==NULL||platform->write16==NULL)
         return PCM_NO_HARDWARE;
+    /* Ownership probing itself reads live C fields. The caller's exclusive
+     * boundary must be established BEFORE validating even the first owner. */
+    PcmStatus initial=verify(guard);
+    if(initial!=PCM_OK){report->failed_index=0;return initial;}
 
     /* Fully reject malformed/overlapping/unsupported ownership requests
      * BEFORE attempting a read or publishing any RAM byte. */

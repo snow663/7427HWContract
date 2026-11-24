@@ -218,3 +218,10 @@ windows, partial physical failure and retry. This is an
 a target must decide exactly when to call it and must verify physical
 RAM backing, IRQ exclusion and native cycle budgets. It does not
 publish injector, EST, IAC or other peripheral outputs.
+
+The exclusive-writer guard is now checked **before ownership-mask
+preflight**, not just before physical transactions, because owner discovery
+reads live C state. A targeted failure fixture revokes the guard immediately
+after a successful physical read and proves that no subsequent physical
+write occurs. The guard remains a target-supplied contract; no host check
+establishes real HC11 CCR or ISR exclusion.

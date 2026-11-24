@@ -16,7 +16,7 @@ typedef struct {
     uint16_t last_address, last_value;
     unsigned last_width;
     char last_op;
-    bool irq_masked, corrupt_failed_reads;
+    bool irq_masked, corrupt_failed_reads, lose_exclusive_on_read;
 } Fake;
 
 /* Only explicitly modeled target windows are provisioned; no 64K mirror. */
@@ -45,6 +45,7 @@ static PcmStatus fake_read8(void *context, uint16_t a, uint8_t *v)
     PcmStatus s=bus_call(f,'R',8,a,*p);
     if (s==PCM_OK) *v=*p;
     else if(f->corrupt_failed_reads) *v=0xee;
+    if (f->lose_exclusive_on_read) f->irq_masked=false;
     return s;
 }
 static PcmStatus fake_read16(void *context, uint16_t a, uint16_t *v)
@@ -396,6 +397,21 @@ static void test_publish_fault_prefix_and_retry(void)
     CHECK(report.written==0 && f.ram[0x0042]==0x91u);
     CHECK(pcm_mask_irq(&p,false)==PCM_OK);
 }
+static void test_publish_guard_lost_after_physical_read(void)
+{
+    static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
+    init(&f,&bus,&platform,&p,true);
+    platform.bind_fuel_ram_owners=true;
+    PcmRamSyncGuard guard={&f,fake_exclusive};
+    PcmRamSyncReport report={0};
+    const PcmRamSyncEntry entry={0x0042u,1u,0xffu};
+    p.serial.sessions=0x7au;
+    CHECK(pcm_mask_irq(&p,true)==PCM_OK);
+    f.lose_exclusive_on_read=true;
+    CHECK(pcm_ram_sync_publish(&p,&entry,1u,&guard,&report)==PCM_NO_HARDWARE);
+    CHECK(f.calls==1 && f.ram[0x0042]==0u && !f.irq_masked);
+    CHECK(report.examined==1 && report.written==0 && report.failed_index==0);
+}
 static void test_native_is_fail_closed_on_host(void)
 {
 #ifndef PCM_HC11_NATIVE_MMIO
@@ -416,6 +432,7 @@ int main(void)
     test_mixed_word_via_bus();
     test_publish_explicit_internal_ram();
     test_publish_fault_prefix_and_retry();
+    test_publish_guard_lost_after_physical_read();
     test_aldl_logical_address_coherence();
     test_native_is_fail_closed_on_host();
     puts("HC11 mapped bus: explicit grants, fail-closed hardware writes, word width, RAM owners and failure prefixes passed.");
