@@ -1,3 +1,13 @@
+## Pseudo-source HC11 execution lifecycle contract
+
+The development branch now includes a C-side HC11 execution driver
+for qualified post-reset admission, actual resident background pass,
+WAI boundary, C interrupt dispatch, requested native RTI, reset, halt
+and terminal fault transitions. This forms a **state-level oracle** for
+simulator/firmware comparison; it does not translate C to machine code.
+Native ASM11 ISR entry rechecks TSX saved-frame balance after C return.
+See [HC11 execution handoff](../pseudo-source/reference/home_stretch_readiness.md).
+
 ## Native ASM11 ISR gateway / C mailbox — development only
 
 The ROM master now includes an actual HC11 ISR entry assembly envelope,

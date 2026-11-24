@@ -157,3 +157,33 @@ symbol decoration, subroutine return convention, stack usage,
 link address and RAM placement still require assembly listing/S19
 verification. This commit does not rebind the ROM call word; its
 default still rejects every unqualified interrupt.
+
+## C pseudo-source HC11 execution lifecycle — testable target boundary
+
+The new `platform/hc11_execution.c` attaches the existing **resident C**
+pseudo-source to a qualified post-reset machine state. A boot witness
+records that the *real* or *simulated HC11* completed INIT03,
+LDS=$03FF, masked admission, C-state initialization, and safe output
+permissions. These are externally established facts, **not** invented
+by C. The host tests reject incomplete or false witness values.
+
+`pcm_hc11_exec_background` executes the existing $746C background
+routine and converts `PCM_BACKGROUND_WAIT_BOUNDARY` into a
+**WAITING** state, explicitly requesting native WAI rather than
+fabricating a successful C return. A subsequently admitted vector runs
+through the existing `pcm_hc11_vector_dispatch` and returns a separate
+native action: only `PCM_OK + NATIVE_RTI_REQUIRED` resumes the
+dispatcher. Stack-recovery, native reset, and unimplemented output IRQs
+cannot silently enter ordinary C continuation.
+
+The existing native ASM11 gateway also checks **stack-pointer
+balance after returning from the C subroutine**: TSX must equal
+the saved CCR frame address before either status or RTI token is
+considered. This prevents a corrupted C stack from authorizing RTI.
+
+This is the pseudo-source execution oracle that a future simulator can
+call for *state-level* differential tests. It does not magically turn
+host C into HC11 instructions or eliminate the need for a real 68HC11
+cross-compiler, linker/ROM layout, native C startup/ISR calling ABI,
+actual WAI/RTI execution, or complete RAM-owner placement. The old
+simulator and the fresh simulator remain separate from this code.

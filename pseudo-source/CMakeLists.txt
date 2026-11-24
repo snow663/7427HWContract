@@ -39,6 +39,14 @@ if(BUILD_TESTING)
       platform/hc11_c_entry.c)
   target_link_libraries(pcm_hc11_irq_mailbox_tests PRIVATE pcm_pseudo_source)
   add_test(NAME hc11_irq_mailbox_contracts COMMAND pcm_hc11_irq_mailbox_tests)
+  add_executable(pcm_hc11_execution_tests
+      tests/hc11_execution_test.c
+      platform/hc11_execution.c
+      platform/hc11_vector_contract.c
+      platform/hc11_irq_mailbox.c
+      platform/hc11_c_entry.c)
+  target_link_libraries(pcm_hc11_execution_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME hc11_execution_lifecycle_contracts COMMAND pcm_hc11_execution_tests)
   add_test(NAME hc11_native_isr_gateway_source_contract
       COMMAND ${Python3_EXECUTABLE}
       ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_hc11_native_isr_gateway.py)
