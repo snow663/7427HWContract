@@ -78,6 +78,7 @@
     "physical_bus_host_interface": "implemented_scoped_verified_windows_only",
     "canonical_ram_publication": "host_scoped_verified_critical_internal_only",
     "factory_fuel_direct_ram_writers": "source_scoped_contract_gate",
-    "HC11_native_image": "native_C_cross_link_pipeline_and_ELF_ROM_RAM_validation_source_host_tested; actual_cross_compiler_and_native_link_unverified"
+    "HC11_native_image": "native_C_cross_link_pipeline_and_ELF_ROM_RAM_validation_source_host_tested; actual_cross_compiler_and_native_link_unverified",
+    "HC11_native_reset_C_state": "ASM11_zeroing_hook_and_host_source_contract; zero_link_token_default; address_relocation_open"
   }
 }

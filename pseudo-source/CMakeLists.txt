@@ -50,6 +50,8 @@ if(BUILD_TESTING)
   add_test(NAME hc11_native_rom_composition_contracts COMMAND
       ${Python3_EXECUTABLE} -m unittest discover
       -s ${CMAKE_CURRENT_SOURCE_DIR}/native/tests -v)
+  add_test(NAME hc11_native_c_startup_source_contract COMMAND
+      ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_hc11_native_c_startup.py)
   add_test(NAME hc11_native_isr_gateway_source_contract
       COMMAND ${Python3_EXECUTABLE}
       ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_hc11_native_isr_gateway.py)

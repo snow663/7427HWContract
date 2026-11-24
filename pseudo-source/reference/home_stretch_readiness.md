@@ -226,3 +226,20 @@ Example after installing the real m6811-elf compiler and obtaining assembler/map
       --authority "actual ASM11 listing and nonaliasing RAM audit"
 
 The hexadecimal placeholders must be replaced with verified addresses. Link/RAM overflow, missing C runtime helpers, and unsupported native ABI are real, reportable build failures, not grounds to emit a false ROM. Even a linked C ELF still needs BSS/softreg reset initialization and tested ASM11-C JSR/RTS before using its entry on the PCM.
+
+## Opt-in ASM11 native C runtime reset hook
+
+The modular ASM11 master now calls `HAL_NATIVE_C_INITIALIZE` after
+masked HC11 startup, RAM clear, and safe OS initialization. Its default
+link token is zero, so the current engine-off ROM performs no C clear or
+call. A future verified link can bind the ELF `.c_state` range
+(including GCC `.softregs`) and the normal-RTS
+`pcm_hc11_c_entry_reset` symbol; the native stub clears exactly
+[START,END) and calls the C reset routine. Partial/invalid activation
+transfers to the existing safe fatal loop. No interrupt vector or
+production actuator is enabled by this addition.
+
+Source tests ensure zero-token default, ordered zero-before-C-call,
+unchanged 32 safe vector words, and masked boot. A real compiler/linker
+and assembler listing are still required to authorize the link words;
+the normal C reset entry ABI has not yet been verified on the target.

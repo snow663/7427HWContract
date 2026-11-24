@@ -156,6 +156,8 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
                     str(ROOT/'native/tests'),'-v'],check=True)
     subprocess.run([sys.executable,
                     str(ROOT/'tests/check_hc11_native_isr_gateway.py')],check=True)
+    subprocess.run([sys.executable,
+                    str(ROOT/'tests/check_hc11_native_c_startup.py')],check=True)
     if not args.contracts_only:
         for name,fixture,boundaries,contracts,suites in TARGETS:
             for suite in suites:
