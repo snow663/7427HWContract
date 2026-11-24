@@ -209,3 +209,20 @@ code/data/RAM placement, output symbol listing, assembled ASM11
 image, verified C-call ABI and cycle/stack budgets. These inputs must
 exist before a merged native BIN can be produced. The host C code
 cannot be passed to a raw HC11 instruction decoder as machine code.
+
+## Native C linker and post-link image budget
+
+hc11_layout.py requires the real ASM11 ROM_CODE_END and RAM_ALLOC_END plus an independently audited C scratch RAM range. It generates an MC68HC11 GNU linker script and rejects the native stack, EEPROM and vector window. Initialized data is forbidden until reset initialization exists.
+
+verify_native_elf.py inspects the actual cross-linked MC68HC11 ELF, the C entry symbol, ROM size and state/softregs size. Unexpected allocated sections and any code/RAM overrun fail.
+
+build_hc11_c.py performs true 68HC11 compilation of all resident pseudo-source units, linker invocation with target libgcc, ELF scrutiny, and exports only the native C .c_code section as S19. It does not synthesize machine code from host C.
+
+Example after installing the real m6811-elf compiler and obtaining assembler/map evidence:
+
+    python3 pseudo-source/native/build_hc11_c.py --out build/native-c \
+      --asm-code-end 0xVERIFIED --asm-ram-end 0xVERIFIED \
+      --c-ram-first 0xVERIFIED --c-ram-last 0xVERIFIED \
+      --authority "actual ASM11 listing and nonaliasing RAM audit"
+
+The hexadecimal placeholders must be replaced with verified addresses. Link/RAM overflow, missing C runtime helpers, and unsupported native ABI are real, reportable build failures, not grounds to emit a false ROM. Even a linked C ELF still needs BSS/softreg reset initialization and tested ASM11-C JSR/RTS before using its entry on the PCM.
