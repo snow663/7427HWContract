@@ -9,6 +9,8 @@ typedef struct {
     uint8_t memory[0x10000];
     unsigned reads,writes;
     bool irq_masked;
+    uint16_t captured_stack_x;
+    unsigned stack_captures;
 } Fixture;
 static PcmStatus read8(void *p,uint16_t a,uint8_t *v)
 {
@@ -35,6 +37,14 @@ static PcmStatus write16(void *p,uint16_t a,uint16_t v)
 static PcmStatus mask_irq(void *p,bool masked)
 {
     ((Fixture *)p)->irq_masked=masked;
+    return PCM_OK;
+}
+static PcmStatus capture_timer_stack_x(void *p,uint16_t *out)
+{
+    if(out==NULL)return PCM_BAD_CONFIGURATION;
+    Fixture *f=p;
+    ++f->stack_captures;
+    *out=f->captured_stack_x;
     return PCM_OK;
 }
 
@@ -106,6 +116,29 @@ int main(void)
     CHECK(pcm_hc11_exec_interrupt(&exec,0xfffeu,NULL,&action)==PCM_RESET_BOUNDARY);
     CHECK(action==PCM_HC11_NATIVE_RESET_REQUIRED);
     CHECK(exec.phase==PCM_HC11_EXEC_OFFLINE);
+
+    /* TOC3 is the real scheduler heartbeat. Its stock $7959-$7979 guard
+     * demands a fresh native stack recovery (LDS #$03F6) when the captured
+     * X is outside the permitted saved-frame interval. It must not RTI. */
+    pcm_hc11_exec_reset(&exec);
+    platform.capture_timer_stack_x=capture_timer_stack_x;
+    f.captured_stack_x=0x03a0u;
+    CHECK(pcm_hc11_exec_attach(&exec,&pcm,mailbox,&proof)==PCM_OK);
+    frame.frame_verified=true;
+    frame.toc3_stack_contract_verified=true;
+    CHECK(pcm_hc11_exec_interrupt(&exec,0xffe4u,&frame,&action)==
+          PCM_STACK_RECOVERY_BOUNDARY);
+    CHECK(exec.phase==PCM_HC11_EXEC_RECOVERY_REQUIRED);
+    CHECK(action==PCM_HC11_NATIVE_STACK_RECOVERY);
+    CHECK(exec.last_vector==0xffe4u && exec.interrupt_returns==0);
+    CHECK(f.stack_captures==1);
+    CHECK(pcm.scheduler.timer_seen && f.memory[PCM_TFLG1]==0x20u);
+    CHECK((f.memory[0x003au]&8u)!=0u);
+    CHECK(f.memory[PCM_TOC3]==(uint8_t)(15000u>>8));
+    CHECK(f.memory[PCM_TOC3+1u]==(uint8_t)15000u);
+    CHECK(pcm_hc11_exec_background(&exec)==PCM_BAD_CONFIGURATION);
+    CHECK(pcm_hc11_exec_interrupt(&exec,0xffd8u,&frame,&action)==
+          PCM_BAD_CONFIGURATION);
 
     puts("HC11 source execution: boot admission, WAI wait, IRQ/RTI action, trap and reset boundaries passed.");
     return 0;
