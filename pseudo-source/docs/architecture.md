@@ -45,8 +45,8 @@ It retains the unbounded channel7 readiness wait, four-result averaging, bounded
 F245 conversion, shared REF/MAP sampling gate and literal SEI/CLI. Callable battery
 and injector-finalization slices preserve captured samples, failed prefixes and
 wrapped offset arithmetic. Slot0 and slot2 now run their complete battery and
-auxiliary ADC bodies, including raw00A7 publication. Broader fuel/slot-F callers
-remain unfinished.
+auxiliary ADC bodies, including raw00A7 publication. The broader fuel and slotF
+callers are now resident.
 See the [fuel input/output contract](../reference/fuel_input_output_contract.md).
 
 The callable air path now includes shared TPS-zero filtering/normalization,
@@ -60,21 +60,22 @@ scheduled callers remain explicit boundaries. See the
 The callable mixture path now owns crank/running authorization, crank pulse and
 conditional main delivery, O2 filtering, MAP/TPS AE, startup context/decay and
 contiguous commanded AFR/PE through8C72. Shared REF/spark/IAC state stays in its
-existing owners;1800 is an explicit optional dependency. BLM/corrections, the
-common tail and broader scheduling admissions remain unfinished. See the
+existing owners;1800 is an explicit optional dependency. BLM/corrections and the
+common scheduled fuel tail are now resident. See the
 [mixture contract](../reference/fuel_mixture_contract.md).
 
 The resident O2/BLM stages now preserve activity, admission, sign/direction,
 INT/P timing,21 retained learning cells and the complete AFR/BLM tail. Callable
 EGR/BLM and post-decel pulse corrections reuse their existing state owners.
-The broad fuel root retains cut/decel/AE-reservoir, sync/async accounting and
+The broad fuel root now joins cut/decel/AE-reservoir, sync/async accounting and
 admission/tail work. See the [feedback contract](../reference/fuel_feedback_contract.md).
 
 The admitted fuel calculation now runs continuously from7E4F through852B,
 including cut/decel, AE reservoirs, sync/async packet accounting and the existing
 finalizer. Routing preserves its live period, fractional accumulator, mask and
-failed-operation prefixes. Broad ignition/input and scheduled-tail wiring remain
-explicit. See the [delivery contract](../reference/fuel_delivery_contract.md).
+failed-operation prefixes. The broad ignition/input and scheduled tail now run
+resident C; optional modules and the physical backend remain explicit. See the
+[delivery contract](../reference/fuel_delivery_contract.md).
 
 ## SCI and logical-address service
 
@@ -243,7 +244,7 @@ The six-part [scheduled input batch](../reference/scheduled_inputs_contract.md)
 connects resident AC qualification before slot6 learning, shift-lamp work at the
 end of slot7 and VSS filtering after slot9 slow IAC. MAP transient selection,
 raw VSS conversion and environmental precomputation have callable checked bodies;
-their broader fuel/slot4 wrappers retain unfinished work. The shared0284 high byte
+the broader fuel wrapper is resident while slot4 retains unfinished work. The shared0284 high byte
 and AC/diagnostic flags retain their existing owners.
 
 ## Freedom to change algorithms

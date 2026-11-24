@@ -1,8 +1,14 @@
 #include "scheduler.h"
-/* Reference 7B48, table word 7A9F.
- * Stock body: 7B48:CCC1;7B4B:DBFB;7B4E:DC89
- * Body binding required unless state-only slot E. */
+#include "board_io.h"
+#include "service.h"
+#include "control.h"
+#include "../system/system_internal.h"
+
+/* 7B48..7B51. Diagnostics observe the new MAT sample and live fault bits. */
 PcmStatus pcm_slot_0d(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_SLOT_0D);
+    if (pcm == NULL) return PCM_BAD_CONFIGURATION;
+    SYS_RUN(pcm_air_shared_outputs(pcm));
+    SYS_RUN(pcm_mat_input(pcm));
+    return pcm_diagnostic_slot_d(pcm);
 }

@@ -15,7 +15,7 @@ typedef enum {
     PCM_BACKGROUND_WAIT_BOUNDARY, /*74D0 WAI/interrupt frame and resume require the target ABI. */
     PCM_HALT_BOUNDARY, PCM_RESET_BOUNDARY, /*Resident terminal loop / jump to7100. */
     PCM_STACK_RECOVERY_BOUNDARY, /*Host returns after RMW; target must LDS #03F6 and resume at797A. */
-    PCM_STOP_BOUNDARY /*7D8C TAP with A=50, STOP and wake/terminal-loop ABI require the target shim. */
+    PCM_STOP_BOUNDARY /*7D8C TAP/STOP and its wake/terminal-loop ABI require the target shim. */
 } PcmStatus;
 
 typedef enum {
@@ -35,7 +35,12 @@ typedef enum {
     PCM_RESET_SERIAL, PCM_SPARK_EXTENSION, PCM_SPARK_OUTPUT_EXTENSION,
     PCM_CONNECTION_EXTENSION, PCM_IAC_BACKGROUND, PCM_SHIFT_LAMP,
     PCM_EGR_DEMAND, PCM_VSS_FILTER, PCM_IAC_EXTENSION, PCM_AFR_EXTENSION, PCM_TRANSMISSION_INPUT_PREFIX,
-    PCM_FACTORY_ENTRY, PCM_GOVERNOR_EXTENSION, PCM_TASK_COUNT
+    PCM_FACTORY_ENTRY,
+    PCM_FUEL_GOVERNOR, /* reserved index: $90D3 is now resident C */
+    PCM_GOVERNOR_TARGET, /* reserved index: $8F5F..$90D2 is now resident C */
+    PCM_GOVERNOR_HEADSUP, /* active optional $1809 A/carry boundary */
+    PCM_GOVERNOR_EXTENSION, /* PR48 independent $1809 A/carry host interface */
+    PCM_TASK_COUNT
 } PcmTask;
 
 struct Pcm;
@@ -62,10 +67,20 @@ typedef struct {
      * Never infer this X from a host C call frame or change the host stack. */
     PcmStatus (*capture_timer_stack_x)(void *, uint16_t *);
     PcmDependency task[PCM_TASK_COUNT];
-    /* Factory FAA5 dispatches a captured full logical address; EGR demand also
-     * admits the fixed optional1815 hook. A target/backend supplies execution
-     * and return ABI; it may return a boundary status. */
+    /* FAA5 full-address dispatcher plus optional $1815 hook. Execution and
+     * register/CCR return ABI remain target-owned. */
     PcmStatus (*call_address)(void *, uint16_t address);
+    /* Opt-in sparse named-RAM binding for the $7D4B fuel source. All bus
+     * accesses still invoke the platform transaction first; unknown RAM
+     * keeps its raw provider semantics. No target memory layout implied. */
+    bool bind_fuel_ram_owners;
+    /* Explicit host/research opt-in for the independently checked fuel cycle,
+     * requiring the named-RAM provider. The default is PR48's resident
+     * ignition/input/calculation/tail path. Both still require a target backend. */
+    bool enable_resident_fuel_cycle;
+    /* Select the independently checked slot01 alternative.
+     * Slots03 and0B always use the resident stock gear decision. */
+    bool enable_resident_slow_slots;
 } PcmPlatform;
 
 typedef struct {
@@ -450,6 +465,16 @@ typedef struct {
     volatile uint8_t range_context, shift_gear, shift_hold, shift_ratio; /* 0089,0845/46/4B */
     volatile bool shift_lamp, shift_service_enable, shift_service_value; /* 0053.2,038F.0,0390.0 */
     volatile uint16_t shift_counter, shift_delta; /* 0847,0849 */
+    volatile uint8_t governor_requested_throttle; /* 0299, source gate at 8EB4 */
+    volatile uint8_t governor_throttle_error; /* 029A, abs(desired TPS - TPS) */
+    volatile uint16_t governor_proportional, governor_integral_gain; /* 0295,0297 */
+    volatile uint16_t governor_integrator; /* 0288, prior signed-direction accumulator */
+    volatile uint8_t governor_flags, governor_speed_error; /* 0075,0293 */
+    volatile uint8_t governor_vehicle_error; /* 0294, 4x VSS threshold delta */
+    volatile uint16_t governor_tps_baseline; /* 0286/0287; first correction stores here */
+    volatile uint16_t governor_primary_step, governor_secondary_step; /* 028A,0290 */
+    volatile uint8_t governor_auxiliary_adjust; /* 0292, $8FA5 and $9010 */
+    bool governor_headsup_carry; uint8_t governor_headsup_result; /* transient 1809 ABI */
 } PcmTransmission;
 
 typedef struct {
@@ -507,6 +532,7 @@ typedef struct {
     volatile bool mat_low_fault, mat_high_fault; /* 0017.6,0017.4; IAC owns0017.7 */
     volatile uint8_t barometric_sample, barometric_fraction; /* 02F3,02F5; high remains spark owner */
     volatile uint8_t tps_ae_factor, pe_throttle_threshold, pe_rpm_threshold; /* 01E4,01E3,01CD */
+    volatile uint8_t egr_failure_count; /* 0223, ignition-off reset at 7DA1 */
 } PcmIo;
 
 typedef struct {
@@ -579,6 +605,7 @@ typedef struct {
     /*0005.4,003A.1/.2/.6,0086.3; other shared-byte owners stay separate. */
     volatile uint16_t initial_spark; /*01F6, boot-published4132 high byte and zero fraction. */
     volatile uint8_t startup_counter; /*0049, reset seed20 */
+    volatile uint16_t fuel_ignition_counter; /* 027E/027F, $7D4B early-cycle counter */
     volatile uint16_t refresh_cursor, stack_watermark; /*029B,02D1; logical CPU addresses. */
     volatile uint8_t interrupt_flags; /*0000 bitsFE; timer_seen bit01 stays with the scheduler. */
     volatile bool stack_recovery; /*003A.3; separate from scheduler.pending at003A.5. */
@@ -603,9 +630,9 @@ typedef struct Pcm {
     PcmIac iac;
     PcmIo io;
     PcmFuel fuel;
+    PcmGovernor governor; /* PR48 extension return; distinct from RAM $0288 owner */
     PcmSerial serial;
     PcmSystem system;
-    PcmGovernor governor;
     PcmTask unresolved_task;
     void *application;                 /* tests/strategy-owned explicit state */
 } Pcm;

@@ -3,11 +3,60 @@
 This is the single live project-state index for 7427HWContract. Detailed
 contracts and historical proofs are linked rather than repeated here.
 
-The [2026-11-17 pseudo-source audit](../pseudo-source/reference/development_audit_2026-11-17.md)
-records the current branch inventory, explicit remaining dependencies and
-the later release checkpoints. Target validation remains separate.
+The [2026-11-22 completeness audit](../pseudo-source/reference/completeness_audit_2026-11-22.md)
+records the source inventory, all declared and conditional dependencies,
+remaining call graphs and verification limits at `1ecbc4e`. The
+[2026-11-17 development audit](../pseudo-source/reference/development_audit_2026-11-17.md)
+retains historical milestone evidence. Target validation remains separate.
 
-## Validated source checkpoint — 2026-11-22
+## Home-stretch consolidation — 2026-11-23
+
+The canonical default fuel and slot01 source routes, eight unresolved
+optional-hook addresses and the target-port acceptance gates are captured in
+[the home-stretch handoff](../pseudo-source/reference/home_stretch_readiness.md)
+and its [machine-readable manifest](../pseudo-source/reference/home_stretch_manifest.json).
+A new quick consistency gate prevents silent drift of the 413-routine/9-boundary
+inventory, all sixteen slow-slot entries and the protected default paths.
+No output, BIN, calibration or model semantics change in this consolidation.
+Native HC11 startup/interrupts and RAM/ASIC mapping are now the engine-first
+priority. The five current/transmission groups remain explicitly deferred;
+full current-tree release verification and real target validation remain open.
+
+## Current development checkpoint — 2026-11-23
+
+Use the existing `work/pseudo-source-development` branch for cumulative source
+work. It contains the validated PR48 mainline and the November 22 closure
+audit. `work/pseudo-source-closure` is its older duplicate name. Removal
+of that remote alias was pending authenticated branch management at the last
+branch audit. The validated release baseline is on `main`.
+
+**All 16 slow slots now execute their resident C bodies through ordinary
+dispatch.** Slot 0C runs the stopped-engine seed and the 20-register refresh
+shared with startup. Slot 0D writes the AIR, purge and shared outputs, samples
+MAT, then runs diagnostics and publishes the check-engine lamp request. The
+paired replay passed **3,495 C/ROM comparisons**, including 1,360 injected
+transaction failures. It reached all 64 instruction starts in 0C and all 846
+in 0D, with both exits at each of their 3 and 208 conditional branches.
+[Slots 0C and 0D contract](../pseudo-source/reference/slots_0c_0d_contract.md)
+
+Slot 0A's purge duty now has a checked handoff into slot 0D's output at
+`$3FD6`. Slots 05 and 0A passed 2,987 comparisons, slot 04 passed 4,191,
+and the gear slots 03 and 0B passed 4,216.
+[Slots 05 and 0A](../pseudo-source/reference/slots_05_0a_contract.md) · [Slot 04](../pseudo-source/reference/slot_04_contract.md) · [Gear slots](../pseudo-source/reference/transmission_d4eb_source_closure.md)
+
+The index has **413 routines** (235 outlines, 169 algorithms and 9 explicit
+boundaries). **Five stock-source groups remain** from the November 22 audit. They cover
+current calculation `$7C13`, shift progress `$B32D`, pressure/TCC `$B56B`,
+transmission spark inputs `$C4E5` and the eight-callee transmission input
+prefix at `$AE85`. The optional modules, native entry and interrupt handling,
+physical peripheral/RAM backend and target BIN remain open.
+
+The host build and **59 quick checks** passed. The branch registers **112
+CTests**, including 53 ROM suites. The development gate selects 19 ROM
+suites. The next explicit pull/merge request starts the full-suite release run
+for the accumulated branch.
+
+## Validated mainline source checkpoint — 2026-11-22
 
 [PR48](https://github.com/snow663/7427HWContract/pull/48) is merged at
 `ccc7dfeb4b8821aeb6ed8092bfe7a14d10e1e375`. The validated source head is
@@ -35,8 +84,8 @@ reference-event work, periodic fast service, 160-phase counter, 16 slow slots
 and one-bit busy/pending catch-up strategy. Algorithms, feature selection and
 calibration/executable partitioning can be ours within physical constraints.
 
-The source currently has 345 public routines: 220 implemented outlines,
-16 explicit dependency boundaries and 109 implemented algorithms.
+The development source has 413 indexed public routines, including 235 implemented
+outlines, 9 explicit dependency boundaries and 169 implemented algorithms.
 Host compilation and kernel tests do not establish a target ABI, target
 memory fit or hardware execution. Unfinished tasks return UNIMPLEMENTED;
 missing I/O returns NO_HARDWARE. Controller bodies, reset/interrupt assembly,
@@ -123,7 +172,7 @@ busy/catch-up witness. See the [board/input contract](../pseudo-source/reference
 The current priority is ALDL and system code. The fuel calculation and injector-control
 milestone remains tracked below, with its remaining dependency work explicit.
 MAP transient selection, raw VSS conversion and environmental precomputation
-now have callable checked bodies; their broader fuel/slot4 wrappers stay explicit.
+have callable checked bodies. The scheduled fuel and slot 04 wrappers are now resident.
 Slot6 AC inputs, slot7 shift-lamp logic and slot9 VSS filtering run resident C.
 See the [scheduled input contract](../pseudo-source/reference/scheduled_inputs_contract.md).
 The first fuel-milestone batch now implements resident ADC feedback and callable
@@ -150,8 +199,8 @@ admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](../pseudo-source/reference/fuel_delivery_contract.md).
 The complete7D4B..8547 fuel root, including its ignition/input prefix and
 scheduled tail, now runs resident C. Required EGR demand/feedback/control/flow/output
-bodies are also resident. Slot1 is resident; slot4/D/F root admissions, optional modules and
-target interfaces remain explicit.
+bodies and all 16 slow-slot wrappers are also resident. Five fast
+current/transmission groups, optional modules and target interfaces remain open.
 Known access widths/order and timing premises remain binding until better
 evidence supports a deliberate change. No actuator authority is granted by a host test.
 
@@ -450,8 +499,8 @@ VSS and environmental slices also have checked bodies. These are building blocks
 its former task callback. The first
 fuel batch replaced `pcm_adc_feedback` and slot0/2 task boundaries with resident C. The documented upstream and closed-loop/learning contracts now also have the
 callable C stages listed above. Cut/decel/AE-reservoir and sync/async accounting now also have connected C bodies.
-The scheduled tail and slot1 are resident; remaining slow-slot producer admissions and
-initialization still need their own joined checks.
+The scheduled tail and all 16 slow slots are resident. Wider histories joining
+initialization, fast dispatch, slow producers and reference interrupts remain open.
 
 | Batch | Related implementation work | Joined evidence required |
 |---|---|---|
@@ -459,7 +508,7 @@ initialization still need their own joined checks.
 | Air charge and fuel input producers (implemented normalization/air slices) | TPS acquisition/zero normalization, BARO, CTS/MAT, density/charge temperature, VE selection; connect existing base arithmetic and environmental/RPM/VSS producers | Producer/consumer state age, lookup neighbors, diagnostic substitutions, scaling, rounding and old-state feedback; complete fuel-required EGR demand/feedback/control/flow/output dependencies as encountered |
 | Fuel modes, commanded AFR and enrichment (callable calculation/reservoir slices implemented) | Startup and crank equation; open-loop/idle AFR, PE and transitions; MAP/TPS/IAC-related AE gains, histories and reservoirs | Cold/hot crank through REF delivery, startup-to-running changes, OL idle and PE admission/exit, retained histories and phase-gated updates |
 | Running corrections and closed-loop learning (callable correction/learning slices implemented) | 8032..83AE EGR/BLM, cut/decel/recovery, RPM/BARO/battery, signed INT/P and MAP AE; O2 filtering/activity/I/P at 863D..891D, AFR/BLM at 891E..8EB3, and slot-F admission producers | BLM saturated doubling versus signed additive INT/P; cut/recovery priority; learning/cell reset/persistence; O2 activity and distinct admission/learning gates |
-| Delivery accounting and controller integration (resident7D4B..8547 controller implemented; remaining slow producers pending) | Sync/async routing, packet/reservoir accounting, ignition/input/tail and governor joins; connect remaining fuel-required slow-slot producers and initialization | Full running calculation through 3FCE and 3FF2/3FFC command sequences, wider REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
+| Delivery accounting and controller integration (resident 7D4B..8547 controller and slow-slot producers implemented) | Sync/async routing, packet/reservoir accounting, ignition/input/tail and governor joins; verify joined initialization, slow-slot inputs and reference interrupts | Full running calculation through 3FCE and 3FF2/3FFC command sequences, wider REF interleavings, timer routes, busy/catch-up admissions and failure-prefix retention without fuel task stubs |
 
 The batches describe dependency groups, not a claim that each fits one PR. Move
 supporting producers forward when a consumer needs them; preserve one public
@@ -670,16 +719,18 @@ action in this working state. Resume later development on one branch from the
 resulting main rather than creating a PR for each routine group. The previous
 three-PR cadence and older per-update publication guidance are superseded.
 
-Active development branch: `work/pseudo-source-development`, starting from
-`b2d851d81eb7a3843b9153309de1e2ff7dc40c02` and now continuing from the merged
-PR48 checkpoint above. The authorized full regression and accumulated merge are
-complete. Retained boot and controller seeding are implemented on this branch.
+Active development branch: `work/pseudo-source-development`, continuing from
+the PR48 mainline checkpoint and the cumulative closure history recorded above.
+PR48's authorized release run is complete; the newer combined development tree
+still awaits its own full release run. Retained boot and controller seeding are implemented on this branch.
 Recurring factory execution is also implemented. Foreground RAM refresh/stack watermark handling and initial timer acknowledgment
 are also implemented, followed by resident trap/reset/XIRQ/fallback leaves.
 Timer stack-guard policy and its focused ROM checks are implemented, as are
 the five-body EGR demand/feedback/control/flow/output path and complete scheduled
 fuel wrapper. Slot1 and the complete slotF diagnostic/fault/fuel group are also
-resident. Next are slot4, remaining slow-slot producer admissions and target glue.
+resident. Slots 03 and 0B run the full gear selector. Slot 04 runs both
+diagnostic groups. Slots 05, 0A, 0C and 0D complete the remaining slow entries. The
+next milestone is the five fast current/transmission groups.
 The previously completed group #30/#45/#46 remains
 historical validation evidence.
 
@@ -691,3 +742,30 @@ within that prototype. Frozen V1 plans and dated `2.bin` investigations do not
 override the current C design or current-tune image identity.
 Git history is the version record; no parallel live-state document is created.
 [Repository audit](REPOSITORY_AUDIT.md) records the cleanup and retained evidence.
+
+## Reconciliation checkpoint — 2026-11-22
+
+The cumulative `work/pseudo-source-closure` branch has now combined the
+independently validated PR48 mainline work with the separately developed
+$7D4B–$8547 fuel-cycle ROM tests and $D4EB gear-source modules.
+The 374-function / 105-CTest integrated tree retains **both** source
+variants where their root names overlapped, while preferring PR48's
+previously validated C-source default behavior. The closure fuel and
+slot01 paths are still available under explicit research-mode switches.
+The two independent validation histories are **not** evidence that this
+combination has passed; verify the new merge tree and its ROM provenance.
+The hardware contract, native HC11 linker/output and complete $D4EB
+transmission path remain unfinished. See
+`pseudo-source/reference/reconciliation_2026-11-22.md`.
+
+
+### Reconciled branch source verification
+
+The 2026-11-22 two-parent main/closure integration is recorded at
+[commit 41d7f84](https://github.com/snow663/7427HWContract/commit/41d7f84efd5a3ef75db1fefac049fbf5a578c62f).
+Combined [CI run 45072057548](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
+passed all **56 fast contracts and 15 selected ROM comparisons**:
+9 closure and 6 PR48 suites. The branch has 374 indexed C routines,
+105 registered CTests (49 ROM suites) and no upstream commits outstanding.
+The complete merged-tree release regression is **not yet run**; nothing
+was merged from closure back into main or flashed to a PCM.

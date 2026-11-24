@@ -34,6 +34,7 @@ enum {
     PCM_EST_COUNTER = 0x3fca, PCM_EST_FEEDBACK = 0x3fec, PCM_EST_HANDOFF = 0x3fe4,
     PCM_ASYNC_PACKET = 0x3ff2, PCM_REFERENCE_STATUS = 0x3ffa
 };
+PcmStatus pcm_refresh_registers(Pcm *);
 PcmStatus pcm_watchdog_service(Pcm *);
 PcmStatus pcm_heartbeat_toggle(Pcm *);
 PcmStatus pcm_timer_arm(Pcm *);

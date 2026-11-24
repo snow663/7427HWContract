@@ -46,6 +46,30 @@ TARGETS=[
  ('background','background_test',['slot_f'],[['--contracts']],['background_rom']),
  ('interrupt_leaves','interrupt_leaves_test',[],[['--contracts']],['interrupt_leaves_rom']),
  ('timer_stack_guard','timer_stack_guard_test',[],[['--contracts']],['timer_stack_guard_rom']),
+ ('fuel_ignition_precheck','fuel_ignition_precheck_test',[],[['--contracts']],[]),
+ ('fuel_input_prefix','fuel_input_prefix_test',[],[['--contracts']],[]),
+ ('fuel_scheduled_tail','fuel_scheduled_tail_test',[],[['--contracts']],[]),
+ ('fuel_governor_drive','fuel_governor_drive_test',[],[['--contracts']],[]),
+ ('fuel_governor_error','fuel_governor_error_test',[],[['--contracts']],[]),
+ ('fuel_governor_vss','fuel_governor_vss_gate_test',[],[['--contracts']],[]),
+ ('fuel_governor_tps_mode','fuel_governor_tps_mode_test',[],[['--contracts']],[]),
+ ('fuel_governor_compute','fuel_governor_compute_test',[],[['--contracts']],[]),
+ ('fuel_governor_rom','fuel_governor_rom_test',[],[],['fuel_governor_rom']),
+ ('fuel_ignition_rom','fuel_ignition_rom_test',[],[],['fuel_ignition_rom']),
+ ('fuel_ram_owners','fuel_ram_owners_test',[],[['--contracts']],[]),
+ ('fuel_cycle_joined','fuel_cycle_joined_test',[],[['--contracts']],[]),
+ ('fuel_cycle_rom','fuel_cycle_rom_test',[],[],['fuel_cycle_rom']),
+ ('speed_source_rom','speed_source_rom_test',[],[],['speed_source_rom']),
+ ('slow_slot_01','slow_slot_01_test',[],[['--contracts']],[]),
+ ('slots_0c_0d','slots_0c_0d_test',[],[['--contracts']],['slots_0c_0d_rom']),
+ ('slots_05_0a','slots_05_0a_test',[],[['--contracts']],['slots_05_0a_rom']),
+ ('slot_04','slot_04_test',[],[['--contracts']],['slot_04_rom']),
+ ('slow_slot_03','slow_slot_03_test',[],[['--contracts']],['gear_slots_rom']),
+ ('tcc_non_electronic_rom','tcc_non_electronic_rom_test',[],[],['tcc_non_electronic_rom']),
+ ('transmission_d4eb_prefix','transmission_d4eb_prefix_test',[],[['--contracts']],['transmission_d4eb_prefix_rom']),
+ ('transmission_gear_limit_rom','transmission_gear_limit_rom_test',[],[['--contracts']],['transmission_gear_limit_rom']),
+ ('transmission_gear_finalize_rom','transmission_gear_finalize_rom_test',[],[['--contracts']],['transmission_gear_finalize_rom']),
+ ('transmission_threshold_select_rom','transmission_threshold_select_rom_test',[],[['--contracts']],['transmission_threshold_select_rom']),
  ('egr_control','egr_control_test',[],[['--contracts']],['egr_control_rom']),
  ('egr_producers','egr_producers_test',[],[['--contracts']],['egr_producers_rom']),
  ('fuel_controller','fuel_controller_test',[],[['--contracts']],['fuel_controller_rom']),
@@ -78,6 +102,7 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
                         str(ROOT/'tests'/f'{fixture}.c'),'-o',str(binary)],check=True)
         for arguments in contracts:subprocess.run([str(binary),*arguments],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/check_provenance.py')],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tests/check_home_stretch.py')],check=True)
     if not args.contracts_only:
         for name,fixture,boundaries,contracts,suites in TARGETS:
             for suite in suites:

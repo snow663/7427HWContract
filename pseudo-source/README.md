@@ -5,11 +5,22 @@ routine has its own C file. The existing stock BMHM analysis supplies the
 hardware and scheduling reference; algorithms and calibration layout can evolve
 independently behind named interfaces.
 
-The current deliverable is a host-compilable outline with checked scheduler
-logic, reset/REF/knock routines and verified integer algorithms. It does not emit
-a flashable BIN.
-The HC11 startup/vector assembly, target compiler/linker layout, complete
-controller bodies and physical hardware backend remain to be implemented.
+The current deliverable is host-compilable C with connected fuel, injector,
+spark/knock, idle, EGR and system bodies and scoped stock-ROM comparisons.
+All 16 slow slots have resident C wrappers. Slots 03 and 0B run
+the gear selector, and slot 04 runs both diagnostic groups. Slot 05 now
+runs catalyst, manifold and electronic TCC qualification. Slot 0A calculates
+canister purge duty. Slot 0C refreshes the hardware registers. Slot 0D writes
+AIR and purge outputs, samples MAT and runs fault monitoring, logging and lamp
+control. Five fast current/transmission groups, native entry and vectors,
+target linker layout and the physical hardware backend remain open.
+
+The November 22 completeness audit records the earlier inventory and the
+remaining work groups. The slot contracts record the November 23 additions.
+[Home-stretch consolidation and target-port handoff](reference/home_stretch_readiness.md)
+records the canonical defaults, open ABI/hardware gates and the new fast source
+consistency check.
+[Completeness audit](reference/completeness_audit_2026-11-22.md) · [Gear slots](reference/transmission_d4eb_source_closure.md) · [Slot 04](reference/slot_04_contract.md) · [Slots 05 and 0A](reference/slots_05_0a_contract.md) · [Slots 0C and 0D](reference/slots_0c_0d_contract.md)
 
 ## Start here
 
@@ -39,8 +50,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The working branch contains 345 public routines: 220 implemented outlines, 16 dependency
-boundaries and 109 implemented algorithms. The $7959..$7979 timer stack guard
+The canonical `work/pseudo-source-development` branch contains 413 public routines, with 235 implemented outlines, 9 dependency
+boundaries and 169 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
@@ -152,7 +163,8 @@ refresh check and slotF's refresh request are explicit. Literal watchdog and
 intermediate saturation and truncation. Its inputs retain the documented fixed
 point representations. The callable finalizer/publication and existing REF/async bodies now cover named
 output slices. Fuel corrections, upstream producers and the complete scheduled
-running-fuel controller remain unfinished.
+running-fuel controller are resident. The working state lists remaining fast
+current/transmission and target work.
 
 An unfinished body delegates through `pcm_run_task()`. An absent binding returns
 `PCM_UNIMPLEMENTED` and identifies the task; absent hardware returns
@@ -262,6 +274,28 @@ history calls.
 Host tests do not establish target instruction timing, physical output behavior
 or whole-program equivalence. The dedicated GitHub workflow runs the CMake route.
 
+## Connected fuel closure branch (November 20, 2026)
+
+A new callable ignition/input prefix now covers BMHM $7D4B..$7E4E; the
+$852C phase-selected tail and its $8EB4 governor-default gate also have
+separate C bodies. A callable $7D4B..$8547 `pcm_fuel_cycle` joins the new
+prefix, existing fuel calculation and new tail without changing fast dispatch.
+The optional $1809 module and full source/ROM/provider integration
+still block promotion of the broad `PCM_FUEL_CONTROL` task. See the
+[fuel input prefix contract](reference/fuel_input_prefix_contract.md),
+[scheduled tail contract](reference/fuel_scheduled_tail_contract.md), and
+[five-stage closure plan](reference/source_closure_plan_2026-11-20.md).
+The **pre-PR48** closure branch had 81 CTest entries and independently
+verified scheduled fuel/slot01 alternatives. At the November 22 mainline integration checkpoint,
+the branch had **105 CTest entries**, including 49 ROM suites,
+with PR48's resident fuel controller as the default C-source entry.
+Closure's independently ROM-verified fuel-cycle alternative remains guarded
+by `enable_resident_fuel_cycle` and `bind_fuel_ram_owners`.
+The [reconciled fast gate](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
+passes **56/56 contracts and 15/15 focused actual-ROM suites**.
+Full joined-cycle ROM parity, full target provider and the release-wide ROM
+suite are pending. See [joined fuel contract](reference/fuel_cycle_joined_contract.md).
+
 ## Next source work
 
 Ordinary background refresh and stack watermark handling now have C bodies;
@@ -269,35 +303,8 @@ see the [foreground contract](reference/background_contract.md). The first timer
 arm now includes the preceding TFLG1 acknowledgment. The small trap/reset/XIRQ
 and fallback interrupt bodies are also implemented; see the
 [interrupt-leaf contract](reference/interrupt_leaves_contract.md). Complete factory
-REF now calls its cause/acknowledgment leaf. The timer stack-guard policy
-at7959..7979 now has6,056 focused ROM comparisons and a passed131,072-case
-host sweep; see the [guard contract](reference/timer_stack_guard_contract.md).
-The EGR PI/direct-duty controller and literal F0 command publisher now run
-resident C. Their2,662 focused comparisons include real feedback/control/output
-joins, retained histories and172 failed-operation prefixes; see the
-[EGR control contract](reference/egr_control_contract.md).
-EGR demand and flow now also run resident C, closing the five-body EGR path.
-Their 8,950 focused comparisons cover 323 new instruction starts, real fuel/spark
-consumers, optional-hook admission, retained histories and 409 failed-operation
-prefixes. The kernel follow-up verifies demand/fraction/command admission counts
-and coherent fraction-byte owners across a full160-phase cycle. See the
-[EGR producer contract](reference/egr_producers_contract.md).
-The complete7D4B..8547 scheduled fuel controller now runs resident ignition,
-input/calculation and tail bodies, including both governor target/actuator
-paths. Its16,493 focused comparisons cover389 new software instruction starts,
-complete fuel/REF joins and367 failed-operation prefixes. The reducing governor
-branch clears its fraction at9093, correcting an earlier documentation claim.
-See the [fuel controller contract](reference/fuel_controller_contract.md).
-Slot1 now runs BARO acquisition, transmission BARO and nonelectronic TCC in
-order. The callable slotF suffix also joins fault reactions, pump feedback,
-temperature/offset, phase-qualified AE/startup/closed-loop work and refresh.
-Its22,168 focused comparisons cover234 scoped starts and real fuel/REF joins;
-see the [slow fuel contract](reference/slow_fuel_contract.md). The complete slotF
-root now runs C514 outputs and all ten C4F5 diagnostic bodies before that suffix.
-Its43,299 focused comparisons cover all466 new scoped starts,1,395 failed
-prefixes and160 retained slot1/whole-slotF/fuel/REF histories. See the
-[slotF contract](reference/slot_f_contract.md). Continue with slot4 and the
-remaining slow-slot admissions, then target entry glue.
+REF now calls its cause/acknowledgment leaf. Next is the timer stack-guard policy
+at7959..7979, followed by target entry glue and remaining input producers.
 ROM validation, retained/adaptive-memory recovery and boot bookkeeping now run
 resident C through7430. Controller seeding includes the actual BARO boot entry,
 IAC learned-cell restoration, transmission TPS processing, EGR position feedback
@@ -305,8 +312,7 @@ and delayed board baselines. See the [controller boot contract](reference/boot_c
 and [retained boot contract](reference/boot_retained_contract.md)
 for the rooted checksum/COP cadence, captured-sample wait boundary and corrected
 7393 controller entry. The full regression under the corrected indexed CPU
-is included in the currently authorized full regression; release results are
-recorded in the [working state](../docs/WORKING_STATE.md).
+remains pending until "pull and merge".
 Working RAM initialization now calls the literal stock clear helper and existing
 serial clear directly. See the [startup memory contract](reference/startup_memory_contract.md)
 for count truncation, transaction widths and the explicit target-stack exclusion.
@@ -328,7 +334,8 @@ and synchronous shaping/publication. See the
 Callable TPS zero/normalization, coolant/MAT/BARO acquisition and diagnostics,
 density, charge temperature, VE and the contiguous VE/base publisher now have
 checked C bodies. See the [fuel-air contract](reference/fuel_air_contract.md).
-Their wider fuel/slot1/4/D/F and transmission callers remain boundaries.
+The resident fuel, slot 1, slot 4 and slot F callers use these producers.
+Slot 0D runs the MAT producer before its fault-reporting pass.
 Callable crank/running authorization, crank preparation/delivery, O2 filtering,
 MAP/TPS AE, startup seeding/decay and contiguous commanded AFR/PE now have checked
 C bodies. See the [mixture contract](reference/fuel_mixture_contract.md).
@@ -339,12 +346,13 @@ INT/P/MAP corrections now have checked C bodies. See the
 Cut/decel/recovery, AE reservoirs and sync/async accounting now connect the
 admitted7E4F crank/running calculation through852B command publication. See the
 [delivery contract](reference/fuel_delivery_contract.md).
-The broad ignition/input prefix and scheduled tail now run resident C. The required EGR
-demand/feedback/control/flow/output bodies and existing admissions now call resident C;
-their physical backend and optional1815 implementation remain explicit.
+The broad ignition/input prefix, scheduled tail and EGR path are now resident.
+Slots 03 and 0B now run the complete gear-selection body. Slot 04 runs both
+alternating diagnostic groups and publishes the fuel-fault bits. Slots 05 and
+0A run catalyst, manifold, TCC and purge control.
 MAP transient selection, raw/filtered VSS, AC qualification, shift-lamp logic and
 environmental precomputation now have checked C bodies. Slot6/7/9 call their new
-resident bodies directly; slot1 is also resident and slot4/F root work stays explicit. See the
+resident bodies directly. Broad fuel and slot 4 also use resident C. See the
 [scheduled input contract](reference/scheduled_inputs_contract.md).
 Keep the optional 180F/1812 implementations and machine ABIs as explicit
 dependencies. Connect implemented slices without skipping unfinished producer work. Retain verified
@@ -369,3 +377,19 @@ only when the user says "pull and merge", then merge after its checks pass.
 The current branch and authoritative delivery workflow are recorded in
 [working state](../docs/WORKING_STATE.md#delivery-workflow); older per-update
 publication and three-PR instructions are superseded.
+
+## PR48 / closure reconciliation (November 22, 2026)
+
+PR48's already validated EGR, scheduled fuel/governor, diagnostic and whole
+slot-F modules are preserved alongside the cumulative closure branch's
+independent ROM-verified fuel and transmission routines. PR48 remains the
+default **C pseudo-source** implementation for the fuel and slot01 entry
+points. The closure implementations remain available behind the explicit
+`enable_resident_fuel_cycle` / `bind_fuel_ram_owners` and
+`enable_resident_slow_slots` research switches.
+
+At that checkpoint the combined tree had **105 CTest entries, including 49 ROM differential
+suites**. Its own [focused integration CI](https://github.com/snow663/7427HWContract/actions/runs/45072057548)
+passes all **56 fast contracts and 15 selected source/ROM suites**.
+The remaining 34 ROM suites are reserved for the final full release gate.
+See [the reconciliation ledger](reference/reconciliation_2026-11-22.md).

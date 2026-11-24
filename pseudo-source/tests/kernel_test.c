@@ -14,6 +14,8 @@ typedef struct {
     PcmTask trace[2048]; unsigned used;
     unsigned timer_writes, current_writes, watchdog_writes, adc_starts, spark_writes, period_reads;
     unsigned connection_action, signature_reads, transmission_writes;
+    unsigned slot4_coolant_updates, slot4_transmission_updates;
+    unsigned tcc_qualification_calls, purge_duty_writes, register_refreshes, purge_commands;
     unsigned egr_demand_writes, egr_fraction_writes, egr_output_writes, transmission_baro_writes, slot_f_diagnostic_writes;
     uint8_t step_positions[256], observed_shadows[256];
     unsigned step_observations, shadow_observations;
@@ -50,6 +52,8 @@ static PcmStatus read16(void *v, uint16_t a, uint16_t *out) {
 static PcmStatus write8(void *v, uint16_t a, uint8_t value) {
     Fixture *f=v; f->memory[a]=value;
     if (a==0x01ae) ++f->egr_demand_writes;
+    if (a==0x01d6 && (f->pcm->scheduler.phase & 15u)==10u) ++f->purge_duty_writes;
+    if (a==PCM_CSGSIZ) ++f->register_refreshes;
     if (a==0x006e) f->pcm->spark.egr_active=(value&0x80u)!=0;
     if (a==0x01b2) f->pcm->spark.egr_fraction_high=value;
     if (a==0x01b3) f->pcm->fuel.egr_fraction_low=value;
@@ -95,6 +99,10 @@ static PcmStatus write16(void *v, uint16_t a, uint16_t value) {
         ++f->egr_fraction_writes;
         f->pcm->spark.egr_fraction_high=(uint8_t)(value>>8);f->pcm->fuel.egr_fraction_low=(uint8_t)value;
     }
+    if (a==0x3fd6) ++f->purge_commands;
+    if (a==0x8c) ++f->tcc_qualification_calls;
+    if (a==0xa9) ++f->slot4_coolant_updates;
+    if (a==0xb5) ++f->slot4_transmission_updates;
     if (a==0x3fd8) ++f->egr_output_writes;
     if (a==0x00ac) ++f->transmission_baro_writes;
     if (a==0x02f4) {
@@ -145,6 +153,10 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
+    f->platform.task[PCM_SLOT_04]=NULL;
+    f->platform.task[PCM_SLOT_05]=f->platform.task[PCM_SLOT_0A]=NULL;
+    f->platform.task[PCM_SLOT_03]=f->platform.task[PCM_SLOT_0B]=NULL;
+    f->platform.task[PCM_SLOT_0C]=f->platform.task[PCM_SLOT_0D]=NULL;
     f->platform.task[PCM_SLOT_0F]=NULL;
     f->platform.task[PCM_AC_SWITCH_INPUTS]=f->platform.task[PCM_SHIFT_LAMP]=f->platform.task[PCM_VSS_FILTER]=NULL;
     f->platform.task[PCM_COMMON_IO]=f->platform.task[PCM_INPUT_HOUSEKEEPING]=NULL;
@@ -199,8 +211,14 @@ static void test_full_phase_cycle(void) {
     pcm.reference.coolant=200;pcm.spark.load_coordinate=128;pcm.spark.previous_load=128;
     pcm.knock.retard=13;pcm.knock.activity=7;pcm.knock.learning_high=true;
     for (unsigned k=0;k<160;++k) {
+        unsigned prior_writes=f.transmission_writes;
+        unsigned prior_tcc=f.tcc_qualification_calls, prior_purge=f.purge_duty_writes;
         CHECK(pcm_periodic_irq(&pcm)==PCM_OK);
         CHECK(pcm.scheduler.phase==k && !pcm.scheduler.busy);
+        CHECK(f.register_refreshes==(k+4)/16 && f.purge_commands==(k+3)/16);
+        CHECK(f.tcc_qualification_calls==prior_tcc+(k%16u==5u));
+        CHECK(f.purge_duty_writes==prior_purge+(k%32u==10u));
+        CHECK(f.transmission_writes==prior_writes+(k%4u==3u)); /* slots 03, 07, 0B, 0F */
     }
     CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==160 && f.current_writes==160);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.counts[PCM_INPUT_HOUSEKEEPING]==0 && f.shadow_observations==160);
@@ -211,16 +229,18 @@ static void test_full_phase_cycle(void) {
     CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
-        CHECK(f.counts[k]==(k==PCM_SLOT_00 || k==PCM_SLOT_01 || k==PCM_SLOT_02 || k==PCM_AC_SWITCH_INPUTS || k==PCM_SLOT_07 || k==PCM_SLOT_09 || k==PCM_SLOT_0E || k==PCM_SLOT_0F?0u:10u));
-    CHECK(f.signature_reads==10 && f.transmission_writes==20 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+        CHECK(f.counts[k] == 0);
+    CHECK(f.signature_reads==10 && f.transmission_writes==40 && f.counts[PCM_CONNECTION_EXTENSION]==0);
+    CHECK(f.memory[0x0f00]==0xf7);
     CHECK(f.slot_f_diagnostic_writes==10);
+    CHECK(f.slot4_coolant_updates==5 && f.slot4_transmission_updates==5);
     CHECK(f.counts[PCM_IAC_BACKGROUND]==0 && f.counts[PCM_SHIFT_LAMP]==0);
     CHECK(pcm.iac.slewed_base!=0 && pcm.iac.kicker_request);
     CHECK(f.counts[PCM_EGR_DEMAND]==0 && f.counts[PCM_EGR_FLOW]==0 && f.counts[PCM_VSS_FILTER]==0);
     CHECK(f.egr_demand_writes==10 && f.egr_fraction_writes==40 && f.egr_output_writes==80);
     CHECK(f.transmission_baro_writes==10 && f.counts[PCM_SLOT_01]==0);
     CHECK((pcm.iac.kicker_flags&1u) && pcm.iac.rpm_error_filtered!=0);
-    CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==370); /*320 feedback +10 slot8 +10 slot0 +30 slot2. */
+    CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.adc_starts==380); /* 320 feedback, 10 each in 8, 0 and D, 30 in 2. */
     /* The phase6 observation precedes the first slot7 gain publication and
      * arms the low latch. Later slot7 caps let the consumer retain13. */
     CHECK(f.counts[PCM_AC_SWITCH_INPUTS]==0 && pcm.knock.activity==7);

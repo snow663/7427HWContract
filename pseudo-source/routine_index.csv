@@ -21,7 +21,7 @@ src/emissions/egr_output.c,pcm_egr_output,implemented_outline,"CDF7..CE0F: liter
 src/fuel/crank_event_gain.c,pcm_crank_event_gain,implemented_algorithm,7827..7859: four gain tables and saturated pulse doubling.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/fuel/fuel_async.c,pcm_fuel_async,implemented_outline,"8548..858A: short-packet shaping, additive offset and literal3FF2/3FFC sequence.","Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/fuel/fuel_base.c,pcm_fuel_base,implemented_algorithm,7FD8..802F; each divide retains its own truncation/saturation. */,Retain source/ROM checks; target ABI and timing still need verification
-src/fuel/fuel_control.c,pcm_fuel_control,implemented_outline,"7D4B..8547: resident ignition/input/calculation/scheduled-tail controller.",Retain joined ROM/provider checks; STOP and optional modules require explicit target implementations
+src/fuel/fuel_control.c,pcm_fuel_control,implemented_outline,7D4B..8547 validated PR48 resident default plus guarded closure cycle alternative,Both source implementations remain pending joint post-merge and target ABI regression
 src/fuel/reference_bank_guard.c,pcm_reference_bank_guard,implemented_outline,785A..7874: saturating observation count and fault latch.,"Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/fuel/reference_common.c,pcm_reference_common,implemented_outline,"7765..77C6 plus F479: request consumption, load filtering and extra timer route.","Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
 src/fuel/reference_crank.c,pcm_reference_crank,implemented_outline,"7535..764F: strict skip gate, event gain, async/timer delivery and count policy.","Retain differential checks; target ABI, timing and physical driver behavior remain separate validation"
@@ -55,19 +55,19 @@ src/sensors/input_housekeeping.c,pcm_input_housekeeping,implemented_outline,9167
 src/sensors/knock_sensor.c,pcm_knock_sensor,implemented_outline,CEDB..CF15: mux0/ADCTL01/ADR4 sensor diagnostic and literal masking.,"Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
 src/serial/serial_poll.c,pcm_serial_poll,implemented_outline,"F5E8..F64D: unscaled broadcast schedule, deferred flag and masked precopy.","Retain ROM/address-space checks; target ABI, controller service execution and physical SCI timing remain separate validation"
 src/slots/slot_00.c,pcm_slot_00,implemented_outline,7AA6..7AAC: resident battery acquisition and literal CF15 return.,Retain ROM comparisons and actual scheduled producer ordering
-src/slots/slot_01.c,pcm_slot_01,implemented_outline,"7AAD..7AB6: resident BARO acquisition, transmission BARO and nonelectronic TCC in order.",Retain real fuel/REF and provider comparisons; target timing remains explicit
+src/slots/slot_01.c,pcm_slot_01,implemented_outline,7AAD..7AB6 validated PR48 BARO-speed-TCC default plus guarded closure alternate,Preserve both source variants until paired physical provider verification
 src/slots/slot_02.c,pcm_slot_02,implemented_outline,7AB7..7ABC: resident auxiliary ADC scan under literal SEI/CLI.,Retain ROM comparisons and actual scheduled producer ordering
-src/slots/slot_03.c,pcm_slot_03,dependency_boundary,"7ABD, table word 7A8B.",Implement the named body and compare observable state/transactions
-src/slots/slot_04.c,pcm_slot_04,dependency_boundary,"7AC7, table word 7A8D.",Implement the named body and compare observable state/transactions
-src/slots/slot_05.c,pcm_slot_05,dependency_boundary,"7B03, table word 7A8F.",Implement the named body and compare observable state/transactions
+src/slots/slot_03.c,pcm_slot_03,implemented_outline,7ABD..7AC6 optional 1806 and F7 marker then resident D4EB and C514,Retain whole-slot ROM and missing-module checks
+src/slots/slot_04.c,pcm_slot_04,implemented_outline,7AC7..7B02. Both phase groups and the shared 006F fuel-fault publication.,"Retain both phase groups, retained handoffs and provider failure comparisons"
+src/slots/slot_05.c,pcm_slot_05,implemented_outline,7B03..7B13 catalyst and manifold requests followed by option-gated TCC qualification,Retain stock whole-slot comparisons
 src/slots/slot_06.c,pcm_slot_06,implemented_outline,7B14..7B1A: CB15 input dependency before CE10 learning.,Port the explicit AC/switch input owner; retain full-phase06 learning admission
 src/slots/slot_07.c,pcm_slot_07,implemented_outline,7B1B..7B2A: ordered five-call slot7 wrapper.,Direct output/probe/auxiliary calls with named IAC and shift-lamp boundaries
 src/slots/slot_08.c,pcm_slot_08,implemented_outline,7B2B..7B2E; CEBB..CF15: phase-gated knock decay and sensor diagnostic.,Retain differential checks; target ADC timing and physical mux behavior need verification
 src/slots/slot_09.c,pcm_slot_09,implemented_outline,"7B2F..7B38: ordered EGR demand, resident slow IAC and VSS-filter wrapper.","Retain differential checks; target ABI, timing and physical interfaces remain separate validation"
-src/slots/slot_0a.c,pcm_slot_0a,dependency_boundary,"7B39, table word 7A99.",Implement the named body and compare observable state/transactions
-src/slots/slot_0b.c,pcm_slot_0b,dependency_boundary,"7B3D, table word 7A9B.",Implement the named body and compare observable state/transactions
-src/slots/slot_0c.c,pcm_slot_0c,dependency_boundary,"7B44, table word 7A9D.",Implement the named body and compare observable state/transactions
-src/slots/slot_0d.c,pcm_slot_0d,dependency_boundary,"7B48, table word 7A9F.",Implement the named body and compare observable state/transactions
+src/slots/slot_0a.c,pcm_slot_0a,implemented_outline,7B39..7B3C phase-qualified canister purge,Retain stock whole-slot comparisons
+src/slots/slot_0b.c,pcm_slot_0b,implemented_outline,7B3D..7B43 resident D4EB gear selection then C514 output,Retain whole-slot ROM and shared-state histories
+src/slots/slot_0c.c,pcm_slot_0c,implemented_outline,7B44..7B47 register service and stopped oxygen seed,Retain slot 0C ROM replay
+src/slots/slot_0d.c,pcm_slot_0d,implemented_outline,7B48..7B51 shared outputs then MAT and central diagnostics,Retain slot 0D ROM replay
 src/slots/slot_0e.c,pcm_slot_0e,implemented_outline,"7B52, table word 7AA1.",Retain source/ROM checks; target ABI and timing still need verification
 src/slots/slot_0f.c,pcm_slot_0f,implemented_outline,"7B5A..7B6C: resident transmission outputs, ordered diagnostic group, fault/fuel suffix and refresh.",Retain full-slot fuel/REF and provider-failure comparisons; target scheduling/ABI remain explicit
 src/spark/alternate_rpm.c,pcm_alternate_rpm,implemented_outline,AC51..ACA6: Resident alternate RPM adapter.,Direct call to the ROM-checked alternate body
@@ -320,6 +320,42 @@ src/interrupts/overflow_fallback_irq.c,pcm_overflow_fallback_irq,implemented_out
 src/interrupts/spi_irq.c,pcm_spi_irq,implemented_outline,FFD8 ->FC44: Empty resident SPI body; target RTI and SPI request semantics remain explicit.,Retain leaf/REF/retained and failure-prefix comparisons; target vector/frame/RTI/reset/halt ABI remains explicit
 src/interrupts/timer_stack_guard.c,pcm_timer_stack_guard,implemented_outline,7959..7979 predicate and ordered 003A/004F recovery RMW; LDS remains target transfer,Retain executed ROM/host checks; target TSX capture and LDS/RTI remain explicit
 src/interrupts/periodic_irq_resume.c,pcm_periodic_irq_resume,implemented_outline,797A..7989 source continuation after guard/recovery; target RTI remains separate,Compare caller admission and native stack reset before continuation
+src/fuel/fuel_ignition_precheck.c,pcm_fuel_ignition_precheck,implemented_outline,7D4B..7DB5 ignition/run-counter state and COP55 prelude,Connect later 7DB6..7E4E inputs and 852C tail before replacing 7D4B fuel task; host test complete ROM suite pending
+src/fuel/fuel_input_precalculate.c,pcm_fuel_input_precalculate,implemented_outline,7DB6..7E4E MAP/TPS/O2 and optional 90D3 governor before FDIV,Verify complete source ordering and governor enabled/disabled histories
+src/fuel/fuel_input_prefix.c,pcm_fuel_input_prefix,implemented_outline,7D4B..7E4E joined ignition and input prelude,Connect 7E4F..852B and actual 852C tail after each callee is admitted
+src/fuel/fuel_governor_target.c,pcm_fuel_governor_target,implemented_outline,8EB4..8EC8 governor eligibility/default with active 8EC9 body still delegated,Port eligible governor body after source-backed current and speed producers
+src/fuel/fuel_scheduled_tail.c,pcm_fuel_scheduled_tail,implemented_outline,852C..8547 phase-selected oxygen/VSS battery/AFR/BLM/governor tail,Join with entire scheduled fuel controller after governor and prefix checks
+src/fuel/fuel_cycle.c,pcm_fuel_cycle,implemented_outline,7D4B..8547 joined ignition inputs calculation and scheduled tail,Close enabled governor paths plus coherent logical state map and joined ROM traces before fast-dispatch admission
+src/fuel/fuel_governor_drive.c,pcm_fuel_governor_drive,implemented_algorithm,90D3..9166 TPS proportional integral governor and 306C publication,Validate source transaction order saturation and all physical command gates
+src/fuel/fuel_governor_error.c,pcm_fuel_governor_error,implemented_algorithm,8EC9..8EDA governor RPM sign and magnitude with fresh calibration read,Port 8EDB..90D2 follow-up including 1809 module carry boundary
+src/fuel/fuel_governor_vss_gate.c,pcm_fuel_governor_vss_gate,implemented_algorithm,8EE4..8F3A VSS error/state and TPS seed with 50DA/DB/E1 rereads,Port 8F3B..90D2 remaining governor body; verify module 1809 and full RAM provider
+src/fuel/fuel_governor_tps_mode.c,pcm_fuel_governor_tps_mode,implemented_algorithm,8F3B..8F5C signed TPS baseline and ordinary/lead governor mode,Port 8F5F..90D2 two gated control paths with 1809 extension tests
+src/fuel/fuel_governor_rate.c,pcm_fuel_governor_rate,implemented_algorithm,8F5F..8FCB integral and VSS speed contributions to 028A/0290/0292,Validate literal F499 and F550 arithmetic and injected ROM read failures
+src/fuel/fuel_governor_ordinary.c,pcm_fuel_governor_ordinary,implemented_algorithm,8FCC..900D ordinary baseline updates and candidate TPS,Check first-stage versus second-stage 0286 retained writes
+src/fuel/fuel_governor_lead.c,pcm_fuel_governor_lead,implemented_algorithm,9010..9096 lead RPM and temperature derivative branches,Check table interpolation CC signed BLT and source branch paths
+src/fuel/fuel_governor_finish.c,pcm_fuel_governor_finish,implemented_algorithm,9097..90D2 auxiliary bound and requested TPS publication,Check stale B flags and stepwise 50E2 rereads under failure
+src/fuel/fuel_governor_compute.c,pcm_fuel_governor_compute,implemented_outline,8F5F..90D2 joined ordinary/lead command builder,Use complete target in scheduled 852C fuel tail and compare stock cycle
+src/system/fuel_ram_owner_read8.c,pcm_fuel_ram_owner_read8,implemented_algorithm,7D4B fuel prefix named RAM read and residual bit reconstruction,Validate complete provider alignment and omitted byte owners
+src/system/fuel_ram_owner_write8.c,pcm_fuel_ram_owner_write8,implemented_algorithm,7D4B fuel prefix named RAM write and overlapping bit owners,Validate atomic provider commit and failure prefix
+src/system/fuel_ram_owner_read16.c,pcm_fuel_ram_owner_read16,implemented_algorithm,7D4B fuel prefix big endian word read and split ownership,Validate unified word and byte state provider
+src/system/fuel_ram_owner_write16.c,pcm_fuel_ram_owner_write16,implemented_algorithm,7D4B fuel prefix big endian word publication to canonical owners,Connect target physical and SRAM providers after source checks
+src/sensors/speed_source.c,pcm_speed_source,implemented_algorithm,C668..C6BA slot01 speed source and F436 lag,Verify ROM differential and adjacent C583 and ADAA call boundaries
+src/transmission/tcc_non_electronic.c,pcm_tcc_non_electronic,implemented_algorithm,ADAA..AE5B non-electronic TCC qualification and hysteresis,Verify complete ROM branch/read-order source differential
+src/transmission/transmission_mask_scan.c,pcm_transmission_mask_scan,implemented_algorithm,E6BC..E6E3 nine entry diagnostics mask scan and TSTA output,Compare indexed RAM reads and conditional early exit to stock ROM
+src/transmission/transmission_fault_gate_684.c,pcm_transmission_fault_gate_684,implemented_algorithm,E684..E69B direct bit and E74C conditional scan set 0098.7,Compare flag retention and early stop
+src/transmission/transmission_fault_gate_6ac.c,pcm_transmission_fault_gate_6ac,implemented_algorithm,E6AC..E6BB E743 mask to 0099.1,Compare fixed-point source fields and failure history
+src/transmission/transmission_fault_gate_69c.c,pcm_transmission_fault_gate_69c,implemented_algorithm,E69C..E6AB E73A mask to 0099.0,Compare low bits and RMW exact order
+src/transmission/transmission_d4eb_prefix.c,pcm_transmission_d4eb_prefix,implemented_algorithm,D4EB..D4F7 ordered diagnostic flags and 0084 reset,Retain prefix and joined slot replay
+src/transmission/transmission_cold_offset.c,pcm_transmission_cold_offset,implemented_algorithm,D980..D9B6 signed cold correction with F550 rounding and unsigned saturation,Retain full-slot C/ROM comparison
+src/transmission/transmission_descriptor.c,pcm_transmission_descriptor,implemented_algorithm,D8FE..D92D gear-column descriptor with stop mask and retained pointer,Retain full-slot C/ROM comparison
+src/transmission/transmission_gear_select.c,pcm_transmission_gear_select,implemented_algorithm,D4EB..D69E complete shift source priority and gear selection,Retain full-slot C/ROM comparison
+src/transmission/transmission_kickdown_rpm.c,pcm_transmission_kickdown_rpm,implemented_algorithm,D8A7..D8CD kickdown RPM word and signed cold correction,Retain full-slot C/ROM comparison
+src/transmission/transmission_kickdown_threshold.c,pcm_transmission_kickdown_threshold,implemented_algorithm,D840..D8A6 kickdown scalar and normal speed floor,Retain full-slot C/ROM comparison
+src/transmission/transmission_normal_threshold.c,pcm_transmission_normal_threshold,implemented_algorithm,D7E5..D83F normal speed curve and cold-corrected floor,Retain full-slot C/ROM comparison
+src/transmission/transmission_temperature_gain.c,pcm_transmission_temperature_gain,implemented_algorithm,D92E..D968 gain selection and saturated word scaling,Retain full-slot C/ROM comparison
+src/transmission/transmission_gear_limit.c,pcm_transmission_gear_limit,implemented_algorithm,E562..E57B proposed gear cap via range and indexed ROM table,Check all range inputs and indexed table reads against stock ROM
+src/transmission/transmission_gear_finalize.c,pcm_transmission_gear_finalize,implemented_algorithm,D5B7..D69E candidate gear arbitration and E562 cap,Retain D65A reread and D9 handoff checks
+src/transmission/transmission_threshold_select.c,pcm_transmission_threshold_select,implemented_algorithm,D8CE..D8EF carry-qualified transmission threshold pointer from D763 or D775,Test all 8bit displacement wrap and pointer-zero conditions against ROM
 src/fuel/fuel_ignition.c,pcm_fuel_ignition,implemented_outline,"7D4B..7DB5: captured ignition counter, ordered cleanup/restart and COP55; pre-TAP STOP boundary.",Retain ROM/provider failure-prefix checks; target CCR/STOP wake ABI remains explicit
 src/fuel/fuel_inputs.c,pcm_fuel_inputs,implemented_outline,"7DB6..7E4E: MAP context/TPS/oxygen joins, optional governor actuator and density.",Retain real controller/REF comparisons; target backend and physical timing remain explicit
 src/fuel/fuel_schedule.c,pcm_fuel_schedule,implemented_outline,"852C..8547: phase-qualified oxygen/VSS or battery/AFR/governor admissions.",Retain fresh-phase callback and complete controller comparisons; target timing remains explicit
@@ -344,3 +380,35 @@ src/service/diagnostic_ratio_invalid.c,pcm_diagnostic_ratio_invalid,implemented_
 src/service/diagnostic_ratio_lowgear.c,pcm_diagnostic_ratio_lowgear,implemented_outline,F02F..F0AC: low-gear ratio ceiling and first-observation recovery.,Retain actual-ROM state/operand and failed-prefix comparisons; target ABI/timing remain explicit
 src/service/diagnostic_ratio_highgear.c,pcm_diagnostic_ratio_highgear,implemented_outline,F0AD..F130: high-gear ratio floor and temperature-qualified recovery.,Retain actual-ROM state/operand and failed-prefix comparisons; target ABI/timing remain explicit
 src/service/diagnostic_slot_f.c,pcm_diagnostic_slot_f,implemented_outline,C4F5..C513: ten ordered diagnostic observations with shared flags and counters.,Retain actual-ROM state/operand and failed-prefix comparisons; target ABI/timing remain explicit
+src/service/diagnostic_coolant_adc_low.c,pcm_diagnostic_coolant_adc_low,implemented_algorithm,E75F. raw_coolant below threshold with timed entry and recovery.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_coolant_adc_high.c,pcm_diagnostic_coolant_adc_high,implemented_algorithm,E793. raw_coolant above threshold with timed entry and recovery.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_trans_temp_adc_low.c,pcm_diagnostic_trans_temp_adc_low,implemented_algorithm,EAB1. auxiliary_reference below threshold with timed entry and recovery.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_trans_temp_adc_high.c,pcm_diagnostic_trans_temp_adc_high,implemented_algorithm,EAE4. auxiliary_reference above threshold with timed entry and recovery.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_baro_adc_high.c,pcm_diagnostic_baro_adc_high,implemented_algorithm,EB19. barometric_sample above threshold with timed entry and recovery.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_baro_adc_low.c,pcm_diagnostic_baro_adc_low,implemented_algorithm,EB4D. barometric_sample below threshold with timed entry and recovery.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_solenoid_81.c,pcm_diagnostic_solenoid_81,implemented_algorithm,ED3F. DTC 81 solenoid pattern with a first-good recovery budget.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_solenoid_82.c,pcm_diagnostic_solenoid_82,implemented_algorithm,ED80. DTC 82 solenoid pattern with a first-good recovery budget.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_solenoid_83.c,pcm_diagnostic_solenoid_83,implemented_algorithm,EDC1. DTC 83 solenoid pattern with a first-good recovery budget.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_battery_52.c,pcm_diagnostic_battery_52,implemented_algorithm,EA40. DTC 52 battery high comparison with a word timer.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_battery_53.c,pcm_diagnostic_battery_53,implemented_algorithm,EA7C. DTC 53 battery high comparison with a byte timer.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_battery_compensated.c,pcm_diagnostic_battery_compensated,implemented_algorithm,EC79. DTC 75 battery threshold with transmission temperature and RPM qualification.,Retain stock slot 04 and shared-state comparisons
+src/service/diagnostic_slot_04.c,pcm_diagnostic_slot_04,implemented_outline,C8B1. Common slot 04 diagnostic group in stock call order.,Retain stock slot 04 and shared-state comparisons
+src/transmission/transmission_adaptive_reset.c,pcm_transmission_adaptive_reset,implemented_algorithm,B9EE. Reset three 17-cell adaptive banks to 80 and maintain their checksum.,Retain stock slot 04 and shared-state comparisons
+src/transmission/transmission_adaptive_restore.c,pcm_transmission_adaptive_restore,implemented_algorithm,B99F. Restore three 17-cell adaptive banks from their ROM tables and maintain their checksum.,Retain stock slot 04 and shared-state comparisons
+src/transmission/transmission_temperature_input.c,pcm_transmission_temperature_input,implemented_algorithm,C8D6. ADC conversion and shared range hysteresis for transmission temperature.,Retain stock slot 04 and shared-state comparisons
+src/sensors/coolant_filter.c,pcm_coolant_filter,implemented_algorithm,C9C0. Filter engine coolant into A9 and apply the 0087.2 hysteresis.,Retain stock slot 04 and shared-state comparisons
+src/transmission/transmission_temperature_filter.c,pcm_transmission_temperature_filter,implemented_algorithm,C8FD. Filter transmission temperature and derive cold weight from filtered engine coolant.,Retain stock slot 04 and shared-state comparisons
+src/emissions/catalyst_estimate.c,pcm_catalyst_estimate,implemented_algorithm,D3B0..D471 catalyst estimate and rich-request hysteresis,Retain whole-slot ROM and shared-state comparisons
+src/emissions/manifold_tuning.c,pcm_manifold_tuning,implemented_algorithm,D472..D4A2 manifold window and retained request,Retain whole-slot ROM and shared-state comparisons
+src/emissions/canister_purge.c,pcm_canister_purge,implemented_algorithm,D2B2..D3AF purge admission and learned multiplier,Retain whole-slot ROM and shared-state comparisons
+src/transmission/tcc_qualification.c,pcm_tcc_qualification,implemented_algorithm,C6BB..C8B0 electronic TCC qualification and service override,Retain whole-slot ROM and shared-state comparisons
+src/transmission/transmission_fault_gate_674.c,pcm_transmission_fault_gate_674,implemented_algorithm,E674..E683 diagnostic reaction mask for electronic TCC,Retain whole-slot ROM and shared-state comparisons
+src/drivers/refresh_registers.c,pcm_refresh_registers,implemented_algorithm,CC7C..CCC0 shared twenty-register sequence,Retain scheduler ROM and provider handoff comparisons
+src/system/slow_register_service.c,pcm_slow_register_service,implemented_algorithm,CC35..CCC0 board and register service,Retain scheduler ROM and provider handoff comparisons
+src/emissions/air_shared_outputs.c,pcm_air_shared_outputs,implemented_algorithm,CCC1..CDF6 AIR and shared output words,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_slot_d.c,pcm_diagnostic_slot_d,implemented_algorithm,DC89..E1EB central diagnostic admission and cadence,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_engine_inputs.c,pcm_diagnostic_engine_inputs,implemented_algorithm,DD40..DE55 signal and governor monitors,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_egr_test.c,pcm_diagnostic_egr_test,implemented_algorithm,DE56..DFC9 EGR integrator and feedback tests,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_engine_feedback.c,pcm_diagnostic_engine_feedback,implemented_algorithm,DFCA..E119 MAP and EST and rich/lean diagnostics,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_report.c,pcm_diagnostic_report,implemented_algorithm,E11A..E1EB pending and retained fault reporting,Retain scheduler ROM and provider handoff comparisons
+src/service/diagnostic_flash_codes.c,pcm_diagnostic_flash_codes,implemented_algorithm,E1EC..E285 retained diagnostic flash sequence,Retain scheduler ROM and provider handoff comparisons

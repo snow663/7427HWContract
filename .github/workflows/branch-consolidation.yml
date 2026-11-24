@@ -1,0 +1,40 @@
+name: One-time Branch Consolidation
+on:
+  push:
+    branches:
+      - "work/pseudo-source-development"
+    paths:
+      - "tools/consolidate_branch_refs.py"
+      - ".github/workflows/branch-consolidation.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: read
+concurrency:
+  group: branch-consolidation-${{ github.repository }}
+  cancel-in-progress: false
+jobs:
+  archive-and-prune:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, '[prune-stale-branches]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Show deletion/archival plan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/consolidate_branch_refs.py
+      - name: Archive unique heads and prune obsolete branches
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ALLOW_BRANCH_PRUNE: "yes"
+        run: python tools/consolidate_branch_refs.py --apply
+      - name: Preserve cleanup report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: branch-consolidation-report
+          path: branch-consolidation-report.json
+          if-no-files-found: warn

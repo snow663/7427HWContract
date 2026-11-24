@@ -1,8 +1,11 @@
 #include "scheduler.h"
-/* Reference 7B3D, table word 7A9B.
- * Stock body: 7B3D:D4EB;7B40:C514
- * Body binding required unless state-only slot E. */
+#include "control.h"
+#include "../system/system_internal.h"
+
+/* $7B3D: $D4EB -> $C514. The $F5CF marker belongs to slot 03. */
 PcmStatus pcm_slot_0b(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_SLOT_0B);
+    if (pcm == NULL || pcm->platform == NULL) return PCM_BAD_CONFIGURATION;
+    SYS_RUN(pcm_transmission_gear_select(pcm));
+    return pcm_transmission_outputs(pcm);
 }

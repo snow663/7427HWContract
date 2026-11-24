@@ -1,8 +1,13 @@
 #include "scheduler.h"
-/* Reference 7B03, table word 7A8F.
- * Stock body: 7B03:D3B0;7B06:D472;7B10:C6BB
- * Body binding required unless state-only slot E. */
+#include "control.h"
+#include "../system/system_internal.h"
+
+/* 7B03..7B13. D472 runs even when D3B0 retains the catalyst state. */
 PcmStatus pcm_slot_05(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_SLOT_05);
+    if (pcm == NULL || pcm->calibration == NULL) return PCM_BAD_CONFIGURATION;
+    SYS_RUN(pcm_catalyst_estimate(pcm));
+    SYS_RUN(pcm_manifold_tuning(pcm));
+    if (pcm->calibration->mode_f & 0x40u) return PCM_OK;
+    return pcm_tcc_qualification(pcm);
 }

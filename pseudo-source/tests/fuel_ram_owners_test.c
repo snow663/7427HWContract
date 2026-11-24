@@ -1,0 +1,208 @@
+#include "fuel.h"
+#include "fuel_ram_owners.h"
+#include "hardware.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define CHECK(x) do { if(!(x)){fprintf(stderr,"Fuel RAM owner %s:%d: %s\n",__FILE__,__LINE__,#x);exit(1);} }while(0)
+
+typedef struct {
+    PcmPlatform platform;
+    Pcm *pcm;
+    uint8_t provider[65536]; /* host test ONLY, no target shadow */
+    unsigned attempts, fail_at;
+    bool masked;
+} Fixture;
+static PcmStatus operation(Fixture *f)
+{
+    ++f->attempts;
+    return f->fail_at==f->attempts?PCM_NO_HARDWARE:PCM_OK;
+}
+static PcmStatus read8(void *ctx,uint16_t address,uint8_t *out)
+{
+    Fixture *f=ctx;
+    PcmStatus result=operation(f);if(result!=PCM_OK)return result;
+    *out=f->provider[address];
+    return PCM_OK;
+}
+static PcmStatus read16(void *ctx,uint16_t address,uint16_t *out)
+{
+    Fixture *f=ctx;
+    PcmStatus result=operation(f);if(result!=PCM_OK)return result;
+    *out=(uint16_t)(((uint16_t)f->provider[address]<<8)|
+                 f->provider[(uint16_t)(address+1u)]);
+    return PCM_OK;
+}
+static PcmStatus write8(void *ctx,uint16_t address,uint8_t value)
+{
+    Fixture *f=ctx;
+    PcmStatus result=operation(f);if(result!=PCM_OK)return result;
+    f->provider[address]=value;
+    return PCM_OK;
+}
+static PcmStatus write16(void *ctx,uint16_t address,uint16_t value)
+{
+    Fixture *f=ctx;
+    PcmStatus result=operation(f);if(result!=PCM_OK)return result;
+    f->provider[address]=(uint8_t)(value>>8);
+    f->provider[(uint16_t)(address+1u)]=(uint8_t)value;
+    return PCM_OK;
+}
+static PcmStatus mask(void *ctx,bool on)
+{
+    Fixture *f=ctx;
+    PcmStatus result=operation(f);if(result!=PCM_OK)return result;
+    f->masked=on;return PCM_OK;
+}
+static void init(Fixture *f,Pcm *pcm)
+{
+    memset(f,0,sizeof(*f));memset(pcm,0,sizeof(*pcm));
+    f->pcm=pcm;f->platform.context=f;f->platform.read8=read8;
+    f->platform.read16=read16;f->platform.write8=write8;
+    f->platform.write16=write16;f->platform.mask_irq=mask;
+    f->platform.bind_fuel_ram_owners=true;
+    pcm->platform=&f->platform;
+    f->provider[0x0004]=0x60; /* unowned bits 6/5 survive owned writes */
+    f->provider[0x0044]=0x20; /* unowned bit5 survives */
+    f->provider[0x004f]=0x02; /* unowned bit1 survives */
+    f->provider[0x0051]=0x12; /* unowned bits4/1 survive */
+    f->provider[0x0086]=0x16; /* unowned bits4/2/1 survive */
+    f->provider[0x4009]=0;f->provider[0x400a]=16;
+    pcm->system.fuel_ignition_counter=8;
+    pcm->reference.latch_inhibited=true;
+    pcm->runtime.spark_running=pcm->runtime.fuel_running=true;
+    pcm->spark.bypass_supervision=true;
+    pcm->fuel.oxygen_activity=pcm->fuel.oxygen_warmed=true;
+    pcm->spark.run_transition=true;
+    pcm->scheduler.clear_after_run_count=true; /* unmasked $0004.4 survives */
+    pcm->reference.bank_fault=pcm->spark.est_fault=true;
+    pcm->scheduler.run_counter=0x1234;
+    pcm->reference.delivered_pulse=0x5678;
+    pcm->reference.rpm_coordinate=75;
+    pcm->reference.crank_references=13;
+    pcm->reference.event_age=17;
+    pcm->reference.enrichment_age=28;
+    pcm->runtime.ignition_off=false;
+    pcm->system.retained_initialized=true;
+    pcm->scheduler.profiling_enabled=true;
+    pcm->spark.first_reference=true;
+    pcm->fuel.closed_seen=true;
+    pcm->io.egr_failure_count=53;
+    pcm->fuel.startup_park_hold=25;
+    pcm->io.coolant_context=0xfbu;
+}
+static void test_reset_and_word_alias(void)
+{
+    static Fixture f;Pcm p;init(&f,&p);
+    CHECK(pcm_fuel_ignition_precheck(&p)==PCM_OK);
+    CHECK(p.system.fuel_ignition_counter==9);
+    CHECK(p.scheduler.run_counter==0 && p.reference.delivered_pulse==0);
+    CHECK(!p.runtime.spark_running && !p.runtime.fuel_running);
+    CHECK(!p.spark.bypass_supervision && !p.fuel.oxygen_activity && !p.fuel.oxygen_warmed);
+    CHECK(!p.spark.run_transition && !p.reference.bank_fault && !p.spark.est_fault);
+    CHECK(p.reference.rpm_coordinate==0 && p.reference.crank_references==0);
+    CHECK(p.reference.event_age==0 && p.reference.enrichment_age==0);
+    CHECK(p.runtime.ignition_off && !p.system.retained_initialized);
+    CHECK(p.scheduler.profiling_enabled && p.spark.first_reference);
+    CHECK(f.provider[PCM_COPRST]==0x55 && !f.masked);
+    uint8_t byte;
+    CHECK(pcm_read8(&p,0x0004,&byte)==PCM_OK && byte==0x70); /* residual60 + bit4 */
+    CHECK(pcm_read8(&p,0x0044,&byte)==PCM_OK && (byte&0x20u));
+    CHECK(pcm_read8(&p,0x004f,&byte)==PCM_OK && byte==0x02);
+    CHECK(pcm_read8(&p,0x0086,&byte)==PCM_OK && (byte&0x40u) && !(byte&8u));
+    CHECK(pcm_read8(&p,0x027e,&byte)==PCM_OK && byte==0);
+    CHECK(pcm_read8(&p,0x027f,&byte)==PCM_OK && byte==9);
+    CHECK(pcm_write8(&p,0x027e,0x12)==PCM_OK);
+    CHECK(pcm_write8(&p,0x027f,0x34)==PCM_OK);
+    CHECK(p.system.fuel_ignition_counter==0x1234);
+    CHECK(pcm_read8(&p,0x027e,&byte)==PCM_OK && byte==0x12);
+    CHECK(pcm_read8(&p,0x027f,&byte)==PCM_OK && byte==0x34);
+    CHECK(!pcm_fuel_ram_owner_read8(&p,0x0bad,0,NULL));
+    CHECK(!pcm_fuel_ram_owner_write8(&p,0x0bad,123));
+    CHECK(!pcm_fuel_ram_owner_read16(&p,0x0bad,NULL));
+    CHECK(!pcm_fuel_ram_owner_write16(&p,0x0bad,123));
+}
+static void test_ignition_off_single_clear(void)
+{
+    static Fixture f;Pcm p;init(&f,&p);
+    p.reference.latch_inhibited=false;
+    p.runtime.ignition_off=true;
+    p.system.fuel_ignition_counter=501;
+    CHECK(pcm_fuel_ignition_precheck(&p)==PCM_OK);
+    CHECK(p.system.fuel_ignition_counter==0);
+    CHECK(!p.runtime.ignition_off && !p.fuel.closed_seen);
+    CHECK(!p.spark.first_reference && !(p.io.coolant_context&8u));
+    CHECK(p.io.egr_failure_count==0 && p.fuel.startup_park_hold==0);
+    CHECK(p.system.retained_initialized);
+    CHECK(p.runtime.spark_running && p.runtime.fuel_running);
+    CHECK(p.scheduler.run_counter==0x1234 && p.reference.delivered_pulse==0x5678);
+    p.io.egr_failure_count=77;p.fuel.startup_park_hold=60;
+    CHECK(pcm_fuel_ignition_precheck(&p)==PCM_OK);
+    CHECK(p.io.egr_failure_count==77 && p.fuel.startup_park_hold==60);
+}
+static void test_gate_halt_and_failure_prefix(void)
+{
+    static Fixture f;Pcm p;
+    init(&f,&p);p.system.fuel_ignition_counter=7;
+    CHECK(pcm_fuel_ignition_precheck(&p)==PCM_OK);
+    CHECK(p.system.fuel_ignition_counter==8);
+    CHECK(p.runtime.fuel_running && p.runtime.spark_running);
+    init(&f,&p);p.system.fuel_ignition_counter=16;
+    CHECK(pcm_fuel_ignition_precheck(&p)==PCM_HALT_BOUNDARY);
+    CHECK(f.masked && f.provider[0x3039]==8);
+    CHECK(p.system.fuel_ignition_counter==16 && f.provider[PCM_COPRST]==0);
+    CHECK(!p.runtime.spark_running && !p.runtime.fuel_running);
+    init(&f,&p);f.fail_at=4;
+    CHECK(pcm_fuel_ignition_precheck(&p)==PCM_NO_HARDWARE);
+    CHECK(p.runtime.fuel_running && p.spark.bypass_supervision);
+    CHECK(f.attempts==4);
+    init(&f,&p);f.fail_at=5;
+    CHECK(pcm_fuel_ignition_precheck(&p)==PCM_NO_HARDWARE);
+    CHECK(!p.spark.bypass_supervision && !p.fuel.oxygen_activity);
+    CHECK(p.reference.bank_fault && p.spark.est_fault);
+    CHECK(p.runtime.spark_running && p.runtime.fuel_running);
+    CHECK(f.attempts==5);
+}
+static void test_roundtrip_shared_bits(void)
+{
+    static Fixture f;Pcm p;init(&f,&p);
+    const uint16_t words[]={0x00fd,0x024c,0x027e,0x01d2};
+    for(unsigned n=0;n<4;++n) {
+        uint16_t a=words[n],v;
+        CHECK(pcm_write16(&p,a,0x55aau)==PCM_OK);
+        CHECK(pcm_read16(&p,a,&v)==PCM_OK && v==0x55aau);
+        CHECK(pcm_write8(&p,a,0x12)==PCM_OK);
+        CHECK(pcm_write8(&p,(uint16_t)(a+1),0x34)==PCM_OK);
+        CHECK(pcm_read16(&p,a,&v)==PCM_OK && v==0x1234u);
+    }
+    const uint16_t bytes[]={0x0004,0x0019,0x003e,0x0041,0x0044,
+      0x0046,0x0047,0x004f,0x0050,0x0051,0x0086};
+    for(unsigned n=0;n<sizeof(bytes)/sizeof(bytes[0]);++n) {
+        uint16_t a=bytes[n];uint8_t old,after;
+        CHECK(pcm_read8(&p,a,&old)==PCM_OK);
+        CHECK(pcm_write8(&p,a,(uint8_t)(old^0xffu))==PCM_OK);
+        CHECK(pcm_read8(&p,a,&after)==PCM_OK);
+        CHECK(after==(uint8_t)(old^0xffu));
+    }
+}
+static void test_binding_is_opt_in(void)
+{
+    static Fixture f;Pcm p;uint8_t value;
+    init(&f,&p);
+    f.platform.bind_fuel_ram_owners=false;
+    CHECK(pcm_read8(&p,0x004f,&value)==PCM_OK && value==0x02);
+    CHECK(pcm_write8(&p,0x004f,0)==PCM_OK);
+    CHECK(p.runtime.fuel_running && p.runtime.spark_running);
+    init(&f,&p);
+    CHECK(pcm_read8(&p,0x004f,&value)==PCM_OK && value==0x92);
+    CHECK(pcm_write8(&p,0x004f,0)==PCM_OK);
+    CHECK(!p.runtime.fuel_running && !p.runtime.spark_running);
+}
+int main(int argc,char **argv)
+{
+    if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
+    test_binding_is_opt_in();test_reset_and_word_alias();test_ignition_off_single_clear();
+    test_gate_halt_and_failure_prefix();test_roundtrip_shared_bits();
+    puts("Fuel prelude canonical RAM provider aliases, split-word bytes and failure prefixes passed.");
+    return 0;
+}

@@ -1,6 +1,32 @@
 #ifndef PSEUDO_SOURCE_FUEL_H
 #define PSEUDO_SOURCE_FUEL_H
 #include "pcm.h"
+/* Initial scheduled-fuel ignition and watchdog prefix, BMHM $7D4B..$7DB5.
+ * The later input/tail dispatch is not wired until all ordered callees exist. */
+PcmStatus pcm_fuel_ignition_precheck(Pcm *);
+/* $7DB6..$7E4E, follows precheck; $90D3 governor remains a gated dependency. */
+PcmStatus pcm_fuel_input_precalculate(Pcm *);
+/* Contiguous $7D4B..$7E4E callable source; not yet the scheduled fuel root. */
+PcmStatus pcm_fuel_input_prefix(Pcm *);
+/* $852C phase-dependent tail, guarded $8EB4 governor target. */
+PcmStatus pcm_fuel_scheduled_tail(Pcm *);
+/* Complete $7D4B..$8547 callable cycle, not yet installed in fast dispatch. */
+PcmStatus pcm_fuel_cycle(Pcm *);
+PcmStatus pcm_fuel_governor_target(Pcm *);
+/* BMHM $90D3..$9166: proportional/integral governor command to board306C. */
+PcmStatus pcm_fuel_governor_drive(Pcm *);
+/* BMHM $8EC9..$8EDA: unsigned RPM-target difference and 0075.2 direction. */
+PcmStatus pcm_fuel_governor_error(Pcm *);
+/* BMHM $8EE4..$8F3A: fourfold VSS delta, 0075 latches and TPS seed. */
+PcmStatus pcm_fuel_governor_vss_gate(Pcm *);
+/* $8F3B..$8F5C: signed target-error TPS gate, control path selector. */
+PcmStatus pcm_fuel_governor_tps_mode(Pcm *,bool *ordinary);
+/* BMHM $8F5F..$90D2: separate rate, ordinary, lead and final command stages. */
+PcmStatus pcm_fuel_governor_rate(Pcm *);
+PcmStatus pcm_fuel_governor_ordinary(Pcm *,uint8_t *candidate);
+PcmStatus pcm_fuel_governor_lead(Pcm *,uint8_t *candidate);
+PcmStatus pcm_fuel_governor_finish(Pcm *,uint8_t candidate);
+PcmStatus pcm_fuel_governor_compute(Pcm *,bool ordinary);
 PcmStatus pcm_fuel_finalize(Pcm *);
 PcmStatus pcm_fuel_publish(Pcm *, uint16_t pulse);
 PcmStatus pcm_injector_offset(Pcm *);
@@ -80,6 +106,7 @@ PcmStatus pcm_fuel_deliver(Pcm *pcm);
 PcmStatus pcm_fuel_construct(Pcm *pcm);
 PcmStatus pcm_fuel_running(Pcm *pcm);
 PcmStatus pcm_fuel_calculate(Pcm *pcm);
+/* PR48 resident fuel/governor variant, separately ROM verified. */
 PcmStatus pcm_fuel_ignition(Pcm *pcm);
 PcmStatus pcm_fuel_inputs(Pcm *pcm);
 PcmStatus pcm_fuel_schedule(Pcm *pcm);
