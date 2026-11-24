@@ -16,7 +16,7 @@ from verify_native_elf import NativeImageError, validate
 PLAN=Placement(0x7201,0x0050,0x0600,0x07ff,
                "assembly-listing + audited C scratch memory")
 ARCH="runtime.elf: file format elf32-m68hc11\narchitecture: m68hc11, flags 0x00000112\n"
-SYMBOL="00007208 T pcm_hc11_c_entry"
+SYMBOL="00007208 T pcm_hc11_c_entry\n00007210 T pcm_hc11_c_entry_reset"
 HEADER="""Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .c_code       00000120  00007202  00007202  00000080  2**1
@@ -35,6 +35,7 @@ class PostLinkTests(unittest.TestCase):
         evidence=validate(PLAN,ARCH,HEADER,SYMBOL)
         self.assertEqual(evidence["code_first"],"0x7202")
         self.assertEqual(evidence["code_bytes"],0x120)
+        self.assertEqual(evidence["linked_reset_entry"],"0x7210")
         self.assertEqual(evidence["state_bytes"],0x40)
         self.assertFalse(evidence["flash_ready"])
         self.assertFalse(evidence["bss_reset_initializer_verified"])
@@ -45,6 +46,11 @@ class PostLinkTests(unittest.TestCase):
     def test_noncode_entry_rejected(self):
         with self.assertRaises(NativeImageError):
             validate(PLAN,ARCH,HEADER,"00000600 B pcm_hc11_c_entry")
+    def test_missing_or_aliasing_native_reset_entry_rejected(self):
+        with self.assertRaises(NativeImageError):
+            validate(PLAN,ARCH,HEADER,"00007208 T pcm_hc11_c_entry")
+        with self.assertRaises(NativeImageError):
+            validate(PLAN,ARCH,HEADER,"00007208 T pcm_hc11_c_entry\n00007208 T pcm_hc11_c_entry_reset")
     def test_code_vector_overlap_rejected(self):
         data=replace_once(HEADER,"00000120  00007202","00009000  00007202")
         with self.assertRaises(NativeImageError):

@@ -103,11 +103,15 @@ def validate(plan: Placement, arch: str, headers: str, symbols: str):
     entry=exact_native_entry(symbols,"pcm_hc11_c_entry")
     if not code.vma<=entry<code.vma+code.size:
         raise NativeImageError("Linked C entry is not in native code section")
+    reset_entry=exact_native_entry(symbols,"pcm_hc11_c_entry_reset")
+    if not code.vma<=reset_entry<code.vma+code.size or reset_entry==entry:
+        raise NativeImageError("Native C reset routine must occupy a distinct code address")
     c_state=next((s for s in active if s.name==".c_state"),None)
     return {
         "schema":"7427-linked-c-image-inspection-v1",
         "native_architecture":"MC68HC11",
         "linked_entry":f"0x{entry:04X}",
+        "linked_reset_entry":f"0x{reset_entry:04X}",
         "code_first":f"0x{code.vma:04X}",
         "code_end_exclusive":f"0x{code.vma+code.size:04X}",
         "code_bytes":code.size,
