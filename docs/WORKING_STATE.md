@@ -1,3 +1,14 @@
+## Native ASM11 ISR gateway / C mailbox — development only
+
+The ROM master now includes an actual HC11 ISR entry assembly envelope,
+including TSX saved-CCR capture, non-reentrant guard, vector mailbox,
+default reject-call target, two-part RTI permission check and RTI.
+A host-tested C mailbox adapter maps these to the resident C vector
+dispatch contract. The compiler-specific no-argument RTS C thunk and
+assembled S19/BIN ABI validation are **still missing**; all live
+non-reset vectors remain pointed at the original safe trap.
+See [native handoff](../pseudo-source/reference/home_stretch_readiness.md).
+
 ## Native HC11 vector/entry contract — source complete, native ABI open
 
 The active branch now has the 21-vector source identity table checked

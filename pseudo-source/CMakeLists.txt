@@ -33,6 +33,14 @@ if(BUILD_TESTING)
   add_test(NAME hc11_bus_contracts COMMAND pcm_hc11_bus_tests)
   add_executable(pcm_hc11_vector_tests
       tests/hc11_vector_test.c platform/hc11_vector_contract.c)
+  add_executable(pcm_hc11_irq_mailbox_tests
+      tests/hc11_irq_mailbox_test.c
+      platform/hc11_vector_contract.c platform/hc11_irq_mailbox.c)
+  target_link_libraries(pcm_hc11_irq_mailbox_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME hc11_irq_mailbox_contracts COMMAND pcm_hc11_irq_mailbox_tests)
+  add_test(NAME hc11_native_isr_gateway_source_contract
+      COMMAND ${Python3_EXECUTABLE}
+      ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_hc11_native_isr_gateway.py)
   target_link_libraries(pcm_hc11_vector_tests PRIVATE pcm_pseudo_source)
   add_test(NAME hc11_vector_contracts COMMAND pcm_hc11_vector_tests)
   add_test(NAME hc11_native_vector_source_contract COMMAND

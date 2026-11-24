@@ -104,3 +104,36 @@ No assumed compiler calling convention, completed HC11 interrupt
 prologue, native C/assembly linkage, flashable BIN, or real output
 authorization is claimed. The existing ASM11 bootstrap remains the
 source of the actual engine-off executable reset prelude.
+
+## Native ISR assembly envelope and C mailbox — development slice
+
+The maintainable ASM11 ROM now **includes** `hal/native_isr_gate.asm`
+and reserves eight adjacent, assembler-allocated HAL RAM bytes for the
+IRQ mailbox. Its entry candidates capture the exact vector identity and
+use `TSX` **before any subroutine call** to sample the hardware-saved
+CCR address (SP+1). It checks a conservative $03B0..$03F7 range,
+rejects a busy mailbox, and enters the existing engine-off fatal path
+unless the callback returns with both a **$A5 RTI token** and zero status.
+Only then does the native envelope issue `RTI` to restore the CPU's
+saved frame.
+
+The compiler-specific native C-call ABI is still an **explicit open
+boundary**: `HAL_ISR_C_ENTRY_WORD` points by default to
+`HAL_ISR_C_UNBOUND`, a reject-only RTS routine. Binding compiled C
+requires an actual compiler-specific no-argument RTS thunk and verified
+symbol/S19 linkage. The caller/callee share an eight-byte protocol rather
+than assuming native C struct layout or parameter passing.
+
+The host-tested `pcm_hc11_mailbox_dispatch` validates candidate
+vector, frame evidence, admission, identity preservation, and body
+status before emitting the $A5 success token. It explicitly refuses
+TOC3 (which can unmask/nest and cannot share the one-entry mailbox),
+XIRQ, reset/trap entries, and unimplemented OC4/OC5 output interrupts.
+
+The source gate checks exact RAM byte offsets, critical instruction
+order, non-reentrant guard, default reject thunk, **13 candidate
+maskable vector entry labels**, and all 32 original safe vector words.
+Every actual ROM vector except reset **still points to the original
+engine-off safe trap**. This code does not create an engine-running BIN,
+does not change fuel/spark logic, and does not assert native C calling
+convention, interrupt nesting, stack budget or live board output proof.

@@ -71,7 +71,7 @@
     "external_hooks": "open",
     "named_RAM_ALDL_aliases": "open",
     "ASIC_device_timing": "open",
-    "HC11_startup_vectors_ISR_ABI": "host_vector_dispatch_verified; asm_call_frame_RTI_open",
+    "HC11_startup_vectors_ISR_ABI": "ASM11_entry_envelope_C_mailbox_host_verified; native_C_RTS_link_ABI_and_live_vectors_open",
     "target_linker_and_flashable_BIN": "open",
     "complete_combined_ROM_suite": "pending",
     "physical_bench_validation": "not_started",

@@ -24,14 +24,18 @@ PcmStatus pcm_hc11_mailbox_dispatch(Pcm *pcm,volatile uint8_t *mb)
        info->kind==PCM_HC11_KIND_EXTERNAL_RESET ||
        info->kind==PCM_HC11_KIND_CLOCK_FAILURE ||
        info->kind==PCM_HC11_KIND_SWI ||
-       info->kind==PCM_HC11_KIND_ILLEGAL)
+       info->kind==PCM_HC11_KIND_ILLEGAL) {
+        mb[PCM_IRQ_MB_STATUS]=(uint8_t)PCM_UNIMPLEMENTED;
         return PCM_UNIMPLEMENTED;
+    }
 
     if((proof & (PCM_IRQ_MB_PROOF_FRAME|PCM_IRQ_MB_PROOF_I_MASKED))!=
        (PCM_IRQ_MB_PROOF_FRAME|PCM_IRQ_MB_PROOF_I_MASKED) ||
        (proof & (PCM_IRQ_MB_PROOF_TOC3|PCM_IRQ_MB_PROOF_XIRQ))!=0u ||
-       ccr<0x03b0u || ccr>0x03f7u)
+       ccr<0x03b0u || ccr>0x03f7u) {
+        mb[PCM_IRQ_MB_STATUS]=(uint8_t)PCM_STACK_BOUNDARY;
         return PCM_STACK_BOUNDARY;
+    }
 
     PcmHc11NativeFrame frame={0};
     frame.frame_verified=true;

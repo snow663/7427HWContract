@@ -133,6 +133,16 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
                     str(ROOT/'tests/hc11_vector_test.c'),
                     '-o',str(native_vector)],check=True)
     subprocess.run([str(native_vector)],check=True)
+    mb_test=Path(directory)/'pcm_hc11_irq_mailbox_tests'
+    subprocess.run([*compiler,'-std=c11','-Wall','-Wextra','-Wpedantic','-Werror',
+                    '-I',str(ROOT/'include'),*[str(p) for p in sources],
+                    str(ROOT/'platform/hc11_vector_contract.c'),
+                    str(ROOT/'platform/hc11_irq_mailbox.c'),
+                    str(ROOT/'tests/hc11_irq_mailbox_test.c'),
+                    '-o',str(mb_test)],check=True)
+    subprocess.run([str(mb_test)],check=True)
+    subprocess.run([sys.executable,
+                    str(ROOT/'tests/check_hc11_native_isr_gateway.py')],check=True)
     if not args.contracts_only:
         for name,fixture,boundaries,contracts,suites in TARGETS:
             for suite in suites:

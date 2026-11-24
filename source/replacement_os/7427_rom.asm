@@ -69,6 +69,7 @@ FIRST_ROM_IDLE_LOOP:
 ; Linked implementation modules
 ; ---------------------------------------------------------------------------
         INCLUDE "hal/init_safe.asm"
+        INCLUDE "hal/native_isr_gate.asm"   ; unbound, all vectors still safe trap
         INCLUDE "core/safe_runtime.asm"
         INCLUDE "core/debug_frame.asm"
         INCLUDE "hal/adc_read.asm"
