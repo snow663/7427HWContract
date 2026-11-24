@@ -1,3 +1,12 @@
+# Git branch discipline
+
+Use `main` for the validated release baseline and
+`work/pseudo-source-development` for all cumulative pseudo-source work.
+Do not create new permanent feature branches for each routine, slot, or
+implementation batch. Preserve isolated historical experiments as Git
+archive tags. Open PR head branches are kept until their PRs are resolved.
+See [the branch consolidation policy](docs/BRANCH_CONSOLIDATION_2026-11-23.md).
+
 # Address-register maintenance
 
 Use the four root workbooks as address/role references alongside the ROM-backed
