@@ -240,6 +240,7 @@ static void test_real_board_path_denied_tail(void)
 static void test_mixed_word_via_bus(void)
 {
     static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
+    uint16_t word=0;
     init(&f,&bus,&platform,&p,true);
     platform.bind_fuel_ram_owners=true;
     /* A cross-owner 16-bit word must issue exactly one raw 16-bit bus
