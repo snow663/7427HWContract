@@ -1,0 +1,23 @@
+name: Fresh 7427 Simulator
+on:
+  push:
+    paths:
+      - "7427_simulator/**"
+      - ".github/workflows/7427-simulator-v2.yml"
+  pull_request:
+    paths:
+      - "7427_simulator/**"
+      - ".github/workflows/7427-simulator-v2.yml"
+jobs:
+  simulator-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Syntax-check fresh implementation
+        run: python -m compileall -q 7427_simulator
+      - name: Run strict HC11 core and GUI import tests
+        working-directory: 7427_simulator
+        run: python -m unittest discover -s tests -v
