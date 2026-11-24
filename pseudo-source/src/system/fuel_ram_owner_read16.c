@@ -13,6 +13,19 @@ bool pcm_fuel_ram_owner_read16(const Pcm *pcm,uint16_t address,uint16_t *out)
                         pcm->io.vehicle_speed_fraction);return true;
     case 0x080f:*out=pcm->io.vss_previous;return true;
     case 0x0812:*out=pcm->io.vss_raw;return true;
+    case 0x0063:*out=(uint16_t)(((uint16_t)pcm->spark.rpm_high<<8)|pcm->spark.rpm_fraction);return true;
+    case 0x0068:*out=pcm->reference.load_filtered;return true;
+    case 0x006a:*out=pcm->reference.load_event;return true;
+    case 0x01ee:*out=pcm->spark.command;return true;
+    case 0x01f0:*out=pcm->spark.command_latched;return true;
+    case 0x01fd:*out=pcm->spark.composite;return true;
+    case 0x024e:*out=pcm->fuel.corrected_pulse;return true;
+    case 0x0250:*out=pcm->reference.timer_pulse;return true;
+    case 0x0254:*out=pcm->reference.running_packet;return true;
+    case 0x02cf:*out=pcm->reference.crank_seed;return true;
+    case 0x0818:*out=pcm->fuel.pe_vehicle_change;return true;
+    case 0x0851:*out=pcm->fuel.authorization_capture;return true;
+    case 0x088b:*out=pcm->iac.airflow;return true;
     default:return false;
     }
 }

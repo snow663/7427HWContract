@@ -12,6 +12,23 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
     uint16_t word=0;
     uint8_t b=residual;
     switch(address) {
+    case 0x0000:
+        b=(uint8_t)(pcm->system.interrupt_flags&0xfeu);
+        BIT(b,0x01u,pcm->scheduler.timer_seen);break;
+    case 0x0002:b=pcm->scheduler.phase;break;
+    case 0x0003:b=pcm->scheduler.busy_phase;break;
+    case 0x0007:b=pcm->iac.position;break;
+    case 0x0008:b=pcm->iac.target;break;
+    case 0x000a:b=pcm->iac.step_control;break;
+    case 0x003a:
+        b&=(uint8_t)~0x6fu;
+        BIT(b,0x01u,pcm->runtime.adc_fault);
+        BIT(b,0x02u,pcm->system.rom_failure);
+        BIT(b,0x04u,pcm->system.configuration_failure);
+        BIT(b,0x08u,pcm->system.stack_recovery);
+        BIT(b,0x20u,pcm->scheduler.pending);
+        BIT(b,0x40u,pcm->system.adaptive_failure);
+        break;
     case 0x0004:
         b&=(uint8_t)~0x9fu;
         BIT(b,0x80u,pcm->spark.bypass_supervision);
@@ -81,10 +98,15 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
         BIT(b,0x01u,pcm->spark.command_negative);
         break;
     case 0x0050:
-        b&=(uint8_t)~0x8au;
+        b=0;
         BIT(b,0x80u,pcm->spark.idle_state);
+        BIT(b,0x40u,pcm->spark.idle_feedback);
+        BIT(b,0x20u,pcm->reference.pending);
+        BIT(b,0x10u,pcm->runtime.diagnostic_switch);
         BIT(b,0x08u,pcm->io.diagnostic_warm);
+        BIT(b,0x04u,pcm->reference.consumed);
         BIT(b,0x02u,pcm->fuel.idle_afr_ready);
+        BIT(b,0x01u,pcm->reference.sample_map);
         break;
     case 0x0051:
         b&=(uint8_t)~0xedu;
@@ -102,7 +124,6 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
         BIT(b,0x01u,pcm->transmission.driver_inhibit);
         break;
     case 0x0062:b=pcm->reference.rpm_coordinate;break;
-    case 0x0063:b=pcm->spark.rpm_high;break;
     case 0x0065:b=pcm->io.map_previous_rpm;break;
     case 0x0089:b=pcm->transmission.range_context;break;
     case 0x01c5:b=pcm->io.map_hold;break;
@@ -138,6 +159,45 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
     case 0x0812:case 0x0813:
         (void)pcm_fuel_ram_owner_read16(pcm,0x0812,&word);
         b=address==0x0812?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x0063:case 0x0064:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0063,&word);
+        b=address==0x0063?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x0068:case 0x0069:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0068,&word);
+        b=address==0x0068?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x006a:case 0x006b:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x006a,&word);
+        b=address==0x006a?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x01ee:case 0x01ef:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x01ee,&word);
+        b=address==0x01ee?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x01f0:case 0x01f1:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x01f0,&word);
+        b=address==0x01f0?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x01fd:case 0x01fe:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x01fd,&word);
+        b=address==0x01fd?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x024e:case 0x024f:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x024e,&word);
+        b=address==0x024e?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x0250:case 0x0251:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0250,&word);
+        b=address==0x0250?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x0254:case 0x0255:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0254,&word);
+        b=address==0x0254?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x02cf:case 0x02d0:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x02cf,&word);
+        b=address==0x02cf?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x0818:case 0x0819:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0818,&word);
+        b=address==0x0818?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x0851:case 0x0852:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0851,&word);
+        b=address==0x0851?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x088b:case 0x088c:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x088b,&word);
+        b=address==0x088b?(uint8_t)(word>>8):(uint8_t)word;break;
     default:return false;
     }
     *out=b;

@@ -6,6 +6,21 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
     if(pcm==NULL)return false;
     uint16_t word;
     switch(address) {
+    case 0x0000:
+        pcm->system.interrupt_flags=(uint8_t)(value&0xfeu);
+        OWNED_BOOL(pcm->scheduler.timer_seen,0x01u);return true;
+    case 0x0002:pcm->scheduler.phase=value;return true;
+    case 0x0003:pcm->scheduler.busy_phase=value;return true;
+    case 0x0007:pcm->iac.position=value;return true;
+    case 0x0008:pcm->iac.target=value;return true;
+    case 0x000a:pcm->iac.step_control=value;return true;
+    case 0x003a:
+        OWNED_BOOL(pcm->runtime.adc_fault,0x01u);
+        OWNED_BOOL(pcm->system.rom_failure,0x02u);
+        OWNED_BOOL(pcm->system.configuration_failure,0x04u);
+        OWNED_BOOL(pcm->system.stack_recovery,0x08u);
+        OWNED_BOOL(pcm->scheduler.pending,0x20u);
+        OWNED_BOOL(pcm->system.adaptive_failure,0x40u);return true;
     case 0x0004:
         OWNED_BOOL(pcm->spark.bypass_supervision,0x80u);
         OWNED_BOOL(pcm->scheduler.clear_after_run_count,0x10u);
@@ -63,8 +78,13 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
         OWNED_BOOL(pcm->spark.command_negative,0x01u);return true;
     case 0x0050:
         OWNED_BOOL(pcm->spark.idle_state,0x80u);
+        OWNED_BOOL(pcm->spark.idle_feedback,0x40u);
+        OWNED_BOOL(pcm->reference.pending,0x20u);
+        OWNED_BOOL(pcm->runtime.diagnostic_switch,0x10u);
         OWNED_BOOL(pcm->io.diagnostic_warm,0x08u);
-        OWNED_BOOL(pcm->fuel.idle_afr_ready,0x02u);return true;
+        OWNED_BOOL(pcm->reference.consumed,0x04u);
+        OWNED_BOOL(pcm->fuel.idle_afr_ready,0x02u);
+        OWNED_BOOL(pcm->reference.sample_map,0x01u);return true;
     case 0x0051:
         OWNED_BOOL(pcm->reference.bank_latch,0x80u);
         OWNED_BOOL(pcm->spark.startup_gain_complete,0x40u);
@@ -77,7 +97,6 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
         OWNED_BOOL(pcm->system.retained_initialized,0x08u);
         OWNED_BOOL(pcm->transmission.driver_inhibit,0x01u);return true;
     case 0x0062:pcm->reference.rpm_coordinate=value;return true;
-    case 0x0063:pcm->spark.rpm_high=value;return true;
     case 0x0065:pcm->io.map_previous_rpm=value;return true;
     case 0x0089:pcm->transmission.range_context=value;return true;
     case 0x01c5:pcm->io.map_hold=value;return true;
@@ -128,6 +147,71 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
         word=address==0x0812?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
                 (uint16_t)((word&0xff00u)|value);
         return pcm_fuel_ram_owner_write16(pcm,0x0812,word);
+    case 0x0063:case 0x0064:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0063,&word);
+        word=address==0x0063?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0063,word);
+    case 0x0068:case 0x0069:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0068,&word);
+        word=address==0x0068?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0068,word);
+    case 0x006a:case 0x006b:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x006a,&word);
+        word=address==0x006a?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x006a,word);
+    case 0x01ee:case 0x01ef:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x01ee,&word);
+        word=address==0x01ee?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x01ee,word);
+    case 0x01f0:case 0x01f1:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x01f0,&word);
+        word=address==0x01f0?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x01f0,word);
+    case 0x01fd:case 0x01fe:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x01fd,&word);
+        word=address==0x01fd?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x01fd,word);
+    case 0x024e:case 0x024f:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x024e,&word);
+        word=address==0x024e?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x024e,word);
+    case 0x0250:case 0x0251:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0250,&word);
+        word=address==0x0250?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0250,word);
+    case 0x0254:case 0x0255:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0254,&word);
+        word=address==0x0254?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0254,word);
+    case 0x02cf:case 0x02d0:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x02cf,&word);
+        word=address==0x02cf?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x02cf,word);
+    case 0x0818:case 0x0819:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0818,&word);
+        word=address==0x0818?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0818,word);
+    case 0x0851:case 0x0852:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0851,&word);
+        word=address==0x0851?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0851,word);
+    case 0x088b:case 0x088c:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x088b,&word);
+        word=address==0x088b?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x088b,word);
     default:return false;
     }
 }

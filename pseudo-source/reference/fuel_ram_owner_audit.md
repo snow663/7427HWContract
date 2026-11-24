@@ -135,3 +135,27 @@ source-verified owners without changing its default OFF state:
 This is strictly an **alias ownership** extension. It neither proves
 physical backing at external GEN addresses nor authorizes board writes.
 The hardware bus still requires explicit grants and board-safe policies.
+
+## Scheduler flags, IAC control and fuel/spark word ownership extension
+
+The opt-in bridge now includes ROM/source-identified scheduler phase bytes
+`$0002/$0003`, shared interrupt flags `$0000` (bit0 timer-seen vs
+bits7–1 system), shared fault byte `$003A` (bits0/1/2/3/5/6; bits4/7
+remain raw backing), and the **complete** `$0050` byte whose eight
+bits are already allocated to spark/REF/diagnostics/fuel fields.
+IAC position/target/step control `$0007/$0008/$000A` are included.
+
+The following new words have a single typed C owner and big-endian
+byte views: RPM `$0063`, load `$0068/$006A`, spark command `$01EE`,
+latched command `$01F0`, composite `$01FD`, corrected fuel PW
+`$024E`, REF timer pulse `$0250`, running packet `$0254`,
+crank seed `$02CF`, retained PE speed change `$0818`, fuel
+capture `$0851`, and IAC airflow `$088B`.
+
+A focused host test drives **all thirteen word owners** through direct
+C updates, raw 16-bit reads, byte-high/low reads, 16-bit writes, and
+low-byte writes, checking backing memory and canonical C state, as
+well as write-failure preservation. It checks the explicitly shared
+bit owners and unknown-bit residual preservation. This test is still
+source-level and opt-in; it does not prove physical bus backing or
+full interrupt-phase coherence.

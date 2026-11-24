@@ -246,12 +246,80 @@ static void test_board_and_vss_named_ram(void)
     CHECK(pcm_write16(&p,0x0812,0xf00d)==PCM_NO_HARDWARE);
     CHECK(p.io.vss_raw==0x569a);
 }
+static void test_engine_owners_and_aldl(void)
+{
+    static Fixture f;Pcm p;init(&f,&p);
+    p.scheduler.timer_seen=true;p.system.interrupt_flags=0x54;
+    p.scheduler.phase=0xb5;p.scheduler.busy_phase=0x73;
+    p.iac.position=0x12;p.iac.target=0x34;p.iac.step_control=0x56;
+    p.runtime.adc_fault=true;p.system.rom_failure=true;
+    p.system.stack_recovery=true;p.scheduler.pending=true;
+    p.system.adaptive_failure=true;
+    p.spark.idle_state=true;p.spark.idle_feedback=true;
+    p.reference.pending=true;p.runtime.diagnostic_switch=true;
+    p.reference.consumed=true;p.reference.sample_map=true;
+    uint8_t v=0;
+    f.provider[0x003a]=0x90; /* shared unknown bits 7/4 */
+    CHECK(pcm_read8(&p,0x0000,&v)==PCM_OK && v==0x55);
+    CHECK(pcm_read8(&p,0x0002,&v)==PCM_OK && v==0xb5);
+    CHECK(pcm_read8(&p,0x0003,&v)==PCM_OK && v==0x73);
+    CHECK(pcm_read8(&p,0x0007,&v)==PCM_OK && v==0x12);
+    CHECK(pcm_read8(&p,0x0008,&v)==PCM_OK && v==0x34);
+    CHECK(pcm_read8(&p,0x000a,&v)==PCM_OK && v==0x56);
+    CHECK(pcm_read8(&p,0x003a,&v)==PCM_OK && v==0xfb);
+    CHECK(pcm_read8(&p,0x0050,&v)==PCM_OK && v==0xf5);
+    CHECK(pcm_write8(&p,0x003a,0x90)==PCM_OK);
+    CHECK(!p.runtime.adc_fault && !p.scheduler.pending &&
+          !p.system.rom_failure && !p.system.stack_recovery);
+    CHECK((f.provider[0x003a]&0x90u)==0x90u);
+    CHECK(pcm_write8(&p,0x0050,0x0b)==PCM_OK);
+    CHECK(!p.reference.pending && p.io.diagnostic_warm &&
+          p.fuel.idle_afr_ready && p.reference.sample_map);
+    CHECK(pcm_write8(&p,0x0002,0xcc)==PCM_OK && p.scheduler.phase==0xcc);
+    CHECK(pcm_write8(&p,0x0007,0xa4)==PCM_OK && p.iac.position==0xa4);
+    CHECK(pcm_write8(&p,0x0008,0xa5)==PCM_OK && p.iac.target==0xa5);
+    CHECK(pcm_write8(&p,0x000a,0xa6)==PCM_OK && p.iac.step_control==0xa6);
+
+    p.spark.rpm_high=0x12;p.spark.rpm_fraction=0x34;
+    p.reference.load_filtered=0x2345;p.reference.load_event=0x3456;
+    p.spark.command=0x4567;p.spark.command_latched=0x5678;
+    p.spark.composite=0x6789;p.fuel.corrected_pulse=0x789a;
+    p.reference.timer_pulse=0x89ab;p.reference.running_packet=0x9abc;
+    p.reference.crank_seed=0xabcd;p.fuel.pe_vehicle_change=0xbcde;
+    p.fuel.authorization_capture=0xcdef;p.iac.airflow=0xdef0;
+    const struct {uint16_t address, expected;} words[]={
+      {0x0063,0x1234},{0x0068,0x2345},{0x006a,0x3456},
+      {0x01ee,0x4567},{0x01f0,0x5678},{0x01fd,0x6789},
+      {0x024e,0x789a},{0x0250,0x89ab},{0x0254,0x9abc},
+      {0x02cf,0xabcd},{0x0818,0xbcde},{0x0851,0xcdef},{0x088b,0xdef0}
+    };
+    for(size_t i=0;i<sizeof(words)/sizeof(words[0]);++i){
+        uint16_t x=0;
+        uint16_t a=words[i].address;
+        CHECK(pcm_read16(&p,a,&x)==PCM_OK && x==words[i].expected);
+        CHECK(pcm_read8(&p,a,&v)==PCM_OK && v==(uint8_t)(x>>8));
+        CHECK(pcm_read8(&p,(uint16_t)(a+1u),&v)==PCM_OK &&
+              v==(uint8_t)x);
+        CHECK(pcm_write16(&p,a,0xaced)==PCM_OK);
+        CHECK(pcm_read16(&p,a,&x)==PCM_OK && x==0xaced);
+        CHECK(pcm_write8(&p,(uint16_t)(a+1u),0x42)==PCM_OK);
+        CHECK(pcm_read16(&p,a,&x)==PCM_OK && x==0xac42);
+        CHECK(f.provider[a]==0xac && f.provider[a+1u]==0x42);
+    }
+    CHECK(p.spark.rpm_high==0xac && p.spark.rpm_fraction==0x42);
+    CHECK(p.spark.command==0xac42 && p.spark.composite==0xac42);
+    CHECK(p.fuel.corrected_pulse==0xac42 && p.iac.airflow==0xac42);
+    f.fail_at=f.attempts+1;
+    CHECK(pcm_write16(&p,0x01fd,0x8899)==PCM_NO_HARDWARE);
+    CHECK(p.spark.composite==0xac42);
+}
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
     test_binding_is_opt_in();test_reset_and_word_alias();test_ignition_off_single_clear();
     test_gate_halt_and_failure_prefix();test_roundtrip_shared_bits();
     test_board_and_vss_named_ram();
+    test_engine_owners_and_aldl();
     puts("Fuel prelude canonical RAM provider aliases, split-word bytes and failure prefixes passed.");
     return 0;
 }
