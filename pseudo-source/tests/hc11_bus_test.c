@@ -1,5 +1,6 @@
 #include "hc11_bus.h"
 #include "hardware.h"
+#include "board_io.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
