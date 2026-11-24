@@ -73,6 +73,11 @@ HAL_ISR_GATE_COMMON:
         LDAA    #HAL_ISR_BASIC_PROOF
         STAA    HAL_ISR_PROOF
         JSR     HAL_ISR_C_ABI_CALL
+        ; The target C compiler MUST restore SP exactly. Merely receiving
+        ; an RTI success token cannot authorize return on a damaged stack.
+        TSX
+        CPX     HAL_ISR_CCR_ADDR_HI
+        BNE     HAL_ISR_GATE_FATAL
         LDAA    HAL_ISR_ACTION
         CMPA    #HAL_ISR_RETURN_TOKEN
         BNE     HAL_ISR_GATE_FATAL
