@@ -1,3 +1,13 @@
+## Native HC11 vector/entry contract — source complete, native ABI open
+
+The active branch now has the 21-vector source identity table checked
+against BMHM and both existing engine-off ASM11 vector tables, plus a
+host-tested C interrupt selection gate. It forbids unqualified saved
+frames, missing TOC3 stack qualification, and unresolved TOC4/5 output
+handlers. Reset and halt cases are native transfers rather than C
+functions. **No actual native C-call/RTI wrapper is installed yet.**
+See [native entry handoff](../pseudo-source/reference/home_stretch_readiness.md).
+
 ## Source-scoped literal fuel RAM writer coverage gate
 
 The development branch now checks every factory fuel direct low-RAM WRITE

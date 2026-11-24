@@ -31,6 +31,12 @@ if(BUILD_TESTING)
       platform/hc11_ram_sync.c)
   target_link_libraries(pcm_hc11_bus_tests PRIVATE pcm_pseudo_source)
   add_test(NAME hc11_bus_contracts COMMAND pcm_hc11_bus_tests)
+  add_executable(pcm_hc11_vector_tests
+      tests/hc11_vector_test.c platform/hc11_vector_contract.c)
+  target_link_libraries(pcm_hc11_vector_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME hc11_vector_contracts COMMAND pcm_hc11_vector_tests)
+  add_test(NAME hc11_native_vector_source_contract COMMAND
+      ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_hc11_native_vectors.py)
   add_test(NAME hardware_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_hardware_rom.py $<TARGET_FILE:pcm_hardware_tests>)
   add_executable(pcm_reference_event_tests tests/reference_event_test.c)
   target_link_libraries(pcm_reference_event_tests PRIVATE pcm_pseudo_source)

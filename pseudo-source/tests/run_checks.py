@@ -125,6 +125,14 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     subprocess.run([sys.executable,str(ROOT/'tests/check_provenance.py')],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/check_home_stretch.py')],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/check_fuel_ram_literal_writers.py')],check=True)
+    subprocess.run([sys.executable,str(ROOT/'tests/check_hc11_native_vectors.py')],check=True)
+    native_vector=Path(directory)/'pcm_hc11_vector_tests'
+    subprocess.run([*compiler,'-std=c11','-Wall','-Wextra','-Wpedantic','-Werror',
+                    '-I',str(ROOT/'include'),*[str(p) for p in sources],
+                    str(ROOT/'platform/hc11_vector_contract.c'),
+                    str(ROOT/'tests/hc11_vector_test.c'),
+                    '-o',str(native_vector)],check=True)
+    subprocess.run([str(native_vector)],check=True)
     if not args.contracts_only:
         for name,fixture,boundaries,contracts,suites in TARGETS:
             for suite in suites:

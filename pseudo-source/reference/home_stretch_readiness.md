@@ -81,3 +81,26 @@ development branch runs focused comparisons and quick gates, but its
 **complete combined-tree release regression is not yet verified**.
 The source-only consolidation changes no firmware calibration, BIN, XDF
 or ADX, and provides no target execution claim.
+
+## Native HC11 vector boundary — first integration slice
+
+`include/hc11_vector_map.def` records the **21 stock BMHM interrupt
+vector identities** with factory resident PCs and the C-side handler
+policy. `check_hc11_native_vectors.py` checks that data against the
+stock-ROM vector evidence CSV and the **two already-existing ASM11 ROM
+vector tables**. Both physical ROM tables still route non-reset
+vectors to the engine-off trap; no incomplete interrupt is enabled.
+
+`platform/hc11_vector_contract.c` provides a C-side dispatch contract
+for already resident SCI, SPI, REF, OC1, TOC3, XIRQ and fallback bodies,
+but only after a real native frame has been independently verified.
+It refuses TOC3 without its additional stack admission contract, XIRQ
+without a verified saved-CCR address, and both unresolved OC4/OC5
+output-timer interrupt bodies. It reports distinct RTI, native stack
+recovery, reset, halt and nonreturn boundaries; it **never executes RTI**.
+
+This closes source/ABI-interface inventory, not native ABI execution.
+No assumed compiler calling convention, completed HC11 interrupt
+prologue, native C/assembly linkage, flashable BIN, or real output
+authorization is claimed. The existing ASM11 bootstrap remains the
+source of the actual engine-off executable reset prelude.
