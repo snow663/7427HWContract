@@ -213,6 +213,57 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
         word=address==0x088b?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
                 (uint16_t)((word&0xff00u)|value);
         return pcm_fuel_ram_owner_write16(pcm,0x088b,word);
+    case 0x006c:pcm->spark.idle_derivative=value;return true;
+    case 0x0232:pcm->iac.runtime_high=value;return true;
+    case 0x0233:pcm->fuel.air_rate_fraction=value;return true;
+    case 0x0244:pcm->fuel.reduction_factor=value;return true;
+    case 0x0245:pcm->fuel.decel_timer=value;return true;
+    case 0x0246:pcm->fuel.decel_delay=value;return true;
+    case 0x0256:pcm->reference.additive_offset=value;return true;
+    case 0x0259:pcm->fuel.async_accumulator_high=value;return true;
+    case 0x025e:pcm->fuel.async_remainder=value;return true;
+    case 0x026a:pcm->fuel.cut_count=value;return true;
+    case 0x026f:pcm->fuel.feedback_encoded=value;return true;
+    case 0x027a:pcm->fuel.proportional=value;return true;
+    case 0x081d:pcm->fuel.acceleration_hold=value;return true;
+    case 0x082a:pcm->reference.split_clear=value;return true;
+    case 0x082b:pcm->fuel.throttle_drop=value;return true;
+    case 0x084d:pcm->fuel.qualification_count=value;return true;
+    case 0x0234:case 0x0235:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0234,&word);
+        word=address==0x0234?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0234,word);
+    case 0x0238:case 0x0239:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0238,&word);
+        word=address==0x0238?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0238,word);
+    case 0x023a:case 0x023b:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x023a,&word);
+        word=address==0x023a?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x023a,word);
+    case 0x0252:case 0x0253:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0252,&word);
+        word=address==0x0252?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0252,word);
+    case 0x025a:case 0x025b:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x025a,&word);
+        word=address==0x025a?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x025a,word);
+    case 0x025c:case 0x025d:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x025c,&word);
+        word=address==0x025c?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x025c,word);
+    case 0x081f:case 0x0820:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x081f,&word);
+        word=address==0x081f?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x081f,word);
     default:return ser_put(pcm,address,value);
     }
 }

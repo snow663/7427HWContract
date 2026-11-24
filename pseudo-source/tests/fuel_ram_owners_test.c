@@ -406,6 +406,117 @@ static void test_mixed_owner_word_transactions(void)
     CHECK(f.attempts==before+1 && p.serial.sessions==0x77 &&
           p.io.ac_mirror);
 }
+static void test_source_fuel_writer_owners(void)
+{
+    static Fixture f;Pcm p;init(&f,&p);
+    p.spark.idle_derivative=0x0020u;
+    p.iac.runtime_high=0x0021u;
+    p.fuel.air_rate_fraction=0x0022u;
+    p.fuel.reduction_factor=0x0023u;
+    p.fuel.decel_timer=0x0024u;
+    p.fuel.decel_delay=0x0025u;
+    p.reference.additive_offset=0x0026u;
+    p.fuel.async_accumulator_high=0x0027u;
+    p.fuel.async_remainder=0x0028u;
+    p.fuel.cut_count=0x0029u;
+    p.fuel.feedback_encoded=0x002au;
+    p.fuel.proportional=0x002bu;
+    p.fuel.acceleration_hold=0x002cu;
+    p.reference.split_clear=0x002du;
+    p.fuel.throttle_drop=0x002eu;
+    p.fuel.qualification_count=0x002fu;
+    p.fuel.air_charge=0x1200u;
+    p.fuel.displaced=0x1201u;
+    p.fuel.acceleration_reservoir=0x1202u;
+    p.fuel.egr_subtract=0x1203u;
+    p.fuel.async_accumulator_fraction=0x1204u;
+    p.fuel.async_quotient=0x1205u;
+    p.reference.timer_delay=0x1206u;
+    const struct {uint16_t a;uint8_t expected;} bytes[]={
+        {0x006cu,0x0020u},
+        {0x0232u,0x0021u},
+        {0x0233u,0x0022u},
+        {0x0244u,0x0023u},
+        {0x0245u,0x0024u},
+        {0x0246u,0x0025u},
+        {0x0256u,0x0026u},
+        {0x0259u,0x0027u},
+        {0x025eu,0x0028u},
+        {0x026au,0x0029u},
+        {0x026fu,0x002au},
+        {0x027au,0x002bu},
+        {0x081du,0x002cu},
+        {0x082au,0x002du},
+        {0x082bu,0x002eu},
+        {0x084du,0x002fu},
+    };
+    uint8_t b;uint16_t v;
+    for(size_t i=0;i<sizeof(bytes)/sizeof(bytes[0]);++i) {
+        uint16_t a=bytes[i].a;
+        CHECK(pcm_read8(&p,a,&b)==PCM_OK && b==bytes[i].expected);
+        CHECK(pcm_write8(&p,a,(uint8_t)(0x80u+i))==PCM_OK);
+        CHECK(pcm_read8(&p,a,&b)==PCM_OK && b==(uint8_t)(0x80u+i));
+        CHECK(f.provider[a]==(uint8_t)(0x80u+i));
+    }
+    CHECK(p.spark.idle_derivative==(uint8_t)(0x80u+0u));
+    CHECK(p.iac.runtime_high==(uint8_t)(0x80u+1u));
+    CHECK(p.fuel.air_rate_fraction==(uint8_t)(0x80u+2u));
+    CHECK(p.fuel.reduction_factor==(uint8_t)(0x80u+3u));
+    CHECK(p.fuel.decel_timer==(uint8_t)(0x80u+4u));
+    CHECK(p.fuel.decel_delay==(uint8_t)(0x80u+5u));
+    CHECK(p.reference.additive_offset==(uint8_t)(0x80u+6u));
+    CHECK(p.fuel.async_accumulator_high==(uint8_t)(0x80u+7u));
+    CHECK(p.fuel.async_remainder==(uint8_t)(0x80u+8u));
+    CHECK(p.fuel.cut_count==(uint8_t)(0x80u+9u));
+    CHECK(p.fuel.feedback_encoded==(uint8_t)(0x80u+10u));
+    CHECK(p.fuel.proportional==(uint8_t)(0x80u+11u));
+    CHECK(p.fuel.acceleration_hold==(uint8_t)(0x80u+12u));
+    CHECK(p.reference.split_clear==(uint8_t)(0x80u+13u));
+    CHECK(p.fuel.throttle_drop==(uint8_t)(0x80u+14u));
+    CHECK(p.fuel.qualification_count==(uint8_t)(0x80u+15u));
+    const struct {uint16_t a;uint16_t expected;} words[]={
+        {0x0234u,0x1200u},
+        {0x0238u,0x1201u},
+        {0x023au,0x1202u},
+        {0x0252u,0x1203u},
+        {0x025au,0x1204u},
+        {0x025cu,0x1205u},
+        {0x081fu,0x1206u},
+    };
+    for(size_t i=0;i<sizeof(words)/sizeof(words[0]);++i) {
+        uint16_t a=words[i].a;
+        CHECK(pcm_read16(&p,a,&v)==PCM_OK && v==words[i].expected);
+        CHECK(pcm_read8(&p,a,&b)==PCM_OK && b==(uint8_t)(v>>8));
+        CHECK(pcm_read8(&p,(uint16_t)(a+1u),&b)==PCM_OK && b==(uint8_t)v);
+        CHECK(pcm_write16(&p,a,(uint16_t)(0xa000u+i))==PCM_OK);
+        CHECK(pcm_read16(&p,a,&v)==PCM_OK && v==(uint16_t)(0xa000u+i));
+        CHECK(f.provider[a]==0xa0u && f.provider[a+1u]==(uint8_t)i);
+    }
+    CHECK(p.fuel.air_charge==(uint16_t)(0xa000u+0u));
+    CHECK(p.fuel.displaced==(uint16_t)(0xa000u+1u));
+    CHECK(p.fuel.acceleration_reservoir==(uint16_t)(0xa000u+2u));
+    CHECK(p.fuel.egr_subtract==(uint16_t)(0xa000u+3u));
+    CHECK(p.fuel.async_accumulator_fraction==(uint16_t)(0xa000u+4u));
+    CHECK(p.fuel.async_quotient==(uint16_t)(0xa000u+5u));
+    CHECK(p.reference.timer_delay==(uint16_t)(0xa000u+6u));
+    /* Two physical word stores overlap independent existing C owners. */
+    p.iac.runtime_high=0x23u;p.fuel.air_rate_fraction=0x32u;
+    CHECK(pcm_read16(&p,0x0232u,&v)==PCM_OK && v==0x2332u);
+    CHECK(pcm_write16(&p,0x0232u,0xabbcu)==PCM_OK);
+    CHECK(p.iac.runtime_high==0xabu && p.fuel.air_rate_fraction==0xbcu);
+    p.fuel.async_accumulator_high=0x12u;
+    p.fuel.async_accumulator_fraction=0x3456u;
+    CHECK(pcm_read16(&p,0x0259u,&v)==PCM_OK && v==0x1234u);
+    CHECK(pcm_write16(&p,0x0259u,0xaabbu)==PCM_OK);
+    CHECK(p.fuel.async_accumulator_high==0xaau &&
+          p.fuel.async_accumulator_fraction==0xbb56u);
+    CHECK(pcm_write16(&p,0x025au,0x7788u)==PCM_OK);
+    CHECK(pcm_read16(&p,0x0259u,&v)==PCM_OK && v==0xaa77u);
+    f.fail_at=f.attempts+1;
+    CHECK(pcm_write16(&p,0x0259u,0xffffu)==PCM_NO_HARDWARE);
+    CHECK(p.fuel.async_accumulator_high==0xaau &&
+          p.fuel.async_accumulator_fraction==0x7788u);
+}
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
@@ -415,6 +526,7 @@ int main(int argc,char **argv)
     test_engine_owners_and_aldl();
     test_serial_owner_unification();
     test_mixed_owner_word_transactions();
+    test_source_fuel_writer_owners();
     puts("Fuel prelude canonical RAM provider aliases, split-word bytes and failure prefixes passed.");
     return 0;
 }

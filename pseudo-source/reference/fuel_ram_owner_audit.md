@@ -250,3 +250,26 @@ windows, partial physical failure and retry. This is an
 a target must decide exactly when to call it and must verify physical
 RAM backing, IRQ exclusion and native cycle budgets. It does not
 publish injector, EST, IAC or other peripheral outputs.
+
+## Fuel direct RAM-writer alias closure (source-scoped)
+
+From `maps/structure/factory_fuel_memory_accesses.csv`, the opt-in
+named adapter now binds 22 additional literal fuel-write starting
+addresses: $006C, $0232/$0234/$0238/$023A, $0244–$0246,
+$0252/$0256/$0259/$025A/$025C/$025E, $026A/$026F/$027A,
+$081D/$081F/$082A/$082B, and $084D. Seven are whole-word typed
+owners and sixteen are byte fields (some addresses overlap word reads).
+Each binding is to an existing `Pcm` field documented in the source
+and independent fuel/reference/delivery test fixtures.
+
+The word store at $0232 spans `iac.runtime_high` and
+`fuel.air_rate_fraction`. The $0259 word spans
+`fuel.async_accumulator_high` and the high byte of the separate
+$025A `fuel.async_accumulator_fraction` word. Both use the
+mixed-byte transaction path, **not** competing C word fields.
+New tests verify full-word and split-byte reads, writes, overlapping
+words, canonical field updates and physical-write failure prefixes.
+
+This closes only the *explicit literal* low-RAM writes in the selected
+fuel source inventory; indexed/dynamic ROM writes, interrupts, external
+backing and all-state behavior require separate verification.

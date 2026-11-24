@@ -31,6 +31,13 @@ bool pcm_fuel_ram_owner_write16(Pcm *pcm,uint16_t address,uint16_t value)
     case 0x0362:pcm->serial.descriptor=value;return true;
     case 0x0368:pcm->serial.service_age=value;return true;
     case 0x036a:pcm->serial.service_expiry=value;return true;
+    case 0x0234:pcm->fuel.air_charge=value;return true;
+    case 0x0238:pcm->fuel.displaced=value;return true;
+    case 0x023a:pcm->fuel.acceleration_reservoir=value;return true;
+    case 0x0252:pcm->fuel.egr_subtract=value;return true;
+    case 0x025a:pcm->fuel.async_accumulator_fraction=value;return true;
+    case 0x025c:pcm->fuel.async_quotient=value;return true;
+    case 0x081f:pcm->reference.timer_delay=value;return true;
     default: {
         uint8_t high, low;
         if (address != 0xffffu && ser_get(pcm,address,&high) &&

@@ -27,6 +27,13 @@ bool pcm_fuel_ram_owner_read16(const Pcm *pcm,uint16_t address,uint16_t *out)
     case 0x0818:*out=pcm->fuel.pe_vehicle_change;return true;
     case 0x0851:*out=pcm->fuel.authorization_capture;return true;
     case 0x088b:*out=pcm->iac.airflow;return true;
+    case 0x0234:*out=pcm->fuel.air_charge;return true;
+    case 0x0238:*out=pcm->fuel.displaced;return true;
+    case 0x023a:*out=pcm->fuel.acceleration_reservoir;return true;
+    case 0x0252:*out=pcm->fuel.egr_subtract;return true;
+    case 0x025a:*out=pcm->fuel.async_accumulator_fraction;return true;
+    case 0x025c:*out=pcm->fuel.async_quotient;return true;
+    case 0x081f:*out=pcm->reference.timer_delay;return true;
     default: {
         uint8_t high, low;
         if (address != 0xffffu && ser_get(pcm,address,&high) &&
