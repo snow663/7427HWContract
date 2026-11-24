@@ -210,3 +210,43 @@ The two C-field writes are logical state updates, **not** a claim that
 an HC11 word write or interrupt interleaving is atomic. Cross-byte
 interrupt synchronization and true physical memory backing remain
 separate target validation.
+
+## Verified-critical-section internal RAM publication
+
+The opt-in `pcm_ram_sync_publish()` is a narrowly scoped bridge for
+**direct C-field changes that must become physical internal RAM bytes**.
+It accepts an explicitly ordered, non-overlapping list of named byte or
+word addresses and a target-provided `verify_exclusive` callback.
+The callback must establish that all competing state writers and IRQs
+are excluded across the entire function. The module itself never issues
+an unsafe unconditional CLI/SEI or invents restoration of the CCR.
+
+Before ANY bus read or write, it validates the entire list: each address
+is inside **$0000..$03FF**, backed by a named owner, and the requested
+mask is a subset of that owner's verified bits. The owned mask is
+calculated using the existing residual contract: compare owner overlay
+results for raw backing $00 versus $FF; bits independent of backing
+are owned, and all other bits are deliberately preserved. Whole-word
+requests require an existing `pcm_fuel_ram_owner_read16` owner and
+mask $FFFF. External GEN, conditional EEPROM, ROM and all board/ASIC
+addresses are rejected—even where the host fixture grants that bus
+window.
+
+With the critical guard satisfied, it calls only the **raw**
+`PcmPlatform.read8/write8/read16/write16` callbacks. This is
+intentional: `pcm_read8/16` already overlay named C fields and would
+hide stale physical storage. It stages current physical data, merges
+source-owned bits without disturbing unowned flags, skips unchanged
+values and publishes with one provider transaction per changed entry.
+After failure, a report records which entry failed and how many earlier
+writes succeeded; retrying from the beginning is idempotent. No
+duplicate RAM mirror or heap buffer is created.
+
+Tests cover $003A shared flags, $0041–$0042 overlapping IAC/serial
+ownership, $00FD counter word, unknown-bit preservation, no-op
+republication, denied guard, malformed masks, forbidden external
+windows, partial physical failure and retry. This is an
+**explicit checkpoint mechanism**, not automatic cache coherence:
+a target must decide exactly when to call it and must verify physical
+RAM backing, IRQ exclusion and native cycle budgets. It does not
+publish injector, EST, IAC or other peripheral outputs.

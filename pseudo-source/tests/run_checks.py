@@ -105,6 +105,7 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
     # Keep it outside the 413-routine indexed factory pseudo-source inventory.
     bus_sources=[
         ROOT/'platform/hc11_bus.c',ROOT/'platform/hc11_native_mmio.c',
+        ROOT/'platform/hc11_ram_sync.c',
         ROOT/'src/drivers/read8.c',ROOT/'src/drivers/read16.c',
         ROOT/'src/drivers/write8.c',ROOT/'src/drivers/write16.c',
         ROOT/'src/drivers/update8.c',

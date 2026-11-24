@@ -1,4 +1,5 @@
 #include "hc11_bus.h"
+#include "hc11_ram_sync.h"
 #include "hardware.h"
 #include "board_io.h"
 #include "serial.h"
@@ -302,6 +303,99 @@ static void test_aldl_logical_address_coherence(void)
           p.serial.receive[0]==0x82);
     CHECK(pcm_serial_memory_read8(&p,0x036c,&byte)==PCM_OK && byte==0x82);
 }
+static PcmStatus fake_exclusive(void *context)
+{
+    Fake *f=context;
+    return f->irq_masked ? PCM_OK : PCM_NO_HARDWARE;
+}
+static void test_publish_explicit_internal_ram(void)
+{
+    static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
+    init(&f,&bus,&platform,&p,true);
+    platform.bind_fuel_ram_owners=true;
+    PcmRamSyncGuard guard={&f,fake_exclusive};
+    PcmRamSyncReport report={0};
+    const PcmRamSyncEntry entries[]={
+        {0x003au,1u,0x6fu}, /* partial owner; unknown flags retained */
+        {0x0041u,1u,0x38u}, /* shared flags and residual */
+        {0x0042u,1u,0xffu}, /* session byte */
+        {0x00fdu,2u,0xffffu} /* run counter logical word */
+    };
+    p.scheduler.pending=true;
+    p.runtime.adc_fault=true;
+    p.iac.park_neutral=true;
+    p.fuel.ac_enrichment_seen=true;
+    p.serial.sessions=0x5au;
+    p.scheduler.run_counter=0x1234u;
+    f.ram[0x003a]=0x90u;f.ram[0x0041]=0x83u;
+    f.ram[0x0042]=0x00u;
+    f.ram[0x00fd]=0x11u;f.ram[0x00fe]=0x22u;
+    CHECK(pcm_ram_sync_publish(&p,entries,4u,&guard,&report)==PCM_NO_HARDWARE);
+    CHECK(f.calls==0 && report.written==0 && report.failed_index==0);
+    CHECK(pcm_mask_irq(&p,true)==PCM_OK);
+    CHECK(pcm_ram_sync_publish(&p,entries,4u,&guard,&report)==PCM_OK);
+    CHECK(report.examined==4 && report.written==4 &&
+          report.already_equal==0 && report.failed_index==4);
+    CHECK(f.ram[0x003a]==0xb1u); /* original bits 7/4 preserved */
+    CHECK(f.ram[0x0041]==0xabu);
+    CHECK(f.ram[0x0042]==0x5au);
+    CHECK(f.ram[0x00fd]==0x12u && f.ram[0x00fe]==0x34u);
+    CHECK(f.irq_masked); /* no accidental CLI */
+    unsigned before=f.calls;
+    CHECK(pcm_ram_sync_publish(&p,entries,4u,&guard,&report)==PCM_OK);
+    CHECK(report.written==0 && report.already_equal==4 &&
+          f.calls==before+4);
+    const PcmRamSyncEntry bad_mask[]={{0x0041u,1u,0x80u}};
+    before=f.calls;
+    CHECK(pcm_ram_sync_publish(&p,bad_mask,1u,&guard,&report)==PCM_BAD_CONFIGURATION);
+    CHECK(f.calls==before);
+    const PcmRamSyncEntry unknown[]={{0x0040u,1u,0xffu}};
+    CHECK(pcm_ram_sync_publish(&p,unknown,1u,&guard,&report)==PCM_BAD_CONFIGURATION);
+    const PcmRamSyncEntry bad_region[]={{0x3060u,1u,0xffu}};
+    CHECK(pcm_ram_sync_publish(&p,bad_region,1u,&guard,&report)==PCM_NO_HARDWARE);
+    const PcmRamSyncEntry external[]={{0x0812u,2u,0xffffu}};
+    CHECK(pcm_ram_sync_publish(&p,external,1u,&guard,&report)==PCM_NO_HARDWARE);
+    const PcmRamSyncEntry overlap[]={{0x0041u,2u,0xffffu},
+                                     {0x0042u,1u,0xffu}};
+    CHECK(pcm_ram_sync_publish(&p,overlap,2u,&guard,&report)==PCM_BAD_CONFIGURATION);
+    CHECK(f.calls==before);
+    CHECK(pcm_mask_irq(&p,false)==PCM_OK);
+}
+
+static void test_publish_fault_prefix_and_retry(void)
+{
+    static Fake f;PcmHc11Bus bus;PcmPlatform platform;Pcm p;
+    init(&f,&bus,&platform,&p,true);
+    platform.bind_fuel_ram_owners=true;
+    PcmRamSyncGuard guard={&f,fake_exclusive};
+    PcmRamSyncReport report={0};
+    const PcmRamSyncEntry entries[]={
+        {0x0042u,1u,0xffu},{0x00fdu,2u,0xffffu}
+    };
+    p.serial.sessions=0x91u;
+    p.scheduler.run_counter=0xa5c3u;
+    CHECK(pcm_mask_irq(&p,true)==PCM_OK);
+    /* Call sequence: read8, write8, read16, [fail] write16.
+     * First byte must remain committed, while word remains stale. */
+    f.failures=4u;
+    CHECK(pcm_ram_sync_publish(&p,entries,2u,&guard,&report)==PCM_NO_HARDWARE);
+    CHECK(report.examined==2 && report.written==1 &&
+          report.failed_index==1);
+    CHECK(f.ram[0x0042]==0x91u && f.ram[0x00fd]==0x00u &&
+          f.ram[0x00fe]==0x00u);
+    CHECK(p.serial.sessions==0x91u && p.scheduler.run_counter==0xa5c3u);
+    f.failures=0;
+    CHECK(pcm_ram_sync_publish(&p,entries,2u,&guard,&report)==PCM_OK);
+    CHECK(report.written==1 && report.already_equal==1);
+    CHECK(f.ram[0x00fd]==0xa5u && f.ram[0x00fe]==0xc3u);
+    /* Dirty failed read cannot result in a physical write. */
+    f.corrupt_failed_reads=true;
+    f.failures=f.calls+1;
+    p.serial.sessions=0x7bu;
+    CHECK(pcm_ram_sync_publish(&p,entries,2u,&guard,&report)==PCM_NO_HARDWARE);
+    CHECK(report.written==0 && f.ram[0x0042]==0x91u);
+    CHECK(pcm_mask_irq(&p,false)==PCM_OK);
+}
 static void test_native_is_fail_closed_on_host(void)
 {
 #ifndef PCM_HC11_NATIVE_MMIO
@@ -320,6 +414,8 @@ int main(void)
     test_real_board_path_denied_tail();
     test_failed_reads_never_publish();
     test_mixed_word_via_bus();
+    test_publish_explicit_internal_ram();
+    test_publish_fault_prefix_and_retry();
     test_aldl_logical_address_coherence();
     test_native_is_fail_closed_on_host();
     puts("HC11 mapped bus: explicit grants, fail-closed hardware writes, word width, RAM owners and failure prefixes passed.");

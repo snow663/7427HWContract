@@ -1,3 +1,14 @@
+## Direct named-state to internal RAM publication — development-only
+
+A new [guarded internal RAM publication interface](../pseudo-source/reference/physical_bus_contract.md)
+can push selected direct C-owner updates to already-granted
+**internal** $0000–$03FF backing, using explicit owned-bit masks and one
+raw byte/word transaction. It fails closed if the caller cannot prove
+an exclusive IRQ/writer critical section; it rejects external GEN, ROM,
+EEPROM and peripheral addresses and preserves successful failure
+prefixes. This is host validation only: no native HC11 critical-section
+shim or physical board evidence is claimed.
+
 # Working state
 
 This is the single live project-state index for 7427HWContract. Detailed
