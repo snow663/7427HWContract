@@ -62,6 +62,14 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
         b=(uint8_t)(pcm->io.map_context&0xfeu);
         BIT(b,0x01u,pcm->io.map_transient);
         break;
+    case 0x004b:
+        b=(uint8_t)(pcm->io.output_context&0x6fu);
+        BIT(b,0x10u,pcm->spark.output_request);
+        BIT(b,0x80u,pcm->iac.kicker_request);
+        break;
+    case 0x004c:b=pcm->transmission.output_shadow;break;
+    case 0x004d:b=pcm->iac.input_shadow;break;
+    case 0x004e:b=pcm->io.auxiliary_output;break;
     case 0x004f:
         b&=(uint8_t)~0xfdu;
         BIT(b,0x80u,pcm->runtime.spark_running);
@@ -108,6 +116,7 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
     case 0x02cd:b=pcm->reference.crank_references;break;
     case 0x02ce:b=pcm->reference.event_age;break;
     case 0x0299:b=pcm->transmission.governor_requested_throttle;break;
+    case 0x0811:b=pcm->io.vss_age;break;
     case 0x00fd:case 0x00fe:
         (void)pcm_fuel_ram_owner_read16(pcm,0x00fd,&word);
         b=address==0x00fd?(uint8_t)(word>>8):(uint8_t)word;break;
@@ -120,6 +129,15 @@ bool pcm_fuel_ram_owner_read8(const Pcm *pcm,uint16_t address,uint8_t residual,u
     case 0x01d2:case 0x01d3:
         (void)pcm_fuel_ram_owner_read16(pcm,0x01d2,&word);
         b=address==0x01d2?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x0284:case 0x0285:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0284,&word);
+        b=address==0x0284?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x080f:case 0x0810:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x080f,&word);
+        b=address==0x080f?(uint8_t)(word>>8):(uint8_t)word;break;
+    case 0x0812:case 0x0813:
+        (void)pcm_fuel_ram_owner_read16(pcm,0x0812,&word);
+        b=address==0x0812?(uint8_t)(word>>8):(uint8_t)word;break;
     default:return false;
     }
     *out=b;

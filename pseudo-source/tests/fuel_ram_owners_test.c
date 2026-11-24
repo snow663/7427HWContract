@@ -198,11 +198,60 @@ static void test_binding_is_opt_in(void)
     CHECK(pcm_write8(&p,0x004f,0)==PCM_OK);
     CHECK(!p.runtime.fuel_running && !p.runtime.spark_running);
 }
+static void test_board_and_vss_named_ram(void)
+{
+    static Fixture f;Pcm p;init(&f,&p);
+    p.io.output_context=0x21;
+    p.spark.output_request=true;
+    p.iac.kicker_request=true;
+    p.transmission.output_shadow=0xa5;
+    p.iac.input_shadow=0x43;
+    p.io.auxiliary_output=0x56;
+    uint8_t b;
+    CHECK(pcm_read8(&p,0x004b,&b)==PCM_OK && b==0xb1);
+    CHECK(pcm_read8(&p,0x004c,&b)==PCM_OK && b==0xa5);
+    CHECK(pcm_read8(&p,0x004d,&b)==PCM_OK && b==0x43);
+    CHECK(pcm_read8(&p,0x004e,&b)==PCM_OK && b==0x56);
+    CHECK(pcm_write8(&p,0x004b,0x4fu)==PCM_OK);
+    CHECK(p.io.output_context==0x4fu && !p.spark.output_request &&
+          !p.iac.kicker_request);
+    CHECK(pcm_write8(&p,0x004c,0x77)==PCM_OK &&
+          p.transmission.output_shadow==0x77);
+    CHECK(pcm_write8(&p,0x004d,0x88)==PCM_OK &&
+          p.iac.input_shadow==0x88);
+    CHECK(pcm_write8(&p,0x004e,0x99)==PCM_OK &&
+          p.io.auxiliary_output==0x99);
+    p.spark.vehicle_speed_high=0x66;
+    p.io.vehicle_speed_fraction=0x77;
+    p.io.vss_previous=0x1122;
+    p.io.vss_raw=0x3344;
+    p.io.vss_age=0x55;
+    uint16_t word;
+    CHECK(pcm_read16(&p,0x0284,&word)==PCM_OK && word==0x6677);
+    CHECK(pcm_read16(&p,0x080f,&word)==PCM_OK && word==0x1122);
+    CHECK(pcm_read16(&p,0x0812,&word)==PCM_OK && word==0x3344);
+    CHECK(pcm_read8(&p,0x0811,&b)==PCM_OK && b==0x55);
+    CHECK(pcm_write16(&p,0x0284,0xabcd)==PCM_OK &&
+          p.spark.vehicle_speed_high==0xab &&
+          p.io.vehicle_speed_fraction==0xcd);
+    CHECK(pcm_write8(&p,0x0285,0xef)==PCM_OK &&
+          p.spark.vehicle_speed_high==0xab &&
+          p.io.vehicle_speed_fraction==0xef);
+    CHECK(pcm_write16(&p,0x080f,0x1234)==PCM_OK &&
+          p.io.vss_previous==0x1234);
+    CHECK(pcm_write16(&p,0x0812,0x5678)==PCM_OK && p.io.vss_raw==0x5678);
+    CHECK(pcm_write8(&p,0x0813,0x9a)==PCM_OK && p.io.vss_raw==0x569a);
+    CHECK(pcm_write8(&p,0x0811,0x33)==PCM_OK && p.io.vss_age==0x33);
+    f.fail_at=f.attempts+1;
+    CHECK(pcm_write16(&p,0x0812,0xf00d)==PCM_NO_HARDWARE);
+    CHECK(p.io.vss_raw==0x569a);
+}
 int main(int argc,char **argv)
 {
     if(argc==2 && strcmp(argv[1],"--contracts")!=0)return 2;
     test_binding_is_opt_in();test_reset_and_word_alias();test_ignition_off_single_clear();
     test_gate_halt_and_failure_prefix();test_roundtrip_shared_bits();
+    test_board_and_vss_named_ram();
     puts("Fuel prelude canonical RAM provider aliases, split-word bytes and failure prefixes passed.");
     return 0;
 }

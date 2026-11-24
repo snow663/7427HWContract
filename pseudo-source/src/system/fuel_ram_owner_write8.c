@@ -46,6 +46,13 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
     case 0x0047:
         pcm->io.map_context=(uint8_t)(value&0xfeu);
         OWNED_BOOL(pcm->io.map_transient,0x01u);return true;
+    case 0x004b:
+        pcm->io.output_context=(uint8_t)(value&0x6fu);
+        OWNED_BOOL(pcm->spark.output_request,0x10u);
+        OWNED_BOOL(pcm->iac.kicker_request,0x80u);return true;
+    case 0x004c:pcm->transmission.output_shadow=value;return true;
+    case 0x004d:pcm->iac.input_shadow=value;return true;
+    case 0x004e:pcm->io.auxiliary_output=value;return true;
     case 0x004f:
         OWNED_BOOL(pcm->runtime.spark_running,0x80u);
         OWNED_BOOL(pcm->spark.startup_gain_enabled,0x40u);
@@ -84,6 +91,7 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
     case 0x02cd:pcm->reference.crank_references=value;return true;
     case 0x02ce:pcm->reference.event_age=value;return true;
     case 0x0299:pcm->transmission.governor_requested_throttle=value;return true;
+    case 0x0811:pcm->io.vss_age=value;return true;
     case 0x00fd:case 0x00fe:
         word=pcm->scheduler.run_counter;
         word=address==0x00fd?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
@@ -104,6 +112,22 @@ bool pcm_fuel_ram_owner_write8(Pcm *pcm,uint16_t address,uint8_t value)
         word=address==0x01d2?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
                 (uint16_t)((word&0xff00u)|value);
         return pcm_fuel_ram_owner_write16(pcm,0x01d2,word);
+    case 0x0284:case 0x0285:
+        word=(uint16_t)(((uint16_t)pcm->spark.vehicle_speed_high<<8)|
+                        pcm->io.vehicle_speed_fraction);
+        word=address==0x0284?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0284,word);
+    case 0x080f:case 0x0810:
+        word=pcm->io.vss_previous;
+        word=address==0x080f?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x080f,word);
+    case 0x0812:case 0x0813:
+        word=pcm->io.vss_raw;
+        word=address==0x0812?(uint16_t)(((uint16_t)value<<8)|(word&255u)):
+                (uint16_t)((word&0xff00u)|value);
+        return pcm_fuel_ram_owner_write16(pcm,0x0812,word);
     default:return false;
     }
 }

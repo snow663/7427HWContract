@@ -9,7 +9,7 @@
 } } while (0)
 
 typedef struct {
-    uint8_t ram[0x400], registers[0x60], board1[0x10], board2[0x40], rom[0x10];
+    uint8_t ram[0x400], external_gen[5], registers[0x60], board1[0x10], board2[0x40], rom[0x10];
     unsigned calls, failures, auth_calls, deny_auth;
     uint16_t last_address, last_value;
     unsigned last_width;
@@ -21,6 +21,7 @@ typedef struct {
 static uint8_t *cell(Fake *f, uint16_t a)
 {
     if (a <= 0x03ffu) return &f->ram[a];
+    if (a >= 0x080fu && a <= 0x0813u) return &f->external_gen[a-0x080fu];
     if (a >= 0x3000u && a <= 0x305fu) return &f->registers[a-0x3000u];
     if (a >= 0x3060u && a <= 0x306fu) return &f->board1[a-0x3060u];
     if (a >= 0x3fc0u && a <= 0x3fffu) return &f->board2[a-0x3fc0u];
@@ -83,6 +84,7 @@ static PcmStatus fake_irq(void *context,bool masked)
 }
 static const PcmHc11Window windows[]={
     {0x0000,0x03ff,PCM_HC11_INTERNAL_RAM,PCM_HC11_R8|PCM_HC11_W8|PCM_HC11_R16|PCM_HC11_W16},
+    {0x080f,0x0813,PCM_HC11_EXTERNAL_GEN,PCM_HC11_R8|PCM_HC11_W8|PCM_HC11_R16|PCM_HC11_W16},
     {0x3000,0x305f,PCM_HC11_CPU_REGISTERS,PCM_HC11_R8|PCM_HC11_W8|PCM_HC11_R16|PCM_HC11_W16},
     {0x3060,0x306f,PCM_HC11_BOARD_IO1,PCM_HC11_R8|PCM_HC11_W8|PCM_HC11_R16|PCM_HC11_W16},
     {0x3fc0,0x3fff,PCM_HC11_BOARD_IO2,PCM_HC11_R8|PCM_HC11_W8|PCM_HC11_R16|PCM_HC11_W16},
@@ -117,6 +119,7 @@ static void test_regions_and_guard(void)
     CHECK(pcm_hc11_classify(0x3fce)==PCM_HC11_BOARD_IO2);
     CHECK(pcm_hc11_classify(0x4000)==PCM_HC11_PROGRAM_IMAGE);
     uint8_t value=0x5a;
+    CHECK(pcm_read8(&p,0x0800,&value)==PCM_NO_HARDWARE);
     CHECK(pcm_read8(&p,0x1800,&value)==PCM_NO_HARDWARE && value==0x5a);
     CHECK(pcm_read8(&p,0x0f00,&value)==PCM_NO_HARDWARE);
     CHECK(pcm_read8(&p,0x2000,&value)==PCM_NO_HARDWARE);
@@ -182,6 +185,12 @@ static void test_canonical_ram_aliases(void)
     CHECK(pcm_update8(&p,0x4f,0x80,0)==PCM_OK);
     CHECK(!p.runtime.spark_running && p.runtime.fuel_running);
     CHECK((f.ram[0x4f]&2u)!=0);
+    p.io.vss_raw=0x1122u;
+    CHECK(pcm_read16(&p,0x0812,&word)==PCM_OK && word==0x1122u);
+    CHECK(pcm_write16(&p,0x0812,0x5678u)==PCM_OK);
+    CHECK(p.io.vss_raw==0x5678u && f.external_gen[3]==0x56u &&
+          f.external_gen[4]==0x78u);
+    CHECK(pcm_write8(&p,0x0813,0x9au)==PCM_OK && p.io.vss_raw==0x569au);
 }
 static void test_window_validation(void)
 {
@@ -200,7 +209,8 @@ static void test_window_validation(void)
         {0x4000,0x400f,PCM_HC11_PROGRAM_IMAGE,PCM_HC11_W8}
     };
     CHECK(pcm_hc11_bus_bind(&bus,&clean,&io,rom_write,1)==PCM_BAD_CONFIGURATION);
-    CHECK(pcm_hc11_bus_bind(&bus,&platform,&io,windows,5)==PCM_BAD_CONFIGURATION);
+    CHECK(pcm_hc11_bus_bind(&bus,&platform,&io,windows,
+                            sizeof(windows)/sizeof(windows[0]))==PCM_BAD_CONFIGURATION);
     (void)p;
 }
 static void test_real_board_path_denied_tail(void)

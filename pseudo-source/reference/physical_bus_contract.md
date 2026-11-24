@@ -99,3 +99,15 @@ Host CMake/CTest and `tests/run_checks.py` both run these contracts.
 
 **No target BIN exists from this backend commit; hardware contract
 completeness is not claimed.**
+
+## Canonical RAM bridge expansion (same development batch)
+
+The existing opt-in named-owner adapter now additionally binds the complete
+board output/input shadow bytes $004B–$004E and source-verified VSS data:
+filtered $0284/$0285 (shared spark high + I/O fraction), previous VSS
+$080F/$0810, age $0811, and raw VSS $0812/$0813. These owners follow
+`pcm_board_ports`, `pcm_vss_calculate` and `pcm_vss_filter` in current C
+source. The $080F..$0813 region is explicitly granted **only in the host
+fixture**, not declared fitted RAM on the real board. Byte/word overlap and
+backing-failure tests run through both the existing fuel-owner gate and the
+new HC11 provider. This remains a partial bridge pending a full access ledger.

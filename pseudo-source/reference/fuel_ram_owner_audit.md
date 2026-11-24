@@ -115,3 +115,23 @@ records3,096 selected full-entry/retained-history comparisons, and the
 validation. PR48's resident controller is now the default; the independent
 closure cycle requires both research flags. Exhaustive interrupt interleavings,
 external machine modules and physical target binding remain separate work.
+
+## Extension: board shadows and VSS owners (2026-11-23)
+
+After the physical bus bridge was added, the opt-in adapter gained these
+source-verified owners without changing its default OFF state:
+
+| Logical address | Canonical C owner | Source / note |
+| --- | --- | --- |
+| $004B | `io.output_context` on mask $6F + `spark.output_request` bit4 + `iac.kicker_request` bit7 | `pcm_board_ports`; full byte |
+| $004C | `transmission.output_shadow` | Full published board output shadow; overlaps IAC phase context |
+| $004D | `iac.input_shadow` | Sampled from $3064 |
+| $004E | `io.auxiliary_output` | Published at $3067 |
+| $0284–$0285 | `spark.vehicle_speed_high` + `io.vehicle_speed_fraction` | Big-endian filtered VSS, common spark/IAC consumer |
+| $080F–$0810 | `io.vss_previous` | Big-endian previous timestamp |
+| $0811 | `io.vss_age` | VSS age byte |
+| $0812–$0813 | `io.vss_raw` | Big-endian raw VSS from `pcm_vss_calculate` |
+
+This is strictly an **alias ownership** extension. It neither proves
+physical backing at external GEN addresses nor authorizes board writes.
+The hardware bus still requires explicit grants and board-safe policies.
