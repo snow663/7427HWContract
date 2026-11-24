@@ -51,3 +51,31 @@ Run the composition gate's independent synthetic fixtures:
 ```sh
 python3 -m unittest discover -s pseudo-source/native/tests -v
 ```
+
+## Real MC68HC11 compiler admission probe
+
+Use `verify_hc11_toolchain.py` before attempting the image composer.
+It requires a **real m6811-target GCC** and matching `nm/objdump` tools
+(e.g. the established `m6811-elf-*` toolchain family, not ordinary
+x86_64 GCC). It compiles a C ABI sanity probe and the actual
+`pcm_hc11_c_entry`, mailbox and C vector code, then verifies object
+machine identity and exact callable C symbol.
+
+The probe enforces 8-bit chars, 16-bit unsigned/uint16_t and two-byte
+pointers and exports target-compiled `sizeof(Pcm)`,
+`sizeof(PcmPlatform)` and `sizeof(PcmCalibration)` values for ROM/RAM
+layout analysis. An **optional** `--all-sources` mode compiles every
+resident pseudo-source C file to separate native objects without linking,
+showing which source files still need a target-compatible adjustment.
+
+```sh
+python3 pseudo-source/native/verify_hc11_toolchain.py \
+  --cc m6811-elf-gcc --nm m6811-elf-nm \
+  --objdump m6811-elf-objdump \
+  --out build/hc11-native-probe --all-sources
+```
+
+This tool requires the compiler to be installed; it does not download
+or silently substitute a host compiler. A successful compile is **not**
+evidence of enough target RAM or stack, and cannot produce an executable
+image until the native link/placement and ASM11/C integration are built.
