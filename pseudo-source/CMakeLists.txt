@@ -23,6 +23,12 @@ if(BUILD_TESTING)
   add_executable(pcm_hardware_tests tests/hardware_test.c)
   target_link_libraries(pcm_hardware_tests PRIVATE pcm_pseudo_source)
   add_test(NAME hardware_contracts COMMAND pcm_hardware_tests)
+  # Physical-window provider lives outside src/ to avoid inventing another
+  # factory public routine. No target BIN is built by this host test.
+  add_executable(pcm_hc11_bus_tests
+      tests/hc11_bus_test.c platform/hc11_bus.c platform/hc11_native_mmio.c)
+  target_link_libraries(pcm_hc11_bus_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME hc11_bus_contracts COMMAND pcm_hc11_bus_tests)
   add_test(NAME hardware_rom_differential COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_hardware_rom.py $<TARGET_FILE:pcm_hardware_tests>)
   add_executable(pcm_reference_event_tests tests/reference_event_test.c)
   target_link_libraries(pcm_reference_event_tests PRIVATE pcm_pseudo_source)

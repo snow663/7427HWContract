@@ -9,6 +9,22 @@ remaining call graphs and verification limits at `1ecbc4e`. The
 [2026-11-17 development audit](../pseudo-source/reference/development_audit_2026-11-17.md)
 retains historical milestone evidence. Target validation remains separate.
 
+## Physical address-space provider — first implementation
+
+Development now contains a target-facing HC11 bus bridge with source-grounded
+resource partitions, immutable address-window grants, exact-width physical
+read/write callbacks and mandatory authorization for every non-internal-RAM
+write. This is tested with real `pcm_read/write` drivers and existing
+opt-in canonical RAM owners, including split words, masked flags, refused
+device writes and injected bus faults. Native MMIO primitives are host-disabled
+unless selected by an actual HC11 target build; unverified optional-module
+addresses are not granted by default. See
+[physical bus contract](../pseudo-source/reference/physical_bus_contract.md).
+This closes an interface **slice**, not the full RAM/ASIC target backend:
+native register semantics, complete owner/ALDL aliases, output interlock,
+interrupt/stack ABI, physical decode, timing, and flashable BIN remain open.
+All work stays on `work/pseudo-source-development`; `main` is unchanged.
+
 ## Home-stretch consolidation — 2026-11-23
 
 The canonical default fuel and slot01 source routes, eight unresolved

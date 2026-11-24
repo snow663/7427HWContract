@@ -15,6 +15,12 @@ AIR and purge outputs, samples MAT and runs fault monitoring, logging and lamp
 control. Five fast current/transmission groups, native entry and vectors,
 target linker layout and the physical hardware backend remain open.
 
+The [physical HC11 bus bridge](reference/physical_bus_contract.md) now
+provides explicit address-window grants, raw word-width transactions,
+fail-closed device writes and a host-safe native MMIO primitive. Its
+scoped tests are not physical board/ASIC verification or a completed
+RAM-owner provider.
+
 The November 22 completeness audit records the earlier inventory and the
 remaining work groups. The slot contracts record the November 23 additions.
 [Home-stretch consolidation and target-port handoff](reference/home_stretch_readiness.md)

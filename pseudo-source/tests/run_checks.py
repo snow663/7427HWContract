@@ -101,6 +101,21 @@ with tempfile.TemporaryDirectory(prefix='pcm-pseudo-') as directory:
                         '-I',str(ROOT/'include'),*[str(p) for p in selected],
                         str(ROOT/'tests'/f'{fixture}.c'),'-o',str(binary)],check=True)
         for arguments in contracts:subprocess.run([str(binary),*arguments],check=True)
+    # Small physical-bus bridge gate uses the same public RAM access drivers.
+    # Keep it outside the 413-routine indexed factory pseudo-source inventory.
+    bus_sources=[
+        ROOT/'platform/hc11_bus.c',ROOT/'platform/hc11_native_mmio.c',
+        ROOT/'src/drivers/read8.c',ROOT/'src/drivers/read16.c',
+        ROOT/'src/drivers/write8.c',ROOT/'src/drivers/write16.c',
+        ROOT/'src/drivers/update8.c',
+        *sorted((ROOT/'src/system').glob('fuel_ram_owner_*.c')),
+        ROOT/'tests/hc11_bus_test.c',
+    ]
+    bus_test=Path(directory)/'pcm_hc11_bus_test'
+    subprocess.run([*compiler,'-std=c11','-Wall','-Wextra','-Wpedantic','-Werror',
+                    '-I',str(ROOT/'include'),*[str(p) for p in bus_sources],
+                    '-o',str(bus_test)],check=True)
+    subprocess.run([str(bus_test)],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/check_provenance.py')],check=True)
     subprocess.run([sys.executable,str(ROOT/'tests/check_home_stretch.py')],check=True)
     if not args.contracts_only:

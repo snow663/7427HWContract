@@ -74,6 +74,7 @@
     "HC11_startup_vectors_ISR_ABI": "open",
     "target_linker_and_flashable_BIN": "open",
     "complete_combined_ROM_suite": "pending",
-    "physical_bench_validation": "not_started"
+    "physical_bench_validation": "not_started",
+    "physical_bus_host_interface": "implemented_scoped_verified_windows_only"
   }
 }
