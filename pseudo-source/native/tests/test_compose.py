@@ -62,8 +62,8 @@ class CompositionTests(unittest.TestCase):
         with self.assertRaises(MOD.ImageError):self.join(nm="00009001 T pcm_hc11_c_entry")
     def test_unapproved_vector_rejected(self):
         orig=stock()
-        original=record(0xffd0,[0x71,0x20])
-        changed=record(0xffd0,[0x90,0x00])
+        original=record(0xffd0,[0x71,0x20]*8)
+        changed=record(0xffd0,[0x90,0x00]+[0x71,0x20]*7)
         with self.assertRaises(MOD.ImageError):self.join(asm=orig.replace(original,changed))
     def test_corrupt_srec_checksum_and_duplicate_bytes_rejected(self):
         with self.assertRaises(MOD.ImageError):MOD.srecords("S10490003900")

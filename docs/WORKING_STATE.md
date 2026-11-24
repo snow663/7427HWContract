@@ -1,3 +1,14 @@
+## Strict native image joiner — simulation-only output
+
+A new [native HC11 image composition gate](../pseudo-source/native/README.md)
+will accept true ASM11 and native-compiled C S19 files, reject S-record
+and ROM address errors, verify the exact C callable symbol, preserve
+the original engine-off interrupt vectors, and emit a mapped 48-KiB
+simulation-only BIN with a reproducible SHA-256 report.
+Synthetic tests are now registered in the current host gates. This
+does **not** mean a native C image already exists: target compiler,
+linker map, RAM footprint and toolchain ABI remain open.
+
 ## Pseudo-source HC11 execution lifecycle contract
 
 The development branch now includes a C-side HC11 execution driver

@@ -47,6 +47,9 @@ if(BUILD_TESTING)
       platform/hc11_c_entry.c)
   target_link_libraries(pcm_hc11_execution_tests PRIVATE pcm_pseudo_source)
   add_test(NAME hc11_execution_lifecycle_contracts COMMAND pcm_hc11_execution_tests)
+  add_test(NAME hc11_native_rom_composition_contracts COMMAND
+      ${Python3_EXECUTABLE} -m unittest discover
+      -s ${CMAKE_CURRENT_SOURCE_DIR}/native/tests -v)
   add_test(NAME hc11_native_isr_gateway_source_contract
       COMMAND ${Python3_EXECUTABLE}
       ${CMAKE_CURRENT_SOURCE_DIR}/tests/check_hc11_native_isr_gateway.py)

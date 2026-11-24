@@ -187,3 +187,25 @@ host C into HC11 instructions or eliminate the need for a real 68HC11
 cross-compiler, linker/ROM layout, native C startup/ISR calling ABI,
 actual WAI/RTI execution, or complete RAM-owner placement. The old
 simulator and the fresh simulator remain separate from this code.
+
+## Machine-code composition gate for the pseudo-source
+
+`native/compose_hc11_rom.py` now joins **separately assembled** ASM11
+and **separately cross-compiled** HC11 C S-records with a strict,
+reproducible address-space authority. It checks SRecord checksums,
+unmapped/overlapping bytes, prohibits C in the ROM vector window,
+resolves the C entry address from an exact `nm` symbol listing, and
+patches only the FDB call-word **after** matching its original unbound
+value. It requires all 31 non-reset vectors to remain on the shared
+safe trap, preserving the reset vector, and emits a 48-KiB CPU $4000+
+simulation-only BIN and SHA-256 report.
+
+Synthetic S19 tests exercise correct linking, stale address rejection,
+collisions, vector tampering, invalid CRC/checksum and missing symbols.
+The source/test stages run as part of host CI.
+
+**Open:** a real m6811-target compiler/linker build, native source
+code/data/RAM placement, output symbol listing, assembled ASM11
+image, verified C-call ABI and cycle/stack budgets. These inputs must
+exist before a merged native BIN can be produced. The host C code
+cannot be passed to a raw HC11 instruction decoder as machine code.
