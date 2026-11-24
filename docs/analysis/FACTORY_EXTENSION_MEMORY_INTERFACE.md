@@ -47,6 +47,12 @@ alias between low-memory windows is not excluded by ROM alone.
 inside the relocated CPU registers or either relocated I/O-select window.**
 A CPU extended address1800 is not automatically translated to3800 by INIT.
 
+The image-specific [Rev B CS/EN resource guide](../investigations/REVB_CS_EN_ADDRESS_MAP.md)
+adds plain-English resource descriptions, IRV visibility, the conditional
+CONFIG/EEPROM overlay, software shadows and ALDL translation. Its exact-image
+evidence and bounded witnesses are separate from this stock-ROM caller contract;
+neither establishes fitted memory capacity or physical board aliases.
+
 ## The opcode evidence specifies executable access
 
 All14,523 rooted instruction starts, occupying34,527 bytes, were decoded

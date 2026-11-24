@@ -1,0 +1,7 @@
+encoded,normal_cpu_address,with_0050_bit3_set,kind
+1000,0000,1000,Software reply address transform atF8C7; not physical address alias
+1800,0800,1800,Software reply address transform atF8C7; not physical address alias
+3000,0000,3000,Software reply address transform atF8C7; not physical address alias
+3060,0060,3060,Software reply address transform atF8C7; not physical address alias
+3FC0,0FC0,3FC0,Software reply address transform atF8C7; not physical address alias
+4000,4000,4000,Software reply address transform atF8C7; not physical address alias

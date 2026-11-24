@@ -1,0 +1,604 @@
+[
+  {
+    "address": "$000B",
+    "oem_role": "Retained diagnostic log bank 1",
+    "write_use": "Retained diagnostic log bank 1. Removed subsystem bits cleared.",
+    "read_use": "Retained diagnostic log bank 1. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0056",
+    "oem_role": "Diagnostic persistence-candidate bank 1",
+    "write_use": "Diagnostic persistence-candidate bank 1. Removed subsystem bits cleared.",
+    "read_use": "Diagnostic persistence-candidate bank 1. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$000C",
+    "oem_role": "Retained diagnostic log bank 2",
+    "write_use": "Retained diagnostic log bank 2. Removed subsystem bits cleared.",
+    "read_use": "Retained diagnostic log bank 2. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0057",
+    "oem_role": "Diagnostic persistence-candidate bank 2",
+    "write_use": "Diagnostic persistence-candidate bank 2. Removed subsystem bits cleared.",
+    "read_use": "Diagnostic persistence-candidate bank 2. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$000D",
+    "oem_role": "Retained diagnostic log bank 3",
+    "write_use": "Retained diagnostic log bank 3. Removed subsystem bits cleared.",
+    "read_use": "Retained diagnostic log bank 3. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0058",
+    "oem_role": "Diagnostic persistence-candidate bank 3",
+    "write_use": "Diagnostic persistence-candidate bank 3. Removed subsystem bits cleared.",
+    "read_use": "Diagnostic persistence-candidate bank 3. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$000E",
+    "oem_role": "Retained diagnostic log bank 4",
+    "write_use": "Retained diagnostic log bank 4. Removed subsystem bits cleared.",
+    "read_use": "Retained diagnostic log bank 4. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0059",
+    "oem_role": "Diagnostic persistence-candidate bank 4",
+    "write_use": "Diagnostic persistence-candidate bank 4. Removed subsystem bits cleared.",
+    "read_use": "Diagnostic persistence-candidate bank 4. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$000F",
+    "oem_role": "Retained diagnostic log bank 5",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$005A",
+    "oem_role": "Diagnostic persistence-candidate bank 5",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0010",
+    "oem_role": "Retained diagnostic log bank 6",
+    "write_use": "Retained diagnostic log bank 6. Removed subsystem bits cleared.",
+    "read_use": "Retained diagnostic log bank 6. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$005B",
+    "oem_role": "Diagnostic persistence-candidate bank 6",
+    "write_use": "Diagnostic persistence-candidate bank 6. Removed subsystem bits cleared.",
+    "read_use": "Diagnostic persistence-candidate bank 6. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0011",
+    "oem_role": "Retained diagnostic log bank 7",
+    "write_use": "Retained diagnostic log bank 7. Removed subsystem bits cleared.",
+    "read_use": "Retained diagnostic log bank 7. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$005C",
+    "oem_role": "Diagnostic persistence-candidate bank 7",
+    "write_use": "Diagnostic persistence-candidate bank 7. Removed subsystem bits cleared.",
+    "read_use": "Diagnostic persistence-candidate bank 7. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0012",
+    "oem_role": "Retained diagnostic log bank 8",
+    "write_use": "Retained diagnostic log bank 8. Removed subsystem bits cleared.",
+    "read_use": "Retained diagnostic log bank 8. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$005D",
+    "oem_role": "Diagnostic persistence-candidate bank 8",
+    "write_use": "Diagnostic persistence-candidate bank 8. Removed subsystem bits cleared.",
+    "read_use": "Diagnostic persistence-candidate bank 8. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0013",
+    "oem_role": "Retained diagnostic log bank 9",
+    "write_use": "Retained diagnostic log bank 9. Removed subsystem bits cleared.",
+    "read_use": "Retained diagnostic log bank 9. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$005E",
+    "oem_role": "Diagnostic persistence-candidate bank 9",
+    "write_use": "Diagnostic persistence-candidate bank 9. Removed subsystem bits cleared.",
+    "read_use": "Diagnostic persistence-candidate bank 9. Removed subsystem bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$001E",
+    "oem_role": "Live diagnostic fault bank 9",
+    "write_use": "Live diagnostic fault bank 9. Removed monitor bits cleared.",
+    "read_use": "Live diagnostic fault bank 9. Removed monitor bits cleared.",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$001A",
+    "oem_role": "Live diagnostic fault bank 5",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$003A",
+    "oem_role": "Boot, stack and dispatcher diagnostic latches",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0004.2",
+    "oem_role": "Background observation of pending RAM refresh",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0005.4",
+    "oem_role": "Boot configuration or program-validation failure",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$000F.5",
+    "oem_role": "Retained program-validation fault, DTC51",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$001A.2",
+    "oem_role": "Fuel-pump feedback diagnostic fault, DTC54",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$001A.3",
+    "oem_role": "Battery-threshold diagnostic fault, DTC53 (literal high-side test)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$001A.4",
+    "oem_role": "High battery-sample diagnostic fault, DTC52",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$001A.5",
+    "oem_role": "Live program-validation diagnostic fault, DTC51",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$003A.1",
+    "oem_role": "Program checksum or mask-validation failure latch",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$003A.2",
+    "oem_role": "CPU CONFIG mismatch latch",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$003A.3",
+    "oem_role": "Interrupt stack-range failure latch",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$003A.4",
+    "oem_role": "Stack-fill sentinel disturbance latch",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$003A.5",
+    "oem_role": "Dispatcher overrun and resume-request latch",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$001F",
+    "oem_role": "DTC21 retained recovery-budget counter",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0020",
+    "oem_role": "DTC22 retained recovery-budget counter",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0021",
+    "oem_role": "DTC24 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0022",
+    "oem_role": "DTC28 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0023",
+    "oem_role": "DTC37 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0024",
+    "oem_role": "DTC38 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0028",
+    "oem_role": "DTC68 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0029",
+    "oem_role": "DTC72 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$002A",
+    "oem_role": "DTC73 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$002B",
+    "oem_role": "DTC81 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$002C",
+    "oem_role": "DTC82 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$002D",
+    "oem_role": "DTC83 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$002F",
+    "oem_role": "DTC86 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0030",
+    "oem_role": "DTC87 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0031",
+    "oem_role": "DTC89 retained recovery-budget counter",
+    "write_use": "Explicit diagnostic clear of a retired recovery counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0026",
+    "oem_role": "Legacy diagnostic recovery slot A",
+    "write_use": "Explicit diagnostic clear. Monitor identity unproven.",
+    "read_use": "omitted",
+    "basis": "Recorded factory boot threshold/decrement and explicit clear. No implemented monitor identity established."
+  },
+  {
+    "address": "$0027",
+    "oem_role": "Legacy diagnostic recovery slot B",
+    "write_use": "Explicit diagnostic clear. Monitor identity unproven.",
+    "read_use": "omitted",
+    "basis": "Recorded factory boot threshold/decrement and explicit clear. No implemented monitor identity established."
+  },
+  {
+    "address": "$0032",
+    "oem_role": "DTC89 gear-1 long-shift qualification counter",
+    "write_use": "Explicit diagnostic clear of a retired shift counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0033",
+    "oem_role": "DTC89 gear-2 long-shift qualification counter",
+    "write_use": "Explicit diagnostic clear of a retired shift counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0034",
+    "oem_role": "DTC89 gear-3 long-shift qualification counter",
+    "write_use": "Explicit diagnostic clear of a retired shift counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$015F",
+    "oem_role": "DFCO exposure and recovery counter for the O2 activity diagnostic",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0160",
+    "oem_role": "DTC14 low coolant-ADC qualification counter",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0161",
+    "oem_role": "DTC15 high coolant-ADC qualification counter",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0162",
+    "oem_role": "DTC21 high raw-TPS qualification counter",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0163",
+    "oem_role": "DTC22 low raw-TPS qualification counter",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0169",
+    "oem_role": "DTC52 high battery-sample qualification counter (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$016B",
+    "oem_role": "DTC53 battery-threshold qualification counter (literal high-side test)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0856",
+    "oem_role": "VATS authorization-failure qualification counter, DTC46",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0182",
+    "oem_role": "DTC37 brake/speed episode first-stage counter",
+    "write_use": "Explicit diagnostic clear of a retired episode counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0183",
+    "oem_role": "DTC37 brake/speed episode second-stage counter",
+    "write_use": "Explicit diagnostic clear of a retired episode counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0184",
+    "oem_role": "DTC38 brake/speed episode first-stage counter",
+    "write_use": "Explicit diagnostic clear of a retired episode counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0185",
+    "oem_role": "DTC38 brake/speed episode second-stage counter",
+    "write_use": "Explicit diagnostic clear of a retired episode counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$0817",
+    "oem_role": "VSS-buffer diagnostic qualification counter, DTC16",
+    "write_use": "Explicit diagnostic clear of the removed VSS monitor counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$081C",
+    "oem_role": "Manual-option VSS diagnostic qualification counter, DTC24",
+    "write_use": "Explicit diagnostic clear of the removed VSS monitor counter.",
+    "read_use": "omitted",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$027E",
+    "oem_role": "Ignition-off fuel-pass counter (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$029B",
+    "oem_role": "RAM-refresh scan cursor (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02D1",
+    "oem_role": "Minimum observed stack-fill scan boundary (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02D3",
+    "oem_role": "Dispatcher slot 0 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02D5",
+    "oem_role": "Dispatcher slot 1 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02D7",
+    "oem_role": "Dispatcher slot 2 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02D9",
+    "oem_role": "Dispatcher slot 3 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02DB",
+    "oem_role": "Dispatcher slot 4 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02DD",
+    "oem_role": "Dispatcher slot 5 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02DF",
+    "oem_role": "Dispatcher slot 6 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02E1",
+    "oem_role": "Dispatcher slot 7 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02E3",
+    "oem_role": "Dispatcher slot 8 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02E5",
+    "oem_role": "Dispatcher slot 9 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02E7",
+    "oem_role": "Dispatcher slot 10 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02E9",
+    "oem_role": "Dispatcher slot 11 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02EB",
+    "oem_role": "Dispatcher slot 12 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02ED",
+    "oem_role": "Dispatcher slot 13 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02EF",
+    "oem_role": "Dispatcher slot 14 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  },
+  {
+    "address": "$02F1",
+    "oem_role": "Dispatcher slot 15 maximum observed elapsed timer count (word)",
+    "write_use": "",
+    "read_use": "",
+    "basis": "Current bytes and recorded factory diagnostic contract"
+  }
+]

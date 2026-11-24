@@ -1,0 +1,22 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "previous_update": "maps/maintenance/revb_rw_audit/REGISTER_UPDATES.json",
+  "workbooks": [
+    {
+      "workbook": "7427_Address_Register_0.3.12.xlsx",
+      "before_sha256": "42017a65b4d1a04039cbba9a9b2bb54fec44dd56d0a68306e06e95bdfcbb2c10",
+      "after_sha256": "f5d2b940cef51b10a20d2615f6fa6f67e685313094ae3f3145f8aeeb85f57b4d",
+      "rows_added": 86
+    },
+    {
+      "workbook": "7427_Write_Register_0.3.12.xlsx",
+      "before_sha256": "d473ee3f37655b308cfdb4bed152b033c6dbff3d6986722bbd0d84e3b549e585",
+      "after_sha256": "439f0ab483abba53ac78866e2770a21f807d63493b900f366c624cbb89f2c5eb",
+      "rows_added": 86
+    }
+  ],
+  "write_evidence_before_sha256": "2612dde4b221a9f6f89906890b44233607ac83b6e7ec48de1fc441ddb1226ffe",
+  "write_evidence_after_sha256": "b7c6fb7a1a1a3a8e9cfcd4af81830ba399b91570d84652327cebb82dac42a3ba",
+  "preserved": "All prior workbook values and original OEM role text, sheets, widths, panes, native tables and both OEM workbooks. Only86 named RAM rows added per maintained book.",
+  "scope": "Original role descriptions use the recorded factory diagnostic/opcode contract where current operational code is removed; no fresh complete OEM-BIN analysis claimed."
+}

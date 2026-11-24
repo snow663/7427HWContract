@@ -1,0 +1,1202 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "scope": "Authored functional context anchored to exact Rev B instruction groups. Context is a reading explanation with explicit inherited/physical limits, not a new firmware specification or full state-space proof.",
+  "by_source": {
+    "reset_outputs": {
+      "title": "Establish the initial output states",
+      "purpose": "Sets the CPU/board output controls and shadow values that later driver routines will maintain. This establishes a defined starting command before normal engine scheduling begins."
+    },
+    "reset_ram": {
+      "title": "Clear the working-memory range",
+      "purpose": "Clears the selected working RAM, rather than interpreting the BIN's low-address padding as live memory. Later initialization fills in the state that needs nonzero starting values."
+    },
+    "serial_clear_ram": {
+      "title": "Clear serial working memory",
+      "purpose": "Clears $0360 through $03FE for transport/session work while leaving $03FF outside the clear. It prepares a clean serial workspace; it does not itself configure the SCI hardware."
+    },
+    "reset_sensors": {
+      "title": "Seed the retained engine inputs",
+      "purpose": "Calls the retained input initialization and then jumps over the retired initialization allocation. These calls prepare engine state before the retained-memory and controller startup work."
+    },
+    "reset_retained": {
+      "title": "Validate the image and recover retained state",
+      "purpose": "Checks ROM/retained-state integrity, chooses reset or recovery actions, and seeds the engine input histories used by later calculations. Rev B bypasses deleted subsystem setup and calls the independent TPS-zero helper. Retained-memory validity and ordinary working-RAM clearing are separate decisions."
+    },
+    "reset_serial": {
+      "title": "Finish the boot seeds",
+      "purpose": "Seeds scheduler phase, neutral BLM and startup/COP/output state before normal operation. The historical routine name is broader than its function: this is post-controller boot bookkeeping, not the whole SCI hardware initializer."
+    },
+    "timer_arm": {
+      "title": "Arm timer service and enter normal execution",
+      "purpose": "Prepares the timer/interrupt state and the foreground continuation. It hands control to the machinery that admits scheduled engine work; it does not calculate a fuel or spark command itself."
+    },
+    "reference_event": {
+      "title": "Choose cranking or running reference work",
+      "purpose": "After the common reference prefix, optionally acquires a MAP sample and dispatches according to the fuel-running state. This separates starting delivery rules from normal running event accounting."
+    },
+    "reference_crank": {
+      "title": "Qualify a cranking fuel event",
+      "purpose": "Counts reference observations and applies the coolant-dependent skip rule before preparing crank delivery. Delivery requires the incremented count to exceed the threshold; equality does not pass this reference-event gate."
+    },
+    "reference_crank_timer": {
+      "title": "Deliver and time a qualified cranking event",
+      "purpose": "Constructs the permitted crank pulse and takes the selected asynchronous or timer-output route. The timer alternatives preserve modular timer comparisons and separate channel state. Engine rotation triggers this work; it is not just a slow background fuel calculation."
+    },
+    "reference_decay": {
+      "title": "Age reference-counted enrichment",
+      "purpose": "Decrements or decays the retained additional-enrichment state on running reference events. Its timebase is engine events, so the same counter progression is not a fixed number of milliseconds at every RPM."
+    },
+    "reference_run": {
+      "title": "Account for running fuel packets",
+      "purpose": "Handles the reference-triggered split-packet and bank/latch decisions using the pulse and requests prepared by scheduled work. It coordinates consumption of prepared fuel with engine events rather than rebuilding the VE calculation here."
+    },
+    "reference_common": {
+      "title": "Finish shared reference-event work",
+      "purpose": "Consumes the extra-request latch, updates the retained filtered state and qualifies additional timer work. The order matters because scheduled work and interrupt work share these latches and pulse values."
+    },
+    "reference_timer_arm": {
+      "title": "Arm an injector-related timer channel",
+      "purpose": "Checks the selected channel's state and updates compare, flag and mask controls in their retained order. The two entries use different channel state; they are not interchangeable physical pin identities inferred from a label."
+    },
+    "crank_event_gain": {
+      "title": "Select the cranking event gain",
+      "purpose": "Chooses the coolant/history-dependent gain curve, applies the retained word scaling and saturates doubling where required. The result modifies the crank pulse rather than selecting the running VE surface."
+    },
+    "reference_bank_guard": {
+      "title": "Maintain event/bank observation bookkeeping",
+      "purpose": "Updates the bounded reference/bank observation state and its fault latch. Nearby vector entries and interrupt return tails are separate control entries, not extra steps that execute after every observation."
+    },
+    "main_pass": {
+      "title": "Enter an admitted foreground pass",
+      "purpose": "Transfers control to the scheduler phase work. Busy/pending ownership determines whether an interrupt starts a new pass or requests later catch-up; this entry is not an independent periodic clock."
+    },
+    "phase_advance": {
+      "title": "Advance admitted-pass time and controller permissions",
+      "purpose": "Advances the phase through the retained 160-state cycle, updates the wrap/run bookkeeping and establishes the current monitor-freeze context. Phase counts admitted passes, not every timer arrival while foreground work is busy."
+    },
+    "dispatch_fast": {
+      "title": "Choose this pass's fast work",
+      "purpose": "Calls the retained common fast service before the phase-dependent fuel/spark service sequence. The following watchdog/service section contains the actual current-image call order."
+    },
+    "watchdog_service": {
+      "title": "Run the retained fast engine services",
+      "purpose": "Services the watchdog and invokes the surviving engine/board routines in their retained phase order. Deleted calls are NOPs, and the independent engine service/TPS-zero helpers replace former shared dependencies. This is scheduling glue rather than a separate fuel equation."
+    },
+    "dispatch_slot": {
+      "title": "Select one background slot",
+      "purpose": "Uses the phase's low nibble to select a word from the 16-entry pointer table, then transfers control to that slot. The table contains addresses, not calibration values for an engine controller."
+    },
+    "profile_tail": {
+      "title": "Finish timing bookkeeping and handle catch-up",
+      "purpose": "Closes the current scheduled pass, records the retained profiling state and resolves the busy/pending continuation. A pending observation can cause another admitted pass instead of being counted as a queue of every missed tick."
+    },
+    "slot_00": {
+      "title": "Refresh the battery input",
+      "purpose": "Calls the battery acquisition routine and returns. Later fuel, spark, diagnostics and IAC work consume the published sample rather than each independently reading the ADC here."
+    },
+    "slot_02": {
+      "title": "Acquire the retained auxiliary channel",
+      "purpose": "Runs the retained auxiliary acquisition and returns. Service/test selection and muxing belong to the callee; this wrapper only establishes its place in the background schedule."
+    },
+    "slot_06": {
+      "title": "Refresh A/C and adaptive spark inputs",
+      "purpose": "Calls the retained A/C/switch processing and low-octane learning sequence. The current image's retained calls, rather than the old transmission slot title, determine the surviving work."
+    },
+    "fast_service": {
+      "title": "Enter the relocated engine service sequence",
+      "purpose": "Jumps to the independent helper at $5CD0 so the retained engine acquisition calls can run without the removed shared subsystem wrapper."
+    },
+    "adc_feedback": {
+      "title": "Acquire ADC inputs under the retained mask sequence",
+      "purpose": "Masks interrupts around the current ADC acquisition call, then executes CLI and returns. It does not restore an arbitrary incoming interrupt-mask value; the literal SEI/CLI sequence is part of this wrapper."
+    },
+    "common_io": {
+      "title": "Enter board and engine input service",
+      "purpose": "Transfers to the retained board service/input path. This entry is a wrapper; follow its jump and subsequent calls to see which hardware samples and engine histories are refreshed."
+    },
+    "map_input": {
+      "title": "Produce filtered MAP, including its fault substitute",
+      "purpose": "Chooses raw MAP or the permitted TPS/RPM-derived substitute, selects the normal/transient lag gain and publishes the filtered MAP word and rounded byte. A substitute input is a fault/context path, not an extra physical pressure sensor."
+    },
+    "vss_sample": {
+      "title": "Preserve shared board status while bypassing VSS counting",
+      "purpose": "Samples the shared board status word under the retained mask sequence. The Rev B jump bypasses the old VSS timestamp/count updates and returns through the patched tail, preserving status owners that other engine code still uses."
+    },
+    "map_transient": {
+      "title": "Select MAP transient filtering",
+      "purpose": "Compares the current MAP/history conditions, maintains the hold and transient flag, and chooses when the faster MAP treatment remains active. This affects input response before the fuel calculation consumes filtered MAP."
+    },
+    "fuel_throttle": {
+      "title": "Publish the engine's normalized TPS",
+      "purpose": "Calls the relocated TPS normalization helper and stores its returned byte at $01D9. The engine publication uses this measured normalized result directly, rather than a former transmission substitute."
+    },
+    "fuel_oxygen_filter": {
+      "title": "Refresh the fast O2 filter and thresholds",
+      "purpose": "Selects the retained filter gain from operating context, updates the O2 state and refreshes the threshold preparation used by feedback. The separate slow O2 helper also has its own retained filter role; these are not two multipliers on fuel."
+    },
+    "fuel_density": {
+      "title": "Build the pressure-derived density term",
+      "purpose": "Transforms filtered MAP into the retained word density coordinate. Later base-fuel arithmetic combines this pressure term with charge temperature, displacement and VE; this short stage is not a complete air-mass model by itself."
+    },
+    "fuel_admit": {
+      "title": "Choose crank preparation or authorized running fuel",
+      "purpose": "Transfers into the admission body. Crank/nonrunning work and authorized running AE/VE have different continuations; a denied running calculation can publish zero through the normal publisher rather than calculate a fresh running pulse."
+    },
+    "fuel_crank_prepare": {
+      "title": "Prepare cranking pulse and starting histories",
+      "purpose": "When not running, initializes the histories required for starting, refreshes the crank pulse and battery treatment, and selects whether main work or the reference event owns delivery. The running alternative checks its authorization before entering the running calculation."
+    },
+    "fuel_map_acceleration": {
+      "title": "Create fuel enrichment from rising MAP",
+      "purpose": "Compares the pressure-change history with the applicable threshold and computes the retained MAP acceleration contribution when the rise qualifies. It publishes an enrichment term; it is not the final injector pulse."
+    },
+    "fuel_tps_acceleration": {
+      "title": "Create fuel enrichment from throttle opening",
+      "purpose": "Uses the positive normalized-TPS change, entry/retention state and retained speed/BARO gains to build the TPS acceleration contribution. Rev B bypasses a former shared-context segment; follow the current branch before attributing any old transmission condition to it."
+    },
+    "fuel_ve": {
+      "title": "Choose and interpolate the active VE surface",
+      "purpose": "Uses normalized TPS and the coarse RPM coordinate to select the main or lower-RPM closed-throttle VE table, then interpolates its current load/RPM point. This table handoff does not require the new IAC captured-idle flag, so closed throttle and captured idle are distinct states."
+    },
+    "fuel_base": {
+      "title": "Construct the base fuel pulse and enter downstream policy",
+      "purpose": "Combines pressure-derived density, charge-temperature correction, displacement, VE, requested AFR and injector-flow scaling with separate integer rounding/division stages. The following retained policy selects learned trim and cut/enrichment routes. Rev B bypasses deleted EGR/shared allocations and redirects BLM policy through $FEC0."
+    },
+    "fuel_blm_scale": {
+      "title": "Apply multiplicative BLM to the pulse",
+      "purpose": "Saturates the pre-double and applies the rounded BLM gain. Neutral BLM is 128: this is multiplicative learned fuel correction, distinct from the later signed additive INT/P correction."
+    },
+    "fuel_pulse_scale": {
+      "title": "Apply a rounded byte gain to a word pulse",
+      "purpose": "Multiplies the incoming word by the selected byte gain with the retained rounding order. This entry omits the pre-double used by the BLM entry, so identical gain bytes can have different meanings at the two entries."
+    },
+    "fuel_acceleration_reservoir": {
+      "title": "Maintain accumulated extra-fuel demand",
+      "purpose": "Combines permitted transition, A/C, TPS and IAC-change additions with the retained acceleration reservoir and its activity/hold state. Later packet logic decides when accumulated fuel is delivered; adding to this state is not an immediate injector opening."
+    },
+    "fuel_decel_gate": {
+      "title": "Qualify deceleration reduction and recovery",
+      "purpose": "Tests the surviving throttle/load/RPM conditions, updates cut/reduction latches and uses the retained delay/recovery state to choose the next fuel route. Rev B bypasses deleted speed/shared gates, so the old stock list of qualifications is not the current rule."
+    },
+    "fuel_reduction": {
+      "title": "Apply the selected deceleration reduction factor",
+      "purpose": "Sets the retained deceleration state, reloads its timer and scales the incoming pulse with the selected reduction factor. It is one stage of fuel reduction, not proof that every later pulse and offset is zero."
+    },
+    "fuel_enleanment": {
+      "title": "Reduce fuel from falling input histories",
+      "purpose": "Uses rounded MAP/TPS history drops to qualify deceleration enleanment and derive the reduction gain applied to pulse/reservoir state. The Rev B jump skips a removed shared-context segment while retaining the current arithmetic path."
+    },
+    "fuel_derivative_correction": {
+      "title": "Build the retained derivative/factor correction",
+      "purpose": "Publishes the raw derivative-related quantity and enters the surviving factor/limit calculation. The patched jump bypasses the removed allocation; retain the current loaded quantity and gain order rather than assuming the old source's complete input model still runs."
+    },
+    "fuel_baro_battery": {
+      "title": "Apply BARO and battery pulse factors",
+      "purpose": "Looks up the retained BARO correction and applies the separate battery scaling. These gains alter the calculated pulse before final short-pulse shaping and the later byte-valued voltage offset."
+    },
+    "fuel_feedback_apply": {
+      "title": "Add oxygen-feedback and MAP-acceleration corrections",
+      "purpose": "Applies the encoded signed INT/P pulse correction and then the MAP acceleration addition before publishing the corrected packet basis. INT/P changes pulse width additively; it is not a second BLM-style multiplier."
+    },
+    "fuel_route": {
+      "title": "Choose synchronous/asynchronous delivery accounting",
+      "purpose": "Tests the surviving delivery inhibits and configuration, routes through the retained CPI/TBI accounting and controls whether asynchronous accumulation is needed. It connects calculated fuel demand to delivery state, not directly to measured fuel flow."
+    },
+    "fuel_cpi_prepare": {
+      "title": "Prepare the alternate delivery configuration",
+      "purpose": "Updates the retained event/count state under literal SEI/CLI and conditionally doubles the pulse before routing onward. It is a configuration-selected alternative; the presence of these instructions does not establish that this truck uses that configuration."
+    },
+    "fuel_async_accumulate": {
+      "title": "Accumulate the asynchronous delivery fraction",
+      "purpose": "Uses the sampled period and the retained division/fraction calculation to add demand into the multi-byte asynchronous accumulator. Fractional carry and storage order determine when a whole deliverable packet becomes available."
+    },
+    "fuel_packet_select": {
+      "title": "Choose a deliverable extra-fuel packet",
+      "purpose": "Combines the permitted accumulated demand, applies the ordered packet maximum/minimum tests and debits the accumulator/reservoir. Demand that is not emitted remains subject to these retained accounting rules."
+    },
+    "fuel_packet_emit": {
+      "title": "Publish a selected asynchronous packet",
+      "purpose": "Masks interrupts, calls the retained asynchronous output helper, then unmasks and updates the completed-packet flags. Selection/accounting precede this publication; the output helper owns the ordered board transactions."
+    },
+    "fuel_finalize": {
+      "title": "Shape a short synchronous pulse",
+      "purpose": "For a nonzero short pulse, adds the lookup correction and subtracts the shared bias, then compares against the synchronous minimum and selects the distinct replacement pulse when required. The async shaping option does not gate this synchronous lookup."
+    },
+    "fuel_publish": {
+      "title": "Publish the selected synchronous pulse",
+      "purpose": "Stores the selected pulse, adds the byte-valued voltage offset and enforces the retained timer-pulse cap before publication. The subsequent scheduling/history tail clears or retains its own flags; final command construction does not establish physical injector delivery."
+    },
+    "fuel_async": {
+      "title": "Shape and strobe an asynchronous packet",
+      "purpose": "Conditionally applies the same short-pulse lookup/bias, with asynchronous admission and subtraction-borrow rules, then writes the packet/offset and performs the ordered board-latch strobe. Its zero/borrow behavior differs from the synchronous replacement path."
+    },
+    "fuel_crank_coordinate": {
+      "title": "Convert captured period for cranking fuel",
+      "purpose": "Scales the captured period and uses the retained division/saturation to produce the cranking lookup coordinate. It belongs to the starting equation rather than the normal running RPM/VE calculation."
+    },
+    "fuel_crank_pulse": {
+      "title": "Calculate the cranking fuel amount",
+      "purpose": "Combines coolant/event-age tables, the crank coordinate and the retained BARO/TPS gains to produce the starting pulse. Successive products and saturating doubles matter; a single combined floating-point gain would hide those boundaries."
+    },
+    "fuel_battery_state": {
+      "title": "Maintain battery treatment for fuel timing",
+      "purpose": "Updates the retained battery-related state used by fuel and reference-event timing. This supplies a correction input; the later finalizer still has its own additive offset and pulse-selection rules."
+    },
+    "oxygen_activity": {
+      "title": "Detect raw O2 activity",
+      "purpose": "Tracks whether the raw narrowband signal has shown the required activity and how long that observation remains valid. Raw activity, filtered O2 level, rich/lean direction and closed-loop permission are separate states."
+    },
+    "oxygen_thresholds": {
+      "title": "Prepare O2 thresholds and update intervals",
+      "purpose": "Builds the retained airflow-related coordinate and looks up the feedback threshold/interval views. The current patched tail bypasses a removed allocation; the values here feed O2 decisions rather than directly commanding AFR."
+    },
+    "oxygen_direction": {
+      "title": "Maintain rich/lean direction and its age",
+      "purpose": "Uses O2 threshold crossings and trend within the band to select direction, count changes and age a steady state. Those histories qualify subsequent proportional and integrator updates."
+    },
+    "oxygen_admit": {
+      "title": "Admit feedback or return a neutral correction",
+      "purpose": "Tests the surviving operating, service and feedback qualifications. If admitted it proceeds to proportional control; otherwise it neutralizes the selected feedback state. Selection of closed-loop mode elsewhere does not guarantee this faster gate will apply a correction."
+    },
+    "oxygen_neutral": {
+      "title": "Return feedback to its neutral representation",
+      "purpose": "Neutralizes the selected INT/P state while retaining the separately owned filter fraction. At the later entry, Rev B redirects encoding through the global-open-loop policy hook before returning the additive pulse correction."
+    },
+    "oxygen_proportional": {
+      "title": "Calculate the short-term O2 response",
+      "purpose": "Forms the O2 error, proportional magnitude and update/window state from the selected direction and gains. The retained idle/context branches and integer rounding decide how this immediate response is represented before it is combined with INT."
+    },
+    "oxygen_integrator": {
+      "title": "Move INT when direction and timing permit",
+      "purpose": "Requires the retained sign/direction agreement and delay qualifications, then adjusts the integrator against its configured equality stops. These stops are not a general saturating clamp for arbitrary invalid starting values."
+    },
+    "oxygen_window": {
+      "title": "Suppress proportional action in the selected window",
+      "purpose": "Applies the retained strict window comparisons and warmup suppression to the temporary proportional contribution. It qualifies one feedback term rather than changing the requested AFR table."
+    },
+    "oxygen_combine": {
+      "title": "Encode the combined INT/P pulse correction",
+      "purpose": "Combines the retained integral and proportional contributions with their bounds, then converts the result to the signed additive pulse-width representation. Neutral INT is 128; the encoded output is consumed by the later pulse-correction stage."
+    },
+    "fuel_afr_base": {
+      "title": "Select the basic AFR request and idle treatment",
+      "purpose": "Chooses the retained closed/open-loop request and startup subtraction, handles the departure filter, and enters the target-relative idle classifier at $FEF8. Idle readiness/delay and the eventual idle-AFR request remain separate from raw closed-throttle selection."
+    },
+    "fuel_afr_bias": {
+      "title": "Apply temperature/startup AFR biases, then PE",
+      "purpose": "The first part applies surviving hot/warm and reference-counted AFR biases with their retained cap/order. A later distinct entry handles power-enrichment permission, ramping and exit history. Rev B bypasses the removed gear-dependent and speed/shared segments and calls the custom load/TPS PE helper."
+    },
+    "fuel_afr_finish": {
+      "title": "Finish AFR publication and continue into BLM selection",
+      "purpose": "Applies the retained AFR rich bound/service choice, publishes the requested AFR byte, then enters the retained BLM cell-selection body. Rev B removes the optional extension call and redirects the deleted speed/context logic; AFR publication and learned-cell selection are separate functions within this old reading span."
+    },
+    "blm_transition": {
+      "title": "Qualify a change between learned cells",
+      "purpose": "Uses the retained TPS crossing and cell-change histories to decide when a BLM transition is settled enough for learning. It prevents treating every instantaneous selected-cell change as a fresh valid learning opportunity."
+    },
+    "fuel_decel_history": {
+      "title": "Refresh deceleration input histories",
+      "purpose": "On the retained count gate, updates TPS and MAP histories used by later drop/deceleration decisions. Their age is determined by this admitted-call policy, not by an assumed continuous sensor sampling interval."
+    },
+    "blm_learn": {
+      "title": "Update the selected learned fuel cell",
+      "purpose": "Requires the surviving permission, direction/error and counted-update conditions before moving the selected BLM cell. It then saves the RPM/O2 return samples used by later work. This changes multiplicative learned correction, not the additive INT representation."
+    },
+    "input_housekeeping": {
+      "title": "Refresh retained switch context and watchdog state",
+      "purpose": "Performs the COP-AA prefix and updates the surviving switch/A/C context. The patched jump bypasses the former Park/Neutral mirror path; retaining shared inputs does not restore the removed dual-bank idle strategy."
+    },
+    "iac_reset_request": {
+      "title": "Request the retained IAC reset/service action",
+      "purpose": "Sets the reset/service state used by the retained actuator guard and driver. It is a request producer; the following controller/step-service admissions determine when that request becomes motor movement."
+    },
+    "iac_service": {
+      "title": "Apply diagnostic IAC service commands",
+      "purpose": "Handles the retained service override, target/count and reset requests before returning to normal IAC ownership. These service paths can override ordinary controller behavior, so normal idle tuning is not their only possible command source."
+    },
+    "spark_map_check": {
+      "title": "Choose the MAP/load input for spark",
+      "purpose": "Checks the current MAP/fault/default conditions and prepares the load input used by spark admission and timing. This establishes spark's input context separately from the fuel-running permission."
+    },
+    "spark_admit": {
+      "title": "Qualify normal spark calculation",
+      "purpose": "Uses the retained ignition/reference, period, fault and state conditions to authorize the normal spark route or its alternate/exit path. The later reading slice continues the same admission logic rather than starting a second independent controller."
+    },
+    "spark_fuel_admit": {
+      "title": "Maintain the independent fuel-running permission",
+      "purpose": "Uses the selected captured-period/state conditions to update fuel admission while spark admission is being processed. Fuel-running and spark-running flags have separate thresholds and owners; one cannot be substituted for the other."
+    },
+    "spark_timeout": {
+      "title": "Handle an invalid or stale spark reference",
+      "purpose": "Applies the retained timeout/exception decision before normal period preparation. The software-interrupt boundary is an exceptional transfer, not a normal numerical clamp on an otherwise valid spark command."
+    },
+    "spark_period_sample": {
+      "title": "Capture the period used by normal timing",
+      "purpose": "Samples/scales the retained reference period and publishes the word used by subsequent RPM and timing preparation. Later calculations consume this captured value rather than assuming all reads see one continuously changing period."
+    },
+    "spark_coordinates": {
+      "title": "Build RPM lookup coordinates",
+      "purpose": "Converts the selected period into the retained piecewise/rounded RPM coordinates. The normal and alternate entries publish different subsets of state; the alternate path does not implicitly perform normal timing output."
+    },
+    "spark_rpm_filters": {
+      "title": "Update RPM histories for controllers",
+      "purpose": "Builds and filters the retained RPM representations, including coarse and higher-resolution words and slower histories. Different consumers intentionally use different coordinates and rounding; these are not interchangeable RPM bytes."
+    },
+    "spark_period_terms": {
+      "title": "Prepare period-dependent timing factors",
+      "purpose": "Builds the retained period ratios and filtered terms used when converting requested spark angle to an output event. This is timing preparation rather than the base advance lookup."
+    },
+    "spark_reference_term": {
+      "title": "Prepare the reference-related timing correction",
+      "purpose": "Updates the retained reference/period term and histories before base spark is selected. It bridges measured engine-event timing and the later composite-angle/output calculation."
+    },
+    "spark_base": {
+      "title": "Read the single active base spark table",
+      "purpose": "Looks up base advance from current load/RPM. The Rev B branch bypasses alternate table selection, so the table is the active base surface; coolant, startup, knock and limits can still change the final command."
+    },
+    "spark_coolant": {
+      "title": "Build the coolant spark term",
+      "purpose": "Looks up the coolant contribution and applies the retained bias/sign representation. Its output participates in composite spark and also supplies the active DFCO retard arithmetic, so it is not owned only by ordinary warmup timing."
+    },
+    "spark_altitude": {
+      "title": "Build the altitude spark term",
+      "purpose": "Checks the retained option and constructs the BARO/altitude contribution. The term is prepared separately from the base table so an enabled correction can alter commanded advance without changing a table cell."
+    },
+    "low_octane_retard": {
+      "title": "Prepare adaptive low-octane retard",
+      "purpose": "Uses the retained adaptive value and scaling to form its spark contribution, then bypasses the removed neighboring correction allocation. Learning the adaptive state and applying its current value are distinct operations."
+    },
+    "spark_sum": {
+      "title": "Assemble the surviving base/environmental spark terms",
+      "purpose": "Adds/subtracts the retained base, coolant, startup, altitude, adaptive and enabled contributions in their current order. Rev B NOPs remove former neighboring terms; the resulting composite still proceeds through MAT, DFCO, knock and limits."
+    },
+    "spark_mat_effect": {
+      "title": "Apply the manifold-air-temperature contribution",
+      "purpose": "Selects the positive/negative load gain, scales the prepared MAT magnitude and applies its signed effect to composite spark. The current tail clears the removed transient state and jumps to the Rev B DFCO gate rather than running the retired idle/transient strategy."
+    },
+    "spark_extension": {
+      "title": "Continue past the removed optional spark extension",
+      "purpose": "Retains the extension-admission test but the optional call is NOPed in this image. The continuation therefore reaches the retained override/limit code without executing a guessed low-memory extension."
+    },
+    "spark_override": {
+      "title": "Apply the resident spark override choice",
+      "purpose": "Selects the retained command override when its conditions hold before the upper/lower limit stages. This is another source of the requested command and can supersede the ordinary composite."
+    },
+    "spark_upper_limit": {
+      "title": "Limit the requested upper spark angle",
+      "purpose": "Compares the signed command against the retained maximum and chooses the bounded result. Later knock, lower-floor and service processing still follow; this is not the final physical timing publication."
+    },
+    "knock_burst": {
+      "title": "Apply the burst-knock response",
+      "purpose": "Updates/applies the transient burst-knock contribution under its retained admission and gain/cap rules. It is separate from the continuously retained knock-retard state and adaptive low-octane learning."
+    },
+    "knock_retard": {
+      "title": "Apply knock-related retard and select the lower floor",
+      "purpose": "The earlier slice applies the surviving knock reduction and its bounds. The later shared slice selects the normal or active-DFCO signed minimum-angle floor, with patched branches bypassing removed context. A negative floor is a minimum commanded angle, not an unsigned retard magnitude."
+    },
+    "spark_service": {
+      "title": "Apply post-limit spark service edits",
+      "purpose": "Processes diagnostic/service timing edits after the ordinary command limits. There is no invented second clamp here; a normal lower/upper bound is not necessarily the final possible service-command bound."
+    },
+    "spark_convert": {
+      "title": "Convert the angle command to output timing",
+      "purpose": "Transforms the completed spark command using the prepared period/reference terms into the retained output timing representation. This connects an angle request to scheduling quantities rather than selecting more advance tables."
+    },
+    "spark_output_extension": {
+      "title": "Finish the retained output preparation",
+      "purpose": "Performs the surviving output-side arithmetic and state updates while the optional extension call is NOPed. The following handoff owns the ordered output transactions."
+    },
+    "spark_handoff": {
+      "title": "Publish timing and output handshakes",
+      "purpose": "Stores the completed spark/timing state and performs the retained ordered board/register handoff. Command construction and publication are separate; a calculated angle alone is not evidence of a physical spark event."
+    },
+    "spark_monitor": {
+      "title": "Supervise bypass/EST feedback",
+      "purpose": "Compares the retained feedback/counter histories and updates the monitor/fault state with its qualification counters. It checks the timing system's response rather than adding a normal advance correction."
+    },
+    "spark_alternate": {
+      "title": "Handle the alternate period/RPM route",
+      "purpose": "When its retained condition is present, prepares the limited alternate RPM calculation; otherwise selects the invalid-period representation. It clears its own output/request flags and returns without publishing the normal spark command."
+    },
+    "fuel_authorize": {
+      "title": "Latch captured-event fuel authorization",
+      "purpose": "Uses wrapped captured-event differences and inclusive valid bounds to set the retained permission latch. A zero difference retains the baseline; this local routine does not supply an unconditional clear of the authorization latch."
+    },
+    "battery_input": {
+      "title": "Acquire the engine battery sample",
+      "purpose": "Selects and reads the retained ADC channel, then publishes the battery sample consumed by spark, idle and diagnostics. Voltage-dependent fuel treatment also has its own stored/reference sample and later correction stages."
+    },
+    "coolant_input": {
+      "title": "Convert coolant and publish its native lookup index",
+      "purpose": "Converts the raw coolant sample, applies the retained fault/default selection and publishes the effective coordinate. It separately produces $0283 by subtracting 16 with a zero floor and a 192 cap; the new idle curves consume this native index."
+    },
+    "environment_inputs": {
+      "title": "Prepare coolant-dependent environmental factors",
+      "purpose": "Looks up the retained trim, factor, load, idle and density-related quantities and publishes them in order. The current tail bypasses removed work and continues into burst-gain preparation; these are shared inputs to later controllers."
+    },
+    "burst_gain": {
+      "title": "Prepare burst-knock gain",
+      "purpose": "Builds the retained coolant/operating gain used by the separate burst-knock response. Preparing this gain does not itself prove a burst-knock event occurred."
+    },
+    "spark_mat": {
+      "title": "Prepare MAT correction magnitude and sign",
+      "purpose": "Computes the current manifold-air-temperature spark magnitude and direction. The later MAT application uses a load-dependent gain before adding/subtracting this prepared term."
+    },
+    "spark_pe": {
+      "title": "Prepare the power-enrichment spark contribution",
+      "purpose": "Builds the retained PE-related timing term from its current state and calibration. PE fuel target selection and this spark contribution are separate consumers of the operating mode."
+    },
+    "knock_gains": {
+      "title": "Prepare knock gains and ceilings",
+      "purpose": "Computes the current retained knock-response gains/caps used by later retard and adaptive work. These parameters shape response rather than being the measured knock observation itself."
+    },
+    "ac_switch_inputs": {
+      "title": "Qualify A/C request and related switch context",
+      "purpose": "Samples the retained switch/input context and applies its delays and coolant/RPM/TPS qualifications before publishing the A/C-related flags. The patched branch bypasses deleted shared work; the new idle controller consumes the surviving A/C request as one air adder."
+    },
+    "reset_cpu": {
+      "title": "Initialize CPU peripheral controls",
+      "purpose": "Writes the retained CPU/peripheral configuration in its required order. These addresses are hardware controls; a register write here is not ordinary RAM initialization or an editable calibration table."
+    },
+    "low_octane_learn": {
+      "title": "Adapt the low-octane state",
+      "purpose": "Under the retained load, knock, timer and permission conditions, updates the learned adaptive state used by the separate spark-retard scaler. This is a slower learned response, distinct from instantaneous knock-retard application."
+    },
+    "oc1_irq": {
+      "title": "Observe the OC1/knock timing event",
+      "purpose": "Services the retained output-compare interrupt, derives the selected observation and updates its bounded pending accumulator/state. The counter observation requires its documented hardware meaning; it is not automatically a physical knock-energy measurement in engineering units."
+    },
+    "knock_decay": {
+      "title": "Decay the retained knock response",
+      "purpose": "Applies the selected decay/admission policy to the existing knock state. Decay timing and new observations are separate, allowing a prior response to remain after its triggering event."
+    },
+    "knock_sensor": {
+      "title": "Acquire and diagnose the knock-related input",
+      "purpose": "Runs the retained acquisition/mux and diagnostic checks associated with the knock input. The current called footprint must be followed; removing a former consumer does not justify inventing a new physical channel identity."
+    },
+    "mat_input": {
+      "title": "Convert and qualify manifold-air temperature",
+      "purpose": "Reads/filters the retained MAT input and applies its surviving fault/default treatment. Deleted neighboring calls are NOPed; the published input still feeds charge-temperature and spark corrections."
+    },
+    "fuel_charge_temperature": {
+      "title": "Build the effective charge-temperature term",
+      "purpose": "Combines the retained temperature-related state into the factor used by base fuel. It is an internal modeled charge condition, not a direct extra temperature sensor reading."
+    },
+    "injector_offset": {
+      "title": "Look up the voltage-dependent injector offset",
+      "purpose": "Uses the retained battery coordinate and table to publish the byte offset added in final delivery paths. This offset is separate from the shared subtractive short-pulse bias and the short-pulse lookup addition."
+    },
+    "fuel_transient_gains": {
+      "title": "Prepare transient-fuel gains",
+      "purpose": "Looks up/publishes the current base, TPS and MAP transient gains for later enrichment calculations. These coefficients prepare response; the actual input delta and admission occur elsewhere."
+    },
+    "fuel_startup": {
+      "title": "Choose startup seeding or running decay",
+      "purpose": "Dispatches to nonrunning seed work or the running startup-context/decay paths. Startup AFR and startup spark retain separate histories even though normal scheduled work services them together."
+    },
+    "fuel_startup_seed": {
+      "title": "Seed startup AFR/spark histories",
+      "purpose": "Loads the coolant/start-dependent initial terms and timers when reseeding is admitted, while retaining the separate reference-counted decrement/gain policy. A run-transition latch can suppress reseeding rather than replaying a full startup on every call."
+    },
+    "fuel_startup_context": {
+      "title": "Refresh startup operating context",
+      "purpose": "Builds the surviving low context bits under the literal mask sequence while preserving other owners sharing the byte. Those bits qualify later startup AFR/spark decay rather than being independent measurements."
+    },
+    "fuel_startup_afr": {
+      "title": "Decay the after-start AFR contribution",
+      "purpose": "Applies its hold/interval and retained history rules to reduce the initial AFR enrichment over admitted calls. The old Park/Drive delay test is NOPed in Rev B, so its former branch must not be presented as an active manual-idle requirement."
+    },
+    "fuel_startup_spark": {
+      "title": "Decay the startup spark contribution",
+      "purpose": "Applies the retained initial delay, selected phase window and interval/product decay to the startup timing term. It shares the startup/recovery word with other owners; the Rev B DFCO cleanup deliberately leaves that word intact."
+    },
+    "closed_loop_admit": {
+      "title": "Maintain closed-loop and learning permissions",
+      "purpose": "Applies activity, warmup/runtime, coolant and service qualifications, then calls the custom OL policy gate. The global/closed-throttle OL choices can override ordinary CL admission; permission here remains separate from the faster O2-correction gate."
+    },
+    "adc_auxiliary": {
+      "title": "Acquire a selected auxiliary/test input",
+      "purpose": "Performs the retained channel/test selection and publishes the selected sample through its current patched path. Deleted subsystem acquisition is bypassed rather than being treated as a required input to the engine controller."
+    },
+    "adc_inputs": {
+      "title": "Read the retained engine ADC channels",
+      "purpose": "Sequences the selected channel conversions and publishes their raw samples. Conversion/mux helpers own the hardware transactions, while sensor-specific routines later convert and qualify these raw values."
+    },
+    "adc_convert": {
+      "title": "Perform one ADC conversion transaction",
+      "purpose": "Writes the selected ADC control/channel request and obtains its returned sample through the retained sequence. It is acquisition, not calibration scaling or sensor fault substitution."
+    },
+    "adc_mux": {
+      "title": "Set the retained external ADC mux state",
+      "purpose": "Updates the selected mux/output state needed before the caller's ADC acquisition. The logical channel and the physical connector identity retain their documented hardware qualifications."
+    },
+    "blm_reset": {
+      "title": "Reset learned fuel cells to neutral",
+      "purpose": "Writes 128 to the retained bank of 21 BLM cells. This resets learned multiplicative fuel trim; it does not reset every O2/INT history or all controller state."
+    },
+    "blm_boot_clamp": {
+      "title": "Bound retained BLM cells at boot",
+      "purpose": "Walks all 21 retained cells and applies the configured upper/lower boot bounds in their original order. This protects the starting retained values separately from runtime cell selection and learning limits."
+    },
+    "heartbeat_toggle": {
+      "title": "Toggle the retained heartbeat output request",
+      "purpose": "Changes the selected heartbeat/output state and leaves its publication to the retained board path. The request bit and the physical output write are separate operations."
+    },
+    "board_latch": {
+      "title": "Update the shared board control word",
+      "purpose": "Masks interrupts, reads the shared control word, preserves the delay gap and changes only the selected lamp/output bit before writing it back. It then falls into the byte-port flush; shared fuel/serial owners must remain intact."
+    },
+    "board_ports": {
+      "title": "Flush output shadows and sample board inputs",
+      "purpose": "Writes the retained output shadows to their board ports, merges sampled input bits with the requested output bits, publishes the input shadow and executes CLI. The peripheral write and reconstructed RAM shadow need not contain the same value."
+    },
+    "lag16": {
+      "title": "Apply the retained fractional word lag",
+      "purpose": "Moves a retained word toward its target using the selected gain while preserving the signed difference, intermediate word and rounding/wrap order. The alternate entry at $F479 stores an intermediate shared state before completing its result."
+    },
+    "lookup_capped": {
+      "title": "Enter the capped one-dimensional lookup",
+      "purpose": "Transfers into the cap/offset lookup path. The input cap, offset subtraction and interpolation are distinct operations; an ordinary table clamp label alone does not describe the full coordinate transformation."
+    },
+    "lookup_offset": {
+      "title": "Set up a one-dimensional offset lookup",
+      "purpose": "Arranges the selected offset/coordinate and calls the retained interpolator. The caller's X pointer determines which table/header bytes are read; they are not fixed variables implied by the indexed offsets."
+    },
+    "lookup_scaled": {
+      "title": "Interpolate neighboring curve values",
+      "purpose": "Uses the scaled coordinate to select two adjacent bytes, handles the sign of their difference and rounds the fractional contribution. Endpoint-neighbor reads and truncation order remain part of the stored table ABI."
+    },
+    "gain_word": {
+      "title": "Multiply a word by a byte gain",
+      "purpose": "Performs the retained rounded word-by-byte scaling with its register/stack convention. Callers assign engineering meaning to the input word and coefficient; the helper itself does not know whether the quantity is fuel, timing or an internal gain."
+    },
+    "serial_poll": {
+      "title": "Start an admitted background ALDL reply",
+      "purpose": "Checks the optional broadcast/deferred conditions, prepares the selected data and starts transmission when the transport state permits. A descriptor/schedule entry determines the payload; this is not the UART interrupt handler itself."
+    },
+    "serial_idle": {
+      "title": "Age ALDL sessions and service requests",
+      "purpose": "Advances retained session/receive/service age state, expires the selected requests and releases the serial driver under its retained mask sequence. Expiry does not erase every payload/companion byte."
+    },
+    "sci_irq": {
+      "title": "Arbitrate SCI receive/transmit interrupts",
+      "purpose": "Checks receive status first, then transmit-empty and transmit-complete conditions, calls the corresponding transport work and releases the driver on completed transmission. Starting a reply and physically finishing it are separate states."
+    },
+    "serial_transmit": {
+      "title": "Build the next ALDL transmit byte",
+      "purpose": "Chooses the header/command echo, payload, saved word companion or checksum according to the retained count/state. It hands each byte to the send helper and arms completion at the proper end rather than rebuilding the whole packet at once."
+    },
+    "serial_next": {
+      "title": "Select the next requested data value",
+      "purpose": "Interprets the current descriptor/request as flat data, a ROM-held live-address pointer or an addressed read. A word source is sampled once and its companion byte saved; a pointer entry is not the value of the sensor/calibration it references."
+    },
+    "serial_send": {
+      "title": "Write a byte and advance transmit accounting",
+      "purpose": "Writes the byte to SCI, then updates the live checksum/count fields in the retained order. A write precedes those bookkeeping updates, so they are not one atomic memory operation."
+    },
+    "serial_finish": {
+      "title": "Arm final transmit completion",
+      "purpose": "Clears selected transfer state, drains the retained status/data sequence and arms transmit-complete handling. The later TC interrupt performs the final driver release; finishing the payload does not immediately end electrical transmission."
+    },
+    "serial_receive": {
+      "title": "Capture and route an incoming ALDL byte",
+      "purpose": "Reads SCI status/data, checks receive errors, clears receive age and accumulates framing/checksum state before routing to ID/length/payload/accept work. Some session and payload state changes occur before final packet acceptance."
+    },
+    "serial_find": {
+      "title": "Find a matching command descriptor",
+      "purpose": "Searches the retained normal descriptor chain and selects the matching length/command interpretation. Rev B jumps over the manufacturing-mode selector at this entry; the old factory alternative is not automatically an active route."
+    },
+    "serial_payload": {
+      "title": "Store incoming payload and select its page",
+      "purpose": "Interprets the retained command/page selector and stores bytes as they arrive. A later checksum failure does not roll back those earlier stores; retained bytes can matter for a shorter subsequent command."
+    },
+    "serial_accept": {
+      "title": "Accept a valid request and prepare its reply",
+      "purpose": "Checks the completed framing/checksum conditions, copies the selected service/control fields and decides whether a reply starts. Length acceptance is not an invented per-command validation of every service field."
+    },
+    "serial_start": {
+      "title": "Launch an addressed reply",
+      "purpose": "Captures the selected descriptor, writes the initial ID, enables the serial driver and arms transmit service. Driver-enable, transfer count and later transmit-complete release remain separate state transitions."
+    },
+    "serial_abort": {
+      "title": "Abort receive/transfer state and enter exceptional tails",
+      "purpose": "The ordinary abort entry clears its selected descriptor/count/checksum state and restores receive control while preserving unrelated retained payload. Separate vector/trap stubs later in the same address span are exceptional entries, not an ordinary fall-through extension of abort."
+    }
+  },
+  "by_address": {
+    "7100": {
+      "title": "Start the machine and establish the boot path",
+      "purpose": "Loads the stack and initial CPU mapping, initializes the retained engine/output state and enters the boot sequence. The reset vector reaches this code through its retained entry, rather than beginning at file offset zero."
+    },
+    "74D3": {
+      "title": "Initialize board command words before engine cleanup",
+      "purpose": "Writes the retained startup command words with the intervening delay-return calls, then jumps to the relocated engine-only cleanup at $5BD0. It preserves required board initialization while replacing the former mixed-subsystem continuation."
+    },
+    "74EA": {
+      "title": "Service an engine-reference interrupt",
+      "purpose": "Acknowledges/prepares the reference-event timing and board handshake, sets the shared pending state and enters the crank/running reference body. This interrupt can update state also used by scheduled fuel/spark work; numeric listing order is not exclusive ownership."
+    },
+    "793D": {
+      "title": "Admit or defer a periodic engine-work pass",
+      "purpose": "Services the timer interrupt and tests the retained busy/pending state. An idle foreground path can start scheduled work; a busy path records the retained pending observation for catch-up. This is the scheduling admission mechanism, not a fuel/idle-control equation."
+    },
+    "7AAD": {
+      "title": "Run the background BARO preparation",
+      "purpose": "Calls the retained barometric estimate/correction producer at $C583 and returns past removed-call NOPs. It supplies BARO-related factors used by later fuel/input work."
+    },
+    "7ABD": {
+      "title": "Run the retained background extension marker",
+      "purpose": "Calls $F5CF, whose optional external call is NOPed but whose retained $0F00 write remains, then returns. The output at $0F00 remains an unresolved device/interface role rather than a newly invented tuning feature."
+    },
+    "7AC7": {
+      "title": "Run retained battery/BARO/coolant diagnostics and preparation",
+      "purpose": "Checks battery and BARO diagnostics every admitted call, and conditionally performs coolant diagnostics/conversion and environmental preparation on the retained phase condition. It then rebuilds the shared fault-summary bits from surviving engine faults."
+    },
+    "7B03": {
+      "title": "Refresh the retained auxiliary operating flag",
+      "purpose": "Runs $D472 and bypasses former neighboring calls. The callee qualifies the surviving $0052.3 flag from coolant, RPM, TPS and configuration; its exact physical-purpose identity is not established solely by this wrapper."
+    },
+    "7B1B": {
+      "title": "Refresh the common idle target and spark auxiliaries",
+      "purpose": "Calls the common requested-idle target publisher and the retained MAT/PE/knock producer. The former transmission and other deleted calls are NOPs; the old dual-bank background idle strategy is not restored."
+    },
+    "7B2B": {
+      "title": "Run background knock decay",
+      "purpose": "Calls the retained knock-decay routine and returns. New knock acquisition and application of current retard happen through their separate producers/consumers."
+    },
+    "7B2F": {
+      "title": "Retain the old slow-idle slot as an empty strategy entry",
+      "purpose": "The only surviving call is $A2B0, now an immediate RTS. NOPs replace removed neighbors, so this slot adds no second Park/Drive or slow-learning update to the new controller."
+    },
+    "7B39": {
+      "title": "Return from a retired background slot",
+      "purpose": "Executes the retained NOP padding and returns. No engine algorithm or deleted subsystem operation should be invented for this slot."
+    },
+    "7B3D": {
+      "title": "Return from another retired background slot",
+      "purpose": "Executes the retained NOP padding and returns. Keeping the dispatcher entry preserves the schedule without retaining its former subsystem work."
+    },
+    "7B44": {
+      "title": "Refresh retained startup and board state",
+      "purpose": "Calls $CC35 to seed selected nonrunning inputs and refresh the shared board-control word. This is housekeeping/output ownership, not a direct recalculation of idle air."
+    },
+    "7B48": {
+      "title": "Refresh slow O2, MAT and engine diagnostics",
+      "purpose": "Calls the independent O2 filter, MAT conversion and retained diagnostic/lamp body in that order. The replacement removes the old shared O2 producer dependency while preserving the engine consumers."
+    },
+    "7B52": {
+      "title": "Publish the retained one-shot completion observation",
+      "purpose": "Tests $0051.2 and, when present, sets $0004.2. These exact state bits are established; a broader physical interpretation is left qualified until their full producer/consumer history is reviewed."
+    },
+    "7B5A": {
+      "title": "Run the retained pump/voltage diagnostic",
+      "purpose": "Calls $E286 and then sets the retained $0051.2 observation flag. Former neighboring subsystem work is NOPed; this wrapper still establishes a scheduled diagnostic call and a separate completion bit."
+    },
+    "7D4B": {
+      "title": "Coordinate one admitted fuel calculation",
+      "purpose": "Handles ignition/input preparation, refreshes the engine's fuel inputs, selects crank/running admission and enters pulse construction/delivery. It is the parent flow that connects the smaller fuel groups; it is not a single table lookup."
+    },
+    "91A3": {
+      "title": "Move the IAC actuator toward its requested position",
+      "purpose": "First checks battery/admission conditions, then maintains direction, phase-ring and position state and updates the actuator/output shadows in the retained order. A new air request does not imply immediate motor movement: step service performs the admitted physical-command progression."
+    },
+    "920E": {
+      "title": "Refresh the retained auxiliary IAC output state",
+      "purpose": "Updates the surviving auxiliary actuator/converter flags and output requests. These retained mechanics are separate from the removed Park/Drive learned-air strategy."
+    },
+    "9222": {
+      "title": "Set the auxiliary actuator output request",
+      "purpose": "Sets $004B.7 and returns. The board-flush routine later publishes that shadow bit; this helper does not directly write a motor port."
+    },
+    "923C": {
+      "title": "Clear the auxiliary actuator output request",
+      "purpose": "Clears $004B.7 and returns. This changes the shared output request while preserving every other bit in the byte."
+    },
+    "9240": {
+      "title": "Set the retained shared output-shadow bit",
+      "purpose": "Sets $004C.4 through the retained pointer and returns. Its software effect is exact; it does not establish a new physical output identity or revive the removed transmission role."
+    },
+    "925E": {
+      "title": "Initialize retained IAC mechanics and auxiliary state",
+      "purpose": "Seeds the surviving position/reset/converter state, invokes the new single-controller initialization through retained entries and applies the auxiliary-output startup checks. The old $4EF2 read still seeds $0885 but has no new-controller consumer, so it is not an active follower tuning control."
+    },
+    "92A4": {
+      "title": "Redirect a retained reset entry to the single controller",
+      "purpose": "Jumps to $989C. The old caller reaches the one new initialization routine instead of the former learned Park/Drive setup."
+    },
+    "92F1": {
+      "title": "Redirect the other retained setup entry to the single controller",
+      "purpose": "Jumps to the same $989C initialization. There is one seeded runtime baseline, not a second learned-bank initialization hidden behind this entry."
+    },
+    "93C5": {
+      "title": "Preserve the required IAC direction/phase bits",
+      "purpose": "When the reset-validity condition permits, masks the driver-state byte down to the retained phase bits and returns. It prepares actuator mechanics, not a learned airflow baseline."
+    },
+    "93D0": {
+      "title": "Guard IAC reset/service and admit the new controller",
+      "purpose": "Retains the actuator homing/reset/service decisions and the existing phase admission. Once ordinary control is admitted it chooses the stopped/cranking or running replacement entry, preserving driver requirements around the new strategy."
+    },
+    "9411": {
+      "title": "Compose starting air through the common strategy",
+      "purpose": "Initializes the single controller, calculates the common requested idle target, composes the starting air command and enters the retained air-to-position converter. It does not select a separate Park table when the truck is stopped."
+    },
+    "9537": {
+      "title": "Ensure the running idle controller is initialized",
+      "purpose": "Checks the runtime signature and calls the common initialization only when it is missing. Normal initialized operation continues directly to target/follower preparation; it does not reseed the learned baseline on every running call."
+    },
+    "983D": {
+      "title": "Convert internal air demand into the IAC position request",
+      "purpose": "Applies the retained BARO/auxiliary-output treatment and air-to-position mapping, then reconciles the software position request. Internal Q8.8 air units are not raw motor steps or measured airflow percent; the downstream step service owns movement."
+    },
+    "989C": {
+      "title": "Seed the one runtime idle baseline",
+      "purpose": "Loads the configured seed into the integral word with a zero fractional byte, clears follower/P/history state, initializes startup-air timing and marks the controller valid. This learned baseline is runtime state and is deliberately reseeded on restart/homing.",
+      "tuning": "The released baseline seed is 38 internal air units, startup extra air is 60, and one startup count fades every 4 admitted running controller calls. This seed is an initial condition, not a persistent learned calibration."
+    },
+    "98E3": {
+      "title": "Select and slew the coolant-dependent idle target",
+      "purpose": "Unless the retained service override owns the request, looks up $FF60 with native coolant index $0283 and compares it with the previous target. An increasing request can publish immediately; a falling request approaches by the retained one-count slew before the common publisher.",
+      "tuning": "The target curve is indexed by the native coolant coordinate at $0283, not a raw degrees-C value. Its publisher stores RPM in 12.5-RPM coordinates. The capped native index reaches 192, so the generic 17-knot display does not make all high knots independently active."
+    },
+    "9913": {
+      "title": "Derive follower demand from throttle opening",
+      "purpose": "Subtracts the release-TPS threshold from normalized TPS, floors the closed-throttle result at zero and caps the remaining demand. The next group converts this demand to the word scale and decides immediate rise versus decay.",
+      "tuning": "The closed-throttle subtraction uses release TPS $9F15. The released follower ceiling is 40 internal air units; the selected demand is converted to Q8.8 before rise/decay comparison."
+    },
+    "9951": {
+      "title": "Admit proportional control independently of learning",
+      "purpose": "Clears the previous P term, allows captured control or closed-throttle overspeed response, and blocks the response during active DFCO. This allows air to be shed on idle approach without treating that approach as a qualified learning condition."
+    },
+    "99FB": {
+      "title": "Add baseline and cold/start/A-C feed-forward air",
+      "purpose": "Looks up cold-air contribution using the native coolant index, adds the integral baseline, then adds admitted startup and A/C air with saturation. The next group applies signed feedback and stall recovery before follower air is considered.",
+      "tuning": "Cold-air knots, startup extra air and the 5-unit A/C adder are separate from learned baseline and P. All are internal software air coordinates before BARO and conversion, so their numeric sum cannot be read as IAC steps."
+    },
+    "9E99": {
+      "title": "Refresh the same requested idle target in background work",
+      "purpose": "Jumps to the common target routine at $98E3. The background slot therefore publishes the same target as startup/running control, without a second Park/Drive target or learning strategy."
+    },
+    "9F40": {
+      "title": "Qualify active DFCO spark and form its retard term",
+      "purpose": "Requires active fuel cut and actual RPM strictly above requested idle plus the shared release margin. Equality or threshold-add overflow chooses cleanup. The admitted path sets the DFCO-spark latch, clears the startup/recovery word as the retained active path did and forms the base/coolant-derived subtraction for the next group.",
+      "tuning": "The shared release margin is currently 200 RPM. The spark correction requires actual RPM strictly above target + margin; equality releases it. A zero base-retard byte at $4152 need not zero the entire effect because the retained coolant term can still contribute."
+    },
+    "A2B0": {
+      "title": "Return without the retired slow idle strategy",
+      "purpose": "Returns immediately. New idle strategy work runs at the main IAC admission, so this retained call site cannot perform another slow Park/Drive learning update."
+    },
+    "A466": {
+      "title": "Coordinate normal or alternate spark processing",
+      "purpose": "Prepares the spark load/admission state, selects normal versus alternate handling and connects the retained command/monitor/publication sequence. Fuel and spark permission remain separate even when checked within this parent path."
+    },
+    "C583": {
+      "title": "Estimate BARO from admitted MAP/operating conditions",
+      "purpose": "Uses the retained MAP, throttle stability, RPM/coolant and validity conditions to decide whether a MAP-based barometric estimate can be updated. Under qualifying conditions it adds the correction lookup, filters the result and enters the derived-factor tail. It does not claim to read a dedicated BARO sensor here."
+    },
+    "C614": {
+      "title": "Retain/default BARO and derive its downstream factors",
+      "purpose": "If a fresh estimate is not admitted, retains the existing filtered BARO or supplies its fallback. Converts the selected BARO representation and refreshes AE, PE and load-normalization factors through separate lookups. This tail is shared with the estimate path."
+    },
+    "CC35": {
+      "title": "Refresh startup input seeds and the shared control latch",
+      "purpose": "When not fuel-running, seeds starting coolant and O2 input state. Then updates the retained serial/startup observation and shared board-control word under SEI/CLI, preserving the specified byte masks and shared owners."
+    },
+    "CF15": {
+      "title": "Return from a retired input helper",
+      "purpose": "Returns immediately. A surviving call target can be deliberately empty; its old name is not evidence that former sensor/subsystem work still executes."
+    },
+    "D472": {
+      "title": "Qualify the retained auxiliary operating flag",
+      "purpose": "Tests configuration and a hysteretic set of coolant, RPM and normalized-TPS limits, then sets or clears $0052.3. The state-transition function is visible; the physical meaning of this auxiliary flag is kept unresolved rather than assigned from an old label alone."
+    },
+    "DC89": {
+      "title": "Select diagnostic mode and prepare flash/lamp state",
+      "purpose": "Maintains diagnostic-mode context, chooses test/normal initialization and clears or prepares flash-reporting histories before the surviving fault checks. Diagnostic switch mode and actual detected faults remain separate inputs to the lamp decision."
+    },
+    "E1EC": {
+      "title": "Generate stored-fault flash-code timing",
+      "purpose": "Scans the retained fault bitmap through its mask/code tables, selects decimal digits and advances the flash/pause state and lamp request. It reports retained diagnostic state; it does not discover a new fault by measuring a sensor here."
+    },
+    "E286": {
+      "title": "Qualify the retained pump/voltage fault state",
+      "purpose": "Uses the enable flag, battery/reference voltage samples, pump-related state and persistence timer to update the retained fault bit. Distinct measured samples and latch phases are preserved; a precise physical pump-wire identity is not inferred from this software test alone."
+    },
+    "E75F": {
+      "title": "Debounce one coolant ADC fault direction",
+      "purpose": "Checks the enable/service-inhibit conditions and one raw coolant threshold, then counts observations before changing the selected coolant fault bit. The opposite recovery condition also has its own count policy; a single threshold crossing is not always an immediate fault."
+    },
+    "E793": {
+      "title": "Debounce the opposite coolant ADC fault direction",
+      "purpose": "Applies the companion raw-coolant threshold and persistence rules to the other coolant fault bit. It is a separate direction from $E75F, with its own threshold and counter."
+    },
+    "E7C7": {
+      "title": "Qualify the high raw-TPS fault and recovery",
+      "purpose": "Checks raw TPS against the selected upper-side threshold, times fault entry and uses the retained recovery observation/count state for clearing. This operates on raw ADC TPS, not the engine's zero-corrected normalized byte."
+    },
+    "E808": {
+      "title": "Qualify the low raw-TPS fault and recovery",
+      "purpose": "Checks the opposite raw-TPS threshold and its entry/recovery history before changing the selected fault bit. It retains the companion path's separate recovery-count owner."
+    },
+    "EA40": {
+      "title": "Qualify one battery-voltage fault condition",
+      "purpose": "Uses the battery sample and a retained word persistence counter to update the selected battery fault state, with a separate recovery observation latch. The count is an admitted-call history, not a voltage value or an assumed elapsed-time unit."
+    },
+    "EA7C": {
+      "title": "Qualify the companion battery-voltage fault condition",
+      "purpose": "Applies the other retained battery threshold and byte persistence/recovery state to its selected fault bit. It is not interchangeable with the word-count path at $EA40."
+    },
+    "EB19": {
+      "title": "Debounce the high BARO estimate fault",
+      "purpose": "Compares the sampled BARO estimate with its threshold and counts entry/recovery observations before changing the retained fault bit. The input is the software's BARO representation, not an independently identified physical pressure channel."
+    },
+    "EB4D": {
+      "title": "Debounce the low BARO estimate fault",
+      "purpose": "Applies the companion lower-side BARO threshold and persistence rule. It maintains a distinct fault/counter from the high-side check."
+    },
+    "F2AA": {
+      "title": "Sum the remaining image region for validation",
+      "purpose": "Walks bytes beginning at the caller's X address through address wrap, accumulates the retained word checksum and services the watchdog between chunks. The final meaning comes from the boot caller's start/expected checksum; this is not an engine-control lookup."
+    },
+    "F2FD": {
+      "title": "Clear the caller-selected memory span",
+      "purpose": "Clears the X-addressed length using a byte remainder path and word/chunk stores. The caller supplies the region; indexed offsets in this helper must not be mislabeled as fixed sensor or IAC addresses."
+    },
+    "F326": {
+      "title": "Recalculate the retained diagnostic checksum byte",
+      "purpose": "Subtracts the ten selected retained bytes into the returned checksum byte. Callers publish it after diagnostic clear/merge operations so retained-history integrity tracks the newly stored state."
+    },
+    "F333": {
+      "title": "Clear selected engine diagnostic history",
+      "purpose": "Masks selected current/retained/pending fault bytes through the ROM mask table, clears the specified counters/latches and regenerates the retained checksum. This is selective clearing; unrelated fault owners can remain."
+    },
+    "F380": {
+      "title": "Clear the companion diagnostic history set",
+      "purpose": "Uses its own mask table on the selected current/retained faults, resets the listed recovery counters and regenerates the checksum. It differs from $F333 in which owners and pending state it clears."
+    },
+    "F3ED": {
+      "title": "Provide the retained call/return delay gap",
+      "purpose": "Returns immediately. Its call/return consumes a deliberate gap between board operations; it is not missing algorithm code and has no data transformation of its own."
+    },
+    "F436": {
+      "title": "Filter a word target toward retained state",
+      "purpose": "Applies the signed-difference fractional lag with its word wrap and low-product rounding. This is the generic word entry; the caller supplies the physical/controller meaning of target, old state and gain."
+    },
+    "F459": {
+      "title": "Filter a byte input while retaining a fractional word",
+      "purpose": "Updates the retained word state from a byte input and byte gain, then returns the word result. The high byte and fraction are separate; later callers can round the high byte differently."
+    },
+    "F49A": {
+      "title": "Cap and offset the lookup coordinate",
+      "purpose": "Caps the incoming coordinate at the byte pointed to by X, advances the table pointer and enters the offset/clamped interpolation path. The cap occurs before offset subtraction, which matters near the lower endpoint."
+    },
+    "F4B6": {
+      "title": "Scale a coordinate before a curve lookup",
+      "purpose": "Reads the table header's coordinate scale, applies the retained multiply/doubling and then enters the common curve interpolation. The header byte is metadata, not the first returned tuning knot."
+    },
+    "F4BD": {
+      "title": "Subtract the lookup offset with a zero floor",
+      "purpose": "Subtracts the supplied offset from the byte coordinate, uses zero if it borrows and enters the common 16-knot-coordinate interpolator. This changes where the curve begins; it does not add an offset to the returned value."
+    },
+    "F4C1": {
+      "title": "Split the curve coordinate into knot and fraction",
+      "purpose": "Separates the byte coordinate into the neighboring-knot index and interpolation fraction, then continues through the shared interpolation body. A direct caller bypasses the header-scale/offset entry stages."
+    },
+    "F4DE": {
+      "title": "Interpolate a two-dimensional calibration surface",
+      "purpose": "Uses the caller's two coordinates and table header/stride to select neighboring values and interpolate the byte result with retained integer rounding. Header math and neighbor access are part of the ABI, not ordinary row/column labels guessed from X alone."
+    },
+    "F5CF": {
+      "title": "Retain the background interface-marker write",
+      "purpose": "The optional extension call is NOPed, then the code writes $F7 to $0F00 and returns. The write is real; the hardware/interface meaning of that address remains unresolved in this explanation."
+    },
+    "F715": {
+      "title": "Execute edge-qualified ALDL reset/clear requests",
+      "purpose": "Recognizes an active engine-service command, resets BLM or selected diagnostic sets once per retained request edge, then expires/clears service state under the surviving conditions. Holding a request and generating a fresh request edge are distinct cases."
+    },
+    "FEC0": {
+      "title": "Bypass learned BLM under global open-loop policy",
+      "purpose": "When the global OL bit is set, substitutes neutral BLM for pulse scaling; otherwise preserves the selected learned value. It returns through the retained base-fuel continuation and does not clear every learned cell.",
+      "tuning": "Neutral substitution affects the gain used now; it does not erase all 21 learned cells. This global-OL behavior is distinct from the optional closed-throttle-only OL choice."
+    },
+    "FEE0": {
+      "title": "Neutralize additive INT/P under global open-loop policy",
+      "purpose": "When global OL is selected, stores zero for the encoded signed additive pulse correction; otherwise retains the normal encoding path. This is not multiplying PW by an INT/128 factor.",
+      "tuning": "The global-OL hook zeroes the encoded additive correction. BLM and INT/P cannot be combined as two multiplicative 128-centered gains in this image."
+    },
+    "FEF8": {
+      "title": "Classify fuel idle relative to the common target",
+      "purpose": "Uses separate entry/retention TPS limits and requested-idle-relative RPM margins, then jumps to the retained idle-AFR or off-idle continuation. This fuel classifier is distinct from the IAC capture/qualification and the VE selector."
+    },
+    "FF2E": {
+      "title": "Admit PE by the custom load or retained TPS comparison",
+      "purpose": "Tests the custom load threshold first, or returns the TPS comparison consumed by the PE caller. It supplies a qualification result to the parent PE logic rather than directly writing the final AFR."
+    },
+    "FF40": {
+      "title": "Apply the custom global/closed-throttle open-loop policy",
+      "purpose": "The global OL bit takes priority. The optional closed-throttle OL choice tests normalized TPS against the shared limit without requiring IAC capture or an RPM window. If neither forces OL, the code continues ordinary closed-loop admission.",
+      "tuning": "The closed-throttle OL option uses TPS alone at the shared threshold. It does not wait for the IAC captured-idle flag, an RPM window, or integral-learning qualification."
+    },
+    "5BD0": {
+      "title": "Initialize the retained engine and output state",
+      "purpose": "Clears selected deleted-subsystem state/output requests and seeds the surviving engine/board shadows. Shared resets/cleanup writes remain real even where an old operational role has been removed."
+    },
+    "5C8A": {
+      "title": "Update the independent slow O2 filter",
+      "purpose": "Applies the retained O2 lag gain to the engine sample and publishes its word filter state. This preserves the engine consumer after removing the former mixed-subsystem producer path."
+    },
+    "5C9A": {
+      "title": "Normalize the raw throttle sample",
+      "purpose": "Rounds the learned zero, subtracts it from raw TPS with a zero floor, applies the normalization gain and saturates the result. The caller receives the normalized byte in A and publishes it at $01D9; the intermediate $01A6 store is not a replacement engine-TPS publication.",
+      "tuning": "Changing learned zero or normalization gain changes the byte consumed by idle capture, follower, fuel idle/VE and PE. A raw ADC threshold is a different quantity from one of these normalized-TPS thresholds."
+    },
+    "5CBB": {
+      "title": "Guard and update learned TPS zero",
+      "purpose": "Uses the retained qualification and learning gain to maintain the zero-offset word used by TPS normalization. This affects what normalized closed throttle means without routing the engine through a transmission substitute."
+    },
+    "5CD0": {
+      "title": "Sequence the independent engine acquisition work",
+      "purpose": "Calls the retained ADC/input and common board/MAP/status service in its current order. It provides the engine-only service bridge used by fast scheduling."
+    },
+    "8032": {
+      "title": "Bypass EGR correction and apply the selected BLM policy",
+      "purpose": "Jumps over the deleted EGR subtraction to the global-OL BLM hook, then retains the learned-value/PE safeguard and scaling continuation. The removed EGR equation is not part of current base-fuel construction merely because the factory source file covers this address."
+    },
+    "8058": {
+      "title": "Apply the surviving RPM fuel-cut decision",
+      "purpose": "Bypasses the old gear/speed qualification, selects the entry/retention RPM threshold and checks the current RPM. A qualifying cut sets its latch, publishes zero at $024E and enters reduction; the non-cut path clears its counter/latch. The removed vehicle-speed delay must not be described as active."
+    },
+    "899B": {
+      "title": "Apply target-relative idle AFR selection and delay",
+      "purpose": "Redirects entry to the new fuel-idle classifier, then retains the idle AFR readiness, coolant, INT-error and phase-counted delay paths. The old Park/Neutral test is NOPed; the classifier uses target-relative RPM, while warm idle AFR application still has its own readiness/history conditions."
+    },
+    "8A92": {
+      "title": "Qualify, ramp and release power enrichment",
+      "purpose": "Bypasses removed entry/shared context, uses the retained permission and custom load/TPS helper, and updates full/gradual PE gain, target and exit histories. Setting PE permission, reaching full enrichment and releasing a retained gain are separate transitions."
+    },
+    "8C73": {
+      "title": "Select and validate a BLM cell without VSS/Park selection",
+      "purpose": "Bypasses the old speed-history update and uses the current fuel-idle state for special-cell admission. A/C and packet context can still affect selection; the Park bank offset is bypassed. The normal RPM/load grid retains hysteresis, and an invalid selected value resets the 21 cells to neutral."
+    },
+    "A792": {
+      "title": "Zero the removed EGR spark contribution",
+      "purpose": "Clears D and jumps to the retained composite sum. The former EGR term is therefore zero on this route; this code is not a live editable EGR spark curve."
+    },
+    "A84E": {
+      "title": "Bypass the retired idle/transient spark strategy",
+      "purpose": "Clears the retained transient-state bit and jumps to the new deceleration-spark entry. Old idle/transient spark calculations in the vacated allocation do not run through this path."
+    },
+    "A97A": {
+      "title": "Redirect deceleration spark to the Rev B gate",
+      "purpose": "Jumps to $9F40, where fuel-cut and target-relative RPM decide whether the retained subtraction is applied. The old post-fuel-cut recovery routine is replaced rather than being an additional correction after the new gate."
+    },
+    "AADC": {
+      "title": "Apply the normal or active-DFCO signed angle floor",
+      "purpose": "Bypasses the removed transmission floor selection. Active DFCO plus TPS at or below $48DA selects $4148; otherwise $4146 applies. The signed comparison raises a lower command to its selected floor before later service edits, without an extra re-clamp after those edits.",
+      "tuning": "$4146 and $4148 are signed minimum-angle words. They are compared before the later service edits, not absolute unsigned retard magnitudes or a guaranteed final bound after every override."
+    },
+    "7875": {
+      "title": "Service the first retained timer-output channel",
+      "purpose": "Acknowledges its compare flag, tests channel state, combines the prepared pulse and any admitted extra reservoir amount, and chooses the next modular compare time. The alternate branch uses the retained pending time. It returns from an interrupt rather than falling into the next channel."
+    },
+    "78D9": {
+      "title": "Service the companion timer-output channel",
+      "purpose": "Performs the corresponding retained compare/pulse/reservoir work using the second channel's registers and saved times, then returns from the interrupt. Logical channel symmetry is visible, but a physical injector-pin assignment is not inferred from that symmetry alone."
+    },
+    "FC04": {
+      "title": "Latch one exceptional-entry flag and stop locally",
+      "purpose": "Sets $0000.3 and branches to itself. This path records an exceptional condition; it is not a hidden normal main-loop task. Subsequent hardware reset/watchdog behavior is outside this local loop's data operation."
+    },
+    "FC09": {
+      "title": "Latch an exception and alter its saved return mask",
+      "purpose": "Sets $0000.2, edits the stacked condition-code byte by setting bit 6 and returns through RTI. It changes the resumed CPU context; it does not simply return with an unchanged interrupt frame."
+    },
+    "FC11": {
+      "title": "Handle the retained timer-flag exception entry",
+      "purpose": "Sets $0000.1, writes the retained timer flag control at $3023 and returns through RTI. This is a separately entered tail reached by the current exception continuation, not ordinary abort cleanup."
+    },
+    "FC1A": {
+      "title": "Latch another exceptional-entry flag and stop locally",
+      "purpose": "Sets $0000.4 and branches to itself. The local software effect is a persistent flag and a loop; it is not presented as an engine-control algorithm."
+    },
+    "FC1F": {
+      "title": "Record an exception before rebooting",
+      "purpose": "Sets $0000.5 and branches into the common jump to boot at $7100. Its reboot path is distinct from the neighboring self-loop exception entries."
+    },
+    "FC24": {
+      "title": "Record an exceptional condition and wait locally",
+      "purpose": "Sets $0000.6 and loops at the retained branch. Normal scheduled work is not an implied fall-through continuation."
+    },
+    "FC29": {
+      "title": "Record the high exception flag and reboot",
+      "purpose": "Sets $0000.7 and jumps to the boot entry. The write records why this path restarted; it does not clear all prior RAM by itself."
+    },
+    "FC2F": {
+      "title": "Restore the retained timer masks/flags",
+      "purpose": "Writes the retained values to $3022/$3023 and returns through RTI. These are hardware-control operations rather than calibration table reads."
+    },
+    "FC3A": {
+      "title": "Restore the companion timer control bytes",
+      "purpose": "Writes the retained $3024/$3025 controls and returns through RTI. Its exact byte transactions are established; detailed external event timing remains a hardware contract."
+    },
+    "FC44": {
+      "title": "Return from an otherwise empty interrupt entry",
+      "purpose": "Executes RTI. The CPU restores the saved interrupt frame; no additional sensor, fuel or spark computation occurs at this entry."
+    },
+    "9541": {
+      "title": "Refresh target/follower and fade startup air",
+      "purpose": "Calls the common target and follower producers, then decrements startup-air timing and removes one startup-air count on its admitted expiration. This fade has no pedal/gear/vehicle-speed release latch."
+    },
+    "955A": {
+      "title": "Refresh idle context and calculate RPM error",
+      "purpose": "Preserves the explicitly shared context bits, mirrors the surviving A/C request and computes the absolute target error plus its overspeed direction. It publishes the error before deciding whether idle capture is admitted."
+    },
+    "9595": {
+      "title": "Test whether an existing idle capture can remain",
+      "purpose": "Uses the release TPS limit and the wider target-relative RPM margin. Its separate limits provide hysteresis while actual speed settles toward target.",
+      "tuning": "Retention uses normalized TPS <= 3 and RPM <= target + 200 RPM. The $9F17 RPM margin also governs the DFCO spark approach gate; changing it affects both consumers."
+    },
+    "95A9": {
+      "title": "Count captured observations before learning",
+      "purpose": "Sets the captured flag and advances the qualification counter toward its threshold. Reaching the threshold permits the separate qualified/learning state; capture alone does not instantly authorize integral learning.",
+      "tuning": "The default qualification threshold is 16 captured controller observations. It is not 16 milliseconds; only admitted main-IAC calls advance this count, and DFCO can clear qualification."
+    },
+    "95C5": {
+      "title": "Release idle capture and clear qualification",
+      "purpose": "Clears captured/qualified state and resets its counter when the entry/retention conditions fail. It leaves the learned baseline as a separate state rather than reseeding the controller on every pedal movement."
+    },
+    "95CB": {
+      "title": "Give DFCO priority and check stall recovery",
+      "purpose": "While fuel cut is active, clears integral-learning qualification. It then tests the captured controller's RPM against the stall boundary, sets the stall-air request when needed and calls the common P/I and air-composition helpers before conversion."
+    },
+    "98FA": {
+      "title": "Publish the selected target and stall boundary",
+      "purpose": "Publishes the common RPM target, derives a zero-floored target-minus-stall-error boundary and reports the baseline high byte. A service path can enter at the boundary calculation while retaining its requested target."
+    },
+    "9924": {
+      "title": "Choose immediate follower rise or retained decay",
+      "purpose": "Converts the capped TPS-derived demand to the internal word scale and compares it with the retained follower. Rising demand replaces the retained value; falling demand takes the configured decay path."
+    },
+    "9932": {
+      "title": "Decay follower air without dropping below current demand",
+      "purpose": "Subtracts the configured word decay with a zero floor, then keeps whichever is greater: that decayed state or the current TPS-derived request. Publishes the resulting follower separately from learned baseline air.",
+      "tuning": "The released follower decay is $0080, or 0.5 internal air unit per admitted controller call. Its actual duration depends on admitted-call cadence; a slower decay can prolong the air added during idle return."
+    },
+    "9973": {
+      "title": "Calculate and cap proportional air correction",
+      "purpose": "Subtracts deadband from the absolute error, multiplies the remaining error by Kp and applies the configured word cap. The retained direction bit determines later whether composition adds or subtracts this magnitude.",
+      "tuning": "The released deadband is 25 RPM. Beyond it, each remaining raw 12.5-RPM error count produces 0.25 internal P-air unit, limited to 24 units. For a 100-RPM error: 8 raw counts minus 2 deadband counts gives 6; 6*64 = 384 Q8.8 = 1.5 air units. Overspeed subtracts this amount later; underspeed adds it."
+    },
+    "9993": {
+      "title": "Qualify learning and integrate upward",
+      "purpose": "Publishes P, then requires qualified capture, no freeze request, no startup air and no follower before learning. For underspeed it avoids the prior upper command rail, applies the upward gain and caps the baseline numerically. Overspeed instead branches to the downward integration group.",
+      "tuning": "Each remaining raw error count contributes 4/256 internal baseline-air unit per admitted learning update with the released Ki-up. The baseline ceiling is 180 units. Startup/follower/freeze and qualification checks can prevent an update even while P is active."
+    },
+    "99D5": {
+      "title": "Integrate downward with directional anti-windup",
+      "purpose": "Requires that the previous composed command is above its lower rail, forms the downward step from error and Ki-down, and subtracts it from the baseline with a zero floor. It reduces learned baseline separately from the temporary proportional subtraction.",
+      "tuning": "Ki-down has the same released 4/256 scale per remaining raw error count. The separate downward gain allows asymmetric learning later, but the current guide changes no calibration."
+    },
+    "99EE": {
+      "title": "Publish the learned baseline and its reporting copies",
+      "purpose": "Stores an updated integral when entered through learning, then refreshes the retained/reporting copies before returning. Frozen learning can enter the return tail and report an unchanged baseline."
+    },
+    "9A24": {
+      "title": "Apply signed proportional action and stall recovery",
+      "purpose": "Adds P for underspeed or subtracts it with a zero floor for overspeed. Adds stall-recovery air only when requested and uses the word ceiling on overflow. These bounded contributions form the pre-follower command used by IAC-change fuel enrichment."
+    },
+    "9A44": {
+      "title": "Qualify positive IAC air-command-change enrichment",
+      "purpose": "Saves the current pre-follower air command and subtracts the previous one. Decreases produce zero enrichment. A positive increase qualifies only when normalized TPS is below $50A9 and its whole-unit increase is at least $50A8; neither input is measured airflow percent.",
+      "tuning": "Released $50A8 is 10 whole internal-air units; $50A9 is 26 normalized TPS counts. A +10-unit change at TPS25 can enter the lookup; +9 cannot, and TPS26 cannot. The air change is calculated before follower/BARO. This matches the recorded Rev B boundary witnesses."
+    },
+    "9A5F": {
+      "title": "Scale the admitted change and look up extra fuel",
+      "purpose": "Scales the positive internal-air change by the retained shifts, saturates the lookup coordinate as specified and calls the IAC-change enrichment curve at $50A2. It produces a fuel contribution from commanded air change before follower/BARO, not an extra IAC position request."
+    },
+    "9A70": {
+      "title": "Publish IAC-change enrichment and add follower air",
+      "purpose": "Stores the selected enrichment byte, records the pre-follower command as next call's history and adds follower air with saturation. This preserves the distinction between the air-change fuel input, follower contribution and later converted position target.",
+      "tuning": "Follower air is added after the IAC-change enrichment calculation. A follower-only rise is therefore not the same input as a positive pre-follower air-command change in this fuel term."
+    },
+    "9F66": {
+      "title": "Apply the admitted active-DFCO spark subtraction",
+      "purpose": "Stores the retained base/coolant-derived subtraction, subtracts it from composite spark and rejoins normal timing construction at $A9E0. The active latch also selects the later DFCO spark floor when its TPS condition passes."
+    },
+    "9F77": {
+      "title": "Release DFCO spark without clearing startup state",
+      "purpose": "Clears the DFCO-spark latch and saved subtraction, preserves the current composite and rejoins timing construction. It deliberately leaves shared word $01F2 intact, so the cleanup does not erase the startup owner's remaining term."
+    },
+    "DD14": {
+      "title": "Age and maintain retained diagnostic memory",
+      "purpose": "Updates the retained diagnostic age/checksum bookkeeping and performs the selected age-based clear path. These writes protect retained fault-history integrity rather than measuring a sensor."
+    },
+    "DD40": {
+      "title": "Qualify O2 inactivity under surviving conditions",
+      "purpose": "Checks fault/context inhibition, fuel-cut recovery history, O2-band position, coolant/TPS and its count gate before setting the inactivity fault. It then clears the explicitly removed diagnostic owners and jumps over their retired tests."
+    },
+    "DFCA": {
+      "title": "Check high-MAP plausibility and publish its fault context",
+      "purpose": "Compares raw MAP with the selected BARO/limit representation under throttle/RPM qualifications, times the implausible condition and updates its fault/summary state. This is a plausibility check, not ordinary MAP filtering or BARO learning."
+    },
+    "E00D": {
+      "title": "Observe bypass/EST response for diagnostics",
+      "purpose": "Under the surviving engine, phase and diagnostic gates, compares the board feedback counter with its baseline and advances the timeout observation. It updates diagnostic state without adding a normal spark-table correction."
+    },
+    "E041": {
+      "title": "Qualify retained lean/rich O2 fault conditions",
+      "purpose": "Uses the retained filtered-O2 level, thresholds, duration counters and their separate direction state to select fault updates. This fault qualification is distinct from INT/P closed-loop correction and raw O2 activity."
+    },
+    "E11A": {
+      "title": "Merge fault candidates, maintain retained history and choose the lamp",
+      "purpose": "Scans the retained candidate/current masks, applies persistence and history merges, regenerates the retained checksum and chooses the final lamp request with engine/diagnostic context. Multiple entry branches share this tail; it is not guaranteed to follow every preceding sensor check."
+    },
+    "957B": {
+      "title": "Test entry into idle capture",
+      "purpose": "Uses the tighter entry TPS limit and actual RPM relative to requested target plus the entry margin. A captured controller will instead use its separate retention limits, so entry and exit are not a single threshold.",
+      "tuning": "With the released defaults, entry requires normalized TPS <= 2 and actual RPM <= target + 100 RPM. Equality passes. Byte addition overflow follows the explicit capture branch. These are internal normalized TPS counts, not percent pedal travel."
+    },
+    "FA4D": {
+      "title": "Abort the current ALDL transfer state",
+      "purpose": "Clears the selected descriptor/count/checksum state and restores receive control while preserving unrelated retained payload. Neighboring vector/trap entries are separately grouped; they are not an ordinary fall-through extension of abort."
+    },
+    "AACF": {
+      "title": "Subtract the selected knock-related magnitude",
+      "purpose": "Preserves the selected byte magnitude on the stack, subtracts it from the word command at $01EE and removes the temporary stack byte. This group applies a magnitude already selected by the preceding retard logic; the next group chooses a signed minimum-angle floor."
+    },
+    "7FD8": {
+      "title": "Calculate the base running-fuel pulse",
+      "purpose": "Combines pressure-derived density, modeled charge temperature, displacement and VE to estimate the internal air quantity, then divides by requested AFR and injector-flow scaling to form the pulse basis. Each integer divide/product keeps its own truncation, saturation and rounding; the following groups apply trim and cut/enrichment policy."
+    },
+    "8A22": {
+      "title": "Apply retained temperature/startup AFR biases",
+      "purpose": "Applies the surviving hot/warm biases, the selected upper AFR cap and then the reference-counted additional-enrichment term before publishing the current request. The old gear-dependent warm-bias segment is NOPed; PE qualification starts at a separately grouped later entry."
+    },
+    "8C38": {
+      "title": "Finish the requested AFR publication",
+      "purpose": "Applies the retained rich bound and service override, publishes the requested AFR and continues to BLM selection. The deleted shared segment and optional extension call are bypassed/NOPed. A diagnostic source pointer to this value is not another AFR command producer."
+    },
+    "A77A": {
+      "title": "Scale the current low-octane adaptive retard",
+      "purpose": "Uses the retained adaptive state and gain to form the current low-octane retard contribution. Its separate learning routine updates that adaptive state; the following zero-D group bypasses the removed EGR term before the composite sum."
+    },
+    "A81E": {
+      "title": "Apply the prepared MAT spark contribution",
+      "purpose": "Selects the positive/negative load gain, scales the prepared MAT magnitude with retained truncation and adds or subtracts its effect from composite spark. The next group separately bypasses the retired idle/transient strategy."
+    },
+    "84BC": {
+      "title": "Shape a short synchronous pulse",
+      "purpose": "For a nonzero short pulse, adds the lookup correction and subtracts the shared bias, then compares against the synchronous minimum and selects the distinct replacement pulse when required. The async shaping option does not gate this synchronous lookup.",
+      "tuning": "The lookup addition, subtractive bias, minimum comparison and replacement pulse are different controls. The minimum test occurs before the later byte-valued voltage offset. The synchronous lookup is not disabled by the async shaping option."
+    },
+    "8548": {
+      "title": "Shape and strobe an asynchronous packet",
+      "purpose": "Conditionally applies the same short-pulse lookup/bias, with asynchronous admission and subtraction-borrow rules, then writes the packet/offset and performs the ordered board-latch strobe. Its zero/borrow behavior differs from the synchronous replacement path.",
+      "tuning": "The async path uses the shared short-pulse correction/bias only when its option/admission permits; a subtraction borrow selects zero here, unlike the synchronous replacement route."
+    },
+    "7F86": {
+      "title": "Choose and interpolate the active VE surface",
+      "purpose": "Uses normalized TPS and the coarse RPM coordinate to select the main or lower-RPM closed-throttle VE table, then interpolates its current load/RPM point. This table handoff does not require the new IAC captured-idle flag, so closed throttle and captured idle are distinct states.",
+      "tuning": "The lower-RPM closed-throttle VE table is selected by TPS <= the shared $FF8B limit and coarse RPM < 72 (nominally 1800 RPM). Equality at RPM72 selects the main surface. IAC capture is not one of these tests."
+    }
+  }
+}

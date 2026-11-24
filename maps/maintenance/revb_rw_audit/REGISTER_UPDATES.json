@@ -1,0 +1,195 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "workbooks": [
+    {
+      "workbook": "7427_Address_Register_0.3.12.xlsx",
+      "before_sha256": "e63a758c3eeac14a8ad223192f228db6ed99b9808496f40b60b8d463a8040142",
+      "after_sha256": "42017a65b4d1a04039cbba9a9b2bb54fec44dd56d0a68306e06e95bdfcbb2c10",
+      "added_rows": [
+        {
+          "sheet": "RAM reads",
+          "address": "$0000",
+          "oem_role": "Interrupt and trap cause latch",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM reads",
+          "address": "$001B",
+          "oem_role": "Diagnostic fault-flag byte",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM reads",
+          "address": "$001B.1",
+          "oem_role": "BARO-estimate low-limit diagnostic flag",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM reads",
+          "address": "$001B.2",
+          "oem_role": "BARO-estimate high-limit diagnostic flag",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM reads",
+          "address": "$016E",
+          "oem_role": "BARO-estimate high-limit qualification counter",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM reads",
+          "address": "$016F",
+          "oem_role": "BARO-estimate low-limit qualification counter",
+          "current_use": ""
+        }
+      ]
+    },
+    {
+      "workbook": "7427_Write_Register_0.3.12.xlsx",
+      "before_sha256": "16d8a0c08135970f8341d0af1eb6ef861c6092e7620f3282d377f1c5a5b7b1ff",
+      "after_sha256": "d473ee3f37655b308cfdb4bed152b033c6dbff3d6986722bbd0d84e3b549e585",
+      "added_rows": [
+        {
+          "sheet": "RAM writes",
+          "address": "$0000",
+          "oem_role": "Interrupt and trap cause latch",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM writes",
+          "address": "$001B",
+          "oem_role": "Diagnostic fault-flag byte",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM writes",
+          "address": "$001B.1",
+          "oem_role": "BARO-estimate low-limit diagnostic flag",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM writes",
+          "address": "$001B.2",
+          "oem_role": "BARO-estimate high-limit diagnostic flag",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM writes",
+          "address": "$016E",
+          "oem_role": "BARO-estimate high-limit qualification counter",
+          "current_use": ""
+        },
+        {
+          "sheet": "RAM writes",
+          "address": "$016F",
+          "oem_role": "BARO-estimate low-limit qualification counter",
+          "current_use": ""
+        },
+        {
+          "sheet": "Register writes",
+          "address": "$0F00",
+          "oem_role": "Conditional EEPROM-window destination. Purpose and physical backing unresolved.",
+          "current_use": ""
+        }
+      ]
+    }
+  ],
+  "current_use_changes": [
+    {
+      "file": "7427_Address_Register_0.3.12.xlsx",
+      "sheet": "RAM reads",
+      "address": "$004C",
+      "before": [
+        "Transmission output shadow",
+        "omitted"
+      ],
+      "after": [
+        "Transmission output shadow",
+        "Shared IAC phase/enable and board-output shadow. Transmission fields cleared."
+      ]
+    },
+    {
+      "file": "7427_Address_Register_0.3.12.xlsx",
+      "sheet": "RAM reads",
+      "address": "$004D",
+      "before": [
+        "IAC input shadow",
+        ""
+      ],
+      "after": [
+        "IAC input shadow",
+        "Board digital-input sample mirrored from $3064. Surviving engine/IAC consumers."
+      ]
+    },
+    {
+      "file": "7427_Address_Register_0.3.12.xlsx",
+      "sheet": "RAM reads",
+      "address": "$02F3",
+      "before": [
+        "Sampled barometric-pressure input",
+        ""
+      ],
+      "after": [
+        "Sampled barometric-pressure input",
+        "BARO estimate from MAP plus lookup correction or fallback. No direct ADC sample."
+      ]
+    },
+    {
+      "file": "7427_Write_Register_0.3.12.xlsx",
+      "sheet": "RAM writes",
+      "address": "$004C",
+      "before": [
+        "Shared board-output shadow, including engine I/O and factory transmission bits",
+        "Engine-only cleanup clears removed subsystem state"
+      ],
+      "after": [
+        "Shared board-output shadow, including engine I/O and factory transmission bits",
+        "Shared IAC phase/enable and board-output shadow. Transmission fields cleared."
+      ]
+    },
+    {
+      "file": "7427_Write_Register_0.3.12.xlsx",
+      "sheet": "RAM writes",
+      "address": "$004D",
+      "before": [
+        "IAC input shadow",
+        ""
+      ],
+      "after": [
+        "IAC input shadow",
+        "Board digital-input sample mirrored from $3064. Surviving engine/IAC consumers."
+      ]
+    },
+    {
+      "file": "7427_Write_Register_0.3.12.xlsx",
+      "sheet": "RAM writes",
+      "address": "$02F3",
+      "before": [
+        "Sampled barometric-pressure input",
+        ""
+      ],
+      "after": [
+        "Sampled barometric-pressure input",
+        "BARO estimate from MAP plus lookup correction or fallback. No direct ADC sample."
+      ]
+    },
+    {
+      "file": "7427_Write_Register_0.3.12.xlsx",
+      "sheet": "RAM writes",
+      "address": "$088B",
+      "before": [
+        "Converted IAC airflow demand (word)",
+        ""
+      ],
+      "after": [
+        "Converted IAC airflow demand (word)",
+        "Converted air-command snapshot before the IAC position lookup. No fixed/finite read identified."
+      ]
+    }
+  ],
+  "preserved": "All original OEM role text, other cell values, sheet order, widths, panes and native tables; both OEM workbooks untouched.",
+  "write_evidence_before_sha256": "1a3fe19f5ea4cdafcbf5860120f800f7468b4914581357700f3f58f6b327386b",
+  "write_evidence_after_sha256": "2612dde4b221a9f6f89906890b44233607ac83b6e7ec48de1fc441ddb1226ffe",
+  "added_fixed_writer_associations": 22,
+  "scope": "New rows use current exact instructions and the recorded factory opcode index; no fresh full-OEM-BIN analysis claimed."
+}

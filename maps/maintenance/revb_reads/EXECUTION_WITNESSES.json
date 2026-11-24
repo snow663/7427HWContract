@@ -1,0 +1,499 @@
+{
+  "cases": [
+    {
+      "name": "CONFIG comparison 0B",
+      "entry": "71C6",
+      "stop": "71D2",
+      "reads": [
+        {
+          "pc": "71C6",
+          "address": "303F",
+          "value": "0B"
+        }
+      ],
+      "A": "0B",
+      "B": "00",
+      "X": "0000"
+    },
+    {
+      "name": "CONFIG comparison 0A",
+      "entry": "71C6",
+      "stop": "71EC",
+      "reads": [
+        {
+          "pc": "71C6",
+          "address": "303F",
+          "value": "0A"
+        },
+        {
+          "pc": "71CD",
+          "address": "003A",
+          "value": "00"
+        }
+      ],
+      "A": "0A",
+      "B": "00",
+      "X": "0000"
+    },
+    {
+      "name": "ADC status gate 00",
+      "entry": "F267",
+      "stop": "F26B",
+      "reads": [
+        {
+          "pc": "F267",
+          "address": "3030",
+          "value": "00"
+        }
+      ],
+      "A": "00",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "ADC status gate 80",
+      "entry": "F267",
+      "stop": "F274",
+      "reads": [
+        {
+          "pc": "F267",
+          "address": "3030",
+          "value": "80"
+        }
+      ],
+      "A": "00",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "Fast TPS",
+      "entry": "F24C",
+      "stop": "F250",
+      "reads": [
+        {
+          "pc": "F24C",
+          "address": "3031",
+          "value": "53"
+        }
+      ],
+      "A": "53",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "Fast MAP",
+      "entry": "F254",
+      "stop": "F259",
+      "reads": [
+        {
+          "pc": "F254",
+          "address": "3032",
+          "value": "53"
+        }
+      ],
+      "A": "53",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "Fast O2",
+      "entry": "F259",
+      "stop": "F25E",
+      "reads": [
+        {
+          "pc": "F259",
+          "address": "3033",
+          "value": "53"
+        }
+      ],
+      "A": "53",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "Raw coolant",
+      "entry": "F21A",
+      "stop": "F21F",
+      "reads": [
+        {
+          "pc": "F21A",
+          "address": "3034",
+          "value": "53"
+        }
+      ],
+      "A": "53",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "Battery spark/idle sample",
+      "entry": "F23F",
+      "stop": "F243",
+      "reads": [
+        {
+          "pc": "F23F",
+          "address": "3034",
+          "value": "53"
+        }
+      ],
+      "A": "53",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "Battery REF sample",
+      "entry": "C57D",
+      "stop": "C582",
+      "reads": [
+        {
+          "pc": "C57D",
+          "address": "3034",
+          "value": "53"
+        }
+      ],
+      "A": "00",
+      "B": "53",
+      "X": "3000"
+    },
+    {
+      "name": "Auxiliary raw sample",
+      "entry": "F236",
+      "stop": "F23B",
+      "reads": [
+        {
+          "pc": "F236",
+          "address": "3032",
+          "value": "53"
+        }
+      ],
+      "A": "53",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "Inverted raw MAT",
+      "entry": "DC0A",
+      "stop": "DC10",
+      "reads": [
+        {
+          "pc": "DC0A",
+          "address": "3034",
+          "value": "53"
+        }
+      ],
+      "A": "AC",
+      "B": "00",
+      "X": "3000"
+    },
+    {
+      "name": "Reference-period word",
+      "entry": "A5E5",
+      "stop": "A5E8",
+      "reads": [
+        {
+          "pc": "A5E5",
+          "address": "3FC0",
+          "value": "12"
+        },
+        {
+          "pc": "A5E5",
+          "address": "3FC1",
+          "value": "34"
+        }
+      ],
+      "A": "12",
+      "B": "34",
+      "X": "0000"
+    },
+    {
+      "name": "SCI status before received data",
+      "entry": "F90B",
+      "stop": "F911",
+      "reads": [
+        {
+          "pc": "F90B",
+          "address": "302E",
+          "value": "20"
+        },
+        {
+          "pc": "F90E",
+          "address": "302F",
+          "value": "5A"
+        }
+      ],
+      "A": "5A",
+      "B": "20",
+      "X": "0000"
+    },
+    {
+      "name": "Shared hardware word readback",
+      "entry": "F3EF",
+      "stop": "F3F5",
+      "reads": [
+        {
+          "pc": "F3EF",
+          "address": "3FFC",
+          "value": "BE"
+        },
+        {
+          "pc": "F3EF",
+          "address": "3FFD",
+          "value": "EF"
+        },
+        {
+          "pc": "F3ED",
+          "address": "03FC",
+          "value": "F3"
+        },
+        {
+          "pc": "F3ED",
+          "address": "03FD",
+          "value": "F5"
+        }
+      ],
+      "A": "BE",
+      "B": "EF",
+      "X": "0000"
+    },
+    {
+      "name": "Board inputs versus saved output shadows",
+      "entry": "F400",
+      "stop": "F41F",
+      "reads": [
+        {
+          "pc": "F400",
+          "address": "3060",
+          "value": "65"
+        },
+        {
+          "pc": "F405",
+          "address": "004B",
+          "value": "90"
+        },
+        {
+          "pc": "F40F",
+          "address": "004C",
+          "value": "1C"
+        },
+        {
+          "pc": "F414",
+          "address": "3064",
+          "value": "26"
+        },
+        {
+          "pc": "F419",
+          "address": "004E",
+          "value": "A5"
+        }
+      ],
+      "A": "A5",
+      "B": "90",
+      "X": "0000"
+    },
+    {
+      "name": "Addressed ALDL actual source, flag=0",
+      "entry": "F8B8",
+      "stop": "F8CF",
+      "reads": [
+        {
+          "pc": "F8C3",
+          "address": "0050",
+          "value": "00"
+        },
+        {
+          "pc": "F8CA",
+          "address": "024A",
+          "value": "A5"
+        },
+        {
+          "pc": "F8CA",
+          "address": "024B",
+          "value": "5A"
+        }
+      ],
+      "A": "A5",
+      "B": "5A",
+      "X": "024A"
+    },
+    {
+      "name": "Addressed ALDL actual source, flag=8",
+      "entry": "F8B8",
+      "stop": "F8CF",
+      "reads": [
+        {
+          "pc": "F8C3",
+          "address": "0050",
+          "value": "08"
+        },
+        {
+          "pc": "F8CA",
+          "address": "124A",
+          "value": "45"
+        },
+        {
+          "pc": "F8CA",
+          "address": "124B",
+          "value": "67"
+        }
+      ],
+      "A": "45",
+      "B": "67",
+      "X": "124A"
+    },
+    {
+      "name": "Descriptor pointer read, not AFR-value write",
+      "entry": "F888",
+      "stop": "F88A",
+      "reads": [
+        {
+          "pc": "F888",
+          "address": "5216",
+          "value": "02"
+        },
+        {
+          "pc": "F888",
+          "address": "5217",
+          "value": "4A"
+        }
+      ],
+      "A": "00",
+      "B": "00",
+      "X": "024A"
+    },
+    {
+      "name": "Lookup header byte",
+      "entry": "F4B8",
+      "stop": "F4BA",
+      "reads": [
+        {
+          "pc": "F4B8",
+          "address": "50A2",
+          "value": "04"
+        }
+      ],
+      "A": "00",
+      "B": "04",
+      "X": "50A2"
+    },
+    {
+      "name": "Boot checksum read footprint",
+      "entry": "F2AA",
+      "X": "4008",
+      "ranges": [
+        {
+          "pc": "F2C7",
+          "start": "4008",
+          "end": "FFF8",
+          "stride": 8,
+          "reads": 6143
+        },
+        {
+          "pc": "F2CB",
+          "start": "4009",
+          "end": "FFF9",
+          "stride": 8,
+          "reads": 6143
+        },
+        {
+          "pc": "F2CF",
+          "start": "400A",
+          "end": "FFFA",
+          "stride": 8,
+          "reads": 6143
+        },
+        {
+          "pc": "F2D3",
+          "start": "400B",
+          "end": "FFFB",
+          "stride": 8,
+          "reads": 6143
+        },
+        {
+          "pc": "F2D7",
+          "start": "400C",
+          "end": "FFFC",
+          "stride": 8,
+          "reads": 6143
+        },
+        {
+          "pc": "F2DB",
+          "start": "400D",
+          "end": "FFFD",
+          "stride": 8,
+          "reads": 6143
+        },
+        {
+          "pc": "F2DF",
+          "start": "400E",
+          "end": "FFFE",
+          "stride": 8,
+          "reads": 6143
+        },
+        {
+          "pc": "F2E3",
+          "start": "400F",
+          "end": "FFFF",
+          "stride": 8,
+          "reads": 6143
+        }
+      ],
+      "distinct_data_bytes": 49144,
+      "sum_matches_supplied_fixture": true,
+      "qualification": "Call71D5 supplies4008 when CONFIG gate passes; recorded replay uses partial/synthetic data, not recovered whole-ROM contents"
+    },
+    {
+      "name": "Implicit RTI frame reads",
+      "entry": "FC44",
+      "reads": [
+        {
+          "pc": "FC44",
+          "address": "03F7",
+          "value": "D0"
+        },
+        {
+          "pc": "FC44",
+          "address": "03F8",
+          "value": "66"
+        },
+        {
+          "pc": "FC44",
+          "address": "03F9",
+          "value": "55"
+        },
+        {
+          "pc": "FC44",
+          "address": "03FA",
+          "value": "33"
+        },
+        {
+          "pc": "FC44",
+          "address": "03FB",
+          "value": "44"
+        },
+        {
+          "pc": "FC44",
+          "address": "03FC",
+          "value": "11"
+        },
+        {
+          "pc": "FC44",
+          "address": "03FD",
+          "value": "22"
+        },
+        {
+          "pc": "FC44",
+          "address": "03FE",
+          "value": "70"
+        },
+        {
+          "pc": "FC44",
+          "address": "03FF",
+          "value": "00"
+        }
+      ],
+      "qualification": "Controlled valid frame; no fixed runtime stack-owner proof"
+    }
+  ],
+  "count": 22,
+  "scope": "Bounded read-transaction witnesses using actual retained HC11 instructions.\n\nMemory is controlled byte storage. No peripheral completion, read side effect,\nphysical bus cycle, resource relocation or hardware alias is simulated here."
+}

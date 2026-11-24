@@ -1,0 +1,13 @@
+{
+  "image_sha256": "e75fa886318f477c3c95001740ded92f5b2f40692a3aa82b67d4249cf943fdb1",
+  "writer_sites_named": 92,
+  "address_roles": 86,
+  "kinds": {
+    "fixed_global": 80,
+    "bounded_global_array": 9,
+    "stack_local": 2,
+    "descriptor_selected_copy": 1
+  },
+  "witness_cases": 47,
+  "remaining_global_address_qualification": "Two stack-local sites and one descriptor-selected copy have no invented absolute owner. Legacy recovery slots A/B have no proved monitor number."
+}

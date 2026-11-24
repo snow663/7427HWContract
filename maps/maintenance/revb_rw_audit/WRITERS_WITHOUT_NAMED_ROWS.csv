@@ -1,0 +1,4 @@
+pc,bytes,operation,access,width_bits,fixed_address,finite_byte_ranges,abstract_contexts,named_evidence_rows,traced_site_role,role_kind
+ABA0,ed 00,"STD $00,X",W,16,,,entry_SP-1 | unknown,,Stack-local limited EST timing candidate,stack_local
+F449,ed 00,"STD $00,X",W,16,,,entry_SP-1 | entry_SP-3 | unknown,,Stack-local intermediate word in the 16-bit lag helper,stack_local
+F627,18 a7 00,"STAA $00,Y",W,8,,,,,Descriptor-selected serial payload staging copy,descriptor_selected_copy

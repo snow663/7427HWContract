@@ -1,0 +1,1087 @@
+[
+  {
+    "pc": "5BD4",
+    "bytes": "97 0b",
+    "operation": "STAA $0B",
+    "role": "Engine-only removed-subsystem cleanup: Retained diagnostic log bank 1",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$000B"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5BDA",
+    "bytes": "97 0c",
+    "operation": "STAA $0C",
+    "role": "Engine-only removed-subsystem cleanup: Retained diagnostic log bank 2",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$000C"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5BE0",
+    "bytes": "97 0d",
+    "operation": "STAA $0D",
+    "role": "Engine-only removed-subsystem cleanup: Retained diagnostic log bank 3",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$000D"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5BE6",
+    "bytes": "97 0e",
+    "operation": "STAA $0E",
+    "role": "Engine-only removed-subsystem cleanup: Retained diagnostic log bank 4",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$000E"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5BEC",
+    "bytes": "97 10",
+    "operation": "STAA $10",
+    "role": "Engine-only removed-subsystem cleanup: Retained diagnostic log bank 6",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0010"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5BEE",
+    "bytes": "7f 00 11",
+    "operation": "CLR $0011",
+    "role": "Engine-only removed-subsystem cleanup: Retained diagnostic log bank 7",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0011"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5BF1",
+    "bytes": "7f 00 12",
+    "operation": "CLR $0012",
+    "role": "Engine-only removed-subsystem cleanup: Retained diagnostic log bank 8",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0012"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5BF4",
+    "bytes": "7f 00 13",
+    "operation": "CLR $0013",
+    "role": "Engine-only removed-subsystem cleanup: Retained diagnostic log bank 9",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0013"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C1B",
+    "bytes": "7f 00 1e",
+    "operation": "CLR $001E",
+    "role": "Engine-only removed-subsystem cleanup: Live diagnostic fault bank 9",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001E"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C22",
+    "bytes": "97 56",
+    "operation": "STAA $56",
+    "role": "Engine-only removed-subsystem cleanup: Diagnostic persistence-candidate bank 1",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0056"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C28",
+    "bytes": "97 57",
+    "operation": "STAA $57",
+    "role": "Engine-only removed-subsystem cleanup: Diagnostic persistence-candidate bank 2",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0057"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C2E",
+    "bytes": "97 58",
+    "operation": "STAA $58",
+    "role": "Engine-only removed-subsystem cleanup: Diagnostic persistence-candidate bank 3",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0058"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C34",
+    "bytes": "97 59",
+    "operation": "STAA $59",
+    "role": "Engine-only removed-subsystem cleanup: Diagnostic persistence-candidate bank 4",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0059"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C3A",
+    "bytes": "97 5b",
+    "operation": "STAA $5B",
+    "role": "Engine-only removed-subsystem cleanup: Diagnostic persistence-candidate bank 6",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$005B"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C3C",
+    "bytes": "7f 00 5c",
+    "operation": "CLR $005C",
+    "role": "Engine-only removed-subsystem cleanup: Diagnostic persistence-candidate bank 7",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$005C"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C3F",
+    "bytes": "7f 00 5d",
+    "operation": "CLR $005D",
+    "role": "Engine-only removed-subsystem cleanup: Diagnostic persistence-candidate bank 8",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$005D"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "5C42",
+    "bytes": "7f 00 5e",
+    "operation": "CLR $005E",
+    "role": "Engine-only removed-subsystem cleanup: Diagnostic persistence-candidate bank 9",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$005E"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "71C3",
+    "bytes": "15 05 10",
+    "operation": "BCLR $05,#$10",
+    "role": "Clear diagnostic or status latch: Boot configuration or program-validation failure",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0005.4"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "71CD",
+    "bytes": "14 3a 04",
+    "operation": "BSET $3A,#$04",
+    "role": "Set diagnostic or status latch: CPU CONFIG mismatch latch",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$003A.2"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "71E9",
+    "bytes": "14 3a 02",
+    "operation": "BSET $3A,#$02",
+    "role": "Set diagnostic or status latch: Program checksum or mask-validation failure latch",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$003A.1"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "71EC",
+    "bytes": "14 05 10",
+    "operation": "BSET $05,#$10",
+    "role": "Set diagnostic or status latch: Boot configuration or program-validation failure",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0005.4"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "71FA",
+    "bytes": "14 1a 20",
+    "operation": "BSET $1A,#$20",
+    "role": "Set diagnostic or status latch: Live program-validation diagnostic fault, DTC51",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001A.5"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "71FD",
+    "bytes": "14 0f 20",
+    "operation": "BSET $0F,#$20",
+    "role": "Set diagnostic or status latch: Retained program-validation fault, DTC51",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$000F.5"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "727C",
+    "bytes": "97 1f",
+    "operation": "STAA $1F",
+    "role": "Ignition-cycle recovery-budget decrement: DTC21 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001F"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "7288",
+    "bytes": "97 20",
+    "operation": "STAA $20",
+    "role": "Ignition-cycle recovery-budget decrement: DTC22 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0020"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "747B",
+    "bytes": "ff 02 9b",
+    "operation": "STX $029B",
+    "role": "RAM-refresh cursor update: RAM-refresh scan cursor (word)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$029B"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "74A7",
+    "bytes": "ff 02 9b",
+    "operation": "STX $029B",
+    "role": "RAM-refresh cursor update: RAM-refresh scan cursor (word)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$029B"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "74AD",
+    "bytes": "7f 02 9b",
+    "operation": "CLR $029B",
+    "role": "RAM-refresh cursor update: RAM-refresh scan cursor (word)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$029B"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "74CD",
+    "bytes": "ff 02 d1",
+    "operation": "STX $02D1",
+    "role": "Record minimum observed stack-fill boundary: Minimum observed stack-fill scan boundary (word)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$02D1"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "7971",
+    "bytes": "14 3a 08",
+    "operation": "BSET $3A,#$08",
+    "role": "Set diagnostic or status latch: Interrupt stack-range failure latch",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$003A.3"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "7985",
+    "bytes": "14 3a 20",
+    "operation": "BSET $3A,#$20",
+    "role": "Set diagnostic or status latch: Dispatcher overrun and resume-request latch",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$003A.5"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "7A77",
+    "bytes": "ed 00",
+    "operation": "STD $00,X",
+    "role": "Per-dispatcher-slot maximum elapsed timer-count publication",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$02D3",
+      "$02D5",
+      "$02D7",
+      "$02D9",
+      "$02DB",
+      "$02DD",
+      "$02DF",
+      "$02E1",
+      "$02E3",
+      "$02E5",
+      "$02E7",
+      "$02E9",
+      "$02EB",
+      "$02ED",
+      "$02EF",
+      "$02F1"
+    ],
+    "qualification": "Slot index from low nibble of0002, doubled; gated by0086.6; maximum update only."
+  },
+  {
+    "pc": "7A7D",
+    "bytes": "15 3a 20",
+    "operation": "BCLR $3A,#$20",
+    "role": "Clear diagnostic or status latch: Dispatcher overrun and resume-request latch",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$003A.5"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "7B56",
+    "bytes": "14 04 04",
+    "operation": "BSET $04,#$04",
+    "role": "Set diagnostic or status latch: Background observation of pending RAM refresh",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0004.2"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "7DAE",
+    "bytes": "ff 02 7e",
+    "operation": "STX $027E",
+    "role": "Publish fuel-task ignition-off counter: Ignition-off fuel-pass counter (word)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$027E"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "ABA0",
+    "bytes": "ed 00",
+    "operation": "STD $00,X",
+    "role": "Stack-local limited EST timing candidate",
+    "kind": "stack_local",
+    "global_owners": [],
+    "qualification": "PSHB/PSHA/TSX atAB89..AB8B supplies a frame-relative word. Not a fixed RAM owner."
+  },
+  {
+    "pc": "CC50",
+    "bytes": "14 3a 10",
+    "operation": "BSET $3A,#$10",
+    "role": "Set diagnostic or status latch: Stack-fill sentinel disturbance latch",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$003A.4"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "DD32",
+    "bytes": "a7 0a",
+    "operation": "STAA $0A,X",
+    "role": "Age-expired retained diagnostic-log clear",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$000B",
+      "$000C",
+      "$000D",
+      "$000E",
+      "$000F",
+      "$0010",
+      "$0011",
+      "$0012",
+      "$0013"
+    ],
+    "qualification": "Nine-byte bank loop; live faults, candidate faults and retained faults are distinct arrays."
+  },
+  {
+    "pc": "DD64",
+    "bytes": "7c 01 5f",
+    "operation": "INC $015F",
+    "role": "Increment diagnostic qualifier: DFCO exposure and recovery counter for the O2 activity diagnostic",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$015F"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "DD6D",
+    "bytes": "b7 01 5f",
+    "operation": "STAA $015F",
+    "role": "Publish diagnostic qualifier: DFCO exposure and recovery counter for the O2 activity diagnostic",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$015F"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E112",
+    "bytes": "b7 08 56",
+    "operation": "STAA $0856",
+    "role": "Publish diagnostic qualifier: VATS authorization-failure qualification counter, DTC46",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0856"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E14A",
+    "bytes": "a7 55",
+    "operation": "STAA $55,X",
+    "role": "Seed diagnostic persistence candidates from enabled live faults",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$0056",
+      "$0057",
+      "$0058",
+      "$0059",
+      "$005A",
+      "$005B",
+      "$005C",
+      "$005D",
+      "$005E"
+    ],
+    "qualification": "Nine-byte bank loop; no new fault joins an existing candidate set before reseeding."
+  },
+  {
+    "pc": "E16B",
+    "bytes": "e7 55",
+    "operation": "STAB $55,X",
+    "role": "Intersect previous persistence candidates with enabled live faults",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$0056",
+      "$0057",
+      "$0058",
+      "$0059",
+      "$005A",
+      "$005B",
+      "$005C",
+      "$005D",
+      "$005E"
+    ],
+    "qualification": "Nine-byte bank loop; no new fault joins an existing candidate set before reseeding."
+  },
+  {
+    "pc": "E19F",
+    "bytes": "a7 0a",
+    "operation": "STAA $0A,X",
+    "role": "Persistence-qualified candidate union into retained diagnostic log",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$000B",
+      "$000C",
+      "$000D",
+      "$000E",
+      "$000F",
+      "$0010",
+      "$0011",
+      "$0012",
+      "$0013"
+    ],
+    "qualification": "Nine-byte bank loop; live faults, candidate faults and retained faults are distinct arrays."
+  },
+  {
+    "pc": "E1A1",
+    "bytes": "e7 55",
+    "operation": "STAB $55,X",
+    "role": "Clear persistence candidates after retained-log commit",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$0056",
+      "$0057",
+      "$0058",
+      "$0059",
+      "$005A",
+      "$005B",
+      "$005C",
+      "$005D",
+      "$005E"
+    ],
+    "qualification": "Nine-byte bank loop; no new fault joins an existing candidate set before reseeding."
+  },
+  {
+    "pc": "E28D",
+    "bytes": "15 1a 04",
+    "operation": "BCLR $1A,#$04",
+    "role": "Clear diagnostic or status latch: Fuel-pump feedback diagnostic fault, DTC54",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001A.2"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E2C5",
+    "bytes": "14 1a 04",
+    "operation": "BSET $1A,#$04",
+    "role": "Set diagnostic or status latch: Fuel-pump feedback diagnostic fault, DTC54",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001A.2"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E78F",
+    "bytes": "b7 01 60",
+    "operation": "STAA $0160",
+    "role": "Publish diagnostic qualifier: DTC14 low coolant-ADC qualification counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0160"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E7C3",
+    "bytes": "b7 01 61",
+    "operation": "STAA $0161",
+    "role": "Publish diagnostic qualifier: DTC15 high coolant-ADC qualification counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0161"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E7EF",
+    "bytes": "d7 1f",
+    "operation": "STAB $1F",
+    "role": "Consume a fault-recovery budget: DTC21 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001F"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E804",
+    "bytes": "b7 01 62",
+    "operation": "STAA $0162",
+    "role": "Publish diagnostic qualifier: DTC21 high raw-TPS qualification counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0162"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E82F",
+    "bytes": "d7 20",
+    "operation": "STAB $20",
+    "role": "Consume a fault-recovery budget: DTC22 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0020"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "E843",
+    "bytes": "b7 01 63",
+    "operation": "STAA $0163",
+    "role": "Publish diagnostic qualifier: DTC22 low raw-TPS qualification counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0163"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "EA60",
+    "bytes": "15 1a 10",
+    "operation": "BCLR $1A,#$10",
+    "role": "Clear diagnostic or status latch: High battery-sample diagnostic fault, DTC52",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001A.4"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "EA70",
+    "bytes": "14 1a 10",
+    "operation": "BSET $1A,#$10",
+    "role": "Set diagnostic or status latch: High battery-sample diagnostic fault, DTC52",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001A.4"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "EA77",
+    "bytes": "18 ff 01 69",
+    "operation": "STY $0169",
+    "role": "Publish diagnostic qualifier: DTC52 high battery-sample qualification counter (word)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0169"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "EA9B",
+    "bytes": "15 1a 08",
+    "operation": "BCLR $1A,#$08",
+    "role": "Clear diagnostic or status latch: Battery-threshold diagnostic fault, DTC53 (literal high-side test)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001A.3"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "EAA9",
+    "bytes": "14 1a 08",
+    "operation": "BSET $1A,#$08",
+    "role": "Set diagnostic or status latch: Battery-threshold diagnostic fault, DTC53 (literal high-side test)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001A.3"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "EAAD",
+    "bytes": "b7 01 6b",
+    "operation": "STAA $016B",
+    "role": "Publish diagnostic qualifier: DTC53 battery-threshold qualification counter (literal high-side test)",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$016B"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F33F",
+    "bytes": "a7 0a",
+    "operation": "STAA $0A,X",
+    "role": "Masked retained diagnostic-log clear (clear path A)",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$000B",
+      "$000C",
+      "$000D",
+      "$000E",
+      "$000F",
+      "$0010",
+      "$0011",
+      "$0012",
+      "$0013"
+    ],
+    "qualification": "Nine-byte bank loop; live faults, candidate faults and retained faults are distinct arrays."
+  },
+  {
+    "pc": "F34D",
+    "bytes": "a7 55",
+    "operation": "STAA $55,X",
+    "role": "Masked diagnostic persistence-candidate clear",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$0056",
+      "$0057",
+      "$0058",
+      "$0059",
+      "$005A",
+      "$005B",
+      "$005C",
+      "$005D",
+      "$005E"
+    ],
+    "qualification": "Nine-byte bank loop; no new fault joins an existing candidate set before reseeding."
+  },
+  {
+    "pc": "F364",
+    "bytes": "97 1f",
+    "operation": "STAA $1F",
+    "role": "Explicit diagnostic clear: DTC21 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001F"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F366",
+    "bytes": "97 20",
+    "operation": "STAA $20",
+    "role": "Explicit diagnostic clear: DTC22 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0020"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F368",
+    "bytes": "b7 08 17",
+    "operation": "STAA $0817",
+    "role": "Explicit diagnostic clear: VSS-buffer diagnostic qualification counter, DTC16",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0817"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F36E",
+    "bytes": "b7 08 1c",
+    "operation": "STAA $081C",
+    "role": "Explicit diagnostic clear: Manual-option VSS diagnostic qualification counter, DTC24",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$081C"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F38C",
+    "bytes": "a7 0a",
+    "operation": "STAA $0A,X",
+    "role": "Masked retained diagnostic-log clear (clear path B)",
+    "kind": "bounded_global_array",
+    "global_owners": [
+      "$000B",
+      "$000C",
+      "$000D",
+      "$000E",
+      "$000F",
+      "$0010",
+      "$0011",
+      "$0012",
+      "$0013"
+    ],
+    "qualification": "Nine-byte bank loop; live faults, candidate faults and retained faults are distinct arrays."
+  },
+  {
+    "pc": "F3A1",
+    "bytes": "97 1f",
+    "operation": "STAA $1F",
+    "role": "Explicit diagnostic clear: DTC21 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$001F"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3A3",
+    "bytes": "97 20",
+    "operation": "STAA $20",
+    "role": "Explicit diagnostic clear: DTC22 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0020"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3A5",
+    "bytes": "97 21",
+    "operation": "STAA $21",
+    "role": "Explicit diagnostic clear: DTC24 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0021"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3A7",
+    "bytes": "97 22",
+    "operation": "STAA $22",
+    "role": "Explicit diagnostic clear: DTC28 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0022"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3A9",
+    "bytes": "97 23",
+    "operation": "STAA $23",
+    "role": "Explicit diagnostic clear: DTC37 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0023"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3AB",
+    "bytes": "97 24",
+    "operation": "STAA $24",
+    "role": "Explicit diagnostic clear: DTC38 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0024"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3AD",
+    "bytes": "97 26",
+    "operation": "STAA $26",
+    "role": "Explicit diagnostic clear: Legacy diagnostic recovery slot A",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0026"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3AF",
+    "bytes": "97 27",
+    "operation": "STAA $27",
+    "role": "Explicit diagnostic clear: Legacy diagnostic recovery slot B",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0027"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3B1",
+    "bytes": "97 28",
+    "operation": "STAA $28",
+    "role": "Explicit diagnostic clear: DTC68 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0028"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3B3",
+    "bytes": "97 29",
+    "operation": "STAA $29",
+    "role": "Explicit diagnostic clear: DTC72 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0029"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3B5",
+    "bytes": "97 2a",
+    "operation": "STAA $2A",
+    "role": "Explicit diagnostic clear: DTC73 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$002A"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3B7",
+    "bytes": "97 2b",
+    "operation": "STAA $2B",
+    "role": "Explicit diagnostic clear: DTC81 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$002B"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3B9",
+    "bytes": "97 2c",
+    "operation": "STAA $2C",
+    "role": "Explicit diagnostic clear: DTC82 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$002C"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3BB",
+    "bytes": "97 2d",
+    "operation": "STAA $2D",
+    "role": "Explicit diagnostic clear: DTC83 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$002D"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3BD",
+    "bytes": "97 2f",
+    "operation": "STAA $2F",
+    "role": "Explicit diagnostic clear: DTC86 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$002F"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3BF",
+    "bytes": "97 30",
+    "operation": "STAA $30",
+    "role": "Explicit diagnostic clear: DTC87 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0030"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3C1",
+    "bytes": "97 31",
+    "operation": "STAA $31",
+    "role": "Explicit diagnostic clear: DTC89 retained recovery-budget counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0031"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3C3",
+    "bytes": "b7 01 82",
+    "operation": "STAA $0182",
+    "role": "Explicit diagnostic clear: DTC37 brake/speed episode first-stage counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0182"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3C6",
+    "bytes": "b7 01 83",
+    "operation": "STAA $0183",
+    "role": "Explicit diagnostic clear: DTC37 brake/speed episode second-stage counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0183"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3C9",
+    "bytes": "b7 01 84",
+    "operation": "STAA $0184",
+    "role": "Explicit diagnostic clear: DTC38 brake/speed episode first-stage counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0184"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3CC",
+    "bytes": "b7 01 85",
+    "operation": "STAA $0185",
+    "role": "Explicit diagnostic clear: DTC38 brake/speed episode second-stage counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0185"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3CF",
+    "bytes": "97 32",
+    "operation": "STAA $32",
+    "role": "Explicit diagnostic clear: DTC89 gear-1 long-shift qualification counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0032"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3D1",
+    "bytes": "97 33",
+    "operation": "STAA $33",
+    "role": "Explicit diagnostic clear: DTC89 gear-2 long-shift qualification counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0033"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F3D3",
+    "bytes": "97 34",
+    "operation": "STAA $34",
+    "role": "Explicit diagnostic clear: DTC89 gear-3 long-shift qualification counter",
+    "kind": "fixed_global",
+    "global_owners": [
+      "$0034"
+    ],
+    "qualification": "Exact fixed operand. Initialization, cleanup and operational producers retain separate meanings."
+  },
+  {
+    "pc": "F449",
+    "bytes": "ed 00",
+    "operation": "STD $00,X",
+    "role": "Stack-local intermediate word in the 16-bit lag helper",
+    "kind": "stack_local",
+    "global_owners": [],
+    "qualification": "PSHX/TSX atF436/F437 saves caller state as stack data. Not a fixed global destination."
+  },
+  {
+    "pc": "F627",
+    "bytes": "18 a7 00",
+    "operation": "STAA $00,Y",
+    "role": "Descriptor-selected serial payload staging copy",
+    "kind": "descriptor_selected_copy",
+    "global_owners": [],
+    "qualification": "Normal Rev B ROM schedule yields only null descriptors for all32 byte offsets. Retained template has dynamic destination Y; do not invent a buffer address."
+  }
+]

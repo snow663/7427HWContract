@@ -158,3 +158,13 @@ The current truck `2.bin` digest recorded by the repo is:
 4. Bind ADC mux selections to physical sensors using the repo's sensor semantic validation work.
 5. Convert the CPU to micro-operations for true E-clock/pin-level stepping.
 6. Add ALDL live-dereference serialization timing so virtual rows reproduce field-order skew.
+
+## Resource audit follow-up
+
+The [Rev B read/write audit, RW07](../docs/investigations/REVB_READ_WRITE_AUDIT.md#rw07-simulator-resource-coverage-needs-its-own-checkpoint)
+records a mismatch between the current 512-byte RAM/64-byte register model and
+the newer conditional F1 interpretation of 1,024/96 bytes. Profile region names
+are not physical memory-capacity evidence. CONFIG and chip-select/IRV routing
+need a separate target-model review. Current storage-backed instruction tests
+do not validate those resource boundaries; simulator behavior is unchanged by
+the audit.

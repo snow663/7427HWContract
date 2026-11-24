@@ -1,0 +1,109 @@
+address,width_bits,resource,role,pc,operation,access,resolution,group,group_function
+3038,8,Internal CPU registers,OPT2: HC11 secondary operating-option register,7115,"BCLR $38,X,#$20",RW,finite abstract contexts,7100,Start the machine and establish the boot path
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,7140,LDD $3FFC,R,fixed operand,712B,Establish the initial output states
+302E,16,Internal CPU registers,SCSR: SCI transmit/receive status,7150,"LDD $2E,X",R,finite abstract contexts,712B,Establish the initial output states
+303F,8,Internal CPU registers,CONFIG: HC11 operating-configuration register,71C6,LDAA $303F,R,fixed operand,71C3,Validate the image and recover retained state
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,71EF,LDD $3FFC,R,fixed operand,71C3,Validate the image and recover retained state
+3FCA,16,External IO2 selection,ASIC event/EST feedback counter sample (word),741F,LDD $3FCA,R,fixed operand,71C3,Validate the image and recover retained state
+3012,16,Internal CPU registers,TIC2: timer input-capture register,7425,LDD $3012,R,fixed operand,71C3,Validate the image and recover retained state
+300E,16,Internal CPU registers,TCNT: free-running timer counter,745E,LDD $300E,R,fixed operand,745E,Arm timer service and enter normal execution
+300E,16,Internal CPU registers,TCNT: free-running timer counter,74F1,LDD $300E,R,fixed operand,74EA,Service an engine-reference interrupt
+3062,8,External IO1 selection,Board input/status and reference-strobe interface; physical decode remains under review,7509,"BCLR $00,X,#$40",RW,finite abstract contexts,74EA,Service an engine-reference interrupt
+3062,8,External IO1 selection,Board input/status and reference-strobe interface; physical decode remains under review,750C,"BSET $00,X,#$40",RW,finite abstract contexts,74EA,Service an engine-reference interrupt
+3031,8,Internal CPU registers,ADR1: ADC result register 1; sensor meaning depends on channel and external multiplexer,7528,LDAA $3031,R,fixed operand,751B,Choose cranking or running reference work
+3023,8,Internal CPU registers,TFLG1: timer interrupt status and acknowledgement flags,7597,"BRSET $23,X,#$01,$75F7",R,finite abstract contexts,7587,Deliver and time a qualified cranking event
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,75CB,"BSET $20,X,#$03",RW,finite abstract contexts,7587,Deliver and time a qualified cranking event
+300B,8,Internal CPU registers,CFORC: timer output-compare force control; read-modify-write operand,75CE,"BSET $0B,X,#$08",RW,finite abstract contexts,7587,Deliver and time a qualified cranking event
+300E,16,Internal CPU registers,TCNT: free-running timer counter,75DD,"ADDD $0E,X",R,finite abstract contexts,7587,Deliver and time a qualified cranking event
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,75E2,"BCLR $20,X,#$01",RW,finite abstract contexts,7587,Deliver and time a qualified cranking event
+300E,16,Internal CPU registers,TCNT: free-running timer counter,75E5,"LDD $0E,X",R,finite abstract contexts,7587,Deliver and time a qualified cranking event
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,75FE,"BSET $20,X,#$0C",RW,finite abstract contexts,7587,Deliver and time a qualified cranking event
+300B,8,Internal CPU registers,CFORC: timer output-compare force control; read-modify-write operand,7601,"BSET $0B,X,#$10",RW,finite abstract contexts,7587,Deliver and time a qualified cranking event
+300E,16,Internal CPU registers,TCNT: free-running timer counter,7610,"ADDD $0E,X",R,finite abstract contexts,7587,Deliver and time a qualified cranking event
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,7615,"BCLR $20,X,#$04",RW,finite abstract contexts,7587,Deliver and time a qualified cranking event
+300E,16,Internal CPU registers,TCNT: free-running timer counter,7618,"LDD $0E,X",R,finite abstract contexts,7587,Deliver and time a qualified cranking event
+3023,8,Internal CPU registers,TFLG1: timer interrupt status and acknowledgement flags,772B,"BRCLR $23,X,#$01,$774C",R,finite abstract contexts,7696,Account for running fuel packets
+3FFA,16,External IO2 selection,Packed board/reference-status sample (word); physical bit meanings remain under review,7765,LDD $3FFA,R,fixed operand,7765,Finish shared reference-event work
+300E,16,Internal CPU registers,TCNT: free-running timer counter,77D6,"ADDD $0E,X",R,finite abstract contexts,77C7,Arm an injector-related timer channel
+3022,8,Internal CPU registers,TMSK1: timer interrupt-enable state,77DF,"BSET $22,X,#$08",RW,finite abstract contexts,77C7,Arm an injector-related timer channel
+3000,8,Internal CPU registers,PORTA: timer/input pin state,77E2,"BRCLR $00,X,#$08,$77EE",R,finite abstract contexts,77C7,Arm an injector-related timer channel
+301E,16,Internal CPU registers,TOC5: fuel output-compare timing,77E9,"CPD $1E,X",R,finite abstract contexts,77C7,Arm an injector-related timer channel
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,77EE,"BSET $20,X,#$03",RW,finite abstract contexts,77C7,Arm an injector-related timer channel
+300E,16,Internal CPU registers,TCNT: free-running timer counter,7806,"ADDD $0E,X",R,finite abstract contexts,77F7,Arm an injector-related timer channel
+3022,8,Internal CPU registers,TMSK1: timer interrupt-enable state,780F,"BSET $22,X,#$10",RW,finite abstract contexts,77F7,Arm an injector-related timer channel
+3000,8,Internal CPU registers,PORTA: timer/input pin state,7812,"BRCLR $00,X,#$10,$781E",R,finite abstract contexts,77F7,Arm an injector-related timer channel
+301C,16,Internal CPU registers,TOC4: fuel output-compare timing,7819,"CPD $1C,X",R,finite abstract contexts,77F7,Arm an injector-related timer channel
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,781E,"BSET $20,X,#$0C",RW,finite abstract contexts,77F7,Arm an injector-related timer channel
+3000,8,Internal CPU registers,PORTA: timer/input pin state,787C,"BRCLR $00,X,#$08,$78C5",R,finite abstract contexts,7875,Service the first retained timer-output channel
+3022,8,Internal CPU registers,TMSK1: timer interrupt-enable state,7880,"BCLR $22,X,#$08",RW,finite abstract contexts,7875,Service the first retained timer-output channel
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,7883,"BCLR $20,X,#$01",RW,finite abstract contexts,7875,Service the first retained timer-output channel
+301E,16,Internal CPU registers,TOC5: fuel output-compare timing,7898,"ADDD $1E,X",R,finite abstract contexts,7875,Service the first retained timer-output channel
+301E,16,Internal CPU registers,TOC5: fuel output-compare timing,78B0,"ADDD $1E,X",R,finite abstract contexts,7875,Service the first retained timer-output channel
+300E,16,Internal CPU registers,TCNT: free-running timer counter,78B5,"LDD $0E,X",R,finite abstract contexts,7875,Service the first retained timer-output channel
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,78C5,"BSET $20,X,#$01",RW,finite abstract contexts,7875,Service the first retained timer-output channel
+300E,16,Internal CPU registers,TCNT: free-running timer counter,78C8,"LDD $0E,X",R,finite abstract contexts,7875,Service the first retained timer-output channel
+3000,8,Internal CPU registers,PORTA: timer/input pin state,78E0,"BRCLR $00,X,#$10,$7929",R,finite abstract contexts,78D9,Service the companion timer-output channel
+3022,8,Internal CPU registers,TMSK1: timer interrupt-enable state,78E4,"BCLR $22,X,#$10",RW,finite abstract contexts,78D9,Service the companion timer-output channel
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,78E7,"BCLR $20,X,#$04",RW,finite abstract contexts,78D9,Service the companion timer-output channel
+301C,16,Internal CPU registers,TOC4: fuel output-compare timing,78FC,"ADDD $1C,X",R,finite abstract contexts,78D9,Service the companion timer-output channel
+301C,16,Internal CPU registers,TOC4: fuel output-compare timing,7914,"ADDD $1C,X",R,finite abstract contexts,78D9,Service the companion timer-output channel
+300E,16,Internal CPU registers,TCNT: free-running timer counter,7919,"LDD $0E,X",R,finite abstract contexts,78D9,Service the companion timer-output channel
+3020,8,Internal CPU registers,TCTL1: timer output-compare action control,7929,"BSET $20,X,#$04",RW,finite abstract contexts,78D9,Service the companion timer-output channel
+300E,16,Internal CPU registers,TCNT: free-running timer counter,792C,"LDD $0E,X",R,finite abstract contexts,78D9,Service the companion timer-output channel
+301A,16,Internal CPU registers,TOC3: recurring dispatcher compare timing,793D,LDD $301A,R,fixed operand,793D,Admit or defer a periodic engine-work pass
+300E,16,Internal CPU registers,TCNT: free-running timer counter,7A62,LDD $300E,R,fixed operand,7A55,Finish timing bookkeeping and handle catch-up
+301A,16,Internal CPU registers,TOC3: recurring dispatcher compare timing,7A65,SUBD $301A,R,fixed operand,7A55,Finish timing bookkeeping and handle catch-up
+3FFA,16,External IO2 selection,Packed board/reference-status sample (word); physical bit meanings remain under review,7BF6,LDD $3FFA,R,fixed operand,7BF5,Preserve shared board status while bypassing VSS counting
+3FC0,16,External IO2 selection,ASIC reference-pulse period sample (word),842C,LDD $3FC0,R,fixed operand,842C,Accumulate the asynchronous delivery fraction
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,8577,LDD $3FFC,R,fixed operand,8548,Shape and strobe an asynchronous packet
+3FC0,16,External IO2 selection,ASIC reference-pulse period sample (word),858B,LDX $3FC0,R,fixed operand,858B,Convert captured period for cranking fuel
+3FCA,16,External IO2 selection,ASIC event/EST feedback counter sample (word),8629,LDX $3FCA,R,fixed operand,8613,Maintain battery treatment for fuel timing
+3FC0,16,External IO2 selection,ASIC reference-pulse period sample (word),A551,LDD $3FC0,R,fixed operand,A4EC,Qualify normal spark calculation
+3FC0,16,External IO2 selection,ASIC reference-pulse period sample (word),A581,LDD $3FC0,R,fixed operand,A581,Maintain the independent fuel-running permission
+3060,8,External IO1 selection,Board control/status latch; includes reference/EST control state,A5D4,"BCLR $00,X,#$10",RW,finite abstract contexts,A5C6,Handle an invalid or stale spark reference
+3FC0,16,External IO2 selection,ASIC reference-pulse period sample (word),A5E5,LDD $3FC0,R,fixed operand,A5E5,Capture the period used by normal timing
+3FC0,16,External IO2 selection,ASIC reference-pulse period sample (word),A6EF,LDD $3FC0,R,fixed operand,A6BE,Prepare the reference-related timing correction
+3FC0,16,External IO2 selection,ASIC reference-pulse period sample (word),AB8E,SUBD $3FC0,R,fixed operand,AB89,Publish timing and output handshakes
+3FF6,16,External IO2 selection,ASIC rolling EST edge/scheduling state (word),AB97,ADDD $3FF6,R,fixed operand,AB89,Publish timing and output handshakes
+3FF6,16,External IO2 selection,ASIC rolling EST edge/scheduling state (word),ABA4,SUBD $3FF6,R,fixed operand,AB89,Publish timing and output handshakes
+3FDC,16,External IO2 selection,ASIC spark dwell/period scheduling state (word),ABB0,ADDD $3FDC,R,fixed operand,AB89,Publish timing and output handshakes
+3FCA,16,External IO2 selection,ASIC event/EST feedback counter sample (word),ABD3,LDD $3FCA,R,fixed operand,ABCB,Supervise bypass/EST feedback
+3FEC,16,External IO2 selection,ASIC EST feedback/status sample (word),AC28,LDX $3FEC,R,fixed operand,ABCB,Supervise bypass/EST feedback
+3FC0,16,External IO2 selection,ASIC reference-pulse period sample (word),AC58,LDD $3FC0,R,fixed operand,AC51,Handle the alternate period/RPM route
+3012,16,Internal CPU registers,TIC2: timer input-capture register,AE67,LDX $3012,R,fixed operand,AE5C,Latch captured-event fuel authorization
+3034,8,Internal CPU registers,ADR4: ADC result register 4; sensor meaning depends on sequence and external multiplexer,C57D,"LDAB $34,X",R,finite abstract contexts,C56F,Acquire the engine battery sample
+3022,8,Internal CPU registers,TMSK1: timer interrupt-enable state,CC56,"BSET $22,X,#$A0",RW,finite abstract contexts,CC35,Refresh startup input seeds and the shared control latch
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,CC5A,LDD $3FFC,R,fixed operand,CC35,Refresh startup input seeds and the shared control latch
+3FC8,16,External IO2 selection,ASIC knock-observation counter sample (word),CE81,LDD $3FC8,R,fixed operand,CE7C,Observe the OC1/knock timing event
+3034,8,Internal CPU registers,ADR4: ADC result register 4; sensor meaning depends on sequence and external multiplexer,CEF1,"LDAA $34,X",R,finite abstract contexts,CEDB,Acquire and diagnose the knock-related input
+3034,8,Internal CPU registers,ADR4: ADC result register 4; sensor meaning depends on sequence and external multiplexer,DC0A,"LDAA $34,X",R,finite abstract contexts,DBFB,Convert and qualify manifold-air temperature
+3FCA,16,External IO2 selection,ASIC event/EST feedback counter sample (word),E01E,LDX $3FCA,R,fixed operand,E00D,Observe bypass/EST response for diagnostics
+3034,8,Internal CPU registers,ADR4: ADC result register 4; sensor meaning depends on sequence and external multiplexer,F21A,"LDAA $34,X",R,finite abstract contexts,F20D,Acquire a selected auxiliary/test input
+3032,8,Internal CPU registers,ADR2: ADC result register 2; sensor meaning depends on sequence and external multiplexer,F236,"LDAA $32,X",R,finite abstract contexts,F20D,Acquire a selected auxiliary/test input
+3034,8,Internal CPU registers,ADR4: ADC result register 4; sensor meaning depends on sequence and external multiplexer,F23F,"LDAA $34,X",R,finite abstract contexts,F20D,Acquire a selected auxiliary/test input
+3031,8,Internal CPU registers,ADR1: ADC result register 1; sensor meaning depends on channel and external multiplexer,F24C,"LDAA $31,X",R,finite abstract contexts,F245,Read the retained engine ADC channels
+3032,8,Internal CPU registers,ADR2: ADC result register 2; sensor meaning depends on sequence and external multiplexer,F254,"LDAA $32,X",R,finite abstract contexts,F245,Read the retained engine ADC channels
+3033,8,Internal CPU registers,ADR3: ADC result register 3; sensor meaning depends on sequence and external multiplexer,F259,"LDAA $33,X",R,finite abstract contexts,F245,Read the retained engine ADC channels
+3030,8,Internal CPU registers,ADCTL: ADC channel/sequence selection and conversion-complete status,F267,"BRSET $30,X,#$80,$F274",R,finite contexts plus nonfinite contexts,F25F,Perform one ADC conversion transaction
+3008,8,Internal CPU registers,PORTD: sensor multiplexer selection and sampled port state,F275,"BCLR $08,X,#$38",RW,finite contexts plus nonfinite contexts,F275,Set the retained external ADC mux state
+3008,8,Internal CPU registers,PORTD: sensor multiplexer selection and sampled port state,F27B,"ORAA $08,X",R,finite contexts plus nonfinite contexts,F275,Set the retained external ADC mux state
+3066,8,External IO1 selection,Board I/O bit-update interface; physical function unresolved,F3E4,LDAA $3066,R,fixed operand,F3E4,Toggle the retained heartbeat output request
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,F3EF,LDD $3FFC,R,fixed operand,F3EE,Update the shared board control word
+3060,8,External IO1 selection,Board control/status latch; includes reference/EST control state,F400,LDAA $3060,R,fixed operand,F400,Flush output shadows and sample board inputs
+3064,8,External IO1 selection,Sampled board digital-input register; individual physical input identities require confirmation,F414,LDAA $3064,R,fixed operand,F400,Flush output shadows and sample board inputs
+302E,8,Internal CPU registers,SCSR: SCI transmit/receive status,F608,LDAB $302E,R,fixed operand,F5E8,Start an admitted background ALDL reply
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,F637,LDD $3FFC,R,fixed operand,F5E8,Start an admitted background ALDL reply
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,F7A2,LDD $3FFC,R,fixed operand,F781,Age ALDL sessions and service requests
+302D,8,Internal CPU registers,"SCCR2: SCI transmit, receive and interrupt enables",F7ED,"BRCLR $2D,X,#$20,$F7FA",R,finite abstract contexts,F7EA,Arbitrate SCI receive/transmit interrupts
+302E,8,Internal CPU registers,SCSR: SCI transmit/receive status,F7F1,"BRCLR $2E,X,#$20,$F821",R,finite abstract contexts,F7EA,Arbitrate SCI receive/transmit interrupts
+302D,8,Internal CPU registers,"SCCR2: SCI transmit, receive and interrupt enables",F7FA,"BRCLR $2D,X,#$80,$F807",R,finite abstract contexts,F7EA,Arbitrate SCI receive/transmit interrupts
+302E,8,Internal CPU registers,SCSR: SCI transmit/receive status,F7FE,"BRCLR $2E,X,#$80,$F821",R,finite abstract contexts,F7EA,Arbitrate SCI receive/transmit interrupts
+302D,8,Internal CPU registers,"SCCR2: SCI transmit, receive and interrupt enables",F807,"BRCLR $2D,X,#$40,$F821",R,finite abstract contexts,F7EA,Arbitrate SCI receive/transmit interrupts
+302E,8,Internal CPU registers,SCSR: SCI transmit/receive status,F80B,"BRCLR $2E,X,#$40,$F821",R,finite abstract contexts,F7EA,Arbitrate SCI receive/transmit interrupts
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,F813,LDD $3FFC,R,fixed operand,F7EA,Arbitrate SCI receive/transmit interrupts
+302E,8,Internal CPU registers,SCSR: SCI transmit/receive status,F8FF,LDAA $302E,R,fixed operand,F8F4,Arm final transmit completion
+302F,8,Internal CPU registers,SCDR: SCI receive data and shared transmit-data register,F902,LDAA $302F,R,fixed operand,F8F4,Arm final transmit completion
+302E,8,Internal CPU registers,SCSR: SCI transmit/receive status,F90B,LDAB $302E,R,fixed operand,F90B,Capture and route an incoming ALDL byte
+302F,8,Internal CPU registers,SCDR: SCI receive data and shared transmit-data register,F90E,LDAA $302F,R,fixed operand,F90B,Capture and route an incoming ALDL byte
+302E,8,Internal CPU registers,SCSR: SCI transmit/receive status,FA2B,LDAB $302E,R,fixed operand,FA28,Launch an addressed reply
+3FFC,16,External IO2 selection,External board output-latch state used by engine/serial control,FA3B,LDD $3FFC,R,fixed operand,FA28,Launch an addressed reply

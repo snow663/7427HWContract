@@ -18,6 +18,14 @@ also does not establish every replacement chip's capacity, banking or write
 path. The [decode contract](../../docs/analysis/FACTORY_EXTENSION_MEMORY_INTERFACE.md)
 records those distinctions.
 
+The image-specific [Rev B resource/decode guide](../../docs/investigations/REVB_CS_EN_ADDRESS_MAP.md)
+explains each resource and provides nominal versus non-overlapping range tables.
+It also traces the runtime CONFIG comparison to0B: under standard F1 behavior,
+an accepted value would place internal EEPROM at0E00..0FFF inside the nominal
+GEN window. This is a conditional overlay, not recovered EEPROM contents or a
+newly established physical device. IRV bus visibility, output-shadow copies and
+the normal ALDL reply-address mask are documented separately from CPU mapping.
+
 We will reserve code, calibration, vector, working-state, retained-state and
 stack regions centrally. The calibration/code boundary can be ours. Existing
 factory routine addresses and ordinary RAM allocations are provenance rather
