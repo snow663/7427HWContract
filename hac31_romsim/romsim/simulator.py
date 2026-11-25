@@ -128,16 +128,27 @@ class Simulator:
 
     def _service_interrupt(self) -> int:
         hardware = self.memory.pending_interrupt_vector()
-        if hardware is not None and not any(row[0] == hardware and row[2] == "device" for row in self.pending_interrupts):
+        # The ASIC API consumes a latched REF edge, so retain it until accepted.
+        # Timer flags are level requests: poll their current mask/flag state on
+        # every boundary instead of latching a request that software can cancel.
+        if hardware == 0xFFF2 and not any(row[0] == hardware and row[2] == "device" for row in self.pending_interrupts):
             self.pending_interrupts.append((hardware, True, "device"))
-        if not self.pending_interrupts:
+        candidates = list(enumerate(self.pending_interrupts))
+        if hardware is not None and hardware != 0xFFF2:
+            candidates.append((None, (hardware, True, "device")))
+        if not candidates:
             return 0
-        vector, maskable, source = self.pending_interrupts[0]
-        before = self.memory.cycle_counter
-        if self.cpu.interrupt(vector, maskable=maskable):
-            self.pending_interrupts.pop(0)
-            self.trace.event("interrupt", before, vector=vector, source=source, new_pc=self.cpu.s.pc)
-            return self.memory.cycle_counter - before
+        # XIRQ has priority over I-maskable requests and uses its own X mask.
+        # A masked FIFO head must not prevent it from reaching the CPU. This
+        # does not yet implement the full configurable HPRIO peripheral order.
+        candidates.sort(key=lambda item: item[1][0] != 0xFFF4)
+        for index, (vector, maskable, source) in candidates:
+            before = self.memory.cycle_counter
+            if self.cpu.interrupt(vector, maskable=maskable):
+                if index is not None:
+                    self.pending_interrupts.pop(index)
+                self.trace.event("interrupt", before, vector=vector, source=source, new_pc=self.cpu.s.pc)
+                return self.memory.cycle_counter - before
         return 0
 
     def step_instruction(self) -> int:

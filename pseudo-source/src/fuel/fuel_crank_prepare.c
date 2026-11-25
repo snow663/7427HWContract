@@ -12,7 +12,7 @@ PcmStatus pcm_fuel_crank_prepare(Pcm *pcm)
     pcm->fuel.tps_history = pcm->fuel.throttle_decel_filter;
     uint16_t pulse;
     MIX_RUN(pcm_fuel_crank_pulse(pcm, &pulse));
-    pcm->reference.crank_seed = mix_word(2u * pulse);
+    pcm->reference.crank_seed = mix_word((uint32_t)2u * pulse);
     MIX_RUN(pcm_battery_input(pcm));
     MIX_CAL();
     pcm->reference.crank_seed = pcm_gain_word(pcm->reference.crank_seed, pcm_lookup16(pcm->reference.battery, cal->crank_battery));

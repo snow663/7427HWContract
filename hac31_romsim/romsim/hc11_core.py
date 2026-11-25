@@ -451,6 +451,7 @@ class HC11CPU:
         self.exec_trace: List[ExecTraceEntry] = []
         self.halted = False
         self.waiting = False
+        self.irq_inhibit_instructions = 0
         self.max_trace = 100000
 
     # --------------------------
@@ -464,13 +465,18 @@ class HC11CPU:
         self.s.pc = self.mem.read16(0xFFFE)
         self.halted = False
         self.waiting = False
+        self.irq_inhibit_instructions = 0
         self.exec_trace.clear()
 
     def interrupt(self, vector_address: int, maskable: bool = True) -> bool:
         """Enter an HC11 interrupt at an instruction boundary."""
-        if maskable and self._get_flag(CCR_I):
+        vector_address &= 0xFFFF
+        # XIRQ is governed by X, independently of I (M68HC11RM §5.5).
+        xirq = vector_address == 0xFFF4
+        if self._get_flag(CCR_X) if xirq else (maskable and (self._get_flag(CCR_I) or self.irq_inhibit_instructions)):
             return False
         interrupted_pc = self.s.pc
+        was_waiting = self.waiting
         if not self.waiting:
             self._push16(self.s.pc)
             self._push16(self.s.y)
@@ -480,8 +486,13 @@ class HC11CPU:
             self._push8(self.s.ccr)
         self.waiting = False
         self._set_flag(CCR_I, True)
+        if xirq:
+            self._set_flag(CCR_X, True)
         self.s.pc = self.mem.read16(vector_address & 0xFFFF)
-        self.mem.tick(12)
+        # WAI already spent 12 E clocks stacking and entering the wait state.
+        # Only the two vector reads remain after interrupt recognition.
+        # M68HC11ERG Rev 2.1 Table 1: WAI is 12 + n + 2 clocks in total.
+        self.mem.tick(2 if was_waiting else 12)
         self._trace(interrupted_pc, 0x00, None, f"INT ${vector_address & 0xFFFF:04X}")
         return True
 
@@ -769,6 +780,15 @@ class HC11CPU:
     def _idx_base(self, use_y: bool) -> int:
         return self.s.y if use_y else self.s.x
 
+    @staticmethod
+    def _operand_cycles(opcode: int, prefix: Optional[int], immediate: int) -> int:
+        """Whole-instruction E clocks, Appendix A addressing-mode tables.
+
+        This does not model the ordering of individual read/write bus cycles.
+        """
+        mode = (opcode >> 4) & 3  # immediate, direct, indexed, extended
+        return immediate + (0 if mode == 0 else 1 if mode == 1 else 2) + (prefix is not None)
+
     # --------------------------
     # Step
     # --------------------------
@@ -776,6 +796,12 @@ class HC11CPU:
     def step(self) -> int:
         if self.halted or self.waiting:
             return 0
+
+        # CLI/TAP clearing I protects the following instruction from maskable
+        # interrupts, even though its architectural CCR already exposes I=0.
+        # Consume that boundary protection only when an instruction executes.
+        if self.irq_inhibit_instructions:
+            self.irq_inhibit_instructions -= 1
 
         start_pc = self.s.pc
         prefix = None
@@ -786,6 +812,16 @@ class HC11CPU:
             prefix = opcode
             opcode = self._fetch8()
             use_y_index = prefix in {0x18, 0xCD}
+            # A prebyte selects a separate opcode page, not a generic modifier.
+            # Reject undocumented combinations before any operand side effects.
+            page18 = ({0x08,0x09,0x1C,0x1D,0x1E,0x1F,0x30,0x35,0x38,0x3A,0x3C,
+                       0x60,0x63,0x64,0x66,0x67,0x68,0x69,0x6A,0x6C,0x6D,0x6E,0x6F,
+                       0x8C,0x8F,0x9C,0xBC,0xCE,0xDE,0xDF,0xFE,0xFF}
+                      | set(range(0xA0,0xB0)) | set(range(0xE0,0xF0)))
+            legal = {0x18:page18,0x1A:{0x83,0x93,0xA3,0xB3,0xAC,0xEE,0xEF},
+                     0xCD:{0xA3,0xAC,0xEE,0xEF}}
+            if opcode not in legal[prefix]:
+                raise UnknownOpcode(start_pc, opcode, prefix)
 
         # ---- bit direct ----
         if prefix is None and opcode == 0x12:
@@ -813,10 +849,10 @@ class HC11CPU:
             mask = self._fetch8()
             value = self.mem.read8(address)
             if opcode == 0x1C:  # BSET indexed
-                self.mem.write8(address, value | mask)
+                self.mem.write8(address, self._logic8(value | mask))
                 name = "BSET"
             elif opcode == 0x1D:  # BCLR indexed
-                self.mem.write8(address, value & (~mask & 0xFF))
+                self.mem.write8(address, self._logic8(value & (~mask & 0xFF)))
                 name = "BCLR"
             else:
                 relative = s8(self._fetch8())
@@ -824,7 +860,7 @@ class HC11CPU:
                 if take:
                     self.s.pc = u16(self.s.pc + relative)
                 name = "BRSET" if opcode == 0x1E else "BRCLR"
-            cycles = 7 if opcode in {0x1C, 0x1D} else 8
+            cycles = 8 if prefix == 0x18 else 7
             self.mem.tick(cycles)
             self._trace(start_pc, opcode, prefix, name)
             return cycles
@@ -892,7 +928,10 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "ASLD")
             return 3
         if prefix is None and opcode == 0x06:  # TAP
-            self.s.ccr = self.s.a & 0xFF
+            # Software may clear X, but cannot set it after it has been cleared.
+            interrupts_were_masked = self._get_flag(CCR_I)
+            self.s.ccr = (self.s.a & ~CCR_X) | (self.s.a & self.s.ccr & CCR_X)
+            self.irq_inhibit_instructions = int(interrupts_were_masked and not self._get_flag(CCR_I))
             self.mem.tick(2)
             self._trace(start_pc, opcode, prefix, "TAP")
             return 2
@@ -902,22 +941,26 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "TPA")
             return 2
         if prefix is None and opcode == 0x08:  # INX
-            self.s.x = self._nz16(self.s.x + 1)
+            self.s.x = u16(self.s.x + 1)
+            self._set_flag(CCR_Z, self.s.x == 0)
             self.mem.tick(3)
             self._trace(start_pc, opcode, prefix, "INX")
             return 3
         if prefix == 0x18 and opcode == 0x08:  # INY
-            self.s.y = self._nz16(self.s.y + 1)
+            self.s.y = u16(self.s.y + 1)
+            self._set_flag(CCR_Z, self.s.y == 0)
             self.mem.tick(4)
             self._trace(start_pc, opcode, prefix, "INY")
             return 4
         if prefix is None and opcode == 0x09:  # DEX
-            self.s.x = self._nz16(self.s.x - 1)
+            self.s.x = u16(self.s.x - 1)
+            self._set_flag(CCR_Z, self.s.x == 0)
             self.mem.tick(3)
             self._trace(start_pc, opcode, prefix, "DEX")
             return 3
         if prefix == 0x18 and opcode == 0x09:  # DEY
-            self.s.y = self._nz16(self.s.y - 1)
+            self.s.y = u16(self.s.y - 1)
+            self._set_flag(CCR_Z, self.s.y == 0)
             self.mem.tick(4)
             self._trace(start_pc, opcode, prefix, "DEY")
             return 4
@@ -942,6 +985,7 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "SEC")
             return 2
         if prefix is None and opcode == 0x0E:  # CLI
+            self.irq_inhibit_instructions = int(self._get_flag(CCR_I))
             self._set_flag(CCR_I, False)
             self.mem.tick(2)
             self._trace(start_pc, opcode, prefix, "CLI")
@@ -1060,12 +1104,12 @@ class HC11CPU:
 
         # ---- stack / transfers ----
         if prefix is None and opcode == 0x30:  # TSX
-            self.s.x = self._nz16((self.s.sp + 1) & 0xFFFF)
+            self.s.x = u16(self.s.sp + 1)
             self.mem.tick(3)
             self._trace(start_pc, opcode, prefix, "TSX")
             return 3
         if prefix == 0x18 and opcode == 0x30:  # TSY
-            self.s.y = self._nz16((self.s.sp + 1) & 0xFFFF)
+            self.s.y = u16(self.s.sp + 1)
             self.mem.tick(4)
             self._trace(start_pc, opcode, prefix, "TSY")
             return 4
@@ -1135,7 +1179,9 @@ class HC11CPU:
             self._trace(start_pc, opcode, prefix, "ABY")
             return 4
         if prefix is None and opcode == 0x3B:  # RTI
-            self.s.ccr = self._pull8()
+            stacked_ccr = self._pull8()
+            self.s.ccr = (stacked_ccr & ~CCR_X) | (stacked_ccr & self.s.ccr & CCR_X)
+            self.irq_inhibit_instructions = 0
             self.s.b = self._pull8()
             self.s.a = self._pull8()
             self.s.x = self._pull16()
@@ -1170,9 +1216,9 @@ class HC11CPU:
             self._push8(self.s.b)
             self._push8(self.s.ccr)
             self.waiting = True
-            self.mem.tick(14)
+            self.mem.tick(12)
             self._trace(start_pc, opcode, prefix, "WAI")
-            return 14
+            return 12
         if prefix is None and opcode == 0x3F:  # SWI
             self._push16(self.s.pc)
             self._push16(self.s.y)
@@ -1216,10 +1262,12 @@ class HC11CPU:
             self.mem.tick(2); self._trace(start_pc, opcode, prefix, "INCA"); return 2
         if prefix is None and opcode == 0x4D:
             self._logic8(self.s.a)
+            self._set_flag(CCR_C, False)
             self.mem.tick(2); self._trace(start_pc, opcode, prefix, "TSTA"); return 2
         if prefix is None and opcode == 0x4F:
             self.s.a = 0
             self._logic8(self.s.a)
+            self._set_flag(CCR_C, False)
             self.mem.tick(2); self._trace(start_pc, opcode, prefix, "CLRA"); return 2
 
         # ---- accumulator B inherent ----
@@ -1252,10 +1300,12 @@ class HC11CPU:
             self.mem.tick(2); self._trace(start_pc, opcode, prefix, "INCB"); return 2
         if prefix is None and opcode == 0x5D:
             self._logic8(self.s.b)
+            self._set_flag(CCR_C, False)
             self.mem.tick(2); self._trace(start_pc, opcode, prefix, "TSTB"); return 2
         if prefix is None and opcode == 0x5F:
             self.s.b = 0
             self._logic8(self.s.b)
+            self._set_flag(CCR_C, False)
             self.mem.tick(2); self._trace(start_pc, opcode, prefix, "CLRB"); return 2
 
         # ---- memory shift / inc / dec / jmp / clr (indexed or ext) ----
@@ -1266,9 +1316,10 @@ class HC11CPU:
             base_op = opcode & 0x0F
             if base_op == 0x0E:  # JMP
                 self.s.pc = addr
-                self.mem.tick(3 if indexed else 3)
+                cycles = 3 + (prefix is not None)
+                self.mem.tick(cycles)
                 self._trace(start_pc, opcode, prefix, "JMP")
-                return 3
+                return cycles
             value = self.mem.read8(addr)
             if base_op == 0x00:
                 out = self._neg8(value)
@@ -1290,18 +1341,22 @@ class HC11CPU:
                 out = self._inc8(value)
             elif base_op == 0x0D:
                 self._logic8(value)
-                self.mem.tick(6 if indexed else 6)
+                self._set_flag(CCR_C, False)
+                cycles = 6 + (prefix is not None)
+                self.mem.tick(cycles)
                 self._trace(start_pc, opcode, prefix, "TST")
-                return 6
+                return cycles
             elif base_op == 0x0F:
                 out = 0
                 self._logic8(out)
+                self._set_flag(CCR_C, False)
             else:
                 raise UnknownOpcode(start_pc, opcode, prefix)
             self.mem.write8(addr, out)
-            self.mem.tick(6 if indexed else 6)
+            cycles = 6 + (prefix is not None)
+            self.mem.tick(cycles)
             self._trace(start_pc, opcode, prefix, "MEMOP")
-            return 6
+            return cycles
 
         # ---- arithmetic/logical groups helper ----
 
@@ -1371,9 +1426,10 @@ class HC11CPU:
                 name = "ADDA"
             else:
                 raise UnknownOpcode(start_pc, opcode, prefix)
-            self.mem.tick(2 if opcode < 0x90 else 3 if opcode < 0xA0 else 4 if opcode < 0xB0 else 4)
+            cycles = self._operand_cycles(opcode, prefix, 2)
+            self.mem.tick(cycles)
             self._trace(start_pc, opcode, prefix, name)
-            return 4
+            return cycles
 
         # ---- B register immediate/direct/indexed/ext ----
         if opcode in {0xC0,0xC1,0xC2,0xC4,0xC5,0xC8,0xC9,0xCA,0xCB,
@@ -1413,9 +1469,10 @@ class HC11CPU:
                 name = "ADDB"
             else:
                 raise UnknownOpcode(start_pc, opcode, prefix)
-            self.mem.tick(2 if opcode < 0xD0 else 3 if opcode < 0xE0 else 4 if opcode < 0xF0 else 4)
+            cycles = self._operand_cycles(opcode, prefix, 2)
+            self.mem.tick(cycles)
             self._trace(start_pc, opcode, prefix, name)
-            return 4
+            return cycles
 
         # ---- CPD page-3/page-4 ----
         if (prefix == 0x1A and opcode in {0x83,0x93,0xA3,0xB3}) or (prefix == 0xCD and opcode == 0xA3):
@@ -1428,9 +1485,10 @@ class HC11CPU:
             else:
                 val16 = self.mem.read16(self._extended())
             self._sub16(self.s.d, val16)
-            self.mem.tick(5)
+            cycles = self._operand_cycles(opcode, prefix, 4)
+            self.mem.tick(cycles)
             self._trace(start_pc, opcode, prefix, "CPD")
-            return 5
+            return cycles
 
         # ---- 16-bit ops LDD / ADDD / SUBD / CPX / CPY / LDS / LDX / LDY ----
         if opcode in {0x83,0x93,0xA3,0xB3,0xC3,0xD3,0xE3,0xF3,
@@ -1458,19 +1516,24 @@ class HC11CPU:
 
             if opcode in {0x83,0x93,0xA3,0xB3}:  # SUBD
                 self.s.d = self._sub16(self.s.d, val16)
-                self.mem.tick(4); self._trace(start_pc, opcode, prefix, "SUBD"); return 4
+                cycles = self._operand_cycles(opcode, prefix, 4)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "SUBD"); return cycles
             if opcode in {0xC3,0xD3,0xE3,0xF3}:  # ADDD
                 self.s.d = self._add16(self.s.d, val16)
-                self.mem.tick(4); self._trace(start_pc, opcode, prefix, "ADDD"); return 4
+                cycles = self._operand_cycles(opcode, prefix, 4)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "ADDD"); return cycles
             if opcode in {0xCC,0xDC,0xEC,0xFC}:  # LDD
                 self.s.d = self._logic16(val16)
-                self.mem.tick(4); self._trace(start_pc, opcode, prefix, "LDD"); return 4
+                cycles = self._operand_cycles(opcode, prefix, 3)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "LDD"); return cycles
             if opcode in {0x8C,0x9C,0xAC,0xBC}:  # CPX or CPY with prefix
                 _ = self._sub16(self.s.y if prefix in {0x18, 0x1A} else self.s.x, val16)
-                self.mem.tick(4); self._trace(start_pc, opcode, prefix, "CPY" if prefix in {0x18, 0x1A} else "CPX"); return 4
+                cycles = self._operand_cycles(opcode, prefix, 4)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "CPY" if prefix in {0x18, 0x1A} else "CPX"); return cycles
             if opcode in {0x8E,0x9E,0xAE,0xBE}:  # LDS
                 self.s.sp = self._logic16(val16)
-                self.mem.tick(4); self._trace(start_pc, opcode, prefix, "LDS"); return 4
+                cycles = self._operand_cycles(opcode, prefix, 3)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "LDS"); return cycles
             if opcode in {0xCE,0xDE,0xEE,0xFE}:  # LDX or LDY
                 if prefix in {0x18, 0x1A}:
                     self.s.y = self._logic16(val16)
@@ -1478,20 +1541,23 @@ class HC11CPU:
                 else:
                     self.s.x = self._logic16(val16)
                     name = "LDX"
-                self.mem.tick(4); self._trace(start_pc, opcode, prefix, name); return 4
+                cycles = self._operand_cycles(opcode, prefix, 3)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, name); return cycles
             if opcode in {0xDF,0xEF,0xFF}:      # STX or STY
                 value = self.s.y if prefix in {0x18, 0x1A} else self.s.x
                 if addr is None:
                     raise UnknownOpcode(start_pc, opcode, prefix)
                 self.mem.write16(addr, value)
                 self._logic16(value)
-                self.mem.tick(5); self._trace(start_pc, opcode, prefix, "STY" if prefix in {0x18, 0x1A} else "STX"); return 5
+                cycles = self._operand_cycles(opcode, prefix, 3)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "STY" if prefix in {0x18, 0x1A} else "STX"); return cycles
             if opcode in {0x9F,0xAF,0xBF}:      # STS
                 if addr is None:
                     raise UnknownOpcode(start_pc, opcode, prefix)
                 self.mem.write16(addr, self.s.sp)
                 self._logic16(self.s.sp)
-                self.mem.tick(5); self._trace(start_pc, opcode, prefix, "STS"); return 5
+                cycles = self._operand_cycles(opcode, prefix, 3)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "STS"); return cycles
 
         # ---- loads/stores A/B ----
         if opcode in {0x86,0x96,0xA6,0xB6,0x97,0xA7,0xB7,0xC6,0xD6,0xE6,0xF6,0xD7,0xE7,0xF7}:
@@ -1505,7 +1571,8 @@ class HC11CPU:
                     self.s.a = self._logic8(self.mem.read8(self._indexed(self._idx_base(use_y_index))))
                 elif opcode == 0xB6:
                     self.s.a = self._logic8(self.mem.read8(self._extended()))
-                self.mem.tick(2); self._trace(start_pc, opcode, prefix, "LDAA"); return 2
+                cycles = self._operand_cycles(opcode, prefix, 2)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "LDAA"); return cycles
 
             if opcode in {0x97,0xA7,0xB7}:
                 if opcode == 0x97:
@@ -1516,7 +1583,8 @@ class HC11CPU:
                     addr = self._extended()
                 self.mem.write8(addr, self.s.a)
                 self._logic8(self.s.a)
-                self.mem.tick(3); self._trace(start_pc, opcode, prefix, "STAA"); return 3
+                cycles = self._operand_cycles(opcode, prefix, 2)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "STAA"); return cycles
 
             if opcode in {0xC6,0xD6,0xE6,0xF6}:
                 if opcode == 0xC6:
@@ -1527,7 +1595,8 @@ class HC11CPU:
                     self.s.b = self._logic8(self.mem.read8(self._indexed(self._idx_base(use_y_index))))
                 else:
                     self.s.b = self._logic8(self.mem.read8(self._extended()))
-                self.mem.tick(2); self._trace(start_pc, opcode, prefix, "LDAB"); return 2
+                cycles = self._operand_cycles(opcode, prefix, 2)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "LDAB"); return cycles
 
             if opcode in {0xD7,0xE7,0xF7}:
                 if opcode == 0xD7:
@@ -1538,7 +1607,8 @@ class HC11CPU:
                     addr = self._extended()
                 self.mem.write8(addr, self.s.b)
                 self._logic8(self.s.b)
-                self.mem.tick(3); self._trace(start_pc, opcode, prefix, "STAB"); return 3
+                cycles = self._operand_cycles(opcode, prefix, 2)
+                self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "STAB"); return cycles
 
         # ---- STD ----
         if opcode in {0xDD,0xED,0xFD}:
@@ -1550,7 +1620,8 @@ class HC11CPU:
                 addr = self._extended()
             self.mem.write16(addr, self.s.d)
             self._logic16(self.s.d)
-            self.mem.tick(4); self._trace(start_pc, opcode, prefix, "STD"); return 4
+            cycles = self._operand_cycles(opcode, prefix, 3)
+            self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "STD"); return cycles
 
         # ---- JSR / JMP ----
         if opcode in {0x8D,0x9D,0xAD,0xBD}:
@@ -1558,7 +1629,7 @@ class HC11CPU:
                 rel = s8(self._fetch8())
                 self._push16(self.s.pc)
                 self.s.pc = (self.s.pc + rel) & 0xFFFF
-                self.mem.tick(7); self._trace(start_pc, opcode, prefix, "BSR"); return 7
+                self.mem.tick(6); self._trace(start_pc, opcode, prefix, "BSR"); return 6
             if opcode == 0x9D:
                 target = self._direct()
             elif opcode == 0xAD:
@@ -1567,7 +1638,8 @@ class HC11CPU:
                 target = self._extended()
             self._push16(self.s.pc)
             self.s.pc = target
-            self.mem.tick(6); self._trace(start_pc, opcode, prefix, "JSR"); return 6
+            cycles = (5 if opcode == 0x9D else 6) + (prefix is not None)
+            self.mem.tick(cycles); self._trace(start_pc, opcode, prefix, "JSR"); return cycles
 
         raise UnknownOpcode(start_pc, opcode, prefix)
 

@@ -9,6 +9,7 @@ from .bus import Bus
 
 I = 0x10
 X_MASK = 0x40
+S = 0x80
 N = 0x08
 Z = 0x04
 V = 0x02
@@ -28,7 +29,7 @@ class Registers:
     y: int = 0
     sp: int = 0
     pc: int = 0
-    ccr: int = I | X_MASK
+    ccr: int = S | I | X_MASK
 
     @property
     def d(self) -> int:
@@ -44,11 +45,13 @@ class CPU:
         self.r = Registers()
         self.instructions = 0
         self.cycles = 0  # provisional: only instructions with reviewed counts
+        self.irq_inhibit_instructions = 0
 
     def reset(self):
         self.r = Registers(pc=self.bus.read16(0xFFFE))
         self.instructions = 0
         self.cycles = 0
+        self.irq_inhibit_instructions = 0
 
     def _fetch8(self) -> int:
         v = self.bus.read8(self.r.pc)
@@ -109,7 +112,8 @@ class CPU:
 
     def interrupt(self, vector_address: int, *, maskable: bool = True) -> bool:
         """Hardware frame order: PCL,PCH,IYL,IYH,IXL,IXH,A,B,CCR."""
-        if maskable and self.r.ccr & I:
+        vector_address &= 0xFFFF
+        if (self.r.ccr & X_MASK) if vector_address == 0xFFF4 else (maskable and (self.r.ccr & I or self.irq_inhibit_instructions)):
             return False
         r = self.r
         for byte in (
@@ -127,6 +131,8 @@ class CPU:
 
     def step(self) -> tuple[int, int]:
         r = self.r
+        if self.irq_inhibit_instructions:
+            self.irq_inhibit_instructions -= 1
         pc = r.pc
         op = self._fetch8()
         # Any instruction missing from this explicit set fails, even if the
@@ -136,6 +142,7 @@ class CPU:
         elif op == 0x0F:  # SEI
             r.ccr |= I
         elif op == 0x0E:  # CLI
+            self.irq_inhibit_instructions = int(bool(r.ccr & I))
             r.ccr &= ~I
         elif op == 0x8E:  # LDS #imm16
             r.sp = self._fetch16()
@@ -171,23 +178,35 @@ class CPU:
             self.bus.write16(self._fetch16(), r.x)
             self._nz16(r.x)
         elif op == 0x7F:  # CLR extended
-            self.bus.write8(self._fetch16(), 0)
+            address = self._fetch16()
+            # CLR performs an operand read before its write. That read can
+            # complete a peripheral status-clear sequence (RM §5.9.3).
+            self.bus.read8(address)
+            self.bus.write8(address, 0)
             self._nz8(0)
             r.ccr &= ~C
         elif op == 0x6F:  # CLR offset,X
-            self.bus.write8((r.x + self._fetch8()) & 0xFFFF, 0)
+            address = (r.x + self._fetch8()) & 0xFFFF
+            self.bus.read8(address)
+            self.bus.write8(address, 0)
             self._nz8(0)
             r.ccr &= ~C
         elif op == 0x14:  # BSET direct, #mask
             addr, mask = self._fetch8(), self._fetch8()
-            self.bus.write8(addr, self.bus.read8(addr) | mask)
+            value = self.bus.read8(addr) | mask
+            self.bus.write8(addr, value)
+            self._nz8(value)
         elif op == 0x15:  # BCLR direct, #mask
             addr, mask = self._fetch8(), self._fetch8()
-            self.bus.write8(addr, self.bus.read8(addr) & ~mask)
+            value = self.bus.read8(addr) & ~mask
+            self.bus.write8(addr, value)
+            self._nz8(value)
         elif op == 0x1D:  # BCLR offset,X, #mask
             addr = (r.x + self._fetch8()) & 0xFFFF
             mask = self._fetch8()
-            self.bus.write8(addr, self.bus.read8(addr) & ~mask)
+            value = self.bus.read8(addr) & ~mask
+            self.bus.write8(addr, value)
+            self._nz8(value)
         elif op == 0x43:  # COMA
             r.a ^= 0xFF
             self._nz8(r.a)
@@ -228,7 +247,9 @@ class CPU:
         elif op == 0x30:  # TSX: X = SP+1
             r.x = (r.sp + 1) & 0xFFFF
         elif op == 0x3B:  # RTI: restore CCR, B, A, X, Y, PC
-            r.ccr = self._pull8()
+            stacked_ccr = self._pull8()
+            r.ccr = (stacked_ccr & ~X_MASK) | (stacked_ccr & r.ccr & X_MASK)
+            self.irq_inhibit_instructions = 0
             r.b = self._pull8()
             r.a = self._pull8()
             r.x = self._pull16()

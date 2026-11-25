@@ -42,7 +42,7 @@ static inline PcmStatus governor_fixed_curve(Pcm *pcm,uint16_t first,uint8_t inp
 }
 static inline uint16_t governor_sat_shift(uint16_t value,unsigned count)
 {
-    unsigned wide=(unsigned)value<<count;
+    uint32_t wide=(uint32_t)value<<count;
     return wide>65535u?0xffffu:(uint16_t)wide;
 }
 /* F550 8x16 multiply. Low-byte partial is rounded first, then added to
