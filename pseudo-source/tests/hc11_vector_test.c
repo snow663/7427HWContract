@@ -31,6 +31,22 @@ static PcmStatus fake_write(void *ctx,uint16_t a,uint8_t v)
     if(a>=0x3000u&&a<0x3060u){f->registers[a-0x3000u]=v;return PCM_OK;}
     return PCM_NO_HARDWARE;
 }
+static PcmStatus fake_read16(void *ctx,uint16_t a,uint16_t *v)
+{
+    Fixture *f=ctx;
+    if(v==NULL)return PCM_BAD_CONFIGURATION;
+    if(a<0x3000u||a>=0x305fu)return PCM_NO_HARDWARE;
+    ++f->reads;
+    *v=(uint16_t)(((uint16_t)f->registers[a-0x3000u]<<8)|
+                  f->registers[a-0x3000u+1u]);
+    return PCM_OK;
+}
+static PcmStatus fake_write16(void *ctx,uint16_t a,uint16_t v)
+{
+    if(a<0x3000u||a>=0x305fu)return PCM_NO_HARDWARE;
+    PcmStatus result=fake_write(ctx,a,(uint8_t)(v>>8));
+    return result==PCM_OK?fake_write(ctx,(uint16_t)(a+1u),(uint8_t)v):result;
+}
 static void test_inventory(void)
 {
     for(unsigned i=0;i<21u;++i){
@@ -53,10 +69,9 @@ static void test_entry_requirements(void)
     PcmHc11NativeFrame frame={0};
     CHECK(pcm_hc11_vector_dispatch(&p,0xffd6u,&frame,&action)==PCM_STACK_BOUNDARY);
     CHECK(action==PCM_HC11_NO_NATIVE_RETURN&&f.reads==0&&f.writes==0);
+    CHECK(pcm_hc11_vector_dispatch(&p,0xffe0u,&frame,&action)==PCM_STACK_BOUNDARY);
+    CHECK(pcm_hc11_vector_dispatch(&p,0xffe2u,&frame,&action)==PCM_STACK_BOUNDARY);
     frame.frame_verified=true;frame.entry_interrupts_masked=true;
-    CHECK(pcm_hc11_vector_dispatch(&p,0xffe0u,&frame,&action)==PCM_UNIMPLEMENTED);
-    CHECK(action==PCM_HC11_NO_NATIVE_RETURN);
-    CHECK(pcm_hc11_vector_dispatch(&p,0xffe2u,&frame,&action)==PCM_UNIMPLEMENTED);
     CHECK(pcm_hc11_vector_dispatch(&p,0xffe4u,&frame,&action)==PCM_STACK_BOUNDARY);
     CHECK(pcm_hc11_vector_dispatch(&p,0xfff4u,&frame,&action)==PCM_STACK_BOUNDARY);
     CHECK(pcm_hc11_vector_dispatch(&p,0xffffu,&frame,&action)==PCM_BAD_CONFIGURATION);
@@ -92,9 +107,32 @@ static void test_resident_leaves(void)
     CHECK(action==PCM_HC11_NATIVE_RTI_REQUIRED);
     CHECK((f.ram[0x03f8u]&0x40u)!=0);
 }
+static void test_output_timers(void)
+{
+    const uint16_t vectors[]={0xffe0u,0xffe2u};
+    const uint16_t compares[]={PCM_TOC5,PCM_TOC4};
+    for(unsigned i=0;i<2u;++i){
+        Fixture f={0};PcmPlatform platform={0};Pcm p={0};
+        platform.context=&f;platform.read8=fake_read;platform.write8=fake_write;
+        platform.read16=fake_read16;platform.write16=fake_write16;
+        p.platform=&platform;
+        p.reference.compare_a=0x1234u;p.reference.compare_b=0x1234u;
+        PcmHc11NativeFrame frame={0};
+        frame.frame_verified=true;frame.entry_interrupts_masked=true;
+        PcmHc11NativeAction action;
+        CHECK(pcm_hc11_vector_dispatch(&p,vectors[i],&frame,&action)==PCM_OK);
+        CHECK(action==PCM_HC11_NATIVE_RTI_REQUIRED);
+        CHECK(f.address[0]==PCM_TFLG1&&f.values[0]==(i?0x10u:0x08u));
+        CHECK(f.registers[compares[i]-0x3000u]==0x12u);
+        CHECK(f.registers[compares[i]-0x3000u+1u]==0x34u);
+        platform.read16=NULL;
+        CHECK(pcm_hc11_vector_dispatch(&p,vectors[i],&frame,&action)==PCM_NO_HARDWARE);
+        CHECK(action==PCM_HC11_NO_NATIVE_RETURN);
+    }
+}
 int main(void)
 {
-    test_inventory();test_entry_requirements();test_resident_leaves();
-    puts("HC11 vector bridge: 21 source vectors, entry guards, fallback and saved-CCR tests passed");
+    test_inventory();test_entry_requirements();test_resident_leaves();test_output_timers();
+    puts("HC11 vector bridge: 21 vectors, entry guards, output timers, fallback and saved-CCR tests passed");
     return 0;
 }

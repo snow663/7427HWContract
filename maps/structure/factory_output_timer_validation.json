@@ -1,0 +1,587 @@
+{
+  "record_date": "2026-11-24",
+  "scope": "Factory BMHM output-timer leaf bodies; logical I/O samples, independent C/ROM state, corrected shared legacy CPU",
+  "baseline_source_commit": "1d1fae0473ba336fa73e040d4478c0c3065c285e",
+  "implementation_commit": "b79d9bb1915f692649b524ad44d626a8fea74bcb",
+  "source_sha256": {
+    "pseudo-source/tests/compare_output_timer_rom.py": "0042fb728422bf62bfb28dda6b60a26350cee0300f24b15266612b13ded54030",
+    "pseudo-source/tests/output_timer_test.c": "eacfa7dd391d92c4273e5aa6ea436ccb09f70c363d085d979a7ddb5639240343",
+    "pseudo-source/src/interrupts/output_timer_internal.h": "ad96bd892cb1c4c8032a18db2a664d06596eab93ac97f483691cdc62da3faa93",
+    "pseudo-source/src/interrupts/toc4_irq.c": "e74f6987d1fc18d9b1e9fa20e9eafe5c240703f2a16804ccbb42fd788bc835ca",
+    "pseudo-source/src/interrupts/toc5_irq.c": "6a3ca46a698f8da595dd220efa66a0ac0181aa7a090e0129012bd0e4f355dc9b",
+    "pseudo-source/platform/hc11_vector_contract.c": "c56ee28235f14823dcf9764f2e56eaa7ce0b9b0c2f416d871ff84de88d7e5366",
+    "pseudo-source/include/hc11_vector_contract.h": "a33c72c55e119370e8d8a98ec050c53cdade353aaced61fc648548cdc3b197da",
+    "pseudo-source/include/hc11_vector_map.def": "4c527f98e786faba0c33ca3718f3b6e121dc563490e93065bff96754dde69728",
+    "pseudo-source/include/interrupts.h": "c3780d540fba1c13ef9745a51e0091a2162a969fb5fc676de053faab2289e3e7",
+    "hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054",
+    "tools/audit/reproduce_output_timer_baseline.py": "2a9060af97c356bcc0c05f52d407b3f20fcd66d26e28b21266e0913a613e10f1",
+    "tests/audit/test_output_timer_arithmetic.py": "30aa62d8928b5dd039411f735174cb160780d9c3aa6e4cb22f1dc30255b469f3"
+  },
+  "baseline_build": {
+    "headers_and_bridge": "Source-equivalent to baseline_source_commit; integration checkout HEAD 30e5fe34e7c207a44a5eda20c8256fc3520f3cc5 differs only outside src/include/calibration/vector bridge",
+    "baseline_library_sha256": "61985315ca2f699e419efc628f147ed41d79f721a167f309bbd8904decf7905b",
+    "baseline_bridge_sha256": "ca887b258ae8fe742ff78d71006585e194fef0bf56c5f85d34d6ca404bbac971",
+    "before_binary_sha256": "6b30eca9a521618edbe2672cb35e63ea0a724ff8fddadfef040df411e8e4394d",
+    "after_binary_sha256": "afe523c408d58a4b55acf15b0016f7b64c4f6c8bfdb087514fd5c1197de99068",
+    "compiler_flags": [
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-Werror"
+    ],
+    "before_link_inputs": [
+      "current pseudo-source/tests/output_timer_test.c",
+      "baseline pseudo-source/platform/hc11_vector_contract.c",
+      "baseline libpcm_pseudo_source.a"
+    ],
+    "after_link_inputs": [
+      "current pseudo-source/tests/output_timer_test.c",
+      "current pseudo-source/platform/hc11_vector_contract.c",
+      "current pseudo-source/src/interrupts/toc4_irq.c",
+      "current pseudo-source/src/interrupts/toc5_irq.c",
+      "same baseline libpcm_pseudo_source.a"
+    ],
+    "qualification": "The same new baseline-compatible driver and identical common library are used before and after. Baseline source equivalence was checked with git diff; library/binary hashes identify the exact recorded artifacts. Rebuilds require their own tests."
+  },
+  "baseline_witnesses": [
+    {
+      "status": "FAIL",
+      "case": "literal_ack_FFE0",
+      "index": 0,
+      "first_divergence": "result.steps[0].events[0]: expected [['W', 8, 12323, 8]], got [] (length 6 != 0)",
+      "reproduce_stdin": "1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 65504\n",
+      "expected_factory": {
+        "steps": [
+          {
+            "status": 0,
+            "action": 1,
+            "state": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "io": [
+              0,
+              0,
+              0,
+              1,
+              0,
+              2
+            ],
+            "events": [
+              [
+                "W",
+                8,
+                12323,
+                8
+              ],
+              [
+                "R",
+                8,
+                12288,
+                0
+              ],
+              [
+                "R",
+                8,
+                12320,
+                0
+              ],
+              [
+                "W",
+                8,
+                12320,
+                1
+              ],
+              [
+                "R",
+                16,
+                12302,
+                0
+              ],
+              [
+                "W",
+                16,
+                12318,
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "actual_c": {
+        "steps": [
+          {
+            "status": 1,
+            "action": 0,
+            "state": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "io": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "events": []
+          }
+        ]
+      },
+      "factory_trace": [
+        {
+          "vector": "FFE0",
+          "retired_pcs": [
+            "7875",
+            "7878",
+            "787A",
+            "787C",
+            "78C5",
+            "78C8",
+            "78CA",
+            "78CD",
+            "78D1",
+            "78D6",
+            "78D8"
+          ],
+          "failed_pc": null
+        }
+      ]
+    },
+    {
+      "status": "FAIL",
+      "case": "literal_ack_FFE2",
+      "index": 0,
+      "first_divergence": "result.steps[0].events[0]: expected [['W', 8, 12323, 16]], got [] (length 6 != 0)",
+      "reproduce_stdin": "1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 65506\n",
+      "expected_factory": {
+        "steps": [
+          {
+            "status": 0,
+            "action": 1,
+            "state": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "io": [
+              0,
+              0,
+              0,
+              4,
+              2,
+              0
+            ],
+            "events": [
+              [
+                "W",
+                8,
+                12323,
+                16
+              ],
+              [
+                "R",
+                8,
+                12288,
+                0
+              ],
+              [
+                "R",
+                8,
+                12320,
+                0
+              ],
+              [
+                "W",
+                8,
+                12320,
+                4
+              ],
+              [
+                "R",
+                16,
+                12302,
+                0
+              ],
+              [
+                "W",
+                16,
+                12316,
+                2
+              ]
+            ]
+          }
+        ]
+      },
+      "actual_c": {
+        "steps": [
+          {
+            "status": 1,
+            "action": 0,
+            "state": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "io": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "events": []
+          }
+        ]
+      },
+      "factory_trace": [
+        {
+          "vector": "FFE2",
+          "retired_pcs": [
+            "78D9",
+            "78DC",
+            "78DE",
+            "78E0",
+            "7929",
+            "792C",
+            "792E",
+            "7931",
+            "7935",
+            "793A",
+            "793C"
+          ],
+          "failed_pc": null
+        }
+      ]
+    }
+  ],
+  "after": {
+    "status": "PASS",
+    "scope": "complete two-handler bodies under declared logical I/O fixture",
+    "factory_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+    "driver_sha256": "afe523c408d58a4b55acf15b0016f7b64c4f6c8bfdb087514fd5c1197de99068",
+    "cpu_source_sha256": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054",
+    "input_sha256": "d35f387f1c2f1b67299c965513fbbf6d95cf5578f26cdf7630b19953e5f38845",
+    "results_sha256": "d6565f012ddfa68d598e7626268c5fc1ba4f093ad1fd20d5745030baa5f1221a",
+    "cases": 3068,
+    "interrupt_entries": 6626,
+    "restored_rti": 6569,
+    "provider_failures": 57,
+    "completed_instruction_starts": 80,
+    "conditional_branch_edges": 28,
+    "unconditional_branch_edges": 4,
+    "pcs": [
+      "7875",
+      "7878",
+      "787A",
+      "787C",
+      "7880",
+      "7883",
+      "7886",
+      "788A",
+      "788D",
+      "7890",
+      "7892",
+      "7893",
+      "7895",
+      "7898",
+      "789A",
+      "789D",
+      "789E",
+      "789F",
+      "78A2",
+      "78A5",
+      "78A7",
+      "78AA",
+      "78AB",
+      "78AD",
+      "78B0",
+      "78B2",
+      "78B5",
+      "78B7",
+      "78BA",
+      "78BE",
+      "78C0",
+      "78C3",
+      "78C5",
+      "78C8",
+      "78CA",
+      "78CD",
+      "78D1",
+      "78D3",
+      "78D6",
+      "78D8",
+      "78D9",
+      "78DC",
+      "78DE",
+      "78E0",
+      "78E4",
+      "78E7",
+      "78EA",
+      "78EE",
+      "78F1",
+      "78F4",
+      "78F6",
+      "78F7",
+      "78F9",
+      "78FC",
+      "78FE",
+      "7901",
+      "7902",
+      "7903",
+      "7906",
+      "7909",
+      "790B",
+      "790E",
+      "790F",
+      "7911",
+      "7914",
+      "7916",
+      "7919",
+      "791B",
+      "791E",
+      "7922",
+      "7924",
+      "7927",
+      "7929",
+      "792C",
+      "792E",
+      "7931",
+      "7935",
+      "7937",
+      "793A",
+      "793C"
+    ],
+    "conditional_edges": [
+      [
+        "787C",
+        "7880"
+      ],
+      [
+        "787C",
+        "78C5"
+      ],
+      [
+        "7886",
+        "788A"
+      ],
+      [
+        "7886",
+        "78A7"
+      ],
+      [
+        "7890",
+        "7892"
+      ],
+      [
+        "7890",
+        "7895"
+      ],
+      [
+        "7893",
+        "7895"
+      ],
+      [
+        "7893",
+        "7898"
+      ],
+      [
+        "78AB",
+        "78AD"
+      ],
+      [
+        "78AB",
+        "78B0"
+      ],
+      [
+        "78BE",
+        "78C0"
+      ],
+      [
+        "78BE",
+        "78D6"
+      ],
+      [
+        "78D1",
+        "78D3"
+      ],
+      [
+        "78D1",
+        "78D6"
+      ],
+      [
+        "78E0",
+        "78E4"
+      ],
+      [
+        "78E0",
+        "7929"
+      ],
+      [
+        "78EA",
+        "78EE"
+      ],
+      [
+        "78EA",
+        "790B"
+      ],
+      [
+        "78F4",
+        "78F6"
+      ],
+      [
+        "78F4",
+        "78F9"
+      ],
+      [
+        "78F7",
+        "78F9"
+      ],
+      [
+        "78F7",
+        "78FC"
+      ],
+      [
+        "790F",
+        "7911"
+      ],
+      [
+        "790F",
+        "7914"
+      ],
+      [
+        "7922",
+        "7924"
+      ],
+      [
+        "7922",
+        "793A"
+      ],
+      [
+        "7935",
+        "7937"
+      ],
+      [
+        "7935",
+        "793A"
+      ]
+    ],
+    "unconditional_edges": [
+      [
+        "78A5",
+        "78B5"
+      ],
+      [
+        "78C3",
+        "78D6"
+      ],
+      [
+        "7909",
+        "7919"
+      ],
+      [
+        "7927",
+        "793A"
+      ]
+    ],
+    "limits": [
+      "Shared corrected legacy CPU implementation; not an independent emulator pair",
+      "PORTA/TCNT sequence and W1C are supplied fixture premises",
+      "C native IRQ entry/RTI ABI, physical timer edges and timing are not tested"
+    ]
+  },
+  "host_contracts": {
+    "before": "FAIL (exit1 at required PCM_OK)",
+    "after": "PASS (exit0)"
+  },
+  "commands": {
+    "configure": "cmake -S pseudo-source -B build-output-timer -DBUILD_TESTING=ON",
+    "build": "cmake --build build-output-timer --target pcm_output_timer_tests",
+    "ctest": "ctest --test-dir build-output-timer --output-on-failure -R '^output_timer_(contracts|rom_differential)$'",
+    "full_comparator": "python pseudo-source/tests/compare_output_timer_rom.py build-output-timer/pcm_output_timer_tests --report output-timer-result.json",
+    "minimal_ffe0": "python pseudo-source/tests/compare_output_timer_rom.py OUTPUT_TIMER_BINARY --literal-only --literal-vector FFE0",
+    "minimal_ffe2": "python pseudo-source/tests/compare_output_timer_rom.py OUTPUT_TIMER_BINARY --literal-only --literal-vector FFE2",
+    "expected_before_exit": 1,
+    "expected_after_exit": 0
+  },
+  "remaining_limits": [
+    "Not a native compiled HC11 BIN or vector-prologue/epilogue ABI test",
+    "No physical timer-edge, pin transition, W1C race, interrupt-latency or cycle-accuracy model",
+    "Same-Pcm producer sequences are C contracts; combined actual-ROM producer/IRQ/device-scheduler execution remains integration work",
+    "Corrected legacy CPU is shared with other repository suites; this is not an independent dual-emulator result",
+    "Historical audit inventories and conclusions remain fixed at their original baseline"
+  ],
+  "portable_public_baseline_reproduction": {
+    "baseline_commit": "f2f493f4df5843d37baf23d27a460dbd7d890476",
+    "status": "EXPECTED_MISMATCH",
+    "known_defect_reproduced": true,
+    "temporary_worktree_removed": true,
+    "command": "python tools/audit/reproduce_output_timer_baseline.py --expect-mismatch --out output-timer-baseline-results",
+    "baseline_library_sha256": "61985315ca2f699e419efc628f147ed41d79f721a167f309bbd8904decf7905b",
+    "baseline_driver_sha256": "6b30eca9a521618edbe2672cb35e63ea0a724ff8fddadfef040df411e8e4394d",
+    "current_sources_sha256": {
+      "pseudo-source/tests/output_timer_test.c": "eacfa7dd391d92c4273e5aa6ea436ccb09f70c363d085d979a7ddb5639240343",
+      "pseudo-source/tests/compare_output_timer_rom.py": "0042fb728422bf62bfb28dda6b60a26350cee0300f24b15266612b13ded54030",
+      "hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054"
+    },
+    "witnesses": [
+      {
+        "vector": "FFE0",
+        "report_sha256": "6b06021aa7ac73adc33a0f4f82b57899bb035b4c87f15955fc2dec1926cb5e88",
+        "first_divergence": "result.steps[0].events[0]: expected [['W', 8, 12323, 8]], got [] (length 6 != 0)"
+      },
+      {
+        "vector": "FFE2",
+        "report_sha256": "e6129e964cd423f3fb34f17bc0127a88d2b2694050911c19516ca18910f76ae8",
+        "first_divergence": "result.steps[0].events[0]: expected [['W', 8, 12323, 16]], got [] (length 6 != 0)"
+      }
+    ],
+    "qualification": "Expected historical failure reproduction. Corrected-code verification is the separate full body suite."
+  },
+  "target_width_regression_sensitivity": {
+    "suite": "tests/audit/test_output_timer_arithmetic.py",
+    "scope": "Actual parsed accumulator/addition/saturation expressions under bounded 16/32-bit-int models, not native compilation",
+    "results": [
+      {
+        "case": "target_width_actual",
+        "exit_code": 0,
+        "methods": 4,
+        "result": "OK"
+      },
+      {
+        "case": "target_width_mutation_uint16_t",
+        "exit_code": 1,
+        "methods": 4,
+        "result": "failures=69"
+      },
+      {
+        "case": "target_width_mutation_unsigned",
+        "exit_code": 1,
+        "methods": 4,
+        "result": "failures=35"
+      }
+    ]
+  }
+}

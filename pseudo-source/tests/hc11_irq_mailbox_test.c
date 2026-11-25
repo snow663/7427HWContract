@@ -31,6 +31,21 @@ static PcmStatus fake_write(void *ctx,uint16_t a,uint8_t value)
     if(a>=0x3000u && a<0x3060u){f->regs[a-0x3000u]=value;return PCM_OK;}
     return PCM_NO_HARDWARE;
 }
+static PcmStatus fake_read16(void *ctx,uint16_t a,uint16_t *out)
+{
+    Fake *f=ctx;
+    if(out==NULL)return PCM_BAD_CONFIGURATION;
+    if(a<0x3000u||a>=0x305fu)return PCM_NO_HARDWARE;
+    *out=(uint16_t)(((uint16_t)f->regs[a-0x3000u]<<8)|
+                    f->regs[a-0x3000u+1u]);
+    return PCM_OK;
+}
+static PcmStatus fake_write16(void *ctx,uint16_t a,uint16_t value)
+{
+    if(a<0x3000u||a>=0x305fu)return PCM_NO_HARDWARE;
+    PcmStatus result=fake_write(ctx,a,(uint8_t)(value>>8));
+    return result==PCM_OK?fake_write(ctx,(uint16_t)(a+1u),(uint8_t)value):result;
+}
 static void prepare(volatile uint8_t *m,uint16_t vector)
 {
     for(unsigned i=0;i<PCM_IRQ_MB_SIZE;++i)m[i]=0u;
@@ -41,8 +56,27 @@ static void prepare(volatile uint8_t *m,uint16_t vector)
     m[PCM_IRQ_MB_BUSY]=PCM_IRQ_MB_BUSY_TOKEN;
     m[PCM_IRQ_MB_PROOF]=PCM_IRQ_MB_PROOF_FRAME|PCM_IRQ_MB_PROOF_I_MASKED;
 }
+static void test_output_timers(void)
+{
+    const uint16_t vectors[]={0xffe0u,0xffe2u};
+    for(unsigned i=0;i<2u;++i){
+        Fake f={0};PcmPlatform platform={0};Pcm p={0};
+        volatile uint8_t m[PCM_IRQ_MB_SIZE]={0};
+        f.mailbox=m;platform.context=&f;platform.read8=fake_read;
+        platform.write8=fake_write;platform.read16=fake_read16;
+        platform.write16=fake_write16;p.platform=&platform;
+        prepare(m,vectors[i]);
+        CHECK(pcm_hc11_mailbox_dispatch(&p,m)==PCM_OK);
+        CHECK(m[PCM_IRQ_MB_ACTION]==PCM_IRQ_MB_RTI_TOKEN&&m[PCM_IRQ_MB_STATUS]==PCM_OK);
+        prepare(m,vectors[i]);
+        platform.read16=NULL;
+        CHECK(pcm_hc11_mailbox_dispatch(&p,m)==PCM_NO_HARDWARE);
+        CHECK(m[PCM_IRQ_MB_ACTION]==0&&m[PCM_IRQ_MB_STATUS]==PCM_NO_HARDWARE);
+    }
+}
 int main(void)
 {
+    test_output_timers();
     Fake f={0};PcmPlatform platform={0};Pcm p={0};
     volatile uint8_t m[PCM_IRQ_MB_SIZE]={0};
     f.mailbox=m;platform.context=&f;platform.read8=fake_read;
@@ -61,9 +95,6 @@ int main(void)
     CHECK(pcm_hc11_mailbox_dispatch(&p,m)==PCM_UNIMPLEMENTED);
     CHECK(m[PCM_IRQ_MB_ACTION]==0 &&
           m[PCM_IRQ_MB_STATUS]==PCM_UNIMPLEMENTED);
-    prepare(m,0xffe2u); /* unresolved output timer */
-    CHECK(pcm_hc11_mailbox_dispatch(&p,m)==PCM_UNIMPLEMENTED);
-    CHECK(m[PCM_IRQ_MB_ACTION]==0);
     prepare(m,0xfffeu); /* native reset never calls the C mailbox */
     CHECK(pcm_hc11_mailbox_dispatch(&p,m)==PCM_UNIMPLEMENTED);
     CHECK(m[PCM_IRQ_MB_ACTION]==0);
@@ -110,6 +141,6 @@ int main(void)
     prepare(m,0xffd8u);
     pcm_hc11_c_entry();
     CHECK(m[PCM_IRQ_MB_ACTION]==0);
-    puts("ASM11 ISR mailbox: RTI token, qualified frames, unmapped timers, nesting and identity-change rejection passed");
+    puts("ASM11 ISR mailbox: RTI token, qualified frames, output timers, nesting and identity-change rejection passed");
     return 0;
 }

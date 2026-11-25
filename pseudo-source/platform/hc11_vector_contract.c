@@ -39,8 +39,6 @@ PcmStatus pcm_hc11_vector_dispatch(Pcm *pcm,uint16_t vector,
     }
     if(frame==NULL||!frame->frame_verified||!frame->entry_interrupts_masked)
         return PCM_STACK_BOUNDARY;
-    if(info->kind==PCM_HC11_KIND_UNBOUND_OUTPUT_TIMER)
-        return PCM_UNIMPLEMENTED;
     if(info->kind==PCM_HC11_KIND_TOC3 &&
        (!frame->toc3_stack_contract_verified||pcm->platform==NULL||
        (pcm->platform->capture_timer_stack_x==NULL &&
@@ -57,6 +55,8 @@ PcmStatus pcm_hc11_vector_dispatch(Pcm *pcm,uint16_t vector,
       case PCM_HC11_KIND_OVERFLOW:status=pcm_overflow_fallback_irq(pcm);break;
       case PCM_HC11_KIND_TIMER_FALLBACK:status=pcm_timer_fallback_irq(pcm);break;
       case PCM_HC11_KIND_OC1:status=pcm_oc1_irq(pcm);break;
+      case PCM_HC11_KIND_TOC5:status=pcm_toc5_irq(pcm);break;
+      case PCM_HC11_KIND_TOC4:status=pcm_toc4_irq(pcm);break;
       case PCM_HC11_KIND_TOC3:status=pcm_periodic_irq(pcm);break;
       case PCM_HC11_KIND_REF:status=pcm_reference_irq(pcm);break;
       case PCM_HC11_KIND_XIRQ:
@@ -66,7 +66,6 @@ PcmStatus pcm_hc11_vector_dispatch(Pcm *pcm,uint16_t vector,
       case PCM_HC11_KIND_COP_RESET:
       case PCM_HC11_KIND_CLOCK_FAILURE:
       case PCM_HC11_KIND_EXTERNAL_RESET:
-      case PCM_HC11_KIND_UNBOUND_OUTPUT_TIMER:
         return PCM_BAD_CONFIGURATION;
     }
     if(status==PCM_OK) *action=PCM_HC11_NATIVE_RTI_REQUIRED;

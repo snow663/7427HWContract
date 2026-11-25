@@ -98,8 +98,10 @@ differential suites. Focused regressions do not replace that integration gate.
 
 This integration excludes the audit's native-artifact binding corrections,
 C bus-aperture changes, broad completeness inventory and dual-BIN prototype.
-The two unimplemented output-timer handlers remain a separate implementation
-task. No new firmware BIN or calibration is introduced here.
+The two output-timer handlers were left for a separate implementation at this
+correction checkpoint. Their subsequent C-body implementation and verification
+are recorded in the [output-timer contract](analysis/FACTORY_OUTPUT_TIMER_IMPLEMENTATION.md).
+No new firmware BIN or calibration is introduced here.
 
 DAA, BRN and STOP remain unsupported by the legacy interpreter; illegal-opcode
 trap entry, complete HPRIO arbitration, bus-cycle accuracy, hardware-backed ISA

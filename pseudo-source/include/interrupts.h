@@ -14,6 +14,8 @@ PcmStatus pcm_factory_reference_irq(Pcm *);
 PcmStatus pcm_timer_fallback_irq(Pcm *);
 PcmStatus pcm_overflow_fallback_irq(Pcm *);
 PcmStatus pcm_spi_irq(Pcm *);
+PcmStatus pcm_toc5_irq(Pcm *);
+PcmStatus pcm_toc4_irq(Pcm *);
 /* $7959..$7979 software guard; target supplies TSX X and performs any LDS. */
 PcmStatus pcm_timer_stack_guard(Pcm *,uint16_t stack_x,bool *needs_reset);
 #endif

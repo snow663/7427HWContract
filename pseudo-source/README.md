@@ -33,7 +33,7 @@ consistency check.
 | Location | Responsibility |
 |---|---|
 | `src/startup/` | Reset sequence and separate initialization stages |
-| `src/interrupts/` | Periodic, reference, OC1 and SCI entry-body interfaces |
+| `src/interrupts/` | Periodic, reference, OC1, OC4/OC5 and SCI entry-body interfaces |
 | `src/kernel/` | Phase advance, fast groups, slot dispatch, busy/pending catch-up and profiling |
 | `src/slots/` | One file per slow slot,00..0F |
 | `src/drivers/` | Explicit byte/word transactions, timer arm, watchdog and board-bit toggle |
@@ -56,8 +56,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The canonical `work/pseudo-source-development` branch contains 413 public routines, with 235 implemented outlines, 9 dependency
-boundaries and 169 implemented algorithms. The $7959..$7979 timer stack guard
+The canonical `work/pseudo-source-development` branch contains 415 public routines, with 235 implemented outlines, 9 dependency
+boundaries and 171 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have
@@ -77,6 +77,14 @@ advances its baseline, applies both direct-index curves and accumulates the
 bounded observation. Its 261,632 numeric comparisons and 1,280 REF/OC1 sequences
 match the stock code. See the [OC1 contract](reference/oc1_knock_contract.md) for
 failure-prefix checks, coverage and the remaining knock-controller boundaries.
+
+The OC5/OC4 bodies at `$7875`/`$78D9` now dispatch through `$FFE0`/`$FFE2`
+in the C vector contract. Their 3,068 actual-ROM comparisons cover all 80
+instruction starts, all 28 conditional branch outcomes, ordered logical I/O,
+shared async consumption and retained sequences. The
+[output-timer contract](../docs/analysis/FACTORY_OUTPUT_TIMER_IMPLEMENTATION.md)
+also records executable before-fix failures. Native entry/RTI ABI, physical
+timer/pin behavior and timing remain separate open gates.
 
 Slot8 now directly calls implemented knock decay and sensor diagnostics.
 The normal-spark consumer atomically reads/clears pending observations and
