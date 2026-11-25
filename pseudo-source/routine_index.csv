@@ -430,3 +430,8 @@ src/transmission/pressure_learning_count.c,pcm_pressure_learning_count,implement
 src/transmission/pressure_shift_reduction.c,pcm_pressure_shift_reduction,implemented_algorithm,BC77..BCC5 timed pressure reduction on ratio windows.,Retain entry replay and join the pressure group
 src/transmission/pressure_baro_factor.c,pcm_pressure_baro_factor,implemented_algorithm,D969..D97F barometric pressure multiplier.,Retain entry replay and join the pressure group
 src/transmission/transmission_fault_gate_664.c,pcm_transmission_fault_gate_664,implemented_algorithm,E664..E673 pressure fault mask scan and publication.,Retain entry replay and join the pressure group
+src/transmission/pressure_modifiers.c,pcm_pressure_modifiers,implemented_algorithm,B88D..B91C conditional pressure additions and corrections.,Retain standalone comparisons and join the pressure group
+src/transmission/pressure_current_reference.c,pcm_pressure_current_reference,implemented_algorithm,BE5C..BEBB hysteretic current reference selection and publication.,Retain standalone comparisons and join the pressure group
+src/transmission/tcc_throttle_events.c,pcm_tcc_throttle_events,implemented_algorithm,BEBC..BF61 throttle event windows and slip qualification.,Retain standalone comparisons and join the pressure group
+src/transmission/tcc_event_timers.c,pcm_tcc_event_timers,implemented_algorithm,BF62..C00A TCC event counters and decay.,Retain standalone comparisons and join the pressure group
+src/transmission/tcc_base_curve.c,pcm_tcc_base_curve,implemented_algorithm,C271..C2D5 extended base command and service override.,Retain standalone comparisons and join the pressure group

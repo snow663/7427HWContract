@@ -71,8 +71,10 @@ def stock(case):
     for _ in range(case.passes):
         cpu._push16(0x7000)
         cpu.s.pc = case.entry
-        if case.entry == 0xbc77:
+        if case.entry in (0xbc77, 0xb88d):
             cpu.s.a = memory.mem[0x142]
+        if case.entry == 0xc271:
+            cpu.s.x, cpu.s.y = 0x6db3, 0x10b
         if case.entry == 0xd969:
             cpu.s.x = 0x70e0
         try:
@@ -91,7 +93,7 @@ def stock(case):
             status = 'failed'
         if status == 'ok' and case.entry == 0xd969:
             memory.events.append(f'd{cpu.s.d:04x}')
-        if status == 'ok' and case.entry in (0xb91d, 0xbc77):
+        if status == 'ok' and case.entry in (0xb91d, 0xbc77, 0xb88d):
             memory.events.append(f'a{cpu.s.a:02x}')
         memory.events.extend([status, memory.mem[:0x350].hex()])
         if status == 'failed':

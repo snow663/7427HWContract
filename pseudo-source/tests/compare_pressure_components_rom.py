@@ -2,6 +2,7 @@
 from dataclasses import replace
 from itertools import product
 from pathlib import Path
+import random
 import sys
 import tempfile
 
@@ -10,6 +11,32 @@ from transmission_group_replay import Case, edges, memory, seen, stock
 
 
 def cases():
+    rng = random.Random(0xbe5c)
+    entries = (0xb88d, 0xbe5c, 0xbebc, 0xbf62)
+    for i in range(2400):
+        ram = {a:rng.randrange(256) for a in (0x83,0x84,0x85,0x87,0x89,0x8b,0x8e,
+               0x99,0x9c,0xb2,0xb3,0xb5,0xd7,0xd9,0xe2,0xeb,0xec,0x142,0x147,
+               0x18c,0x18d,0x18e,0x1ac,0x20c,0x22f,0x844,*range(0x11b,0x12f))}
+        ram[0xd9] %= 4
+        if (i//4) % 2:
+            for a in (*range(0x6ab4,0x6aec), *range(0x5f16,0x5f53), *range(0x70a1,0x70b2)):
+                ram[a] = rng.randrange(256)
+        if (i//4) % 7 == 0:
+            for a in (0x18c,0x124,0x18d,0x18e): ram[a] = 0
+            for a in (0x11b,0x11c,0x11d,0x11e,0x12d,0x12e,0x125): ram[a] = 255
+        case = Case(entries[i%4], ram, passes=3)
+        yield case
+        if i % 91 == 0:
+            stock(case)
+            for fail in range(1, memory.count+1):
+                yield replace(case, fail=fail)
+    # The rounded 0xFFFC intermediate carries beyond the command word.
+    yield Case(0xc271, {0x6db3:0, 0x6db4:129, 0xb2:16, 0x6e2a:254})
+    for i in range(900):
+        ram = {a:rng.randrange(256) for a in (0x10b,0x10c,0xe2,0xb2,
+               *range(0x6e2a,0x6e3b), *range(0x6db3,0x6dc4))}
+        if i % 4: ram[0x10b] = 0
+        yield Case(0xc271, ram)
     for gear, flags, throttle, reject in product(range(4), (0, 2, 3, 16),
                                                 (0,7,8,15,16,128,247,248,255), (0,1)):
         edits = {0xd9:gear,0x83:flags,0xb2:throttle,0x91:reject,0x148:85,0x149:170}
@@ -48,7 +75,8 @@ def main(binary):
         compare(binary, str(path), stock, cases(), 'pressure components')
     required, conditional = set(), set()
     for start, end in ((0xb91d,0xb961), (0xba38,0xba5f), (0xe664,0xe674),
-                       (0xbc77,0xbcc6), (0xd969,0xd980)):
+                       (0xbc77,0xbcc6), (0xd969,0xd980), (0xb88d,0xb91d),
+                       (0xbe5c,0xbebc), (0xbebc,0xbf62), (0xbf62,0xc00b), (0xc271,0xc2d6)):
         pc = start
         while pc < end:
             required.add(pc)
@@ -57,8 +85,10 @@ def main(binary):
             if len(targets) == 2 and ins.op != 'JSR':
                 conditional.update((pc, dest) for dest,_ in targets)
             pc = ins.next_pc
-    assert required <= seen and conditional <= edges, (required-seen, conditional-edges)
-    print(f'{len(required)} instruction starts, {len(conditional)} conditional outcomes')
+    assert required <= seen, sorted(hex(p) for p in required-seen)
+    # $BFA8 permits INCA only when A is strictly below an unsigned byte.
+    assert conditional - edges == {(0xbfab,0xbfb8)}, sorted((hex(a),hex(b)) for a,b in conditional-edges)
+    print(f'{len(required)} instruction starts, {len(conditional & edges)}/{len(conditional)} conditional outcomes')
 
 
 if __name__ == '__main__':

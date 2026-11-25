@@ -3,9 +3,9 @@
   "as_of": "2026-11-25",
   "branch": "work/pseudo-source-development",
   "inventory": {
-    "indexed": 431,
+    "indexed": 436,
     "implemented_outline": 235,
-    "implemented_algorithm": 190,
+    "implemented_algorithm": 195,
     "dependency_boundary": 6
   },
   "boundary_routines": [
