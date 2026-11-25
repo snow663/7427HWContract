@@ -134,7 +134,7 @@ src/transmission/current_control.c,pcm_current_control,implemented_algorithm,7C1
 src/transmission/pressure_tcc.c,pcm_pressure_tcc,dependency_boundary,B56B: Pressure and TCC progress group.,Implement the named body and compare observable state/transactions
 src/transmission/shift_control.c,pcm_shift_control,dependency_boundary,B32D: Shift progress group.,Implement the named body and compare observable state/transactions
 src/transmission/transmission_input.c,pcm_transmission_input,implemented_outline,AE85..AEA3: explicit eight-callee prefix dependency followed by resident F781 then F64E.,"Retain service/clear/consumer comparisons; earlier transmission inputs, factory execution and target interfaces remain explicit"
-src/transmission/transmission_spark.c,pcm_transmission_spark,dependency_boundary,C4E5: TPS and transmission spark input group.,Implement the named body and compare observable state/transactions
+src/transmission/transmission_spark.c,pcm_transmission_spark,implemented_algorithm,C4E5..C4F4 TPS and four transmission spark stages in factory order.,Retain joined history and provider failure replay
 src/spark/spark_monitor.c,pcm_spark_monitor,implemented_outline,ABCB..AC50 and ACA0/ACA3: EST bypass/fault monitor.,Preserve counter qualification fault latches word handoff and request/service cleanup
 src/transmission/transmission_outputs.c,pcm_transmission_outputs,implemented_outline,C514..C56E: gear/current-enable shadow and electronic TCC word write.,ROM-checked raw index addition masks branch retention and ordered publication
 src/serial/connection_probe.c,pcm_connection_probe,dependency_boundary,F5DC..F5E7: signature-qualified180C connection probe.,Resident probe implemented; module and machine ABI remain unsupplied
@@ -415,3 +415,6 @@ src/service/diagnostic_flash_codes.c,pcm_diagnostic_flash_codes,implemented_algo
 src/interrupts/toc5_irq.c,pcm_toc5_irq,implemented_algorithm,7875..78D8 output-timer body with shared async consumption and N-only deadline selection,Retain full-body ROM and ordered provider comparisons; native entry and timing remain separate
 src/interrupts/toc4_irq.c,pcm_toc4_irq,implemented_algorithm,78D9..793C output-timer body with shared async consumption and N-only deadline selection,Retain full-body ROM and ordered provider comparisons; native entry and timing remain separate
 src/transmission/transmission_spark_coolant.c,pcm_transmission_spark_coolant,implemented_algorithm,C40A..C482: coolant scaling and override of transmission spark retard.,Join to C4E5 after the preceding callees are implemented
+src/transmission/transmission_spark_mode.c,pcm_transmission_spark_mode,implemented_algorithm,D9B7..DA6E range entry and hysteresis.,Retain instruction and joined RAM comparisons
+src/transmission/transmission_range_retard.c,pcm_transmission_range_retard,implemented_algorithm,DA6F..DAE1 range retard priority and decay.,Retain instruction and joined RAM comparisons
+src/transmission/transmission_shift_retard.c,pcm_transmission_shift_retard,implemented_algorithm,DAE2..DBE2 gear-dependent ratio and timed shift retard.,Retain instruction and joined RAM comparisons

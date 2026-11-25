@@ -3,10 +3,10 @@
   "as_of": "2026-11-25",
   "branch": "work/pseudo-source-development",
   "inventory": {
-    "indexed": 416,
+    "indexed": 419,
     "implemented_outline": 235,
-    "implemented_algorithm": 173,
-    "dependency_boundary": 8
+    "implemented_algorithm": 177,
+    "dependency_boundary": 7
   },
   "boundary_routines": [
     "pcm_spark_extension",
@@ -14,7 +14,6 @@
     "pcm_reset_entry",
     "pcm_pressure_tcc",
     "pcm_shift_control",
-    "pcm_transmission_spark",
     "pcm_connection_probe",
     "pcm_transmission_input_prefix"
   ],

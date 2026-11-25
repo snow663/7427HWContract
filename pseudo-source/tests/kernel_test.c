@@ -152,6 +152,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
     f->platform.task[PCM_CURRENT_CONTROL]=NULL;
+    f->platform.task[PCM_TRANSMISSION_SPARK]=NULL;
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
     f->platform.task[PCM_SLOT_04]=NULL;
     f->platform.task[PCM_SLOT_05]=f->platform.task[PCM_SLOT_0A]=NULL;
