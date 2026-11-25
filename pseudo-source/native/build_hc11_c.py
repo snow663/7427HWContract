@@ -14,6 +14,8 @@ from pathlib import Path
 from hc11_layout import Placement, linker_script, manifest, parse_number
 from verify_hc11_toolchain import probe,resolve_command,run
 from verify_native_elf import validate
+from compose_hc11_rom import load_srec
+from native_artifact_binding import artifact_binding
 
 def compile_and_link(args):
     plan=Placement(args.asm_code_end,args.asm_ram_end,
@@ -55,13 +57,13 @@ def compile_and_link(args):
     (out/"native_symbols.nm").write_text(symbols)
     evidence=validate(plan,machine,sections,symbols)
     evidence["linked_elf_sha256"]=hashlib.sha256(elf.read_bytes()).hexdigest()
-    (out/"native_link_inspection.json").write_text(
-        json.dumps(evidence,indent=2)+"\n",encoding="utf-8")
-
     # Never copy ELF RAM or synthetic padding into the C S19.
     s19=out/"pseudo_source_native_code.s19"
     run([*objcopy,"--only-section=.c_code","-O","srec",
          str(elf),str(s19)])
+    evidence["artifact_binding"]=artifact_binding(load_srec(s19),symbols,evidence)
+    (out/"native_link_inspection.json").write_text(
+        json.dumps(evidence,indent=2)+"\n",encoding="utf-8")
     print("Real MC68HC11 C ELF linked; code/state memory budgets accepted")
     print(f"Code {evidence['code_bytes']}/{evidence['code_capacity']}; "
           f"state+softregs {evidence['state_bytes']}/{evidence['state_capacity']}")

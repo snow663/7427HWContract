@@ -214,6 +214,18 @@ static void test_window_validation(void)
         {0x4000,0x400f,PCM_HC11_PROGRAM_IMAGE,PCM_HC11_W8}
     };
     CHECK(pcm_hc11_bus_bind(&bus,&clean,&io,rom_write,1)==PCM_BAD_CONFIGURATION);
+    /* Equal endpoint classes cannot grant the EEPROM overlay between them. */
+    PcmHc11Window spans_eeprom[]={
+        {0x0400,0x1fff,PCM_HC11_EXTERNAL_GEN,PCM_HC11_R8|PCM_HC11_R16}
+    };
+    CHECK(pcm_hc11_bus_bind(&bus,&clean,&io,spans_eeprom,1)==PCM_BAD_CONFIGURATION);
+    CHECK(clean.context==NULL && clean.read8==NULL && clean.read16==NULL);
+    PcmHc11Window split_eeprom[]={
+        {0x0400,0x0dff,PCM_HC11_EXTERNAL_GEN,PCM_HC11_R8|PCM_HC11_R16},
+        {0x0e00,0x0fff,PCM_HC11_CONDITIONAL_EEPROM,PCM_HC11_R8|PCM_HC11_R16},
+        {0x1000,0x1fff,PCM_HC11_EXTERNAL_GEN,PCM_HC11_R8|PCM_HC11_R16}
+    };
+    CHECK(pcm_hc11_bus_bind(&bus,&clean,&io,split_eeprom,3)==PCM_OK);
     CHECK(pcm_hc11_bus_bind(&bus,&platform,&io,windows,
                             sizeof(windows)/sizeof(windows[0]))==PCM_BAD_CONFIGURATION);
     (void)p;

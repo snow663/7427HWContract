@@ -15,6 +15,7 @@ from compose_hc11_rom import (
     ROM_FIRST, ImageError, compose, exact_symbol,
     _flatten, load_srec, stock_safe_vectors
 )
+from native_artifact_binding import verify_artifact_binding
 
 SIGNATURE=0xc3
 FIELDS={
@@ -45,6 +46,7 @@ def compose_boot(asm_segments,c_segments,nm_text,elf_report,asm_fields):
        elf_report.get("native_architecture")!="MC68HC11" or \
        elf_report.get("flash_ready") is not False:
         raise ImageError("Linked native ELF report invalid or missing")
+    verify_artifact_binding(c_segments,nm_text,elf_report)
     asm=_flatten(asm_segments,"ASM11",allow_vectors=True)
     compiled=_flatten(c_segments,"native C",allow_vectors=False)
     offsets={name:required_number(asm_fields,name) for name in FIELDS}

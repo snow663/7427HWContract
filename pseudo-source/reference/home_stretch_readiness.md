@@ -38,7 +38,16 @@ records the 3,068 cases, retained shared-reservoir sequences and logical I/O
 premises. This closes those two C-body gaps; native assembly entry candidates,
 the compiler ABI, timer/pin behavior and physical output timing remain open.
 
-## Remaining work — engine first
+## Remaining work — full factory equivalence before feature removal
+
+Transmission remains part of the factory-equivalence target. The
+[current factory-entry census](../../docs/audit/CURRENT_FUNCTIONAL_COMPLETENESS.md)
+tracks 52 unresolved current/transmission entries, three partial entries and
+nine external execution frontiers. These are scoped evidence categories, not a
+count of all algorithms remaining or a percentage complete. The
+[development work plan](../../docs/analysis/FACTORY_EQUIVALENCE_WORK_PLAN.md)
+prioritizes completion and independent verification before any feature-removal
+derivative. Existing Rev B/TS00 custom-ROM work retains its separate checkpoint.
 
 | Gate | Requirement / acceptance evidence |
 | --- | --- |
@@ -47,7 +56,8 @@ the compiler ABI, timer/pin behavior and physical output timing remain open.
 | Board/ASIC interface | Decode and chip selects, 8/16-bit bus order, register latch semantics, COP, REF/OC1/OC3, injector/EST/IAC output sequence and timing |
 | Native image | Toolchain, linker script, actual code/RAM/calibration/vector placement, cycle/stack budgets, reproducible image and checksum |
 | Optional calls | Explicit supported-feature decision or ABI-backed implementation for `$1800/$1803/$1806/$1809/$180C/$180F/$1812/$1815`; conditional hooks inside resident routines also count |
-| Five current/transmission groups | `pcm_current_control`, `pcm_pressure_tcc`, `pcm_shift_control`, `pcm_transmission_spark`, `pcm_transmission_input_prefix`: leave transparent, lowest source priority for the manual-only controller |
+| Five current/transmission groups | Complete or demonstrate the entry mappings for `pcm_current_control`, `pcm_transmission_spark`, `pcm_shift_control`, `pcm_pressure_tcc`, and `pcm_transmission_input_prefix`, including their shared engine dependencies; all remain required for full factory equivalence |
+| Three partial entries | Close `$7100` native reset/runtime, `$AE85` joined transmission prefix/tail, and `$F5DC` signature-qualified module behavior; the 52 unresolved rows do not cover these partial gates |
 | Integration release | Full *current-tree* C/ROM, factory/static, simulator/hygiene gate and joined interrupt-history checks, followed by generated-image simulation and controlled bench validation |
 
 The other four of the nine indexed boundaries are
@@ -69,10 +79,11 @@ Nine boundaries do not mean nine remaining physical target functions.
 4. Validate the generated image in the simulator, then observe injector,
    EST and IAC pins independently on a bench, including reset, cranking,
    no-reference and watchdog paths.
-5. Choose a manual-only feature policy from a traced producer/consumer
-   graph. Disable unwanted transmission/emissions code only while
-   preserving shared inputs, off-writes and diagnostics. Physical truck
-   testing remains a separate sign-off.
+5. Complete and verify the full factory behavior, including transmission and
+   the admitted module/callback domain. Only after establishing that baseline,
+   design a feature-removal derivative from a traced producer/consumer graph,
+   preserving shared inputs, retained state, off-writes and diagnostics.
+   Physical truck testing remains a separate sign-off.
 
 ## Evidence and validation boundary
 
@@ -84,9 +95,13 @@ The [fuel RAM-owner audit](fuel_ram_owner_audit.md),
 [reconciliation](reconciliation_2026-11-22.md) and
 [memory layout](../memory/MEMORY_LAYOUT.md) constrain target decisions.
 
-PR48's full validation is historical evidence for `main`. Current
-development branch runs focused comparisons and quick gates, but its
-**complete combined-tree release regression is not yet verified**.
+PR48's full validation is historical evidence for `main`. PR #51's exact tested
+tree (`976ff5e`, merged into development as `2696d9d`) subsequently passed all
+70 non-ROM and 54 factory-ROM CTests, recorded in
+[run 45530188138](https://github.com/snow663/7427HWContract/actions/runs/45530188138).
+That completed integration gate is evidence for that tree. Later changes require
+current-tree validation; it does not establish native execution, a release-ready
+BIN or whole-firmware equivalence.
 The source-only consolidation changes no firmware calibration, BIN, XDF
 or ADX, and provides no target execution claim.
 

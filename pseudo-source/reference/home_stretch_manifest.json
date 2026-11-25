@@ -54,6 +54,8 @@
     }
   },
   "execution_policy": {
+    "factory_equivalence_scope": "full_factory_behavior_including_transmission_before_feature_removal",
+    "custom_ROM_trajectory": "separate_RevB_TS00_checkpoint_unchanged_by_factory_equivalence_work",
     "scheduled_fuel_default": "pcm_fuel_ignition -> pcm_fuel_inputs -> pcm_fuel_calculate -> pcm_fuel_schedule",
     "fuel_research_requires": [
       "enable_resident_fuel_cycle",
@@ -67,14 +69,15 @@
   },
   "gates": {
     "source_slow_slots": "resident_scoped_C",
-    "current_transmission_fast_groups": "open_low_priority",
+    "current_transmission_fast_groups": "open_required_for_full_factory_equivalence_before_feature_removal",
+    "partial_factory_entries": "7100_native_reset_runtime; AE85_joined_transmission_prefix_tail; F5DC_enabled_module_ABI",
     "external_hooks": "open",
     "named_RAM_ALDL_aliases": "open",
     "ASIC_device_timing": "open",
     "HC11_startup_vectors_ISR_ABI": "host_execution_lifecycle_and_ISR_stack_balance_contracts; native_C_image_link_and_WAI_open",
     "OC4_OC5_resident_bodies": "implemented_and_factory_instruction_compared_under_logical_IO_fixture; native_stubs_device_edges_and_timing_open",
     "target_linker_and_flashable_BIN": "open",
-    "complete_combined_ROM_suite": "pending",
+    "complete_combined_ROM_suite": "54_ROM_and_70_other_CTests_passed_at_976ff5e250b1d74d44d94a8343c809700d381cd3; rerun_for_later_source_trees",
     "physical_bench_validation": "not_started",
     "physical_bus_host_interface": "implemented_scoped_verified_windows_only",
     "canonical_ram_publication": "host_scoped_verified_critical_internal_only",
