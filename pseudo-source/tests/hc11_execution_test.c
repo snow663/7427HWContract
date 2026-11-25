@@ -98,11 +98,17 @@ int main(void)
     CHECK(exec.phase==PCM_HC11_EXEC_READY && exec.interrupt_returns==1);
     CHECK(action==PCM_HC11_NATIVE_RTI_REQUIRED && exec.last_vector==0xffd8u);
 
-    /* Unlike a no-op dispatcher, unresolved output timers cannot RTI. */
-    CHECK(pcm_hc11_exec_interrupt(&exec,0xffe2u,&frame,&action)==PCM_UNIMPLEMENTED);
+    /* Both resident output leaves authorize RTI only after completed I/O. */
+    CHECK(pcm_hc11_exec_interrupt(&exec,0xffe2u,&frame,&action)==PCM_OK);
+    CHECK(exec.phase==PCM_HC11_EXEC_READY&&exec.interrupt_returns==2);
+    CHECK(action==PCM_HC11_NATIVE_RTI_REQUIRED&&exec.last_vector==0xffe2u);
+    platform.read16=NULL;
+    CHECK(pcm_hc11_exec_interrupt(&exec,0xffe0u,&frame,&action)==PCM_NO_HARDWARE);
     CHECK(exec.phase==PCM_HC11_EXEC_TRAPPED);
     CHECK(action==PCM_HC11_NO_NATIVE_RETURN);
+    CHECK(exec.interrupt_returns==2);
     CHECK(pcm_hc11_exec_background(&exec)==PCM_BAD_CONFIGURATION);
+    platform.read16=read16;
 
     pcm_hc11_exec_reset(&exec);
     CHECK(exec.phase==PCM_HC11_EXEC_OFFLINE);

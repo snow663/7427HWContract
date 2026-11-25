@@ -1,4 +1,4 @@
-# $31 pseudo-source home-stretch handoff — 2026-11-23
+# $31 pseudo-source home-stretch handoff — updated 2026-11-24
 
 This is a consolidation of the current `work/pseudo-source-development`
 **host C** implementation. It is not a release of a target HC11 binary,
@@ -24,11 +24,19 @@ a calibration revision, or authorization to drive real outputs.
   policy does not replace the HC11 frame, CCR, return or trap semantics.
 
 The current [machine-readable ledger](home_stretch_manifest.json)
-records **413 indexed routines** (235 outlines, 169 algorithms,
+records **415 indexed routines** (235 outlines, 171 algorithms,
 9 explicit boundaries), all eight external-hook addresses and open
 target gates. The new [source consistency gate](../tests/check_home_stretch.py)
 fails if that inventory or default-path contract silently drifts.
 Routine count is an *index metric*, not percent ROM equivalence.
+
+The two output-timer bodies at `$7875` and `$78D9` now have complete resident
+C implementations and an actual-factory-instruction comparison covering all
+80 instruction starts and all 28 conditional branch outcomes. The
+[output-timer implementation contract](../../docs/analysis/FACTORY_OUTPUT_TIMER_IMPLEMENTATION.md)
+records the 3,068 cases, retained shared-reservoir sequences and logical I/O
+premises. This closes those two C-body gaps; native assembly entry candidates,
+the compiler ABI, timer/pin behavior and physical output timing remain open.
 
 ## Remaining work — engine first
 
@@ -92,11 +100,11 @@ vector tables**. Both physical ROM tables still route non-reset
 vectors to the engine-off trap; no incomplete interrupt is enabled.
 
 `platform/hc11_vector_contract.c` provides a C-side dispatch contract
-for already resident SCI, SPI, REF, OC1, TOC3, XIRQ and fallback bodies,
+for resident SCI, SPI, REF, OC1, OC4/OC5, TOC3, XIRQ and fallback bodies,
 but only after a real native frame has been independently verified.
 It refuses TOC3 without its additional stack admission contract, XIRQ
-without a verified saved-CCR address, and both unresolved OC4/OC5
-output-timer interrupt bodies. It reports distinct RTI, native stack
+without a verified saved-CCR address. OC4/OC5 now dispatch their complete
+resident bodies after the common entry checks. It reports distinct RTI, native stack
 recovery, reset, halt and nonreturn boundaries; it **never executes RTI**.
 
 This closes source/ABI-interface inventory, not native ABI execution.
@@ -128,7 +136,9 @@ The host-tested `pcm_hc11_mailbox_dispatch` validates candidate
 vector, frame evidence, admission, identity preservation, and body
 status before emitting the $A5 success token. It explicitly refuses
 TOC3 (which can unmask/nest and cannot share the one-entry mailbox),
-XIRQ, reset/trap entries, and unimplemented OC4/OC5 output interrupts.
+XIRQ and reset/trap entries. The host mailbox can now admit the OC4/OC5
+bodies under its existing verified-entry premises, but their native ASM
+entry candidates are still absent.
 
 The source gate checks exact RAM byte offsets, critical instruction
 order, non-reentrant guard, default reject thunk, **13 candidate

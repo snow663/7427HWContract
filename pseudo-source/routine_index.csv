@@ -412,3 +412,5 @@ src/service/diagnostic_egr_test.c,pcm_diagnostic_egr_test,implemented_algorithm,
 src/service/diagnostic_engine_feedback.c,pcm_diagnostic_engine_feedback,implemented_algorithm,DFCA..E119 MAP and EST and rich/lean diagnostics,Retain scheduler ROM and provider handoff comparisons
 src/service/diagnostic_report.c,pcm_diagnostic_report,implemented_algorithm,E11A..E1EB pending and retained fault reporting,Retain scheduler ROM and provider handoff comparisons
 src/service/diagnostic_flash_codes.c,pcm_diagnostic_flash_codes,implemented_algorithm,E1EC..E285 retained diagnostic flash sequence,Retain scheduler ROM and provider handoff comparisons
+src/interrupts/toc5_irq.c,pcm_toc5_irq,implemented_algorithm,7875..78D8 output-timer body with shared async consumption and N-only deadline selection,Retain full-body ROM and ordered provider comparisons; native entry and timing remain separate
+src/interrupts/toc4_irq.c,pcm_toc4_irq,implemented_algorithm,78D9..793C output-timer body with shared async consumption and N-only deadline selection,Retain full-body ROM and ordered provider comparisons; native entry and timing remain separate

@@ -49,15 +49,21 @@ jobs:
         run: python -m unittest discover -s tests/audit -p test_interrupt_scheduling.py -v
       - name: Check actual source expressions with 16-bit int semantics
         run: python -m unittest discover -s tests/audit -p test_target_arithmetic.py -v
+      - name: Check output-timer saturation with 16-bit int semantics
+        run: python -m unittest discover -s tests/audit -p test_output_timer_arithmetic.py -v
       - name: Run existing newer CPU wrapper tests
         working-directory: 7427_simulator
         run: python -m unittest discover -s tests -v
       - name: Validate production C and affected host contracts
         run: python tools/audit/verify_target_arithmetic_host.py --jobs 2
-      - name: Build the knock fixture with assertions enabled
+      - name: Build the interrupt fixtures with assertions enabled
         run: |
           cmake -S pseudo-source -B pseudo-source/build -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE= -DCMAKE_C_FLAGS=-O2
-          cmake --build pseudo-source/build --target pcm_knock_tests --parallel 2
+          cmake --build pseudo-source/build --target pcm_knock_tests pcm_output_timer_tests --parallel 2
+      - name: Reproduce both missing output-timer bodies on the pinned baseline
+        run: python tools/audit/reproduce_output_timer_baseline.py --expect-mismatch --out "$RUNNER_TEMP/cpu-arithmetic-evidence/output-timer-baseline"
+      - name: Compare complete output-timer bodies with actual factory instructions
+        run: python pseudo-source/tests/compare_output_timer_rom.py pseudo-source/build/pcm_output_timer_tests --report "$RUNNER_TEMP/cpu-arithmetic-evidence/output-timer-after.json"
       - name: Reproduce the old harness's exact lost post-CLI request
         run: python tools/audit/reproduce_knock_irq_harness.py --host-binary pseudo-source/build/pcm_knock_tests --expect-mismatch > "$RUNNER_TEMP/cpu-arithmetic-evidence/knock-before.json"
       - name: Require architectural admission in corrected knock IRQ witnesses

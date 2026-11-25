@@ -33,6 +33,13 @@ if(BUILD_TESTING)
   add_test(NAME hc11_bus_contracts COMMAND pcm_hc11_bus_tests)
   add_executable(pcm_hc11_vector_tests
       tests/hc11_vector_test.c platform/hc11_vector_contract.c)
+  add_executable(pcm_output_timer_tests
+      tests/output_timer_test.c platform/hc11_vector_contract.c)
+  target_link_libraries(pcm_output_timer_tests PRIVATE pcm_pseudo_source)
+  add_test(NAME output_timer_contracts COMMAND pcm_output_timer_tests --contracts)
+  add_test(NAME output_timer_rom_differential COMMAND ${Python3_EXECUTABLE}
+      ${CMAKE_CURRENT_SOURCE_DIR}/tests/compare_output_timer_rom.py
+      $<TARGET_FILE:pcm_output_timer_tests>)
   add_executable(pcm_hc11_irq_mailbox_tests
       tests/hc11_irq_mailbox_test.c
       platform/hc11_vector_contract.c platform/hc11_irq_mailbox.c
