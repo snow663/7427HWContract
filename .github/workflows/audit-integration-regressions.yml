@@ -28,8 +28,6 @@ concurrency:
 jobs:
   regression-safeguards:
     runs-on: ubuntu-latest
-    env:
-      AUDIT_INTEGRATION_EVIDENCE: ${{ runner.temp }}/audit-integration-evidence
     steps:
       - uses: actions/checkout@v4
         with:
@@ -38,8 +36,12 @@ jobs:
         with:
           python-version: "3.12"
       - name: Reproduce the exact historical artifact and bus failures
+        env:
+          AUDIT_INTEGRATION_EVIDENCE: ${{ runner.temp }}/audit-integration-evidence
         run: python tools/audit/reproduce_artifact_bus_baseline.py --expect-mismatch --out "$AUDIT_INTEGRATION_EVIDENCE/baseline"
       - name: Reject a missing compiler as historical failure evidence
+        env:
+          AUDIT_INTEGRATION_EVIDENCE: ${{ runner.temp }}/audit-integration-evidence
         run: |
           python - <<'PY'
           import json
@@ -75,6 +77,8 @@ jobs:
           python tools/audit/build_equivalence_inventory.py --check
           python -m unittest discover -s tests/audit -p test_equivalence_inventory.py -v
       - name: Record open firmware readiness and both synthetic demo verdicts
+        env:
+          AUDIT_INTEGRATION_EVIDENCE: ${{ runner.temp }}/audit-integration-evidence
         # Success here means the safeguards behaved as expected. The real
         # completeness command must still fail with its explicit open-frontier
         # reason; synthetic matching cannot substitute for firmware evidence.

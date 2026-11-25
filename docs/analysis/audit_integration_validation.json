@@ -1,4 +1,11 @@
 {
+  "CI_configuration_correction": {
+    "correction": "runner.temp is now referenced only in each consuming step env and artifact step with",
+    "initial_commit": "2f4ecdbbc6eb2490be1db123a19d9668d159923f",
+    "issue": "runner context was used in job-level env, where it is unavailable",
+    "reference": "https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability",
+    "scope": "workflow wiring only; local tested Python/C source and embedded validation blocks unchanged"
+  },
   "CI_wrapper_controls": {
     "missing_compiler_control": "passed; actual extracted workflow block rejected setup failure",
     "readiness_and_synthetic_demos": "passed; actual extracted workflow block recorded INCOMPLETE plus matching and deliberately divergent synthetic scenarios"
@@ -277,7 +284,7 @@
   "scope": "local bounded regression evidence; synthetic native artifacts and comparator; no native HC11 execution or whole-firmware certificate",
   "source_identity_policy": "SHA256 of changed integration file contents; this record excludes itself and does not claim a clean commit at the base revision",
   "source_sha256": {
-    ".github/workflows/audit-integration-regressions.yml": "b65e4103025c77faa3ae023ebbc1d2906008a6c98735deb4d976b7518eb153dd",
+    ".github/workflows/audit-integration-regressions.yml": "bbda491d57b7ed4c04ddd486d545b8f62a25e5906c0f0174c03db09618dfeaa8",
     "docs/analysis/AUDIT_INTEGRATION_2026-11-24.md": "ea115d9eda94dab93e5f342c663beba06210e8a13b8bfd05fd7eccd3abb543c4",
     "docs/analysis/FACTORY_EQUIVALENCE_WORK_PLAN.md": "2c26bef61e10d62aeb5f7ee0a8b4f1d362afafbc8793b5c7c4657d60a13bec71",
     "docs/audit/CURRENT_FUNCTIONAL_COMPLETENESS.md": "fa697af67e4705b1bdd771cdb3e9178a77385af4f4d94d3c8675a7b96499a4b5",
