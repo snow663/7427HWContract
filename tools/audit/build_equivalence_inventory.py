@@ -43,7 +43,6 @@ MISSING_GROUPS = {
     0xB23C: "transmission_input_prefix",
     0xB2C9: "transmission_input_prefix",
     0xB2ED: "transmission_input_prefix",
-    0xB32D: "shift_control",
     0xB56B: "pressure_tcc",
 }
 PREFIX_ENTRIES = {0xAEA4, 0xB018, 0xB089, 0xC483, 0xB1F0, 0xB23C, 0xB2C9, 0xB2ED}

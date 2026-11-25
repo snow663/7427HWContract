@@ -132,7 +132,7 @@ src/startup/reset_sequence.c,pcm_reset_sequence,implemented_outline,New platform
 src/startup/reset_serial.c,pcm_reset_serial,implemented_outline,7431..7458: phase/BLM/startup/COP/output-shadow boot seeds.,"Retain ROM/address-space checks; target ABI, controller service execution and physical SCI timing remain separate validation"
 src/transmission/current_control.c,pcm_current_control,implemented_algorithm,7C13..7D20: current feedback accumulator and inhibit/fault qualification.,Retain joined 3068 replay and qualify native timing
 src/transmission/pressure_tcc.c,pcm_pressure_tcc,dependency_boundary,B56B: Pressure and TCC progress group.,Implement the named body and compare observable state/transactions
-src/transmission/shift_control.c,pcm_shift_control,dependency_boundary,B32D: Shift progress group.,Implement the named body and compare observable state/transactions
+src/transmission/shift_control.c,pcm_shift_control,implemented_algorithm,B32D..B333 movement and shift observation in factory order.,Retain joined histories and adaptive cell/checksum ordering
 src/transmission/transmission_input.c,pcm_transmission_input,implemented_outline,AE85..AEA3: explicit eight-callee prefix dependency followed by resident F781 then F64E.,"Retain service/clear/consumer comparisons; earlier transmission inputs, factory execution and target interfaces remain explicit"
 src/transmission/transmission_spark.c,pcm_transmission_spark,implemented_algorithm,C4E5..C4F4 TPS and four transmission spark stages in factory order.,Retain joined history and provider failure replay
 src/spark/spark_monitor.c,pcm_spark_monitor,implemented_outline,ABCB..AC50 and ACA0/ACA3: EST bypass/fault monitor.,Preserve counter qualification fault latches word handoff and request/service cleanup
@@ -420,3 +420,8 @@ src/transmission/transmission_range_retard.c,pcm_transmission_range_retard,imple
 src/transmission/transmission_shift_retard.c,pcm_transmission_shift_retard,implemented_algorithm,DAE2..DBE2 gear-dependent ratio and timed shift retard.,Retain instruction and joined RAM comparisons
 src/transmission/transmission_movement.c,pcm_transmission_movement,implemented_algorithm,B334..B366 movement flag and delay timer.,Retain entry replay and verify the joined shift caller
 src/transmission/transmission_fault_gate_654.c,pcm_transmission_fault_gate_654,implemented_algorithm,E654..E663 shift diagnostic mask gate.,Retain entry replay and verify the joined shift caller
+src/transmission/shift_observation.c,pcm_shift_observation,implemented_algorithm,B367..B4B1 shift admission and ratio window completion.,Retain joined shift control ROM replay
+src/transmission/shift_learning_reasons.c,pcm_shift_learning_reasons,implemented_algorithm,B4B2..B56A latched learning reasons and reaction mask.,Retain joined shift control ROM replay
+src/transmission/shift_adaptive_learning.c,pcm_shift_adaptive_learning,implemented_algorithm,BA65..BC3A per-gear adaptive cell learning and checksum.,Retain joined shift control ROM replay
+src/transmission/long_shift_diagnostic.c,pcm_long_shift_diagnostic,implemented_algorithm,F131..F1DC long shift qualification and gear counters.,Retain joined shift control ROM replay
+src/transmission/long_shift_qualification.c,pcm_long_shift_qualification,implemented_algorithm,F1DD..F20C carry-return temperature throttle speed and fault gates.,Retain joined shift control ROM replay

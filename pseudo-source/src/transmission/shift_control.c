@@ -1,7 +1,9 @@
 #include "control.h"
-/* Reference B32D: Shift progress group.
- * Contract boundary: body not ported. An explicit platform binding is required. */
+#include "../system/system_internal.h"
+
+/* $B32D..$B333. The shift observer consumes the movement state from $B334. */
 PcmStatus pcm_shift_control(Pcm *pcm)
 {
-    return pcm_run_task(pcm, PCM_SHIFT_CONTROL);
+    SYS_RUN(pcm_transmission_movement(pcm));
+    return pcm_shift_observation(pcm);
 }

@@ -27,6 +27,11 @@ PcmStatus pcm_ac_switch_inputs(Pcm *);
 PcmStatus pcm_transmission_outputs(Pcm *);
 /* D4EB diagnostics, threshold selection and final gear arbitration. */
 PcmStatus pcm_transmission_mask_scan(Pcm *, uint16_t table, bool *active);
+PcmStatus pcm_shift_observation(Pcm *);
+PcmStatus pcm_shift_adaptive_learning(Pcm *);
+PcmStatus pcm_shift_learning_reasons(Pcm *);
+PcmStatus pcm_long_shift_qualification(Pcm *, uint16_t page, bool *admitted);
+PcmStatus pcm_long_shift_diagnostic(Pcm *);
 PcmStatus pcm_transmission_movement(Pcm *);
 PcmStatus pcm_transmission_fault_gate_654(Pcm *);
 PcmStatus pcm_transmission_fault_gate_674(Pcm *);

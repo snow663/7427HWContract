@@ -10,6 +10,8 @@ static PcmStatus read_byte(void *context, uint16_t a, uint8_t *v)
 {
     (void)context;
     *v = memory[a];
+    if (mutate == 5 && a == 0xde) *v = 8;
+    if (mutate == 3 && a == 0xd9) memory[a] = 0;
     if (mutate == 1 && a == 0x70d1 && ++limit_reads == 2) memory[a] = 0;
     if (mutate == 2 && a == 0x70cf) memory[a] = 0;
     return PCM_OK;
@@ -28,6 +30,7 @@ static PcmStatus write_byte(void *context, uint16_t a, uint8_t v)
     printf(" b%04x%02x", (unsigned)a, (unsigned)v);
     if (++writes == fail_at) return PCM_NO_HARDWARE;
     memory[a] = v;
+    if (mutate == 4 && a == 0xe1) memory[0x93] = 0;
     return PCM_OK;
 }
 
@@ -41,13 +44,20 @@ static PcmStatus write_word(void *context, uint16_t a, uint16_t v)
     return PCM_OK;
 }
 
+static PcmStatus mask(void *context, bool masked)
+{
+    (void)context;
+    printf(" %s", masked ? "sei" : "cli");
+    return PCM_OK;
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 2) return 2;
     FILE *file = fopen(argv[1], "rb");
     if (!file || fread(image, 1, sizeof(image), file) != sizeof(image)) return 2;
     fclose(file);
-    PcmPlatform platform = {.read8=read_byte, .read16=read_word, .write8=write_byte, .write16=write_word};
+    PcmPlatform platform = {.read8=read_byte, .read16=read_word, .write8=write_byte, .write16=write_word, .mask_irq=mask};
     unsigned entry, passes, size;
     while (scanf("%x%u%u%u%u", &entry, &passes, &fail_at, &mutate, &size) == 5) {
         memcpy(memory, image, sizeof(memory));
@@ -57,6 +67,7 @@ int main(int argc, char **argv)
             memory[a] = (uint8_t)v;
         }
         Pcm pcm = {.platform=&platform};
+        pcm.runtime.monitor_freeze = (memory[0x3b] & 4u) != 0;
         pcm.spark.transmission_status = memory[0xa4];
         pcm.spark.transmission_retard = memory[0x15a];
         pcm.transmission.selected_gear = memory[0xd9];
@@ -68,6 +79,11 @@ int main(int argc, char **argv)
         for (unsigned i=0; i<passes; ++i) {
             PcmStatus result;
             switch (entry) {
+            case 0xb32d: result = pcm_shift_control(&pcm); break;
+            case 0xb367: result = pcm_shift_observation(&pcm); break;
+            case 0xba65: result = pcm_shift_adaptive_learning(&pcm); break;
+            case 0xb4b2: result = pcm_shift_learning_reasons(&pcm); break;
+            case 0xf131: result = pcm_long_shift_diagnostic(&pcm); break;
             case 0xb334: result = pcm_transmission_movement(&pcm); break;
             case 0xe654: result = pcm_transmission_fault_gate_654(&pcm); break;
             case 0xc4e5: result = pcm_transmission_spark(&pcm); break;
@@ -80,7 +96,7 @@ int main(int argc, char **argv)
             memory[0x15a] = pcm.spark.transmission_retard;
             if (result != PCM_OK && result != PCM_NO_HARDWARE) return 1;
             printf(" %s ", result == PCM_OK ? "ok" : "failed");
-            for (unsigned a=0; a<0x300; ++a) printf("%02x",(unsigned)memory[a]);
+            for (unsigned a=0; a<0x32c; ++a) printf("%02x",(unsigned)memory[a]);
             if (result != PCM_OK) break;
         }
         putchar('\n');

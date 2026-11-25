@@ -152,6 +152,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
     f->platform.task[PCM_CURRENT_CONTROL]=NULL;
+    f->platform.task[PCM_SHIFT_CONTROL]=NULL;
     f->platform.task[PCM_TRANSMISSION_SPARK]=NULL;
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
     f->platform.task[PCM_SLOT_04]=NULL;
@@ -227,7 +228,7 @@ static void test_full_phase_cycle(void) {
     CHECK(f.watchdog_writes==160); /* Housekeeping AA and resident fuel55 on alternate phases. */
     CHECK(f.counts[PCM_SPARK_CONTROL]==0 && f.spark_writes==80 && f.counts[PCM_FUEL_CONTROL]==0);
     CHECK(f.counts[PCM_TRANSMISSION_INPUT]==0 && f.counts[PCM_TRANSMISSION_INPUT_PREFIX]==40 && f.counts[PCM_PRESSURE_TCC]==40);
-    CHECK(f.counts[PCM_SHIFT_CONTROL]==40 && f.counts[PCM_IAC_CONTROL]==0);
+    CHECK(f.counts[PCM_SHIFT_CONTROL]==0 && f.counts[PCM_IAC_CONTROL]==0);
     CHECK(pcm.iac.rpm_error!=0); /* Resident main IAC runs without its old task. */
     for (unsigned k=PCM_SLOT_00;k<=PCM_SLOT_0F;++k)
         CHECK(f.counts[k] == 0);

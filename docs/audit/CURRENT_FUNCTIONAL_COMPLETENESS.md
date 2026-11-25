@@ -4,10 +4,10 @@
 
 **Whole-firmware functional equivalence remains unestablished.** The two
 previously missing output-timer C bodies are now implemented and compared with
-actual factory instructions. The remaining indexed worklist contains **44
+actual factory instructions. The remaining indexed worklist contains **38
 unresolved resident entries and three partial entries**, together with eight
-fixed external hooks and one dynamic callback frontier. The 44 entries are a
-bounded set identified by the existing maps; they are not proof that only 44
+fixed external hooks and one dynamic callback frontier. The 38 entries are a
+bounded set identified by the existing maps; they are not proof that only 38
 algorithms remain to be written.
 
 The target is full factory equivalence, including transmission, before feature
@@ -43,11 +43,11 @@ missing-output-IRQ findings are preserved as historical evidence.
 |---|---:|---|
 | Known resident factory entry points | 253 | Vector targets, direct call targets, 16 reviewed scheduler targets, and existing reviewed CFG roots. |
 | Statically mapped instruction starts | 14,523 | A structural may-reach graph; not dynamic execution, branch feasibility or interrupt-admission coverage. |
-| Indexed C routines | 421 | Public source index entries, including slices, composite routines and target interfaces; not the factory-entry denominator. |
+| Indexed C routines | 426 | Public source index entries, including slices, composite routines and target interfaces; not the factory-entry denominator. |
 | Resident slow scheduler slots | 16 | All reviewed table targets have resident C wrappers; their dependencies still need closure. |
 | Alternate unrooted instruction starts | 44 | Separate candidate entries, not ordinary rooted coverage. |
 | External execution frontiers | 9 | Eight fixed hooks and `wordRAM[$038E]`; none is silently treated as a successful no-op. |
-| Registered CTests | 128 | 58 factory-ROM/host-C suites and 70 other contracts; registration does not assert a test passed. |
+| Registered CTests | 129 | 59 factory-ROM/host-C suites and 70 other contracts; registration does not assert a test passed. |
 
 The vector/direct-call/dispatcher union supplies 250 of the 253 resident entries;
 the reviewed roots add `$7100`, `$FA5B` and `$ABCB`. Arbitrary callback content and
@@ -57,10 +57,10 @@ possible executable addresses until their domains are specified.
 | Requested classification | Current entries | Historical audit entries | Meaning |
 |---|---:|---:|---|
 | Fully implemented and behaviorally verified | **0** | 0 | No independent whole-entry behavioral certificate is supplied by this census. |
-| Implemented but insufficiently verified | **198** | 188 | Explicit entry mapping and a C body, or a reviewed inline/parameterized mapping; complete behavior and dependency closure remain qualified. |
+| Implemented but insufficiently verified | **204** | 188 | Explicit entry mapping and a C body, or a reviewed inline/parameterized mapping; complete behavior and dependency closure remain qualified. |
 | Outline or partial implementation | **3** | 3 | Specific source or execution boundaries at `$7100`, `$AE85`, and `$F5DC`. |
 | Intentionally excluded or replaced | **8** | 8 | Fixed single-RTS leaves with bounded return/delay justifications. |
-| Unresolved or missing | **44** | 54 | Ten explicitly unsupplied boundary roots and thirty-four unresolved nested mappings. |
+| Unresolved or missing | **38** | 54 | Nine explicitly unsupplied boundary roots and twenty-nine unresolved nested mappings. |
 
 The change from 188/54 to 190/52 is the addition of `$7875`/`$78D9` as
 `pcm_toc5_irq`/`pcm_toc4_irq`. Their actual-ROM comparison covers 80 instruction
@@ -84,29 +84,35 @@ outcomes. Two adversarial cases change a calibration byte between reads to
 exercise branches that a fixed denominator or fixed upper age bound precludes.
 
 The shift entries $B334 and $E654 have 869 independent-entry comparison cases.
-Together they reach 26 instruction starts and 12 conditional outcomes. Their
-parent shift group $B32D remains a supplied boundary.
+Together they reach 26 instruction starts and 12 conditional outcomes.
+The parent $B32D now calls $B334 and $B367. Joined and component replays
+compare the six newly mapped entries, including $B4B2, $BA65, $F131 and its
+carry-return helper $F1DD. The 4,475 cases reach 568 instruction starts and
+242 conditional outcomes. They include repeated calls, three gear-specific
+learning banks, injected write failures, and explicit changes between reads.
+The oracle compares retained bytes through $032B, ordered byte/word stores
+and the SEI/CLI boundaries around each adaptive cell and checksum pair.
+This establishes scoped source behavior under the logical RAM fixture.
 
-The source index still has 235 `implemented_outline`, 179
-`implemented_algorithm`, and seven `dependency_boundary` labels. These are index
+The source index still has 235 `implemented_outline`, 185
+`implemented_algorithm`, and six `dependency_boundary` labels. These are index
 labels, not the classifications above. In particular, an `implemented_outline`
 often contains substantial resident logic and must not be counted as an absent
 factory implementation without inspecting the body and mapping.
 
-## The 44 unresolved current/transmission entries
+## The 38 unresolved current/transmission entries
 
 | Work package | Entries | Exact indexed addresses |
 |---|---:|---|
-| Shift control and dependencies | 6 | `B32D B367 B4B2 BA65 F131 F1DD` |
 | Pressure/TCC and dependencies | 14 | `B56B B587 B88D B91D BA38 BC77 BCC6 BE5C BEBC BF62 C00B C271 D969 E664` |
 | Transmission-input prefix and dependencies | 24 | `AEA4 B018 B089 B1F0 B23C B2B2 B2C9 B2ED C483 E58C E5CF E5F1 E60B E6F5 E7C7 E808 E847 E8C8 EB81 EBC0 ECCC EF2B F420 F5A2` |
 
-Two direct roots (`B32D`, `B56B`) have explicit C task boundaries.
+The direct root `B56B` has an explicit C task boundary.
 The transmission-input prefix explicitly supplies eight further factory callees
-in order: `AEA4 B018 B089 C483 B1F0 B23C B2C9 B2ED`. These ten roots have an
-identified unsupplied boundary. The remaining thirty-four nested entries have no closed
+in order: `AEA4 B018 B089 C483 B1F0 B23C B2C9 B2ED`. These nine roots have an
+identified unsupplied boundary. The remaining twenty-nine nested entries have no closed
 source mapping in this census. A future review may map some to inlined or shared
-C algorithms rather than require thirty-four separate new C functions.
+C algorithms rather than require twenty-nine separate new C functions.
 
 The generated `implementation_gap_kind` column preserves that distinction.
 `reachable_from_missing_group_not_ownership` is a graph relationship, not proof
@@ -128,7 +134,7 @@ and [transmission analysis](../analysis/FACTORY_TRANSMISSION_CONTROL.md).
 | `$AE85` | `pcm_transmission_input` resident tail plus `pcm_transmission_input_prefix` boundary | Implement or independently map all eight prefix callees, then compare the joined prefix/tail state and ordered effects. |
 | `$F5DC` | Resident signature probe in `pcm_connection_probe` | Resolve the enabled `$180C` module path and machine ABI, preserving the absent/invalid-signature paths separately. |
 
-Closing the 44 unresolved rows alone would leave these three entries partial.
+Closing the 38 unresolved rows alone would leave these three entries partial.
 Partial-entry closure also does not automatically establish a whole-controller
 image, optional-module domain, interrupt schedule or peripheral model.
 
@@ -152,7 +158,7 @@ visible as unresolved. See the [external-frontier inventory](../../maps/audit/ex
 
 ## Test-evidence interpretation
 
-All 58 registered C/ROM differential suites resolve to
+All 59 registered C/ROM differential suites resolve to
 `hac31_romsim/romsim/hc11_core.py`. They execute distinct factory bytes and C
 algorithms, but share that reference interpreter and supplied hardware/state
 contracts. Seventeen suites link explicit C replacement-boundary fixtures.
@@ -180,8 +186,8 @@ implementation changes.
 | Artifact | Purpose |
 |---|---|
 | [factory_function_inventory.csv](../../maps/audit/factory_function_inventory.csv) | Every known entry, implementation mapping, source evidence and direct/transitive dependencies. |
-| [missing_implementation_inventory.csv](../../maps/audit/missing_implementation_inventory.csv) | The 44 unresolved and three partial entries, including boundary-versus-mapping distinctions. |
-| [C_source_claim_inventory.csv](../../maps/audit/C_source_claim_inventory.csv) | All 421 indexed source claims, kept separate from the factory-entry universe. |
+| [missing_implementation_inventory.csv](../../maps/audit/missing_implementation_inventory.csv) | The 38 unresolved and three partial entries, including boundary-versus-mapping distinctions. |
+| [C_source_claim_inventory.csv](../../maps/audit/C_source_claim_inventory.csv) | All 426 indexed source claims, kept separate from the factory-entry universe. |
 | [external_frontier_inventory.csv](../../maps/audit/external_frontier_inventory.csv) | Eight fixed hooks and the dynamic callback. |
 | [unrooted_alternate_inventory.csv](../../maps/audit/unrooted_alternate_inventory.csv) | The 44 alternate candidate instruction starts. |
 | [equivalence_test_inventory.csv](../../maps/audit/equivalence_test_inventory.csv) | Test registrations, source-resolved interpreter lineage and explicit limits. |
