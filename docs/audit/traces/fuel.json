@@ -1,0 +1,374 @@
+{
+  "suite": "compare_rom.py",
+  "args": [
+    "/workspace/scratch/320059dfac5a/audit_build/pcm_kernel_tests"
+  ],
+  "outcome": "passed",
+  "suite_sha256": "d3f28b742fa3285ace109e206391aa7d8fc501ddfc62b1ae3b5dafb3f267c9fb",
+  "cpu_sha256": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054",
+  "argument_files_sha256": {
+    "/workspace/scratch/320059dfac5a/audit_build/pcm_kernel_tests": "8c6a3be0067786cb32a8b7496180c57b75faf0f735f6caeeda4d8c1399053c82"
+  },
+  "executed_instructions": 40960,
+  "executed_unique_sites": 64,
+  "scope": "Actual execution in this fixture suite; CCR sensitivity is not proof of output divergence or hardware equivalence",
+  "corrected_flag_sites": [
+    {
+      "family": "stack_transfer_ccr",
+      "pc": "7FE0",
+      "encoding": "30",
+      "executions": 532,
+      "prior_model_ccr_different": 272
+    },
+    {
+      "family": "stack_transfer_ccr",
+      "pc": "F55C",
+      "encoding": "30",
+      "executions": 1064,
+      "prior_model_ccr_different": 609
+    },
+    {
+      "family": "test_clear_carry",
+      "pc": "8003",
+      "encoding": "4D",
+      "executions": 532,
+      "prior_model_ccr_different": 5
+    },
+    {
+      "family": "test_clear_carry",
+      "pc": "8016",
+      "encoding": "5F",
+      "executions": 532,
+      "prior_model_ccr_different": 1
+    },
+    {
+      "family": "test_clear_carry",
+      "pc": "8028",
+      "encoding": "4D",
+      "executions": 532,
+      "prior_model_ccr_different": 5
+    }
+  ],
+  "all_sites": [
+    {
+      "pc": "7FD8",
+      "encoding": "FC",
+      "count": 532
+    },
+    {
+      "pc": "7FDB",
+      "encoding": "FE",
+      "count": 532
+    },
+    {
+      "pc": "7FDE",
+      "encoding": "03",
+      "count": 532
+    },
+    {
+      "pc": "7FDF",
+      "encoding": "3C",
+      "count": 532
+    },
+    {
+      "pc": "7FE0",
+      "encoding": "30",
+      "count": 532
+    },
+    {
+      "pc": "7FE1",
+      "encoding": "B6",
+      "count": 532
+    },
+    {
+      "pc": "7FE4",
+      "encoding": "BD",
+      "count": 532
+    },
+    {
+      "pc": "7FE7",
+      "encoding": "38",
+      "count": 532
+    },
+    {
+      "pc": "7FE8",
+      "encoding": "FD",
+      "count": 532
+    },
+    {
+      "pc": "7FEB",
+      "encoding": "B6",
+      "count": 532
+    },
+    {
+      "pc": "7FEE",
+      "encoding": "CE",
+      "count": 532
+    },
+    {
+      "pc": "7FF1",
+      "encoding": "BD",
+      "count": 532
+    },
+    {
+      "pc": "7FF4",
+      "encoding": "FD",
+      "count": 532
+    },
+    {
+      "pc": "7FF7",
+      "encoding": "FE",
+      "count": 532
+    },
+    {
+      "pc": "7FFA",
+      "encoding": "02",
+      "count": 532
+    },
+    {
+      "pc": "7FFB",
+      "encoding": "3C",
+      "count": 532
+    },
+    {
+      "pc": "7FFC",
+      "encoding": "FE",
+      "count": 532
+    },
+    {
+      "pc": "7FFF",
+      "encoding": "03",
+      "count": 532
+    },
+    {
+      "pc": "8000",
+      "encoding": "8F",
+      "count": 532
+    },
+    {
+      "pc": "8001",
+      "encoding": "16",
+      "count": 532
+    },
+    {
+      "pc": "8002",
+      "encoding": "32",
+      "count": 532
+    },
+    {
+      "pc": "8003",
+      "encoding": "4D",
+      "count": 532
+    },
+    {
+      "pc": "8004",
+      "encoding": "32",
+      "count": 532
+    },
+    {
+      "pc": "8005",
+      "encoding": "26",
+      "count": 532
+    },
+    {
+      "pc": "8007",
+      "encoding": "05",
+      "count": 522
+    },
+    {
+      "pc": "8008",
+      "encoding": "24",
+      "count": 522
+    },
+    {
+      "pc": "800A",
+      "encoding": "CC",
+      "count": 11
+    },
+    {
+      "pc": "800D",
+      "encoding": "FD",
+      "count": 532
+    },
+    {
+      "pc": "8010",
+      "encoding": "FE",
+      "count": 532
+    },
+    {
+      "pc": "8013",
+      "encoding": "B6",
+      "count": 532
+    },
+    {
+      "pc": "8016",
+      "encoding": "5F",
+      "count": 532
+    },
+    {
+      "pc": "8017",
+      "encoding": "8F",
+      "count": 532
+    },
+    {
+      "pc": "8018",
+      "encoding": "04",
+      "count": 532
+    },
+    {
+      "pc": "8019",
+      "encoding": "04",
+      "count": 532
+    },
+    {
+      "pc": "801A",
+      "encoding": "03",
+      "count": 532
+    },
+    {
+      "pc": "801B",
+      "encoding": "8F",
+      "count": 532
+    },
+    {
+      "pc": "801C",
+      "encoding": "FE",
+      "count": 532
+    },
+    {
+      "pc": "801F",
+      "encoding": "02",
+      "count": 532
+    },
+    {
+      "pc": "8020",
+      "encoding": "3C",
+      "count": 532
+    },
+    {
+      "pc": "8021",
+      "encoding": "FE",
+      "count": 532
+    },
+    {
+      "pc": "8024",
+      "encoding": "03",
+      "count": 532
+    },
+    {
+      "pc": "8025",
+      "encoding": "8F",
+      "count": 532
+    },
+    {
+      "pc": "8026",
+      "encoding": "16",
+      "count": 532
+    },
+    {
+      "pc": "8027",
+      "encoding": "32",
+      "count": 532
+    },
+    {
+      "pc": "8028",
+      "encoding": "4D",
+      "count": 532
+    },
+    {
+      "pc": "8029",
+      "encoding": "32",
+      "count": 532
+    },
+    {
+      "pc": "802A",
+      "encoding": "27",
+      "count": 532
+    },
+    {
+      "pc": "802C",
+      "encoding": "CC",
+      "count": 5
+    },
+    {
+      "pc": "802F",
+      "encoding": "FD",
+      "count": 532
+    },
+    {
+      "pc": "F550",
+      "encoding": "36",
+      "count": 1064
+    },
+    {
+      "pc": "F551",
+      "encoding": "E6",
+      "count": 1064
+    },
+    {
+      "pc": "F553",
+      "encoding": "3D",
+      "count": 1064
+    },
+    {
+      "pc": "F554",
+      "encoding": "89",
+      "count": 1064
+    },
+    {
+      "pc": "F556",
+      "encoding": "33",
+      "count": 1064
+    },
+    {
+      "pc": "F557",
+      "encoding": "36",
+      "count": 1064
+    },
+    {
+      "pc": "F558",
+      "encoding": "A6",
+      "count": 1064
+    },
+    {
+      "pc": "F55A",
+      "encoding": "3D",
+      "count": 1064
+    },
+    {
+      "pc": "F55B",
+      "encoding": "3C",
+      "count": 1064
+    },
+    {
+      "pc": "F55C",
+      "encoding": "30",
+      "count": 1064
+    },
+    {
+      "pc": "F55D",
+      "encoding": "EB",
+      "count": 1064
+    },
+    {
+      "pc": "F55F",
+      "encoding": "89",
+      "count": 1064
+    },
+    {
+      "pc": "F561",
+      "encoding": "38",
+      "count": 1064
+    },
+    {
+      "pc": "F562",
+      "encoding": "31",
+      "count": 1064
+    },
+    {
+      "pc": "F563",
+      "encoding": "39",
+      "count": 1064
+    }
+  ]
+}

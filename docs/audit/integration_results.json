@@ -1,0 +1,879 @@
+{
+  "schema": "7427-independent-audit-integration-v1",
+  "recorded_utc": "2026-11-25T00:03:14.261357+00:00",
+  "baseline_main": "56a3145477291dd7c6bfee15db98414c983b1b2f",
+  "baseline_development": "f2f493f4df5843d37baf23d27a460dbd7d890476",
+  "python": "3.12.14",
+  "meaning": "bounded observed checks; no complete firmware, target compiler or hardware certificate",
+  "factory_bin_sha256": "6188975246cf0042979f3a1694e3d43a2985a1452e7547a3b9e8a66d10e65004",
+  "factory_bin_origin": "reconstructed committed evidence, not independently acquired hardware dump",
+  "results": {
+    "audit_unit": {
+      "command": "python3 -m unittest discover -s tests/audit -v",
+      "log_sha256": "bfab355f7e0664e47d359d93e262d4c3f34322b9a8c9f37c126f99d28507d96c",
+      "status": "PASS",
+      "tests": 412,
+      "seconds": 10.386,
+      "summary": "OK"
+    },
+    "audit_factory_tests": {
+      "command": "python3 -m unittest discover -s tests -p 'test_factory_*.py' -v",
+      "log_sha256": "8a9ae22cf56ea7e71a64b6428ca7756ecd4ede7ad00e6bd0b231bb4876086986",
+      "status": "PASS",
+      "tests": 190,
+      "seconds": 61.002,
+      "summary": "OK"
+    },
+    "audit_legacy_tests": {
+      "command": "PYTHONPATH=hac31_romsim HAC31_BMHM_BIN=<hash-verified-BMHM> python3 -m unittest discover -s hac31_romsim/tests -v",
+      "log_sha256": "b0277d9786a9ee06174d2fd097ea4baad70c305c9b660a66b5665597de875e37",
+      "status": "PASS",
+      "tests": 21,
+      "seconds": 24.889,
+      "summary": "OK"
+    },
+    "audit_modern_tests": {
+      "command": "PYTHONPATH=7427_simulator python3 -m unittest discover -s 7427_simulator/tests -v",
+      "log_sha256": "dd431ae12190c021eb7199f8a2ecc00c74cb66a2dc4b05328bac4865567f40fa",
+      "status": "PASS",
+      "tests": 8,
+      "seconds": 0.004,
+      "summary": "OK"
+    },
+    "ctest": {
+      "command": "ctest --test-dir <audit-build> --output-on-failure --parallel 4",
+      "configure": "cmake -S pseudo-source -B <audit-build> -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE= -DCMAKE_C_FLAGS=-O2",
+      "assertions_enabled": true,
+      "build_configuration_sha256": "3f63867699d15ceace4a8666e224f5cee2d3bbb538ddda0377399073fd6a63ad",
+      "expected_tests": 122,
+      "status": "INCOMPLETE_SESSION_UNAVAILABLE",
+      "completed_tests": 119,
+      "entries": [
+        {
+          "test": "fuel_delivery_rom_differential",
+          "result": "Passed",
+          "seconds": 337.23
+        },
+        {
+          "test": "fuel_feedback_rom_differential",
+          "result": "Passed",
+          "seconds": 472.78
+        },
+        {
+          "test": "fuel_air_rom_differential",
+          "result": "Passed",
+          "seconds": 568.65
+        },
+        {
+          "test": "fuel_mixture_rom_differential",
+          "result": "Passed",
+          "seconds": 346.28
+        },
+        {
+          "test": "serial_rom_differential",
+          "result": "Passed",
+          "seconds": 413.02
+        },
+        {
+          "test": "scheduled_input_rom_differential",
+          "result": "Passed",
+          "seconds": 1074.97
+        },
+        {
+          "test": "service_rom_differential",
+          "result": "Passed",
+          "seconds": 63.75
+        },
+        {
+          "test": "fuel_governor_rom_differential",
+          "result": "Passed",
+          "seconds": 5.11
+        },
+        {
+          "test": "fuel_cycle_rom_differential",
+          "result": "Passed",
+          "seconds": 8.4
+        },
+        {
+          "test": "transmission_gear_limit_rom_differential",
+          "result": "Passed",
+          "seconds": 6.17
+        },
+        {
+          "test": "iac_background_rom_differential",
+          "result": "Passed",
+          "seconds": 734.0
+        },
+        {
+          "test": "iac_main_rom_differential",
+          "result": "Passed",
+          "seconds": 555.75
+        },
+        {
+          "test": "transmission_d4eb_prefix_rom_differential",
+          "result": "Passed",
+          "seconds": 3.63
+        },
+        {
+          "test": "transmission_gear_finalize_rom_differential",
+          "result": "Passed",
+          "seconds": 3.21
+        },
+        {
+          "test": "transmission_threshold_select_rom_differential",
+          "result": "Passed",
+          "seconds": 1.37
+        },
+        {
+          "test": "fuel_ignition_rom_differential",
+          "result": "Passed",
+          "seconds": 0.73
+        },
+        {
+          "test": "speed_source_rom_differential",
+          "result": "Passed",
+          "seconds": 1.19
+        },
+        {
+          "test": "tcc_non_electronic_rom_differential",
+          "result": "Passed",
+          "seconds": 2.32
+        },
+        {
+          "test": "fuel_governor_drive_contracts",
+          "result": "Passed",
+          "seconds": 0.45
+        },
+        {
+          "test": "source_provenance",
+          "result": "Passed",
+          "seconds": 0.17
+        },
+        {
+          "test": "hc11_native_rom_composition_contracts",
+          "result": "Passed",
+          "seconds": 0.12
+        },
+        {
+          "test": "serial_contracts",
+          "result": "Passed",
+          "seconds": 0.14
+        },
+        {
+          "test": "transmission_gear_limit_contracts",
+          "result": "Passed",
+          "seconds": 0.11
+        },
+        {
+          "test": "transmission_threshold_select_contracts",
+          "result": "Passed",
+          "seconds": 0.1
+        },
+        {
+          "test": "home_stretch_consistency",
+          "result": "Passed",
+          "seconds": 0.05
+        },
+        {
+          "test": "hc11_native_isr_gateway_source_contract",
+          "result": "Passed",
+          "seconds": 0.04
+        },
+        {
+          "test": "fuel_literal_ram_owner_coverage",
+          "result": "Passed",
+          "seconds": 0.04
+        },
+        {
+          "test": "hc11_native_c_startup_source_contract",
+          "result": "Passed",
+          "seconds": 0.03
+        },
+        {
+          "test": "hc11_native_vector_source_contract",
+          "result": "Passed",
+          "seconds": 0.04
+        },
+        {
+          "test": "fuel_governor_vss_contracts",
+          "result": "Passed",
+          "seconds": 0.02
+        },
+        {
+          "test": "timer_stack_guard_contracts",
+          "result": "Passed",
+          "seconds": 0.01
+        },
+        {
+          "test": "spark_period_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_governor_error_contracts",
+          "result": "Passed",
+          "seconds": 0.01
+        },
+        {
+          "test": "spark_command_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "startup_memory_contracts",
+          "result": "Passed",
+          "seconds": 0.01
+        },
+        {
+          "test": "spark_output_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_governor_tps_mode_contracts",
+          "result": "Passed",
+          "seconds": 0.01
+        },
+        {
+          "test": "fuel_feedback_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_mixture_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "spark_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "board_io_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "spark_admission_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "slow_slot_03_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_delivery_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "spark_modifier_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "factory_runtime_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_output_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "transmission_d4eb_prefix_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "kernel_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "slot_f_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "boot_controllers_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "slot_04_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_ram_owner_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "scheduled_input_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "background_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "iac_slow_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "egr_control_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "boot_system_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "slot7_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "interrupt_leaves_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "egr_producers_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "service_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "slots_0c_0d_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_governor_compute_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "slots_05_0a_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "iac_main_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "slow_fuel_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "adaptive_spark_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "iac_background_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_cycle_joined_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "spark_controller_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "transmission_gear_finalize_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_scheduled_tail_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_air_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "hc11_irq_mailbox_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "hc11_vector_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "startup_sensor_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "hc11_execution_lifecycle_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_input_prefix_contracts",
+          "result": "Passed",
+          "seconds": 0.01
+        },
+        {
+          "test": "fuel_controller_contracts",
+          "result": "Passed",
+          "seconds": 0.01
+        },
+        {
+          "test": "slow_slot_01_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "hardware_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "knock_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "iac_step_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "oc1_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_ignition_precheck_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "hc11_bus_contracts",
+          "result": "Passed",
+          "seconds": 0.0
+        },
+        {
+          "test": "fuel_rom_differential",
+          "result": "Passed",
+          "seconds": 0.31
+        },
+        {
+          "test": "hardware_rom_differential",
+          "result": "Passed",
+          "seconds": 0.9
+        },
+        {
+          "test": "reference_event_rom_differential",
+          "result": "Passed",
+          "seconds": 5.18
+        },
+        {
+          "test": "oc1_rom_differential",
+          "result": "Passed",
+          "seconds": 57.34
+        },
+        {
+          "test": "fuel_output_rom_differential",
+          "result": "Passed",
+          "seconds": 400.39
+        },
+        {
+          "test": "knock_rom_differential",
+          "result": "***Failed",
+          "seconds": 98.26
+        },
+        {
+          "test": "iac_slow_rom_differential",
+          "result": "Passed",
+          "seconds": 280.5
+        },
+        {
+          "test": "adaptive_spark_rom_differential",
+          "result": "Passed",
+          "seconds": 72.33
+        },
+        {
+          "test": "board_io_rom_differential",
+          "result": "Passed",
+          "seconds": 296.02
+        },
+        {
+          "test": "spark_command_rom_differential",
+          "result": "Passed",
+          "seconds": 57.35
+        },
+        {
+          "test": "spark_modifier_rom_differential",
+          "result": "Passed",
+          "seconds": 113.85
+        },
+        {
+          "test": "spark_admission_rom_differential",
+          "result": "Passed",
+          "seconds": 87.86
+        },
+        {
+          "test": "spark_rom_differential",
+          "result": "Passed",
+          "seconds": 228.74
+        },
+        {
+          "test": "spark_controller_rom_differential",
+          "result": "Passed",
+          "seconds": 131.6
+        },
+        {
+          "test": "spark_period_rom_differential",
+          "result": "Passed",
+          "seconds": 214.22
+        },
+        {
+          "test": "startup_memory_rom_differential",
+          "result": "Passed",
+          "seconds": 10.5
+        },
+        {
+          "test": "startup_sensor_rom_differential",
+          "result": "Passed",
+          "seconds": 8.54
+        },
+        {
+          "test": "spark_output_rom_differential",
+          "result": "Passed",
+          "seconds": 211.18
+        },
+        {
+          "test": "slot7_rom_differential",
+          "result": "Passed",
+          "seconds": 121.32
+        },
+        {
+          "test": "boot_controllers_rom_differential",
+          "result": "Passed",
+          "seconds": 4.52
+        },
+        {
+          "test": "factory_runtime_rom_differential",
+          "result": "Passed",
+          "seconds": 5.24
+        },
+        {
+          "test": "background_rom_differential",
+          "result": "Passed",
+          "seconds": 4.08
+        },
+        {
+          "test": "interrupt_leaves_rom_differential",
+          "result": "Passed",
+          "seconds": 3.61
+        },
+        {
+          "test": "slots_05_0a_rom_differential",
+          "result": "Passed",
+          "seconds": 3.87
+        },
+        {
+          "test": "slots_0c_0d_rom_differential",
+          "result": "Passed",
+          "seconds": 10.18
+        },
+        {
+          "test": "slot_04_rom_differential",
+          "result": "Passed",
+          "seconds": 16.35
+        },
+        {
+          "test": "gear_slots_rom_differential",
+          "result": "Passed",
+          "seconds": 16.66
+        },
+        {
+          "test": "timer_stack_guard_rom_differential",
+          "result": "Passed",
+          "seconds": 6.31
+        },
+        {
+          "test": "boot_system_rom_differential",
+          "result": "Passed",
+          "seconds": 55.83
+        },
+        {
+          "test": "egr_control_rom_differential",
+          "result": "Passed",
+          "seconds": 4.12
+        },
+        {
+          "test": "egr_producers_rom_differential",
+          "result": "Passed",
+          "seconds": 21.55
+        },
+        {
+          "test": "fuel_controller_rom_differential",
+          "result": "Passed",
+          "seconds": 25.6
+        }
+      ],
+      "log_sha256": "cc29976e9ee809a76233327c91b9eca0b3a4b84b281632b57eafa69b8491c710",
+      "knock_harness_during_full_run": {
+        "path": "pseudo-source/tests/compare_knock_rom.py",
+        "sha256": "0c8ff4300940a41397c910b3610ee5ea4bf94a1b12a347bfe28056f1a59dfbfa",
+        "meaning": "original pinned harness with the corrected audit CPU; its failure is retained in the full-run log"
+      },
+      "collection_note": "The original session could no longer be accessed with 119 completion records. The three unrecorded commands were started separately; no completion is inferred from a missing process handle."
+    },
+    "knock_corrected_harness_rerun": {
+      "schema": "7427-audit-knock-targeted-rerun-v1",
+      "test": "knock_rom_differential",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/scratch/320059dfac5a/audit_7427/pseudo-source/tests/compare_knock_rom.py",
+        "/workspace/scratch/320059dfac5a/audit_build/pcm_knock_tests"
+      ],
+      "started_utc": "2026-11-24T23:53:15.364337+00:00",
+      "elapsed_seconds": 125.88847606099989,
+      "exit_code": 0,
+      "source_sha256_before": {
+        "audit_7427/pseudo-source/tests/compare_knock_rom.py": "457b763459ae77b924177522514ce0256dfc3f28c6b4c01d7538eb12d15d9e4c",
+        "audit_7427/hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054",
+        "audit_7427/pseudo-source/tests/knock_test.c": "bf4b31c0390e1f6c62f4bc8e75ce27f12a89d7062cd58ab4587a24499096f41a",
+        "audit_7427/pseudo-source/src/spark/knock_retard.c": "4be19586b22d7de26ed44a6e532bf0b968fb4216d16a250eeb5548c14d779e67",
+        "audit_build/pcm_knock_tests": "add50d14dafefc00a7603cad06ef0b92cf3de214208fb192ec9811428bb6cd7a"
+      },
+      "source_sha256_after": {
+        "audit_7427/pseudo-source/tests/compare_knock_rom.py": "457b763459ae77b924177522514ce0256dfc3f28c6b4c01d7538eb12d15d9e4c",
+        "audit_7427/hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054",
+        "audit_7427/pseudo-source/tests/knock_test.c": "bf4b31c0390e1f6c62f4bc8e75ce27f12a89d7062cd58ab4587a24499096f41a",
+        "audit_7427/pseudo-source/src/spark/knock_retard.c": "4be19586b22d7de26ed44a6e532bf0b968fb4216d16a250eeb5548c14d779e67",
+        "audit_build/pcm_knock_tests": "add50d14dafefc00a7603cad06ef0b92cf3de214208fb192ec9811428bb6cd7a"
+      },
+      "sources_unchanged_during_run": true,
+      "log_sha256": "2e5133291f38266abcfc2a7803d35fea656ae1a9e9c2f1060941fd1f08c09a50",
+      "status": "PASS"
+    },
+    "unrecorded_suite_completion_runs": {
+      "schema": "7427-audit-completion-runs-v1",
+      "status": "PASS",
+      "reason": "Original session unavailable with 119 completion records; execute the three unrecorded CTest commands directly with the same build working directory.",
+      "expected_tests": [
+        "iac_step_rom_differential",
+        "slow_fuel_rom_differential",
+        "slot_f_rom_differential"
+      ],
+      "results": [
+        {
+          "test": "slow_fuel_rom_differential",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+            "/workspace/scratch/320059dfac5a/audit_7427/pseudo-source/tests/compare_slow_fuel_rom.py",
+            "/workspace/scratch/320059dfac5a/audit_build/pcm_slow_fuel_tests"
+          ],
+          "cwd": "/workspace/scratch/320059dfac5a/audit_build",
+          "started_utc": "2026-11-24T23:59:19.325136+00:00",
+          "elapsed_seconds": 27.478752672000155,
+          "exit_code": 0,
+          "status": "PASS",
+          "source_sha256_before": {
+            "audit_7427/pseudo-source/tests/compare_slow_fuel_rom.py": "0bad5314bde3437adaa9f58c85fda22e24e9f54b9bf326b7485fe7d4fa7530d6",
+            "audit_build/pcm_slow_fuel_tests": "f25ebbf7b57eef897ba59362aaa5b9b8a51f9eaa0227802e5553b2d8a06d7c85",
+            "audit_7427/hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054"
+          },
+          "source_sha256_after": {
+            "audit_7427/pseudo-source/tests/compare_slow_fuel_rom.py": "0bad5314bde3437adaa9f58c85fda22e24e9f54b9bf326b7485fe7d4fa7530d6",
+            "audit_build/pcm_slow_fuel_tests": "f25ebbf7b57eef897ba59362aaa5b9b8a51f9eaa0227802e5553b2d8a06d7c85",
+            "audit_7427/hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054"
+          },
+          "sources_unchanged_during_run": true,
+          "log": "audit_completion_slow_fuel_rom_differential.log",
+          "log_sha256": "4f161bc5ca63c947b1afb3c0ff46f019d4379dee8d0c504b69115d223dfdaeab"
+        },
+        {
+          "test": "slot_f_rom_differential",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+            "/workspace/scratch/320059dfac5a/audit_7427/pseudo-source/tests/compare_slot_f_rom.py",
+            "/workspace/scratch/320059dfac5a/audit_build/pcm_slot_f_tests"
+          ],
+          "cwd": "/workspace/scratch/320059dfac5a/audit_build",
+          "started_utc": "2026-11-24T23:59:19.324476+00:00",
+          "elapsed_seconds": 32.31720760799999,
+          "exit_code": 0,
+          "status": "PASS",
+          "source_sha256_before": {
+            "audit_7427/pseudo-source/tests/compare_slot_f_rom.py": "9aaba331be416f35acb1f3aa2bdcd2faf8a1c8f9f6c18a31287d21ec685f5bea",
+            "audit_build/pcm_slot_f_tests": "7aa515792aa53e7bc2a01604430f1b62855b8100838af5a4520be9caa7241e13",
+            "audit_7427/hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054"
+          },
+          "source_sha256_after": {
+            "audit_7427/pseudo-source/tests/compare_slot_f_rom.py": "9aaba331be416f35acb1f3aa2bdcd2faf8a1c8f9f6c18a31287d21ec685f5bea",
+            "audit_build/pcm_slot_f_tests": "7aa515792aa53e7bc2a01604430f1b62855b8100838af5a4520be9caa7241e13",
+            "audit_7427/hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054"
+          },
+          "sources_unchanged_during_run": true,
+          "log": "audit_completion_slot_f_rom_differential.log",
+          "log_sha256": "bbe4786cc249e03778c0d29e53a89cde15f3014352d9349948d255e81b295121"
+        },
+        {
+          "test": "iac_step_rom_differential",
+          "command": [
+            "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+            "/workspace/scratch/320059dfac5a/audit_7427/pseudo-source/tests/compare_iac_step_rom.py",
+            "/workspace/scratch/320059dfac5a/audit_build/pcm_iac_step_tests"
+          ],
+          "cwd": "/workspace/scratch/320059dfac5a/audit_build",
+          "started_utc": "2026-11-24T23:59:19.323992+00:00",
+          "elapsed_seconds": 121.17552153099996,
+          "exit_code": 0,
+          "status": "PASS",
+          "source_sha256_before": {
+            "audit_7427/pseudo-source/tests/compare_iac_step_rom.py": "9fa296fedbd7339a36e9fdc438e8a6b0e21264b589c57554760b9e1e1e0a92d3",
+            "audit_build/pcm_iac_step_tests": "2d6ed56b3b85528826ec877350d6fd093a4ab9b4b52ca7e3529fb5a8ad6de451",
+            "audit_7427/hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054"
+          },
+          "source_sha256_after": {
+            "audit_7427/pseudo-source/tests/compare_iac_step_rom.py": "9fa296fedbd7339a36e9fdc438e8a6b0e21264b589c57554760b9e1e1e0a92d3",
+            "audit_build/pcm_iac_step_tests": "2d6ed56b3b85528826ec877350d6fd093a4ab9b4b52ca7e3529fb5a8ad6de451",
+            "audit_7427/hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054"
+          },
+          "sources_unchanged_during_run": true,
+          "log": "audit_completion_iac_step_rom_differential.log",
+          "log_sha256": "50cc2ccb29fac07e068af79aab80af8ccc65d3334ea4fef71f9145b966544fde"
+        }
+      ]
+    },
+    "current_registered_test_results": {
+      "status": "PASS",
+      "passed": 122,
+      "expected": 122,
+      "targeted_rerun_applied": true,
+      "completion_runs_applied": [
+        "iac_step_rom_differential",
+        "slot_f_rom_differential",
+        "slow_fuel_rom_differential"
+      ],
+      "meaning": "latest result for each registered test across the original batch, the corrected knock rerun, and the explicitly recorded completion runs; not a single all-pass full run",
+      "remaining_failures": []
+    }
+  },
+  "baseline_reproductions": {
+    "schema": "7427-audit-baseline-reproduction-v1",
+    "baseline_commit": "f2f493f4df5843d37baf23d27a460dbd7d890476",
+    "meaning": "observed expected regressions, not a passing firmware result",
+    "suites": [
+      {
+        "suite": "test_hc11_isa.py",
+        "tests": 357,
+        "failed_assertions_or_subtests": 493,
+        "errors": 0,
+        "exit_code": 1,
+        "reproduced": true
+      },
+      {
+        "suite": "test_target_arithmetic.py",
+        "tests": 14,
+        "failed_assertions_or_subtests": 9,
+        "errors": 0,
+        "exit_code": 1,
+        "reproduced": true
+      },
+      {
+        "suite": "test_artifact_integrity.py",
+        "tests": 8,
+        "failed_assertions_or_subtests": 7,
+        "errors": 0,
+        "exit_code": 1,
+        "reproduced": true
+      },
+      {
+        "suite": "test_interrupt_scheduling.py",
+        "tests": 6,
+        "failed_assertions_or_subtests": 4,
+        "errors": 0,
+        "exit_code": 1,
+        "reproduced": true
+      }
+    ]
+  },
+  "open_readiness": {
+    "output_irq_probe": "FAIL vector FFE0 -> factory 7875: expected first write 3023=08; got status=1 action=0 writes=0 first=0000:00\nFAIL vector FFE2 -> factory 78D9: expected first write 3023=10; got status=1 action=0 writes=0 first=0000:00\n",
+    "complete_inventory": "FAIL: complete functional equivalence is not established. 253 known resident entries; 54 unresolved/missing; 9 external frontiers. See missing_implementation_inventory.csv.\n",
+    "native_hc11_compile_execute": "NOT_RUN: native HC11 compiler and complete linked reconstructed BIN unavailable",
+    "real_dual_bin_pcm_comparison": "NOT_RUN: only synthetic comparator adapter demonstrated",
+    "physical_hardware": "NOT_RUN"
+  },
+  "source_fingerprints_scope": "current integrated source; the original full-run knock harness and targeted rerun hashes are recorded separately above",
+  "source_sha256": {
+    "7427_simulator/sim7427/cpu.py": "015971e7948e5bc6fac3a79b118417a3b3f0dbd9ac85423b8cbcc0496d8e9ddd",
+    "7427_simulator/tests/test_core.py": "ec50fdfa2405450bc2ee55e1baca682e66fa265bb54ea45cc9cba664a6ee5fc1",
+    "hac31_romsim/romsim/hc11_core.py": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054",
+    "hac31_romsim/romsim/simulator.py": "d84130a96cafea9553a02e763bde548b33ee02fd7a55a9b0acf14dd397b61848",
+    "pseudo-source/native/build_hc11_c.py": "ac3d87fcd4449f7a176ea881a14b6ea5a3765b1615e74d878ab7b0c6195d4eed",
+    "pseudo-source/native/compose_hc11_linked_boot.py": "da13f11d52b928dbcfcd169ed618a9e28e8163c6912ead08c54cb8589f4d1b79",
+    "pseudo-source/native/compose_hc11_rom.py": "5b893b3bf3e8f4ee24058bee34dd4865e8fcc6c89be92be56e3754dcaee9cb77",
+    "pseudo-source/native/native_artifact_binding.py": "3d1056aaa0ae4c5148daba0a7e7218ae7236c2481ca8fb52e5d699e31ea9c06f",
+    "pseudo-source/native/tests/test_build_hc11_c.py": "16819782a1404f4487ad24355784472c48325306e87e72264b3d8100e9389ceb",
+    "pseudo-source/native/tests/test_compose.py": "9abf3f43459e15da700d1be678004a0fe03cb92a0b540d0f7f34cc2d7e186639",
+    "pseudo-source/native/tests/test_linked_boot.py": "fbbf7297d796471ac7cb144e5c71ce5247d8de56fa4852592b6def777350e669",
+    "pseudo-source/platform/hc11_bus.c": "31d84c1f7413b5b334f14b257f98fc31e31d212ecf45de6a7b2fd49b15061eb3",
+    "pseudo-source/src/fuel/fuel_async_accumulate.c": "16710cfaa38c98421c1d095f9476a68bb4a94b324f498ff821cc2efe6436b123",
+    "pseudo-source/src/fuel/fuel_baro_battery.c": "77796d42efa563a8880e1384cc2a18416117247b1bc67c21c9154db92532f3b9",
+    "pseudo-source/src/fuel/fuel_blm_scale.c": "d65bdf6f323ca44d54cbd0984a98686c6a1d39b05730594ead3a6a28eaf9755e",
+    "pseudo-source/src/fuel/fuel_cpi_prepare.c": "56f6d490759023a6b2ac9d805ff8cb9cba50efdca8fd6379a46ca85deba740c8",
+    "pseudo-source/src/fuel/fuel_crank_prepare.c": "10b1bd4f59c3ca16924f4d773b3b0f036a5f296d20c7fff06b59c0422cb50933",
+    "pseudo-source/src/fuel/fuel_crank_pulse.c": "4dd74b77711dcf8e54a667324ffcd986a8b7190a70743a985198078380aaa85c",
+    "pseudo-source/src/fuel/fuel_derivative_correction.c": "39ec36b670ef367b12e94daac1a733d580d9e602a3b4465d8c8db181a5792498",
+    "pseudo-source/src/fuel/governor_internal.h": "8c5ff055e6e7ee416a2ee74fa03f74ea39a0716116cac1f0c3effbce7e109568",
+    "pseudo-source/src/startup/reset_controllers.c": "d59313e5526f9df43a53ff448348214f8439ad202ac0773d04f936e2b58471c3",
+    "pseudo-source/tests/compare_knock_rom.py": "457b763459ae77b924177522514ce0256dfc3f28c6b4c01d7538eb12d15d9e4c",
+    "tests/audit/hc11_isa_spec.py": "efeb60d7cdaec3d6d27d6c84bef6e247e158fcc964c10408f9638710ff015cca",
+    "tests/audit/output_irq_readiness_probe.c": "5f42f4f6a913346f279805c4ee3e1146d1030964670fcb3d0887386b80d3a5aa",
+    "tests/audit/test_artifact_integrity.py": "0a600383ceccb74307db8bbf5d3e092ecb5d2a57c7f0910f00e364ce40e56c78",
+    "tests/audit/test_dual_bin.py": "e158fe2b0c66317e6530a4d77727662211d9af856b182b0372e9bad08ebe032d",
+    "tests/audit/test_equivalence_inventory.py": "4daf0cab72c962aa158f565e89ccc70b80a44f2c0dfdc06a54d01bea64d93a0e",
+    "tests/audit/test_hc11_isa.py": "5c9575a05ae8655afdb1736801319a5c673b4dc54db8a7d7186298e7652a8bcc",
+    "tests/audit/test_interrupt_scheduling.py": "e3dc2b8b6fe0f97f792eead8483db1c932ce85c8fd6828738b1cf15d0bda499e",
+    "tests/audit/test_target_arithmetic.py": "47f51d5fd4241112f2c588e6780c53212adfab4adff72e757679b9778f47dc42",
+    "tools/audit/build_equivalence_inventory.py": "b7446b07a13c6fb4471f238e5d0a6263911422ab6aeac87a91d0a350593a5d2a",
+    "tools/audit/c_integer_model.py": "acb7018aa02625800b44bfcfce781f53108039beeb471c4c2df5c95e8d63c1ff",
+    "tools/audit/dual_bin.py": "b5dc27e4f0a7c8c642b72c69bf8e8f9a3125e07a08bf2fe6b7b807c3c0213ce2",
+    "tools/audit/inventory_hc11_exposure.py": "544170b0d294744ba9c68bb5e2039caade1738deefabb4e16bc53123cc5066ff",
+    "tools/audit/inventory_target_arithmetic.py": "83d4525a872bd98777db5de5c5d0d5babd10354827ded901fb5e8f6c5c71fb6d",
+    "tools/audit/record_integration_results.py": "abc55e26e45f9300b3bf4abcf7a97fe66c5628a714a47a01efb02bef35941fd1",
+    "tools/audit/reproduce_baseline.py": "a4589cac05af25df00a81bfb4a2b6062596f3b056cba63a4d2fa768a31fb6f97",
+    "tools/audit/reproduce_knock_irq_harness.py": "c2906d881afdb1e136728e261ca7d81a09f1b072d9d4104709f2b20597fb2aae",
+    "tools/audit/reproduce_output_irq_gap.py": "170015d55ad95e462fd03836963d7079bf07893088a748b0320ac19f1d2f997b",
+    "tools/audit/trace_hc11_suite.py": "eb6ea3106e533261b7807d8a6ae4bcef87e06d6c49818c0936830b1abfbc19b9",
+    "tools/audit/verify_target_arithmetic_host.py": "8ab72a0d1360de9262508732bab0c733789418c76478f038196ac21a5a519442"
+  }
+}

@@ -1,16 +1,13 @@
 """Native ASM11/C boot binding; synthetic machine bytes only."""
-import importlib.util
 from pathlib import Path
 import sys
 import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
-for name in ("compose_hc11_rom","compose_hc11_linked_boot"):
-    s=importlib.util.spec_from_file_location(name,ROOT/(name+".py"))
-    m=importlib.util.module_from_spec(s)
-    sys.modules[name]=m
-    s.loader.exec_module(m)
+sys.path.insert(0,str(ROOT))
+import compose_hc11_linked_boot
 from compose_hc11_rom import ImageError,srecords
+from native_artifact_binding import artifact_binding
 
 def record(a,data):
     payload=bytes(data)
@@ -40,14 +37,17 @@ def fields():
         "boot_reset_call_word":"0x7145",
         "expected_boot_reset_unbound":"0x7148"}
 def evidence():
-    return {"schema":"7427-linked-c-image-inspection-v1",
+    result={"schema":"7427-linked-c-image-inspection-v1",
         "native_architecture":"MC68HC11","flash_ready":False,
         "source_authority":"MC68HC11 linker section test",
         "linked_entry":"0x9000",
         "linked_reset_entry":"0x9001",
         "state_first":"0x0600",
         "state_end_exclusive":"0x0640",
-        "state_bytes":0x40,"state_capacity":0x200}
+        "state_bytes":0x40,"state_capacity":0x200,
+        "linked_elf_sha256":"0"*64} # synthetic fixture, not a real ELF
+    result["artifact_binding"]=artifact_binding(compiled(),NM,result)
+    return result
 NM="00009000 T pcm_hc11_c_entry\n00009001 T pcm_hc11_c_entry_reset"
 
 class NativeBootBinding(unittest.TestCase):

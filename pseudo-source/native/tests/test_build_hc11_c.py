@@ -5,6 +5,7 @@ import sys
 import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
 for name in ("hc11_layout","verify_hc11_toolchain","verify_native_elf","build_hc11_c"):
     spec=importlib.util.spec_from_file_location(name,ROOT/(name+".py"))
     mod=importlib.util.module_from_spec(spec)

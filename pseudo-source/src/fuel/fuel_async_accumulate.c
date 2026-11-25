@@ -5,7 +5,7 @@
 PcmStatus pcm_fuel_async_accumulate(Pcm *pcm)
 {
     uint16_t period;DL_RUN(pcm_read16(pcm,PCM_REFERENCE_PERIOD,&period));
-    uint16_t ratio=mix_fraction(pcm->fuel.corrected_pulse,mix_word(2u*period));
+    uint16_t ratio=mix_fraction(pcm->fuel.corrected_pulse,mix_word((uint32_t)2u*period));
     uint16_t integer=(uint16_t)(ratio/80u), remainder=(uint16_t)(ratio%80u);
     uint32_t fraction=((uint32_t)remainder<<16)/80u+128u;
     pcm->fuel.async_remainder=(uint8_t)(fraction>>8);

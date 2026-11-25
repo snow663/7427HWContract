@@ -1,0 +1,572 @@
+{
+  "suite": "compare_hardware_rom.py",
+  "args": [
+    "/workspace/scratch/320059dfac5a/audit_build/pcm_hardware_tests"
+  ],
+  "outcome": "passed",
+  "suite_sha256": "d546bfaf75056ebccc7b0e7be08c1a0440578ef3282b91c1db438525e1e97e68",
+  "cpu_sha256": "b077a81d8c911cb40ef9d90e8568f52496c5df9dd60bf5768020197a9371f054",
+  "argument_files_sha256": {
+    "/workspace/scratch/320059dfac5a/audit_build/pcm_hardware_tests": "22d9a694a335fe7bc49691f1c964abe78fa7ffd23048fec9a1c32634e8b25b9a"
+  },
+  "executed_instructions": 107744,
+  "executed_unique_sites": 98,
+  "scope": "Actual execution in this fixture suite; CCR sensitivity is not proof of output divergence or hardware equivalence",
+  "corrected_flag_sites": [
+    {
+      "family": "index_n_preservation",
+      "pc": "715D",
+      "encoding": "08",
+      "executions": 3712,
+      "prior_model_ccr_different": 0
+    },
+    {
+      "family": "index_n_preservation",
+      "pc": "715E",
+      "encoding": "08",
+      "executions": 3712,
+      "prior_model_ccr_different": 0
+    },
+    {
+      "family": "indexed_bit_ccr",
+      "pc": "7115",
+      "encoding": "1D",
+      "executions": 128,
+      "prior_model_ccr_different": 128
+    },
+    {
+      "family": "indexed_bit_ccr",
+      "pc": "7509",
+      "encoding": "1D",
+      "executions": 4096,
+      "prior_model_ccr_different": 2063
+    },
+    {
+      "family": "indexed_bit_ccr",
+      "pc": "750C",
+      "encoding": "1C",
+      "executions": 4096,
+      "prior_model_ccr_different": 2055
+    },
+    {
+      "family": "test_clear_carry",
+      "pc": "711F",
+      "encoding": "4F",
+      "executions": 128,
+      "prior_model_ccr_different": 0
+    },
+    {
+      "family": "test_clear_carry",
+      "pc": "7159",
+      "encoding": "4F",
+      "executions": 128,
+      "prior_model_ccr_different": 0
+    },
+    {
+      "family": "test_clear_carry",
+      "pc": "715A",
+      "encoding": "5F",
+      "executions": 128,
+      "prior_model_ccr_different": 0
+    },
+    {
+      "family": "test_clear_carry",
+      "pc": "CC7C",
+      "encoding": "4F",
+      "executions": 128,
+      "prior_model_ccr_different": 0
+    }
+  ],
+  "all_sites": [
+    {
+      "pc": "7100",
+      "encoding": "8E",
+      "count": 128
+    },
+    {
+      "pc": "7103",
+      "encoding": "CE",
+      "count": 128
+    },
+    {
+      "pc": "7106",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "7108",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "710A",
+      "encoding": "CE",
+      "count": 128
+    },
+    {
+      "pc": "710D",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "710F",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "7111",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "7113",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "7115",
+      "encoding": "1D",
+      "count": 128
+    },
+    {
+      "pc": "7118",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "711A",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "711C",
+      "encoding": "BD",
+      "count": 128
+    },
+    {
+      "pc": "711F",
+      "encoding": "4F",
+      "count": 128
+    },
+    {
+      "pc": "7120",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "7122",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "7124",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "7126",
+      "encoding": "C6",
+      "count": 128
+    },
+    {
+      "pc": "7128",
+      "encoding": "FD",
+      "count": 128
+    },
+    {
+      "pc": "712B",
+      "encoding": "CE",
+      "count": 128
+    },
+    {
+      "pc": "712E",
+      "encoding": "18 CE",
+      "count": 128
+    },
+    {
+      "pc": "7132",
+      "encoding": "18 1F",
+      "count": 128
+    },
+    {
+      "pc": "7137",
+      "encoding": "CE",
+      "count": 64
+    },
+    {
+      "pc": "713A",
+      "encoding": "FF",
+      "count": 128
+    },
+    {
+      "pc": "713D",
+      "encoding": "BD",
+      "count": 128
+    },
+    {
+      "pc": "7140",
+      "encoding": "FC",
+      "count": 128
+    },
+    {
+      "pc": "7143",
+      "encoding": "BD",
+      "count": 128
+    },
+    {
+      "pc": "7146",
+      "encoding": "C4",
+      "count": 128
+    },
+    {
+      "pc": "7148",
+      "encoding": "CA",
+      "count": 128
+    },
+    {
+      "pc": "714A",
+      "encoding": "FD",
+      "count": 128
+    },
+    {
+      "pc": "714D",
+      "encoding": "CE",
+      "count": 128
+    },
+    {
+      "pc": "7150",
+      "encoding": "EC",
+      "count": 128
+    },
+    {
+      "pc": "7152",
+      "encoding": "C6",
+      "count": 128
+    },
+    {
+      "pc": "7154",
+      "encoding": "E7",
+      "count": 128
+    },
+    {
+      "pc": "7156",
+      "encoding": "CE",
+      "count": 128
+    },
+    {
+      "pc": "7159",
+      "encoding": "4F",
+      "count": 128
+    },
+    {
+      "pc": "715A",
+      "encoding": "5F",
+      "count": 128
+    },
+    {
+      "pc": "715B",
+      "encoding": "ED",
+      "count": 3712
+    },
+    {
+      "pc": "715D",
+      "encoding": "08",
+      "count": 3712
+    },
+    {
+      "pc": "715E",
+      "encoding": "08",
+      "count": 3712
+    },
+    {
+      "pc": "715F",
+      "encoding": "8C",
+      "count": 3712
+    },
+    {
+      "pc": "7162",
+      "encoding": "26",
+      "count": 3712
+    },
+    {
+      "pc": "74EA",
+      "encoding": "13",
+      "count": 4112
+    },
+    {
+      "pc": "74EE",
+      "encoding": "7E",
+      "count": 16
+    },
+    {
+      "pc": "74F1",
+      "encoding": "FC",
+      "count": 4096
+    },
+    {
+      "pc": "74F4",
+      "encoding": "37",
+      "count": 4096
+    },
+    {
+      "pc": "74F5",
+      "encoding": "36",
+      "count": 4096
+    },
+    {
+      "pc": "74F6",
+      "encoding": "D6",
+      "count": 4096
+    },
+    {
+      "pc": "74F8",
+      "encoding": "54",
+      "count": 4096
+    },
+    {
+      "pc": "74F9",
+      "encoding": "C4",
+      "count": 4096
+    },
+    {
+      "pc": "74FB",
+      "encoding": "CE",
+      "count": 4096
+    },
+    {
+      "pc": "74FE",
+      "encoding": "3A",
+      "count": 4096
+    },
+    {
+      "pc": "74FF",
+      "encoding": "32",
+      "count": 4096
+    },
+    {
+      "pc": "7500",
+      "encoding": "33",
+      "count": 4096
+    },
+    {
+      "pc": "7501",
+      "encoding": "E3",
+      "count": 4096
+    },
+    {
+      "pc": "7503",
+      "encoding": "FD",
+      "count": 4096
+    },
+    {
+      "pc": "7506",
+      "encoding": "CE",
+      "count": 4096
+    },
+    {
+      "pc": "7509",
+      "encoding": "1D",
+      "count": 4096
+    },
+    {
+      "pc": "750C",
+      "encoding": "1C",
+      "count": 4096
+    },
+    {
+      "pc": "750F",
+      "encoding": "12",
+      "count": 4096
+    },
+    {
+      "pc": "7513",
+      "encoding": "14",
+      "count": 2048
+    },
+    {
+      "pc": "7516",
+      "encoding": "C6",
+      "count": 4096
+    },
+    {
+      "pc": "7518",
+      "encoding": "F7",
+      "count": 4096
+    },
+    {
+      "pc": "CC7C",
+      "encoding": "4F",
+      "count": 128
+    },
+    {
+      "pc": "CC7D",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC7F",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC81",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC83",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC85",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC87",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC89",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC8B",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC8D",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CC8F",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC91",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CC93",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC95",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CC97",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC99",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CC9B",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CC9D",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CC9F",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CCA1",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CCA3",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CCA5",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CCA7",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CCA9",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CCAB",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CCAD",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CCAF",
+      "encoding": "A7",
+      "count": 128
+    },
+    {
+      "pc": "CCB1",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CCB3",
+      "encoding": "B7",
+      "count": 128
+    },
+    {
+      "pc": "CCB6",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CCB8",
+      "encoding": "B7",
+      "count": 128
+    },
+    {
+      "pc": "CCBB",
+      "encoding": "86",
+      "count": 128
+    },
+    {
+      "pc": "CCBD",
+      "encoding": "B7",
+      "count": 128
+    },
+    {
+      "pc": "CCC0",
+      "encoding": "39",
+      "count": 128
+    },
+    {
+      "pc": "F3ED",
+      "encoding": "39",
+      "count": 256
+    }
+  ]
+}

@@ -15,6 +15,19 @@ PcmHc11Resource pcm_hc11_classify(uint16_t a)
     if (a <= 0x3fffu) return PCM_HC11_BOARD_IO2;
     return PCM_HC11_PROGRAM_IMAGE;
 }
+static uint16_t contiguous_resource_end(uint16_t a)
+{
+    /* EXTERNAL_GEN occurs on both sides of the conditional EEPROM.
+     * Equal endpoint classes alone do not prove one contiguous aperture. */
+    static const uint16_t ends[] = {
+        0x03ffu, 0x0dffu, 0x0fffu, 0x1fffu, 0x2fffu,
+        0x305fu, 0x37ffu, 0x3fffu, 0xffffu
+    };
+    for (size_t i = 0; i < sizeof ends / sizeof ends[0]; ++i) {
+        if (a <= ends[i]) return ends[i];
+    }
+    return 0xffffu;
+}
 static const PcmHc11Window *region(const PcmHc11Bus *bus, uint16_t a,
                                    unsigned width, uint8_t permission)
 {
@@ -115,6 +128,7 @@ PcmStatus pcm_hc11_bus_bind(PcmHc11Bus *bus, PcmPlatform *platform,
             (w->permitted & (uint8_t)~0x0fu) != 0 ||
             pcm_hc11_classify(w->first) != w->resource ||
             pcm_hc11_classify(w->last) != w->resource ||
+            w->last > contiguous_resource_end(w->first) ||
             (i > 0 && windows[i-1].last >= w->first))
             return PCM_BAD_CONFIGURATION;
         if (w->resource == PCM_HC11_PROGRAM_IMAGE &&

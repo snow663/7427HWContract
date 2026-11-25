@@ -1,0 +1,98 @@
+{
+  "test_kind": "source-bound C integer-width model; not native HC11 execution",
+  "baseline_development": "f2f493f4df5843d37baf23d27a460dbd7d890476",
+  "baseline_main": "56a3145477291dd7c6bfee15db98414c983b1b2f",
+  "correction_commit": "5ffe32e",
+  "runs": [
+    {
+      "source": "main",
+      "exit_code": 1,
+      "passed": 5,
+      "failed": 9,
+      "errors": 0,
+      "tests": [
+        "test_literals_and_shift_width (test_target_arithmetic.ModelConformance.test_literals_and_shift_width) ... ok",
+        "test_promotions_and_conversion_order (test_target_arithmetic.ModelConformance.test_promotions_and_conversion_order) ... ok",
+        "test_signed_overflow_is_not_silently_wrapped (test_target_arithmetic.ModelConformance.test_signed_overflow_is_not_silently_wrapped) ... ok",
+        "test_async_divisor_preserves_high_period (test_target_arithmetic.TargetArithmetic.test_async_divisor_preserves_high_period) ... FAIL",
+        "test_baro_quadruple_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_baro_quadruple_saturates_before_narrowing) ... FAIL",
+        "test_blm_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_blm_double_saturates_before_narrowing) ... FAIL",
+        "test_bounded_byte_rounding_keeps_factory_behavior (test_target_arithmetic.TargetArithmetic.test_bounded_byte_rounding_keeps_factory_behavior) ... ok",
+        "test_cpi_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_cpi_double_saturates_before_narrowing) ... FAIL",
+        "test_crank_final_quadruple_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_crank_final_quadruple_saturates_before_narrowing) ... FAIL",
+        "test_crank_seed_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_crank_seed_double_saturates_before_narrowing) ... FAIL",
+        "test_derivative_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_derivative_double_saturates_before_narrowing) ... FAIL",
+        "test_governor_shift_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_governor_shift_saturates_before_narrowing) ... FAIL",
+        "test_guarded_crank_double_keeps_factory_behavior (test_target_arithmetic.TargetArithmetic.test_guarded_crank_double_keeps_factory_behavior) ... ok",
+        "test_reset_map_all_adc_values (test_target_arithmetic.TargetArithmetic.test_reset_map_all_adc_values) ... FAIL"
+      ]
+    },
+    {
+      "source": "development",
+      "exit_code": 1,
+      "passed": 5,
+      "failed": 9,
+      "errors": 0,
+      "tests": [
+        "test_literals_and_shift_width (test_target_arithmetic.ModelConformance.test_literals_and_shift_width) ... ok",
+        "test_promotions_and_conversion_order (test_target_arithmetic.ModelConformance.test_promotions_and_conversion_order) ... ok",
+        "test_signed_overflow_is_not_silently_wrapped (test_target_arithmetic.ModelConformance.test_signed_overflow_is_not_silently_wrapped) ... ok",
+        "test_async_divisor_preserves_high_period (test_target_arithmetic.TargetArithmetic.test_async_divisor_preserves_high_period) ... FAIL",
+        "test_baro_quadruple_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_baro_quadruple_saturates_before_narrowing) ... FAIL",
+        "test_blm_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_blm_double_saturates_before_narrowing) ... FAIL",
+        "test_bounded_byte_rounding_keeps_factory_behavior (test_target_arithmetic.TargetArithmetic.test_bounded_byte_rounding_keeps_factory_behavior) ... ok",
+        "test_cpi_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_cpi_double_saturates_before_narrowing) ... FAIL",
+        "test_crank_final_quadruple_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_crank_final_quadruple_saturates_before_narrowing) ... FAIL",
+        "test_crank_seed_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_crank_seed_double_saturates_before_narrowing) ... FAIL",
+        "test_derivative_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_derivative_double_saturates_before_narrowing) ... FAIL",
+        "test_governor_shift_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_governor_shift_saturates_before_narrowing) ... FAIL",
+        "test_guarded_crank_double_keeps_factory_behavior (test_target_arithmetic.TargetArithmetic.test_guarded_crank_double_keeps_factory_behavior) ... ok",
+        "test_reset_map_all_adc_values (test_target_arithmetic.TargetArithmetic.test_reset_map_all_adc_values) ... FAIL"
+      ]
+    },
+    {
+      "source": "corrected",
+      "exit_code": 0,
+      "passed": 14,
+      "failed": 0,
+      "errors": 0,
+      "tests": [
+        "test_literals_and_shift_width (test_target_arithmetic.ModelConformance.test_literals_and_shift_width) ... ok",
+        "test_promotions_and_conversion_order (test_target_arithmetic.ModelConformance.test_promotions_and_conversion_order) ... ok",
+        "test_signed_overflow_is_not_silently_wrapped (test_target_arithmetic.ModelConformance.test_signed_overflow_is_not_silently_wrapped) ... ok",
+        "test_async_divisor_preserves_high_period (test_target_arithmetic.TargetArithmetic.test_async_divisor_preserves_high_period) ... ok",
+        "test_baro_quadruple_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_baro_quadruple_saturates_before_narrowing) ... ok",
+        "test_blm_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_blm_double_saturates_before_narrowing) ... ok",
+        "test_bounded_byte_rounding_keeps_factory_behavior (test_target_arithmetic.TargetArithmetic.test_bounded_byte_rounding_keeps_factory_behavior) ... ok",
+        "test_cpi_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_cpi_double_saturates_before_narrowing) ... ok",
+        "test_crank_final_quadruple_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_crank_final_quadruple_saturates_before_narrowing) ... ok",
+        "test_crank_seed_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_crank_seed_double_saturates_before_narrowing) ... ok",
+        "test_derivative_double_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_derivative_double_saturates_before_narrowing) ... ok",
+        "test_governor_shift_saturates_before_narrowing (test_target_arithmetic.TargetArithmetic.test_governor_shift_saturates_before_narrowing) ... ok",
+        "test_guarded_crank_double_keeps_factory_behavior (test_target_arithmetic.TargetArithmetic.test_guarded_crank_double_keeps_factory_behavior) ... ok",
+        "test_reset_map_all_adc_values (test_target_arithmetic.TargetArithmetic.test_reset_map_all_adc_values) ... ok"
+      ]
+    }
+  ],
+  "host_verification": {
+    "production_translation_units": 424,
+    "flags": [
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-Werror"
+    ],
+    "contracts": [
+      "fuel_mixture",
+      "fuel_feedback",
+      "fuel_delivery",
+      "boot_controllers",
+      "fuel_governor_compute"
+    ],
+    "development_baseline": "5 passed",
+    "corrected_source": "5 passed",
+    "native_hc11": "not run"
+  }
+}

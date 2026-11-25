@@ -4,11 +4,15 @@ on:
   pull_request:
     paths:
       - "pseudo-source/**"
+      - "hac31_romsim/romsim/**"
+      - "tools/factory_*"
       - ".github/workflows/pseudo-source-verification.yml"
   push:
     branches: [main]
     paths:
       - "pseudo-source/**"
+      - "hac31_romsim/romsim/**"
+      - "tools/factory_*"
       - ".github/workflows/pseudo-source-verification.yml"
 permissions:
   contents: read

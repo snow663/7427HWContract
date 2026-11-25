@@ -1,0 +1,64 @@
+name: Independent audit regressions and open readiness gates
+on:
+  workflow_dispatch:
+  push:
+    branches: ["audit/independent-equivalence-2026-11-24"]
+  pull_request:
+    paths:
+      - "hac31_romsim/**"
+      - "7427_simulator/**"
+      - "pseudo-source/**"
+      - "tests/audit/**"
+      - "tools/audit/**"
+      - "maps/audit/**"
+      - ".github/workflows/independent-equivalence-audit.yml"
+permissions:
+  contents: read
+jobs:
+  regression-safeguards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pycparser==3.00
+      - name: Prove the pinned baseline fails the new regressions
+        run: |
+          git worktree add --detach "$RUNNER_TEMP/audit-baseline" f2f493f4df5843d37baf23d27a460dbd7d890476
+          python tools/audit/reproduce_baseline.py --repo "$RUNNER_TEMP/audit-baseline" --out "$RUNNER_TEMP/audit-baseline-results"
+      - name: Run corrected CPU, arithmetic, artifact and comparator safeguards
+        run: python -m unittest discover -s tests/audit -v
+      - name: Check deterministic completeness inventory
+        run: python tools/audit/build_equivalence_inventory.py --check
+      - name: Build host source with assertions enabled
+        run: |
+          cmake -S pseudo-source -B pseudo-source/build -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE= -DCMAKE_C_FLAGS=-O2
+          cmake --build pseudo-source/build --parallel 2
+      - name: Run host/source/image contracts
+        run: ctest --test-dir pseudo-source/build --output-on-failure --parallel 2 -E rom_differential
+      - name: Reproduce the original lost post-CLI request
+        run: python tools/audit/reproduce_knock_irq_harness.py --host-binary pseudo-source/build/pcm_knock_tests --expect-mismatch
+      - name: Require architectural admission in knock IRQ witnesses
+        run: python pseudo-source/tests/compare_knock_rom.py pseudo-source/build/pcm_knock_tests --irq-only
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: independent-audit-baseline-regressions
+          path: ${{ runner.temp }}/audit-baseline-results
+  unresolved-firmware-readiness:
+    # This job is intentionally red while the documented firmware gaps exist.
+    # A green regression job does not certify complete functional equivalence.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Require independent certificates and closed reachability frontiers
+        run: python tools/audit/build_equivalence_inventory.py --check --require-complete
+      - name: Require actual C output-IRQ acknowledgment behavior
+        if: always()
+        run: python tools/audit/reproduce_output_irq_gap.py

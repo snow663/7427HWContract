@@ -1,0 +1,39 @@
+{
+  "additional_python_modules": 33,
+  "alternate_unrooted_instruction_starts": 44,
+  "classification_counts": {
+    "implemented_insufficiently_verified": 188,
+    "intentionally_excluded_or_replaced": 8,
+    "outline_or_partial": 3,
+    "unresolved_or_missing": 54
+  },
+  "ctests": 122,
+  "entry_definition": "vector targets; direct call targets; resolved16slot targets; rooted reviewed CFG roots",
+  "external_frontiers": 9,
+  "factory_ROM_vs_host_C_suites": 53,
+  "factory_ROM_vs_host_C_suites_with_linked_replacements": 17,
+  "indexed_C_routines": 413,
+  "input_sha256": {
+    "maps/structure/factory_dte_roots.csv": "53628b73564c3755fdd668de4f44b6964a1ee4cf704ab3ba9d2727747e1ee4d3",
+    "maps/structure/factory_global_call_bindings.csv": "b0606555bbd325a9430dc8f65851d83aa873899cb74609e608246887d8e9cb63",
+    "maps/structure/factory_global_control_edges.csv": "52a2eae9fe35549593e407149f4da2d2f1618b16cc5af238d42769e7f321f002",
+    "maps/structure/factory_global_frontiers.csv": "b6134220ba1cf190f25d1ce280d734559f3a3a0db2763c9ad8caf20e71d3c9f9",
+    "maps/structure/factory_global_instructions.csv": "307c10549eec1c70843782c9a953ceef5bdfbd7cde67130503185e7456697b07",
+    "maps/structure/factory_global_vectors.csv": "2e0bd8bd345f5ad788b14d268cc484b27d41c44c3694f24d1a806e2a392ec7c3",
+    "maps/structure/factory_idle_governor_roots.csv": "89c6386ce5cebca1d76f5b3a4f7e06641a0ece0170249d1d6cc7e7c562b7d59a",
+    "pseudo-source/CMakeLists.txt": "0c4fb94579287fe0614818fdeb7f3f4002d89988e18960c09a3790db420d4f15",
+    "pseudo-source/routine_index.csv": "1e4f395f6832d9bc81ff92d4488c828ca7b9983197b3263cab531a95a8dec292"
+  },
+  "known_resident_entries": 253,
+  "reviewed_development": "f2f493f4df5843d37baf23d27a460dbd7d890476",
+  "reviewed_main": "56a3145477291dd7c6bfee15db98414c983b1b2f",
+  "rooted_instruction_starts_not_execution_coverage": 14523,
+  "schema": "7427-independent-equivalence-inventory-v1",
+  "source_index_status_counts_not_completeness": {
+    "dependency_boundary": 9,
+    "implemented_algorithm": 169,
+    "implemented_outline": 235
+  },
+  "unknown_entry_universe": "arbitrary RAM[038E] callback; conditional absent external modules; alternate unrooted candidates",
+  "verdict": "no_whole_firmware_equivalence_certificate; counts_are_not_percent_complete"
+}

@@ -22,7 +22,7 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(m.cpu.r.x,0x3000)
         self.assertEqual(m.bus.peek8(0x303D),0x03)
         self.assertEqual(m.run(5).reason,"limit")
-        self.assertEqual(m.cpu.r.pc,0x710B)
+        self.assertEqual(m.cpu.r.pc,0x710D)
 
     def test_rom_write_refused_but_explicit_debug_patch_allowed(self):
         m=Machine();m.load_bytes(rom_image())
@@ -59,18 +59,21 @@ class CoreTests(unittest.TestCase):
                                 instructions=bytes.fromhex("8E03FF 0E 01 20FE")))
         img[0xFFF2:0xFFF4]=(0x7100).to_bytes(2,"big")
         # ISR saves vector in RAM, samples TSX->X and publishes SP+1.
-        img[0x7100:0x710A]=bytes.fromhex("CCFFD6 FD0004 30 FF0006 3B")
+        img[0x7100:0x710B]=bytes.fromhex("CCFFD6 FD0004 30 FF0006 3B")
         m=Machine();m.load_bytes(bytes(img))
         m.run(2)
         self.assertEqual(m.cpu.r.sp,0x03FF)
         self.assertEqual(m.cpu.r.ccr&I,0)
+        # HC11 guarantees the instruction after CLI before maskable entry.
+        self.assertFalse(m.irq(0xFFF2))
+        m.run(1)  # NOP at7004 completes the deferred-admission boundary.
         m.cpu.r.a=0x56;m.cpu.r.b=0x78;m.cpu.r.x=0x1234;m.cpu.r.y=0xABCD
         m.cpu.r.ccr=X_MASK
         self.assertTrue(m.irq(0xFFF2))
         self.assertEqual(m.cpu.r.sp,0x03F6)
         self.assertEqual(m.bus.peek8(0x03F7),X_MASK)
         self.assertEqual([m.bus.peek8(a) for a in range(0x3F8,0x400)],
-                         [0x78,0x56,0x12,0x34,0xAB,0xCD,0x70,0x04])
+                         [0x78,0x56,0x12,0x34,0xAB,0xCD,0x70,0x05])
         self.assertEqual(m.cpu.r.ccr&I,I)
         self.assertFalse(m.irq(0xFFF2))
         self.assertEqual(m.run(5).reason,"limit")
@@ -79,7 +82,7 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(m.bus.peek8(0x0006),0x03)
         self.assertEqual(m.bus.peek8(0x0007),0xF7)
         self.assertEqual((m.cpu.r.a,m.cpu.r.b,m.cpu.r.x,m.cpu.r.y,m.cpu.r.sp,m.cpu.r.pc,m.cpu.r.ccr),
-                         (0x56,0x78,0x1234,0xABCD,0x03FF,0x7004,X_MASK))
+                         (0x56,0x78,0x1234,0xABCD,0x03FF,0x7005,X_MASK))
 
     def test_shared_cpu_memory_unverified_external_ram_not_double_mirrored(self):
         m=Machine();m.load_bytes(rom_image())

@@ -1,14 +1,9 @@
 """Fail-closed composition tests; synthetic bytes are NOT a firmware proof."""
-import importlib.util
 from pathlib import Path
 import unittest
-
-PATH=Path(__file__).resolve().parents[1]/"compose_hc11_rom.py"
-SPEC=importlib.util.spec_from_file_location("compose_hc11_rom",PATH)
-MOD=importlib.util.module_from_spec(SPEC)
 import sys
-sys.modules[SPEC.name]=MOD
-SPEC.loader.exec_module(MOD)
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+import compose_hc11_rom as MOD
 
 def s1(address,data):
     payload=address.to_bytes(2,"big")+bytes(data)
@@ -48,7 +43,8 @@ class CompositionTests(unittest.TestCase):
         self.assertEqual(len(image),0xc000)
         self.assertEqual(image[0x7130-0x4000:0x7132-0x4000],bytes.fromhex("9000"))
         self.assertEqual(image[0x9000-0x4000],0x39)
-        self.assertEqual(report["non_reset_vectors"],"all engine-off safe trap")
+        self.assertEqual(report["non_reset_vectors"],"all target the common supplied trap entry")
+        self.assertFalse(report["vector_handler_behavior_verified"])
         self.assertFalse(report["flash_ready"])
         self.assertEqual(image[0xfffe-0x4000:0x10000-0x4000],bytes.fromhex("7110"))
     def test_mismatched_assembly_word_rejected(self):

@@ -2,8 +2,9 @@
 """Strict S19 image composer for *compiled* HC11 C and ASM11 bootstrap.
 
 Inputs are physical HC11 machine-code SRecords, not host C pseudo-source.
-No compiler emulation and no guessed symbol address. All vector words must
-remain engine-off safe (reset exception), including after linkage.
+No compiler emulation and no guessed symbol address. Non-reset vector words
+must target a common supplied entry, including after linkage. Entry presence
+does not prove the behavior of a handler or the native calling convention.
 """
 from __future__ import annotations
 import argparse
@@ -94,6 +95,9 @@ def stock_safe_vectors(asm: dict[int,int]):
         raise ImageError("safe-trap target outside code region")
     if not ROM_FIRST<=reset<=CODE_LAST or reset==trap:
         raise ImageError("invalid reset vector")
+    for name,target in (("reset",reset),("trap",trap)):
+        if target not in asm:
+            raise ImageError(f"{name} vector targets absent code at {target:#06x}")
     for address in range(VECTOR_FIRST,0xFFFE,2):
         if _word(asm,address)!=trap:
             raise ImageError(f"unapproved live/non-trap vector {address:#06x}")
@@ -162,7 +166,8 @@ def compose(asm_segments: list[Segment],c_segments: list[Segment],
         "asm_bytes":len(asm),
         "native_c_bytes":len(compiled),
         "patched_linkword_bytes":2,
-        "non_reset_vectors":"all engine-off safe trap",
+        "non_reset_vectors":"all target the common supplied trap entry",
+        "vector_handler_behavior_verified":False,
         "native_compiler_call_ABI":"REQUIRES independent proof; nm address alone is insufficient",
         "flash_ready":False
     }
@@ -189,7 +194,7 @@ def main():
     args.out_bin.write_bytes(rom)
     args.out_report.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
     print(f"Linked 48 KiB *simulation-only* 7427 image SHA256 {report['sha256']}")
-    print("All non-reset vectors retained safe trap; native stack/call ABI is NOT validated.")
+    print("Non-reset vectors retain a common supplied entry; handler behavior and native ABI remain unverified.")
 
 if __name__=="__main__":
     main()

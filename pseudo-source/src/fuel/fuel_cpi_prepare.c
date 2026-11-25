@@ -12,6 +12,6 @@ PcmStatus pcm_fuel_cpi_prepare(Pcm *pcm)
         if (pcm->reference.running_packet>cal->sync_threshold[0] || pcm->reference.split_clear<cal->cpi_delay) return PCM_OK;
         pcm->reference.packet_updated=true;pcm->reference.extra_guard=true;
     }
-    pcm->fuel.corrected_pulse=mix_word(2u*pcm->fuel.corrected_pulse);
+    pcm->fuel.corrected_pulse=mix_word((uint32_t)2u*pcm->fuel.corrected_pulse);
     return PCM_OK;
 }
