@@ -1,0 +1,134 @@
+name: Artifact, bus and comparator safeguards
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, "work/pseudo-source-development"]
+    paths:
+      - "pseudo-source/**"
+      - "hac31_romsim/**"
+      - "tests/audit/**"
+      - "tools/audit/**"
+      - "maps/audit/**"
+      - "maps/structure/**"
+      - ".github/workflows/audit-integration-regressions.yml"
+  pull_request:
+    paths:
+      - "pseudo-source/**"
+      - "hac31_romsim/**"
+      - "tests/audit/**"
+      - "tools/audit/**"
+      - "maps/audit/**"
+      - "maps/structure/**"
+      - ".github/workflows/audit-integration-regressions.yml"
+permissions:
+  contents: read
+concurrency:
+  group: audit-integration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression-safeguards:
+    runs-on: ubuntu-latest
+    env:
+      AUDIT_INTEGRATION_EVIDENCE: ${{ runner.temp }}/audit-integration-evidence
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reproduce the exact historical artifact and bus failures
+        run: python tools/audit/reproduce_artifact_bus_baseline.py --expect-mismatch --out "$AUDIT_INTEGRATION_EVIDENCE/baseline"
+      - name: Reject a missing compiler as historical failure evidence
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          out = Path(os.environ["AUDIT_INTEGRATION_EVIDENCE"]) / "missing-compiler-control"
+          missing = out / "deliberately-absent-c-compiler"
+          if missing.exists():
+              raise SystemExit("The missing-compiler control path unexpectedly exists")
+          env = os.environ.copy()
+          env["CC"] = str(missing)
+          run = subprocess.run([sys.executable, "tools/audit/reproduce_artifact_bus_baseline.py",
+              "--expect-mismatch", "--out", str(out)], env=env, text=True, capture_output=True)
+          (out / "control.log").write_text(run.stdout + run.stderr)
+          result = json.loads((out / "artifact_bus_baseline.json").read_text())
+          if (run.returncode != 2 or result["status"] != "UNEXPECTED_RESULT_OR_SETUP_ERROR"
+                  or result["temporary_worktree_removed"] is not True
+                  or "Unexpected assertion evidence for test_artifact_integrity.BusApertureIntegrity."
+                     not in result.get("error", "")):
+              raise SystemExit("Missing compiler was not rejected by the historical-failure gate")
+          PY
+      - name: Require corrected native acceptance and bus behavior
+        run: python -m unittest discover -s tests/audit -p test_artifact_integrity.py -v
+      - name: Run existing native composition contracts
+        run: python -m unittest discover -s pseudo-source/native/tests -v
+      - name: Qualify synthetic comparator mechanics only
+        run: python -m unittest discover -s tests/audit -p test_dual_bin.py -v
+      - name: Check the current inventory and its classification rules
+        run: |
+          python tools/audit/build_equivalence_inventory.py --check
+          python -m unittest discover -s tests/audit -p test_equivalence_inventory.py -v
+      - name: Record open firmware readiness and both synthetic demo verdicts
+        # Success here means the safeguards behaved as expected. The real
+        # completeness command must still fail with its explicit open-frontier
+        # reason; synthetic matching cannot substitute for firmware evidence.
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import subprocess
+          import sys
+
+          out = Path(os.environ["AUDIT_INTEGRATION_EVIDENCE"])
+          out.mkdir(parents=True, exist_ok=True)
+          ready = subprocess.run([sys.executable, "tools/audit/build_equivalence_inventory.py",
+                                  "--check", "--require-complete"], text=True, capture_output=True)
+          summary = json.loads(Path("maps/audit/equivalence_inventory_summary.json").read_text())
+          text = ready.stdout + ready.stderr
+          (out / "firmware-readiness.log").write_text(text)
+          if ready.returncode != 1 or "FAIL: complete functional equivalence is not established." not in text:
+              raise SystemExit("Unexpected readiness result; inspect the recorded log")
+          if summary["classification_counts"].get("fully_implemented_behaviorally_verified", 0) != 0:
+              raise SystemExit("Independent certificate policy changed; review the readiness gate")
+          if f'{summary["external_frontiers"]} external frontiers' not in text:
+              raise SystemExit("Readiness failure did not identify the current frontiers")
+          (out / "firmware-readiness.json").write_text(json.dumps({
+              "verdict": "INCOMPLETE", "command_exit_code": ready.returncode,
+              "inventory": summary,
+              "scope": "Passing regression safeguards do not certify firmware equivalence"
+          }, indent=2) + "\n")
+          print("::notice::Whole-firmware equivalence remains INCOMPLETE; see retained readiness evidence.")
+          for fault, name in ((False, "synthetic-match"), (True, "synthetic-state-fault")):
+              command = [sys.executable, "tools/audit/dual_bin.py", "--synthetic-demo"]
+              if fault:
+                  command.append("--state-fault")
+              run = subprocess.run(command, text=True, capture_output=True)
+              (out / (name + ".json")).write_text(run.stdout)
+              (out / (name + ".stderr")).write_text(run.stderr)
+              result = json.loads(run.stdout)
+              expected = "DIVERGED" if fault else "MATCHED_SCENARIOS"
+              if run.returncode != int(fault) or result["verdict"] != expected:
+                  raise SystemExit("Unexpected synthetic comparator result")
+              if fault and (result["first_divergence"]["category"] != "retained_state"
+                            or result["first_divergence"]["epoch"] != 0):
+                  raise SystemExit("Synthetic state fault did not identify its first divergence")
+              if not fault and result["completed_epochs"] != 3:
+                  raise SystemExit("Synthetic comparator did not complete the declared stream")
+          PY
+      - name: Run the ordinary bus contract with assertions enabled
+        run: |
+          cmake -S pseudo-source -B pseudo-source/build -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE= -DCMAKE_C_FLAGS=-O2
+          cmake --build pseudo-source/build --target pcm_hc11_bus_tests --parallel 2
+          ctest --test-dir pseudo-source/build --output-on-failure -R '^hc11_bus_contracts$'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audit-integration-regression-evidence
+          path: ${{ runner.temp }}/audit-integration-evidence

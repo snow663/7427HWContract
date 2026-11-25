@@ -1,0 +1,310 @@
+{
+  "CI_wrapper_controls": {
+    "missing_compiler_control": "passed; actual extracted workflow block rejected setup failure",
+    "readiness_and_synthetic_demos": "passed; actual extracted workflow block recorded INCOMPLETE plus matching and deliberately divergent synthetic scenarios"
+  },
+  "bus_boundary_consistency": {
+    "baseline": {
+      "returncode": 1,
+      "source_sha256": "a22140817e7a89bd005f3d44f6a9b6544138fc2cab9547bcd0f13e60475f756b",
+      "stderr": "",
+      "stdout": "mismatch 0400..1000 expected=3 actual=0\nmismatch 0400..1FFF expected=3 actual=0\nmismatch 0DFF..1000 expected=3 actual=0\nmismatch 0DFF..1FFF expected=3 actual=0\nboundary_pairs=190 mismatches=4\n"
+    },
+    "corrected": {
+      "returncode": 0,
+      "source_sha256": "31d84c1f7413b5b334f14b257f98fc31e31d212ecf45de6a7b2fd49b15061eb3",
+      "stderr": "",
+      "stdout": "boundary_pairs=190 mismatches=0\n"
+    }
+  },
+  "corrected_regressions": {
+    "artifact_and_bus": {
+      "errors": 0,
+      "failures": 0,
+      "skips": 0,
+      "tests": 8
+    },
+    "combined_audit": {
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "seconds": 14.531,
+      "tests": 420
+    },
+    "host_non_ROM_ctests": {
+      "assertions_enabled": true,
+      "build_flags": "-O2; no NDEBUG",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "tests": 70
+    },
+    "native_existing": {
+      "errors": 0,
+      "failures": 0,
+      "skips": 0,
+      "tests": 32
+    },
+    "synthetic_comparator": {
+      "failures": 0,
+      "qualification": "harness mechanics only; same CPU implementation on both sides",
+      "tests": 14
+    }
+  },
+  "development_base": "2696d9d1a58d55fa913a967e18761d051e0b87b2",
+  "full_current_revision_CI": "separate required integration gate; no uncompleted run claimed by this local record",
+  "historical_failures": {
+    "baseline": "2696d9d1a58d55fa913a967e18761d051e0b87b2",
+    "default_exit_code": 1,
+    "errors": [],
+    "expect_mismatch_exit_code": 0,
+    "failed_cases": [
+      {
+        "id": "test_artifact_integrity.BusApertureIntegrity.test_every_address_in_a_window_has_the_declared_resource",
+        "last_assertion": "AssertionError: 1 != 0 : accepted 0400..1fff across conditional EEPROM 0e00..0fff"
+      },
+      {
+        "id": "test_artifact_integrity.NativeArtifactIntegrity.test_code_changed_without_new_inspection_rejected",
+        "last_assertion": "AssertionError: ImageError not raised"
+      },
+      {
+        "id": "test_artifact_integrity.NativeArtifactIntegrity.test_consistent_but_stale_bss_report_rejected",
+        "last_assertion": "AssertionError: ImageError not raised"
+      },
+      {
+        "id": "test_artifact_integrity.NativeArtifactIntegrity.test_missing_reset_body_rejected",
+        "last_assertion": "AssertionError: ImageError not raised"
+      },
+      {
+        "id": "test_artifact_integrity.NativeArtifactIntegrity.test_missing_trap_body_rejected",
+        "last_assertion": "AssertionError: ImageError not raised"
+      },
+      {
+        "id": "test_artifact_integrity.NativeArtifactIntegrity.test_nm_changed_without_new_inspection_rejected",
+        "last_assertion": "AssertionError: ImageError not raised"
+      },
+      {
+        "id": "test_artifact_integrity.NativeArtifactIntegrity.test_unbound_report_rejected",
+        "last_assertion": "AssertionError: ImageError not raised"
+      }
+    ],
+    "passing_control": [
+      "test_artifact_integrity.NativeArtifactIntegrity.test_valid_synthetic_bundle_still_composes"
+    ],
+    "skips": [],
+    "status": "EXPECTED_BASELINE_FAILURES",
+    "temporary_worktree_removed": true,
+    "tests_run": 8
+  },
+  "inventory": {
+    "classification_counts": {
+      "implemented_insufficiently_verified": 190,
+      "intentionally_excluded_or_replaced": 8,
+      "outline_or_partial": 3,
+      "unresolved_or_missing": 52
+    },
+    "content_snapshot_sha256": "4949f72be9d0c396eaf6548dbffe060c27d23353f1f877adb5ab841fe8edadd4",
+    "external_frontiers": 9,
+    "independent_whole_entry_certificates": 0,
+    "known_entries": 253,
+    "unresolved_detail_counts": {
+      "explicit_unsupplied_boundary": 12,
+      "unresolved_nested_entry_mapping": 40
+    },
+    "validation": {
+      "census_methods": 17,
+      "census_result": "passed",
+      "corrected_generator_new_output_irq_test": {
+        "exit_code": 0,
+        "failures": 0,
+        "methods": 1
+      },
+      "drift_check": "passed",
+      "historical_generator_new_output_irq_test": {
+        "errors": 0,
+        "exit_code": 1,
+        "failures": 2,
+        "methods": 1,
+        "skips": 0
+      },
+      "home_stretch_ledger": "passed",
+      "readiness_gate": {
+        "exit_code": 1,
+        "external_frontiers": 9,
+        "independent_certificates": 0,
+        "unresolved": 52
+      },
+      "structure_check": "passed"
+    }
+  },
+  "ordinary_bus_contract": {
+    "baseline_compile_returncode": 0,
+    "baseline_returncode": 1,
+    "baseline_stderr": "hc11_bus_test:221: pcm_hc11_bus_bind(&bus,&clean,&io,spans_eeprom,1)==PCM_BAD_CONFIGURATION\n",
+    "corrected_ctest_returncode": 0,
+    "existing_cmake_target_flags": "-O2; no NDEBUG",
+    "preexisting_strict_warning": "hc11_ram_sync.c:40 discards const qualifier; supplemental -Werror whole-target build rejected; ordinary CMake build succeeded with warning; file not modified",
+    "test_source_sha256": "54ae3afd56ca9419710c92d05db3dfe32a4777c28bb1df307b6db60a2e1a4e39"
+  },
+  "remaining_limits": [
+    "Real native compiler/ISR ABI and complete reset-to-runtime execution remain open",
+    "Physical bus, EEPROM, timer, pin and peripheral behavior remain open",
+    "Comparator is synthetic and shares the audited legacy CPU implementation",
+    "52 unresolved mappings and3 partial entries plus9 external frontiers remain; counts are not algorithm completion percentages"
+  ],
+  "reproducer_negative_controls": {
+    "missing_compiler": {
+      "exit_code": 2,
+      "failure_count": 7,
+      "rejection": "ReproductionError: Unexpected assertion evidence for test_artifact_integrity.BusApertureIntegrity.test_every_address_in_a_window_has_the_declared_resource",
+      "status": "UNEXPECTED_RESULT_OR_SETUP_ERROR",
+      "temporary_worktree_removed": true
+    },
+    "report_mutations": {
+      "controls": [
+        {
+          "control": "wrong_baseline_head",
+          "reason": "Test checkout HEAD is not pinned baseline",
+          "rejected": true
+        },
+        {
+          "control": "wrong_rom_path",
+          "reason": "Tests loaded code or fixtures from an unexpected checkout",
+          "rejected": true
+        },
+        {
+          "control": "wrong_boot_path",
+          "reason": "Tests loaded code or fixtures from an unexpected checkout",
+          "rejected": true
+        },
+        {
+          "control": "wrong_test_hash",
+          "reason": "Regression source changed during reproduction",
+          "rejected": true
+        },
+        {
+          "control": "wrong_count",
+          "reason": "Test counts, error/skip state or valid-bundle control changed",
+          "rejected": true
+        },
+        {
+          "control": "float_count",
+          "reason": "Test counts, error/skip state or valid-bundle control changed",
+          "rejected": true
+        },
+        {
+          "control": "boolean_count",
+          "reason": "Test counts, error/skip state or valid-bundle control changed",
+          "rejected": true
+        },
+        {
+          "control": "import_error",
+          "reason": "Test counts, error/skip state or valid-bundle control changed",
+          "rejected": true
+        },
+        {
+          "control": "skip",
+          "reason": "Test counts, error/skip state or valid-bundle control changed",
+          "rejected": true
+        },
+        {
+          "control": "unexpected_success",
+          "reason": "Test counts, error/skip state or valid-bundle control changed",
+          "rejected": true
+        },
+        {
+          "control": "expected_failure",
+          "reason": "Test counts, error/skip state or valid-bundle control changed",
+          "rejected": true
+        },
+        {
+          "control": "missing_valid_control",
+          "reason": "Test counts, error/skip state or valid-bundle control changed",
+          "rejected": true
+        },
+        {
+          "control": "duplicate_failure",
+          "reason": "Failed-test identities differ from the seven historical failures",
+          "rejected": true
+        },
+        {
+          "control": "unrelated_failure",
+          "reason": "Failed-test identities differ from the seven historical failures",
+          "rejected": true
+        },
+        {
+          "control": "missing_compiler_message",
+          "reason": "Unexpected assertion evidence for test_artifact_integrity.BusApertureIntegrity.test_every_address_in_a_window_has_the_declared_resource",
+          "rejected": true
+        },
+        {
+          "control": "wrong_native_assertion",
+          "reason": "Unexpected assertion evidence for test_artifact_integrity.NativeArtifactIntegrity.test_code_changed_without_new_inspection_rejected",
+          "rejected": true
+        },
+        {
+          "control": "empty_traceback",
+          "reason": "Unexpected assertion evidence for test_artifact_integrity.BusApertureIntegrity.test_every_address_in_a_window_has_the_declared_resource",
+          "rejected": true
+        },
+        {
+          "control": "truncated_failure_list",
+          "reason": "Expected exactly seven historical assertion failures",
+          "rejected": true
+        },
+        {
+          "control": "process_exit_0",
+          "reason": "The historical suite did not exit with test failure",
+          "rejected": true
+        },
+        {
+          "control": "process_exit_2",
+          "reason": "The historical suite did not exit with test failure",
+          "rejected": true
+        },
+        {
+          "control": "process_exit_True",
+          "reason": "The historical suite did not exit with test failure",
+          "rejected": true
+        }
+      ],
+      "known_report_accepted": true,
+      "mutated_reports_rejected": 21
+    }
+  },
+  "retained_audit": "8dce2cf9a492e0366213877491de7957953b361d",
+  "schema": "7427-remaining-audit-integration-validation-v1",
+  "scope": "local bounded regression evidence; synthetic native artifacts and comparator; no native HC11 execution or whole-firmware certificate",
+  "source_identity_policy": "SHA256 of changed integration file contents; this record excludes itself and does not claim a clean commit at the base revision",
+  "source_sha256": {
+    ".github/workflows/audit-integration-regressions.yml": "b65e4103025c77faa3ae023ebbc1d2906008a6c98735deb4d976b7518eb153dd",
+    "docs/analysis/AUDIT_INTEGRATION_2026-11-24.md": "ea115d9eda94dab93e5f342c663beba06210e8a13b8bfd05fd7eccd3abb543c4",
+    "docs/analysis/FACTORY_EQUIVALENCE_WORK_PLAN.md": "2c26bef61e10d62aeb5f7ee0a8b4f1d362afafbc8793b5c7c4657d60a13bec71",
+    "docs/audit/CURRENT_FUNCTIONAL_COMPLETENESS.md": "fa697af67e4705b1bdd771cdb3e9178a77385af4f4d94d3c8675a7b96499a4b5",
+    "docs/audit/DUAL_BIN_FRAMEWORK.md": "875ad3e04ed9f326f1576c7621af3c1872f500461f02acd0f16029d308828c6e",
+    "maps/audit/C_source_claim_inventory.csv": "60165906b3e97eb51aa61948b4a3bade5447a21d6d9fb0f0c5404c20d3b2a954",
+    "maps/audit/equivalence_inventory_summary.json": "f957caeaf2ed73314c99d5f7709b0c5c67357976e29f1864dd4dd89bd3f13a04",
+    "maps/audit/equivalence_test_inventory.csv": "dd419ff2982baf3e4dcca0ad8bfe750ebc40637600098a081f90167d8a8ad96c",
+    "maps/audit/external_frontier_inventory.csv": "18de16ef5fc66be0d41297e1d2c9391f5ea04015fea40701209e49e78f9ea199",
+    "maps/audit/factory_function_inventory.csv": "32d17f7dbb0c0b3444029989c7c9f8d9247f633258a8e2cdae1356cf1fafe6b0",
+    "maps/audit/missing_implementation_inventory.csv": "18879355429a4418634e0fe295e7e253f2ddcb7e2a23bd5abb098d62e1b34e09",
+    "maps/audit/unrooted_alternate_inventory.csv": "d9dad1514e004f7842134f751bd6b70c6ff8ec5ceb4e5afb5dd1ed2881463fd9",
+    "pseudo-source/native/build_hc11_c.py": "ac3d87fcd4449f7a176ea881a14b6ea5a3765b1615e74d878ab7b0c6195d4eed",
+    "pseudo-source/native/compose_hc11_linked_boot.py": "da13f11d52b928dbcfcd169ed618a9e28e8163c6912ead08c54cb8589f4d1b79",
+    "pseudo-source/native/compose_hc11_rom.py": "5b893b3bf3e8f4ee24058bee34dd4865e8fcc6c89be92be56e3754dcaee9cb77",
+    "pseudo-source/native/native_artifact_binding.py": "3d1056aaa0ae4c5148daba0a7e7218ae7236c2481ca8fb52e5d699e31ea9c06f",
+    "pseudo-source/native/tests/test_build_hc11_c.py": "16819782a1404f4487ad24355784472c48325306e87e72264b3d8100e9389ceb",
+    "pseudo-source/native/tests/test_compose.py": "9abf3f43459e15da700d1be678004a0fe03cb92a0b540d0f7f34cc2d7e186639",
+    "pseudo-source/native/tests/test_linked_boot.py": "fbbf7297d796471ac7cb144e5c71ce5247d8de56fa4852592b6def777350e669",
+    "pseudo-source/platform/hc11_bus.c": "31d84c1f7413b5b334f14b257f98fc31e31d212ecf45de6a7b2fd49b15061eb3",
+    "pseudo-source/reference/home_stretch_manifest.json": "a95742409de2914abecffbb35629cfbd619f016379f827c23c414c30588175b8",
+    "pseudo-source/reference/home_stretch_readiness.md": "6027e4a5e1906eaceb624acf41cea9a58d3efa8f653db66706e66d18db9eb255",
+    "pseudo-source/tests/hc11_bus_test.c": "54ae3afd56ca9419710c92d05db3dfe32a4777c28bb1df307b6db60a2e1a4e39",
+    "tests/audit/test_artifact_integrity.py": "0a600383ceccb74307db8bbf5d3e092ecb5d2a57c7f0910f00e364ce40e56c78",
+    "tests/audit/test_dual_bin.py": "e158fe2b0c66317e6530a4d77727662211d9af856b182b0372e9bad08ebe032d",
+    "tests/audit/test_equivalence_inventory.py": "af0026fb00c6706d9f351fd4fe9c5051ad77e8cc8b113ee99c71f7f8bd9476c1",
+    "tools/audit/build_equivalence_inventory.py": "4a747ed5c19dfb9c87e46d8082e345d935a8584394b2d9b1ee3213508d5cd797",
+    "tools/audit/dual_bin.py": "b5dc27e4f0a7c8c642b72c69bf8e8f9a3125e07a08bf2fe6b7b807c3c0213ce2",
+    "tools/audit/reproduce_artifact_bus_baseline.py": "ac38ae87bc03b078dd7263899dfdb4a6d1a127b69ab8ae9a8b700019e20bc1b5"
+  }
+}
