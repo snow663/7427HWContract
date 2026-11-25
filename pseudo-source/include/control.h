@@ -15,6 +15,7 @@ PcmStatus pcm_egr_output(Pcm *);
 PcmStatus pcm_shift_control(Pcm *);
 PcmStatus pcm_iac_control(Pcm *);
 PcmStatus pcm_transmission_spark(Pcm *);
+PcmStatus pcm_transmission_spark_coolant(Pcm *);
 PcmStatus pcm_alternate_rpm(Pcm *);
 PcmStatus pcm_iac_step(Pcm *);
 PcmStatus pcm_adc_feedback(Pcm *);

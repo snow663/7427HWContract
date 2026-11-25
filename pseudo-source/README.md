@@ -12,7 +12,9 @@ the gear selector, and slot 04 runs both diagnostic groups. Slot 05 now
 runs catalyst, manifold and electronic TCC qualification. Slot 0A calculates
 canister purge duty. Slot 0C refreshes the hardware registers. Slot 0D writes
 AIR and purge outputs, samples MAT and runs fault monitoring, logging and lamp
-control. Five fast current/transmission groups, native entry and vectors,
+control. Fast service runs the resident $7C13 current calculation. The $C40A
+coolant adjustment for transmission spark has an independent entry replay.
+Four fast transmission groups, native entry and vectors,
 target linker layout and the physical hardware backend remain open.
 
 The [physical HC11 bus bridge](reference/physical_bus_contract.md) now
@@ -56,8 +58,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The canonical `work/pseudo-source-development` branch contains 415 public routines, with 235 implemented outlines, 9 dependency
-boundaries and 171 implemented algorithms. The $7959..$7979 timer stack guard
+The canonical `work/pseudo-source-development` branch contains 416 public routines, with 235 implemented outlines, 8 dependency
+boundaries and 173 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have

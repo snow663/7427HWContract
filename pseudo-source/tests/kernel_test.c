@@ -137,7 +137,6 @@ static PcmStatus task(Pcm *pcm, PcmTask id) {
     CHECK(f->used<sizeof(f->trace)/sizeof(f->trace[0]));
     f->trace[f->used++]=id; ++f->counts[id];
     if (id==PCM_SLOT_02) CHECK(f->masked);
-    if (id==PCM_CURRENT_CONTROL) pcm->runtime.current_output=0x42;
     if (id==PCM_CONNECTION_EXTENSION && f->connection_action)
         pcm->scheduler.profiling_enabled=f->connection_action==1;
     return PCM_OK;
@@ -152,6 +151,7 @@ static void init(Fixture *f, Pcm *pcm) {
     f->platform.task[PCM_IAC_CONTROL]=NULL;
     f->platform.task[PCM_IAC_STEP]=NULL;
     f->platform.task[PCM_ADC_FEEDBACK]=NULL;
+    f->platform.task[PCM_CURRENT_CONTROL]=NULL;
     f->platform.task[PCM_SLOT_00]=f->platform.task[PCM_SLOT_02]=NULL;
     f->platform.task[PCM_SLOT_04]=NULL;
     f->platform.task[PCM_SLOT_05]=f->platform.task[PCM_SLOT_0A]=NULL;
@@ -253,10 +253,10 @@ static void test_busy_coalescing_and_call_order(void) {
     static Fixture f; Pcm pcm; init(&f,&pcm); f.inject=true; pcm.scheduler.phase=0;
     pcm.iac.target=255;
     CHECK(pcm_periodic_irq(&pcm)==PCM_OK);
-    CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==4 && f.counts[PCM_CURRENT_CONTROL]==4);
+    CHECK(f.counts[PCM_IAC_STEP]==0 && f.step_observations==4);
     CHECK(f.counts[PCM_COMMON_IO]==0 && f.shadow_observations==2 && pcm.scheduler.phase==2);
     CHECK(pcm.scheduler.busy_phase==1 && !pcm.scheduler.pending && !pcm.scheduler.busy);
-    CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.trace[0]==PCM_CURRENT_CONTROL);
+    CHECK(f.counts[PCM_ADC_FEEDBACK]==0 && f.counts[PCM_CURRENT_CONTROL]==0);
     for (unsigned k=0;k<4;++k) CHECK(f.step_positions[k]==k+1);
     CHECK(pcm.iac.position==4 && f.observed_shadows[0]==0x14 && f.observed_shadows[1]==0x10);
     CHECK(f.current_writes==4 && f.timer_writes==4);
@@ -382,7 +382,60 @@ static void test_egr_state_handoff(void)
     CHECK(read8(&f,0x6e,&byte)==PCM_OK && byte==0x89);
     CHECK(write8(&f,0x6e,0x47)==PCM_OK && !pcm.spark.egr_active && f.memory[0x6e]==0x47);
 }
+/* Exercise the real ADC producer, $7C13 and the $3068 publication together. */
+static int current_replay(void)
+{
+    static Fixture f;
+    static const uint16_t inputs[] = {0x014d,0x014f,0x0150,0x0151,0x0153,0x0154,
+        0x00b5,0x00fc,0x6e54,0x6e55,0x6e56,0x6e57,0x6e58};
+    unsigned shadow, sample, battery, inhibit, fault;
+    while (scanf("%u %u %u %u %u", &shadow,&sample,&battery,&inhibit,&fault)==5) {
+        Pcm pcm;
+        init(&f,&pcm);
+        pcm.transmission.output_shadow=(uint8_t)shadow;
+        pcm.spark.battery_sample=(uint8_t)battery;
+        pcm.transmission.driver_inhibit=(inhibit & 1u)!=0;
+        pcm.transmission.output_fault_flags=(uint8_t)fault;
+        for (unsigned i=0; i<4; ++i) f.memory[PCM_ADR1+i]=(uint8_t)sample;
+        for (unsigned i=0; i<sizeof(inputs)/sizeof(inputs[0]); ++i) {
+            unsigned value;
+            if (scanf("%u",&value)!=1) return 2;
+            f.memory[inputs[i]]=(uint8_t)value;
+        }
+        for (unsigned pass=0; pass<3; ++pass) {
+            CHECK(pcm_fast_service(&pcm)==PCM_OK);
+            printf("%u %u %u %u %u %u %u %u %u\n", pcm.runtime.current_output,
+                f.memory[0x14f], f.memory[0x150], f.memory[0x151], f.memory[0xfc],
+                pcm.transmission.driver_inhibit, pcm.transmission.output_fault_flags,
+                f.memory[PCM_CURRENT_COMMAND], f.memory[PCM_CURRENT_COMMAND+1]);
+        }
+    }
+    return ferror(stdin)!=0;
+}
+static int spark_coolant_replay(void)
+{
+    static Fixture f;
+    unsigned override, status, retard, coolant;
+    while (scanf("%u %u %u %u",&override,&status,&retard,&coolant)==4) {
+        Pcm pcm;
+        init(&f,&pcm);
+        f.memory[0x119]=(uint8_t)override;
+        pcm.spark.transmission_status=(uint8_t)status;
+        pcm.spark.transmission_retard=(uint8_t)retard;
+        f.memory[0xa9]=(uint8_t)coolant;
+        for (unsigned address=0x70b2; address<=0x70b7; ++address) {
+            unsigned value;
+            if (scanf("%u",&value)!=1) return 2;
+            f.memory[address]=(uint8_t)value;
+        }
+        CHECK(pcm_transmission_spark_coolant(&pcm)==PCM_OK);
+        printf("%u\n",pcm.spark.transmission_retard);
+    }
+    return ferror(stdin)!=0;
+}
 int main(int argc, char **argv) {
+    if (argc==2 && strcmp(argv[1],"--spark-coolant")==0) return spark_coolant_replay();
+    if (argc==2 && strcmp(argv[1],"--current")==0) return current_replay();
     if (argc==2 && strcmp(argv[1],"--fuel")==0) {
         unsigned d,t,v,e,p,a,f;
         while (scanf("%u %u %u %u %u %u %u",&d,&t,&v,&e,&p,&a,&f)==7) {

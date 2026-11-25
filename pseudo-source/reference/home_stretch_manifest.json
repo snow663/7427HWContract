@@ -1,18 +1,17 @@
 {
   "schema": 1,
-  "as_of": "2026-11-24",
+  "as_of": "2026-11-25",
   "branch": "work/pseudo-source-development",
   "inventory": {
-    "indexed": 415,
+    "indexed": 416,
     "implemented_outline": 235,
-    "implemented_algorithm": 171,
-    "dependency_boundary": 9
+    "implemented_algorithm": 173,
+    "dependency_boundary": 8
   },
   "boundary_routines": [
     "pcm_spark_extension",
     "pcm_spark_output_extension",
     "pcm_reset_entry",
-    "pcm_current_control",
     "pcm_pressure_tcc",
     "pcm_shift_control",
     "pcm_transmission_spark",

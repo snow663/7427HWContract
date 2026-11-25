@@ -35,7 +35,6 @@ CLASSIFICATIONS = {
     "unresolved_or_missing",
 }
 MISSING_GROUPS = {
-    0x7C13: "current_control",
     0xAEA4: "transmission_input_prefix",
     0xB018: "transmission_input_prefix",
     0xB089: "transmission_input_prefix",
