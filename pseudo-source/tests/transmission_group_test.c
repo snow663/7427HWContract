@@ -68,6 +68,8 @@ int main(int argc, char **argv)
         for (unsigned i=0; i<passes; ++i) {
             PcmStatus result;
             switch (entry) {
+            case 0xb334: result = pcm_transmission_movement(&pcm); break;
+            case 0xe654: result = pcm_transmission_fault_gate_654(&pcm); break;
             case 0xc4e5: result = pcm_transmission_spark(&pcm); break;
             case 0xd9b7: result = pcm_transmission_spark_mode(&pcm); break;
             case 0xda6f: result = pcm_transmission_range_retard(&pcm); break;

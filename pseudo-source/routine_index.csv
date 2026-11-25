@@ -418,3 +418,5 @@ src/transmission/transmission_spark_coolant.c,pcm_transmission_spark_coolant,imp
 src/transmission/transmission_spark_mode.c,pcm_transmission_spark_mode,implemented_algorithm,D9B7..DA6E range entry and hysteresis.,Retain instruction and joined RAM comparisons
 src/transmission/transmission_range_retard.c,pcm_transmission_range_retard,implemented_algorithm,DA6F..DAE1 range retard priority and decay.,Retain instruction and joined RAM comparisons
 src/transmission/transmission_shift_retard.c,pcm_transmission_shift_retard,implemented_algorithm,DAE2..DBE2 gear-dependent ratio and timed shift retard.,Retain instruction and joined RAM comparisons
+src/transmission/transmission_movement.c,pcm_transmission_movement,implemented_algorithm,B334..B366 movement flag and delay timer.,Retain entry replay and verify the joined shift caller
+src/transmission/transmission_fault_gate_654.c,pcm_transmission_fault_gate_654,implemented_algorithm,E654..E663 shift diagnostic mask gate.,Retain entry replay and verify the joined shift caller
