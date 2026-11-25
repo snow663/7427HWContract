@@ -19,6 +19,6 @@ PcmStatus pcm_fuel_crank_pulse(Pcm *pcm, uint16_t *pulse)
     uint8_t gain;
     PcmStatus result = pcm_lookup_scaled(pcm->reference.throttle, &cal->crank_tps, &gain);
     if (result != PCM_OK) return result;
-    *pulse = mix_word(4u * pcm_gain_word(value, gain));
+    *pulse = mix_word((uint32_t)4u * pcm_gain_word(value, gain));
     return PCM_OK;
 }

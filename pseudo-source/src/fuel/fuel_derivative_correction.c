@@ -13,6 +13,6 @@ PcmStatus pcm_fuel_derivative_correction(Pcm *pcm)
     pcm->spark.idle_derivative = value;
     if (value>=cal->derivative_bounds[1]) value=cal->derivative_bounds[1];
     else if (value<cal->derivative_bounds[0]) value=cal->derivative_bounds[0];
-    pcm->fuel.corrected_pulse = mix_word(2u*pcm_gain_word(pcm->fuel.corrected_pulse,value));
+    pcm->fuel.corrected_pulse = mix_word((uint32_t)2u*pcm_gain_word(pcm->fuel.corrected_pulse,value));
     return PCM_OK;
 }

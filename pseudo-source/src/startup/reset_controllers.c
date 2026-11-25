@@ -11,7 +11,7 @@ PcmStatus pcm_reset_controllers(Pcm *pcm)
     uint8_t raw,value,previous,coolant,threshold;uint16_t word;
     SYS_RUN(pcm_read8(pcm,0x082e,&raw));SYS_RUN(pcm_write8(pcm,0x01c6,raw));
     SYS_RUN(pcm_write8(pcm,0x01c3,raw));
-    unsigned map=(unsigned)(uint8_t)(raw-26u)*151u+64u;map=map*2u;
+    uint32_t map=(uint32_t)(uint8_t)(raw-26u)*151u+64u;map=map*2u;
     value=map>65535u?255:(uint8_t)(map>>8);
     SYS_RUN(pcm_write8(pcm,0x01c0,value));SYS_RUN(pcm_write8(pcm,0x01c7,value));
     SYS_RUN(pcm_baro_seed(pcm));SYS_RUN(sys_update(pcm,0x4e,0,1));

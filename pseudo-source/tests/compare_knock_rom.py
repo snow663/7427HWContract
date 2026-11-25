@@ -1,8 +1,13 @@
 """Check decay, the mux/ADC diagnostic and normal KR against stock instructions.
 
-The IRQ witnesses inject at explicit logical mask boundaries. They do not model
-physical knock, ADC settling, HC11 interrupt arbitration or CLI recognition delay.
+The IRQ witnesses use explicit logical mask boundaries. Points 1 and 2 are
+one-shot admission attempts; a masked attempt is deliberately consumed. Point 3
+holds a post-unmask request until the CPU admits it, including the architectural
+one-instruction delay after CLI. These fixtures do not establish physical knock,
+ADC settling, hardware IRQ level/flag behavior, arbitration, or a native C mask
+backend's instruction boundaries.
 """
+import argparse
 from hashlib import sha256
 from itertools import islice
 import json
@@ -20,7 +25,16 @@ from verify_factory_rom_structure import EXPECTED_SHA256
 
 rom = recorded_rom(json.loads(EVIDENCE.read_text()))
 assert sha256(bytes([255])*0x4000+rom.read(0x4000,0xC000)).hexdigest() == EXPECTED_SHA256
-binary = sys.argv[1]
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('binary',help='compiled pcm_knock_tests executable')
+selection = parser.add_mutually_exclusive_group()
+selection.add_argument('--irq-only',action='store_true',help='run the 1,536 logical IRQ cases and the literal regression')
+selection.add_argument('--irq-case',type=int,help='run one original logical IRQ case, indexed 0..1535 (the lost-request witness is 4)')
+selection.add_argument('--irq-literal-witness',action='store_true',help='run the one-byte post-CLI pending-request regression')
+arguments = parser.parse_args()
+if arguments.irq_case is not None and not 0 <= arguments.irq_case < 1536:
+    parser.error('--irq-case must be in 0..1535')
+binary = arguments.binary
 addresses = (set(range(0x45A5,0x45B6)) | set(range(0x45D8,0x461B)) |
              set(range(0x461C,0x465C)) | set(range(0x4E74,0x4E78)) | {0x5B03})
 defaults = [row for row in json.loads(subprocess.check_output([binary,'--defaults'],text=True)) if row[0] in addresses]
@@ -107,7 +121,7 @@ def case(mode=3,edits=None,*,fail=0,masked=0,ready=1,second=-1,point=0,argument=
     return (mode,fail,masked,ready,second,point,argument,values)
 
 
-def execute(item):
+def execute(item,*,irq_trace=None):
     mode,fail,masked,ready,second,point,argument,edits = item
     memory.mem[:0x900] = blank_low
     memory.mem[0x3000:0x3070] = blank_io
@@ -122,30 +136,52 @@ def execute(item):
     cpu.s.pc,cpu.s.sp,cpu.s.ccr = 0x7000,0x03FF,0xC0 | (0x10 if masked else 0)
     cpu.s.a,cpu.s.b,cpu.s.x,cpu.s.y = argument,0x34,0x3000,0x9ABC
     injected = False
+    pending_irq = False
 
-    def irq():
+    def irq(*,retain_on_rejection=False):
         nonlocal injected
-        injected = True
         before = (cpu.s.pc,cpu.s.sp,cpu.s.ccr,cpu.s.a,cpu.s.b,cpu.s.x,cpu.s.y)
-        if not cpu.interrupt(0xFFE8):
-            return
+        admitted = cpu.interrupt(0xFFE8)
+        if irq_trace is not None:
+            irq_trace.append(('attempt',before[0],admitted))
+        if not admitted:
+            # Points 1 and 2 are one-shot logical attempts, not level IRQs.
+            if not retain_on_rejection:
+                injected = True
+            return False
+        injected = True
         run_until(before[0],allow_inject=False)
         assert (cpu.s.pc,cpu.s.sp,cpu.s.ccr,cpu.s.a,cpu.s.b,cpu.s.x,cpu.s.y) == before
+        if irq_trace is not None:
+            irq_trace.append(('return',cpu.s.pc))
+        return True
 
     def run_until(stop,allow_inject=True):
+        nonlocal pending_irq
         for _ in range(2000):
+            # Admission belongs to the CPU. Retain point 3 across a rejected
+            # post-CLI attempt, and check before returning at a slice endpoint.
+            if allow_inject and pending_irq:
+                if irq(retain_on_rejection=True):
+                    pending_irq = False
             pc = cpu.s.pc
             if pc == stop:
                 return
             coverage.add(pc)
-            if rom.read(pc,1)[0] in (0x0E,0x0F):
-                masked = int(rom.read(pc,1)[0] == 0x0F)
+            opcode = rom.read(pc,1)[0]
+            if irq_trace is not None and opcode == 0x3B:
+                irq_trace.append(('rti',pc))
+            if opcode in (0x0E,0x0F):
+                masked = int(opcode == 0x0F)
                 if allow_inject and not injected and point == 1 and masked:
                     irq()
                 memory.record('M',0,0,masked)
                 cpu.step()
-                if allow_inject and not injected and ((point==2 and masked) or (point==3 and not masked)):
-                    irq()
+                if allow_inject and not injected:
+                    if point==2 and masked:
+                        irq()
+                    elif point==3 and not masked:
+                        pending_irq = True
             else:
                 cpu.step()
         raise AssertionError(f'Knock execution budget at {cpu.s.pc:04X}')
@@ -179,6 +215,8 @@ def execute(item):
             invoke(0xAA81,0xAADC)
     except Failure:
         status = 2
+    if irq_trace is not None and pending_irq:
+        irq_trace.append(('pending',cpu.s.pc))
     allowed = {0x19,0x1A,0x3A,0x1EE,0x1EF,0x203,0x204,0x207,0x20C,0x20D}
     assert all(a in allowed or 0x3C0<=a<0x400 or 0x3000<=a<0x4000 for a,_ in memory.writes)
     return {'status':status,'state':[memory.mem[a] for a in OUTPUTS],
@@ -275,7 +313,53 @@ def driver_cases():
                 yield case(5,{0x1A:flags,0x3A:flags},argument=control,ready=ready,masked=flags&1)
 
 
+def irq_cases():
+    return [case(edits={0x20D:events},point=point,masked=masked)
+            for events in range(256) for point in [1,2,3] for masked in [0,1]]
+
+
+def check_post_cli_admission(item):
+    trace = []
+    result = execute(item,irq_trace=trace)
+    # AA88 CLI protects AA89 BRSET $6E,#$02,$AA9A. These witnesses take
+    # its fall-through path. OC1 cannot run until AA8D, then returns once.
+    assert trace == [('attempt',0xAA89,False),('attempt',0xAA8D,True),
+                     ('rti',0xCEBA),('return',0xAA8D)], trace
+    return result
+
+
+def literal_irq_regression():
+    # All fixture RAM is zero except the counter's low byte. The literal C
+    # input is: 3 0 0 1 -1 3 0 1 16329 1
+    item = case(edits={address:0 for address in BASE} | {0x3FC9:1},point=3)
+    count = compare([item],'one-byte post-CLI pending-request witness')
+    result = check_post_cli_admission(item)
+    state = dict(zip(OUTPUTS,result['state']))
+    assert (state[0x203],state[0x204]) == (0,1), result
+    assert result['events'] == [['M',0,0,1,0],['M',0,0,0,1],
+                                ['W',8,0x3023,0x80,1],['R',16,0x3FC8,1,1]], result
+    print('CLI at AA88; protected BRSET at AA89; one IRQ admitted at AA8D; '
+          'one RTI at CEBA; registers restored and retained baseline 0203:0204=0001.',flush=True)
+    return count
+
+
+if arguments.irq_case is not None:
+    item = irq_cases()[arguments.irq_case]
+    compare([item],f'logical mask-boundary OC1 case {arguments.irq_case}')
+    if item[5] == 3:
+        check_post_cli_admission(item)
+    raise SystemExit(0)
+if arguments.irq_literal_witness:
+    literal_irq_regression()
+    raise SystemExit(0)
+if arguments.irq_only:
+    compare(irq_cases(),'logical mask-boundary OC1 witnesses')
+    literal_irq_regression()
+    raise SystemExit(0)
+
+
 counts = {}
+counts['irq_literal'] = literal_irq_regression()
 counts['decay'] = compare(decay_cases(),'decay C/ROM cases')
 counts['consumer'] = compare(consumer_cases(),'normal-KR C/ROM cases')
 counts['sensor'] = compare(sensor_cases(),'sensor/slot C/ROM cases')
@@ -300,9 +384,7 @@ for rpm in range(256):
         sequences.append(case(6,{0x62:rpm,0x3FC8:sample>>8,0x3FC9:sample&255,
                                  0x20C:rpm,0x20D:255-rpm,0x3034:rpm},ready=rpm%14))
 counts['sequences'] = compare(sequences,'OC1/consumer/slot/consumer sequences')
-irqs = [case(edits={0x20D:events},point=point,masked=masked)
-        for events in range(256) for point in [1,2,3] for masked in [0,1]]
-counts['irq'] = compare(irqs,'logical mask-boundary OC1 witnesses')
+counts['irq'] = compare(irq_cases(),'logical mask-boundary OC1 witnesses')
 
 # Prolonged sensor faults, valid recovery and diagnostic disable/reenable. Each
 # call's output seeds the next call, retaining exact counter and fault history.
