@@ -59,8 +59,8 @@ No public routine shares its source file with another public routine.
 
 ## Implemented and still delegated
 
-The canonical `work/pseudo-source-development` branch contains 426 public routines, with 235 implemented outlines, 6 dependency
-boundaries and 185 implemented algorithms. The $7959..$7979 timer stack guard
+The canonical `work/pseudo-source-development` branch contains 431 public routines, with 235 implemented outlines, 6 dependency
+boundaries and 190 implemented algorithms. The $7959..$7979 timer stack guard
 now has a callable software/RMW body and an exhaustive threshold fixture;
 the entry SP capture, LDS and full interrupt ABI remain target work. Reset CPU/chip-select/board
 writes, output initialization and the REF timer/strobe/latch prefix now have

@@ -78,7 +78,14 @@ int main(int argc, char **argv)
         limit_reads = writes = 0;
         for (unsigned i=0; i<passes; ++i) {
             PcmStatus result;
+            uint8_t correction = 0;
+            uint16_t factor = 0;
             switch (entry) {
+            case 0xbc77: result = pcm_pressure_shift_reduction(&pcm, memory[0x142], &correction); break;
+            case 0xd969: result = pcm_pressure_baro_factor(&pcm, 0x70e0, &factor); break;
+            case 0xb91d: result = pcm_pressure_adaptive_cell(&pcm, &correction); break;
+            case 0xba38: result = pcm_pressure_learning_count(&pcm); break;
+            case 0xe664: result = pcm_transmission_fault_gate_664(&pcm); break;
             case 0xb32d: result = pcm_shift_control(&pcm); break;
             case 0xb367: result = pcm_shift_observation(&pcm); break;
             case 0xba65: result = pcm_shift_adaptive_learning(&pcm); break;
@@ -95,8 +102,10 @@ int main(int argc, char **argv)
             memory[0xa4] = pcm.spark.transmission_status;
             memory[0x15a] = pcm.spark.transmission_retard;
             if (result != PCM_OK && result != PCM_NO_HARDWARE) return 1;
+            if (entry == 0xd969 && result == PCM_OK) printf(" d%04x", (unsigned)factor);
+            if ((entry == 0xb91d || entry == 0xbc77) && result == PCM_OK) printf(" a%02x", (unsigned)correction);
             printf(" %s ", result == PCM_OK ? "ok" : "failed");
-            for (unsigned a=0; a<0x32c; ++a) printf("%02x",(unsigned)memory[a]);
+            for (unsigned a=0; a<0x350; ++a) printf("%02x",(unsigned)memory[a]);
             if (result != PCM_OK) break;
         }
         putchar('\n');

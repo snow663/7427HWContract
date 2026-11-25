@@ -40,7 +40,7 @@ class Memory(FixtureMemory):
     def write(self, a, v, width):
         # The stack is private to the HC11 call. A4/015A are named C owners.
         if a not in OWNED and not 0x3c0 <= a < 0x400:
-            assert a < 0x32c, hex(a)
+            assert a < 0x350, hex(a)
             self.events.append(f'b{a:04x}{v:02x}' if width == 1 else f'w{a:04x}{v:04x}')
             self.count += 1
             if self.count == self.case.fail:
@@ -71,6 +71,10 @@ def stock(case):
     for _ in range(case.passes):
         cpu._push16(0x7000)
         cpu.s.pc = case.entry
+        if case.entry == 0xbc77:
+            cpu.s.a = memory.mem[0x142]
+        if case.entry == 0xd969:
+            cpu.s.x = 0x70e0
         try:
             for _ in range(1500):
                 pc = cpu.s.pc
@@ -85,7 +89,11 @@ def stock(case):
             status = 'ok'
         except FailedWrite:
             status = 'failed'
-        memory.events.extend([status, memory.mem[:0x32c].hex()])
+        if status == 'ok' and case.entry == 0xd969:
+            memory.events.append(f'd{cpu.s.d:04x}')
+        if status == 'ok' and case.entry in (0xb91d, 0xbc77):
+            memory.events.append(f'a{cpu.s.a:02x}')
+        memory.events.extend([status, memory.mem[:0x350].hex()])
         if status == 'failed':
             break
     return memory.events

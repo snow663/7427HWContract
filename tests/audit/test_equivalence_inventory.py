@@ -88,11 +88,11 @@ class InventoryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "lineage"):
             self.validate(suites=damaged)
 
-    def test_integrated_snapshot_has_59_actual_ROM_and_70_contract_suites(self):
+    def test_integrated_snapshot_has_60_actual_ROM_and_70_contract_suites(self):
         ctests = [r for r in self.suites if r["registration"] == "ctest"]
         rom = [r for r in ctests if r["evidence_class"] == "factory_instructions_vs_host_C"]
-        self.assertEqual(len(ctests), 129)
-        self.assertEqual(len(rom), 59)
+        self.assertEqual(len(ctests), 130)
+        self.assertEqual(len(rom), 60)
         self.assertEqual(len(ctests) - len(rom), 70)
         self.assertTrue(all(r["interpreter"] == inventory.CORE for r in rom))
         self.assertEqual(sum(bool(r["linked_replacement_boundaries"]) for r in rom), 17)
@@ -133,16 +133,16 @@ class InventoryTests(unittest.TestCase):
     def test_no_percentage_or_machine_certificate_from_counts(self):
         summary = json.loads(self.outputs["maps/audit/equivalence_inventory_summary.json"])
         self.assertEqual(summary["known_resident_entries"], 253)
-        self.assertEqual(summary["indexed_C_routines"], 426)
+        self.assertEqual(summary["indexed_C_routines"], 431)
         self.assertEqual(summary["classification_counts"], {
-            "implemented_insufficiently_verified": 204,
+            "implemented_insufficiently_verified": 209,
             "intentionally_excluded_or_replaced": 8,
             "outline_or_partial": 3,
-            "unresolved_or_missing": 38,
+            "unresolved_or_missing": 33,
         })
         self.assertEqual(summary["unresolved_entry_detail_counts"], {
             "explicit_unsupplied_boundary": 9,
-            "unresolved_nested_entry_mapping": 29,
+            "unresolved_nested_entry_mapping": 24,
         })
         self.assertEqual(summary["independent_whole_entry_certificates"], 0)
         self.assertNotIn("fully_implemented_behaviorally_verified", summary["classification_counts"])
@@ -181,7 +181,7 @@ class InventoryTests(unittest.TestCase):
                                 text=True, capture_output=True)
         self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
         self.assertIn("FAIL: complete functional equivalence is not established.", result.stderr)
-        self.assertIn("38 unresolved/missing; 9 external frontiers", result.stderr)
+        self.assertIn("33 unresolved/missing; 9 external frontiers", result.stderr)
         self.assertNotIn("Inventory drift", result.stderr)
 
 

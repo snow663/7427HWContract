@@ -425,3 +425,8 @@ src/transmission/shift_learning_reasons.c,pcm_shift_learning_reasons,implemented
 src/transmission/shift_adaptive_learning.c,pcm_shift_adaptive_learning,implemented_algorithm,BA65..BC3A per-gear adaptive cell learning and checksum.,Retain joined shift control ROM replay
 src/transmission/long_shift_diagnostic.c,pcm_long_shift_diagnostic,implemented_algorithm,F131..F1DC long shift qualification and gear counters.,Retain joined shift control ROM replay
 src/transmission/long_shift_qualification.c,pcm_long_shift_qualification,implemented_algorithm,F1DD..F20C carry-return temperature throttle speed and fault gates.,Retain joined shift control ROM replay
+src/transmission/pressure_adaptive_cell.c,pcm_pressure_adaptive_cell,implemented_algorithm,B91D..B960 per-gear adaptive pressure lookup and retained correction.,Retain entry replay and join the pressure group
+src/transmission/pressure_learning_count.c,pcm_pressure_learning_count,implemented_algorithm,BA38..BA5E latched learned-event counter.,Retain entry replay and join the pressure group
+src/transmission/pressure_shift_reduction.c,pcm_pressure_shift_reduction,implemented_algorithm,BC77..BCC5 timed pressure reduction on ratio windows.,Retain entry replay and join the pressure group
+src/transmission/pressure_baro_factor.c,pcm_pressure_baro_factor,implemented_algorithm,D969..D97F barometric pressure multiplier.,Retain entry replay and join the pressure group
+src/transmission/transmission_fault_gate_664.c,pcm_transmission_fault_gate_664,implemented_algorithm,E664..E673 pressure fault mask scan and publication.,Retain entry replay and join the pressure group

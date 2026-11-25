@@ -19,10 +19,10 @@ and its generated CSVs govern the remaining worklist. The historical audit's
 the current count.
 
 The reviewed universe has 253 known resident entry points. Current categories
-are 204 implemented but insufficiently verified, three partial, eight justified
-RTS replacements and 38 unresolved entries. No independent whole-entry
-certificate is awarded. The 38 entries include nine explicit supplied-boundary
-roots and twenty-nine unresolved nested mappings. They are neither a count of new C
+are 209 implemented but insufficiently verified, three partial, eight justified
+RTS replacements and 33 unresolved entries. No independent whole-entry
+certificate is awarded. The 33 entries include nine explicit supplied-boundary
+roots and twenty-four unresolved nested mappings. They are neither a count of new C
 files needed nor proof that every possible firmware entry has been discovered.
 
 ## Ordered work packages and acceptance evidence
@@ -39,9 +39,9 @@ contract, not an entire subsystem.
 | 3 | Current control | Resident C and joined ROM replay cover `$7C13` and the `$014C` to `$3068` handoff. |
 | 4 | Transmission spark | The `$C4E5` C entry runs all five stages. Factory-ROM comparisons exercise mode selection, range decay, gear-dependent shift retard and the final coolant adjustment. |
 | 5 | Shift control | The scheduled `$B32D` path runs the movement check, shift observation, adaptive cell learning and long-shift diagnosis. Joined replay covers the three banks and checksum stores. |
-| 6 | Pressure and TCC | Review and close fourteen indexed entries, including cancellation, shared input dependencies and register effects. |
+| 6 | Pressure and TCC | Join the five compared pressure helpers as the remaining nine entries are translated. Compare cancellation, shared inputs and ordered register effects. |
 | 7 | Transmission-input processing | Close twenty-four indexed entries. Establish mappings for the eight ordered prefix callees and nested estimator/diagnostic/math entries; avoid duplicating algorithms already represented inline. |
-| 8 | Three partial entries | Close `$7100` reset-to-runtime, the joined `$AE85` prefix/tail, and `$F5DC` signature-qualified module behavior. These are a separate gate from the 38 unresolved rows. |
+| 8 | Three partial entries | Close `$7100` reset-to-runtime, the joined `$AE85` prefix/tail, and `$F5DC` signature-qualified module behavior. These are a separate gate from the 33 unresolved rows. |
 | 9 | External execution domains | Resolve the eight fixed `$18xx` hooks and dynamic `wordRAM[$038E]` callback. Supply admitted implementations/ABIs or document and test a bounded configuration domain; unsupported behavior remains visible. |
 | 10 | Native execution | Produce an actual HC11 compiler/linker/assembler artifact bundle; execute reset, state initialization, C entry/return and interrupts. Verify 16-bit ABI, stack, runtime helpers, memory layout and symbol/byte binding. |
 | 11 | PCM peripheral model | Qualify timer, ASIC, ADC, serial, watchdog, board-output and RAM/EEPROM behavior from evidence. Define logical time, interrupt admission/acknowledgment and 8/16-bit access effects. Unknown accesses must be inconclusive. |
