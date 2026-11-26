@@ -4,10 +4,12 @@ const $ = (id) => document.getElementById(id);
 const emptyProject = () => ({
   version: 1, burst_spark: "stock", burst_curve: null, spark_layout: "stock",
   slot_00: { mode: "stock", assembly: "" }, custom_assembly: "", tables: [],
+  spark_grids: { spark_open: null, spark_closed: null },
 });
 let project = emptyProject();
 let rom = null;
 let stockCurve = null;
+let sparkTables = [];
 const curveTemperatures = [75, 80, 85, 90, 95, 100, 105, 110];
 let revision = 0;
 
@@ -64,6 +66,49 @@ function showCurve() {
     }, 0, 255));
     host.append(label);
   });
+}
+
+function showSparkGrid() {
+  const host = $("spark-grid");
+  host.replaceChildren();
+  const symbol = $("spark-grid-select").value;
+  const tableInfo = sparkTables.find((table) => table.symbol === symbol);
+  $("reset-spark-grid").disabled = project.spark_grids[symbol] === null;
+  if (!tableInfo) {
+    host.append(element("p", "Load the stock image to edit its base spark grids."));
+    return;
+  }
+  const values = project.spark_grids[symbol] ?? tableInfo.cells;
+  const coordinates = tableInfo.coordinates;
+  const grid = element("table");
+  grid.className = "custom-grid spark-grid";
+  const caption = grid.createCaption();
+  caption.textContent = tableInfo.title + " · raw cells · RPM rows × load columns";
+  const headings = grid.createTHead().insertRow();
+  headings.append(element("th", "RPM / load"));
+  for (const coordinate of coordinates) headings.append(element("th", String(coordinate)));
+  const body = grid.createTBody();
+  coordinates.forEach((rpm, row) => {
+    const line = body.insertRow();
+    line.append(element("th", String(rpm)));
+    coordinates.forEach((load, column) => {
+      const offset = row * coordinates.length + column;
+      const input = field("number", values[offset], "RPM coordinate " + rpm + ", load coordinate " + load, (value) => {
+        if (project.spark_grids[symbol] === null) project.spark_grids[symbol] = [...tableInfo.cells];
+        project.spark_grids[symbol][offset] = value;
+        input.classList.toggle("edited-cell", value !== tableInfo.cells[offset]);
+        $("reset-spark-grid").disabled = false;
+      }, 0, 255);
+      input.classList.toggle("edited-cell", values[offset] !== tableInfo.cells[offset]);
+      line.insertCell().append(input);
+    });
+  });
+  const wrap = element("div");
+  wrap.className = "grid-wrap spark-scroll";
+  wrap.tabIndex = 0;
+  wrap.setAttribute("aria-label", tableInfo.title + " grid");
+  wrap.append(grid);
+  host.append(wrap);
 }
 
 function resizeTable(table, rows, cols) {
@@ -138,6 +183,7 @@ function showProject() {
   $("inline-pane").hidden = project.slot_00.mode !== "inline";
   $("draft-code").value = project.custom_assembly;
   showCurve();
+  showSparkGrid();
   showTables();
 }
 
@@ -151,6 +197,8 @@ function validateProject(value) {
   if (!sameKeys(value, Object.keys(emptyProject())) || value.version !== 1 ||
       !["stock", "enabled", "disabled"].includes(value.burst_spark) ||
       !["stock", "swap"].includes(value.spark_layout) ||
+      !sameKeys(value.spark_grids, ["spark_open", "spark_closed"]) ||
+      !Object.values(value.spark_grids).every((grid) => grid === null || bytes(grid, 17 * 17)) ||
       !(value.burst_curve === null || bytes(value.burst_curve, curveTemperatures.length)) ||
       !sameKeys(value.slot_00, ["mode", "assembly"]) ||
       !["stock", "remove", "inline"].includes(value.slot_00.mode) ||
@@ -191,8 +239,19 @@ function showReport(report) {
       element("code", "ROM operand " + move.operand_address + " · XDF cells " + move.xdf_address));
     host.append(block);
   }
+  for (const grid of report.spark_edits) {
+    const group = element("details");
+    group.append(element("summary", grid.title + " · " + grid.cells.length + " edited cells"));
+    const list = element("ul");
+    for (const cell of grid.cells) {
+      list.append(element("li", cell.address + " · RPM " + cell.rpm + " / load " + cell.load +
+        " · " + cell.before + " → " + cell.after));
+    }
+    group.append(list);
+    host.append(group);
+  }
   for (const change of report.changes) {
-    if (change.reason.startsWith("Relocate ")) continue;
+    if (change.reason.startsWith("Relocate ") || change.reason.startsWith("Edit ")) continue;
     const block = element("article");
     block.append(element("strong", change.address), element("p", change.reason),
       element("code", change.before + " → " + change.after));
@@ -260,11 +319,14 @@ $("rom-file").onchange = async (event) => {
     for (let i = 0; i < bytes.length; i += 8192) raw += String.fromCharCode(...bytes.subarray(i, i + 8192));
     const candidate = btoa(raw);
     const response = await request("identify", { rom: candidate });
-    stockCurve = (await response.json()).curve;
+    const calibration = await response.json();
+    stockCurve = calibration.curve;
+    sparkTables = calibration.spark_tables;
     rom = candidate;
     $("rom-label").textContent = file.name + " · Factory SHA-256 verified";
     $("preview").disabled = $("build").disabled = false;
     showCurve();
+    showSparkGrid();
     changed();
   } catch (error) {
     status(error.message, true);
@@ -276,7 +338,10 @@ $("project-file").onchange = async (event) => {
   if (!file) return;
   try {
     const value = JSON.parse(await file.text());
-    if (value?.version === 1 && !Object.hasOwn(value, "spark_layout")) value.spark_layout = "stock";
+    if (value?.version === 1) {
+      if (!Object.hasOwn(value, "spark_layout")) value.spark_layout = "stock";
+      if (!Object.hasOwn(value, "spark_grids")) value.spark_grids = emptyProject().spark_grids;
+    }
     if (value?.version === 1 && Array.isArray(value.burst_curve) && value.burst_curve.length === 11) {
       if (value.burst_curve.slice(8).some((cell) => cell !== 0)) {
         throw new Error("This old project changes adjacent dynamic-spark bytes. Restore its factory curve and re-enter the first eight values.");
@@ -300,6 +365,12 @@ $("save-project").onclick = () => {
   }
 };
 $("burst").onchange = (event) => { project.burst_spark = event.target.value; changed(); };
+$("spark-grid-select").onchange = showSparkGrid;
+$("reset-spark-grid").onclick = () => {
+  project.spark_grids[$("spark-grid-select").value] = null;
+  showSparkGrid();
+  changed();
+};
 $("spark-layout").onchange = (event) => { project.spark_layout = event.target.value; changed(); };
 $("slot").onchange = (event) => {
   project.slot_00.mode = event.target.value;

@@ -5,7 +5,7 @@ import unittest
 from xml.etree import ElementTree as ET
 
 from configurator import (CURVE, FEATURE, HOOK, SPARK_BLOCK_SIZE, SPARK_TABLES, STOCK_SHA,
-                          build, bundle, defaults, inline_code, load_stock, spark_placements, table_source)
+                          build, bundle, defaults, inline_code, load_stock, spark_placements, spark_table_info, table_source)
 
 
 class SourceTests(unittest.TestCase):
@@ -73,6 +73,8 @@ class StockTests(unittest.TestCase):
 
     def test_stock_layout_compatibility_and_reference_validation(self):
         legacy = defaults()
+        del legacy['spark_grids']
+        self.assertEqual(build(self.stock, legacy), build(self.stock, defaults()))
         del legacy['spark_layout']
         self.assertEqual(build(self.stock, legacy), build(self.stock, defaults()))
         with self.assertRaisesRegex(ValueError, 'layout'):
@@ -81,6 +83,51 @@ class StockTests(unittest.TestCase):
         corrupt[SPARK_TABLES[0][3]+1] ^= 1
         with self.assertRaisesRegex(ValueError, 'pointer instruction'):
             spark_placements(corrupt, 'swap')
+
+    def test_base_spark_edits_follow_table_identity(self):
+        tables = spark_table_info(self.stock)
+        grids = {}
+        for table in tables:
+            grids[table['symbol']] = table['cells'].copy()
+        grids['spark_open'][17*4+8] ^= 1
+        grids['spark_closed'][-1] ^= 1
+        for layout in ('stock', 'swap'):
+            with self.subTest(layout=layout):
+                project = defaults() | {'spark_layout': layout, 'spark_grids': grids}
+                report, files = build(self.stock, project)
+                baseline = build(self.stock, defaults() | {'spark_layout': layout})[1]['bmhm-configured.bin']
+                image = files['bmhm-configured.bin']
+                expected_edits = set()
+                for index, offset in enumerate((17*4+8, 17*17-1)):
+                    symbol = tables[index]['symbol']
+                    destination = SPARK_TABLES[index if layout == 'stock' else 1-index][2]
+                    data = destination + 3
+                    self.assertEqual(image[destination:data], bytes((0, 0, 17)))
+                    self.assertEqual(image[data:data+17*17], bytes(grids[symbol]))
+                    expected_edits.add(data+offset)
+                    row, column = divmod(offset, 17)
+                    self.assertEqual(report['spark_edits'][index], {
+                        'symbol': symbol, 'title': tables[index]['title'],
+                        'cells': [{'address': f'${data+offset:04X}', 'rpm': 16*row, 'load': 16*column,
+                                   'before': tables[index]['cells'][offset], 'after': grids[symbol][offset]}],
+                    })
+                actual_edits = {a for a, (old, new) in enumerate(zip(baseline, image)) if old != new}
+                self.assertEqual(actual_edits - {0x4006, 0x4007}, expected_edits)
+                self.assertEqual(int.from_bytes(image[0x4006:0x4008], 'big'), sum(image[0x4008:]) & 65535)
+                reconstructed = bytearray(image)
+                for change in report['changes']:
+                    start = int(change['address'][1:], 16)
+                    original = bytes.fromhex(change['before'])
+                    reconstructed[start:start+len(original)] = original
+                self.assertEqual(reconstructed, self.stock)
+
+    def test_invalid_spark_grids_are_rejected(self):
+        grids = defaults()['spark_grids']
+        for bad in ([0]*288, [0]*288 + [256], [0]*288 + [True], [0]*288 + [None]):
+            with self.subTest(length=len(bad), last=bad[-1]), self.assertRaisesRegex(ValueError, 'integer cells'):
+                build(self.stock, defaults() | {'spark_grids': grids | {'spark_open': bad}})
+        with self.assertRaisesRegex(ValueError, 'grid settings'):
+            build(self.stock, defaults() | {'spark_grids': {'spark_other': None}})
 
     def test_legacy_curve_projects_preserve_dynamic_spark(self):
         old_curve = list(range(8)) + list(self.stock[CURVE+8:CURVE+11])

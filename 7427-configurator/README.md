@@ -23,6 +23,7 @@ python3 configurator.py stock.bin 7427-project.json 7427-build.zip
 |---|---|
 | Burst spark | Sets or clears `$400F.3`, preserving the other factory options in that byte. |
 | Burst spark gain | Edits the eight cells at `$46E4–$46EB` (nominal 75–110 °C). The XDF uses raw values. The lookup reads `$46EC` as an interpolation neighbor at the stock cap, and dynamic spark owns that byte. |
+| Base spark grids | Edit each factory 17 × 17 grid in raw values. The project keeps edits with the selected table when it moves. The preview reports each edited cell's lookup coordinates, old and new values, and final ROM address. |
 | Base spark table placement | Swap the two 292-byte base-spark blocks to verify relocation. The build updates both stock LDX operands, the XDF addresses, and the byte-change report from the same placement map. |
 | Slot 00 | Keeps or removes the `JSR $CF15` at `$7AA9`, where the stock target is a single RTS. The inline option accepts selected register and immediate instructions fitting in three bytes and pads unused bytes with NOPs. Execution continues at the existing RTS at `$7AAC`. |
 | Custom tables | Resize a raw byte grid while retaining overlapping cells. New cells start at zero. The build exports ASM11-compatible table source with row, column and stride symbols. |
@@ -36,7 +37,7 @@ The decoder and compact assembler are reused from `tools/factory_rom_decode.py` 
 
 Under **Stock calibration → Base spark table placement**, select **Swap table locations** and preview the old and new addresses. The proof moves the stock open-throttle header from `$4166` to `$428A` and the closed-throttle header in the other direction. Both slots are exactly the same size. This proof leaves each stock table's 17 × 17 geometry intact. Larger tables still require a reviewed allocation and lookup changes.
 
-Older projects default to factory placement. Older projects with 11 curve cells are accepted when their final three cells match the factory dynamic-spark bytes. Exports save the corrected eight-cell geometry.
+Older projects retain their placement setting and start with factory grid values. Older projects with 11 curve cells are accepted when their final three cells match the factory dynamic-spark bytes. Exports save the corrected eight-cell geometry.
 
 ## Tests
 

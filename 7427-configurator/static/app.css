@@ -44,3 +44,13 @@ textarea { display: block; width: 100%; resize: vertical; font-family: ui-monosp
 #status[data-error=true] { color: #ffad9e; }
 @media (max-width: 760px) { .workspace { grid-template-columns: 1fr; } aside { position: static; } }
 @media (max-width: 440px) { .setting { align-items: stretch; flex-direction: column; gap: .25rem; } }
+
+.spark-scroll { max-height: 23rem; margin-top: .5rem; }
+.spark-grid caption { text-align: left; padding: .5rem; }
+.spark-grid th { white-space: nowrap; background: #18212b; }
+.spark-grid thead th { position: sticky; top: 0; z-index: 1; }
+.spark-grid tr th:first-child { position: sticky; left: 0; z-index: 2; }
+.spark-grid thead th:first-child { z-index: 3; }
+.spark-grid .edited-cell { border-color: #86e9d4; }
+#report details { margin: .65rem 0; }
+#report details ul { max-height: 14rem; overflow: auto; padding-left: 1.3rem; }

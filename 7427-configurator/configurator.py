@@ -24,7 +24,9 @@ HOOK_STOCK = bytes.fromhex('BD CF 15')
 NOP = 0x01
 SPARK_HEADER = bytes([0, 0, 17])
 SPARK_WIDTH = SPARK_HEADER[2]
-SPARK_BLOCK_SIZE = len(SPARK_HEADER) + SPARK_WIDTH**2
+SPARK_CELL_COUNT = SPARK_WIDTH**2
+SPARK_BLOCK_SIZE = len(SPARK_HEADER) + SPARK_CELL_COUNT
+SPARK_COORDINATES = tuple(range(0, SPARK_WIDTH*16, 16))
 # Symbol, display title, stock header address, and LDX immediate instruction address.
 SPARK_TABLES = (
     ('spark_open', 'Open-throttle base spark', 0x4166, 0xA70C),
@@ -50,7 +52,8 @@ def load_stock(image):
 def defaults():
     return {'version': 1, 'burst_spark': 'stock', 'burst_curve': None,
             'slot_00': {'mode': 'stock', 'assembly': ''},
-            'custom_assembly': '', 'tables': [], 'spark_layout': 'stock'}
+            'custom_assembly': '', 'tables': [], 'spark_layout': 'stock',
+            'spark_grids': {symbol: None for symbol, _, _, _ in SPARK_TABLES}}
 
 
 def json_bytes(value):
@@ -126,6 +129,14 @@ def spark_placements(original, layout):
     return placements
 
 
+def spark_table_info(image):
+    return [
+        {'symbol': symbol, 'title': title, 'coordinates': SPARK_COORDINATES,
+         'cells': list(image[address+len(SPARK_HEADER):address+SPARK_BLOCK_SIZE])}
+        for symbol, title, address, _ in SPARK_TABLES
+    ]
+
+
 def xdf_table(root, uid, title, address, x_labels, y_labels, x_units='', y_units=''):
     table = ET.SubElement(root, 'XDFTABLE', uniqueid=uid, vislevel='1', flags='0x0')
     ET.SubElement(table, 'CATEGORYMEM', index='0', category='1')
@@ -169,20 +180,21 @@ def make_xdf(image_hash, placements):
     ET.SubElement(header, 'CATEGORY', index='0x0', name='Configurator')
     xdf_table(root, '0x7427', 'Burst spark gain curve', CURVE, [0], CURVE_TEMPERATURES,
               y_units='Nominal coolant °C')
-    coordinates = range(0, SPARK_WIDTH*16, 16)
     for index, (_, title, _, destination, _) in enumerate(placements, 1):
         xdf_table(root, f'0x{0x7427+index:X}', title, destination+len(SPARK_HEADER),
-                  coordinates, coordinates, 'Load lookup coordinate', 'RPM lookup coordinate')
+                  SPARK_COORDINATES, SPARK_COORDINATES, 'Load lookup coordinate', 'RPM lookup coordinate')
     ET.indent(root)
     return ET.tostring(root, encoding='utf-8', xml_declaration=True) + b'\n'
 
 
 def build(stock, config):
     original = load_stock(stock)
-    if isinstance(config, dict) and set(config) == set(defaults()) - {'spark_layout'}:
-        config = config | {'spark_layout': 'stock'}
+    expected = defaults()
+    if isinstance(config, dict):
+        legacy_fields = {'spark_layout', 'spark_grids'} - config.keys()
+        config = {field: expected[field] for field in legacy_fields} | config
     if (not isinstance(config, dict) or type(config.get('version')) is not int or
-            config['version'] != 1 or set(config) != set(defaults())):
+            config['version'] != 1 or set(config) != set(expected)):
         raise ValueError('Expected a complete configurator project, version 1.')
     mode, curve, hook = config['burst_spark'], config['burst_curve'], config['slot_00']
     draft, tables = config['custom_assembly'], config['tables']
@@ -195,6 +207,9 @@ def build(stock, config):
             raise ValueError('Assembly must be text of at most 16,000 characters.')
     if config['spark_layout'] not in ('stock', 'swap'):
         raise ValueError('Invalid base spark table layout.')
+    grids = config['spark_grids']
+    if not isinstance(grids, dict) or grids.keys() != expected['spark_grids'].keys():
+        raise ValueError('Expected both stock base-spark grid settings.')
     placements = spark_placements(original, config['spark_layout'])
     generated_tables = table_source(tables)
     if isinstance(curve, list) and len(curve) == 11:
@@ -225,22 +240,37 @@ def build(stock, config):
     elif hook['mode'] == 'inline':
         replace(HOOK, inline_code(hook['assembly']), 'Slot 00 inline assembly before the stock RTS')
     relocations = []
+    spark_edits = []
     for symbol, title, source, destination, reference in placements:
-        if source == destination:
-            continue
-        replace(destination, original[source:source+SPARK_BLOCK_SIZE], f'Relocate {title}')
-        replace(reference+1, destination.to_bytes(2, 'big'), f'Update {title} LDX operand')
-        relocations.append({'symbol': symbol, 'title': title, 'from': f'${source:04X}',
-                            'to': f'${destination:04X}', 'size': SPARK_BLOCK_SIZE,
-                            'operand_address': f'${reference+1:04X}',
-                            'xdf_address': f'${destination+len(SPARK_HEADER):04X}'})
+        stock_cells = original[source+len(SPARK_HEADER):source+SPARK_BLOCK_SIZE]
+        cells = stock_cells if grids[symbol] is None else byte_array(grids[symbol], SPARK_CELL_COUNT, title)
+        data_address = destination + len(SPARK_HEADER)
+        if source != destination:
+            replace(destination, SPARK_HEADER + cells, f'Relocate {title}')
+            replace(reference+1, destination.to_bytes(2, 'big'), f'Update {title} LDX operand')
+            relocations.append({'symbol': symbol, 'title': title, 'from': f'${source:04X}',
+                                'to': f'${destination:04X}', 'size': SPARK_BLOCK_SIZE,
+                                'operand_address': f'${reference+1:04X}',
+                                'xdf_address': f'${data_address:04X}'})
+        edits = []
+        for offset, (before, after) in enumerate(zip(stock_cells, cells)):
+            if before == after:
+                continue
+            address = data_address + offset
+            if source == destination:
+                replace(address, bytes([after]), f'Edit {title} cell')
+            row, column = divmod(offset, SPARK_WIDTH)
+            edits.append({'address': f'${address:04X}', 'rpm': SPARK_COORDINATES[row],
+                          'load': SPARK_COORDINATES[column], 'before': before, 'after': after})
+        if edits:
+            spark_edits.append({'symbol': symbol, 'title': title, 'cells': edits})
     checksum = sum(image[0x4008:]) & 0xffff
     replace(0x4006, checksum.to_bytes(2, 'big'), 'BMHM additive checksum')
     output = bytes(image)
     image_hash = sha(output)
     report = {'baseline_sha256': STOCK_SHA, 'image_sha256': image_hash, 'checksum': f'${checksum:04X}',
               'changed_bytes': sum(a!=b for a,b in zip(original, output)),
-              'relocations': relocations, 'changes': sorted(changes, key=lambda row: row['address']),
+              'relocations': relocations, 'spark_edits': spark_edits, 'changes': sorted(changes, key=lambda row: row['address']),
               'draft_table_count': len(tables), 'draft_assembly': bool(draft.strip())}
     files = {'bmhm-configured.bin': output, 'bmhm-configured.xdf': make_xdf(image_hash, placements),
              'project.json': json_bytes(config), 'changes.json': json_bytes(report)}

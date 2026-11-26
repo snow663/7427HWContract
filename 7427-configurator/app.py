@@ -7,7 +7,7 @@ from pathlib import Path
 import webbrowser
 from threading import Timer
 
-from configurator import CURVE, CURVE_COUNT, build, bundle, json_bytes, load_stock
+from configurator import CURVE, CURVE_COUNT, build, bundle, json_bytes, load_stock, spark_table_info
 
 STATIC = Path(__file__).resolve().parent / 'static'
 ASSETS = {'/': ('index.html', 'text/html'), '/app.css': ('app.css', 'text/css'),
@@ -47,7 +47,8 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError('A stock ROM is required.')
             image = load_stock(base64.b64decode(request['rom'], validate=True))
             if self.path == '/api/identify':
-                self.reply(200, 'application/json', json_bytes({'curve': list(image[CURVE:CURVE+CURVE_COUNT])}))
+                calibration = {'curve': list(image[CURVE:CURVE+CURVE_COUNT]), 'spark_tables': spark_table_info(image)}
+                self.reply(200, 'application/json', json_bytes(calibration))
                 return
             report, files = build(image, request.get('project'))
             if self.path == '/api/preview':
