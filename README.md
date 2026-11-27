@@ -6,6 +6,8 @@ modular replacement-firmware source, ROM simulation and tuning references.
 [Working state](docs/WORKING_STATE.md) is the single live project-state index.
 Older investigations and prototype build records retain their original scope.
 
+[How the 7060 and 7427 use memory](docs/investigations/7060_7427_MEMORY_GUIDE.md) explains chip selects, I/O shadows and learned RAM with stock firmware examples.
+
 ## Current work
 
 | Workstream | Start here | Status |
