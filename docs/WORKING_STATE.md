@@ -154,6 +154,12 @@ development on `work/pseudo-source-development` from merged main; accumulate
 updates and defer another full-suite/PR/merge cycle until the next explicit request.
 Custom-ROM TS00 truck validation remains active; this merge changes no BIN.
 
+## 7427 `$D8` port
+
+[The `$D8` port workstream](../d8-port/README.md) tracks the BAMW-derived
+image on the 7427 and its own target validation. The async-idle candidate has
+a verified byte diff and checksum. A matching warm-idle and tip-in log is pending.
+
 ## Active direction
 
 The active replacement-firmware source is [pseudo-source/](../pseudo-source/README.md).

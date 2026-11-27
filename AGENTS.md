@@ -7,6 +7,13 @@ implementation batch. Preserve isolated historical experiments as Git
 archive tags. Open PR head branches are kept until their PRs are resolved.
 See [the branch consolidation policy](docs/BRANCH_CONSOLIDATION_2026-11-23.md).
 
+# Firmware scope
+
+Use stock 7427/BMHM firmware and target hardware evidence for the factory
+reconstruction and hardware contract. Keep 7060-derived `$D8` port work in
+[`d8-port/`](d8-port/README.md), with its own image identities, definitions and
+validation records. Use the 7060 repository for donor firmware evidence.
+
 # Address-register maintenance
 
 Use the four root workbooks as address/role references alongside the ROM-backed

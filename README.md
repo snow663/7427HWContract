@@ -16,6 +16,7 @@ Older investigations and prototype build records retain their original scope.
 | Factory behavior and hardware | [Ownership closure](docs/analysis/FACTORY_OWNERSHIP_CLOSURE.md) | ROM-backed access, arithmetic, state and interface contracts |
 | Timing and interrupts | [Timing closure](docs/analysis/FACTORY_INTERRUPT_AND_TIMING_CLOSURE.md) | Conditional source/deadline/stack contracts; physical premises remain explicit |
 | Remaining information | [Equivalence ledger](docs/analysis/FACTORY_EQUIVALENCE_INFORMATION_GAPS.md) | Scoped specifications plus identified ROM/device/board/module work |
+| 7427 `$D8` port | [d8-port/](d8-port/README.md) | Separate port workstream; async-idle candidate byte-verified, target trial pending |
 | Truck tuning | [Runtime workflow](docs/TRUCK_FIRST_RUNTIME_DECODING.md) | Use the exact current tune and matching logs for calibration-specific conclusions |
 | ROM simulator | [hac31_romsim/](hac31_romsim/README.md) | Existing clickable GUI and instruction/peripheral fixtures |
 | Developer-enabled Rev B firmware + Android ALDL console | [Dev-Enabled OS/](Dev-Enabled%20OS/README.md) | Separate workstream: firmware source/release tracking, binary protocol and Android app; design/prebuild stage |
