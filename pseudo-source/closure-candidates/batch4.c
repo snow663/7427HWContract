@@ -302,7 +302,14 @@ static PcmStatus engagement(Pcm *pcm,uint8_t *pressure)
 seed:
     SYS_RUN(pcm_write8(pcm,0x140,deadband));
     SYS_RUN(pcm_read16(pcm,0xc2,&d));
-    b=d>=16384u?255:(uint8_t)(((uint32_t)d*4u+128u)>65535u?255:((uint32_t)d*4u+128u)>>8);
+    /* B7BC..B7C9: preserve low byte on first/second ASLD carry;
+     * LDAA FF does not replace B. ADDD 0080 then SBCA 00. */
+    bool carry=(d&0x8000u)!=0;
+    d=(uint16_t)(d<<1);
+    if(!carry) { carry=(d&0x8000u)!=0; d=(uint16_t)(d<<1); }
+    if(carry) d=(uint16_t)(0xff00u|(uint8_t)d);
+    uint32_t rounded=(uint32_t)d+128u;
+    b=(uint8_t)((rounded>>8)-(rounded>65535u));
     SYS_RUN(pcm_read8(pcm,0xb5,&temp));
     unsigned coord=((uint16_t)temp*154u+128u)>>8;
     SYS_RUN(egr_surface(pcm,coord>112u?112:(uint8_t)coord,b,table,&v));
@@ -417,7 +424,10 @@ PcmStatus closure_pressure_main(Pcm *pcm)
         if(a&128u) a=0;
     }
     SYS_RUN(pcm_read8(pcm,0x5f2c,&cap));
-    v=sat8((int)cap-a);
+    /* B855 SBA; RORA/ROLA reconstruct A and set V=N xor carry. */
+    { uint8_t diff=(uint8_t)(cap-a); bool borrow=cap<a;
+      bool overflow=((diff&128u)!=0)!=borrow;
+      v=overflow?(uint8_t)(127u+borrow):diff; }
     SYS_RUN(pcm_read8(pcm,0xe0,&b));
     if(s8(v)<s8(b)) SYS_RUN(pcm_write8(pcm,0xe0,v));
     SYS_RUN(pcm_read8(pcm,0xdf,&b));

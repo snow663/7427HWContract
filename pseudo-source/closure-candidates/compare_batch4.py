@@ -3,6 +3,7 @@ from dataclasses import replace
 from itertools import product
 from pathlib import Path
 import random
+import subprocess
 import sys
 import tempfile
 from compare_batch1 import IMAGE, ROM, compare, decode, successors, word, Case, stock, memory, seen, edges
@@ -45,7 +46,23 @@ def main(binary):
     with tempfile.TemporaryDirectory() as temp:
         path=Path(temp)/'bmhm.bin'
         path.write_bytes(IMAGE)
-        compare(binary,str(path),stock,cases(),'resident pressure and TCC closure batch 4')
+        try:
+            compare(binary,str(path),stock,cases(),'resident pressure and TCC closure batch 4')
+        except AssertionError as error:
+            detail=error.args[0]
+            if isinstance(detail,tuple) and len(detail)>1 and isinstance(detail[1],Case):
+                case=detail[1]
+                expected=stock(case)
+                observed=subprocess.run([binary,str(path)],input=case.row()+'\n',
+                                        text=True,capture_output=True,check=True).stdout.split()
+                print('first failure case entry:',hex(case.entry),flush=True)
+                print('ROM ordered events:', ' '.join(x for x in expected if len(x)<100),flush=True)
+                print('C ordered events:', ' '.join(x for x in observed if len(x)<100),flush=True)
+                for want,got in zip((x for x in expected if len(x)>=100),(x for x in observed if len(x)>=100)):
+                    diff=[(hex(i//2 if i//2<0x350 else i//2-0x350+0x800),want[i:i+2],got[i:i+2])
+                          for i in range(0,min(len(want),len(got)),2) if want[i:i+2]!=got[i:i+2]]
+                    print('RAM byte differences:',diff[:40],flush=True)
+            raise
     required,conditional=set(),set()
     for start,end in RANGES:
         pc=start
