@@ -275,10 +275,9 @@ PcmStatus closure_input_b089(Pcm *pcm)
         SYS_RUN(test(pcm,0x98,4,&fault));
         if(!fault) {
             SYS_RUN(pcm_read8(pcm,0x5d0f,&b));
-            if(b) {
-                SYS_RUN(pcm_write8(pcm,0x9f,a^5u));
-            }
+            fault=b!=0;
         }
+        if(fault) SYS_RUN(pcm_write8(pcm,0x9f,a^5u));
     }
 diagnostics:
     SYS_RUN(closure_diag_e7c7(pcm));
