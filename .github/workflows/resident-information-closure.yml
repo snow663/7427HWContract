@@ -1,0 +1,23 @@
+name: Resident information closure candidates
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pseudo-source/closure-candidates/**'
+      - 'docs/audit/PSEUDO_SOURCE_INFORMATION_CLOSURE.md'
+      - '.github/workflows/resident-information-closure.yml'
+permissions:
+  contents: read
+jobs:
+  resident-candidate-replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: cmake -S pseudo-source/closure-candidates -B build/resident-closure -DCMAKE_BUILD_TYPE=
+      - run: cmake --build build/resident-closure --parallel 2
+      - run: python3 pseudo-source/closure-candidates/compare_batch1.py build/resident-closure/pcm_closure_batch1
+      - run: python3 tools/verify_factory_joined_state.py --check-recorded
+      - run: python3 -m unittest discover -s tests -p 'test_factory_joined_state_and_optional.py' -v
