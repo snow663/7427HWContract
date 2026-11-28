@@ -1,5 +1,11 @@
 #include "batch4.h"
 #include "control.h"
+#include <stdio.h>
+#include <stdlib.h>
+/* Diagnostic output only during a replay of a preserved counterexample. */
+static void pressure_trace(const char *stage,uint8_t value)
+{ if(getenv("PCM_CLOSURE_TRACE")) fprintf(stderr,"%s=%02x ",stage,(unsigned)value); }
+
 #include "../src/emissions/egr_internal.h"
 
 static int32_t s16(uint16_t x) { return x<0x8000u?(int32_t)x:(int32_t)x-65536; }
@@ -360,6 +366,7 @@ PcmStatus closure_pressure_main(Pcm *pcm)
     SYS_RUN(pcm_read16(pcm,(uint16_t)((v&128u?0xb967u:0xb961u)+(b&6u)),&table));
     SYS_RUN(pcm_read8(pcm,0xb2,&throttle));
     SYS_RUN(egr_surface(pcm,throttle,(uint8_t)(2u*v),table,&a));
+    pressure_trace("B5AC",a);
     SYS_RUN(down_snapshot(pcm,&gear));
     index=(uint8_t)(gear-1u);
     if(!(index&128u)) {
@@ -374,10 +381,12 @@ PcmStatus closure_pressure_main(Pcm *pcm)
         }
         a=add8(a,v);
     }
+    pressure_trace("B5E3",a);
     SYS_RUN(pcm_pressure_adaptive_cell(pcm,&v));
     int reduced=s8(v);
     reduced=reduced>=0?reduced/8:-((-reduced+7)/8);
     a=add8(a,(uint8_t)reduced);
+    pressure_trace("B5F2",a);
     SYS_RUN(pcm_read8(pcm,0xd9,&gear));
     SYS_RUN(pcm_read16(pcm,0xb991u+(uint8_t)(gear<<1),&table));
     if(table) {
@@ -386,9 +395,12 @@ PcmStatus closure_pressure_main(Pcm *pcm)
         SYS_RUN(egr_surface(pcm,(uint8_t)(((uint16_t)temp*160u)>>8),col,table,&v));
         a=add8(a,(uint8_t)(v-128u));
     }
+    pressure_trace("B680",a);
     SYS_RUN(closure_pressure_shape(pcm,&shape));
     a=add8(a,(uint8_t)(shape>>8));
+    pressure_trace("B68C",a);
     SYS_RUN(pcm_pressure_shift_reduction(pcm,a,&a));
+    pressure_trace("B68F",a);
     SYS_RUN(test(pcm,0x83,0x10,&set));
     if(set) {
         SYS_RUN(pcm_read8(pcm,0xd9,&index));
@@ -404,7 +416,9 @@ PcmStatus closure_pressure_main(Pcm *pcm)
             a=add8(a,(uint8_t)(v-128u));
         }
     }
+    pressure_trace("B6B9",a);
     SYS_RUN(pcm_pressure_modifiers(pcm,a,&a));
+    pressure_trace("B6BC",a);
     SYS_RUN(down_snapshot(pcm,&gear));
     index=(uint8_t)(gear-1u);
     v=0;
@@ -412,7 +426,9 @@ PcmStatus closure_pressure_main(Pcm *pcm)
         SYS_RUN(pcm_read16(pcm,0xb999u+(uint8_t)(index<<1),&table));
         if(table) SYS_RUN(curve(pcm,table,0xb2,&v));
     }
+    pressure_trace("B6D6",v);
     SYS_RUN(pressure_baro(pcm,v,&a));
+    pressure_trace("B6E8",a);
     SYS_RUN(pcm_write8(pcm,0x142,a));
     SYS_RUN(speed_floor(pcm,&a));
     SYS_RUN(engagement(pcm,&a));

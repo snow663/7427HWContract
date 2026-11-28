@@ -4,6 +4,8 @@ from itertools import product
 from pathlib import Path
 import random
 import subprocess
+import os
+import compare_batch1 as replay
 import sys
 import tempfile
 from compare_batch1 import IMAGE, ROM, compare, decode, successors, word, Case, stock, memory, seen, edges
@@ -52,9 +54,14 @@ def main(binary):
             detail=error.args[0]
             if isinstance(detail,tuple) and len(detail)>1 and isinstance(detail[1],Case):
                 case=detail[1]
+                replay.pressure_trace=True
                 expected=stock(case)
-                observed=subprocess.run([binary,str(path)],input=case.row()+'\n',
-                                        text=True,capture_output=True,check=True).stdout.split()
+                replay.pressure_trace=False
+                run=subprocess.run([binary,str(path)],input=case.row()+'\n',
+                                   env=os.environ|{'PCM_CLOSURE_TRACE':'1'},
+                                   text=True,capture_output=True,check=True)
+                observed=run.stdout.split()
+                print('C stage trace:',run.stderr,flush=True)
                 print('first failure case entry:',hex(case.entry),flush=True)
                 print('ROM ordered events:', ' '.join(x for x in expected if len(x)<100),flush=True)
                 print('C ordered events:', ' '.join(x for x in observed if len(x)<100),flush=True)
