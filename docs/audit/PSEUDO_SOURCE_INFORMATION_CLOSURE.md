@@ -87,3 +87,19 @@ outcomes, plus 26 existing joined optional/state tests. This is scoped
 candidate evidence, not a canonical scheduler binding or full entry certificate.
 Batch 2 stages the eight remaining diagnostic entries with retained-state and
 write-failure comparisons. The published census is intentionally unchanged.
+
+## Final candidate inventory (not a completion verdict)
+
+All 28 previously unresolved resident entries now have staged C candidate
+translations or a parameterized representation. AE85 and 7100 have staged
+joins; the new replay separately checks the prefix to AE9D and the prelude to
+711C. The complete service and startup execution histories still need proof.
+Batch 2's corrected replay passed 2,614 comparisons, 242/242 instruction
+starts and 176/176 conditional outcomes (run 46144567435); the full workflow
+set remains a separate gate. Batch 3 has retained counterexamples and corrected
+translations; batches 3–5 require successful exact-head replay before source
+integration. No decrement of the canonical 436-routine census is made by
+this draft. Next: resolve all candidate mismatches, verify joined paths and
+capture changes, move the candidates into the canonical source tree, regenerate
+the inventories, and test continuous controller interactions. This is not a
+native build task and changes no calibration or BIN.
