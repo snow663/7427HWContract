@@ -77,3 +77,13 @@ or counted as completed by this commit.
 
 This change is source/verification preparation only; no BIN, calibration,
 hardware output permission or feature-removal patch is introduced.
+
+## Subsequent closure evidence
+
+Batch 1 was merged in PR #54 after all six exact-head workflows passed.
+[Run 46140522005](https://github.com/snow663/7427HWContract/actions/runs/46140522005)
+records 5,351 C/ROM cases, 106/106 instruction starts and 34/34 conditional
+outcomes, plus 26 existing joined optional/state tests. This is scoped
+candidate evidence, not a canonical scheduler binding or full entry certificate.
+Batch 2 stages the eight remaining diagnostic entries with retained-state and
+write-failure comparisons. The published census is intentionally unchanged.

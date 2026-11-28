@@ -18,3 +18,15 @@ python3 pseudo-source/closure-candidates/compare_batch1.py /tmp/7427-closure/pcm
 The new functions are not yet bound into AE85 or the canonical source index.
 Do not decrement the implementation census until integration and regeneration.
 The candidate tests must pass at the exact reviewed head before integrating.
+
+## Batch 1 verified; batch 2 staged
+
+PR #54 exact head `29e7b8e` passed 5,351 comparisons, 106/106 local instruction
+starts and 34/34 conditional outcomes (run 46140522005). It was merged as
+`aeaa3c0`; canonical source/index integration remains pending.
+
+Batch 2 adds E7C7, E808, E847, E8C8, EB81, EBC0, ECCC and EF2B. Replay
+`python3 pseudo-source/closure-candidates/compare_batch2.py /tmp/7427-closure/pcm_closure_batch1`.
+The code 72 magnitude operation preserves the literal NEGB/NEGA/SBCA sequence,
+including its low-byte-zero behavior; do not normalize it to conventional abs.
+No batch 2 pass or canonical mapping is claimed until the gate succeeds.
