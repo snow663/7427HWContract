@@ -44,3 +44,10 @@ logical device fixture, records mask and nominal delay effects, and adds the
 0800..08FF RAM snapshot for 0814 publication. It reports coverage holes;
 mid-pair changing capture values still require explicit device witnesses.
 No batch 3 test result or canonical implementation promotion is asserted.
+
+## Batch 4 pressure/TCC candidates
+
+B56B, B587, BCC6 and C00B are staged using committed ROM bytes and the
+resident transmission contract, retaining the existing tested component
+helpers. Replay includes the parent, ordered stores, state and failure prefixes;
+coverage gaps remain reported. Candidate code has not yet been validated.

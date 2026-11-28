@@ -22,6 +22,7 @@ class ClosureMemory(Memory):
 memory = ClosureMemory(ROM)
 cpu = CPU(memory)
 seen, edges = set(), set()
+pressure_trace=False
 RANGES = ((0xb2b2,0xb2c9),(0xb2c9,0xb2ed),(0xb2ed,0xb319),
           (0xe5cf,0xe5f1),(0xe5f1,0xe60b),(0xe60b,0xe62d),(0xe6f5,0xe717))
 
@@ -49,6 +50,8 @@ def stock(case):
                 if pc in (0xaf74,0xafc4): memory.events.append('sei')
                 if pc in (0xaf8f,0xafec): memory.events.append('cli')
                 if pc==0xf3ed: memory.events.append('delay11')
+                if pressure_trace and pc in (0xb5ac,0xb5e3,0xb5f2,0xb680,0xb68c,0xb68f,0xb6b9,0xb6bc,0xb6d6,0xb6e8):
+                    print(f'ROM stage {pc:04x} A={cpu.s.a:02x} B={cpu.s.b:02x} X={cpu.s.x:04x}',flush=True)
                 seen.add(pc)
                 cpu.step()
                 edges.add((pc,cpu.s.pc))
@@ -59,7 +62,7 @@ def stock(case):
             status='failed'
         if status=='ok' and case.entry==0xb2b2:
             memory.events.append(f'x{cpu.s.x:04x}')
-        if status=='ok' and case.entry in (0xe58c,0xf420,0xf5a2):
+        if status=='ok' and case.entry in (0xe58c,0xf420,0xf5a2,0xbcc6):
             memory.events.append(f'd{cpu.s.d:04x}')
         memory.events.extend([status,(memory.mem[:0x350]+memory.mem[0x800:0x900]).hex()])
         if status=='failed': break
