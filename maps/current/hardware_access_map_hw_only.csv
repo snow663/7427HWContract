@@ -91,7 +91,6 @@ pc,bank/page,opcode,mnemonic,access_type,effective_address,address_class,subsyst
 0x7BA3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L3068,W,0x3068,UNKNOWN_HW,IO_LATCH_OUTPUT,YES,HIGH,16,,D,,L7B6D,mainline/unknown,0x797A,,External 306x output command candidate,high
 0x7BF6,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDD L3FFA,R,0x3FFA,ASIC_3FXX,ASIC_STATUS_REF,YES,MEDIUM,16,,memory,,L7BA7,mainline/unknown,0x79F2,,ASIC packed hardware status,high
 0x7C00,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,LDD L3FC4,R,0x3FC4,ASIC_3FXX,ASIC_STATUS_REF,YES,MEDIUM,16,,memory,,L7BA7,mainline/unknown,0x79F2,,ASIC period/status latch candidate,high
-0x7C63,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,"SUBD 0,X",R,"0,X",UNKNOWN_HW,OTHER,NO_UNLESS_DEPENDENCY_PROVES,LOW,16,,SUBD,X=unknown,L7C13,mainline/unknown,0x7B9B,,indexed_unresolved,low_unresolved
 0x7D89,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAB L3039,W,0x3039,HC11_REG,BOOT_WATCHDOG_CPU,YES,HIGH,8,,B=0x08,,L7D4B,mainline/unknown,0x7A19,,OPTION,high
 0x7DB3,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STAA L303A,W,0x303A,HC11_REG,BOOT_WATCHDOG_CPU,YES,HIGH,8,,A=0x55,,L7D4B,mainline/unknown,0x7A19,,COPRST watchdog clear | COP1,high
 0x8426,BMHM_$31_main_window_ORG_0x7A85,source_listing_no_bytes,STD L3FCE,W,0x3FCE,ASIC_3FXX,ASIC_COMMAND_OUTPUT,YES,HIGH,16,,D,,L82ED,mainline/unknown,0x8238,,ASIC EFI PW / fuel pulse-width handoff,high

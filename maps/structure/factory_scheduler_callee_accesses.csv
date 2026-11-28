@@ -33,7 +33,7 @@ scope,pc,bytes_hex,mnemonic,operand,access,width_bits,address,byte_addresses,reg
 7C13,7C56,F6 01 53,LDAB,$0153,R,8,0153,0153,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
 7C13,7C5A,7D 01 4F,TST,$014F,R,8,014F,014F,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
 7C13,7C5F,B0 01 53,SUBA,$0153,R,8,0153,0153,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
-7C13,7C63,A3 00,SUBD,"$00,X",R,16,,,unresolved_indexed,X,00,,explicit_access_only;calls_and_implicit_stack_excluded
+7C13,7C63,A3 00,SUBD,"$00,X",R,16,entry_SP-1,,stack_relative,X,00,,resolved_stack_local;PSHB_7C34;PSHA_7C35;TSX_7C62;PULX_7C76
 7C13,7C7A,F3 01 50,ADDD,$0150,R,16,0150,0150;0151,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
 7C13,7C88,F3 01 50,ADDD,$0150,R,16,0150,0150;0151,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
 7C13,7C96,FD 01 50,STD,$0150,W,16,0150,0150;0151,ram,,,,explicit_access_only;calls_and_implicit_stack_excluded
