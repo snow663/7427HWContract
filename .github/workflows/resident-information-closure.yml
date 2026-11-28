@@ -20,5 +20,6 @@ jobs:
       - run: cmake --build build/resident-closure --parallel 2
       - run: python3 pseudo-source/closure-candidates/compare_batch1.py build/resident-closure/pcm_closure_batch1
       - run: python3 pseudo-source/closure-candidates/compare_batch2.py build/resident-closure/pcm_closure_batch1
+      - run: python3 pseudo-source/closure-candidates/compare_batch3.py build/resident-closure/pcm_closure_batch1
       - run: python3 tools/verify_factory_joined_state.py --check-recorded
       - run: python3 -m unittest discover -s tests -p 'test_factory_joined_state_and_optional.py' -v
