@@ -31,8 +31,8 @@ uint16_t closure_mul_f5a2(uint16_t d,uint16_t x)
 {
     return (uint16_t)(((uint32_t)d*x)>>16);
 }
-/* F420 chooses correction using the N flag of the wrapped subtraction,
- * unlike F436 which uses its borrow. Reread the coefficient as in ROM. */
+/* F420 uses BLT (N xor V) after subtraction: compare the signed
+ * operands, unlike F436 which uses unsigned borrow. Reread the coefficient as in ROM. */
 PcmStatus closure_lag_f420(Pcm *pcm,uint16_t target,uint16_t old,
                             uint16_t coefficient,uint16_t *result)
 {
@@ -40,7 +40,7 @@ PcmStatus closure_lag_f420(Pcm *pcm,uint16_t target,uint16_t old,
     uint8_t gain;
     SYS_RUN(pcm_read8(pcm,coefficient,&gain));
     uint16_t part=(uint16_t)(old+(delta>>8)*gain);
-    if(delta&0x8000u) {
+    if((target^0x8000u)<(old^0x8000u)) {
         SYS_RUN(pcm_read8(pcm,coefficient,&gain));
         part=(uint16_t)(part-(uint16_t)gain*256u);
     }
