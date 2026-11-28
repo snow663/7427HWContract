@@ -1,6 +1,7 @@
 #include "batch1.h"
 #include "batch2.h"
 #include "batch3.h"
+#include "batch4.h"
 #include <stdio.h>
 #include <string.h>
 static uint8_t image[65536], memory[65536];
@@ -62,11 +63,15 @@ int main(int argc,char **argv)
             case 0xe58c: result=closure_capture_e58c(&pcm,0xb9,(uint16_t)((uint16_t)memory[0x350]<<8|memory[0x351]),memory[0x352],&ratio); break;
             case 0xf420: result=closure_lag_f420(&pcm,(uint16_t)((uint16_t)memory[0x350]<<8|memory[0x351]),(uint16_t)((uint16_t)memory[0x352]<<8|memory[0x353]),0x5d0d,&ratio); break;
             case 0xf5a2: ratio=closure_mul_f5a2((uint16_t)((uint16_t)memory[0x350]<<8|memory[0x351]),(uint16_t)((uint16_t)memory[0x352]<<8|memory[0x353])); result=PCM_OK; break;
+            case 0xbcc6: result=closure_pressure_shape(&pcm,&ratio); break;
+            case 0xb587: result=closure_pressure_main(&pcm); break;
+            case 0xc00b: result=closure_tcc_command(&pcm); break;
+            case 0xb56b: result=closure_pressure_group(&pcm); break;
             default: return 2;
             }
             if(result!=PCM_OK && result!=PCM_NO_HARDWARE) return 1;
             if(entry==0xb2b2 && result==PCM_OK) printf(" x%04x",(unsigned)ratio);
-            if((entry==0xe58c||entry==0xf420||entry==0xf5a2)&&result==PCM_OK) printf(" d%04x",(unsigned)ratio);
+            if((entry==0xe58c||entry==0xf420||entry==0xf5a2||entry==0xbcc6)&&result==PCM_OK) printf(" d%04x",(unsigned)ratio);
             printf(" %s ",result==PCM_OK?"ok":"failed");
             for(unsigned a=0;a<0x350;++a) printf("%02x",(unsigned)memory[a]);
             for(unsigned a=0x800;a<0x900;++a) printf("%02x",(unsigned)memory[a]);

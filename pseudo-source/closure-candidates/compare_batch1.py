@@ -59,7 +59,7 @@ def stock(case):
             status='failed'
         if status=='ok' and case.entry==0xb2b2:
             memory.events.append(f'x{cpu.s.x:04x}')
-        if status=='ok' and case.entry in (0xe58c,0xf420,0xf5a2):
+        if status=='ok' and case.entry in (0xe58c,0xf420,0xf5a2,0xbcc6):
             memory.events.append(f'd{cpu.s.d:04x}')
         memory.events.extend([status,(memory.mem[:0x350]+memory.mem[0x800:0x900]).hex()])
         if status=='failed': break
