@@ -17,11 +17,22 @@ jobs:
         with:
           python-version: '3.12'
       - run: cmake -S pseudo-source/closure-candidates -B build/resident-closure -DCMAKE_BUILD_TYPE=
-      - run: cmake --build build/resident-closure --parallel 2
-      - run: python3 pseudo-source/closure-candidates/compare_batch1.py build/resident-closure/pcm_closure_batch1
-      - run: python3 pseudo-source/closure-candidates/compare_batch2.py build/resident-closure/pcm_closure_batch1
-      - run: python3 pseudo-source/closure-candidates/compare_batch3.py build/resident-closure/pcm_closure_batch1
-      - run: python3 pseudo-source/closure-candidates/compare_batch4.py build/resident-closure/pcm_closure_batch1
-      - run: python3 pseudo-source/closure-candidates/compare_batch5.py build/resident-closure/pcm_closure_batch1
+      - id: build
+        run: cmake --build build/resident-closure --parallel 2
+      - name: Replay closure batch 1
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: python3 pseudo-source/closure-candidates/compare_batch1.py build/resident-closure/pcm_closure_batch1
+      - name: Replay closure batch 2
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: python3 pseudo-source/closure-candidates/compare_batch2.py build/resident-closure/pcm_closure_batch1
+      - name: Replay closure batch 3
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: python3 pseudo-source/closure-candidates/compare_batch3.py build/resident-closure/pcm_closure_batch1
+      - name: Replay closure batch 4
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: python3 pseudo-source/closure-candidates/compare_batch4.py build/resident-closure/pcm_closure_batch1
+      - name: Replay closure batch 5
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: python3 pseudo-source/closure-candidates/compare_batch5.py build/resident-closure/pcm_closure_batch1
       - run: python3 tools/verify_factory_joined_state.py --check-recorded
       - run: python3 -m unittest discover -s tests -p 'test_factory_joined_state_and_optional.py' -v
