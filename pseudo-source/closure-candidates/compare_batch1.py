@@ -9,7 +9,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tests'))
 from slot_rom_replay import IMAGE, ROM, compare, decode, successors, word
 from transmission_group_replay import Case, Memory, CPU, FailedWrite
 
-memory = Memory(ROM)
+class ClosureMemory(Memory):
+    def write(self,a,v,width):
+        if 0x800<=a<0x900:
+            self.events.append(f'b{a:04x}{v:02x}' if width==1 else f'w{a:04x}{v:04x}')
+            self.count+=1
+            if self.count==self.case.fail: raise FailedWrite
+            self.mem[a:a+width]=v.to_bytes(width,'big')
+            return
+        super().write(a,v,width)
+
+memory = ClosureMemory(ROM)
 cpu = CPU(memory)
 seen, edges = set(), set()
 RANGES = ((0xb2b2,0xb2c9),(0xb2c9,0xb2ed),(0xb2ed,0xb319),
@@ -25,9 +35,20 @@ def stock(case):
     for _ in range(case.passes):
         cpu._push16(0x7000)
         cpu.s.pc = case.entry
+        if case.entry==0xe58c:
+            cpu.s.y=0xb9
+            cpu.s.x=int.from_bytes(memory.mem[0x350:0x352],'big')
+            cpu.s.b=memory.mem[0x352]
+        elif case.entry in (0xf420,0xf5a2):
+            cpu.s.d=int.from_bytes(memory.mem[0x350:0x352],'big')
+            cpu.s.x=int.from_bytes(memory.mem[0x352:0x354],'big')
+            cpu.s.y=0x5d0d
         try:
-            for _ in range(300):
+            for _ in range(2500):
                 pc=cpu.s.pc
+                if pc in (0xaf74,0xafc4): memory.events.append('sei')
+                if pc in (0xaf8f,0xafec): memory.events.append('cli')
+                if pc==0xf3ed: memory.events.append('delay11')
                 seen.add(pc)
                 cpu.step()
                 edges.add((pc,cpu.s.pc))
@@ -38,7 +59,9 @@ def stock(case):
             status='failed'
         if status=='ok' and case.entry==0xb2b2:
             memory.events.append(f'x{cpu.s.x:04x}')
-        memory.events.extend([status,memory.mem[:0x350].hex()])
+        if status=='ok' and case.entry in (0xe58c,0xf420,0xf5a2):
+            memory.events.append(f'd{cpu.s.d:04x}')
+        memory.events.extend([status,(memory.mem[:0x350]+memory.mem[0x800:0x900]).hex()])
         if status=='failed': break
     return memory.events
 
