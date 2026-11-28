@@ -18,6 +18,6 @@ PcmStatus pcm_service_clear(Pcm *);
 PcmStatus pcm_service_cleanup(Pcm *);
 PcmStatus pcm_serial_service(Pcm *);
 PcmStatus pcm_serial_service_poll(Pcm *);
-/* AE85..AE9C: all eight earlier callees remain an explicit dependency. */
+/* AE85..AE9C: resident prefix available with explicit research opt-in. */
 PcmStatus pcm_transmission_input_prefix(Pcm *);
 #endif

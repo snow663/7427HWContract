@@ -35,14 +35,6 @@ CLASSIFICATIONS = {
     "unresolved_or_missing",
 }
 MISSING_GROUPS = {
-    0xAEA4: "transmission_input_prefix",
-    0xB018: "transmission_input_prefix",
-    0xB089: "transmission_input_prefix",
-    0xC483: "transmission_input_prefix",
-    0xB1F0: "transmission_input_prefix",
-    0xB23C: "transmission_input_prefix",
-    0xB2C9: "transmission_input_prefix",
-    0xB2ED: "transmission_input_prefix",
     0xB56B: "pressure_tcc",
 }
 PREFIX_ENTRIES = {0xAEA4, 0xB018, 0xB089, 0xC483, 0xB1F0, 0xB23C, 0xB2C9, 0xB2ED}
@@ -436,7 +428,7 @@ def build(root: Path = ROOT) -> dict[str, str]:
             reason = "C_reset_boundary_plus_native_startup_scaffold; no_verified_compiled_reset_to_runtime_execution"
         elif entry == 0xAE85:
             classification = "outline_or_partial"
-            reason = "resident_F781_F64E_tail_present; eight_preceding_transmission_bodies_supplied_as_one_boundary"
+            reason = "resident_prefix_and_service_tail_present; opt_in_coherent_provider_and_complete_join_verification_open"
         elif entry == 0xF5DC:
             classification = "outline_or_partial"
             reason = "signature_probe_resident_body_present; enabled180C_module_and_machine_ABI_unsupplied"

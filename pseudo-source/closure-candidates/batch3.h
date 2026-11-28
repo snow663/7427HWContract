@@ -1,14 +1,14 @@
 #ifndef PCM_CLOSURE_BATCH3_H
 #define PCM_CLOSURE_BATCH3_H
-#include "pcm.h"
-PcmStatus closure_input_aea4(Pcm *);
-PcmStatus closure_input_b018(Pcm *);
-PcmStatus closure_input_b089(Pcm *);
-PcmStatus closure_input_b1f0(Pcm *);
-PcmStatus closure_input_b23c(Pcm *);
-PcmStatus closure_input_c483(Pcm *);
-PcmStatus closure_capture_e58c(Pcm *,uint16_t,uint16_t,uint8_t,uint16_t *);
-PcmStatus closure_lag_f420(Pcm *,uint16_t,uint16_t,uint16_t,uint16_t *);
-uint16_t closure_mul_f5a2(uint16_t,uint16_t);
-PcmStatus closure_input_prefix(Pcm *);
+#include "resident_transmission.h"
+#define closure_input_aea4 pcm_resident_input_aea4
+#define closure_input_b018 pcm_resident_input_b018
+#define closure_input_b089 pcm_resident_input_b089
+#define closure_input_b1f0 pcm_resident_input_b1f0
+#define closure_input_b23c pcm_resident_input_b23c
+#define closure_input_c483 pcm_resident_input_c483
+#define closure_capture_e58c pcm_resident_capture_e58c
+#define closure_lag_f420 pcm_resident_lag_f420
+#define closure_mul_f5a2 pcm_resident_mul_f5a2
+#define closure_input_prefix pcm_transmission_input_resident
 #endif

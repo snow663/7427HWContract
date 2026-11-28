@@ -81,6 +81,9 @@ typedef struct {
     /* Select the independently checked slot01 alternative.
      * Slots03 and0B always use the resident stock gear decision. */
     bool enable_resident_slow_slots;
+    /* Research-only opt-in: provider must maintain coherent logical RAM and
+     * serial owner views and mask/capture semantics. */
+    bool enable_resident_transmission_input;
 } PcmPlatform;
 
 typedef struct {
