@@ -1,0 +1,33 @@
+name: Resident integration inventory review
+on:
+  pull_request:
+    paths:
+      - 'pseudo-source/routine_index.csv'
+      - 'tools/audit/build_equivalence_inventory.py'
+      - '.github/workflows/resident-integration-inventory.yml'
+permissions:
+  contents: read
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate and validate candidate inventory
+        run: |
+          python tools/audit/build_equivalence_inventory.py
+          python -m unittest discover -s tests/audit -p test_equivalence_inventory.py -v
+          python pseudo-source/tests/check_provenance.py
+          python pseudo-source/tests/check_home_stretch.py
+      - name: Export only generated audit files for reviewed commit
+        if: always()
+        run: |
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+          import subprocess
+          for path in subprocess.check_output(['git','diff','--name-only','--','maps/audit'],text=True).splitlines():
+              p=Path(path)
+              raw=base64.b64encode(p.read_bytes()).decode()
+              for i in range(0,len(raw),8192):
+                  print(f'INVENTORY_CHUNK {path} {i//8192} {raw[i:i+8192]}')
+          PY

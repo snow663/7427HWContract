@@ -1,20 +1,19 @@
 {
   "schema": 1,
-  "as_of": "2026-11-25",
+  "as_of": "2026-11-28",
   "branch": "work/pseudo-source-development",
   "inventory": {
-    "indexed": 436,
-    "implemented_outline": 235,
-    "implemented_algorithm": 195,
-    "dependency_boundary": 6
+    "indexed": 461,
+    "implemented_outline": 237,
+    "implemented_algorithm": 219,
+    "dependency_boundary": 5
   },
   "boundary_routines": [
     "pcm_spark_extension",
     "pcm_spark_output_extension",
     "pcm_reset_entry",
     "pcm_pressure_tcc",
-    "pcm_connection_probe",
-    "pcm_transmission_input_prefix"
+    "pcm_connection_probe"
   ],
   "optional_hooks": {
     "1800": {
@@ -62,12 +61,16 @@
     "slot01_research_requires": [
       "enable_resident_slow_slots"
     ],
-    "hardware_output_authority": "not established"
+    "hardware_output_authority": "not established",
+    "transmission_input_research_requires": [
+      "enable_resident_transmission_input",
+      "coherent logical RAM and serial state provider"
+    ]
   },
   "gates": {
     "source_slow_slots": "resident_scoped_C",
     "current_transmission_fast_groups": "open_required_for_full_factory_equivalence_before_feature_removal",
-    "partial_factory_entries": "7100_native_reset_runtime; AE85_joined_transmission_prefix_tail; F5DC_enabled_module_ABI",
+    "partial_factory_entries": "7100_host_reset_to_runtime; AE85_joined_service_and_provider_proof; F5DC_enabled_module_ABI",
     "external_hooks": "open",
     "named_RAM_ALDL_aliases": "open",
     "ASIC_device_timing": "open",

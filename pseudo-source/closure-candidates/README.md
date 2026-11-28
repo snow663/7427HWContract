@@ -44,3 +44,7 @@ logical device fixture, records mask and nominal delay effects, and adds the
 0800..08FF RAM snapshot for 0814 publication. It reports coverage holes;
 mid-pair changing capture values still require explicit device witnesses.
 No batch 3 test result or canonical implementation promotion is asserted.
+
+## Canonical input integration
+
+The three passing candidate groups link the single canonical source bodies under src/transmission; the batch headers are compatibility aliases only. The scheduler's supplied-prefix default remains unchanged. Explicit opt-in selects the resident prefix for a coherent logical-address provider. This does not certify the full AE85 service join. Regenerate audit inventory and rerun exact-head checks before merging.
