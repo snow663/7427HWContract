@@ -1,4 +1,5 @@
 #include "batch1.h"
+#include "batch2.h"
 #include <stdio.h>
 #include <string.h>
 static uint8_t image[65536], memory[65536];
@@ -41,6 +42,14 @@ int main(int argc,char **argv)
             case 0xe5f1: result=closure_fault_e5f1(&pcm); break;
             case 0xe60b: result=closure_fault_e60b(&pcm); break;
             case 0xe6f5: result=closure_fault_e6f5(&pcm); break;
+            case 0xe7c7: result=closure_diag_e7c7(&pcm); break;
+            case 0xe808: result=closure_diag_e808(&pcm); break;
+            case 0xe847: result=closure_diag_e847(&pcm); break;
+            case 0xe8c8: result=closure_diag_e8c8(&pcm); break;
+            case 0xeb81: result=closure_diag_eb81(&pcm); break;
+            case 0xebc0: result=closure_diag_ebc0(&pcm); break;
+            case 0xeccc: result=closure_diag_eccc(&pcm); break;
+            case 0xef2b: result=closure_diag_ef2b(&pcm); break;
             default: return 2;
             }
             if(result!=PCM_OK && result!=PCM_NO_HARDWARE) return 1;
