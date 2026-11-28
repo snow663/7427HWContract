@@ -214,10 +214,9 @@ PcmStatus closure_diag_ef2b(Pcm *pcm)
     SYS_RUN(pcm_read16(pcm,0xd3,&sample));
     SYS_RUN(pcm_read16(pcm,0x5b93,&bound)); if(sample<=bound) return zero_timer(pcm,d);
     SYS_RUN(test_bits(pcm,0x1c,8,&set));
-    if(!set) {
-        SYS_RUN(pcm_read16(pcm,0x1ac,&sample));
-        SYS_RUN(pcm_read16(pcm,0x5b84,&bound)); if(sample<=bound) return zero_timer(pcm,d);
-    }
+    if(set) return zero_timer(pcm,d);
+    SYS_RUN(pcm_read16(pcm,0x1ac,&sample));
+    SYS_RUN(pcm_read16(pcm,0x5b84,&bound)); if(sample<=bound) return zero_timer(pcm,d);
     SYS_RUN(test_bits(pcm,0x17,2,&set)); if(set) return zero_timer(pcm,d);
     return qualify(pcm,d,age,true);
 }
