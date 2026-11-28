@@ -11,7 +11,7 @@ from transmission_group_replay import Case, Memory, CPU, FailedWrite
 
 class ClosureMemory(Memory):
     def write(self,a,v,width):
-        if 0x800<=a<0x900:
+        if 0x800<=a<0x900 or (self.case.entry==0x7100 and a in (0x103d,0x3039,0x3024,0x3038,0x3035)):
             self.events.append(f'b{a:04x}{v:02x}' if width==1 else f'w{a:04x}{v:04x}')
             self.count+=1
             if self.count==self.case.fail: raise FailedWrite
@@ -33,7 +33,10 @@ def stock(case):
     memory.count = memory.limit_reads = 0
     cpu.s.sp, cpu.s.ccr = 0x3ff, 0xc0
     for _ in range(case.passes):
-        cpu._push16(0x7000)
+        if case.entry==0x7100:
+            cpu.s.ccr=0xd0
+        else:
+            cpu._push16(0x7000)
         cpu.s.pc = case.entry
         if case.entry==0xe58c:
             cpu.s.y=0xb9
@@ -52,8 +55,16 @@ def stock(case):
                 seen.add(pc)
                 cpu.step()
                 edges.add((pc,cpu.s.pc))
+                if case.entry==0x7100 and cpu.s.pc==0x711c: break
+                if case.entry==0xae85 and cpu.s.pc==0xae9d:
+                    assert cpu._pull16()==0x7000
+                    cpu.s.pc=0x7000
+                    break
                 if cpu.s.pc==0x7000: break
-            assert cpu.s.pc==0x7000 and cpu.s.sp==0x3ff
+            if case.entry==0x7100:
+                assert cpu.s.pc==0x711c and cpu.s.sp==0x3ff
+            else:
+                assert cpu.s.pc==0x7000 and cpu.s.sp==0x3ff
             status='ok'
         except FailedWrite:
             status='failed'
@@ -61,6 +72,8 @@ def stock(case):
             memory.events.append(f'x{cpu.s.x:04x}')
         if status=='ok' and case.entry in (0xe58c,0xf420,0xf5a2,0xbcc6):
             memory.events.append(f'd{cpu.s.d:04x}')
+        if status=='ok' and case.entry==0x7100:
+            memory.events.extend([f'sp{cpu.s.sp:04x}',f'base{cpu.s.x:04x}',f'ccr{cpu.s.ccr:02x}',f'pc{cpu.s.pc:04x}'])
         memory.events.extend([status,(memory.mem[:0x350]+memory.mem[0x800:0x900]).hex()])
         if status=='failed': break
     return memory.events

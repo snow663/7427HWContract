@@ -2,6 +2,7 @@
 #include "batch2.h"
 #include "batch3.h"
 #include "batch4.h"
+#include "batch5.h"
 #include <stdio.h>
 #include <string.h>
 static uint8_t image[65536], memory[65536];
@@ -67,6 +68,15 @@ int main(int argc,char **argv)
             case 0xb587: result=closure_pressure_main(&pcm); break;
             case 0xc00b: result=closure_tcc_command(&pcm); break;
             case 0xb56b: result=closure_pressure_group(&pcm); break;
+            case 0xae85: result=closure_input_prefix(&pcm); break;
+            case 0x7100: {
+                ClosureResetState state={.ccr=0xd0};
+                result=closure_reset_prelude(&pcm,&state);
+                if(result==PCM_OK) printf(" sp%04x base%04x ccr%02x pc%04x",
+                    (unsigned)state.stack_pointer,(unsigned)state.register_base,
+                    (unsigned)state.ccr,(unsigned)state.next_pc);
+                break;
+            }
             default: return 2;
             }
             if(result!=PCM_OK && result!=PCM_NO_HARDWARE) return 1;

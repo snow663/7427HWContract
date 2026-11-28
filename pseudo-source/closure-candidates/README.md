@@ -51,3 +51,12 @@ B56B, B587, BCC6 and C00B are staged using committed ROM bytes and the
 resident transmission contract, retaining the existing tested component
 helpers. Replay includes the parent, ordered stores, state and failure prefixes;
 coverage gaps remain reported. Candidate code has not yet been validated.
+
+## Batch 5 startup and joined parent
+
+The final candidates connect the AE85 input prefix to the canonical F781/F64E
+service tail and model the 7100 prelude and ordinary/factory boot routes using
+existing reset and foreground components. The candidate replay explicitly
+stops at AE9D and 711C. Full joined service state mapping, reset-to-WAI replay,
+interrupt/device behavior and canonical integration are still open. No entry
+certificate or native hardware claim follows from this candidate publication.
